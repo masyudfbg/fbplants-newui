@@ -1,0 +1,47 @@
+	<table id="form-table" class="centered-margin">
+
+
+	</table>
+
+	
+	
+	
+	
+	<table id="form-table" class="centered-margin">
+
+		<tr>
+			<td><font face="verdana" size="1">BUDGET YEAR</font></td>
+			<td><font face="verdana" size="1">BUDGET VERSION</font></td>
+			<td><font face="verdana" size="1">MODULE VERSION</font></td>
+			<td><font face="verdana" size="1">YEAR</font></td>
+			<td><font face="verdana" size="1">MONTH</font></td>				
+			<td><font face="verdana" size="1">DATE</font></td>
+			<td>&nbsp;</td>
+		</tr>
+
+		<tr>
+			<td align="center"><input type="text" name="txtBudgetYear" value="<%=v_txtBudgetYear%>"></td>
+			<td align="center"><input type="text" name="txtBudgetVersion" value="<%=v_txtBudgetVersion%>"></td>
+			<td align="center"><input type="text" name="txtModuleVersion" value="<%=v_txtModuleVersion%>"></td>
+			<td align="center"><input type="text" name="txtyear" value="<%=v_txtyear%>"></td>
+			<td align="center"><input type="text" name="txtmonth" value="<%=v_txtmonth%>"></td>
+			<td align="center">
+			<% if v_txtdatefrom <> "" and v_txtdatefrom = v_txtdatefrom then %>
+				<input id="datepicker" type="text" maxlength="10" name="txtdatefrom" size="10" value="<%=v_txtdatefrom%>" title="Type Date mm/dd/yyyy" >
+			<% else %>
+				<input id="datepicker" type="text" maxlength="10" name="txtdatefrom" size="10" value="<%=textDate(Date)%>" title="Type Date mm/dd/yyyy" >
+			<% end if%>
+				<!--<a href="javascript:show_calendar('frmEntry.txtdatefrom');" onMouseOver="window.status='Date Picker';return true;" onmouseout="window.status='';return true;">
+					<img src="../Images/show-calendar.gif" width=24 height=22 border=0 align=top>
+				</a>-->
+			</td>	
+
+		    <td align="center"><input type="button" value="View" onclick="ajaxurlpost('insertreportlog.asp', 'Laporan Harian Pabrik');" /></td>
+			
+			<td>&nbsp;</td>
+		</tr>
+		
+
+
+	</table>
+

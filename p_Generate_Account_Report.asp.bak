@@ -1,0 +1,472 @@
+<%
+Option Explicit
+response.buffer=True
+%>
+<!--#include virtual="/connDb1.Inc"-->
+<!--#include virtual="/txtFunction.inc"-->
+<!--#include virtual="/adovbs.inc"-->
+<!--#include virtual="/REPORT/functions.inc"-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<% Dim textReportName : textReportName = "Account Report"%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>ePlaS - Generate <%=PCase(textReportName)%></title>
+	<link rel="StyleSheet" href="style-content.css" type="text/css" />
+<style>
+* {font-family:Verdana,Arial,sans-serif;font-size:11px;}
+</style>
+</head>
+<body>
+<%
+	Dim TimeAwal,TimeAkhir,Hitung,Lama
+	TimeAwal=Time()
+%>
+<div id="status_running">
+	<img src="ICON/working.gif"/>
+</div>
+<br/><br/>
+<font face="Verdana" size="1">
+Please Wait...<br/><br/></font>
+<%
+Response.Write "Start ..." & Time() & "<br/>" 
+response.Flush()
+
+' ADD AKBAR 14 JANUARI 1013
+'Dim Bulan, Tahun
+Dim rsPERIOD,NormalisasiARTMTBM, SelectARTMTBM, rsARTMTBM, InsertARTMTBM
+Dim SelectPERIOD,NormalisasiARMill, SelectARMill, rsARMill, InsertARMill
+
+' SelectPERIOD = " SELECT TO_CHAR(LASTPERIODPOSTED,'MM') BULAN, TO_CHAR(LASTPERIODPOSTED,'YYYY')  TAHUN  FROM  PERIODCONTROL  " & _
+               ' " WHERE FCBA= '" & Session("fcBA") & "' AND SYSTEM ='Costbook' AND " & _
+      		   ' " LASTPERIODPOSTED = ( SELECT  MAX(LASTPERIODPOSTED)  FROM  PERIODCONTROL WHERE SYSTEM ='Costbook' AND fcba='" & Session("fcBA") & "'  ) " 
+			   
+' Set rsPERIOD= Server.CreateObject("ADODB.Recordset")
+' rsPERIOD.CursorType = 3
+' rsPERIOD.CursorLocation = 3
+' rsPERIOD.Open SelectPERIOD, connstr
+
+' if not rsPERIOD.eof then
+	' Do While Not rsPERIOD.eof
+       ' Bulan = rsPERIOD("BULAN")
+       ' Tahun = rsPERIOD("TAHUN") 
+	   ' rsPERIOD.MoveNext
+	' Loop
+' end if	
+' rsPERIOD.Close
+' set rsPERIOD = Nothing
+ ' Bulan = "01"
+ ' Tahun = "2013"
+ 
+	'Response.Write "Create Generate Account Report for Month = " & Bulan & " Year = " & Tahun & "<br/>" 
+    'response.Flush()   
+' END ADD AKBAR 14 JANUARI 1013	   
+
+Dim ScriptExecuted, v_tahun, v_Bulan
+
+ScriptExecuted = ""
+ScriptExecuted = Request("ScriptExecuted")
+
+if ScriptExecuted = "ByVariable" then
+	v_tahun = Request("txtYear")
+	v_Bulan = Request("txtMonth")
+else
+	v_tahun = Cdbl( Left( cmdAccountPeriodClose("Costbook") , 4))
+	v_Bulan = Cdbl( Right( cmdAccountPeriodClose("Costbook") , 2))
+end if
+
+Dim month_from : month_from = ""
+Dim month_until : month_until = ""
+
+month_from = v_tahun & Lpad(v_Bulan, "0", 2)
+month_until = v_tahun & Lpad(v_Bulan, "0", 2)
+%>
+
+	<br/><!--Enter-->
+	Anda Sedang Memproses <strong><%=PCase(textReportName)%></strong> Bulan: <strong><%=Bulan(v_Bulan)%></strong> Tahun: <strong><%=v_tahun%></strong>
+	<br/><!--Enter-->
+	<br/><!--Enter-->
+	Please Wait...
+	<br/><!--Enter-->
+<%
+
+'***************************************************************************************'
+'   Keterangan: 1. Kami nonaktifkan proses yang lama
+'               2. Proses generate kami rubah menjadi eksekusi package (API)
+'               3. Modifikasi oleh Uqie tgl 20 feb 2014
+'***************************************************************************************'
+
+Dim oRecordset, oQuery
+
+'***** For temporary purposes we make the hardcode *****'
+Dim budget_year : budget_year = 1900
+Dim budget_version : budget_version = 1
+Dim module_version : module_version = 1
+'*******************************************************'
+
+'********** GENERATE ACCOUNT REPORT TM TBM DAN BIBITAN **********'
+	budget_year = v_tahun
+
+	oQuery	= 	" BEGIN GENERATE_AR_REPORT_API.GenerateUnit(" & _
+				"                                    '" & month_from & "'" & _
+				"                                    , '" & month_until & "'" & _
+				"                                    , '" & Session("FCBA") & "'" & _
+				"                                    , " & budget_year & "" & _
+				"                                    , " & budget_version & "" & _
+				"                                    , " & module_version & "" & _
+				" ); END; "
+
+	'Response.Write oQuery & "<br/>"
+	
+	connStr.execute(oQuery)
+			
+'********** END GENERATE ACCOUNT REPORT TM TBM DAN BIBITAN **********'
+
+
+
+
+
+
+
+
+
+
+''----BEGIN ACCOUNT REPORT TM TBM----
+
+''Normalisasi Account Report TM TBM
+' NormalisasiARTMTBM =	" DELETE FROM SAC_ACCOUNTREPORT_TM_TBM" & _
+						' " WHERE" & _
+						' " PERIOD_MONTH = " & Bulan & " AND" & _
+						' " PERIOD_YEAR = " & Tahun & " AND" & _
+						' " BA ='" & Session("fcBA") & "'"
+' connstr.execute(NormalisasiARTMTBM)
+
+''Collecting Data for Account Report TM TBM
+' SelectARTMTBM =	" select" & _
+				' " 	 BA," & _
+				' "    CROPTYPE," & _
+				' "    OWNER," & _
+				' "    STATUS," & _
+				' "    DIVISION," & _
+				' "    PLANTINGDATE," & _
+				' "    ACTIVITY_HEADING," & _
+				' "    JOBGROUPCODE," & _
+				' "    JOBGROUPNAME," & _
+				' "    JOBCODE," & _
+				' "    JOBNAME," & _
+				' "    SOURCETYPE, " & _
+                ' "    SOURCENAME, " & _
+				' "    sum(balanceamount) balanceamount," & _
+				' "    sum(balanceqty) balanceqty," & _
+				' "    sum(amount) amount," & _
+				' "    sum(qty_ha_or_kg) qty_ha_or_kg,sysdate LASTUPDATE, to_char(sysdate,'HH24:MI')  LASTTIME, " & _
+				' "    sum(tm_amt_budget) tm_amt_budget, " & _
+                ' "    sum(ty_amt_budget) ty_amt_budget " & _
+				' " from (" & _
+				' " select c.fcba ba,c.croptype,c.ownership  OWNER,c.status,c.division ,c.plantingdate,jobgroup_api.get_activity_heading(job_api.get_jobgroupCode(c.jobcode,c.fcba),c.fcba) ACTIVITY_HEADING, " & _
+				' "	   job_api.get_jobgroupCode(c.jobcode,c.fcba) JOBGROUPCODE,jobgroup_api.get_jobgroup_name(job_api.get_jobgroupCode(c.jobcode,c.fcba),c.fcba)  JOBGROUPNAME, " & _
+				' "	   jobcode,job_api.get_jobcode_name(c.jobcode,c.fcba) JOBNAME, c.sourcetype, get_locationtype_name (c.SOURCETYPE) SOURCENAME,  " & _
+				' "	   0 balanceamount,0 balanceqty,0 amount,0 qty_ha_or_kg, " & _
+				' "	   nvl(budget_transaction_estate_api.GetBudgetMonth(c.fcba, " & Tahun & ",1,1,c.croptype,c.jobcode,c.sourcetype,c.sourcecode,c.targettype,c.fieldcode,c.division,to_number(to_char(c.PlantingDate,'YYYY')),c.status,to_date('01/" & Bulan & "/" & Tahun & "','DD/MM/YYYY')),0) tm_amt_budget, " & _
+				' "	   nvl(budget_transaction_estate_api.GetBudget_perYear(c.fcba, " & Tahun & ",1,1,c.croptype,c.jobcode,c.sourcetype,c.sourcecode,c.targettype,c.fieldcode,c.division,to_number(to_char(c.PlantingDate,'YYYY')),c.status,to_date('01/" & Bulan & "/" & Tahun & "','DD/MM/YYYY')),0) ty_amt_budget " & _
+				' " from Budget_Transaction_Estate c" & _
+				' " where c.fcba='" & Session("fcBA") & "'  and c.budget_year= " & Tahun & " " & _
+				' " union " & _
+				' " SELECT a.BA," & _
+				' "       a.CROPTYPE," & _
+				' "       a.OWNER," & _
+				' "       a.STATUS," & _
+				' "       a.DIVISION," & _
+				' "       a.PLANTINGDATE," & _
+				' "       a.ACTIVITY_HEADING," & _
+				' "       a.JOBGROUPCODE," & _
+				' "       a.JOBGROUPNAME," & _
+				' "       a.JOBCODE," & _
+				' "       a.JOBNAME," & _
+				' "       a.SOURCETYPE, " & _
+                ' "       a.SOURCENAME, " & _
+				' "       sum(a.amount) balanceamount," & _
+				' "       sum(a.QTY_HA_OR_KG) balanceqty," & _
+				' "       0 amount," & _
+				' "       0 qty_ha_or_kg," & _
+				' "       0 tm_amt_budget, " & _
+                ' "       0 ty_amt_budget " & _
+				' " from view_accountreport_tm_tbm a" & _
+				' " where" & _
+				' " a.period_month < " & Bulan & " AND a.period_year = " & Tahun & " AND a.ba = '" & Session("fcBA") & "'" & _
+				' " group by a.BA," & _
+				' "       a.CROPTYPE," & _
+				' "       a.OWNER," & _
+				' "       a.STATUS," & _
+				' "       a.DIVISION," & _
+				' "       a.PLANTINGDATE," & _
+				' "       a.ACTIVITY_HEADING," & _
+				' "       a.JOBGROUPCODE," & _
+				' "       a.JOBGROUPNAME," & _
+				' "       a.JOBCODE," & _
+				' "       a.JOBNAME," & _
+			    ' "       a.SOURCETYPE, " & _
+                ' "       a.SOURCENAME " & _
+				' " union" & _
+				' " SELECT a.BA," & _
+				' "       a.CROPTYPE," & _
+				' "       a.OWNER," & _
+				' "       a.STATUS," & _
+				' "       a.DIVISION," & _
+				' "       a.PLANTINGDATE," & _
+				' "       a.ACTIVITY_HEADING," & _
+				' "       a.JOBGROUPCODE," & _
+				' "       a.JOBGROUPNAME," & _
+				' "       a.JOBCODE," & _
+				' "       a.JOBNAME," & _
+			    ' "       a.SOURCETYPE, " & _
+                ' "       a.SOURCENAME, " & _
+				' "       0 BalanceAmount," & _
+				' "       0 BalanceQty," & _
+				' "       sum(AMOUNT) amount," & _
+				' "       sum(QTY_HA_OR_KG) QTY_HA_OR_KG," & _
+				' "       0 tm_amt_budget, " & _
+                ' "       0 ty_amt_budget " & _
+				' " FROM view_accountreport_tm_tbm a" & _
+				' " WHERE a.period_month = " & Bulan & " AND a.period_year = " & Tahun & " AND a.ba = '" & Session("fcBA") & "'" & _
+				' " group by a.BA," & _
+				' "       a.CROPTYPE," & _
+				' "       a.OWNER," & _
+				' "       a.STATUS," & _
+				' "       a.DIVISION," & _
+				' "       a.PLANTINGDATE," & _
+				' "       a.ACTIVITY_HEADING," & _
+				' "       a.JOBGROUPCODE," & _
+				' "       a.JOBGROUPNAME," & _
+				' "       a.JOBCODE," & _
+				' "       a.JOBNAME," & _
+				' "       a.SOURCETYPE, " & _
+                ' "       a.SOURCENAME " & _				
+				' " )" & _      
+				' " where JOBCODE in ( Select FCcode from job where fcba='" & Session("fcBA") & "' and job_forfieldstatus in ('TM','TBM')) and ACTIVITY_HEADING is not null  group by" & _
+				' "    BA," & _
+				' "    CROPTYPE," & _
+				' "    OWNER," & _
+				' "    STATUS," & _
+				' "    DIVISION," & _
+				' "    PLANTINGDATE," & _
+				' "    ACTIVITY_HEADING," & _
+				' "    JOBGROUPCODE," & _
+				' "    JOBGROUPNAME," & _
+				' "    JOBCODE," & _
+				' "    JOBNAME," & _
+				' "    SOURCETYPE, " & _
+                ' "    SOURCENAME " 
+
+''response.write SelectARTMTBM
+' Set rsARTMTBM = Server.CreateObject("ADODB.Recordset")
+' rsARTMTBM.CursorType = 3
+' rsARTMTBM.CursorLocation = 3
+' rsARTMTBM.Open SelectARTMTBM, connstr
+
+' if not rsARTMTBM.eof then
+	' Do While Not rsARTMTBM.eof
+	''Inserting Data To Account Report Tm Tbm
+	' InsertARTMTBM =	" INSERT INTO SAC_ACCOUNTREPORT_TM_TBM (" & _
+					' " PERIOD_YEAR, PERIOD_MONTH, BA, CROPTYPE," & _
+					' " SOURCETYPE,SOURCENAME," & _
+					' " OWNERSHIP, STATUS, DIVISION," & _
+					' " PLANTINGDATE, ACTIVITY_HEADING, ACCOUNTGROUPCODE," & _
+					' " ACCOUNTGROUP, ACCOUNTCODE, DESCRIPTION,OPENBALANCE_AMT_ACTUAL," & _
+					' " OPENBALANCE_HA_KG_ACTUAL, TM_AMT_ACTUAL, TM_HA_KG_ACTUAL,tm_amt_budget,ty_amt_budget,LASTUPDATE,LASTTIME )" & _
+					' " VALUES (" & _
+					' " " & Tahun & "," & _
+					' " " & Bulan & "," & _
+					' " '" & Session("fcBA") & "'," & _
+					' " '" & rsARTMTBM("CROPTYPE") & "'," & _
+					' " '" & rsARTMTBM("SOURCETYPE") & "'," & _
+					' " '" & rsARTMTBM("SOURCENAME") & "'," & _
+					' " '" & rsARTMTBM("OWNER") & "'," & _
+					' " '" & rsARTMTBM("STATUS") & "'," & _
+					' " '" & rsARTMTBM("DIVISION") & "'," & _
+					' " '" & rsARTMTBM("PLANTINGDATE") & "'," & _
+					' " '" & rsARTMTBM("ACTIVITY_HEADING") & "'," & _
+					' " '" & rsARTMTBM("JOBGROUPCODE") & "'," & _
+					' " '" & rsARTMTBM("JOBGROUPNAME") & "'," & _
+					' " '" & rsARTMTBM("JOBCODE") & "'," & _
+					' " '" & rsARTMTBM("JOBNAME") & "'," & _
+					' " " & rsARTMTBM("BALANCEAMOUNT") & "," & _
+					' " " & rsARTMTBM("BALANCEQTY") & "," & _
+					' " " & rsARTMTBM("AMOUNT") & "," & _
+					' " " & rsARTMTBM("QTY_HA_OR_KG") & "," & _
+					' " " & rsARTMTBM("tm_amt_budget") & "," & _
+					' " " & rsARTMTBM("ty_amt_budget") & "," & _
+					' " to_date(substr('" & rsARTMTBM("LASTUPDATE")& "',1,9),'MM/DD/YYYY') ," & _
+					' " '" & rsARTMTBM("LASTTIME") & "'" & _
+					' " )"
+	''response.write InsertARTMTBM				
+	' connstr.execute(InsertARTMTBM)
+	
+	' rsARTMTBM.MoveNext
+	' loop
+' end if
+
+''----END ACCOUNT REPORT TM TBM----
+
+
+''----BEGIN ACCOUNT REPORT MILL----
+
+''Normalisasi Account Report Mill
+' NormalisasiARMill =		" DELETE FROM SAC_ACCOUNTREPORT_MILL" & _
+						' " WHERE" & _
+						' " PERIOD_MONTH = " & Bulan & " AND" & _
+						' " PERIOD_YEAR = " & Tahun & " AND" & _
+						' " BA ='" & Session("fcBA") & "'"
+' connstr.execute(NormalisasiARMill)
+
+''Collecting Data for Account Report Mill
+' SelectARMill =	" select" & _
+				' " 	 BA," & _
+				' "    CROPTYPE," & _
+				' "    OWNER," & _
+				' "    STATUS," & _
+				' "    DIVISION," & _
+				' "    PLANTINGDATE," & _
+				' "    ACTIVITY_HEADING," & _
+				' "    JOBGROUPCODE," & _
+				' "    JOBGROUPNAME," & _
+				' "    JOBCODE," & _
+				' "    JOBNAME," & _
+				' "    sum(balanceamount) balanceamount," & _
+				' "    sum(balanceqty) balanceqty," & _
+				' "    sum(amount) amount," & _
+				' "    sum(qty_ha_or_kg) qty_ha_or_kg" & _
+				' " from (" & _
+				' " SELECT a.BA," & _
+				' "       a.CROPTYPE," & _
+				' "       a.OWNER," & _
+				' "       a.STATUS," & _
+				' "       a.DIVISION," & _
+				' "       a.PLANTINGDATE," & _
+				' "       a.ACTIVITY_HEADING," & _
+				' "       a.JOBGROUPCODE," & _
+				' "       a.JOBGROUPNAME," & _
+				' "       a.JOBCODE," & _
+				' "       a.JOBNAME," & _
+				' "       sum(a.amount) balanceamount," & _
+				' "       sum(a.QTY_HA_OR_KG) balanceqty," & _
+				' "       0 amount," & _
+				' "       0 qty_ha_or_kg" & _
+				' " from view_accountreport_tm_tbm a" & _
+				' " where" & _
+				' " a.period_month < " & Bulan & " AND a.period_year = " & Tahun & " AND a.ba = '" & Session("fcBA") & "'" & _
+				' " group by a.BA," & _
+				' "       a.CROPTYPE," & _
+				' "       a.OWNER," & _
+				' "       a.STATUS," & _
+				' "       a.DIVISION," & _
+				' "       a.PLANTINGDATE," & _
+				' "       a.ACTIVITY_HEADING," & _
+				' "       a.JOBGROUPCODE," & _
+				' "       a.JOBGROUPNAME," & _
+				' "       a.JOBCODE," & _
+				' "       a.JOBNAME" & _
+				' " union" & _
+				' " SELECT a.BA," & _
+				' "       a.CROPTYPE," & _
+				' "       a.OWNER," & _
+				' "       a.STATUS," & _
+				' "       a.DIVISION," & _
+				' "       a.PLANTINGDATE," & _
+				' "       a.ACTIVITY_HEADING," & _
+				' "       a.JOBGROUPCODE," & _
+				' "       a.JOBGROUPNAME," & _
+				' "       a.JOBCODE," & _
+				' "       a.JOBNAME," & _
+				' "       0 BalanceAmount," & _
+				' "       0 BalanceQty," & _
+				' "       sum(AMOUNT) amount," & _
+				' "       sum(QTY_HA_OR_KG) QTY_HA_OR_KG" & _
+				' "  FROM view_accountreport_tm_tbm a" & _
+				' " WHERE a.period_month = " & Bulan & " AND a.period_year = " & Tahun & " AND a.ba = '" & Session("fcBA") & "'" & _
+				' " group by a.BA," & _
+				' "       a.CROPTYPE," & _
+				' "       a.OWNER," & _
+				' "       a.STATUS," & _
+				' "       a.DIVISION," & _
+				' "       a.PLANTINGDATE," & _
+				' "       a.ACTIVITY_HEADING," & _
+				' "       a.JOBGROUPCODE," & _
+				' "       a.JOBGROUPNAME," & _
+				' "       a.JOBCODE," & _
+				' "       a.JOBNAME" & _
+				' " )" & _      
+				' " group by" & _
+				' "    BA," & _
+				' "    CROPTYPE," & _
+				' "    OWNER," & _
+				' "    STATUS," & _
+				' "    DIVISION," & _
+				' "    PLANTINGDATE," & _
+				' "    ACTIVITY_HEADING," & _
+				' "    JOBGROUPCODE," & _
+				' "    JOBGROUPNAME," & _
+				' "    JOBCODE," & _
+				' "    JOBNAME"
+
+' Set rsARMill = Server.CreateObject("ADODB.Recordset")
+' rsARMill.CursorType = 3
+' rsARMill.CursorLocation = 3
+' rsARMill.Open SelectARMill, connstr
+
+' if not rsARMill.eof then
+	' Do While Not rsARMill.eof
+	''Inserting Data To Account Report Mill
+	' InsertARMill =	" INSERT INTO SAC_ACCOUNTREPORT_MILL (" & _
+					' " PERIOD_YEAR, PERIOD_MONTH, BA, CROPTYPE," & _
+					' " OWNERSHIP, STATUS, DIVISION," & _
+					' " PLANTINGDATE, ACTIVITY_HEADING, ACCOUNTGROUPCODE," & _
+					' " ACCOUNTGROUP, ACCOUNTCODE, DESCRIPTION,OPENBALANCE_AMT_ACTUAL," & _
+					' " OPENBALANCE_HA_KG_ACTUAL, TY_AMT_ACTUAL, TY_HA_KG_ACTUAL)" & _
+					' " VALUES (" & _
+					' " " & Tahun & "," & _
+					' " " & Bulan & "," & _
+					' " '" & Session("fcBA") & "'," & _
+					' " '" & rsARMill("CROPTYPE") & "'," & _
+					' " '" & rsARMill("OWNER") & "'," & _
+					' " '" & rsARMill("STATUS") & "'," & _
+					' " '" & rsARMill("DIVISION") & "'," & _
+					' " '" & rsARMill("PLANTINGDATE") & "'," & _
+					' " '" & rsARMill("ACTIVITY_HEADING") & "'," & _
+					' " '" & rsARMill("JOBGROUPCODE") & "'," & _
+					' " '" & rsARMill("JOBGROUPNAME") & "'," & _
+					' " '" & rsARMill("JOBCODE") & "'," & _
+					' " '" & rsARMill("JOBNAME") & "'," & _
+					' " " & rsARMill("BALANCEAMOUNT") & "," & _
+					' " " & rsARMill("BALANCEQTY") & "," & _
+					' " " & rsARMill("AMOUNT") & "," & _
+					' " " & rsARMill("QTY_HA_OR_KG") & "" & _
+					' " )"
+	' connstr.execute(InsertARMill)
+	' rsARTMTBM.MoveNext
+	' loop
+' end if
+
+''----END ACCOUNT REPORT MILL----
+
+
+TimeAkhir=Time()
+Lama =TimeAkhir-TimeAwal
+Response.Write "Finish ... " & time() & "<br /><br />"
+Response.Write " Time Elapsed " & Hour(Lama) & " Hours " & Minute(Lama) & " Minutes " &  Second(Lama) & " Seconds."%>
+
+<%if err.number <> 0 then%>
+    <br /><br /><img src="images/error.gif" />
+<%
+	response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & err.description & "</font>"
+	cmdView	= "True"
+%>
+	<script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>	
+<%Else%>
+    <br /><br />
+	<img src="images/ok.gif" /><font color=Blue pointsize=9 face=Verdana>Transfer to SAC ACCOUNT REPORT TM TBM is succesfully...</font>
+	<script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>
+<%End if%>

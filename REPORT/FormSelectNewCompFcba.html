@@ -1,0 +1,200 @@
+<table id="form-table" class="centered-margin">
+
+<% 
+  Dim  v_txtCompany, v_txtFcba
+  Dim  txtCompany, txtFcba
+  Dim strsql 
+  
+  Dim rsCount,visibleGP,visibleP,visibleGR,visibleR,visibleC,visibleS
+  Set rsCount = Server.CreateObject("ADODB.Recordset")
+	  rsCount.CursorLocation = adUseClient
+ 
+  strsql =  " SELECT count(*) ncount from ( select FCCOMPANYCODE from businessunit where USER_COMPANY_API.IsAuthorizedFcba('" & Session("CodeName") & "', fccode) = 'TRUE'   ) " 
+  rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+  if not rsCount.eof then
+     visibleC = rsCount("ncount")
+	 rsCount.Close
+	 if cint(visibleR) = 1 then 
+		 strsql =   " select FCCOMPANYCODE fccode from businessunit where USER_COMPANY_API.IsAuthorizedFcba('" & Session("CodeName") & "', fccode) = 'TRUE'  " 
+		 rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+		 txtCompany = rsCount("fccode")
+		 rsCount.Close
+	 end if	 
+  else
+     visibleC = 0
+	 rsCount.Close
+  end if  
+  
+ ' response.write visibleC
+  
+  
+   strsql =  " SELECT count(*) ncount from ( select fccode fcba from businessunit " & _
+			 " where " & _
+			 " USER_COMPANY_API.GETCOMPANYCODE('" & Session("CodeName") & "',fccode) IS NOT NULL    ) " 
+  rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+  if not rsCount.eof then
+     visibleS = rsCount("ncount")
+	 rsCount.Close
+	 if cint(visibleS) = 1 then 
+		 strsql =   " select fccode  from businessunit where USER_COMPANY_API.GetCompanyCode('" & Session("CodeName") & "', fccode) is not null  " 
+		 'response.write strsql
+		 rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+		 txtFcba = rsCount("fccode")
+		 rsCount.Close
+	 end if	 
+  else
+     visibleS = 0
+	  rsCount.Close
+  end if  
+  
+ ' response.write visibleS
+ ' response.write  "GP " & v_txtGroupPlantation & "  P " & v_txtPlantation & "  GR " & v_txtGroupRegion & " R " & v_txtRegion & " C " & v_txtcompany & " S " & v_txtfcba   
+
+  
+%>
+
+<%
+			Dim strTitle, rsTitle
+			Dim titleGroupPlantation, titlePlantation, titleGroupRegion, titleRegion, titleCompany, titleSite
+			
+	        strTitle = " select PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','GROUPPLANTATION') titleGP, " & _
+							    " PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','PLANTATION') titleP , " & _
+								" PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','GROUPREGION') titleGR, " & _
+								" PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','REGION') titleR, " & _
+								" PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','COMPANY') titleC, " & _
+								" PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','SITE') titleS from dual"
+								
+			Set rsTitle = Server.CreateObject("ADODB.Recordset")
+			'response.write rsTitle
+			rsTitle.Open strTitle, connstr, 3,3	
+
+			if not rsTitle.EOF then
+				no = 0
+				titleCompany = rsTitle ("titleC")
+				titleSite = rsTitle ("titleS")
+			else
+				titleCompany = "Company"
+				titleSite = "Site"
+			end if
+			rsTitle.Close
+			set rsTitle = Nothing
+			
+%>
+
+
+
+
+<tr>
+			
+			<% IF cint(visibleS) > 1 and cint(visibleC) > 1 then %>
+					<td>
+						<font face="verdana" size="1"><%=TitleCompany %></font>
+					</td>
+					<td>
+						<select name="txtCompany">
+								<option value="--SUMMARY--" <%if request("v_txtCompany")="--SUMMARY--" then%> selected <%End if%>>--SUMMARY--</option>
+								<%
+								Dim rsCompany
+								Set rsCompany = Server.CreateObject("ADODB.Recordset")
+								rsCompany.CursorLocation = adUseClient
+								strsql = " SELECT '--ALL--' as companycode from DUAL UNION " & _
+								         " select distinct FCCOMPANYCODE companycode from businessunit where USER_COMPANY_API.IsAuthorizedFcba('" & Session("CodeName") & "', fccode) = 'TRUE'"
+								         
+								rsCompany.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+								if not rsCompany.eof then
+									DO while not rsCompany.eof
+										if v_txtCompany = rsCompany("companycode") then
+										%>			
+											<option value="<%=rsCompany("companycode")%>" Selected><%=rsCompany("companycode")%></option>
+										<% Else %>	
+											<option value="<%=rsCompany("companycode")%>"><%=rsCompany("companycode")%></option>
+										<% End If
+										
+										rsCompany.movenext
+									loop
+								End if
+								rsCompany.Close
+								set rsCompany = Nothing
+								%>
+						</select>
+					</td>
+             <% ElseIF cint(visibleS) > 1 and cint(visibleC) = 1 then %>	
+                   	<td>
+						<font face="verdana" size="1"><%=TitleCompany %></font>
+					</td>
+					<td>
+						<select name="txtCompany">
+								<option value="<%=txtCompany%>" selected ><%=txtCompany%></option>
+								<option value="--SUMMARY--">--SUMMARY--</option>
+						</select>
+					</td>		 
+			 <% End If %>
+			 
+			 <% if cint(VisibleS) > 1 then  %> 
+					<td>
+						<font face="verdana" size="1"><%=TitleSite %></font>
+					</td>
+				<%
+				Dim stringUSERS, objRSArrays, arrRSx
+				Function GetRSArray(strSQL)
+				set objRSArrays = connStr.Execute(strSQL)
+				If Not objRSArrays.EOF Then
+					arrRSx = objRSArrays.GetRows()
+					GetRSArray = arrRSx
+				Else
+					'Response.Write("There are currently no records returned.<br/>")
+					Exit Function
+				End If
+				objRSArrays.Close()
+				Set objRSArrays = Nothing
+			End Function
+			%>
+					<td>
+						<select name="txtFcba" id="vFcba" >
+								<option value="--SUMMARY--" <%if request("v_txtFcba")="--SUMMARY--" then%> selected <%End if%>>--SUMMARY--</option>
+								<%
+								Dim rsFcba
+								Set rsFcba = Server.CreateObject("ADODB.Recordset")
+								rsFcba.CursorLocation = adUseClient
+								strsql =    " SELECT '--ALL--' as fcba from DUAL UNION " & _  
+								            " select fccode fcba from businessunit " & _
+											" where " & _
+											" USER_COMPANY_API.GETCOMPANYCODE('" & Session("CodeName") & "',fccode) IS NOT NULL " 
+								  
+								
+								rsFcba.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+								if not rsFcba.eof then
+									DO while not rsFcba.eof
+										if v_txtFcba = rsFcba("fcba") then
+										%>			
+											<option value="<%=rsFcba("fcba")%>" Selected><%=rsFcba("fcba")%></option>
+										<% Else %>	
+											<option value="<%=rsFcba("fcba")%>"><%=rsFcba("fcba")%></option>
+										<% End If
+										
+										rsFcba.movenext
+									loop
+								End if
+								rsFcba.Close
+								set rsFcba = Nothing
+								%>
+						</select>
+					</td>	
+			 <% Else %>	
+                   	<td>
+						<font face="verdana" size="1"><%=TitleSite %></font>
+					</td>
+					<td>
+						<select name="txtFcba">
+								<option value="<%=txtFCBA%>" selected ><%=txtFCBA%></option>
+						</select>
+					</td>	
+			<% end if %>
+			<td>&nbsp;</td>
+		</tr>
+		
+
+
+
+
+</table>

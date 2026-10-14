@@ -1,0 +1,536 @@
+<%
+
+Rownumber = 0
+amountalokasi = 0
+totalamountalokasi = 0
+maxLineNoForTable = 0
+
+firstrow_alokasi_jobcode = ""
+firstrow_alokasi_tt = ""
+firstrow_alokasi_tc = ""
+
+jobcodeNoBasis = "1330300"
+
+Set objRs = Server.CreateObject("ADODB.Recordset")								
+objSql = " select nvl(max(lineno), 0) maxLineNo from buildingcb " & _
+         " where fcba = '" &  Session("fcBA") & "' " 
+objRs.Open objSql, connstr
+
+if not objRs.EOF then
+	maxLineNoForTable = cdbl(objRs("maxLineNo"))
+else
+	maxLineNoForTable = 0
+end if
+
+objRs.close
+set objRs = Nothing
+
+Set objRs = Server.CreateObject("ADODB.Recordset")
+objSql = "select ControlJob from Module where NAME = 'Building'"
+objRs.Open objSql, connstr
+
+if not objRs.EOF then
+	txtControlJob = objRs("ControlJob")
+else
+	txtControlJob = ""
+end if
+
+objRs.close
+set objRs = Nothing
+
+Set objRs = Server.CreateObject("ADODB.Recordset")								
+objSql = " select add_months(LASTPERIODPOSTED,1) LastPeriodPosted from PERIODCONTROL" & _
+         " where SYSTEM = 'General_Charges' and fcba = '" & Session("fcBA") & "'"
+objRs.Open objSql, connstr
+
+if not objRs.EOF then
+	temp_datePeriodControlCA = objRs("LastPeriodPosted")
+else
+	temp_datePeriodControlCA = ""
+end if
+
+objRs.close
+set objRs = Nothing
+
+Set objRs = Server.CreateObject("ADODB.Recordset")								
+objSql = " select nvl(max(lineno), 0) maxLineNo from cost_activity" & _
+         " where fcba = '" &  Session("fcBA") & "' " 
+objRs.Open objSql, connstr
+
+if not objRs.EOF then
+	maxLineNoForCA = cdbl(objRs("maxLineNo"))
+else
+	maxLineNoForCA = 0
+end if
+
+objRs.close
+set objRs = Nothing
+
+connstr.BeginTrans
+sqldeletedata = " delete from buildingcb" & _
+                " where fcba = '" & Session("fcBA") & "'" & _
+                "       and to_number(to_char(transdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+                "       and to_number(to_char(transdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+				"       and instr(referenceno, 'v2') <> 0"
+
+'response.Write(sqldeletedata)			  
+connStr.execute(sqldeletedata)
+
+If Err.Number = 0 Then
+	connstr.CommitTrans
+	Response.Flush
+Else
+	connstr.RollbackTrans
+	Response.write("Error Save ["&sqldeletedata&"] ("&Err.Description&")")
+	Response.Flush
+End If
+
+
+'--------------------- Total Cost of Building
+qVariance = " select fcba" & _
+            "        , lastdate" & _
+            "        , targettype" & _
+            "        , targetcode" & _
+            "        , costtotal" & _
+            "        , alokasi" & _
+            "        , costtotal - alokasi var" & _
+            " from (" & _
+            "     select fcba" & _
+            "            , lastdate" & _
+            "            , targettype" & _
+            "            , targetcode" & _
+            "            , costtotal " & _
+            "            , new_loc_closing_api.cek_alokasi_per_source(fcba, lastdate, targettype, targetcode) alokasi" & _
+            "     from (" & _
+            "         select fcba" & _
+            "                , last_day(trunc(tdate, 'mm')) lastdate" & _
+            "                , targettype" & _
+            "                , targetcode" & _
+            "                , nvl(sum(amount),0) as costtotal" & _
+            "         from cost_activity" & _
+            "         where fcba = '" & Session("fcBA") & "'" & _
+            "               and to_number(to_char(tdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+            "               and to_number(to_char(tdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+            "               and targettype = 'BM'" & _
+            "         group by fcba, last_day(trunc(tdate, 'mm')), targettype, targetcode" & _
+            "     )" & _
+            " )" & _
+            " where costtotal - alokasi <> 0"
+				
+arrRS = GetRSArray(qVariance)
+
+If IsArray(arrRS) Then
+	For i = LBound(arrRS, 2) To UBound(arrRS, 2)
+		totalamountalokasi = 0
+		totalbiayain_v2 = 0
+		
+		totalbiayain_v2 = Cdbl(arrRS(6, i))
+		
+	
+		'--------------------- Find Basis by Unit
+		Set rsBasis = Server.CreateObject("ADODB.Recordset")
+		rsBasis.CursorType = 3
+		rsBasis.CursorLocation = 3
+		nBasis = 0
+		qBasis = " select nvl(sum(unit), 0) basis" & _
+                 " from (" & _
+                 "     select fcba" & _
+                 "            , decode(status, 'TM', '6510101', 'TBM', '1322109', '1150901') jobcode" & _
+                 "            , 'FF' targettype" & _
+                 "            , targetcode" & _
+                 "            , unit" & _
+                 "     from (" & _
+                 "      select fcba" & _
+                 "             , fccode targetcode" & _
+                 "             , field_api.getvalid_status (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) status" & _
+                 "             , nvl(field_api.getvalid_ha (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')), 0) unit" & _
+                 "      from field" & _
+                 "      where fcba = '" & Session("fcBA") & "'" & _
+                 "            and nvl(field_api.getvalid_activation (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')),'N') = 'Y'" & _
+                 "            and field_api.getvalid_status (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) is not null" & _
+                 "     )" & _
+                 "     where unit <> 0" & _
+                 " )"
+				 
+		rsBasis.Open qBasis, connstr
+		if Not rsBasis.eof then
+			nBasis = cdbl(rsBasis("Basis"))
+		Else
+			nBasis = 0
+		End if
+		rsBasis.Close
+		set rsBasis = Nothing
+		
+		if nBasis <> 0 then
+			maxLineNoForTable = maxLineNoForTable + 1
+			connstr.BeginTrans
+			qInsertCR = " insert into buildingcb ( fieldcode" & _
+			            "                          , targettype" & _
+			            "                          , targetcode" & _
+			            "                          , jobcode" & _
+			            "                          , quantity" & _
+			            "                          , amount" & _
+			            "                          , transdate" & _
+			            "                          , referenceno" & _
+			            "                          , fcentry" & _
+			            "                          , fcedit" & _
+			            "                          , fcip" & _
+			            "                          , fcba" & _
+			            "                          , lastupdate" & _
+			            "                          , lasttime" & _
+			            "                          , lineno)" & _
+						" values ( '" & arrRS(3, i) & "'" & _
+						"          , 'CB'" & _
+						"          , 'BS" & "'" & _
+						"          , '" & txtControlJob & "'" & _
+						"          , 0" & _
+						"          , " & totalbiayain_v2 * -1 & "" & _
+						"          , to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+						"          , '" & arrRS(3, i) & "-Cr-v2'" & _
+						"          , '" & Session("CodeName") & "'" & _
+						"          , '" & Session("CodeName") & "'" & _
+						"          , '" & Request.ServerVariables("REMOTE_ADDR") & "'" & _
+						"          , '" & Session("fcBA") & "'" & _
+						"          , sysdate" & _
+						"          , to_char(sysdate, 'HH24:MI')" & _
+						"          , " & maxLineNoForTable & ")"
+
+			'response.Write(qInsertCR)			  
+			connStr.execute(qInsertCR)
+			
+			If Err.Number = 0 Then
+				connstr.CommitTrans
+				Response.Flush
+			Else
+				connstr.RollbackTrans
+				Response.write("Error Save ["&qInsertCR&"] ("&Err.Description&")")
+				Response.Flush
+			End If
+			
+			qlistactivity = "     select fcba" & _
+                            "            , to_date('" & Month(Session("v_General_Charges")) & "/01/" & Year(Session("v_General_Charges")) & "', 'mm/dd/yyyy') transdate" & _
+							"            , decode(status, 'TM', '6510101', 'TBM', '1322109', '1150901') jobcode" & _
+                            "            , 'FF' targettype" & _
+                            "            , targetcode" & _
+                            "            , unit" & _
+                            "     from (" & _
+                            "      select fcba" & _
+                            "             , fccode targetcode" & _
+                            "             , field_api.getvalid_status (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) status" & _
+                            "             , nvl(field_api.getvalid_ha (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')), 0) unit" & _
+                            "      from field" & _
+                            "      where fcba = '" & Session("fcBA") & "'" & _
+                            "            and nvl(field_api.getvalid_activation (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')),'N') = 'Y'" & _
+                            "            and field_api.getvalid_status (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) is not null" & _
+                            "     )" & _
+                            "     where unit <> 0"
+		
+			arrRS_dtl = GetRSArray_dtl(qlistactivity)
+
+			If IsArray(arrRS_dtl) Then
+				For ii = LBound(arrRS_dtl, 2) To UBound(arrRS_dtl, 2)
+					Rownumber = Rownumber + 1
+
+					if Rownumber = 1 then
+						firstrow_alokasi_jobcode = arrRS_dtl(2, ii)
+						firstrow_alokasi_tt = arrRS_dtl(3, ii)
+						firstrow_alokasi_tc = arrRS_dtl(4, ii)
+					end if
+					
+					amountalokasi = Round(cdbl(arrRS_dtl(5, ii))/ nBasis * totalbiayain_v2, 0)
+					
+					maxLineNoForTable = maxLineNoForTable + 1
+					connstr.BeginTrans
+					qInsertDB = " insert into buildingcb ( fieldcode" & _
+								"                          , targettype" & _
+								"                          , targetcode" & _
+								"                          , jobcode" & _
+								"                          , quantity" & _
+								"                          , amount" & _
+								"                          , transdate" & _
+								"                          , referenceno" & _
+								"                          , fcentry" & _
+								"                          , fcedit" & _
+								"                          , fcip" & _
+								"                          , fcba" & _
+								"                          , lastupdate" & _
+								"                          , lasttime" & _
+								"                          , lineno)" & _
+								" values ( '" & arrRS(3, i) & "'" & _
+								"          , '" & arrRS_dtl(3, ii) & "'" & _
+								"          , '" & arrRS_dtl(4, ii) & "'" & _
+								"          , '" & arrRS_dtl(2, ii) & "'" & _
+								"          , " & cdbl(arrRS_dtl(5, ii)) & "" & _
+								"          , " & amountalokasi & "" & _
+								"          , to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+								"          , '" & arrRS(3, i) & "-Db-v2'" & _
+								"          , '" & Session("CodeName") & "'" & _
+								"          , '" & Session("CodeName") & "'" & _
+								"          , '" & Request.ServerVariables("REMOTE_ADDR") & "'" & _
+								"          , '" & Session("fcBA") & "'" & _
+								"          , sysdate" & _
+								"          , to_char(sysdate, 'HH24:MI')" & _
+								"          , " & maxLineNoForTable & ")"
+
+					'response.Write(qInsertDB)			  
+					connStr.execute(qInsertDB)
+					
+					If Err.Number = 0 Then
+						connstr.CommitTrans
+						Response.Flush
+					Else
+						connstr.RollbackTrans
+						Response.write("Error Save ["&qInsertDB&"] ("&Err.Description&")")
+						Response.Flush
+					End If
+					
+					totalamountalokasi = totalamountalokasi + amountalokasi
+					
+					Next
+				Erase arrRS_dtl
+			End If
+			
+			if totalamountalokasi <> totalbiayain_v2 then
+			
+				maxLineNoForTable = maxLineNoForTable + 1
+				connstr.BeginTrans
+				qInsertDB = " insert into buildingcb ( fieldcode" & _
+							"                          , targettype" & _
+							"                          , targetcode" & _
+							"                          , jobcode" & _
+							"                          , quantity" & _
+							"                          , amount" & _
+							"                          , transdate" & _
+							"                          , referenceno" & _
+							"                          , fcentry" & _
+							"                          , fcedit" & _
+							"                          , fcip" & _
+							"                          , fcba" & _
+							"                          , lastupdate" & _
+							"                          , lasttime" & _
+							"                          , lineno)" & _
+							" values ( '" & arrRS(3, i) & "'" & _
+							"          , '" & firstrow_alokasi_tt & "'" & _
+							"          , '" & firstrow_alokasi_tc & "'" & _
+							"          , '" & firstrow_alokasi_jobcode & "'" & _
+							"          , 0" & _
+							"          , " & totalbiayain_v2 - totalamountalokasi & "" & _
+							"          , to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+							"          , '" & arrRS(3, i) & "-Db-v2'" & _
+							"          , '" & Session("CodeName") & "'" & _
+							"          , '" & Session("CodeName") & "'" & _
+							"          , '" & Request.ServerVariables("REMOTE_ADDR") & "'" & _
+							"          , '" & Session("fcBA") & "'" & _
+							"          , sysdate" & _
+							"          , to_char(sysdate, 'HH24:MI')" & _
+							"          , " & maxLineNoForTable & ")"
+
+				'response.Write(qInsertDB)			  
+				connStr.execute(qInsertDB)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qInsertDB&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+			end if
+			
+		else 'tidak ada basis/ no activity
+		
+			maxLineNoForTable = maxLineNoForTable + 1
+			connstr.BeginTrans
+			qInsertCR = " insert into buildingcb ( fieldcode" & _
+			            "                          , targettype" & _
+			            "                          , targetcode" & _
+			            "                          , jobcode" & _
+			            "                          , quantity" & _
+			            "                          , amount" & _
+			            "                          , transdate" & _
+			            "                          , referenceno" & _
+			            "                          , fcentry" & _
+			            "                          , fcedit" & _
+			            "                          , fcip" & _
+			            "                          , fcba" & _
+			            "                          , lastupdate" & _
+			            "                          , lasttime" & _
+			            "                          , lineno)" & _
+						" values ( '" & arrRS(3, i) & "'" & _
+						"          , 'CB'" & _
+						"          , 'BS" & "'" & _
+						"          , '" & txtControlJob & "'" & _
+						"          , 0" & _
+						"          , " & totalbiayain_v2 * -1 & "" & _
+						"          , to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+						"          , '" & arrRS(3, i) & "-Cr-v2-NoAct'" & _
+						"          , '" & Session("CodeName") & "'" & _
+						"          , '" & Session("CodeName") & "'" & _
+						"          , '" & Request.ServerVariables("REMOTE_ADDR") & "'" & _
+						"          , '" & Session("fcBA") & "'" & _
+						"          , sysdate" & _
+						"          , to_char(sysdate, 'HH24:MI')" & _
+						"          , " & maxLineNoForTable & ")"
+
+			'response.Write(qInsertCR)			  
+			connStr.execute(qInsertCR)
+			
+			maxLineNoForTable = maxLineNoForTable + 1
+			qInsertDB = " insert into buildingcb ( fieldcode" & _
+			            "                          , targettype" & _
+			            "                          , targetcode" & _
+			            "                          , jobcode" & _
+			            "                          , quantity" & _
+			            "                          , amount" & _
+			            "                          , transdate" & _
+			            "                          , referenceno" & _
+			            "                          , fcentry" & _
+			            "                          , fcedit" & _
+			            "                          , fcip" & _
+			            "                          , fcba" & _
+			            "                          , lastupdate" & _
+			            "                          , lasttime" & _
+			            "                          , lineno)" & _
+						" values ( '" & arrRS(3, i) & "'" & _
+						"          , 'CB'" & _
+						"          , 'BS" & "'" & _
+						"          , '" & jobcodeNoBasis & "'" & _
+						"          , 0" & _
+						"          , " & totalbiayain_v2 & "" & _
+						"          , to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+						"          , '" & arrRS(3, i) & "-Db-v2-NoAct'" & _
+						"          , '" & Session("CodeName") & "'" & _
+						"          , '" & Session("CodeName") & "'" & _
+						"          , '" & Request.ServerVariables("REMOTE_ADDR") & "'" & _
+						"          , '" & Session("fcBA") & "'" & _
+						"          , sysdate" & _
+						"          , to_char(sysdate, 'HH24:MI')" & _
+						"          , " & maxLineNoForTable & ")"
+
+			'response.Write(qInsertDB)			  
+			connStr.execute(qInsertDB)
+			
+			If Err.Number = 0 Then
+				connstr.CommitTrans
+				Response.Flush
+			Else
+				connstr.RollbackTrans
+				Response.write("Error Save ["&qInsertCR&"] - ["&qInsertDB&"] ("&Err.Description&")")
+				Response.Flush
+			End If
+		end if
+	
+	Next
+	Erase arrRS
+End If
+
+connStr.BeginTrans
+InsertIntoCA = " insert into cost_activity (tdate" & _
+               "                            , jobcode" & _
+               "                            , source" & _
+               "                            , sourcetype" & _
+               "                            , sourcecode" & _
+               "                            , sourcecode_status" & _
+               "                            , targettype" & _
+               "                            , targetcode" & _
+               "                            , targetcode_status" & _
+               "                            , referenceno" & _
+               "                            , quantity" & _
+               "                            , output" & _
+               "                            , amount" & _
+               "                            , fcba" & _
+               "                            , closing_date" & _
+               "                            , process_date" & _
+               "                            , title_reference_01" & _
+               "                            , auto_reference_01" & _
+               "                            , title_reference_02" & _
+               "                            , auto_reference_02" & _
+               "                            , title_reference_03" & _
+               "                            , auto_reference_03" & _
+               "                            , title_reference_04" & _
+               "                            , auto_reference_04" & _
+               "                            , title_reference_05" & _
+               "                            , auto_reference_05" & _
+               "                            , debetcredit" & _
+               " 							, accountingperiod, accountingyear " & _
+               "                            , lastupdate" & _
+               "                            , lasttime" & _
+               "                            , lineno)" & _
+               " select tdate" & _
+               "        , jobcode" & _
+               "        , source" & _
+               "        , sourcetype" & _
+               "        , sourcecode" & _
+               "        , sourcecode_status" & _
+               "        , targettype" & _
+               "        , targetcode" & _
+               "        , targetcode_status" & _
+               "        , referenceno" & _
+               "        , quantity" & _
+               "        , output" & _
+               "        , amount" & _
+               "        , fcba" & _
+               "        , closing_date" & _
+               "        , sysdate process_date" & _
+               "        , cost_activity_info_api.get_title_reference_01 (sourcetype,targettype,'Dr')" & _
+               "        , targetcode" & _
+               "        , cost_activity_info_api.get_title_reference_02 (sourcetype,targettype,'Dr')" & _
+               "        , referenceno" & _
+               "        , ''" & _
+               "        , ''" & _
+               "        , ''" & _
+               "        , ''" & _
+               "        , ''" & _
+               "        , ''" & _
+               "        , decode ( greaterorequalthan ( amount, 0), 'TRUE','Dr','Cr')" & _
+               "        , " & Month (Session("v_General_Charges")) & "" & _
+               "        , " & Year (Session("v_General_Charges")) & "" & _
+               "        , sysdate lastupdate" & _
+               "        , to_char(sysdate,'hh24:mi') lasttime" & _
+               "        , rownum + " & maxLineNoForCA & " lineno " & _
+               " from ( select transdate tdate" & _
+               "               , jobcode jobcode" & _
+               "               , 'BM' source" & _
+               "               , 'BM' sourcetype" & _
+               "               , fieldcode as sourcecode" & _
+               "               , '' sourcecode_status" & _
+               "               , targettype targettype" & _
+               "               , targetcode targetcode" & _
+               "               , '' targetcode_status" & _
+               "               , referenceno referenceno" & _
+               "               , sum(quantity) quantity" & _
+               "               , 0 output" & _
+               "               , sum(amount) amount" & _
+               "               , fcba" & _
+               "               , to_date('" & temp_datePeriodControlCA & "','mm/dd/yyyy') closing_date  " & _
+               "        from buildingcb" & _
+               "        where fcba = '" & Session("fcBA") & "'" & _
+               "              and to_number(to_char(transdate,'yyyy')) = " & Year (Session("v_General_Charges")) & "" & _
+               "              and to_number(to_char(transdate,'mm')) = " & Month (Session("v_General_Charges")) & "" & _
+               "              and instr(referenceno, 'v2') <> 0" & _
+               "        group by transdate" & _
+               "                 , jobcode" & _
+               "                 , 'BM' " & _
+               "                 , 'BM' " & _
+               "                 , fieldcode" & _
+               "                 , ''" & _
+               "                 , targettype" & _
+               "                 , targetcode" & _
+               "                 , ''" & _
+               "                 , referenceno" & _
+               "                 , fcba" & _
+               " )"
+			   
+connstr.execute(InsertIntoCA)
+
+If Err.Number = 0 Then
+	connstr.CommitTrans
+Else
+	connstr.RollbackTrans
+	Response.write("Error Save ["&InsertIntoCA&"] ("&Err.Description&")")
+	Response.Flush
+End If
+
+%>

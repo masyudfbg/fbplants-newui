@@ -1,0 +1,151 @@
+<table id="form-table" class="centered-margin">
+<tr>
+
+
+
+
+
+<th>TAHUN</th>
+<th>BULAN</th>
+<th>STASIUN</th>
+<th>MESIN</th>
+<th>PEKERJAAN</th>
+<th>SUMBER DATA</th>
+</tr>
+<tr>
+		<form name="frmAR" method="post" action="<%=ScriptName%>">
+		
+		
+			<td>
+				<font size="2"  color="#0000FF" ></font>
+<% 
+                    MM=v_txtMonth
+					yyyy=v_txtYear
+
+    mon = Month(Session("v_Costbook"))
+    If len(MM)=0 then MM=mon
+
+    Yr = Year(Session("v_Costbook"))
+    MinYr = 2015
+    MaxYr = Yr  + 2
+    If len(yyyy)= 0 then yyyy = Yr
+%>
+				<select name="txtYear">
+<%
+    For i = MinYr to MaxYr
+%>
+        <Option Value="<%=i%>" <%If cint(i) = cint(yyyy) then%> Selected <%End If%>><%=i%></option>
+<%
+    Next
+%>
+				</select>
+			</td>
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="txtMonth">
+<%
+    For i = 1 to 12
+%>
+        <Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+<%
+    Next
+%>
+					</select>
+			</td>
+			
+			
+			<td>
+				<select name="txtstation">
+					<option value="--SUMMARY--" <%if request("v_txtstation")="--SUMMARY--" then%> selected <%End if%>>--SUMMARY--</option>
+					<%
+					
+					Set rsJob = Server.CreateObject("ADODB.Recordset")
+					rsJob.CursorLocation = adUseClient
+					strsql =  " select * from ( Select '--ALL--' fccode,'' fcname from dual union select distinct fccode,fcname from station )  order by fccode"
+					rsJob.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsJob.eof then
+					DO while not rsJob.eof
+					  if v_txtstation= rsJob("FCCODE") then
+						%>			
+						<option value="<%=rsJob("FCCODE")%>" Selected><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% Else %>	
+						<option value="<%=rsJob("FCCODE")%>"><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% End If
+					  rsJob.movenext
+					loop
+					End if
+					rsJob.Close
+					set rsJob = Nothing
+					%>
+					
+				</select>
+			</td>
+
+			<td>
+				<select name="txtmachine">
+					<option value="--SUMMARY--" <%if request("v_txtmachine")="--SUMMARY--" then%> selected <%End if%>>--SUMMARY--</option>
+					<%
+					Set rsJob = Server.CreateObject("ADODB.Recordset")
+					rsJob.CursorLocation = adUseClient
+					strsql =  "  select * from ( Select '--ALL--' fccode,'' fcname from dual union select distinct a.fccode,a.description  fcname from machine a) order by fccode"
+					rsJob.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsJob.eof then
+					DO while not rsJob.eof
+					  if v_txtmachine = rsJob("FCCODE") then
+						%>			
+						<option value="<%=rsJob("FCCODE")%>" Selected><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% Else %>	
+						<option value="<%=rsJob("FCCODE")%>"><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% End If
+					  rsJob.movenext
+					loop
+					End if
+					rsJob.Close
+					set rsJob = Nothing
+					%>
+				</select>
+			</td>
+            <td>
+				<select name="txtjob">
+					<option value="--SUMMARY--" <%if request("v_txtjob")="--SUMMARY--" then%> selected <%End if%>>--SUMMARY--</option>
+					<%
+					
+					Set rsJob = Server.CreateObject("ADODB.Recordset")
+					rsJob.CursorLocation = adUseClient
+					strsql =  " select * from ( Select '--ALL--' fccode,'' fcname from dual union select distinct t.JobCode fccde,job_api.get_jobcode_name(t.jobcode, t.fcba) fcname from budget_transaction_mill t where t.targettype='MA' )  order by fccode"
+					rsJob.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsJob.eof then
+					DO while not rsJob.eof
+					  if v_txtjob= rsJob("FCCODE") then
+						%>			
+						<option value="<%=rsJob("FCCODE")%>" Selected><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% Else %>	
+						<option value="<%=rsJob("FCCODE")%>"><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% End If
+					  rsJob.movenext
+					loop
+					End if
+					rsJob.Close
+					set rsJob = Nothing
+					%>
+					
+				</select>
+			</td>
+
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vJenisReport">
+			<option value="Group" <%if request.Form("vJenisReport")="Group" Then%> Selected <%End if%>>Per-Stasiun</option>
+			<option value="Job" <%if request.Form("vJenisReport")="Job" Then%> Selected <%End if%>>Per-Stasiun & Per-Pekerjaan</option>
+			<option value="Machine" <%if request.Form("vJenisReport")="Machine" Then%> Selected <%End if%>>Per-Mesin</option>
+			<option value="Combine" <%if request.Form("vJenisReport")="Combine" Then%> Selected <%End if%>>Per-Mesin & Per-Pekerjaan</option>
+			</select>
+			</td>
+			
+			
+
+<td><input type="submit" value="View" /></td>
+</form>
+</tr>
+</table>

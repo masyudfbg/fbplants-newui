@@ -1,0 +1,690 @@
+<!--#include file="../ConndB1.inc"-->
+<!--#include file="../txtFunction.inc"-->
+<%
+Const adOpenForwardOnly = 0
+Const adLockReadOnly = 1
+Const adCmdTableDirect = &H0200
+Const adUseClient = 3
+cmdstyle="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF"
+cmdstyleTop="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; border-top: 1 solid #0000FF"
+cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; border-Left: 1 solid #0000FF"
+
+%>
+
+<!--#include file="top1.Asp"-->
+<%If trim("vJenisReport") <> "" then%>
+  <table width="100%" border="0" cellspacing="0"  cellpadding="0">
+  </table>
+  <font style="font-size:12px">
+  </font>
+<table border=0 Cellspacing =1 Cellpadding=1 width="100%" >
+    <tr><td align="left">
+<!-- cmdTransaction to different of Transaction or table master 
+     True = Transaction ; False = table Master
+-->
+<%cmdTransaction=False%>
+<%vJenisReport=trim(Request.Form("vJenisReport"))%>
+<span class="style2"></span></td>
+<!--#include file="form_act.html"-->
+<table border=0 Cellspacing =0 Cellpadding=0 width="100%">
+<%
+  'Dim rs
+  Set rs = Server.CreateObject("ADODB.Recordset")
+
+  If trim(request.Form("vCROPTYPE")) ="1" then
+     v_JobcodePanen="4119001"
+  ElseIf trim(request.Form("vCROPTYPE")) ="2" then
+     v_JobcodePanen="4119002"
+  else
+     v_JobcodePanen="4119003"
+  end if
+   
+  rs.PageSize = 5
+  rs.CacheSize = 5
+  rs.CursorLocation = adUseClient
+  IF request.Form("vYear")="" THEN
+	  strsql =  " SELECT Division,PlantingDate,ACTIVITY_HEADING,ACCOUNTGROUP,sum(TM_AMT_ACTUAL),sum(TM_HA_KG_ACTUAL), " & _
+				" max(TM_AMT_BUDGET),max(TM_HA_KG_BUDGET),sum(TY_AMT_ACTUAL),sum(TY_HA_KG_ACTUAL), " & _
+				" sum(TY_AMT_BUDGET),sum(TY_HA_KG_BUDGET) from sac_ACCOUNTREPORT_TM_TBM  " & _
+				" where PERIOD_YEAR=2006 and PERIOD_MONTH=1" & _
+				" and BA='xxx' and STATUS='TM' "& _
+				" group by Division,PlantingDate,ACTIVITY_HEADING,ACCOUNTGROUP "
+				 '& _				" order by ACTIVITY_HEADING DESC "
+  ELSE			
+      if request.Form("vJenisReport")="Group" Then
+	          strsql1 = "SELECT ACCOUNTGROUPCODE,ACTIVITY_HEADING,ACCOUNTGROUP," & _
+			  " sum(TM_AMT_ACTUAL) AS TM_AMT_ACTUAL," & _
+			  " sum(TM_AMT_BUDGET) AS TM_AMT_BUDGET," & _
+			  " sum(TM_HA_KG_ACTUAL) AS TM_HA_KG_ACTUAL ," & _
+			  " sum(TM_HA_KG_BUDGET) AS TM_HA_KG_BUDGET," & _
+			  " sum(TY_AMT_ACTUAL) AS TY_AMT_ACTUAL," & _
+			  " sum(TY_AMT_BUDGET) AS TY_AMT_BUDGET," & _
+			  " sum(TY_HA_KG_ACTUAL) AS TY_HA_KG_ACTUAL," & _
+			  " sum(TY_HA_KG_BUDGET) AS TY_HA_KG_BUDGET," & _
+			  " SUM(AMT_ANNUAL) AS AMT_ANNUAL" & _
+			  " from SAC_ACCOUNTREPORT_TM_TBM  WHERE" & _
+			  " CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+			  " and ACCOUNTGROUPCODE NOT IN  (4124000,4123000,4122000,4121000)" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+			  strHA1 = " select sum(HA) AS HA from SAC_HA_BUDGET_ACTUAL where " & _
+			  " CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+			  strKG1 = " select SUM(TM_HA_KG_BUDGET) AS TM_HA_KG_BUDGET,sum(TM_HA_KG_ACTUAL) AS TM_HA_KG_ACTUAL," & _
+			  "sum(TY_HA_KG_BUDGET) AS TY_HA_KG_BUDGET,sum(Ty_HA_KG_ACTUAL) AS Ty_HA_KG_ACTUAL,SUM(HA_KG_ANNUAL) " & _
+			  " AS HA_KG_ANNUAL" & _
+			  " from SAC_ACCOUNTREPORT_TM_TBM where  ACCOUNTCODE='" & v_JobcodePanen & "' AND " & _
+			  " CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+	  elseif request.Form("vJenisReport")="Job" Then			
+	          strsql1 = "SELECT ACCOUNTCODE,ACTIVITY_HEADING,DESCRIPTION," & _
+			  " sum(TM_AMT_ACTUAL) AS TM_AMT_ACTUAL," & _
+			  " sum(TM_AMT_BUDGET) AS TM_AMT_BUDGET," & _
+			  " sum(TM_HA_KG_ACTUAL) AS TM_HA_KG_ACTUAL ," & _
+			  " sum(TM_HA_KG_BUDGET) AS TM_HA_KG_BUDGET," & _
+			  " sum(TY_AMT_ACTUAL) AS TY_AMT_ACTUAL," & _
+			  " sum(TY_AMT_BUDGET) AS TY_AMT_BUDGET," & _
+			  " sum(TY_HA_KG_ACTUAL) AS TY_HA_KG_ACTUAL," & _
+			  " sum(TY_HA_KG_BUDGET) AS TY_HA_KG_BUDGET," & _
+			  " SUM(AMT_ANNUAL) AS AMT_ANNUAL" & _
+			  " from SAC_ACCOUNTREPORT_TM_TBM  WHERE" & _
+			  " CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and ACCOUNTGROUPCODE NOT IN  (4124000,4123000,4122000,4121000)" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+			  strHA1 = " select sum(HA) AS HA from SAC_HA_BUDGET_ACTUAL where " & _
+			  " CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+			  strKG1 = " select SUM(TM_HA_KG_BUDGET) AS TM_HA_KG_BUDGET,sum(TM_HA_KG_ACTUAL) AS TM_HA_KG_ACTUAL," & _
+			  "sum(TY_HA_KG_BUDGET) AS TY_HA_KG_BUDGET,sum(Ty_HA_KG_ACTUAL) AS Ty_HA_KG_ACTUAL,SUM(HA_KG_ANNUAL) " & _
+			  " AS HA_KG_ANNUAL" & _
+			  " from SAC_ACCOUNTREPORT_TM_TBM where  ACCOUNTCODE='" & v_JobcodePanen & "' AND " & _
+			  " CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+	  elseif request.Form("vJenisReport")="Source" Then			
+	          strsql1 = "SELECT ACCOUNTGROUPCODE,ACTIVITY_HEADING,ACCOUNTGROUP,LOCATIONTYPENAME," & _
+			  " sum(TM_AMT_ACTUAL) AS TM_AMT_ACTUAL," & _
+			  " sum(TM_AMT_BUDGET) AS TM_AMT_BUDGET," & _
+			  " sum(TM_HA_KG_ACTUAL) AS TM_HA_KG_ACTUAL ," & _
+			  " sum(TM_HA_KG_BUDGET) AS TM_HA_KG_BUDGET," & _
+			  " sum(TY_AMT_ACTUAL) AS TY_AMT_ACTUAL," & _
+			  " sum(TY_AMT_BUDGET) AS TY_AMT_BUDGET," & _
+			  " sum(TY_HA_KG_ACTUAL) AS TY_HA_KG_ACTUAL," & _
+			  " sum(TY_HA_KG_BUDGET) AS TY_HA_KG_BUDGET," & _
+			  " SUM(AMT_ANNUAL) AS AMT_ANNUAL" & _
+			  " from SAC_ACCOUNTREPORT_PerSource ,AA_LOCATIONTYPE " & _
+			  " WHERE SAC_ACCOUNTREPORT_PerSource.SOURCETYPE = AA_LOCATIONTYPE.LOCATIONTYPECODE" & _
+			  " AND CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+			  " and ACCOUNTGROUPCODE NOT IN  (4124000,4123000,4122000,4121000)" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+			  strHA1 = " select sum(HA) AS HA from SAC_HA_BUDGET_ACTUAL where " & _
+			  " CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+			  strKG1 = " select SUM(TM_HA_KG_BUDGET) AS TM_HA_KG_BUDGET,sum(TM_HA_KG_ACTUAL) AS TM_HA_KG_ACTUAL," & _
+			  "sum(TY_HA_KG_BUDGET) AS TY_HA_KG_BUDGET,sum(Ty_HA_KG_ACTUAL) AS Ty_HA_KG_ACTUAL,SUM(HA_KG_ANNUAL) " & _
+			  " AS HA_KG_ANNUAL" & _
+			  " from SAC_ACCOUNTREPORT_TM_TBM where  ACCOUNTCODE='" & v_JobcodePanen & "' AND " & _
+			  " CROPTYPE='" & request.Form("vCROPTYPE") & "'" & _
+			  " and OWNERSHIP in " & "(" & request.Form("vOWNERSHIP") & ")" & _
+              " and Status='" & request.Form("vStatus") & "'" & _
+			  " and PERIOD_YEAR=" & request.Form("vYear")
+	  end if			
+	  if  request.Form("vMonth") <>"ALL" then
+	      strsql2 = " and PERIOD_MONTH=" & request.Form("vMonth") 
+	  else
+	      strsql2 = " "
+	  end if
+	  if  request.Form("vBA") <>"ALL" then
+	      strsql3 = "  and BA='" & request.Form("vBA") & "'" 
+	  else
+	      strsql3 = " "
+	  end if
+	  if  request.Form("vOrganization") <>"ALL" then
+	      strsql3A = "  and BA in (Select BA from AA_Organization where GROUP_BA='" & trim(request.Form("vOrganization")) & "')" 
+	  else
+	      strsql3A= " "
+	  end if
+	  if  request.Form("vPlantingDate") <>"ALL" then
+	      strsql4 = " and PlantingDate='" & request.Form("vPlantingDate") & "'"
+	  else
+	      strsql4 = " "
+	  end if
+	  if  request.Form("vDivision") <>"ALL" then
+	      strsql5 = " and Division='" & request.Form("vDivision") & "'" 
+	  else
+	      strsql5 = " "
+	  end if
+	  if request.Form("vJenisReport")="Group" Then
+	         strsql6= " group by ACCOUNTGROUPCODE,ACTIVITY_HEADING,ACCOUNTGROUP" 
+	  elseif request.Form("vJenisReport")="Job" Then
+	         strsql6= " group by AccountCode,ACTIVITY_HEADING,DESCRIPTION" 'order by ACTIVITY_HEADING DESC" 
+	  elseif request.Form("vJenisReport")="Source" Then
+	         strsql6= " group by ACCOUNTGROUPCODE,ACTIVITY_HEADING,ACCOUNTGROUP,LOCATIONTYPENAME" 
+	  end if	 
+	  strsql = strsql1 + strsql2 + strsql3 + strsql3A + strsql4 + strsql5 + strsql6
+	  strHA  = strHA1 + strsql2 + strsql3 + strsql3A + strsql4 + strsql5
+	  STRKG  = strKG1 + strsql2 + strsql3 + strsql3A + strsql4 + strsql5
+  END IF
+
+Dim rsHA
+Set rsHA = Server.CreateObject("ADODB.Recordset")
+rsHA.CursorLocation = adUseClient
+nHA = 0
+if trim(strHA) <>"" then
+   'response.Write strHA
+   rsHA.Open strHA, connStr, adOpenForwardOnly, adLockReadOnly
+   IF not rsha.eof then
+      nHA = rsHA("HA")
+   end if
+End if
+Dim rsKG
+Set rsKG = Server.CreateObject("ADODB.Recordset")
+rsKG.CursorLocation = adUseClient
+nTM_HA_KG_ACTUAL = 0
+nTM_HA_KG_BUDGET = 0
+nTY_HA_KG_ACTUAL = 0
+nTY_HA_KG_BUDGET = 0
+nHA_KG_ANNUAL=0
+if trim(strKG) <>"" and trim(request.Form("vStatus")) ="TM" then
+   'RESPONSE.Write STRKG
+   rsKG.Open strKG, connStr, adOpenForwardOnly, adLockReadOnly
+   IF not rsKG.eof then
+      nTM_HA_KG_ACTUAL = rsKG("TM_HA_KG_ACTUAL")
+      nTM_HA_KG_BUDGET = rsKG("TM_HA_KG_BUDGET")
+      nTY_HA_KG_ACTUAL = rsKG("TY_HA_KG_ACTUAL")
+      nTY_HA_KG_BUDGET = rsKG("TY_HA_KG_BUDGET")
+	  nHA_KG_ANNUAL = rsKG("HA_KG_ANNUAL")
+   end if
+End if
+
+'response.write strsql
+'RESPONSE.Flush()
+rs.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+
+If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
+    <tr><td colspan="3">Data is empty</tr></td>
+<%elseif not rs.eof and Len(trim(request("vJenisReport"))) > 0 Then
+	rs.movefirst
+	
+	howmanyfields=rs.fields.count-1
+	
+	JumRec=1
+	intRecordsPerPage = 1000
+	Rs.PageSize = intRecordsPerPage
+	intNumberOfPages = 0
+	intNumberOfPages =  Rs.PageCount
+	intRecords = Rs.RecordCount
+	' Set our AbsolutePage property.
+	If isEmpty(Request("iPageNo")) Then
+	   Rs.AbsolutePage = 1
+	Else
+	   Rs.AbsolutePage = Request("iPageNo")
+	End If  
+	
+	'---- Khusus untuk Judul
+	if trim(request.Form("vOwnership")) ="1" then
+	 vTextOwnership = "Inti"
+	elseif trim(request.Form("vOwnership")) ="2" then 
+	 vTextOwnership = "PMBN"
+	elseif trim(request.Form("vOwnership")) ="3" then
+	 vTextOwnership = "PMU"
+	elseif trim(request.Form("vOwnership")) ="4" then	 
+	 vTextOwnership = "Plasma"
+	elseif trim(request.Form("vOwnership")) ="5" then	 
+	 vTextOwnership = "Plasma Pre"
+	elseif trim(request.Form("vOwnership")) ="6" then	 
+	 vTextOwnership = "KKPA"
+	elseif trim(request.Form("vOwnership")) ="7" then	 
+	 vTextOwnership = "KKPA Pre"
+	elseif trim(request.Form("vOwnership")) ="8" then	 
+	 vTextOwnership = "TKD"
+	elseif trim(request.Form("vOwnership")) ="1,3,8" then	 
+	 vTextOwnership = "Inti+TKD+PMU"
+	end if	 
+	
+	if Trim(Request.Form("vCROPTYPE"))="1" then
+	 vTextCroptype="Sawit (Oil Palm)"
+	elseif Trim(Request.Form("vCROPTYPE"))="2" then
+	 vTextCroptype="Karet (Rubber)"
+	elseif Trim(Request.Form("vCROPTYPE"))="3" then
+	 vTextCroptype="Coklat (CoCoa)"
+	End if
+	'---- end Judul
+	%>
+
+	<table width="200" cellpadding="2" bgcolor="#F7F7F7" cellspacing="0">  
+	<!--#include file="HEADER.TXT"-->
+	<%
+	if request.Form("vJenisReport")="Group" then
+	 fieldnumeric = 3
+	elseif request.Form("vJenisReport")="Job" then
+	 fieldnumeric = 3
+	else
+	 fieldnumeric = 3	 
+	end if
+	nTotal_TM_Actual =0
+	nTotal_TY_Actual =0
+	nTotal_TM_BUDGET =0
+	nTotal_TY_BUDGET =0
+	
+	sub_Tm_Amt_Actual = 0
+	sub_Tm_Amt_Budget = 0
+	sub_TY_Amt_Actual = 0
+	sub_TY_Amt_Budget = 0
+	sub_Total_AMT_Annual= 0
+	sub_Pembagi_TM = 0
+    While not Rs.EOF and intRecordsPerPage > 0
+	  nTM_RP_HA_ACTUAL = 0
+	  nTY_RP_HA_ACTUAL = 0
+	  nTM_RP_HA_BUDGET = 0
+	  nTY_RP_HA_BUDGET = 0
+	  nRP_HA_ANNUAL    = 0
+	  nPersenTM        = 0
+	  nPersenTY        = 0
+      nstrPanen=""
+	  txtCostElement=""
+	  %>
+      <!--#Include File="RP_Per_Ha.asp"-->
+      <%IF trim(Headactivity) <> trim(rs("ACTIVITY_HEADING")) AND JumRec > 1 then%>
+           <!--#include file="SUB_TOTAL_Tm_TBM.TXT"-->
+	  <%End if%>   
+	  </font>
+	  <tr style="<%=cmdstyle%>">
+      <%if request.Form("vJenisReport")="Group" or request.Form("vJenisReport")="Source" then
+	     if trim(HeadCode)=trim(rs("ACCOUNTGROUPCODE")) then%>  
+		    <td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyleLeft%>">&nbsp;</font></td>
+		 <%Else%>	
+		    <td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyleLeft%>">
+		    <%=rs("ACCOUNTGROUPCODE")%></font></td>
+		 <%End if%>	
+		<%IF trim(Headactivity) = trim(rs("ACTIVITY_HEADING")) THEN%>
+		     <td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyle%>">&nbsp;</td>
+		<%Else%>
+		     <td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyle%>">
+			 <%=rs("ACTIVITY_HEADING")%></font></td>
+		<%end if%>
+        <%If request.Form("vJenisReport")="Source" then
+		    'Kalau Per Cost Element Perlu di Non aktifkan
+			'Perulangan Description di Tampilan
+		    if trim(HeadJobGroup) <> trim(rs("ACCOUNTGROUP")) then %>
+				<td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyle%>">
+				
+				<%=rs("ACCOUNTGROUP")%></font></td>
+		    <%Else%>
+			    <td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyle%>">&nbsp;</td>
+			<%End if%>		
+			<td valign="top" bgcolor="#CCCCCC" align="Left" style="<%=cmdstyle%>">
+			<A href="p_BreakCostElement.asp?vJenisReport=Group&
+			vYear=<%=request.Form("vYear")%>&vMOnth=<%=request.Form("vMonth")%>&vBA=<%=request.Form("vBA")%>&
+			vStatus=<%=request.Form("vStatus")%>&vOwnership=<%=request.Form("vOwnership")%>&
+			vCropType=<%=request.Form("vCropType")%>&vDivision=<%=request.Form("vDivision")%>&
+			vPlantingDate=<%=request.Form("vPlantingDate")%>&v_JobGroup=<%=rs(0)%>&
+			vOrganization=<%=request.Form("vOrganization")%>" target="_blank">			
+			<%=RS("LOCATIONTYPENAME")%></A></font></td>
+        <%Else%>
+			<td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyle%>">
+			
+			<A href="P_byJobcode.Asp?vJenisReport=<%=vJenisReport%>&
+			vYear=<%=request.Form("vYear")%>&vMOnth=<%=request.Form("vMonth")%>&vBA=<%=request.Form("vBA")%>&
+			vStatus=<%=request.Form("vStatus")%>&vOwnership=<%=request.Form("vOwnership")%>&
+			vCropType=<%=request.Form("vCropType")%>&vDivision=<%=request.Form("vDivision")%>&
+			vPlantingDate=<%=request.Form("vPlantingDate")%>&v_JobGroup=<%=rs(0)%>&
+			vOrganization=<%=request.Form("vOrganization")%>" target="_blank"><%=rs("ACCOUNTGROUP")%></A></font></td>
+        <%End if%>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("TM_AMT_ACTUAL"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nTM_RP_HA_ACTUAL,0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("TM_AMT_BUDGET"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nTM_RP_HA_BUDGET,0)%></font></td>
+		<%if nPersenTM < 0 then%>
+		  <td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" color="#FF0000">
+		  <%=FormatNumber(nPersenTM,2)%></font></td>
+		<%else%>
+		  <td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		  <%=FormatNumber(nPersenTM,2)%></font></td>
+		<%end if%>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("TY_AMT_ACTUAL"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nTY_RP_HA_ACTUAL,0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("TY_AMT_BUDGET"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nTY_RP_HA_BUDGET,0)%></font></td>
+		<%if nPersenTY < 0 then%>
+		     <td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"  color="#FF0000">
+		     <%=FormatNumber(nPersenTY,2)%></font></td>
+		<%else%>
+		     <td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		     <%=FormatNumber(nPersenTY,2)%></font></td>
+		<%end if%>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("AMT_ANNUAL"),2)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nRP_HA_ANNUAL,2)%></font></td>
+		</tr>
+		  
+     <%else    'Untuk Per JobCode %>
+		<td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyleLeft%>">
+		<%=rs("ACCOUNTCODE")%></font></td>
+		<%IF trim(Headactivity) = trim(rs("ACTIVITY_HEADING")) THEN%>
+			 <td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyle%>">&nbsp;</td>
+		<%Else%>
+			 <td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyle%>">
+			 <%=rs("ACTIVITY_HEADING")%></font></td>
+		<%end if%>
+		<td valign="top" bgcolor="#CCCCCC" align="left" style="<%=cmdstyle%>">
+		<A href="P_byJobcode.Asp?vJenisReport=<%=vJenisReport%>&vYear=<%=request.Form("vYear")%>&
+		vMOnth=<%=request.Form("vMonth")%>&vBA=<%=request.Form("vBA")%>&vStatus=<%=request.Form("vStatus")%>&
+		vOwnership=<%=request.Form("vOwnership")%>&vCropType=<%=request.Form("vCropType")%>&
+		vDivision=<%=request.Form("vDivision")%>&vPlantingDate=<%=request.Form("vPlantingDate")%>&
+		v_JobGroup=<%=rs(0)%>" target="_blank"><%=rs("DESCRIPTION")%></A></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("TM_AMT_ACTUAL"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nTM_RP_HA_ACTUAL,0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("TM_AMT_BUDGET"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nTM_RP_HA_BUDGET,0)%></font></td>
+		<%if nPersenTM < 0 then%>
+			<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" color="#FF0000">
+			<%=FormatNumber(nPersenTM,2)%></font></td>
+		<%else%>
+		   <td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		   <%=FormatNumber(nPersenTM,2)%></font></td>
+		<%end if%>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("TY_AMT_ACTUAL"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nTY_RP_HA_ACTUAL,0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("TY_AMT_BUDGET"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nTY_RP_HA_BUDGET,0)%></font></td>
+		<%if nPersenTM < 0 then%>
+			<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" color="#FF0000">
+			<%=FormatNumber(nPersenTY,2)%></font></td>
+       <%else%>
+            <td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+			<%=FormatNumber(nPersenTY,2)%></font></td>
+       <%End if%>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(rs("AMT_ANNUAL"),0)%></font></td>
+		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
+		<%=FormatNumber(nRP_HA_ANNUAL,0)%></font></td></tr>
+     <%End If%>  
+     <%
+	 Headactivity     = rs.fields(1)
+     HeadJobGroup =rs.fields(2)
+	 HeadCode =rs(0)
+	 
+     nTotal_TM_Actual = nTotal_TM_Actual + cdbl(rs("TM_AMT_ACTUAL"))
+     nTotal_TY_Actual = nTotal_TY_Actual + cdbl(rs("Ty_AMT_ACTUAL"))
+     nTotal_TM_BUDGET = nTotal_TM_BUDGET + cdbl(rs("TM_AMT_BUDGET"))
+     nTotal_TY_BUDGET = nTotal_TY_BUDGET + cdbl(rs("Ty_AMT_BUDGET"))
+	 nTotal_AMT_Annual= nTotal_AMT_Annual + cdbl(rs("AMT_ANNUAL"))
+	 
+	 '--- For Sub Total ---
+     sub_Tm_Amt_Actual = sub_Tm_Amt_Actual+cdbl(rs("TM_AMT_ACTUAL")) 
+     sub_Tm_Amt_Budget = sub_Tm_Amt_Budget+cdbl(rs("TM_AMT_Budget"))	 
+     sub_TY_Amt_Actual = sub_TY_Amt_Actual+cdbl(rs("TY_AMT_ACTUAL"))	 
+     sub_TY_Amt_Budget = sub_TY_Amt_Budget+cdbl(rs("TY_AMT_Budget"))
+	 sub_Total_AMT_Annual= sub_Total_AMT_Annual + cdbl(rs("AMT_ANNUAL"))
+
+	 if request.Form("vJenisReport")="Group" or request.Form("vJenisReport")="Source" then
+	  if cdbl(mid(rs("ACCOUNTGROUPCODE"),1,4))>=4119 then
+		 sub_Pembagi_Actual_TM =  SetValueOne(nTM_HA_KG_ACTUAL)
+		 sub_Pembagi_Budget_TM =  SetValueOne(nTM_HA_KG_Budget)
+		 sub_Pembagi_Actual_Ty =  SetValueOne(nTy_HA_KG_ACTUAL)
+		 sub_Pembagi_Budget_Ty =  SetValueOne(nTy_HA_KG_Budget)
+		 sub_Pembagi_Annual    =  SetValueOne(nHA_KG_ANNUAL)
+	  ELSE
+		 sub_Pembagi_Actual_TM =  nHA
+		 sub_Pembagi_Budget_TM =  nHA
+		 sub_Pembagi_Actual_Ty =  nHA
+		 sub_Pembagi_Budget_Ty =  nHA
+		 sub_Pembagi_Annual    =  nHA
+	  end if
+	 else
+	  if cdbl(mid(rs("ACCOUNTCODE"),1,4))>=4119 then
+		 sub_Pembagi_Actual_TM =  SetValueOne(nTM_HA_KG_ACTUAL)
+		 sub_Pembagi_Budget_TM =  SetValueOne(nTM_HA_KG_Budget)
+		 sub_Pembagi_Actual_Ty =  SetValueOne(nTy_HA_KG_ACTUAL)
+		 sub_Pembagi_Budget_Ty =  SetValueOne(nTy_HA_KG_Budget)
+		 sub_Pembagi_Annual    =  SetValueOne(nHA_KG_ANNUAL)
+	  ELSE
+		 sub_Pembagi_Actual_TM =  nHA
+		 sub_Pembagi_Budget_TM =  nHA
+		 sub_Pembagi_Actual_Ty =  nHA
+		 sub_Pembagi_Budget_Ty =  nHA
+		 sub_Pembagi_Annual    =  nHA
+	  end if
+	 End if
+
+     '--- End Variable for sub Total	 
+	 rs.movenext
+	 
+     JumRec=JumRec+1
+	 intRecordsPerPage = intRecordsPerPage - 1
+	 
+  Wend%>
+<tr>
+    <%if request.Form("vJenisReport")="Source" then%>
+          <td style="<%=cmdstyleLeft%>"valign="top" bgcolor="#F7F7F7" align="right" colspan="4">
+		  <span class="style1">Sub-Total<%=HeadActivity%></td>
+   <%else%>
+          <td style="<%=cmdstyleLeft%>"valign="top" bgcolor="#F7F7F7" align="right" colspan="3">
+		  <span class="style1">Sub-Total<%=HeadActivity%></td>
+   <%End if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Tm_Amt_Actual,0)%></td>
+   <%if len(trim(sub_Pembagi_Actual_TM)) > 0 then%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Tm_Amt_Actual/cdbl(sub_Pembagi_Actual_TM)),0)%></td>
+   <%else%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Tm_Amt_Budget,0)%></td>
+   <%if len(trim(sub_Pembagi_Budget_TM)) > 0 then%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM)),0)%></td>
+   <%else%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+   <%if len(trim(sub_Pembagi_Budget_TM)) > 0 then
+	   if sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM) > 0 then
+		  sub_PersenTM=((sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM)) - (sub_Tm_Amt_Actual/cdbl(sub_Pembagi_Actual_TM))) / (sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM)) * 100
+	   else
+		  sub_PersenTM=0
+	   End if
+   End if %>
+   <%if sub_PersenTM <0 then%>
+       <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><font color="#FF0000"><%=FormatNumber(sub_PersenTM ,2)%></td>
+   <%else%>
+       <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_PersenTM ,2)%></td>
+   <%end if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Ty_Amt_Actual,0)%></td>
+   <%if len(trim(sub_Pembagi_Actual_Ty)) > 0 then%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Ty_Amt_Actual/cdbl(sub_Pembagi_Actual_Ty)),0)%></td>
+   <%else%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Ty_Amt_BUdget,0)%></td>
+   <%if len(trim(sub_Pembagi_Budget_Ty)) > 0 Then%>
+    <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((cdbl(sub_Ty_Amt_BUdget)/cdbl(sub_Pembagi_Budget_Ty)),0)%></td>
+   <%else%>
+    <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+   <%
+   if len(trim(sub_Pembagi_Budget_Ty)) > 0 then
+	   if sub_Ty_Amt_Budget/cdbl(sub_Pembagi_Budget_Ty) > 0 then
+		  sub_PersenTy=((sub_Ty_Amt_Budget/cdbl(sub_Pembagi_Budget_Ty)) - (sub_Ty_Amt_Actual/cdbl(sub_Pembagi_Actual_Ty))) / (sub_Ty_Amt_Budget/cdbl(sub_Pembagi_Budget_Ty)) * 100
+	   else
+		  sub_PersenTy=0
+	   End if
+   end if%>
+   <%if sub_PersenTY <0 then%>
+      <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><font color="#FF0000"><%=FormatNumber(sub_PersenTY,2)%></td>
+   <%else%>
+      <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_PersenTY,2)%></td>
+   <%End if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Total_AMT_Annual,0)%></td>
+   <%if len(trim(sub_Pembagi_Annual)) > 0 then %>
+     <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Total_AMT_Annual/cdbl(sub_Pembagi_Annual)),0)%></td>
+   <%else%>
+     <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+		 </tr>
+         <%
+		 '--- Normalisasi Variable
+		  sub_Tm_Amt_Actual = 0
+		  sub_Tm_Amt_Budget = 0
+		  sub_TY_Amt_Actual = 0
+		  sub_TY_Amt_Budget = 0
+		  sub_Total_AMT_Annual= 0		 
+		 
+	IF len(trim(nTM_HA_KG_ACTUAL)) > 0 and len(trim(request.Form("vJenisReport"))) > 0 and request.Form("vStatus")="TM" THEN
+	   if CDBL(nTM_HA_KG_ACTUAL) > 0 then
+	      nRpPerHA_TM = nTotal_TM_Actual/CDBL(nTM_HA_KG_ACTUAL)
+	   else
+	      nRpPerHA_TM = 0
+	   end if
+	   if CDBL(nTm_HA_KG_budget) > 0 then
+	      nRpPerHA_TM_Budget = nTotal_TM_Budget/CDBL(nTm_HA_KG_budget)
+	   else
+	      nRpPerHA_TM_Budget = 0
+	   end if
+	   if nRpPerHA_TM_Budget > 0 then
+		  nRpPersen_TM = (nRpPerHA_TM_Budget - nRpPerHA_TM) / nRpPerHA_TM_Budget * 100
+	   else
+		  nRpPersen_TM = 0
+	   end if
+	   if CDBL(nTY_HA_KG_budget) > 0 then
+	      nRpPerHA_TY_Budget = nTotal_TY_budget/CDBL(nTY_HA_KG_budget)
+	   else
+	      nRpPerHA_TY_Budget = 0
+	   end if
+	   if CDBL(nTY_HA_KG_ACTUAL) > 0 then
+	      nRpPerHA_TY = nTotal_TY_Actual/CDBL(nTY_HA_KG_ACTUAL)
+	   else
+	      nRpPerHA_TY = 0
+	   end if
+	   if nRpPerHA_TY_Budget > 0 then
+		  nRpPersen_TY = (nRpPerHA_TY_Budget - nRpPerHA_TY) / nRpPerHA_TY_Budget * 100
+	   else
+		  nRpPersen_TY = 0
+	   end if
+	   if CDBL(nHA_KG_ANNUAL) > 0 then
+	      nRpPer_Annual = nTotal_AMT_Annual/CDBL(nHA_KG_ANNUAL)
+	   else
+	      nRpPer_Annual = 0
+	   end if
+	elseif len(trim(nTM_HA_KG_ACTUAL)) > 0 and len(trim(request.Form("vJenisReport"))) > 0 and request.Form("vStatus")="TBM" THEN
+	   'response.Write "hasil " & nTotal_TM_Actual
+	   if CDBL(nHa) > 0 then
+	      nRpPerHA_TM = nTotal_TM_Actual/CDBL(nHa)
+	      nRpPerHA_TM_Budget = nTotal_TM_Budget/CDBL(nHA)
+	   else
+	      nRpPerHA_TM = 0
+	      nRpPerHA_TM_Budget = 0
+	   end if
+	   if nRpPerHA_TM_Budget > 0 then
+		  nRpPersen_TM = (nRpPerHA_TM_Budget - nRpPerHA_TM) / nRpPerHA_TM_Budget * 100
+	   else
+		  nRpPersen_TM = 0
+	   end if
+	   if CDBL(nHA) > 0 then
+	      nRpPerHA_TY_Budget = nTotal_TY_budget/CDBL(nHA)
+	      nRpPerHA_TY = nTotal_TY_Actual/CDBL(nHa)
+	   else
+	      nRpPerHA_TY_Budget = 0
+	      nRpPerHA_TY = 0
+	   end if
+	   if nRpPerHA_TY_Budget > 0 then
+		  nRpPersen_TY = (nRpPerHA_TY_Budget - nRpPerHA_TY) / nRpPerHA_TY_Budget * 100
+	   else
+		  nRpPersen_TY = 0
+	   end if
+	   if CDBL(nHa) > 0 then
+	      nRpPer_Annual = nTotal_AMT_Annual/CDBL(nHa)
+	   end if
+	else
+	   nRpPerHA_TM = 0
+	   nRpPerHA_TY = 0
+	   nRpPerHA_TM_Budget = 0
+	   nRpPerHA_TY_Budget = 0
+	   nRpPer_Annual=0
+	   nRpPersen_TM=0
+	   nRpPersen_TY=0
+	END IF%>
+	<%
+	rs.close
+	set rs = nothing%>
+	<tr bgcolor="#FFFF99">
+    <%if request.Form("vJenisReport")="Source" then%>
+	     <td colspan="4" align="center" style="<%=cmdstyleLeft%>"><b><span class="style1">T O T A L</b></td>
+	<%else%>
+	     <td colspan="3" align="center" style="<%=cmdstyleLeft%>"><b><span class="style1">T O T A L</b></td>
+	<%End if%>
+	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TM_Actual,0)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TM,0)%></b></td>
+	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TM_BUDGET,0)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TM_Budget,0)%></b></td>
+	<%if nRpPersen_TM <0 then%>
+	  <td colspan="1" align="Right" style="<%=cmdstyle%>">
+	  <b><font color="#FF0000"><%=FormatNumber(nRpPersen_TM,2)%></font></b></td>
+	<%else%>
+	  <td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPersen_TM,2)%></b></td>
+	<%end if%>
+	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TY_Actual,0)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TY,0)%></b></td>
+	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TY_BUDGET,0)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TY_Budget,0)%></b></td>
+	<%if nRpPersen_TY <0 then%>
+	   <td colspan="1" align="Right" style="<%=cmdstyle%>">
+	   <b><font color="#FF0000"><%=FormatNumber(nRpPersen_TY,2)%></font></b></td>
+	<%else%>
+	   <td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPersen_TY,2)%></b></td>
+	<%end if%>
+	<td colspan="1"  style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_AMT_Annual,2)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPer_Annual,2)%></b></td>
+	</tr>
+	<tr>
+	<td colspan="15">
+	   <%if intNumberOfPages<>1 then
+		  For i = 1 to intNumberOfPages
+			  Response.Write "<font size=""2"" face=""Arial Narrow"" color=""#FFFFFF""><a href=""AccountReport.asp?&iPageNo=" &  i & "&vJenisReport=" & request.Form("vJenisReport")& "&fcValue_Organization=" & request("fcValue_Organization") & """>" & i & "  "
+		  Next
+	   End if%>
+	   </a><br>
+	   <%if Request("iPageNo") = "" then%>
+			<%nPage = 1%>
+	   <%Else%>
+			<%nPage = Request("iPageNo")%>
+	   <%End if%>
+	   &nbsp</td>
+	</tr>
+	</Table></center>
+	   <font size="-4">
+	   <%'response.Write(strsql)%></font><%
+	%>
+	</font>
+<%End if%>
+
+<%End if%>
+<!--#include file="bottom.Asp"-->

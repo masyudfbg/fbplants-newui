@@ -1,0 +1,21 @@
+/*
+Untuk Memberikan Warna Hijau Pada Button, Buka Fungsi Comment dibawah */
+/**/
+input[type="button"] {
+    background-color: #5BB75B;
+    background-image: linear-gradient(to bottom, #62C462, #51A351);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+input[type="button"]:hover, 
+input[type="button"]:focus, 
+input[type="button"]:active, 
+input[type="button"].active, 
+input[type="button"].disabled, 
+input[type="button"][disabled] {
+    background-color: #51A351;
+    color: #FFFFFF;
+}
+/**/

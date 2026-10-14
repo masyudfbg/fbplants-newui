@@ -1,0 +1,1495 @@
+				<%
+					if not rsRendemenFinal.EOF then
+						no = 0
+						
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsRendemenFinal.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsRendemenFinal("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "RENDEMEN"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'PRODUCTION' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsRendemenFinal("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")								
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""		
+										tempRounding = 2
+									end if		
+									tempUOM = rsRendemenFinal("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYRendemen.html"-->
+								
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>								
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>">O E R</a></td>
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+									
+									if cdbl(rsRendemenFinal("TBS_PROCESS_BUDGET_SHI")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsRendemenFinal("CPO_PRODUCTION_BUDGET_SHI")) /  cdbl(rsRendemenFinal("TBS_PROCESS_BUDGET_SHI")) * 100
+									else
+										tempDataBudget_SHI = 0
+									end if
+									
+									if cdbl(rsRendemenFinal("TBS_PROCESS_BUDGET_SBI")) <> 0 then
+										tempDataBudget_SBI = cdbl(rsRendemenFinal("CPO_PRODUCTION_BUDGET_SBI")) /  cdbl(rsRendemenFinal("TBS_PROCESS_BUDGET_SBI")) * 100	
+									else
+										tempDataBudget_SBI = 0 
+									end if
+									
+								%>					
+								
+								<%  
+									if rsRendemenFinal("TBS_PROCESS_H_01") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_01")) <> 0 then 
+											tempH_01 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_01")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_01")) * 100
+										else
+										    tempH_01 = 0
+										end if
+									else
+										tempH_01 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_02") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_02")) <> 0 then 
+											tempH_02 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_02")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_02")) * 100
+										else
+										    tempH_02 = 0
+										end if
+									else
+										tempH_02 = 0
+									end if
+									
+									if rsRendemenFinal("TBS_PROCESS_H_03") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_03")) <> 0 then 
+											tempH_03 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_03")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_03")) * 100
+										else
+										    tempH_03 = 0
+										end if
+									else
+										tempH_03 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_04") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_04")) <> 0 then 
+											tempH_04 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_04")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_04")) * 100
+										else
+										    tempH_04 = 0
+										end if
+									else
+										tempH_04 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_05") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_05")) <> 0 then 
+											tempH_05 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_05")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_05")) * 100
+										else
+										    tempH_05 = 0
+										end if
+									else
+										tempH_05 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_06") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_06")) <> 0 then 
+											tempH_06 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_06")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_06")) * 100
+										else
+										    tempH_06 = 0
+										end if
+									else
+										tempH_06 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_07") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_07")) <> 0 then 
+											tempH_07 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_07")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_07")) * 100
+										else
+										    tempH_07 = 0
+										end if
+									else
+										tempH_07 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_08") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_08")) <> 0 then 
+											tempH_08 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_08")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_08")) * 100
+										else
+										    tempH_08 = 0
+										end if
+									else
+										tempH_08 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_09") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_09")) <> 0 then 
+											tempH_09 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_09")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_09")) * 100
+										else
+										    tempH_09 = 0
+										end if
+									else
+										tempH_09 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_10") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_10")) <> 0 then 
+											tempH_10 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_10")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_10")) * 100
+										else
+										    tempH_10 = 0
+										end if
+									else
+										tempH_10 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_11") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_11")) <> 0 then 
+											tempH_11 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_11")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_11")) * 100
+										else
+										    tempH_11 = 0
+										end if
+									else
+										tempH_11 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_12") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_12")) <> 0 then 
+											tempH_12 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_12")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_12")) * 100
+										else
+										    tempH_12 = 0
+										end if
+									else
+										tempH_12 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_13") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_13")) <> 0 then 
+											tempH_13 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_13")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_13")) * 100
+										else
+										    tempH_13 = 0
+										end if
+									else
+										tempH_13 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_14") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_14")) <> 0 then 
+											tempH_14 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_14")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_14")) * 100
+										else
+										    tempH_14 = 0
+										end if
+									else
+										tempH_14 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_15") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_15")) <> 0 then 
+											tempH_15 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_15")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_15")) * 100
+										else
+										    tempH_15 = 0
+										end if
+									else
+										tempH_15 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_16") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_16")) <> 0 then 
+											tempH_16 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_16")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_16")) * 100
+										else
+										    tempH_16 = 0
+										end if
+									else
+										tempH_16 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_17") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_17")) <> 0 then 
+											tempH_17 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_17")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_17")) * 100
+										else
+										    tempH_17 = 0
+										end if
+									else
+										tempH_17 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_18") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_18")) <> 0 then 
+											tempH_18 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_18")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_18")) * 100
+										else
+										    tempH_18 = 0
+										end if
+									else
+										tempH_18 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_19") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_19")) <> 0 then 
+											tempH_19 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_19")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_19")) * 100
+										else
+										    tempH_19 = 0
+										end if
+									else
+										tempH_19 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_20") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_20")) <> 0 then 
+											tempH_20 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_20")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_20")) * 100
+										else
+										    tempH_20 = 0
+										end if
+									else
+										tempH_20 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_21") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_21")) <> 0 then 
+											tempH_21 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_21")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_21")) * 100
+										else
+										    tempH_21 = 0
+										end if
+									else
+										tempH_21 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_22") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_22")) <> 0 then 
+											tempH_22 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_22")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_22")) * 100
+										else
+										    tempH_22 = 0
+										end if
+									else
+										tempH_22 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_23") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_23")) <> 0 then 
+											tempH_23 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_23")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_23")) * 100
+										else
+										    tempH_23 = 0
+										end if
+									else
+										tempH_23 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_24") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_24")) <> 0 then 
+											tempH_24 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_24")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_24")) * 100
+										else
+										    tempH_24 = 0
+										end if
+									else
+										tempH_24 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_25") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_25")) <> 0 then 
+											tempH_25 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_25")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_25")) * 100
+										else
+										    tempH_25 = 0
+										end if
+									else
+										tempH_25 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_26") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_26")) <> 0 then 
+											tempH_26 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_26")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_26")) * 100
+										else
+										    tempH_26 = 0
+										end if
+									else
+										tempH_26 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_27") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_27")) <> 0 then 
+											tempH_27 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_27")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_27")) * 100
+										else
+										    tempH_27 = 0
+										end if
+									else
+										tempH_27 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_28") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_28")) <> 0 then 
+											tempH_28 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_28")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_28")) * 100
+										else
+										    tempH_28 = 0
+										end if
+									else
+										tempH_28 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_29") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_29")) <> 0 then 
+											tempH_29 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_29")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_29")) * 100
+										else
+										    tempH_29 = 0
+										end if
+									else
+										tempH_29 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_30") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_30")) <> 0 then 
+											tempH_30 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_30")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_30")) * 100
+										else
+										    tempH_30 = 0
+										end if
+									else
+										tempH_30 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_31") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_31")) <> 0 then 
+											tempH_31 = cdbl(rsRendemenFinal("CPO_PRODUCTION_H_31")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_31")) * 100
+										else
+										    tempH_31 = 0
+										end if
+									else
+										tempH_31 = 0
+									end if
+
+									
+									
+									
+									
+									if rsRendemenFinal("TBS_PROCESS_SHI") <> "" then 
+										if cdbl(rsRendemenFinal("TBS_PROCESS_SHI")) <> 0 then 
+											tempSHI = cdbl(rsRendemenFinal("CPO_PRODUCTION_SHI")) /  cdbl(rsRendemenFinal("TBS_PROCESS_SHI")) * 100
+										else
+											tempSHI = 0
+										end if
+									else
+										tempSHI = 0
+									end if
+									
+									if rsRendemenFinal("TBS_PROCESS_SBI") <> "" then 
+										if cdbl(rsRendemenFinal("TBS_PROCESS_SBI")) <> 0 then 
+											tempSBI = cdbl(rsRendemenFinal("CPO_PRODUCTION_SBI")) /  cdbl(rsRendemenFinal("TBS_PROCESS_SBI")) * 100
+										else
+											tempSBI = 0 
+										end if
+									else
+										tempSBI = 0
+									end if
+								
+
+								%>
+								
+
+
+
+								<% if txtDay >= 1 then %>								
+									<td align="center" ><%=FormatNumber(tempH_01,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 2 then %>								
+									<td align="center" ><%=FormatNumber(tempH_02,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 3 then %>								
+									<td align="center" ><%=FormatNumber(tempH_03,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 4 then %>								
+									<td align="center" ><%=FormatNumber(tempH_04,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 5 then %>								
+									<td align="center" ><%=FormatNumber(tempH_05,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 6 then %>								
+									<td align="center" ><%=FormatNumber(tempH_06,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 7 then %>								
+									<td align="center" ><%=FormatNumber(tempH_07,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 8 then %>								
+									<td align="center" ><%=FormatNumber(tempH_08,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 9 then %>								
+									<td align="center" ><%=FormatNumber(tempH_09,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 10 then %>								
+									<td align="center" ><%=FormatNumber(tempH_10,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 11 then %>								
+									<td align="center" ><%=FormatNumber(tempH_11,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 12 then %>								
+									<td align="center" ><%=FormatNumber(tempH_12,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 13 then %>								
+									<td align="center" ><%=FormatNumber(tempH_13,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 14 then %>								
+									<td align="center" ><%=FormatNumber(tempH_14,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 15 then %>								
+									<td align="center" ><%=FormatNumber(tempH_15,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 16 then %>								
+									<td align="center" ><%=FormatNumber(tempH_16,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 17 then %>								
+									<td align="center" ><%=FormatNumber(tempH_17,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 18 then %>								
+									<td align="center" ><%=FormatNumber(tempH_18,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 19 then %>								
+									<td align="center" ><%=FormatNumber(tempH_19,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 20 then %>								
+									<td align="center" ><%=FormatNumber(tempH_20,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 21 then %>								
+									<td align="center" ><%=FormatNumber(tempH_21,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 22 then %>								
+								<td align="center" ><%=FormatNumber(tempH_22,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 23 then %>								
+									<td align="center" ><%=FormatNumber(tempH_23,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 24 then %>								
+									<td align="center" ><%=FormatNumber(tempH_24,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 25 then %>								
+									<td align="center" ><%=FormatNumber(tempH_25,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 26 then %>								
+									<td align="center" ><%=FormatNumber(tempH_26,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 27 then %>								
+									<td align="center" ><%=FormatNumber(tempH_27,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 28 then %>								
+									<td align="center" ><%=FormatNumber(tempH_28,tempRounding)%></td>									
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+									
+
+								<% if txtDay >= 29 then %>																
+									<td align="center" ><%=FormatNumber(tempH_29,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+
+								<% if txtDay >= 30 then %>								
+									<td align="center" ><%=FormatNumber(tempH_30,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+												
+								
+								<% if txtDay >= 31 then %>								
+									<td align="center" ><%=FormatNumber(tempH_31,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+
+								
+								
+								<td align="center" ><%=FormatNumber(tempSHI, tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI, tempRounding)%></td>
+								
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+								
+								
+								<%
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = tempSHI/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = tempSBI/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>
+								
+								
+								
+								<%
+								tempBudgetType = "QUANTITY"
+								if tempBudgetType = "QUANTITY" then  
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+								else
+									if tempCompare_HI > 105 then
+										cClassAssigned_HI = "red"
+									else
+										if tempCompare_HI > 95 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "green"
+										end if
+									end if
+
+									if tempCompare_SHI > 105 then
+										cClassAssigned_SHI = "red"
+									else
+										if tempCompare_SHI > 95 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "green"
+										end if
+									end if
+
+									if tempCompare_SBI > 105 then
+										cClassAssigned_SBI = "red"
+									else
+										if tempCompare_SBI > 95 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "green"
+										end if
+									end if
+								end if					
+								%>				
+								
+								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+								
+								
+							</tr>
+				<% 
+				 ' XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  START KERNEL
+
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsRendemenFinal("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = ""
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'PRODUCTION' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsRendemenFinal("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")								
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""		
+										tempRounding = 2
+									end if		
+									tempUOM = rsRendemenFinal("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYRendemen.html"-->
+								
+								
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>">K E R</a></td>
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+									
+									if cdbl(rsRendemenFinal("TBS_PROCESS_BUDGET_SHI")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_BUDGET_SHI")) /  cdbl(rsRendemenFinal("TBS_PROCESS_BUDGET_SHI")) * 100
+									else
+										tempDataBudget_SHI = 0
+									end if
+									
+									if cdbl(rsRendemenFinal("TBS_PROCESS_BUDGET_SBI")) <> 0 then
+										tempDataBudget_SBI = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_BUDGET_SBI")) /  cdbl(rsRendemenFinal("TBS_PROCESS_BUDGET_SBI")) * 100	
+									else
+										tempDataBudget_SBI = 0 
+									end if
+									
+								%>					
+								
+								<%  
+									if rsRendemenFinal("TBS_PROCESS_H_01") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_01")) <> 0 then 
+											tempH_01 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_01")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_01")) * 100
+										else
+										    tempH_01 = 0
+										end if
+									else
+										tempH_01 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_02") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_02")) <> 0 then 
+											tempH_02 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_02")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_02")) * 100
+										else
+										    tempH_02 = 0
+										end if
+									else
+										tempH_02 = 0
+									end if
+									
+									if rsRendemenFinal("TBS_PROCESS_H_03") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_03")) <> 0 then 
+											tempH_03 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_03")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_03")) * 100
+										else
+										    tempH_03 = 0
+										end if
+									else
+										tempH_03 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_04") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_04")) <> 0 then 
+											tempH_04 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_04")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_04")) * 100
+										else
+										    tempH_04 = 0
+										end if
+									else
+										tempH_04 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_05") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_05")) <> 0 then 
+											tempH_05 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_05")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_05")) * 100
+										else
+										    tempH_05 = 0
+										end if
+									else
+										tempH_05 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_06") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_06")) <> 0 then 
+											tempH_06 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_06")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_06")) * 100
+										else
+										    tempH_06 = 0
+										end if
+									else
+										tempH_06 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_07") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_07")) <> 0 then 
+											tempH_07 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_07")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_07")) * 100
+										else
+										    tempH_07 = 0
+										end if
+									else
+										tempH_07 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_08") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_08")) <> 0 then 
+											tempH_08 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_08")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_08")) * 100
+										else
+										    tempH_08 = 0
+										end if
+									else
+										tempH_08 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_09") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_09")) <> 0 then 
+											tempH_09 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_09")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_09")) * 100
+										else
+										    tempH_09 = 0
+										end if
+									else
+										tempH_09 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_10") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_10")) <> 0 then 
+											tempH_10 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_10")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_10")) * 100
+										else
+										    tempH_10 = 0
+										end if
+									else
+										tempH_10 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_11") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_11")) <> 0 then 
+											tempH_11 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_11")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_11")) * 100
+										else
+										    tempH_11 = 0
+										end if
+									else
+										tempH_11 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_12") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_12")) <> 0 then 
+											tempH_12 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_12")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_12")) * 100
+										else
+										    tempH_12 = 0
+										end if
+									else
+										tempH_12 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_13") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_13")) <> 0 then 
+											tempH_13 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_13")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_13")) * 100
+										else
+										    tempH_13 = 0
+										end if
+									else
+										tempH_13 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_14") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_14")) <> 0 then 
+											tempH_14 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_14")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_14")) * 100
+										else
+										    tempH_14 = 0
+										end if
+									else
+										tempH_14 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_15") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_15")) <> 0 then 
+											tempH_15 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_15")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_15")) * 100
+										else
+										    tempH_15 = 0
+										end if
+									else
+										tempH_15 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_16") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_16")) <> 0 then 
+											tempH_16 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_16")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_16")) * 100
+										else
+										    tempH_16 = 0
+										end if
+									else
+										tempH_16 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_17") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_17")) <> 0 then 
+											tempH_17 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_17")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_17")) * 100
+										else
+										    tempH_17 = 0
+										end if
+									else
+										tempH_17 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_18") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_18")) <> 0 then 
+											tempH_18 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_18")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_18")) * 100
+										else
+										    tempH_18 = 0
+										end if
+									else
+										tempH_18 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_19") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_19")) <> 0 then 
+											tempH_19 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_19")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_19")) * 100
+										else
+										    tempH_19 = 0
+										end if
+									else
+										tempH_19 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_20") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_20")) <> 0 then 
+											tempH_20 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_20")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_20")) * 100
+										else
+										    tempH_20 = 0
+										end if
+									else
+										tempH_20 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_21") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_21")) <> 0 then 
+											tempH_21 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_21")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_21")) * 100
+										else
+										    tempH_21 = 0
+										end if
+									else
+										tempH_21 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_22") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_22")) <> 0 then 
+											tempH_22 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_22")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_22")) * 100
+										else
+										    tempH_22 = 0
+										end if
+									else
+										tempH_22 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_23") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_23")) <> 0 then 
+											tempH_23 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_23")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_23")) * 100
+										else
+										    tempH_23 = 0
+										end if
+									else
+										tempH_23 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_24") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_24")) <> 0 then 
+											tempH_24 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_24")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_24")) * 100
+										else
+										    tempH_24 = 0
+										end if
+									else
+										tempH_24 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_25") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_25")) <> 0 then 
+											tempH_25 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_25")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_25")) * 100
+										else
+										    tempH_25 = 0
+										end if
+									else
+										tempH_25 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_26") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_26")) <> 0 then 
+											tempH_26 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_26")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_26")) * 100
+										else
+										    tempH_26 = 0
+										end if
+									else
+										tempH_26 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_27") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_27")) <> 0 then 
+											tempH_27 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_27")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_27")) * 100
+										else
+										    tempH_27 = 0
+										end if
+									else
+										tempH_27 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_28") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_28")) <> 0 then 
+											tempH_28 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_28")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_28")) * 100
+										else
+										    tempH_28 = 0
+										end if
+									else
+										tempH_28 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_29") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_29")) <> 0 then 
+											tempH_29 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_29")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_29")) * 100
+										else
+										    tempH_29 = 0
+										end if
+									else
+										tempH_29 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_30") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_30")) <> 0 then 
+											tempH_30 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_30")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_30")) * 100
+										else
+										    tempH_30 = 0
+										end if
+									else
+										tempH_30 = 0
+									end if
+
+									if rsRendemenFinal("TBS_PROCESS_H_31") <> "" then 
+									    if cdbl(rsRendemenFinal("TBS_PROCESS_H_31")) <> 0 then 
+											tempH_31 = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_H_31")) /  cdbl(rsRendemenFinal("TBS_PROCESS_H_31")) * 100
+										else
+										    tempH_31 = 0
+										end if
+									else
+										tempH_31 = 0
+									end if
+
+									
+									
+									
+									
+									if rsRendemenFinal("TBS_PROCESS_SHI") <> "" then 
+										if cdbl(rsRendemenFinal("TBS_PROCESS_SHI")) <> 0 then 
+											tempSHI = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_SHI")) /  cdbl(rsRendemenFinal("TBS_PROCESS_SHI")) * 100
+										else
+											tempSHI = 0
+										end if
+									else
+										tempSHI = 0
+									end if
+									
+									if rsRendemenFinal("TBS_PROCESS_SBI") <> "" then 
+										if cdbl(rsRendemenFinal("TBS_PROCESS_SBI")) <> 0 then 
+											tempSBI = cdbl(rsRendemenFinal("KERNEL_PRODUCTION_SBI")) /  cdbl(rsRendemenFinal("TBS_PROCESS_SBI")) * 100
+										else
+											tempSBI = 0 
+										end if
+									else
+										tempSBI = 0
+									end if
+								
+
+								%>
+								
+
+
+
+								<% if txtDay >= 1 then %>								
+									<td align="center" ><%=FormatNumber(tempH_01,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 2 then %>								
+									<td align="center" ><%=FormatNumber(tempH_02,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 3 then %>								
+									<td align="center" ><%=FormatNumber(tempH_03,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 4 then %>								
+									<td align="center" ><%=FormatNumber(tempH_04,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 5 then %>								
+									<td align="center" ><%=FormatNumber(tempH_05,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 6 then %>								
+									<td align="center" ><%=FormatNumber(tempH_06,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 7 then %>								
+									<td align="center" ><%=FormatNumber(tempH_07,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 8 then %>								
+									<td align="center" ><%=FormatNumber(tempH_08,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 9 then %>								
+									<td align="center" ><%=FormatNumber(tempH_09,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 10 then %>								
+									<td align="center" ><%=FormatNumber(tempH_10,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 11 then %>								
+									<td align="center" ><%=FormatNumber(tempH_11,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 12 then %>								
+									<td align="center" ><%=FormatNumber(tempH_12,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 13 then %>								
+									<td align="center" ><%=FormatNumber(tempH_13,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 14 then %>								
+									<td align="center" ><%=FormatNumber(tempH_14,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 15 then %>								
+									<td align="center" ><%=FormatNumber(tempH_15,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 16 then %>								
+									<td align="center" ><%=FormatNumber(tempH_16,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 17 then %>								
+									<td align="center" ><%=FormatNumber(tempH_17,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 18 then %>								
+									<td align="center" ><%=FormatNumber(tempH_18,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 19 then %>								
+									<td align="center" ><%=FormatNumber(tempH_19,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 20 then %>								
+									<td align="center" ><%=FormatNumber(tempH_20,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 21 then %>								
+									<td align="center" ><%=FormatNumber(tempH_21,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 22 then %>								
+								<td align="center" ><%=FormatNumber(tempH_22,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 23 then %>								
+									<td align="center" ><%=FormatNumber(tempH_23,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 24 then %>								
+									<td align="center" ><%=FormatNumber(tempH_24,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 25 then %>								
+									<td align="center" ><%=FormatNumber(tempH_25,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 26 then %>								
+									<td align="center" ><%=FormatNumber(tempH_26,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 27 then %>								
+									<td align="center" ><%=FormatNumber(tempH_27,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 28 then %>								
+									<td align="center" ><%=FormatNumber(tempH_28,tempRounding)%></td>									
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+									
+
+								<% if txtDay >= 29 then %>																
+									<td align="center" ><%=FormatNumber(tempH_29,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+
+								<% if txtDay >= 30 then %>								
+									<td align="center" ><%=FormatNumber(tempH_30,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+												
+								
+								<% if txtDay >= 31 then %>								
+									<td align="center" ><%=FormatNumber(tempH_31,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+
+								
+								
+								<td align="center" ><%=FormatNumber(tempSHI, tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI, tempRounding)%></td>
+								
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+								
+								
+								<%
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = tempSHI/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = tempSBI/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>
+								
+								
+								
+								<%
+								tempBudgetType = "QUANTITY"
+								
+								if tempBudgetType = "QUANTITY" then  
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+								else
+									if tempCompare_HI > 105 then
+										cClassAssigned_HI = "red"
+									else
+										if tempCompare_HI > 95 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "green"
+										end if
+									end if
+
+									if tempCompare_SHI > 105 then
+										cClassAssigned_SHI = "red"
+									else
+										if tempCompare_SHI > 95 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "green"
+										end if
+									end if
+
+									if tempCompare_SBI > 105 then
+										cClassAssigned_SBI = "red"
+									else
+										if tempCompare_SBI > 95 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "green"
+										end if
+									end if
+								end if					
+								%>				
+								
+								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+								
+								
+							</tr>
+						<%
+				
+				
+							rsRendemenFinal.MoveNext
+						Wend
+					end if
+					rsRendemenFinal.Close
+					set rsRendemenFinal = Nothing
+				%>	
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				

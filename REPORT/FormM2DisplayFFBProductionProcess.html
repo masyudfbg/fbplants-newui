@@ -1,0 +1,215 @@
+				<%
+
+					if not rsProses.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsProses.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsProses("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "TBS PROSES"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_3 decrease_hi, param_4 decrease_shi, param_5 decrease_sbi , param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'TBS_PROSES' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsProses("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempDecrease_hi = rsCodeDesc ("decrease_hi")
+										tempDecrease_shi = rsCodeDesc ("decrease_shi")
+										tempDecrease_sbi = rsCodeDesc ("decrease_sbi")	
+										tempRounding = rsCodeDesc ("rounding")	
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""	
+										tempDecrease_hi = ""
+										tempDecrease_shi = ""
+										tempDecrease_sbi = ""								
+										tempRounding = 0	
+									end if		
+									tempUOM = rsProses("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYFFBProductionProcess.html"-->
+								
+								
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>
+												
+								<td align="center"  ><%= no %></td>					
+													
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"><%=rsProses("HEADGROUP")%></a></td>
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+
+									tempDataBudget_HI = cdbl(rsProses("budget_hi"))
+									tempDataBudget_SHI = cdbl(rsProses("budget_shi"))
+									tempDataBudget_SBI = cdbl(rsProses("budget_sbi"))
+
+									if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = cdbl(rsProses("hi"))/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = cdbl(rsProses("shi"))/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = cdbl(rsProses("sbi"))/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>					
+								
+								
+								<%  
+									if rsProses("HI") <> "" then 
+										tempHI = cdbl(rsProses("HI"))
+										if tempDecrease_hi = "DECREASE_GRADING" then 
+											tempHI = tempHI 
+										end if
+									else
+										tempHI = 0
+									end if
+								
+									if rsProses("SHI") <> "" then 
+										tempSHI = cdbl(rsProses("SHI"))		
+										if tempDecrease_Shi = "DECREASE_GRADING" then 
+											tempSHI = tempSHI 
+										end if							
+									else
+										tempSHI = 0
+									end if
+
+									if rsProses("SBI") <> "" then 
+										tempSBI = cdbl(rsProses("SBI"))		
+										if tempDecrease_Sbi = "DECREASE_GRADING" then 
+											tempSBI = tempSBI 
+										end if								
+									else
+										tempSBI = 0
+									end if
+								%>
+
+
+								<td align="center" ><%=FormatNumber(tempSHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI,tempRounding)%></td>
+								
+								<%
+									if rsProses("CodeDesc") = "FFB0701" then 
+										tempData_Proses_HI = tempHI
+										tempData_Proses_SHI = tempSHI
+										tempData_Proses_SBI = tempSBI
+									end if
+								
+								%>
+								
+								
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+
+								<%
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+									
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+									
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+									
+								%>
+								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,tempRounding)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,tempRounding)%></td>
+								
+							</tr>
+				<%
+
+							rsProses.MoveNext
+						Wend
+					end if
+					rsProses.Close
+					set rsProses = Nothing
+				%>

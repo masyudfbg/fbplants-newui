@@ -1,0 +1,199 @@
+<div class="TabbedPanels" id="tp1" align='center'>
+				
+					<ul class="TabbedPanelsTabGroup">
+						<li class="TabbedPanelsTab">RKB UPAH</li>
+						<li class="TabbedPanelsTab">RKB MATERIAL</li>
+					</ul>
+
+					<div class="TabbedPanelsContentGroup">
+
+						<!-- view bkm upah-->
+						<div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">
+									
+									<th>Aktivitas</th>
+									<th>Upah(Rp)</th>
+									<th>Norma(Hk)</th>
+									<th>Blok</th>
+									<th>HA</th>
+									<th>Rencana(Ha)</th>
+									<th>Rotasi</th>
+									<th>Total.HK</th>
+									<th>Total.Upah</th>
+									<th colspan="2">&nbsp;</th>
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								dim sqldtlupahrw,rsdtlupahrw,norw,totalamountrw
+								sqldtlupahrw = "SELECT ACTCODE,jobmaster_api.get_fcname(actcode) activityname,rate,normamandays,locationcode,field_api.get_ha(locationcode,fcba)field_ha,volume,rotasi,mandays,totalamount_hk " & _
+											   " FROM RKBUPAHDTL  " & _
+								               " WHERE rkbno='" & bkmno & "' and fcba='" & businessunit & "'" 
+											   
+								set rsdtlupahrw = connStr.Execute(sqldtlupahrw)
+								'response.write sqldtlupah
+								norw = 0
+								totalamountrw = 0
+								While Not rsdtlupahrw.EOF %>
+								<tr id="tru<%=norw%>">
+									
+									<td class="ratakiri">
+										<select class="lebaractivity ratakiri" name="actcode<%=norw%>" id="actcode<%=norw%>">
+											<option value=<%=rsdtlupahrw("ACTCODE")%>><%=rsdtlupahrw("activityname")%></option>
+										</select>
+									</td>
+									
+									<td class="ratakanan">
+										<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="rate<%=norw%>" id="rate<%=norw%>" value="<%=FormatNumber(rsdtlupahrw("rate"),0)%>"/>
+									</td>
+									
+									<td class="ratakanan">
+										<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="normamandays<%=norw%>" id="normamandays<%=norw%>" value="<%=rsdtlupahrw("normamandays")%>"/>
+									</td>
+									
+									<td class="ratatengah">
+										<select class="lebartc ratakiri" name="locationcode<%=norw%>" id="locationcode<%=norw%>">
+											<option value=<%=rsdtlupahrw("LOCATIONCODE")%>><%=rsdtlupahrw("LOCATIONCODE")%></option>
+										</select>
+									</td>
+									
+									<td class="ratakanan">
+										<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="field_ha<%=norw%>" id="field_ha<%=norw%>" value="<%=FormatNumber(rsdtlupahrw("field_ha"),0)%>"/>
+									</td>
+									
+									<td class="ratakanan">
+										<input class="ratakanan lebarupah" type="text"  name="volume<%=norw%>" id="volume<%=norw%>" value="<%=FormatNumber(rsdtlupahrw("volume"),0)%>"/>
+									</td>
+									
+									<td class="ratakanan">
+										<input class="ratakanan lebarupah" type="text"  name="rotasi<%=norw%>" id="rotasi<%=norw%>" value="<%=FormatNumber(rsdtlupahrw("rotasi"),0)%>"/>
+									</td>
+									
+									<td class="ratakanan">
+										<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="mandays<%=norw%>" id="mandays<%=norw%>" value="<%=FormatNumber(rsdtlupahrw("mandays"),0)%>"/>
+									</td>
+									
+									<td class="ratakanan">
+										<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="totalamount_hk<%=norw%>" id="totalamount_hk<%=norw%>" value="<%=FormatNumber(rsdtlupahrw("totalamount_hk"),0)%>"/>
+									</td>
+									
+									
+								
+								</tr>
+								<%
+									norw = norw +1
+									totalamountrw = cdbl(totalamountrw) + cdbl(rsdtlupahrw("totalamount_hk"))
+									rsdtlupahrw.MoveNext
+									Wend
+								%>
+									
+							</table>
+						</div>
+
+						<!-- view bkm bahan-->
+						<div class="TabbedPanelsContent">
+							<!-- ============================================================================================================================= -->
+							<div id="datadetail">
+								<table align=center border="0" width="850" class='data' id='table1'>
+									<tr id="trheader1">
+									    <th>Aktivitas</th>
+										<th>Blok</th>
+										<th>HA</th>
+										<th>Material</th>
+										<th>Satuan</th>
+										<th>Norma</th>
+										<th>Qty</th>
+										<th>Rate (Rp)</th>
+										<th>Total Material(rp) </th>
+										<th colspan="2">&nbsp;</th>
+									</tr>
+
+									<%
+									
+										dim sqlbarang,rsbarang,totalamount_br,nobr
+										sqlbarang = " SELECT ACTCODE,jobmaster_api.get_fcname(actcode) activityname,locationcode,field_api.get_ha(locationcode,fcba)field_ha,stockcode,c.fcname stockname, uom,activematerialnorm,qty,ratestock,totalamount,linenokey " & _
+													" from RKBBAHANDTL b inner join activematerial c on b.stockcode=c.fccode" & _
+													" where b.rkbno='" & bkmno & "' and b.fcba='" & businessunit & "' order by b.linenokey asc"
+										 set rsbarang = connStr.Execute(sqlbarang)
+										 'response.write sqlbarang
+									%>
+
+									<% 
+										totalamount_br = 0
+										nobr = 0
+										While Not rsbarang.EOF 
+									%>
+										<tr id='trb<%=nobr%>'>
+										    <td class="ratakiri">
+											<select class="lebaractivity ratakiri" name="actcodebr<%=nobr%>" id="actcodebr<%=nobr%>">
+												<option value=<%=rsbarang("ACTCODE")%>><%=rsbarang("activityname")%></option>
+											</select>
+											</td>
+											
+											<td class="ratatengah">
+											<select class="lebartc ratakiri" name="locationcodebr<%=nobr%>" id="locationcode<%=nobr%>">
+												<option value=<%=rsbarang("LOCATIONCODE")%>><%=rsbarang("LOCATIONCODE")%></option>
+											</select>
+											</td>
+										
+											<td class="ratakanan">
+												<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="field_habr<%=nobr%>" id="field_habr<%=nobr%>" value="<%=FormatNumber(rsbarang("field_ha"),0)%>"/>
+											</td>
+											
+											<td class="ratakiri">
+												<select class="lebaractivity " name="stockcode" id="stockcode<%=nobr%>">
+													<option value=<%=rsbarang("stockcode")%>><%=rsbarang("stockname")%></option>
+												</select>
+											</td>
+											
+											<td class="ratatengah">
+												<input class="ratatengah lebarabsen" type="text" readonly  style="background-color:#eee;" name="uom" id="uom<%=nobr%>" value="<%=rsbarang("uom")%>"/>
+											</td>
+											
+											<td class="ratatengah">
+												<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="normabr" id="normabr<%=nobr%>" value="<%=FormatNumber(rsbarang("activematerialnorm"),0)%>"/>
+											</td>
+											
+											<td class="ratatengah">
+												<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="qtyitem" id="qtyitem<%=nobr%>" value="<%=FormatNumber(rsbarang("qty"),0)%>"/>
+											</td>
+
+											<td class="ratatengah">
+												<input class="ratakanan lebarupah" type="text" name="ratestock" id="ratestock<%=nobr%>" value="<%=FormatNumber(rsbarang("ratestock"),0)%>"/>
+											</td>
+
+											<td class="ratatengah">
+												<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="totalamountbr" id="totalamountbr<%=nobr%>" value="<%=FormatNumber(rsbarang("totalamount"),0)%>"/>
+											</td>
+
+
+
+										</tr>
+
+											
+										
+									<%
+										nobr = nobr + 1
+										totalamount_br = cdbl(totalamount_br) + cdbl(rsbarang("totalamount"))
+										rsbarang.MoveNext
+										Wend
+									
+									%>
+									
+									<tr class="ratakanan">
+										<td colspan="8" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=norw%>" value="<%=FormatNumber(totalamount_br,0)%>"/></td>
+									</tr>
+									
+									
+									
+								</table>
+							</div>
+							
+						</div>
+
+					</div>
+				</div>

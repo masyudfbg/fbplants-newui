@@ -1,0 +1,107 @@
+<%validatesession%>
+<!--#include file="connDb1.Inc"-->
+<html>
+<body>
+<%
+
+			dim sqldtl,sqldeletehdr,sqldeletedtl,sqlhdr
+			dim nojournal,tglbkm,remarks,POSTINGFLG
+
+			nojournal = Request("jurnalno")
+			tglbkm = Request("jurnaldate")
+			remarks = Request("remarks")
+			POSTINGFLG = Request("POSTINGFLG")
+			if remarks = "" then 
+				remarks = "-"
+			end if
+			
+			
+			if POSTINGFLG = "0" then
+
+			' delete dulu data pada tabel gledgerhdr'
+			'sqldeletehdr = "delete from GLEDGERHDR where docno in (select docno from gledgerdtl where JOURNALNO='" & nojournal & "')"
+			'connStr.execute(sqldeletehdr)
+
+			' delete dulu data pada tabel gledgerdtl'
+			'sqldeletedtl = "delete from gledgerdtl where JOURNALNO='" & nojournal & "'"
+			'connStr.execute(sqldeletedtl)
+
+
+			
+
+
+			' insert ke tabel gl detail'
+			'sqldtl = "INSERT INTO gledgerdtl " & _
+			'" SELECT 'GL/'||a.fcba||'/'||To_Char(a.docdate,'yyyymm')||'/'||jobcode, " & _
+			'" a.docno,a.docdate,jobcode,0,Sum(amountdebit),Sum(amountkredit),0,SYSDATE,SYSDATE,'IT_HO1','IT_HO1','::1',a.FCBA ,'1'" & _
+			'" FROM bkmjournalhdr a INNER JOIN bkmjournaldtl b ON a.docno=b.docno AND a.fcba=b.fcba " & _
+			'" WHERE a.docno='" & nojournal & "' " & _
+			'" GROUP BY 'GL/'||a.fcba||'/'||To_Char(a.docdate,'yyyymm'), a.docno,a.docdate,jobcode,a.fcba " & _
+			'" ORDER BY jobcode,docdate"
+			'connStr.execute(sqldtl)
+
+
+			' insert ke tabel gl header
+			'sqlhdr ="MERGE INTO GLEDGERHDR  x " & _
+			'" USING (   " & _
+			'" SELECT D.DOCNO,D.JOURNALNO,TO_CHAR(D.JOURNALDATE  ,'MM') AS BULAN,  " & _
+			'" TO_CHAR(D.JOURNALDATE ,'YYYY') AS TAHUN,D.COA,NVL(D.OPENING_BALANCE,0) AS OPENING_BALANCE,nvl(D.DEBET,0) AS DEBET ,  " & _
+			'" nvl(D.CREDIT,0) AS CREDIT ,NVL(D.OPENING_BALANCE,0) + nvl(D.DEBET,0) + nvl(D.CREDIT,0) AS ENDING_BALANCE ,D.JOURNALDATE,D.FCBA " & _
+			'" FROM GLEDGERDTL  D  " & _
+			'" WHERE D.JOURNALNO ='" & nojournal & "' " & _
+			'" ) y   " & _
+			'" ON (x.DOCNO=y.DOCNO and x.fcba=y.fcba and x.PERIOD_MONTH =to_number(y.BULAN) and x.PERIOD_YEAR =to_number(y.TAHUN))  " & _
+			'" WHEN MATCHED THEN  " & _
+			'" UPDATE SET x.DEBET  = y.DEBET,  " & _
+			'"		x.CREDIT  = y.CREDIT  " & _
+			'" WHERE x.DOCNO=y.DOCNO " & _
+			'" WHEN NOT MATCHED THEN  " & _
+			'" Insert (DOCNO, PERIOD_MONTH, PERIOD_YEAR, COA, OPENING_BALANCE,DEBET, CREDIT, ENDING_BALANCE, CREATEDATE, LASTUPDATE, " & _
+			'" 	FCENTRY, FCEDIT, FCIP, FCBA)  " & _
+			'" VALUES(y.DOCNO, to_number(y.BULAN), to_number(y.TAHUN),  y.COA, y.OPENING_BALANCE,y.DEBET,y.CREDIT,y.ENDING_BALANCE,   " & _
+			'" y.JOURNALDATE,SYSDATE,'SYSTEM','SYSTEM','1:::',y.fcba)"
+			
+			'connStr.execute(sqlhdr)
+
+			' update postingflg'
+			sqldeletedtl = "update bkmhdr set postingflg=1 where bkmno in(select bkmno from bkmjournaldtl where docno='" & nojournal & "')"
+			connStr.execute(sqldeletedtl)
+
+			' update postingflg pada tabel bkmjournalhdr'
+			sqldeletedtl = "update BKMJOURNALHDR set postingflg=1 where docno='" & nojournal & "'"
+			connStr.execute(sqldeletedtl)
+
+			
+
+			else 
+
+			' delete dulu data pada tabel gledgerhdr'
+			'sqldeletehdr = "delete from GLEDGERHDR where docno in (select docno from gledgerdtl where JOURNALNO='" & nojournal & "')"
+			'connStr.execute(sqldeletehdr)
+
+			' delete dulu data pada tabel gledgerdtl'
+			'sqldeletedtl = "delete from gledgerdtl where JOURNALNO='" & nojournal & "'"
+			'connStr.execute(sqldeletedtl)
+
+			' update postingflg'
+			sqldeletedtl = "update bkmhdr set postingflg=0 where bkmno in(select bkmno from bkmjournaldtl where docno='" & nojournal & "')"
+			connStr.execute(sqldeletedtl)
+
+			' update postingflg pada tabel bkmjournalhdr'
+			sqldeletedtl = "update BKMJOURNALHDR set postingflg=0 where docno='" & nojournal & "'"
+			connStr.execute(sqldeletedtl)
+
+			end if
+			
+			sqlhdr = "BEGIN fac_closing_accounting_api.ProsesPostingJournal(TO_NUMBER(TO_CHAR(TO_DATE('" & tglbkm & "','DD/MM/YYYY'),'YYYY')), " & _ 
+			                                                               "TO_NUMBER(TO_CHAR(TO_DATE('" & tglbkm & "','DD/MM/YYYY'),'MM')) , '" & session("fcba") & "','" & session("USER_NAME") & "'); " & _ 
+				     "END;"													 
+			response.write(	sqlhdr)																 
+			connStr.execute(sqlhdr)
+
+
+			response.redirect("bkm_jurnal_input.asp?tglbkm="&tglbkm)
+%>
+
+</body>
+</html>

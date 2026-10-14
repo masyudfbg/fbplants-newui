@@ -1,0 +1,496 @@
+</tr>
+  <center>
+  <form name="form1" method="post">
+  <tr align="Left" valign="middle" ><td valign="middle" align="center">
+      <label><font size="2"  color="#0000FF" ></font>
+        <select name="vYear">
+          <option value="2006" selected="selected">2006</option>
+          <option value="2007">2007</option>
+        </select>
+        </label>
+      <label><font size="2" color="#0000FF" ></font>
+        <select name="vMonth">
+		  <%if request.Form("vMonth")="1" then%>
+             <option value="1" selected="selected">January</option>
+		  <%else%>
+             <option value="1">January</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="2" then%>
+             <option value="2" selected="selected">February</option>
+		  <%else%>
+             <option value="2">February</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="3" then%>
+             <option value="3" selected="selected">March</option>
+		  <%else%>
+             <option value="3">March</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="4" then%>
+             <option value="4" selected="selected">April</option>
+		  <%else%>
+             <option value="4">April</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="5" then%>
+             <option value="5" selected="selected">May</option>
+		  <%else%>
+             <option value="5">May</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="6" then%>
+             <option value="6" selected="selected">June</option>
+		  <%else%>
+             <option value="6">June</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="7" then%>
+             <option value="7" selected="selected">July</option>
+		  <%else%>
+             <option value="7">July</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="8" then%>
+             <option value="8" selected="selected">August</option>
+		  <%else%>
+             <option value="8">August</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="9" then%>
+             <option value="9" selected="selected">September</option>
+		  <%else%>
+             <option value="9">September</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="10" then%>
+             <option value="10" selected="selected">October</option>
+		  <%else%>
+             <option value="10">October</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="11" then%>
+             <option value="11" selected="selected">November</option>
+		  <%else%>
+             <option value="11">November</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="12" then%>
+             <option value="12" selected="selected">December</option>
+		  <%else%>
+             <option value="12">December</option>
+		  <%End if%>
+		     <option value="ALL">::ALL::</option>
+        </select>
+        </label>		
+
+      <label><font size="2" color="#0000FF" ></font>
+        <select name="vOrganization">
+	     <%IF request.Form("vOrganization")="PLT-1" THEN%>
+			<option value="PLT-1" selected>Plantation-1</option>
+			<option value="PLT-2">Plantation-2</option>
+			<option value="PLT-3">Plantation-3</option>
+			<option value="ALL">::ALL::</option>
+	     <%elseif request.Form("vOrganization")="PLT-2" THEN%>
+			<option value="PLT-1">Plantation-1</option>
+			<option value="PLT-2" selected>Plantation-2</option>
+			<option value="PLT-3">Plantation-3</option>
+			<option value="ALL">::ALL::</option>
+	     <%elseif request.Form("vOrganization")="PLT-3" THEN%>
+			<option value="PLT-1">Plantation-1</option>
+			<option value="PLT-2">Plantation-2</option>
+			<option value="PLT-3" selected>Plantation-3</option>
+			<option value="ALL">::ALL::</option>
+		 <%ELSE%>
+			<option value="PLT-1">Plantation-1</option>
+			<option value="PLT-2">Plantation-2</option>
+			<option value="PLT-3">Plantation-3</option>
+			<option value="ALL"  selected>::ALL::</option>
+		 <%END IF%>
+		 </select>
+        </label>		
+
+
+      <label><font size="2" color="#0000FF" ></font>
+        <select name="vBA">
+	     <%IF request.Form("vBA")="ALL" THEN%>
+			<option value="ALL" selected="selected">::ALL::</option>
+		 <%ELSE%>
+			<option value="ALL">::ALL::</option>
+		 <%END IF%>
+
+	     <%IF request.Form("vBA")="CCF" THEN%>
+			<option value="CCF" selected="selected">cc1</option>
+		 <%ELSE%>
+			<option value="CCF">CC1</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="CDS" THEN%>
+			<option value="CDS" selected="selected">CR2</option>
+		 <%ELSE%>
+			<option value="CDS">CR2</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="CMP" THEN%>
+			<option value="CMP" selected="selected">CR3</option>
+		 <%ELSE%>
+			<option value="CMP">CR3</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KAK" THEN%>
+			<option value="KAK" selected="selected">KS1</option>
+		 <%ELSE%>
+			<option value="KAK">KS1</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KAN" THEN%>
+			<option value="KAN" selected="selected">KS2</option>
+		 <%ELSE%>
+			<option value="KAN">KS2</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KBA" THEN%>
+			<option value="KBA" selected="selected">KS3</option>
+		 <%ELSE%>
+			<option value="KBA">KS3</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KBD" THEN%>
+			<option value="KBD" selected="selected">KS4</option>
+		 <%ELSE%>
+			<option value="KBD">KS4</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KBL" THEN%>
+			<option value="KBL" selected="selected">KS5</option>
+		 <%ELSE%>
+			<option value="KBL">KS5</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KBN" THEN%>
+			<option value="KBN" selected="selected">KS6</option>
+		 <%ELSE%>
+			<option value="KBN">KS6</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KBT" THEN%>
+			<option value="KBT" selected="selected">KS7</option>
+		 <%ELSE%>
+			<option value="KBT">KS7</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KGD" THEN%>
+			<option value="KGD" selected="selected">KS8</option>
+		 <%ELSE%>
+			<option value="KGD">KS8</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KGS" THEN%>
+			<option value="KGS" selected="selected">KS9</option>
+		 <%ELSE%>
+			<option value="KGS">KS9</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KMB" THEN%>
+			<option value="KMB" selected="selected">KS10</option>
+		 <%ELSE%>
+			<option value="KMB">KS10</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KMP" THEN%>
+			<option value="KMP" selected="selected">KS11</option>
+		 <%ELSE%>
+			<option value="KMP">KS11</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KNC" THEN%>
+			<option value="KNC" selected="selected">KS12</option>
+		 <%ELSE%>
+			<option value="KNC">KS12</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KNS" THEN%>
+			<option value="KNS" selected="selected">KS13</option>
+		 <%ELSE%>
+			<option value="KNS">KS13</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KNU" THEN%>
+			<option value="KNU" selected="selected">KS14</option>
+		 <%ELSE%>
+			<option value="KNU">KS14</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KPM" THEN%>
+			<option value="KPM" selected="selected">KS15</option>
+		 <%ELSE%>
+			<option value="KPM">KS15</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KPN" THEN%>
+			<option value="KPN" selected="selected">KS16</option>
+		 <%ELSE%>
+			<option value="KPN">KS16</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KPR" THEN%>
+			<option value="KPR" selected="selected">KS17</option>
+		 <%ELSE%>
+			<option value="KPR">KS17</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KPT" THEN%>
+			<option value="KPT" selected="selected">KS18</option>
+		 <%ELSE%>
+			<option value="KPT">KS18</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KRB" THEN%>
+			<option value="KRB" selected="selected">KS19</option>
+		 <%ELSE%>
+			<option value="KRB">KS19</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KSA" THEN%>
+			<option value="KSA" selected="selected">KS20</option>
+		 <%ELSE%>
+			<option value="KSA">KS20</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KSE" THEN%>
+			<option value="KSE" selected="selected">KS21</option>
+		 <%ELSE%>
+			<option value="KSE">KS21</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KSG" THEN%>
+			<option value="KSG" selected="selected">KS22</option>
+		 <%ELSE%>
+			<option value="KSG">KS22</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KSN" THEN%>
+			<option value="KSN" selected="selected">KS23</option>
+		 <%ELSE%>
+			<option value="KSN">KS23</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KSR" THEN%>
+			<option value="KSR" selected="selected">KS24</option>
+		 <%ELSE%>
+			<option value="KSR">KS24</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KST" THEN%>
+			<option value="KST" selected="selected">KS25</option>
+		 <%ELSE%>
+			<option value="KST">KS25</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KTD" THEN%>
+			<option value="KTD" selected="selected">KS26</option>
+		 <%ELSE%>
+			<option value="KTD">KS26</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KTP" THEN%>
+			<option value="KTP" selected="selected">KS27</option>
+		 <%ELSE%>
+			<option value="KTP">KS27</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KTR" THEN%>
+			<option value="KTR" selected="selected">KS28</option>
+		 <%ELSE%>
+			<option value="KTR">KS28</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KTS" THEN%>
+			<option value="KTS" selected="selected">KS29</option>
+		 <%ELSE%>
+			<option value="KTS">KS29</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KTU" THEN%>
+			<option value="KTU" selected="selected">KS30</option>
+		 <%ELSE%>
+			<option value="KTU">KS30</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KTZ" THEN%>
+			<option value="KTZ" selected="selected">KS31</option>
+		 <%ELSE%>
+			<option value="KTZ">KS31</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KUK" THEN%>
+			<option value="KUK" selected="selected">KS32</option>
+		 <%ELSE%>
+			<option value="KUK">KS32</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KLU" THEN%>
+			<option value="KLU" selected="selected">KS33</option>
+		 <%ELSE%>
+			<option value="KLU">KS33</option>
+		 <%END IF%>
+	     <%IF request.Form("vBA")="KLB" THEN%>
+			<option value="KLB" selected="selected">KS34</option>
+		 <%ELSE%>
+			<option value="KLB">KS34</option>
+		 <%END IF%>
+        </select>
+        </label>
+      <label><font size="2"  color="#0000FF" ></font>
+        <select name="vStatus">
+		 <%if request.Form("vStatus")="TBM" Then%>
+          <option value="TM">TM</option>
+          <option value="TBM" Selected>TBM</option>
+		  <%else%>
+          <option value="TM" Selected>TM</option>
+          <option value="TBM">TBM</option>
+		  <%End if%>
+        </select>
+        </label>
+				
+      <label><font size="2"  color="#0000FF" ></font>
+
+        <select name="vOwnership">
+		<%if request.Form("vOwnership") ="1" or request.Form("vOwnership") ="" Then%>
+          <option value="1" selected>Inti</option>
+          <option value="2">PMBN</option>
+          <option value="3">PMU</option>
+          <option value="4">Plasma</option>
+          <option value="5">Plasma Pre</option>
+          <option value="6">KKPA</option>
+          <option value="7">KKPA Pre</option>
+          <option value="8">TKD</option>
+          <option value="1,3,8">Inti+TKD+PMU</option>
+		<%elseif request.Form("vOwnership") ="2" Then%>
+          <option value="1">Inti</option>
+          <option value="2" selected>PMBN</option>
+          <option value="3">PMU</option>
+          <option value="4">Plasma</option>
+          <option value="5">Plasma Pre</option>
+          <option value="6">KKPA</option>
+          <option value="7">KKPA Pre</option>
+          <option value="8">TKD</option>
+          <option value="1,3,8">Inti+TKD+PMU</option>
+		<%elseif request.Form("vOwnership") ="3" Then%>
+          <option value="1">Inti</option>
+          <option value="2">PMBN</option>
+          <option value="3" selected>PMU</option>
+          <option value="4">Plasma</option>
+          <option value="5">Plasma Pre</option>
+          <option value="6">KKPA</option>
+          <option value="7">KKPA Pre</option>
+          <option value="8">TKD</option>
+          <option value="1,3,8">Inti+TKD+PMU</option>
+		<%elseif request.Form("vOwnership") ="4" Then%>
+          <option value="1">Inti</option>
+          <option value="2">PMBN</option>
+          <option value="3">PMU</option>
+          <option value="4" selected>Plasma</option>
+          <option value="5">Plasma Pre</option>
+          <option value="6">KKPA</option>
+          <option value="7">KKPA Pre</option>
+          <option value="8">TKD</option>
+          <option value="1,3,8">Inti+TKD+PMU</option>
+		<%elseif request.Form("vOwnership") ="5" Then%>
+          <option value="1">Inti</option>
+          <option value="2">PMBN</option>
+          <option value="3">PMU</option>
+          <option value="4">Plasma</option>
+          <option value="5" selected>Plasma Pre</option>
+          <option value="6">KKPA</option>
+          <option value="7">KKPA Pre</option>
+          <option value="8">TKD</option>
+          <option value="1,3,8">Inti+TKD+PMU</option>
+		<%elseif request.Form("vOwnership") ="6" Then%>
+          <option value="1">Inti</option>
+          <option value="2">PMBN</option>
+          <option value="3">PMU</option>
+          <option value="4">Plasma</option>
+          <option value="5">Plasma Pre</option>
+          <option value="6" selected>KKPA</option>
+          <option value="7">KKPA Pre</option>
+          <option value="8">TKD</option>
+          <option value="1,3,8">Inti+TKD+PMU</option>
+		<%elseif request.Form("vOwnership") ="7" Then%>
+          <option value="1">Inti</option>
+          <option value="2">PMBN</option>
+          <option value="3">PMU</option>
+          <option value="4">Plasma</option>
+          <option value="5">Plasma Pre</option>
+          <option value="6">KKPA</option>
+          <option value="7" selected>KKPA Pre</option>
+          <option value="8">TKD</option>
+          <option value="1,3,8">Inti+TKD+PMU</option>
+		<%elseif request.Form("vOwnership") ="8" Then%>
+          <option value="1">Inti</option>
+          <option value="2">PMBN</option>
+          <option value="3">PMU</option>
+          <option value="4">Plasma</option>
+          <option value="5">Plasma Pre</option>
+          <option value="6">KKPA</option>
+          <option value="7">KKPA Pre</option>
+          <option value="8" selected>TKD</option>
+          <option value="1,3,8">Inti+TKD+PMU</option>
+		<%elseif request.Form("vOwnership") ="1,3,8" Then%>
+          <option value="1">Inti</option>
+          <option value="2">PMBN</option>
+          <option value="3">PMU</option>
+          <option value="4">Plasma</option>
+          <option value="5">Plasma Pre</option>
+          <option value="6">KKPA</option>
+          <option value="7">KKPA Pre</option>
+          <option value="8">TKD</option>
+          <option value="1,3,8" selected>Inti+TKD+PMU</option>
+		<%End if%>
+        </select>
+        </label>
+      <label><font size="2"  color="#0000FF" ></font>
+        <select name="vCROPTYPE">
+		<%if Request.Form("vCROPTYPE")="1" or Request.Form("vCROPTYPE")="" Then%>
+          <option value="1" selected>Oil Palm</option>
+          <option value="2">Rubber</option>
+          <option value="3">CoCoa</option>
+		 <%elseif Request.Form("vCROPTYPE")="2" Then%>
+          <option value="1">Oil Palm</option>
+          <option value="2" selected="selected">Rubber</option>
+          <option value="3">CoCoa</option>
+		 <%Elseif Request.Form("vCROPTYPE")="3" then%> 
+          <option value="1">Oil Palm</option>
+          <option value="2">Rubber</option>
+          <option value="3" selected="selected">CoCoa</option>
+		 <%End if%> 
+        </select>
+        </label>
+		<select name="vDivision">	
+			<%if request.Form("vPlantingDate")="ALL" then%>
+			<option value="ALL" selected>::ALL::</option>
+			<%Else%>
+			<option value="ALL">::ALL::</option>
+			<%End if%>
+			<%
+			'reDim rsPlantingDate
+			Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+			rsPlantingDate.CursorLocation = adUseClient
+			strsql =  " SELECT DISTINCT(division) as division FROM SAC_ACCOUNTREPORT_TM_TBM"
+			rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+			if not rsPlantingDate.eof then
+			DO while not rsPlantingDate.eof
+			if request.Form("vDivision")=rsPlantingDate("division") then%>			
+			   <option value="<%=rsPlantingDate("division")%>" selected><%=rsPlantingDate("division")%></option>
+			<%else%>
+			   <option value="<%=rsPlantingDate("division")%>"><%=rsPlantingDate("division")%></option>
+			<%End if%>
+			<%rsPlantingDate.movenext
+			loop
+			End if%>
+		</select>
+		<select name="vPlantingDate">	
+			<%if request.Form("vPlantingDate")="ALL" then%>
+			<option value="ALL" selected>::ALL::</option>
+			<%Else%>
+			<option value="ALL">::ALL::</option>
+			<%End if%>
+		
+			<%
+			Dim rsPlantingDate
+			Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+			rsPlantingDate.CursorLocation = adUseClient
+			strsql =  " SELECT DISTINCT(PLANTINGDATE) as PlantingDate FROM SAC_ACCOUNTREPORT_TM_TBM"
+			rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+			if not rsPlantingDate.eof then
+			DO while not rsPlantingDate.eof
+			   if request.Form("vPlantingDate")=rsPlantingDate("PlantingDate") then%>
+			      <option value="<%=rsPlantingDate("PlantingDate")%>" selected><%=rsPlantingDate("PlantingDate")%></option>
+			   <%else%>
+			      <option value="<%=rsPlantingDate("PlantingDate")%>"><%=rsPlantingDate("PlantingDate")%></option>
+			   <%End if%>	  
+			<%rsPlantingDate.movenext
+			loop
+			End if
+			rsPlantingDate.Close
+			set rsPlantingDate = nothing%>
+		</select>
+      <label><font size="2"  color="#0000FF" ></font>
+        <select name="vJenisReport">
+          <option value="Source" selected>Cost Element</option>
+        </select>
+        </label>
+		<input type="submit" value="View" >
+    </td>
+  </tr>
+  <tr>
+  <td>
+   Select Field :
+   <input name="cField" type="checkbox" value="ACTIVITY_HEADING" checked />Header
+   <input name="cField" type="checkbox" value="ACCOUNTGROUPCODE" checked />Group Code
+   <input name="cField" type="checkbox" value="ACCOUNTGROUP"  />Group Desc
+   <input name="cField" type="checkbox" value="ACCOUNTCODE"  />Account Code
+   <input name="cField" type="checkbox" value="DESCRIPTION"  />Acc. Description
+   <input name="cField" type="checkbox" value="DIVISION"  />Afdeling
+   <input name="cField" type="checkbox" value="PLANTINGDATE"  />Planting Date
+   <input name="cField" type="checkbox" value="LOCATIONTYPENAME" checked />Cost Element
+   <input name="cField" type="checkbox" value="SOURCETYPE"  />Source Type
+  </td>
+  </tr>
+  </form>
+  </table>

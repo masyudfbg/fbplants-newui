@@ -1,0 +1,738 @@
+				<%
+
+					if not rsHourCapacityFinal.EOF then
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsHourCapacityFinal.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsHourCapacityFinal("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "KAPASITAS OLAH"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'KAPASITAS_OLAH' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsHourCapacityFinal("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""	
+										tempRounding = 0
+									end if		
+									tempUOM = rsHourCapacityFinal("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYMillCapacity.html"-->
+								
+
+							
+												
+								<td align="center"  ><%= no %></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"</a> Kapasitas Olah </td>
+								<td align="center" >Ton/Jam</td>				
+								
+				
+								
+								
+								<%  
+									if rsHourCapacityFinal("capacityhour_h_01") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_01")) <> 0 then 						
+											tempH_01 = (cdbl(rsHourCapacityFinal("tbs_process_h_01")) + cdbl(rsHourCapacityFinal("sortasi_h_01"))) / cdbl(rsHourCapacityFinal("capacityhour_h_01")) / 1000
+										else
+											tempH_01 = 0
+										end if
+									else
+										tempH_01 = 0
+									end if
+									
+									if rsHourCapacityFinal("capacityhour_h_02") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_02")) <> 0 then 						
+											tempH_02 = (cdbl(rsHourCapacityFinal("tbs_process_h_02")) + cdbl(rsHourCapacityFinal("sortasi_h_02")))  / cdbl(rsHourCapacityFinal("capacityhour_h_02")) / 1000
+										else
+											tempH_02 = 0
+										end if
+									else
+										tempH_02 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_03") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_03")) <> 0 then 						
+											tempH_03 = ( cdbl(rsHourCapacityFinal("tbs_process_h_03")) + cdbl(rsHourCapacityFinal("sortasi_h_03")))  / cdbl(rsHourCapacityFinal("capacityhour_h_03")) / 1000
+										else
+											tempH_03 = 0
+										end if
+									else
+										tempH_03 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_04") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_04")) <> 0 then 						
+											tempH_04 = (cdbl(rsHourCapacityFinal("tbs_process_h_04")) + cdbl(rsHourCapacityFinal("sortasi_h_04")))  / cdbl(rsHourCapacityFinal("capacityhour_h_04")) / 1000
+										else
+											tempH_04 = 0
+										end if
+									else
+										tempH_04 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_05") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_05")) <> 0 then 						
+											tempH_05 = (cdbl(rsHourCapacityFinal("tbs_process_h_05")) + cdbl(rsHourCapacityFinal("sortasi_h_05")))  / cdbl(rsHourCapacityFinal("capacityhour_h_05")) / 1000
+										else
+											tempH_05 = 0
+										end if
+									else
+										tempH_05 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_06") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_06")) <> 0 then 						
+											tempH_06 = (cdbl(rsHourCapacityFinal("tbs_process_h_06")) + cdbl(rsHourCapacityFinal("sortasi_h_06")))  / cdbl(rsHourCapacityFinal("capacityhour_h_06")) / 1000
+										else
+											tempH_06 = 0
+										end if
+									else
+										tempH_06 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_07") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_07")) <> 0 then 						
+											tempH_07 = (cdbl(rsHourCapacityFinal("tbs_process_h_07")) + cdbl(rsHourCapacityFinal("sortasi_h_07")))  / cdbl(rsHourCapacityFinal("capacityhour_h_07")) / 1000
+										else
+											tempH_07 = 0
+										end if
+									else
+										tempH_07 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_08") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_08")) <> 0 then 						
+											tempH_08 = (cdbl(rsHourCapacityFinal("tbs_process_h_08")) + cdbl(rsHourCapacityFinal("sortasi_h_08")))  / cdbl(rsHourCapacityFinal("capacityhour_h_08")) / 1000
+										else
+											tempH_08 = 0
+										end if
+									else
+										tempH_08 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_09") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_09")) <> 0 then 						
+											tempH_09 = (cdbl(rsHourCapacityFinal("tbs_process_h_09")) + cdbl(rsHourCapacityFinal("sortasi_h_09"))) / cdbl(rsHourCapacityFinal("capacityhour_h_09")) / 1000
+										else
+											tempH_09 = 0
+										end if
+									else
+										tempH_09 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_10") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_10")) <> 0 then 						
+											tempH_10 = (cdbl(rsHourCapacityFinal("tbs_process_h_10")) + cdbl(rsHourCapacityFinal("sortasi_h_10")))  / cdbl(rsHourCapacityFinal("capacityhour_h_10")) / 1000
+										else
+											tempH_10 = 0
+										end if
+									else
+										tempH_10 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_11") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_11")) <> 0 then 						
+											tempH_11 = (cdbl(rsHourCapacityFinal("tbs_process_h_11"))  + cdbl(rsHourCapacityFinal("sortasi_h_11"))) / cdbl(rsHourCapacityFinal("capacityhour_h_11")) / 1000
+										else
+											tempH_11 = 0
+										end if
+									else
+										tempH_11 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_12") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_12")) <> 0 then 						
+											tempH_12 = (cdbl(rsHourCapacityFinal("tbs_process_h_12")) + cdbl(rsHourCapacityFinal("sortasi_h_12"))) / cdbl(rsHourCapacityFinal("capacityhour_h_12")) / 1000
+										else
+											tempH_12 = 0
+										end if
+									else
+										tempH_12 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_13") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_13")) <> 0 then 						
+											tempH_13 = (cdbl(rsHourCapacityFinal("tbs_process_h_13")) + cdbl(rsHourCapacityFinal("sortasi_h_13")))  / cdbl(rsHourCapacityFinal("capacityhour_h_13")) / 1000
+										else
+											tempH_13 = 0
+										end if
+									else
+										tempH_13 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_14") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_14")) <> 0 then 						
+											tempH_14 = (cdbl(rsHourCapacityFinal("tbs_process_h_14")) + cdbl(rsHourCapacityFinal("sortasi_h_14")))  / cdbl(rsHourCapacityFinal("capacityhour_h_14")) / 1000
+										else
+											tempH_14 = 0
+										end if
+									else
+										tempH_14 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_15") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_15")) <> 0 then 						
+											tempH_15 = (cdbl(rsHourCapacityFinal("tbs_process_h_15")) + cdbl(rsHourCapacityFinal("sortasi_h_15"))) / cdbl(rsHourCapacityFinal("capacityhour_h_15")) / 1000
+										else
+											tempH_15 = 0
+										end if
+									else
+										tempH_15 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_16") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_16")) <> 0 then 						
+											tempH_16 = (cdbl(rsHourCapacityFinal("tbs_process_h_16")) + cdbl(rsHourCapacityFinal("sortasi_h_16")))  / cdbl(rsHourCapacityFinal("capacityhour_h_16")) / 1000
+										else
+											tempH_16 = 0
+										end if
+									else
+										tempH_16 = 0
+									end if
+
+
+									if rsHourCapacityFinal("capacityhour_h_17") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_17")) <> 0 then 						
+											tempH_17 = ( cdbl(rsHourCapacityFinal("tbs_process_h_17")) + cdbl(rsHourCapacityFinal("sortasi_h_17"))) / cdbl(rsHourCapacityFinal("capacityhour_h_17")) / 1000
+										else
+											tempH_17 = 0
+										end if
+									else
+										tempH_17 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_18") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_18")) <> 0 then 						
+											tempH_18 = (cdbl(rsHourCapacityFinal("tbs_process_h_18")) + cdbl(rsHourCapacityFinal("sortasi_h_18")))  / cdbl(rsHourCapacityFinal("capacityhour_h_18")) / 1000
+										else
+											tempH_18 = 0
+										end if
+									else
+										tempH_18 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_19") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_19")) <> 0 then 						
+											tempH_19 = (cdbl(rsHourCapacityFinal("tbs_process_h_19")) + cdbl(rsHourCapacityFinal("sortasi_h_19")))  / cdbl(rsHourCapacityFinal("capacityhour_h_19")) / 1000
+										else
+											tempH_19 = 0
+										end if
+									else
+										tempH_19 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_20") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_20")) <> 0 then 						
+											tempH_20 = (cdbl(rsHourCapacityFinal("tbs_process_h_20")) + cdbl(rsHourCapacityFinal("sortasi_h_20")))  / cdbl(rsHourCapacityFinal("capacityhour_h_20")) / 1000
+										else
+											tempH_20 = 0
+										end if
+									else
+										tempH_20 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_21") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_21")) <> 0 then 						
+											tempH_21 = ( cdbl(rsHourCapacityFinal("tbs_process_h_21")) + cdbl(rsHourCapacityFinal("sortasi_h_21")))  / cdbl(rsHourCapacityFinal("capacityhour_h_21")) / 1000
+										else
+											tempH_21 = 0
+										end if
+									else
+										tempH_21 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_22") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_22")) <> 0 then 						
+											tempH_22 = (cdbl(rsHourCapacityFinal("tbs_process_h_22")) + cdbl(rsHourCapacityFinal("sortasi_h_22")))  / cdbl(rsHourCapacityFinal("capacityhour_h_22")) / 1000
+										else
+											tempH_22 = 0
+										end if
+									else
+										tempH_22 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_23") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_23")) <> 0 then 						
+											tempH_23 = (cdbl(rsHourCapacityFinal("tbs_process_h_23")) + cdbl(rsHourCapacityFinal("sortasi_h_23")))  / cdbl(rsHourCapacityFinal("capacityhour_h_23")) / 1000
+										else
+											tempH_23 = 0
+										end if
+									else
+										tempH_23 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_24") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_24")) <> 0 then 						
+											tempH_24 = (cdbl(rsHourCapacityFinal("tbs_process_h_24")) + cdbl(rsHourCapacityFinal("sortasi_h_24")))  / cdbl(rsHourCapacityFinal("capacityhour_h_24")) / 1000
+										else
+											tempH_24 = 0
+										end if
+									else
+										tempH_24 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_25") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_25")) <> 0 then 						
+											tempH_25 = (cdbl(rsHourCapacityFinal("tbs_process_h_25")) + cdbl(rsHourCapacityFinal("sortasi_h_25")))  / cdbl(rsHourCapacityFinal("capacityhour_h_25")) / 1000
+										else
+											tempH_25 = 0
+										end if
+									else
+										tempH_25 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_26") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_26")) <> 0 then 						
+											tempH_26 = (cdbl(rsHourCapacityFinal("tbs_process_h_26")) + cdbl(rsHourCapacityFinal("sortasi_h_26")))  / cdbl(rsHourCapacityFinal("capacityhour_h_26")) / 1000
+										else
+											tempH_26 = 0
+										end if
+									else
+										tempH_26 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_27") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_27")) <> 0 then 						
+											tempH_27 = (cdbl(rsHourCapacityFinal("tbs_process_h_27")) + cdbl(rsHourCapacityFinal("sortasi_h_27")))  / cdbl(rsHourCapacityFinal("capacityhour_h_27")) / 1000
+										else
+											tempH_27 = 0
+										end if
+									else
+										tempH_27 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_28") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_28")) <> 0 then 						
+											tempH_28 = (cdbl(rsHourCapacityFinal("tbs_process_h_28")) + cdbl(rsHourCapacityFinal("sortasi_h_28"))) / cdbl(rsHourCapacityFinal("capacityhour_h_28")) / 1000
+										else
+											tempH_28 = 0
+										end if
+									else
+										tempH_28 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_29") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_29")) <> 0 then 						
+											tempH_29 = (cdbl(rsHourCapacityFinal("tbs_process_h_29")) + cdbl(rsHourCapacityFinal("sortasi_h_29"))) / cdbl(rsHourCapacityFinal("capacityhour_h_29")) / 1000
+										else
+											tempH_29 = 0
+										end if
+									else
+										tempH_29 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_30") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_30")) <> 0 then 						
+											tempH_30 = (cdbl(rsHourCapacityFinal("tbs_process_h_30")) + cdbl(rsHourCapacityFinal("sortasi_h_30")))  / cdbl(rsHourCapacityFinal("capacityhour_h_30")) / 1000
+										else
+											tempH_30 = 0
+										end if
+									else
+										tempH_30 = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_h_31") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_h_31")) <> 0 then 						
+											tempH_31 = (cdbl(rsHourCapacityFinal("tbs_process_h_31")) + cdbl(rsHourCapacityFinal("sortasi_h_30"))) / cdbl(rsHourCapacityFinal("capacityhour_h_31")) / 1000
+										else
+											tempH_31 = 0
+										end if
+									else
+										tempH_31 = 0
+									end if									
+									
+									
+									
+									if rsHourCapacityFinal("capacityhour_shi") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_shi")) <> 0 then 						
+											tempSHI = (cdbl(rsHourCapacityFinal("tbs_process_shi")) + cdbl(rsHourCapacityFinal("sortasi_shi")))  / cdbl(rsHourCapacityFinal("capacityhour_shi")) / 1000
+										else
+											tempSHI = 0
+										end if
+									else
+										tempSHI = 0
+									end if
+
+									if rsHourCapacityFinal("capacityhour_sbi") <> ""  then
+										if  cdbl(rsHourCapacityFinal("capacityhour_sbi")) <> 0 then 						
+											tempSBI = (cdbl(rsHourCapacityFinal("tbs_process_sbi")) + cdbl(rsHourCapacityFinal("sortasi_sbi")))  / cdbl(rsHourCapacityFinal("capacityhour_sbi")) / 1000
+										else
+											tempSBI = 0
+										end if
+									else
+										tempSBI = 0
+									end if									
+									
+									
+								
+								%>
+
+								
+								<% ' Start Compare to Budget 
+									
+									if cdbl(rsHourCapacityFinal("capacityhour_budget_shi")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsHourCapacityFinal("tbs_process_budget_shi")) / cdbl(rsHourCapacityFinal("capacityhour_budget_shi")) / 1000
+									else
+										tempDataBudget_SHI = 0
+									end if
+									
+									if cdbl(rsHourCapacityFinal("capacityhour_budget_sbi")) <> 0 then 
+										tempDataBudget_SBI = cdbl(rsHourCapacityFinal("tbs_process_budget_sbi")) / cdbl(rsHourCapacityFinal("capacityhour_budget_sbi")) / 1000
+									else
+										tempDataBudget_SBI = 0 
+									end if
+									
+
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = temp_SHI/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = temp_SBI/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>									
+								
+
+								<% if txtDay >= 1 then %>								
+									<td align="center" ><%=FormatNumber(tempH_01,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 2 then %>								
+									<td align="center" ><%=FormatNumber(tempH_02,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 3 then %>								
+									<td align="center" ><%=FormatNumber(tempH_03,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 4 then %>								
+									<td align="center" ><%=FormatNumber(tempH_04,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 5 then %>								
+									<td align="center" ><%=FormatNumber(tempH_05,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 6 then %>								
+									<td align="center" ><%=FormatNumber(tempH_06,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 7 then %>								
+									<td align="center" ><%=FormatNumber(tempH_07,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 8 then %>								
+									<td align="center" ><%=FormatNumber(tempH_08,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 9 then %>								
+									<td align="center" ><%=FormatNumber(tempH_09,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 10 then %>								
+									<td align="center" ><%=FormatNumber(tempH_10,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 11 then %>								
+									<td align="center" ><%=FormatNumber(tempH_11,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 12 then %>								
+									<td align="center" ><%=FormatNumber(tempH_12,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 13 then %>								
+									<td align="center" ><%=FormatNumber(tempH_13,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 14 then %>								
+									<td align="center" ><%=FormatNumber(tempH_14,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 15 then %>								
+									<td align="center" ><%=FormatNumber(tempH_15,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 16 then %>								
+									<td align="center" ><%=FormatNumber(tempH_16,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 17 then %>								
+									<td align="center" ><%=FormatNumber(tempH_17,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 18 then %>								
+									<td align="center" ><%=FormatNumber(tempH_18,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 19 then %>								
+									<td align="center" ><%=FormatNumber(tempH_19,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 20 then %>								
+									<td align="center" ><%=FormatNumber(tempH_20,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 21 then %>								
+									<td align="center" ><%=FormatNumber(tempH_21,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 22 then %>								
+								<td align="center" ><%=FormatNumber(tempH_22,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 23 then %>								
+									<td align="center" ><%=FormatNumber(tempH_23,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 24 then %>								
+									<td align="center" ><%=FormatNumber(tempH_24,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 25 then %>								
+									<td align="center" ><%=FormatNumber(tempH_25,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 26 then %>								
+									<td align="center" ><%=FormatNumber(tempH_26,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 27 then %>								
+									<td align="center" ><%=FormatNumber(tempH_27,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 28 then %>								
+									<td align="center" ><%=FormatNumber(tempH_28,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+									
+
+								<% if txtDay >= 29 then %>																
+									<td align="center" ><%=FormatNumber(tempH_29,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+
+								<% if txtDay >= 30 then %>								
+									<td align="center" ><%=FormatNumber(tempH_30,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+												
+								
+								<% if txtDay >= 31 then %>								
+									<td align="center" ><%=FormatNumber(tempH_31,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+												
+								
+								<td align="center" ><%=FormatNumber(tempSHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI,tempRounding)%></td>
+
+
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+								
+								<%
+								    ' Start to compare budget
+									tempCompare_SHI = (tempSHI)/(tempDataBudget_SHI) * 100
+									tempCompare_SBI = (tempSBI)/(tempDataBudget_SBI) * 100
+									tempBudgetType = "QUANTITY"
+								%>	
+								
+								<%
+								if tempBudgetType = "QUANTITY" then  
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+								else
+									if tempCompare_HI > 105 then
+										cClassAssigned_HI = "red"
+									else
+										if tempCompare_HI > 95 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "green"
+										end if
+									end if
+
+									if tempCompare_SHI > 105 then
+										cClassAssigned_SHI = "red"
+									else
+										if tempCompare_SHI > 95 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "green"
+										end if
+									end if
+
+									if tempCompare_SBI > 105 then
+										cClassAssigned_SBI = "red"
+									else
+										if tempCompare_SBI > 95 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "green"
+										end if
+									end if
+								end if					
+								%>				
+								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,0)%></td>								
+								
+							</tr>
+				<%
+
+							rsHourCapacityFinal.MoveNext
+						Wend
+					end if
+					rsHourCapacityFinal.Close
+					set rsHourCapacityFinal = Nothing
+				%>	

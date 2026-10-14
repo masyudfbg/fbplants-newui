@@ -1,0 +1,632 @@
+	<%
+		if not rsOutputPanenFinal.EOF then
+			no = 0
+			
+
+			while not rsOutputPanenFinal.EOF
+				if no  mod 2 = 1 then
+					cClass = "odd"
+				else
+					cClass = "default"
+				end if
+				no = no + 1
+	%>
+
+				<% 
+					strCompare =   " select itemcode, factorreport from parameterreport " & _
+									  " where " & _
+									  " reportcode = 'LHK' and " & _
+									  " itemcode = '" & v_txtGroupItem & "' "
+					
+					Set rsCompare = Server.CreateObject("ADODB.Recordset")	
+					rsCompare.Open strCompare, connstr, adOpenStatic 		
+
+					if not rsCompare.EOF then
+						tempStrCompare = rsCompare ("factorreport")
+					else
+						tempStrCompare = ""	
+					end if	
+
+				    'response.write "v_txtGroupItem : " & v_txtGroupItem
+				    'response.write "tempStrCompare : " & tempStrCompare
+				    'response.write "rsOutputPanenFinaldescription : " & rsOutputPanenFinal("description")
+
+					
+				    if tempStrCompare  = rsOutputPanenFinal("description") or v_txtGroupItem  = "--NONE--"  then 		
+				%>
+
+					<tr class="<%=cClass%>">
+						
+						<%
+							strCodeDesc = "SELECT param_1 CodeDescription, rate_1 theRowSpan FROM PARAMETERDETAIL " & _
+											" WHERE " & _
+											" parcode = 'SR003' AND " & _
+											" parheadcode = 'REPORTCODE' AND " & _
+											" param_2 = 'DEFAULT' AND " & _
+											" fccode = '" & rsOutputPanenFinal("codedesc") & "'" 
+							
+							Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+							rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+							if not rsCodeDesc.EOF then
+								tempCodeDescription = rsCodeDesc ("CodeDescription")
+							else
+								tempCodeDescription = ""	
+							end if					
+											
+											
+						%>
+						
+						
+						
+						<% if sPrevDesc <> tempCodeDescription then %>		
+							 <td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeDescription%></td>
+							<% sPrevDesc = tempCodeDescription %>
+						<% end if %>	
+
+						
+						
+						
+						
+						
+						<% 
+							tempRefCode = rsOutputPanenFinal("codedesc")
+							strHRef = " SELECT param_5 reference,  rate_3 rounding, param_6 UOM,  param_7 budgetType FROM PARAMETERDETAIL " & _
+										" WHERE " & _
+										" parcode = 'SR003' AND " & _
+										" fccode = '" & tempRefCode & "' AND " & _
+										" param_2 = 'DEFAULT' " 
+						
+							Set rsHRef = Server.CreateObject("ADODB.Recordset")	
+							rsHRef.Open strHRef, connstr, adOpenStatic 
+
+							tempBudget_HI = 0 
+							tempBudget_SHI = 0
+							tempBudget_SBI = 0
+
+							
+							if not rsHRef.EOF then
+								tempReference = rsHRef ("reference")
+								tempUOM = "Kg/HK"
+								tempRounding = cdbl(rsHRef("rounding"))
+								tempBudget_HI = 0
+								tempBudget_SHI = 0
+								tempBudget_SBI = 0
+								tempBudgetType = rsHRef("budgetType")
+							else
+								tempReference = ""	
+								tempUOM = "Kg/HK"
+								tempRounding = 0
+								tempBudget_HI = 0
+								tempBudget_SHI = 0
+								tempBudget_SBI = 0
+								tempBudgetType = "QUANTITY"
+							end if
+							
+							rsHRef.Close
+							set rsHRef = Nothing
+
+							tempDataBudget_HI = tempBudget_HI
+							tempDataBudget_SHI = tempBudget_SHI
+							tempDataBudget_SBI = tempBudget_SBI
+							
+							tempExtendedReference = "txtGroupItem="& rsOutputPanenFinal("description") & _
+														"&txtMonth=" & v_txtMonth & _
+														"&txtYear=" & v_txtYear & _
+														"&txtDateFrom=" & v_txtdatefrom & _ 
+														"&txtDateTo=" & v_txtdatefrom & _ 
+														"&txtBudgetYear=" & v_txtBudgetYear & _
+														"&txtBudgetVersion=" & v_txtBudgetVersion & _
+														"&txtModuleVersion=" & v_txtModuleVersion 
+								if cdbl(visibleGP) > 1 then
+									tempExtendedReferenceDetail = "&txtGroupPlantation=--ALL--"
+								else
+									tempExtendedReferenceDetail = "&txtGroupPlantation="
+									if cdbl(visibleP) > 1 then
+										tempExtendedReferenceDetail = "&txtPlantation=--ALL--"
+									else
+										tempExtendedReferenceDetail = "&txtPlantation="
+										if cdbl(visibleGR) > 1 then
+											tempExtendedReferenceDetail = "&txtGroupRegion=--ALL--"
+										else
+											tempExtendedReferenceDetail = "&txtGroupRegion="
+											if cdbl(visibleR) > 1 then
+												tempExtendedReferenceDetail = "&txtRegion=--ALL--"
+											else
+												tempExtendedReferenceDetail = "&txtRegion="
+												if cdbl(visibleC) > 1 then
+														tempExtendedReferenceDetail = "&txtCompany=--ALL--"
+												else
+													tempExtendedReferenceDetail = "&txtCompany="
+													if cdbl(visibleS) > 1 then
+														tempExtendedReferenceDetail = "&txtFcba=--ALL--"
+													else
+														tempExtendedReferenceDetail = "&txtFcba=" & v_txtFcba
+													end if
+												end if
+											end if
+										end if
+									end if
+								end if
+
+								'tempReference = "p_HarianLC.asp?" & tempExtendedReference
+								tempReference = "p_Summary_BA_NAF.asp?" & tempExtendedReference & tempExtendedReferenceDetail
+							
+						%>
+						
+						
+						<% 
+							tempCodeSubDescription = rsOutputPanenFinal("description")
+							if sPrevSubDesc <> tempCodeSubDescription then %>	
+
+								<% tempNumber = tempNumber + 1 %>
+								<td align="center"  ><%=tempNumber%></td>						
+								<td align="left" ><a href="<%=tempReference%>"><%=tempCodeSubDescription%></a></td>
+						<% 		
+								sPrevSubDesc = tempCodeSubDescription 
+							else %>
+								<td align="center"  ></td>						
+								<td align="left" ></td>						
+						<%	
+							end if 
+						%>
+						
+						<!--#include file="FormDisplaySUMMARYOutputPanen.html"-->
+						<td align="center" ><%=rsOutputPanenFinal("UnitOfMeasurement")%></td>
+						
+						
+						<%  if rsOutputPanenFinal("mandays_qty_hi") <>  "" then 
+								if  cdbl(rsOutputPanenFinal("mandays_qty_hi")) <> 0  then 
+									tempData = cdbl(rsOutputPanenFinal("tbs_qty_hi")) / cdbl(rsOutputPanenFinal("mandays_qty_hi")) 
+								else
+									tempData = 0
+								end if
+							else
+								tempData = 0
+							end if
+						%>
+						<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+						
+						<%  if rsOutputPanenFinal("mandays_qty_shi") <>  "" then 
+								if  cdbl(rsOutputPanenFinal("mandays_qty_shi")) <> 0  then 
+									tempData_shi = cdbl(rsOutputPanenFinal("tbs_qty_shi")) / cdbl(rsOutputPanenFinal("mandays_qty_shi")) 
+								else
+									tempData_shi = 0
+								end if
+							else
+								tempData_shi = 0
+							end if
+						%>					
+						<td align="right" ><%=FormatNumber(tempData_shi,tempRounding)%></td>
+						
+						<%  if rsOutputPanenFinal("mandays_qty_sbi") <>  "" then 
+								if  cdbl(rsOutputPanenFinal("mandays_qty_sbi")) <> 0  then 
+									tempData_sbi = cdbl(rsOutputPanenFinal("tbs_qty_sbi")) / cdbl(rsOutputPanenFinal("mandays_qty_sbi")) 
+								else
+									tempData_sbi = 0
+								end if
+							else
+								tempData_sbi = 0
+							end if
+						%>					
+						
+						<td align="right" ><%=FormatNumber(tempData_sbi,tempRounding)%></td>
+						
+						<%  if rsOutputPanenFinal("mandays_qty_budget_hi") <>  "" then 
+								if  cdbl(rsOutputPanenFinal("mandays_qty_budget_hi")) <> 0  then 
+									tempDataBudget_HI = cdbl(rsOutputPanenFinal("tbs_budget_qty_hi")) / cdbl(rsOutputPanenFinal("mandays_qty_budget_hi")) 
+								else
+									tempDataBudget_HI = 0
+								end if
+							else
+								tempDataBudget_HI = 0
+							end if
+						%>					
+						
+						<td align="right" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+						
+						<%  if rsOutputPanenFinal("mandays_qty_budget_shi") <>  "" then 
+								if  cdbl(rsOutputPanenFinal("mandays_qty_budget_shi")) <> 0  then 
+									tempDataBudget_SHI = cdbl(rsOutputPanenFinal("tbs_budget_qty_shi")) / cdbl(rsOutputPanenFinal("mandays_qty_budget_shi")) 
+								else
+									tempDataBudget_SHI = 0
+								end if
+							else
+								tempDataBudget_SHI = 0
+							end if
+						%>					
+						
+						<td align="right" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+
+						<%  if rsOutputPanenFinal("mandays_qty_budget_sbi") <>  "" then 
+								if  cdbl(rsOutputPanenFinal("mandays_qty_budget_sbi")) <> 0  then 
+									tempDataBudget_SBI = cdbl(rsOutputPanenFinal("tbs_budget_qty_sbi")) / cdbl(rsOutputPanenFinal("mandays_qty_budget_sbi")) 
+								else
+									tempDataBudget_SBI = 0
+								end if
+							else
+								tempDataBudget_SBI = 0
+							end if
+						%>					
+						
+						<td align="right" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>					
+						
+						
+
+						
+						<% ' Start Compare to Budget 
+						   ' Later, This Temporary Variable must be picked from Master Budget Table.
+
+							
+						   ' End of Modification
+
+							if tempDataBudget_HI <> 0 then 
+								tempCompare_HI = tempData /tempDataBudget_HI * 100
+							else
+								tempCompare_HI = 0
+							end if
+							
+							if tempDataBudget_SHI <> 0 then 
+								tempCompare_SHI = tempData_shi/tempDataBudget_SHI * 100
+							else
+								tempCompare_SHI = 0
+							end if
+
+							if tempDataBudget_SBI <> 0 then 
+								tempCompare_SBI = tempData_sbi/tempDataBudget_SBI * 100
+							else
+								tempCompare_SBI = 0
+							end if
+							
+						%>
+
+						<%
+							strGetColor = "select " & _
+							   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_HI & "," & tempData & "," & tempDataBudget_HI & " ) colorHI, " & _
+							   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_SHI & "," & tempData_SHI & "," & tempDataBudget_SHI & " ) colorSHI, " & _
+							   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_SBI & "," & tempData_SBI & "," & tempDataBudget_SBI & " ) colorSBI " & _
+							"from dual "
+							
+							Set rsGetColor = Server.CreateObject("ADODB.Recordset")	
+							rsGetColor.Open strGetColor, connstr, adOpenStatic 
+							
+							if not rsGetColor.EOF then
+								cClassAssigned_HI = rsGetColor("colorHI")
+								cClassAssigned_SHI = rsGetColor("colorSHI")
+								cClassAssigned_SBI = rsGetColor("colorSBI")
+							else
+								cClassAssigned_HI = "white"
+								cClassAssigned_SHI = "white"
+								cClassAssigned_SBI = "white"
+							end if
+
+							rsGetColor.Close
+							set rsGetColor = Nothing
+							
+						%>					
+						
+						
+						
+						<% if rsOutputPanenFinal("codedesc") = "SR003_04"  then %>
+							<td class="grey" align="right" ></td>
+						<% else %>				
+							<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
+						<% end if %>
+						
+						<% if rsOutputPanenFinal("codedesc") = "SR003_04" or rsOutputPanenFinal("codedesc") = "SR003_02" or rsOutputPanenFinal("codedesc") = "SR003_03"  then %>
+							<td class="grey" align="right" ></td>
+							<td class="grey" align="right" ></td>
+						<% else %>
+							<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+							<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+						<% end if %>
+
+
+						
+						
+					</tr>
+				<%end if%>
+	<%
+
+				rsOutputPanenFinal.MoveNext
+			Wend
+		end if
+
+	%>
+
+    <% if v_txtDetailInfo = "Yes" then %>
+			<%
+
+				if not rsOutputPanenFinal.EOF then
+					rsOutputPanenFinal.MoveFirst
+					no = 0
+					
+
+					tempNumber = 0
+					while not rsOutputPanenFinal.EOF
+						if no  mod 2 = 1 then
+							cClass = "odd"
+						else
+							cClass = "default"
+						end if
+						no = no + 1
+			%>
+
+				<% 
+					strCompare =   " select itemcode, factorreport from parameterreport " & _
+									  " where " & _
+									  " reportcode = 'LHK' and " & _
+									  " itemcode = '" & v_txtGroupItem & "' "
+					
+					Set rsCompare = Server.CreateObject("ADODB.Recordset")	
+					rsCompare.Open strCompare, connstr, adOpenStatic 		
+
+					if not rsCompare.EOF then
+						tempStrCompare = rsCompare ("factorreport")
+					else
+						tempStrCompare = ""	
+					end if	
+
+				    'response.write "v_txtGroupItem : " & v_txtGroupItem
+				    'response.write "tempStrCompare : " & tempStrCompare
+				    'response.write "rsOutputPanenFinaldescription : " & rsOutputPanenFinal("description")
+
+					
+				    if tempStrCompare  = rsOutputPanenFinal("description") or v_txtGroupItem  = "--NONE--"  then 		
+				%>
+				
+						<tr class="<%=cClass%>">
+							
+							<%
+							    tempCodeDescription = "TBS Qty"
+								tempUnitOfMeasurement = "Kg"
+							%>
+							
+							<!--#include file="FormDisplaySUMMARYOutputPanen.html"-->
+							<td align="center"></td>
+							
+							<% 
+
+								tempReference = ""	
+								tempUOM = ""
+								tempRounding = 0
+								tempBudget_HI = 0
+								tempBudget_SHI = 0
+								tempBudget_SBI = 0
+								tempBudgetType = "QUANTITY"
+
+								tempDataBudget_HI = tempBudget_HI
+								tempDataBudget_SHI = tempBudget_SHI
+								tempDataBudget_SBI = tempBudget_SBI
+								
+								tempExtendedReference = "txtGroupItem="& rsOutputPanenFinal("description") & _
+							                        "&txtMonth=" & v_txtMonth & _
+													"&txtYear=" & v_txtYear & _
+													"&txtDateFrom=" & v_txtdatefrom & _ 
+													"&txtDateTo=" & v_txtdatefrom & _ 
+													"&txtBudgetYear=" & v_txtBudgetYear & _
+													"&txtBudgetVersion=" & v_txtBudgetVersion & _
+													"&txtModuleVersion=" & v_txtModuleVersion 
+							if cdbl(visibleGP) > 1 then
+								tempExtendedReferenceDetail = "&txtGroupPlantation=--ALL--"
+							else
+								tempExtendedReferenceDetail = "&txtGroupPlantation="
+								if cdbl(visibleP) > 1 then
+									tempExtendedReferenceDetail = "&txtPlantation=--ALL--"
+								else
+									tempExtendedReferenceDetail = "&txtPlantation="
+									if cdbl(visibleGR) > 1 then
+										tempExtendedReferenceDetail = "&txtGroupRegion=--ALL--"
+									else
+										tempExtendedReferenceDetail = "&txtGroupRegion="
+										if cdbl(visibleR) > 1 then
+											tempExtendedReferenceDetail = "&txtRegion=--ALL--"
+										else
+											tempExtendedReferenceDetail = "&txtRegion="
+											if cdbl(visibleC) > 1 then
+													tempExtendedReferenceDetail = "&txtCompany=--ALL--"
+											else
+												tempExtendedReferenceDetail = "&txtCompany="
+												if cdbl(visibleS) > 1 then
+													tempExtendedReferenceDetail = "&txtFcba=--ALL--"
+												else
+													tempExtendedReferenceDetail = "&txtFcba=" & v_txtFcba
+												end if
+											end if
+										end if
+									end if
+								end if
+							end if
+
+							'tempReference = "p_HarianLC.asp?" & tempExtendedReference
+							tempReference = "p_Summary_BA_NAF.asp?" & tempExtendedReference & tempExtendedReferenceDetail
+								
+							%>
+							
+							<td align="left" ><a href="<%=tempReference%>"><%=tempCodeDescription%></a></td>
+							<td align="center" ><%=tempUnitOfMeasurement%></td>
+
+							<%  
+							    tempData = cdbl(rsOutputPanenFinal("tbs_qty_hi")) 
+							    tempData_shi = cdbl(rsOutputPanenFinal("tbs_qty_shi")) 
+								tempData_sbi = cdbl(rsOutputPanenFinal("tbs_qty_sbi")) 
+								
+								tempDataBudget_HI = cdbl(rsOutputPanenFinal("tbs_budget_qty_hi")) 
+							    tempDataBudget_shi = cdbl(rsOutputPanenFinal("tbs_budget_qty_shi")) 
+								tempDataBudget_sbi = cdbl(rsOutputPanenFinal("tbs_budget_qty_sbi")) 
+							%>
+							
+							
+							<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempData_shi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempData_sbi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempDataBudget_shi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempDataBudget_sbi,tempRounding)%></td>
+								
+							<td class="grey" align="right" ></td>
+							<td class="grey" align="right" ></td>
+							<td class="grey" align="right" ></td>
+							
+						</tr>
+					<%end if%>
+			<%
+
+						rsOutputPanenFinal.MoveNext
+					Wend
+				end if
+			%>
+
+			<% 
+			    ' ++++++++++++++++++++++++++++++++++++++++++++
+			%>
+
+			<%
+				if not rsOutputPanenFinal.EOF then
+					rsOutputPanenFinal.MoveFirst
+					no = 0
+					
+
+					tempNumber = 0
+					while not rsOutputPanenFinal.EOF
+						if no  mod 2 = 1 then
+							cClass = "odd"
+						else
+							cClass = "default"
+						end if
+						no = no + 1
+			%>
+
+				<% 
+					strCompare =   " select itemcode, factorreport from parameterreport " & _
+									  " where " & _
+									  " reportcode = 'LHK' and " & _
+									  " itemcode = '" & v_txtGroupItem & "' "
+					
+					Set rsCompare = Server.CreateObject("ADODB.Recordset")	
+					rsCompare.Open strCompare, connstr, adOpenStatic 		
+
+					if not rsCompare.EOF then
+						tempStrCompare = rsCompare ("factorreport")
+					else
+						tempStrCompare = ""	
+					end if	
+
+				    'response.write "v_txtGroupItem : " & v_txtGroupItem
+				    'response.write "tempStrCompare : " & tempStrCompare
+				    'response.write "rsOutputPanenFinaldescription : " & rsOutputPanenFinal("description")
+
+					
+				    if tempStrCompare  = rsOutputPanenFinal("description") or v_txtGroupItem  = "--NONE--"  then 		
+				%>
+				
+						<tr class="<%=cClass%>">
+							
+							<%
+							    tempCodeDescription = "Mandays (HK)"
+								tempUnitOfMeasurement = "HK"
+							%>
+							
+							<!--#include file="FormDisplaySUMMARYOutputPanen.html"-->
+							<td align="center"  ></td>
+							
+							<% 
+
+								tempReference = ""	
+								tempUOM = ""
+								tempRounding = 0
+								tempBudget_HI = 0
+								tempBudget_SHI = 0
+								tempBudget_SBI = 0
+								tempBudgetType = "QUANTITY"
+
+								tempDataBudget_HI = tempBudget_HI
+								tempDataBudget_SHI = tempBudget_SHI
+								tempDataBudget_SBI = tempBudget_SBI
+								
+								tempExtendedReference = "txtGroupItem="& rsOutputPanenFinal("description") & _
+							                        "&txtMonth=" & v_txtMonth & _
+													"&txtYear=" & v_txtYear & _
+													"&txtDateFrom=" & v_txtdatefrom & _ 
+													"&txtDateTo=" & v_txtdatefrom & _ 
+													"&txtBudgetYear=" & v_txtBudgetYear & _
+													"&txtBudgetVersion=" & v_txtBudgetVersion & _
+													"&txtModuleVersion=" & v_txtModuleVersion 
+							if cdbl(visibleGP) > 1 then
+								tempExtendedReferenceDetail = "&txtGroupPlantation=--ALL--"
+							else
+								tempExtendedReferenceDetail = "&txtGroupPlantation="
+								if cdbl(visibleP) > 1 then
+									tempExtendedReferenceDetail = "&txtPlantation=--ALL--"
+								else
+									tempExtendedReferenceDetail = "&txtPlantation="
+									if cdbl(visibleGR) > 1 then
+										tempExtendedReferenceDetail = "&txtGroupRegion=--ALL--"
+									else
+										tempExtendedReferenceDetail = "&txtGroupRegion="
+										if cdbl(visibleR) > 1 then
+											tempExtendedReferenceDetail = "&txtRegion=--ALL--"
+										else
+											tempExtendedReferenceDetail = "&txtRegion="
+											if cdbl(visibleC) > 1 then
+													tempExtendedReferenceDetail = "&txtCompany=--ALL--"
+											else
+												tempExtendedReferenceDetail = "&txtCompany="
+												if cdbl(visibleS) > 1 then
+													tempExtendedReferenceDetail = "&txtFcba=--ALL--"
+												else
+													tempExtendedReferenceDetail = "&txtFcba=" & v_txtFcba
+												end if
+											end if
+										end if
+									end if
+								end if
+							end if
+
+							'tempReference = "p_HarianLC.asp?" & tempExtendedReference
+							tempReference = "p_Summary_BA_NAF.asp?" & tempExtendedReference & tempExtendedReferenceDetail
+								
+							%>
+							
+							<td align="left" ><a href="<%=tempReference%>"><%=tempCodeDescription%></a></td>
+							<td align="center" ><%=tempUnitOfMeasurement%></td>
+
+							<%  
+							    tempData = cdbl(rsOutputPanenFinal("mandays_qty_hi")) 
+							    tempData_shi = cdbl(rsOutputPanenFinal("mandays_qty_shi")) 
+								tempData_sbi = cdbl(rsOutputPanenFinal("mandays_qty_sbi")) 
+								
+								tempDataBudget_HI = cdbl(rsOutputPanenFinal("mandays_qty_budget_hi")) 
+							    tempDataBudget_shi = cdbl(rsOutputPanenFinal("mandays_qty_budget_shi")) 
+								tempDataBudget_sbi = cdbl(rsOutputPanenFinal("mandays_qty_budget_sbi")) 								
+							%>
+							
+							
+							<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempData_shi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempData_sbi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempDataBudget_shi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempDataBudget_sbi,tempRounding)%></td>
+								
+							<td class="grey" align="right" ></td>
+							<td class="grey" align="right" ></td>
+							<td class="grey" align="right" ></td>
+							
+						</tr>
+					<%end if%>
+			<%
+
+						rsOutputPanenFinal.MoveNext
+					Wend
+				end if
+			%>
+
+
+			
+	<% end if %>
+	
+	<%
+		rsOutputPanenFinal.Close
+		set rsOutputPanenFinal = Nothing
+	%>

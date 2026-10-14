@@ -1,0 +1,75 @@
+<table id="form-table" class="centered-margin">
+<tr>
+
+
+
+
+<th>&nbsp;</th>
+<th>&nbsp;</th>
+<th>&nbsp;</th>
+<th>TAHUN</th>
+<th>BULAN</th>
+<th>TYPE</th>
+<th>&nbsp;</th>
+</tr>
+<tr>
+		<form name="frmAR" method="post" action="<%=ScriptName%>">
+		
+		
+		
+     
+		<th>&nbsp;</th> 
+        <th>&nbsp;</th>	
+        <th>&nbsp;</th>		
+			<td>
+				<font size="2"  color="#0000FF" ></font>
+				<% 
+					MM=v_txtMonth
+					yyyy=v_txtYear
+
+					mon = Month(Session("v_Costbook"))
+					If len(MM)=0 then MM=mon
+
+					Yr = Year(Session("v_Costbook"))
+					MinYr = 2015
+					MaxYr = Yr  + 2
+					If len(yyyy)= 0 then yyyy = Yr
+				%>
+				<select name="txtYear">
+						<%
+							For i = MinYr to MaxYr
+						%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(yyyy) then%> Selected <%End If%>><%=i%></option>
+						<%
+							Next
+						%>
+				</select>
+			</td>
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="txtMonth">
+						<%
+							For i = 1 to 12
+						%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+						<%
+							Next
+						%>
+					</select>
+			</td>
+			<td>
+				<select name="txttype">
+					<Option Value="rekap" <%If v_txttype = "rekap" then%> Selected <%End If%>>Rekap</option>
+					<Option Value="detail" <%If v_txttype = "detail" then%> Selected <%End If%>>Detail</option>
+				</select>
+			</td>
+
+			
+
+			
+
+<td><input type="submit" value="View" /></td>
+</form>
+</tr>
+</table>

@@ -1,0 +1,613 @@
+<%
+	'Amandemen
+	'1. Allowded Code Untuk Potongan PPh 21 = D03 
+	' By NAF
+
+    '26 May 2014, Permintaan dari THIP Project :
+    ' Yaitu : 
+    ' 2. Tunjangan PPh 21 oleh Perusahaan ==> A58
+    ' By NAF ==> ini belum ada tolong dibuatkan
+
+
+	'New Definition
+	Dim temp_salaries : temp_salaries = 0
+	Dim temp_allowances : temp_allowances = 0
+	Dim temp_irregular_allowances : temp_irregular_allowances = 0
+	Dim temp_ded_employment : temp_ded_employment = 0
+	Dim temp_ded_retirement : temp_ded_retirement = 0
+
+	
+	
+	
+
+	tempProcessCode = "PAYROLL"
+	tempProcessNameCode = "Payroll_Potongan_Pph21.asp"
+	tempRefCodeReceive = "ATTENDANCE_GAD"
+
+	qReference = "select REF_NUMBERKEYS, REF_STRINGSEPARATOR, REF_STRINGKEYS " & _
+				  " from process_tableref_tab " & _
+				  " where " & _
+				  " processcode = '" & tempProcessCode & "' and " & _
+				  " upper(processnamecode) =  upper('" & tempProcessNameCode & "') and " & _
+				  " fccode =  '" & tempRefCodeReceive & "'"
+
+	Set rsReferenceReceive = Server.CreateObject("ADODB.Recordset")
+	rsReferenceReceive.CursorType = 3
+	rsReferenceReceive.CursorLocation = 3
+	rsReferenceReceive.Open qReference, connstr
+
+	doneReceive = 1
+	if not rsReferenceReceive.eof then
+		txtRefNumberKeys_Receive = rsReferenceReceive("REF_NUMBERKEYS")
+		txtRefStringSeparator_Receive = rsReferenceReceive("REF_STRINGSEPARATOR")
+		txtRefStringKeys_Receive = rsReferenceReceive("REF_STRINGKEYS")
+		doneReceive = 1
+	else
+		doneReceive = 0
+	end if
+	rsReferenceReceive.close
+	set rsReferenceReceive = Nothing
+	' End of Picking Referential Integrity
+	
+	
+	' System must track it as an AUTOMATIC Process 
+	tempIncludedPayrollProcessing = "FALSE"
+	Set rsParameter = Server.CreateObject("ADODB.Recordset")
+	qParameter =" Select includedpayrollprocessing, man_auto " & _
+		              " From ALLOWDED where FCCODE='D03'  " & _
+					  " and fcBA='" & Session("fcBA") & "' " & _
+					  " and man_auto = 'A'"
+	'response.Write " qParameter = " & qParameter				  
+	rsParameter.CursorType = 3
+	rsParameter.CursorLocation = 3
+	rsParameter.Open qParameter, connstr
+	if not rsParameter.eof then
+		 tempIncludedPayrollProcessing= rsParameter("includedpayrollprocessing")
+	else
+		 tempIncludedPayrollProcessing = "FALSE"
+	End if
+	rsParameter.Close
+	set rsParameter = Nothing
+	
+	' Agar Tunjangan Pph 21 keluar dan dihitung sistem, adalah sbb:
+	' System must track it as an AUTOMATIC Process dan includedpayrollprocessing = TRUE
+	' Kode Allowded: A58
+	' Parameter yang menentukan ada pembiayaan yang di tanggung oleh perusahaan, dalam hal ini TYPE_2, jika ada isi TRUE jika tidak isi FALSE
+	
+	Dim tempIncludedPayrollProcessingTunjanganPph21 : tempIncludedPayrollProcessingTunjanganPph21 = "FALSE"
+	Dim ParamIsPaidByCompany : ParamIsPaidByCompany = "FALSE"
+	Dim tempFinalTaxTunjanganPph21 : tempFinalTaxTunjanganPph21 = 0
+	Dim rsIsEmployeePaidByCompany, strIsEmployeePaidByCompany
+	Dim IsEmployeePaidByCompany : IsEmployeePaidByCompany = "FALSE"
+	tempIncludedPayrollProcessingTunjanganPph21 = "FALSE"
+	
+	Dim sqljht, rsjht, temp_amount_jht
+	
+	Set rsParameter = Server.CreateObject("ADODB.Recordset")
+	qParameter = " select includedpayrollprocessing" & _
+	             "        , man_auto" & _
+				 "        , type_2 ParamIsPaidByCompany" & _
+		         " from allowded" & _
+				 " where fccode = 'A58'" & _
+				 "       and fcba = '" & Session("fcBA") & "'" & _
+				 "       and man_auto = 'A'"
+	'response.Write " qParameter = " & qParameter				  
+	rsParameter.CursorType = 3
+	rsParameter.CursorLocation = 3
+	rsParameter.Open qParameter, connstr
+	if not rsParameter.eof then
+		 tempIncludedPayrollProcessingTunjanganPph21= rsParameter("includedpayrollprocessing")
+		 ParamIsPaidByCompany = rsParameter("ParamIsPaidByCompany")
+	else
+		 tempIncludedPayrollProcessingTunjanganPph21 = "FALSE"
+		 ParamIsPaidByCompany = "FALSE"
+	End if
+	rsParameter.Close
+	set rsParameter = Nothing
+	
+
+
+	' System must track it as an AUTOMATIC Process 
+	' Jabatan
+	
+	Dim temp_max_Jabatan : temp_max_Jabatan = 0
+	tempIncludedPayrollProcessingA = "FALSE"
+	Set rsParameter = Server.CreateObject("ADODB.Recordset")
+	qParameter =" Select includedpayrollprocessing, man_auto, rate_1, nvl(max_amt, 0) max_amt" & _
+		              " From ALLOWDED where FCCODE='D03A'  " & _
+					  " and fcBA='" & Session("fcBA") & "' " & _
+					  " and man_auto = 'A'"
+	'response.Write " qParameter = " & qParameter				  
+	rsParameter.CursorType = 3
+	rsParameter.CursorLocation = 3
+	rsParameter.Open qParameter, connstr
+	if not rsParameter.eof then
+		 tempIncludedPayrollProcessingA= rsParameter("includedpayrollprocessing")
+		 tempPercentageJabatanDeduction= cdbl(rsParameter("rate_1"))
+		 temp_max_Jabatan = cdbl(rsParameter("max_amt"))
+	else
+		 tempIncludedPayrollProcessingA = "FALSE"
+		 tempPercentageJabatanDeduction= 0
+		 temp_max_Jabatan = 0
+	End if
+	rsParameter.Close
+	set rsParameter = Nothing
+
+	' System must track it as an AUTOMATIC Process 
+	' Astec
+	tempIncludedPayrollProcessingB = "FALSE"
+	Set rsParameter = Server.CreateObject("ADODB.Recordset")
+	qParameter =" Select includedpayrollprocessing, man_auto, rate_1 " & _
+		              " From ALLOWDED where FCCODE='D03B'  " & _
+					  " and fcBA='" & Session("fcBA") & "' " & _
+					  " and man_auto = 'A'"
+	'response.Write " qParameter = " & qParameter				  
+	rsParameter.CursorType = 3
+	rsParameter.CursorLocation = 3
+	rsParameter.Open qParameter, connstr
+	if not rsParameter.eof then
+		 tempIncludedPayrollProcessingB= rsParameter("includedpayrollprocessing")
+		 tempPercentageAstekDeduction= cdbl(rsParameter("rate_1"))
+	else
+		 tempIncludedPayrollProcessingB = "FALSE"
+		 tempPercentageAstekDeduction= 0
+	End if
+	rsParameter.Close
+	set rsParameter = Nothing
+
+
+	' MaxTaxLineNo from TaxAllded
+    maxTaxLineNo = 0
+	Set rsParameter = Server.CreateObject("ADODB.Recordset")
+	qParameter =" Select nvl(max(nvl(lineno,0)),0) maxLineNo " & _
+		              " From TAXALLDED where  fcBA='" & Session("fcBA") & "' " 
+	'response.Write " qParameter = " & qParameter				  
+	rsParameter.CursorType = 3
+	rsParameter.CursorLocation = 3
+	rsParameter.Open qParameter, connstr
+	if not rsParameter.eof then
+		 maxTaxLineNo = cdbl(rsParameter("maxLineNo"))
+	else
+		 maxTaxLineNo = 0
+	End if
+	rsParameter.Close
+	set rsParameter = Nothing
+
+
+	
+	
+	if tempIncludedPayrollProcessing = "TRUE" then
+	
+		qQuery = " select fcba, " & _
+				 " last_day(to_date('" & Month(Session("v_Employee")) & "/01/" & Year(Session("v_Employee")) & "','mm/dd/yyyy')) fddate," & _
+				 " empcode employeecode, maritalstatus, IncomeBeforeTax, " & _
+				 " untaxableincome_api.getTotalUti(maritalstatus, fcba) totalUti " & _
+						" from ( " & _
+						"  SELECT a.fcba,  a.empcode, b.taxstatus maritalStatus, SUM ( Allowded_APi.GetAlldedValue (a.allowdedcode, amount, a.fcba)) IncomeBeforeTax " & _
+						" 	FROM empallded a, employee b " & _
+						"    WHERE	 a.empcode = b.fccode " & _
+						" 		 AND TO_NUMBER (TO_CHAR (a.adhocdate, 'YYYY')) = " & Year(Session("v_Employee")) & _
+						" 		 AND TO_NUMBER (TO_CHAR (a.adhocdate, 'MM')) = " & Month(Session("v_Employee")) &  _
+						" 		 AND allowded_api.GetIncludedTaxCalculation (A.ALLOWDEDCODE, a.fcba) = 'TRUE' " & _
+						" 		 AND employee_api.GetIncludedTaxCalculation (a.empcode, a.fcba) = 'TRUE' " & _
+						"        AND b.dateterminate is null " & _
+						" 		 AND a.fcba = '" & Session("fcBA") & "' " & _
+						" 		 AND a.fcba = b.fcba " & _
+						" GROUP BY a.fcba, a.empcode, b.taxstatus " & _
+						" ) " 
+
+		
+		'response.Write "<br><br>" & " Recordset " & qQuery & "<br><br>"
+		'response.Flush()			    
+		Set rsEmpAllDed = Server.CreateObject("ADODB.Recordset")
+		rsEmpAllDed.CursorType = 3
+		rsEmpAllDed.CursorLocation = 3
+		response.Write "Calculate Tax for PPh 21 ..."& "<br>" 
+		response.Flush()
+		rsEmpAllDed.Open qQuery, connstr
+		if not rsEmpAllDed.eof then
+		   Do While Not rsEmpAllDed.eof
+		   
+				temp_salaries = 0
+				temp_allowances = 0
+				temp_irregular_allowances = 0
+				temp_ded_employment = 0
+				temp_ded_retirement = 0
+
+				tempIncomeBeforeTax = cdbl(rsEmpAllDed ("IncomeBeforeTax"))
+				
+				
+				temp_amount_jht = 0
+				sqljht = " select payroll_jamsostek_dtl.get_jht(" & Year(Session("v_Employee")) & "" & _
+				         "                                      , " & Month(Session("v_Employee")) & "" & _
+						 "                                      , '" & rsEmpAllDed ("fcba") & "'" & _
+						 "                                      , '" & rsEmpAllDed ("employeecode") & "'" & _
+						 "                                      , 'A17') jht" & _
+						 " from dual"
+				Set rsjht = Server.CreateObject("ADODB.Recordset")
+				rsjht.Open sqljht, connstr
+				
+				if not rsjht.EOF then
+					temp_amount_jht = cdbl( rsjht("jht") )
+				else 
+					temp_amount_jht = 0
+				end if
+				rsjht.Close
+				Set rsjht = Nothing
+				
+				temp_amount_jp = 0
+				sqljp = " select payroll_jamsostek_dtl.get_jp(" & Year(Session("v_Employee")) & "" & _
+                        "                                      , " & Month(Session("v_Employee")) & "" & _
+                        "                                      , '" & rsEmpAllDed ("fcba") & "'" & _
+                        "                                      , '" & rsEmpAllDed ("employeecode") & "'" & _
+                        "                                      , 'A17') jp" & _
+                        " from dual"
+				Set rsjp = Server.CreateObject("ADODB.Recordset")
+				rsjp.Open sqljp, connstr
+				
+				if not rsjp.EOF then
+					temp_amount_jp = cdbl( rsjp("jp") )
+				else 
+					temp_amount_jp = 0
+				end if
+				rsjp.Close
+				Set rsjp = Nothing
+				
+				tempIncomeBeforeTax = tempIncomeBeforeTax - (temp_amount_jht + temp_amount_jp)
+				
+				if tempIncludedPayrollProcessingA = "TRUE" then 
+				    tempJabatanValue = -1 * tempIncomeBeforeTax * tempPercentageJabatanDeduction / 100
+					
+					if (tempJabatanValue * -1) > temp_max_Jabatan then
+						tempJabatanValue = temp_max_Jabatan * -1
+					else
+						tempJabatanValue = tempJabatanValue
+					end if
+					
+					temp_ded_employment = tempJabatanValue
+					
+					maxTaxLineNo = maxTaxLineNo + 1
+					qAllowance="Insert Into  TaxAllded (LINENO, EMPCODE, ALLOWDEDCODE, ADHOCDATE, AMOUNT, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) values  " & _
+							"(" & maxTaxLineNo & ",'" & rsEmpAllDed("EMPLOYEECODE") & "','" & "D03A" & "'," &  " to_date('" & rsEmpAllDed("FDDATE") & "','mm/dd/yyyy') " & "," & tempJabatanValue & _
+							",'" & Session("CodeName") & "','" & Session("CodeName") & "','" & _
+							Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "', sysdate, to_char(sysdate,'HH24:MI'))"
+							
+					connstr.execute(qAllowance)
+					
+				else
+				
+					tempJabatanValue = 0
+					
+					temp_ded_employment = 0
+				end if
+				
+								
+				strQueryData = " SELECT " & _
+									   " NVL (SUM (NVL (DECODE (B.ALLDED, 'D', -1 * ABS (amount), amount), 0)), 0) totalAmount " & _
+									" FROM " & _
+									   " empallded a, allowded b " & _
+									" WHERE " & _
+									   " a.allowdedcode = b.fccode AND " & _
+									   " TO_NUMBER (TO_CHAR (a.adhocdate, 'YYYYMM')) = to_number(to_char(" & Year(Session("v_Employee")) & ")||lpad ( to_char( " & Month(Session("v_Employee")) & "),2,'0')) AND " & _
+									   " a.allowdedcode IN ('A17', 'D02') AND" & _
+									   " a.empcode =  '" &  rsEmpAllDed("EMPLOYEECODE") & "' AND " & _
+									   " a.fcba = b.fcba AND " & _
+									   " a.fcba = '" & Session("fcBA") & "' " 		
+				
+				totalAstekDeduction = 0
+				
+				Set rsQueryData = Server.CreateObject("ADODB.Recordset")
+				rsQueryData.CursorType = 3
+				rsQueryData.CursorLocation = 3
+				rsQueryData.Open strQueryData, connstr
+				if not rsQueryData.eof then
+					totalAstekDeduction = cdbl(rsQueryData("totalAmount"))
+				else 
+					totalAstekDeduction = 0
+				end if
+				
+				rsQueryData.Close
+				set rsQueryData = Nothing
+				
+				
+				
+				
+				if tempIncludedPayrollProcessingB = "TRUE" then 
+				    tempAstekValue = totalAstekDeduction
+					
+					temp_ded_retirement = tempAstekValue
+					
+					maxTaxLineNo = maxTaxLineNo + 1
+					qAllowance="Insert Into  TaxAllded (LINENO, EMPCODE, ALLOWDEDCODE, ADHOCDATE, AMOUNT, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) values  " & _
+							"(" & maxTaxLineNo & ",'" & rsEmpAllDed("EMPLOYEECODE") & "','" & "D03B" & "'," &  " to_date('" & rsEmpAllDed("FDDATE") & "','mm/dd/yyyy') " & "," & tempAstekValue & _
+							",'" & Session("CodeName") & "','" & Session("CodeName") & "','" & _
+							Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "', sysdate, to_char(sysdate,'HH24:MI'))"
+							
+					connstr.execute(qAllowance)
+					
+				else
+					tempAstekValue = 0
+					
+					temp_ded_retirement = 0
+				
+				end if
+				
+
+				
+				
+				
+				tempTotalUti = cdbl(rsEmpAllDed ("totalUti"))
+				
+				tempDeduction = tempJabatanValue + tempAstekValue 
+				
+				tempNetIncome = tempIncomeBeforeTax + tempDeduction
+				
+				tempIncomeIncludedTax = tempNetIncome - tempTotalUti 
+				'tempIncomeIncludedTax = tempNetIncome 
+				
+				if tempIncomeIncludedTax >= 0 then 
+					tempYearlyIncomeIncludedTax = tempIncomeIncludedTax * 12
+					tempYearlyTotalUti = tempTotalUti * 12
+					
+					qGetPercentage = " select RANGETAXGROUP_API.GetValueProgressive(" & tempYearlyIncomeIncludedTax & _
+									 "," & tempYearlyTotalUti & ",'" & Session("fcBA") & "') totalPercentage from dual"
+									 
+					Set rsGetPercentage = Server.CreateObject("ADODB.Recordset")
+					rsGetPercentage.CursorType = 3
+					rsGetPercentage.CursorLocation = 3
+					rsGetPercentage.Open qGetPercentage, connstr
+					if not rsGetPercentage.eof then
+						if rsGetPercentage ("totalPercentage") <> "" then 
+							tempTotalPercentage = cdbl(rsGetPercentage ("totalPercentage"))				
+						else
+							tempTotalPercentage = 0
+						end if
+					else
+						tempTotalPercentage = 0
+					end if
+					
+					tempFinalTax = round(-1 * tempTotalPercentage, 0)
+				else
+				    tempFinalTax = 0
+					tempTotalPercentage  = 0
+					tempIncomeIncludedTax = 0
+				end if
+				
+				' response.write " tempIncomeBeforeTax : " & tempIncomeBeforeTax 
+				' response.write " tempTotalUti : " & tempTotalUti
+				' response.write " tempYearlyIncomeIncludedTax : " & tempYearlyIncomeIncludedTax
+				' response.write " tempTotalPercentage : " & tempTotalPercentage 
+				' response.write " tempIncomeIncludedTax : " & tempIncomeIncludedTax 
+				' response.write " tempFinalTax : " & tempFinalTax 
+				
+					tempFinalTaxTunjanganPph21 = 0
+				
+					maxLineNo = maxLineNo + 1
+					qAllowance="Insert Into  EmpAllded (LINENO, EMPCODE, ALLOWDEDCODE, ADHOCDATE, AMOUNT, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) values  " & _
+							"(" & maxLineNo & ",'" & rsEmpAllDed("EMPLOYEECODE") & "','" & "D03" & "'," &  " to_date('" & rsEmpAllDed("FDDATE") & "','mm/dd/yyyy') " & "," & tempFinalTax & _
+							",'" & Session("CodeName") & "','" & Session("CodeName") & "','" & _
+							Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "', sysdate, to_char(sysdate,'HH24:MI'))"
+							
+					connstr.execute(qAllowance)
+					
+					If tempIncludedPayrollProcessingTunjanganPph21 = "TRUE" Then
+						If ParamIsPaidByCompany = "TRUE" Then
+						
+							Set rsIsEmployeePaidByCompany = Server.CreateObject("ADODB.Recordset")
+							strIsEmployeePaidByCompany = " select nvl(taxpaidbycompany, 'FALSE') taxpaidbycompany" & _
+							                             " from employee" & _
+														 " where fccode = '" & rsEmpAllDed("EMPLOYEECODE") & "'" & _
+														 "       and fcba = '" & Session("fcBA") & "'"
+														 
+							'response.Write " strIsEmployeePaidByCompany = " & strIsEmployeePaidByCompany				  
+							rsIsEmployeePaidByCompany.CursorType = 3
+							rsIsEmployeePaidByCompany.CursorLocation = 3
+							rsIsEmployeePaidByCompany.Open strIsEmployeePaidByCompany, connstr
+							if not rsIsEmployeePaidByCompany.eof then
+								 IsEmployeePaidByCompany= rsIsEmployeePaidByCompany("taxpaidbycompany")
+							else
+								 IsEmployeePaidByCompany = "FALSE"
+							End if
+							rsIsEmployeePaidByCompany.Close
+							set rsIsEmployeePaidByCompany = Nothing
+	
+							If IsEmployeePaidByCompany = "TRUE" Then
+								
+								maxLineNo = maxLineNo + 1
+								tempFinalTaxTunjanganPph21 = (tempFinalTax * -1)
+								
+								qAllowance = " insert into  empallded (lineno" & _
+								             "                         , empcode" & _
+								             "                         , allowdedcode" & _
+								             "                         , adhocdate" & _
+								             "                         , amount" & _
+								             "                         , fcentry" & _
+								             "                         , fcedit" & _
+								             "                         , fcip" & _
+								             "                         , fcba" & _
+								             "                         , lastupdate" & _
+								             "                         , lasttime)" & _
+								             " values ('" & maxLineNo & "'" & _
+								             "         , '" & rsEmpAllDed("EMPLOYEECODE") & "'" & _
+								             "         , 'A58'" & _
+								             "         , to_date('" & rsEmpAllDed("FDDATE") & "', 'mm/dd/yyyy')" & _
+								             "         , " & tempFinalTaxTunjanganPph21 & "" & _
+								             "         , '" & Session("CodeName") & "'" & _
+								             "         , '" & Session("CodeName") & "'" & _
+								             "         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+								             "         , '" & Session("fcBA") & "'" & _
+								             "         , sysdate" & _
+								             "         , to_char(sysdate,'HH24:MI')" & _
+								             "         )"
+							
+								connstr.execute(qAllowance)
+							Else
+								maxLineNo = maxLineNo + 1
+								tempFinalTaxTunjanganPph21 = 0
+								
+								qAllowance = " insert into  empallded (lineno" & _
+								             "                         , empcode" & _
+								             "                         , allowdedcode" & _
+								             "                         , adhocdate" & _
+								             "                         , amount" & _
+								             "                         , fcentry" & _
+								             "                         , fcedit" & _
+								             "                         , fcip" & _
+								             "                         , fcba" & _
+								             "                         , lastupdate" & _
+								             "                         , lasttime)" & _
+								             " values ('" & maxLineNo & "'" & _
+								             "         , '" & rsEmpAllDed("EMPLOYEECODE") & "'" & _
+								             "         , 'A58'" & _
+								             "         , to_date('" & rsEmpAllDed("FDDATE") & "', 'mm/dd/yyyy')" & _
+								             "         , " & tempFinalTaxTunjanganPph21 & "" & _
+								             "         , '" & Session("CodeName") & "'" & _
+								             "         , '" & Session("CodeName") & "'" & _
+								             "         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+								             "         , '" & Session("fcBA") & "'" & _
+								             "         , sysdate" & _
+								             "         , to_char(sysdate,'HH24:MI')" & _
+								             "         )"
+							
+								connstr.execute(qAllowance)
+							End If
+						End If
+					End If
+					
+					
+				qLedger = " insert into taxalldedledger (empcode" & _
+				          "                              , year" & _
+				          "                              , month" & _
+				          "                              , grossincome" & _
+				          "                              , taxdeduction" & _
+				          "                              , netincome" & _
+				          "                              , uti_value" & _
+				          "                              , itx_value" & _
+				          "                              , taxpercentage_value" & _
+				          "                              , tax_value" & _
+				          "                              , allowance_value" & _
+						  "                              , salaries" & _
+						  "                              , allowances" & _
+						  "                              , irregular_allowances" & _
+						  "                              , ded_employment" & _
+						  "                              , ded_retirement" & _
+						  "                              , fcentry" & _
+				          "                              , fcedit" & _
+				          "                              , fcip" & _
+				          "                              , fcba" & _
+				          "                              , remarks" & _
+				          "                              , lastupdate" & _
+				          "                              , lasttime) " & _
+                          " values('" & rsEmpAllDed("EMPLOYEECODE") & "'" & _
+				          "        , " & Year(Session("v_Employee")) & "" & _
+				          "        , " & Month(Session("v_Employee")) & "" & _
+				          "        , " & tempIncomeBeforeTax & "" & _
+				          "        , " & tempDeduction & "" & _
+				          "        , " & tempNetIncome & "" & _
+				          "        , " & tempTotalUti & "" & _
+				          "        , " & tempIncomeIncludedTax & "" & _
+				          "        , " & tempTotalPercentage & "" & _
+				          "        , " & tempFinalTax & "" & _
+				          "        , " & tempFinalTaxTunjanganPph21 & "" & _
+						  "        , " & temp_salaries & "" & _
+						  "        , " & temp_allowances & "" & _
+						  "        , " & temp_irregular_allowances & "" & _
+						  "        , " & temp_ded_employment & "" & _
+						  "        , " & temp_ded_retirement & "" & _
+				          "        , '" & Session("CodeName") & "'" & _
+				          "        , '" & Session("CodeName") & "'" & _
+				          "        , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+				          "        , '" & Session("fcBA") & "'" & _
+				          "        , null" & _
+				          "        , sysdate" & _
+				          "        , to_char(sysdate,'HH24:MI'))" 					
+							
+				'response.write 	qLedger		
+				connstr.execute(qLedger)
+				
+				 
+				' Sejarahnya di REMARK karena untuk mempercepat Process...
+				' by NAF
+				' qReceiveDetail ="  SELECT a.fcba,  a.lineno, Allowded_APi.GetAlldedValue (a.allowdedcode, amount, a.fcba) amount " & _
+								' " 	FROM empallded a, employee b " & _
+								' "    WHERE	 a.empcode = b.fccode " & _
+								' " 		 AND TO_NUMBER (TO_CHAR (a.adhocdate, 'YYYY')) = " & Year(Session("v_Employee")) & _
+								' " 		 AND TO_NUMBER (TO_CHAR (a.adhocdate, 'MM')) = " & Month(Session("v_Employee")) &  _
+								' " 		 AND allowded_api.GetIncludedTaxCalculation (A.ALLOWDEDCODE, a.fcba) = 'TRUE' " & _
+								' " 		 AND employee_api.GetIncludedTaxCalculation (a.empcode, a.fcba) = 'TRUE' " & _
+								' "        AND b.dateterminate is null " & _								
+								' " 		 AND a.fcba = '" & Session("fcBA") & "' " & _
+								' " 		 AND a.fcba = b.fcba " & _
+								' " 	     AND a.allowdedcode <> 'D03' "
+
+				
+								
+				' Set rsReceive = Server.CreateObject("ADODB.Recordset")
+				' rsReceive.CursorType = 3
+				' rsReceive.CursorLocation = 3
+
+				' rsReceive.Open qReceiveDetail, connstr
+				' if not rsReceive.eof then
+					' detailLineNo = 0
+					' Do While Not rsReceive.eof	
+
+						' '	Insert the History of EmpallDed Data 
+						' ' We add NEW reference string, to make MORE simple in REFERENCE Report., by NAF, 12 May 2013
+						
+						' txtRefStringValues_Receive = rsReceive("LINENO") & txtRefStringSeparator_Receive & _
+													 ' Session("fcBA")
+						
+						' detailLineNo = detailLineNo + 1
+						' qAllowanceHistory = "INSERT INTO empallded_hist_tab ( " & _
+															' " LINEHEADERNO," & _
+															' " LINENO," & _
+															' " FCBA," & _
+															' " REF_PROCESS," & _
+															' " REF_PROCESSNAME," & _
+															' " REF_TABLESOURCE," & _
+															' " REF_NUMBERKEYS," & _
+															' " REF_STRINGSEPARATOR," & _
+															' " REF_STRINGKEYS," & _
+															' " REF_STRINGVALUES," & _
+															' " OTHRS, " & _
+															' " RATE, " & _
+															' " AMOUNT, " & _
+															' " FCENTRY," & _
+															' " FCEDIT," & _
+															' " FCIP," & _
+															' " LASTUPDATE," & _
+															' " LASTTIME)" & _
+													' " VALUES ( " & _
+															' " '" & maxLineNo & "'," & _
+															' " '" & detailLineNo & "'," & _
+															' " '" & Session("fcBA") & "'," & _
+															' " '" & tempProcessCode & "'," & _
+															' " '" & tempProcessNameCode & "'," & _
+															' " '" & tempRefCodeReceive & "'," & _
+															' " '" & txtRefNumberKeys_Receive & "'," & _
+															' " '" & txtRefStringSeparator_Receive & "'," & _
+															' " '" & txtRefStringKeys_Receive & "'," & _
+															' " '" & txtRefStringValues_Receive & "'," & _
+															' " 0," & _
+															' " 0," & _
+															' cdbl(rsReceive("amount")) & "," & _ 
+															' " '" & Session("CodeName") & "'," & _
+															' " '" & Session("CodeName") & "'," & _
+															' " '" & Request.ServerVariables("REMOTE_ADDR") & "'," & _
+															' " sysdate, " & _
+															' " to_char(sysdate, 'HH24:MI') " & _
+															' " ) "					
+						' connstr.execute(qAllowanceHistory)
+						' rsReceive.MoveNext
+					' loop
+				' end if
+				' rsReceive.Close
+				' set rsReceive = Nothing		
+				
+				rsEmpAllDed.MoveNext
+		  loop
+		End if
+		rsEmpAllDed.Close
+		set rsEmpAllDed = Nothing
+	end if
+%>

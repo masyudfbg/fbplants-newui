@@ -1,0 +1,239 @@
+				<%
+
+					if not rsshellstock.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsshellstock.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsshellstock("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "SHELL"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan,  rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'SHELLSTOCK' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsshellstock("CODEDESC") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = "p_DailyReport_Mill_ShellStock.asp?"
+										tempRounding = rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = "p_DailyReport_Mill_ShellStock.asp?"	
+										tempRounding = 0
+									end if		
+									tempUOM = rsshellstock("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+									tempExtendedReference = "txtGroupPlantation=" & v_txtGroupPlantation & _
+															"&txtPlantation="  & v_txtPlantation & _
+															"&txtGroupRegion=" & v_txtGroupRegion & _
+															"&txtRegion=" & v_txtRegion & _
+															"&txtcompany=" & v_txtCompany & _
+															"&txtfcba=" & v_txtFcba & _
+															"&txtToDayDate=" & v_txtdatefrom & _
+															"&txtdatefrom=" &  v_txtdatefrom & _
+															"&txtyear=" & v_txtYear & _
+															"&txtmonth=" & v_txtMonth & _
+					 		 								"&txtyear=" & v_txtBudgetYear & _
+	 		 												"&txtBudgetVersion=" & v_txtBudgetVersion & _
+					 		 								"&txtModuleVersion=" & v_txtModuleVersion															
+						
+									tempReference = tempReference & tempExtendedReference				
+								%>
+							
+								<!--#include file="FormDisplaySUMMARYshellStock.html"-->
+							
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"><%= rsshellstock("GROUPNAME") %></a></td>
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+
+									tempDataBudget_HI = cdbl(rsshellstock("budget_hi"))
+									tempDataBudget_SHI = cdbl(rsshellstock("budget_shi"))
+									tempDataBudget_SBI = cdbl(rsshellstock("budget_sbi"))	
+
+									if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = cdbl(rsshellstock("hi"))/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = cdbl(rsshellstock("shi"))/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = cdbl(rsshellstock("sbi"))/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>					
+								
+								
+								<%  
+									if rsshellstock("HI") <> "" then 
+										tempHI = cdbl(rsshellstock("HI")) 
+									else
+										tempHI = 0
+									end if
+								
+									if rsshellstock("SHI") <> "" then 
+										tempSHI = cdbl(rsshellstock("SHI")) 						
+									else
+										tempSHI = 0
+									end if
+
+									if rsshellstock("SBI") <> "" then 
+										tempSBI = cdbl(rsshellstock("SBI")) 									
+									else
+										tempSBI = 0
+									end if
+								%>
+								
+								<% 
+
+								   
+								   if rsshellstock("CODEDESC") = "SHELL001" then 
+									   tempOpeningKernelStock_HI = tempHI
+								   end if		
+
+								   if rsshellstock("CODEDESC") = "SHL002" then 
+									   tempDespatchKernelStock_HI = tempHI
+								   end if						   
+								   
+								%>	
+
+
+								<td align="center" ><%=FormatNumber(tempHI,tempRounding)%></td>
+								
+								
+								<% if rsshellstock("CODEDESC") = "SHELL001" or rsshellstock("CODEDESC") = "SHELL003" then %> 
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+								<% else %>
+
+									<td align="center" ><%=FormatNumber(tempSHI,tempRounding)%></td>
+									<td align="center" ><%=FormatNumber(tempSBI,tempRounding)%></td>
+									
+
+									
+									<td align="center" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+									<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+									<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+									
+									
+									<%
+										if tempCompare_HI > 95 then
+											cClassAssigned_HI = "green"
+										else
+											if tempCompare_HI > 85 then 
+												 cClassAssigned_HI = "yellow"
+											else
+												 cClassAssigned_HI = "red"
+											end if
+										end if
+										
+										if tempCompare_SHI > 95 then
+											cClassAssigned_SHI = "green"
+										else
+											if tempCompare_SHI > 85 then 
+												 cClassAssigned_SHI = "yellow"
+											else
+												 cClassAssigned_SHI = "red"
+											end if
+										end if
+										
+										if tempCompare_SBI > 95 then
+											cClassAssigned_SBI = "green"
+										else
+											if tempCompare_SBI > 85 then 
+												 cClassAssigned_SBI = "yellow"
+											else
+												 cClassAssigned_SBI = "red"
+											end if
+										end if
+										
+									%>
+									
+									<td class="<%=cClassAssigned_HI%>" align="center" ><%=FormatNumber(tempCompare_HI,tempRounding)%></td>
+									<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,tempRounding)%></td>
+									<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,tempRounding)%></td>
+								<% end if %>
+								
+								
+							</tr>
+				<%
+
+							rsshellstock.MoveNext
+						Wend
+					end if
+					rsshellstock.Close
+					set rsshellstock = Nothing
+				%>	
+					

@@ -1,0 +1,45 @@
+<style "txt/css">
+	body{
+		margin-left: 0;
+		margin-top: 0;
+	}
+
+BODY {
+		margin-left: 0;
+		margin-top: 0;
+	SCROLLBAR-BASE-COLOR: #336666;
+	SCROLLBAR-ARROW-COLOR: #ffffff;
+}
+
+	table {
+		border :1;
+	}
+	td {
+		font-family :"Arial Narrow";
+		font-size  :9pt;
+		style : "border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF";
+	}
+	input{
+		font-family :"Arial Narrow";
+		font-size  :9pt;
+	}
+
+	a:hover { 
+	color:Red;
+	font:;
+	background:none;
+	underline:none;
+	text-decoration: none;
+
+	}
+    a:active {
+	color: Green; 
+	TEXT-DECORATION: nonel;
+	font-family: "Arial Narrow";
+	font-size : 6pt; 	
+	}
+</style>
+<style>
+    .vis1 { visibility:visible }
+    .vis2 { visibility:hidden }
+</style>

@@ -1,0 +1,2156 @@
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ePlaS- Purchase Closing</title>
+</head>
+<body>
+<%
+Session("v_Purchase") = cmdFindPeriod("Purchase")
+Session("cls_Purchase") = cmdPeriodClose("Purchase")
+
+Session("CurP_Purchase") = cmdFindAccountPeriod("Purchase")
+Session("ClsP_Purchase") = cmdAccountPeriodClose("Purchase")
+
+curr_documentno = ""
+prev_documentno = ""
+Dim TimeAwal,TimeAkhir,Hitung,Lama
+TimeAwal=Time()
+
+'--Added by Ukie at 25-Oct-2012--	
+Dim Startingtime, Endingtime
+Startingtime = FormatDateTime(CDate(Now))
+'--End Added--		
+%>
+<div id="status_running"><img src="ICON/working.gif"></div><br>
+<font face="Verdana" size="1">
+Purchasing Last Period Close <%=FormatDateTime(Session("cls_Purchase"),1)%> <br> 
+Purchasing Current Period is <%=FormatDateTime(Session("v_Purchase"),1)%> <br><br>
+Please Wait...<br>
+<%
+ Response.Write "Start ..." & Time() & "<br><br>" 
+dim rsReceive,rsPO,qReceive, qReceive2, qPO,qControlJob,nPurchaseControl,rsControlJob,txtControlJob,qCost_ActivityDB,qCost_ActivityCR,nQtyReceived,qNormalisasi
+Dim NormalisasiInvoiceLedger, SelectInvoiceLedger, rsInvoiceLedger, InsertInvoiceLedger ,vchar
+Dim fine_result_01, fine_result_02, fine_result_03, rsReceive2, qCost_ActivityDB2, qCost_ActivityCR2
+Dim qjournal 
+Dim maxLineNo
+
+' New Concept Variable, By NAF, 12 May 2013
+Dim tempProcessCode, tempProcessNameCode, tempRefCodeReceive, tempRefCodeInvoice, qReference
+Dim rsReferenceReceive, rsReferenceInvoice
+Dim txtRefNumberKeys_Receive, txtRefStringSeparator_Receive , txtRefStringKeys_Receive 
+Dim txtRefNumberKeys_Invoice, txtRefStringSeparator_Invoice , txtRefStringKeys_Invoice
+Dim txtRefStringValues_Receive, txtRefStringValues_Invoice
+Dim doneReceive, doneInvoice
+' End Modification.
+
+
+' XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+' Add by NAF to select lastperiodposted
+Dim qPeriodControl, rsPeriodControl, temp_datePeriodControl
+
+
+
+' Water Flow Check, By NAF
+' 2 December 2013
+
+Dim qWaterFlowCheck, rsWaterFlowCheck, CheckWaterFlow, tempErrorWaterFlow
+
+qWaterFlowCheck = " select PERIODCONTROL_API.getStatusPrevClosing('Purchase','" & Session("fcBA")  & "') waterFlowCheck from dual "
+
+Set rsWaterFlowCheck = Server.CreateObject("ADODB.Recordset")
+rsWaterFlowCheck.CursorType = 3
+rsWaterFlowCheck.CursorLocation = 3
+rsWaterFlowCheck.Open qWaterFlowCheck, connstr
+
+if not rsWaterFlowCheck.eof then
+    CheckWaterFlow = rsWaterFlowCheck("waterFlowCheck")
+else
+    Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No WATER FLOW CHECK for Purchase " & "<br>"
+end if
+rsWaterFlowCheck.close
+set rsWaterFlowCheck = Nothing
+
+arr_dataintraco_eof = true
+qWaterFlowCheck = " SELECT fccode, fcba FROM intraco_tab"
+
+Set rsWaterFlowCheck = Server.CreateObject("ADODB.Recordset")
+rsWaterFlowCheck.Open qWaterFlowCheck, connstr
+
+if not rsWaterFlowCheck.eof then
+	arr_dataintraco = rsWaterFlowCheck.getrows()
+	arr_dataintraco_eof = false
+end if
+rsWaterFlowCheck.close : set rsWaterFlowCheck = Nothing
+
+private function get_jobintraco(arr_, fcba_)
+	result_ = ""
+	arr1 = ""
+	arr1 = arr_
+	if not arr_dataintraco_eof then
+		for xyz=0 to ubound(arr1,2)
+			if cstr(""&arr1(1,xyz)) = fcba_ then result_ = arr1(0,xyz)
+		next
+	end if
+	get_jobintraco = result_
+end function
+
+arr_controljob_tax_eof = true
+qWaterFlowCheck = " SELECT fccode, controljob_in, controljob_out FROM controljob_tax"
+
+Set rsWaterFlowCheck = Server.CreateObject("ADODB.Recordset")
+rsWaterFlowCheck.Open qWaterFlowCheck, connstr
+
+if not rsWaterFlowCheck.eof then
+	arr_controljob_tax = rsWaterFlowCheck.getrows()
+	arr_controljob_tax_eof = false
+end if
+rsWaterFlowCheck.close : set rsWaterFlowCheck = Nothing
+private function get_controljob_tax(arr_, fccode_, col_in_or_out_)
+	result_ = ""
+	arr1 = ""
+	arr1 = arr_
+	if not arr_dataintraco_eof then
+		for xyz=0 to ubound(arr1,2)
+			if cstr(""&arr1(0,xyz)) = fccode_ then result_ = arr1(col_in_or_out_,xyz)
+		next
+	end if
+	get_controljob_tax = result_
+end function
+
+if CheckWaterFlow = "TRUE" then 
+
+
+	qPeriodControl=" select  add_months(LASTPERIODPOSTED,1) LastPeriodPosted from PERIODCONTROL  " & _
+	  " where SYSTEM='Purchase' and fcba='" & Session("fcBA") & "'"
+
+	Set rsPeriodControl = Server.CreateObject("ADODB.Recordset")
+	rsPeriodControl.CursorType = 3
+	rsPeriodControl.CursorLocation = 3
+	rsPeriodControl.Open qPeriodControl, connstr
+
+	if not rsPeriodControl.eof then
+		temp_datePeriodControl = rsPeriodControl("LASTPERIODPOSTED")
+	else
+		Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No PERIODCONTROL for Purchase " & "<br>"
+	end if
+	' End Added
+	'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	'---- Control Job
+
+
+	' Remarked by NAF, as per New Concept, 7 May 2013
+	' qControlJob="select ControlJob from Module where NAME='Purchase'"
+	' Now we use new concept for picking Control Job, by using Process Control Tables
+	' as per last concept are NOT able to pick data per Business Unit.
+
+	tempProcessCode = "PURCHASE_CLOSING"
+	tempProcessNameCode = "p_Purchasing_Closing.asp"
+	tempRefCodeReceive = "RECEIVENOTEDETAIL"
+	tempRefCodeInvoice = "INVOICEDETAIL"
+
+	qControlJob = " SELECT parameterdetail_api.get_param_1 ('" & Session("FCBA") & "', 'HARDCODE', 'CONTROLJOB_MODULE', 'PURCHASE') ControlJob FROM DUAL"
+
+	' End Of Modification., 7 May 2013.
+
+	Set rsControlJob = Server.CreateObject("ADODB.Recordset")
+	rsControlJob.Open qControlJob, connstr
+	if not rsControlJob.eof then
+	   txtControlJob=rsControlJob("ControlJob")
+	else
+	   Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error SAC20021 Control Job For Purchase is Empty"
+	   txtControlJob=""
+	end if
+	rsControlJob.close : set rsControlJob = Nothing
+	
+	qControlJob = " SELECT fccode FROM parameterdetail WHERE fcba = '" & Session("FCBA") & "' AND parcode = 'HARDCODE' AND parheadcode = 'JOBCODE_OTHERCHARGE'"
+
+	' End Of Modification., 7 May 2013.
+
+	Set rsControlJob = Server.CreateObject("ADODB.Recordset")
+	rsControlJob.Open qControlJob, connstr
+	if not rsControlJob.eof then
+	   job_othercharge = rsControlJob("fccode")
+	else
+	   Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error SAC20021 Control Job For Other Charges is Empty"
+	   job_othercharge = ""
+	end if
+	rsControlJob.close : set rsControlJob = Nothing
+
+	' Take the Reference of Cost Activity, as per New Concept, by using this reference, we can directly refer to Original Table
+	' by NAF, 12 May 2013
+	' First, take the Original Table of RECEIVENOTE.
+	qReference = "select REF_NUMBERKEYS, REF_STRINGSEPARATOR, REF_STRINGKEYS " & _
+				  " from process_tableref_tab " & _
+				  " where " & _
+				  " processcode = '" & tempProcessCode & "' and " & _
+				  " upper(processnamecode) =  upper('" & tempProcessNameCode & "') and " & _
+				  " fccode =  '" & tempRefCodeReceive & "'"
+
+	Set rsReferenceReceive = Server.CreateObject("ADODB.Recordset")
+	rsReferenceReceive.CursorType = 3
+	rsReferenceReceive.CursorLocation = 3
+	rsReferenceReceive.Open qReference, connstr
+
+	doneReceive = 1
+	if not rsReferenceReceive.eof then
+		txtRefNumberKeys_Receive = rsReferenceReceive("REF_NUMBERKEYS")
+		txtRefStringSeparator_Receive = rsReferenceReceive("REF_STRINGSEPARATOR")
+		txtRefStringKeys_Receive = rsReferenceReceive("REF_STRINGKEYS")
+		doneReceive = 1
+	else
+		doneReceive = 0
+	end if
+	rsReferenceReceive.close
+	set rsReferenceReceive = Nothing
+
+
+
+	' Second, take the Original Table of INVOICEDETAIL.
+	qReference = "select REF_NUMBERKEYS, REF_STRINGSEPARATOR, REF_STRINGKEYS " & _
+				  " from process_tableref_tab " & _
+				  " where " & _
+				  " processcode = '" & tempProcessCode & "' and " & _
+				  " upper(processnamecode) =  upper('" & tempProcessNameCode & "') and " & _
+				  " fccode =  '" & tempRefCodeInvoice & "'"
+
+	Set rsReferenceInvoice = Server.CreateObject("ADODB.Recordset")
+	rsReferenceInvoice.CursorType = 3
+	rsReferenceInvoice.CursorLocation = 3
+	rsReferenceInvoice.Open qReference, connstr
+
+	doneInvoice = 1
+	if not rsReferenceInvoice.eof then
+		txtRefNumberKeys_Invoice = rsReferenceInvoice("REF_NUMBERKEYS")
+		txtRefStringSeparator_Invoice = rsReferenceInvoice("REF_STRINGSEPARATOR")
+		txtRefStringKeys_Invoice = rsReferenceInvoice("REF_STRINGKEYS")
+		doneInvoice = 1
+	else
+		doneInvoice = 0
+	end if
+	rsReferenceInvoice.close
+	set rsReferenceInvoice = Nothing
+
+
+	' To Pick max Line No in Cost_Activity
+	qMaxLineNo = " select nvl(max(nvl(lineno,0)),0) maxLineNo " & _
+					" from cost_activity " & _
+					" where " & _
+					" fcba = '" & Session("fcBA") & "' "
+					
+	Set rsqMaxLineNo = Server.CreateObject("ADODB.Recordset")
+	rsqMaxLineNo.CursorType = 3
+	rsqMaxLineNo.CursorLocation = 3
+	rsqMaxLineNo.Open qMaxLineNo, connstr
+
+	if not rsqMaxLineNo.eof then
+		maxLineNo = cdbl(rsqMaxLineNo("maxLineNo"))
+	else
+		maxLineNo = 0
+	end if
+	rsqMaxLineNo.close
+	set rsqMaxLineNo = Nothing
+
+
+
+
+
+	if txtControlJob<>"" then
+	
+		'---- Normalisasi
+		arr_normalisasi_eof = true
+		' qPeriodControl = " select lineno from cost_activity " & _
+						 ' " where ACCOUNTINGPERIOD = " & Mid(Session("CurP_Purchase"),5,2) & "" & _
+						 ' "       and ACCOUNTINGYEAR = " & Mid(Session("CurP_Purchase"),1,4) & "" & _
+						 ' "       and fcBA = '" & Session("fcBA") & "'" & _
+						 ' "       and Sourcetype = 'PR'"
+
+		' Set rsPeriodControl = Server.CreateObject("ADODB.Recordset")
+		' rsPeriodControl.Open qPeriodControl, connstr
+
+		' if not rsPeriodControl.eof then
+		  ' arr_normalisasi = rsPeriodControl.getrows()
+		  ' arr_normalisasi_eof = false
+		' end if
+		
+		' if not arr_normalisasi_eof then
+			' for xyz=0 to ubound(arr_normalisasi,2)
+				' qNormalisasiDetail = " DELETE FROM cost_activity_hist_tab WHERE lineheaderno = '"&arr_normalisasi(0,xyz)&"' AND fcba =  '" & Session("fcBA") & "'"
+				' ' connstr.execute(qNormalisasiDetail)
+				
+				' qNormalisasiDetail = " DELETE FROM cost_activity WHERE lineno = '"&arr_normalisasi(0,xyz)&"' AND fcba =  '" & Session("fcBA") & "'"
+				' ' response.Write qNormalisasiDetail
+				' connstr.execute(qNormalisasiDetail)
+			' next
+		' end if
+		
+				qNormalisasiDetail = " DELETE FROM cost_activity WHERE ACCOUNTINGPERIOD = " & Month(Session("v_Purchase")) & "" & _
+									"       and ACCOUNTINGYEAR = " & Year(Session("v_Purchase")) & "" & _
+									"       and fcBA = '" & Session("fcBA") & "'" & _
+									"       and Sourcetype = 'PR'"
+				connstr.execute(qNormalisasiDetail)
+		
+		
+		'-- GOODS RECEIVE
+		Response.Write "<font face='Verdana' size='1' color='black'>" & "Closing Good Received Note" & "<br>" : response.flush()
+		qReceive = " SELECT r.rndate" & _
+		           "        , rd.receivenotecode" & _
+		           "        , rd.purchaseitemcode" & _
+		           "        , rd.jobcode" & _
+				   "        , parameterdetail_api.get_fccode (rd.fcba, 'HARDCODE', 'STO_RECEIVENOTE' ) stocodejob" & _
+		           "        , rd.quantity" & _
+		           "        , rd.locationtype" & _
+		           "        , rd.locationcode" & _
+		           "        , r.suppliercode" & _
+				   "        , supplier_api.get_supp_name(r.suppliercode,r.fcba) suppliername" & _
+		           "        , r.pocode" & _
+		           "        , po.purchaseby" & _
+		           "        , rd.purchaselinenokey" & _
+		           "        , round(NVL(rd.amountreceived,0) ,2) AS amountreceived" & _
+		           "        , round(NVL(rd.amount,0) ,2) AS amount" & _
+		           "        , decode(po.ppn , 0 ,0, round(NVL(rd.amountreceived * (po.ppn/100),0) ,2)) AS ppn_stock" & _
+				   "        , (SELECT controljob_out FROM controljob_tax WHERE fccode = 'PPN_B') AS jobcodeppn "  & _
+				   "        , round(NVL((pod.quantity /rd.quantity) * pod.otcstock1 ,0),2) AS othercharge_pbbkb75 "  & _
+				   "        , round(NVL((pod.quantity /rd.quantity) * pod.otcstock2 ,0),2) AS othercharge_pbbkb10 "  & _
+				   "        , round(NVL((pod.quantity /rd.quantity) * pod.otcstock3 ,0),2) AS othercharge_ongkir "  & _
+				   "        , round(NVL((pod.quantity /rd.quantity) * pod.otcstock4 ,0),2)  AS othercharge "  & _
+				   "        , round(NVL((pod.quantity /rd.quantity) * pod.ppn_othercharge ,0),2) AS ppn_other "  & _
+				   "        , rd.amountsto_receive  AS amountsto "  & _
+				   "        , (round( NVL(rd.amountreceived,0) ,2)+ decode(po.ppn , 0 ,0, round(NVL(rd.amountreceived * (po.ppn/100),0) ,2))  " & _ 
+				   "         + round(NVL((pod.quantity /rd.quantity) * pod.otcstock1 ,0),2) + round(NVL((pod.quantity /rd.quantity) * pod.otcstock2 ,0),2) " & _ 
+				   "         + round(NVL((pod.quantity /rd.quantity) * pod.otcstock3 ,0),2) + round(NVL((pod.quantity /rd.quantity) * pod.otcstock4 ,0),2)) " & _
+				   "         + round(NVL((pod.quantity /rd.quantity) * pod.ppn_othercharge ,0),2) + NVL(rd.amountsto_receive,0)  As TotAmountReceived " & _
+		           " FROM receivenotedetail rd" & _
+				   " INNER JOIN receivenote r ON (rd.receivenotecode = r.receivenotecode AND rd.fcba = r.fcba)" & _
+				   " LEFT JOIN purchaseorder po ON (po.pocode = r.pocode AND po.fcba = r.fcba)" & _
+				   " LEFT JOIN purchaseorderdetails pod ON (pod.pocode = po.pocode AND pod.fcba = po.fcba AND pod.linenokey = rd.purchaselinenokey)" & _
+		           " WHERE TO_NUMBER(TO_CHAR(r.rndate,'mm')) = '" & Month(Session("v_Purchase")) & "'" & _
+		           "       AND TO_NUMBER(TO_CHAR(r.rndate,'yyyy')) = '" & Year(Session("v_Purchase")) & "'" & _
+		           "       AND rd.fcba = '" & Session("fcBA") & "'"
+		  
+		  
+		Set rsReceive = Server.CreateObject("ADODB.Recordset")
+		rsReceive.Open qReceive, connstr
+		if not rsReceive.eof then
+		   Do While Not rsReceive.eof
+		   
+				if cdbl(to_nol(rsReceive("amountreceived"))) > 0 then
+					maxLineNo = maxLineNo + 1
+				qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME,journalprefix ) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("JOBCODE") & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+								 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & rsReceive("LOCATIONTYPE") & "','" & rsReceive("LOCATIONCODE") & "'," & _
+								 "" &  rsReceive("amountreceived") & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("LOCATIONCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'Penerimaan Stock '," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+								 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'GRN')"
+					 ' response.write "<br/>" & rsReceive("RECEIVENOTECODE")
+					 ' response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					connStr.execute("Commit")
+				end if
+				
+				if cdbl(to_nol(rsReceive("ppn_stock"))) > 0 then
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME,journalprefix ) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcodeppn") & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+								 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & rsReceive("LOCATIONTYPE") & "','" & rsReceive("LOCATIONCODE") & "'," & _
+								 "" &  rsReceive("ppn_stock") & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("LOCATIONCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'PPN Stock '," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+								 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'GRN')"
+					 ' response.write "<br/>" & rsReceive("RECEIVENOTECODE")
+					 ' response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					connStr.execute("Commit")
+				end if
+				
+				if cdbl(to_nol(rsReceive("othercharge_pbbkb75"))) <> 0 then
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("JOBCODE") & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+								 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & rsReceive("LOCATIONTYPE") & "','" & rsReceive("LOCATIONCODE") & "'," & _
+								 "" &  rsReceive("othercharge_pbbkb75") & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("LOCATIONCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'Other Stock Charge - PBBKB 7.5% '," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+								 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'GRN')"
+					 'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					connStr.execute("Commit")
+				end if
+				
+				if cdbl(to_nol(rsReceive("othercharge_pbbkb10"))) <> 0 then
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME,journalprefix ) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("JOBCODE") & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+								 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & rsReceive("LOCATIONTYPE") & "','" & rsReceive("LOCATIONCODE") & "'," & _
+								 "" &  rsReceive("othercharge_pbbkb10") & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("LOCATIONCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'Other Stock Charge - PBBKB 10% '," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+								 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'GRN')"
+					 'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					connStr.execute("Commit")
+				end if
+				
+				if cdbl(to_nol(rsReceive("othercharge_ongkir"))) <> 0 then
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME,journalprefix ) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("stocodejob") & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+								 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & rsReceive("LOCATIONTYPE") & "','" & rsReceive("LOCATIONCODE") & "'," & _
+								 "" &  rsReceive("othercharge_ongkir") & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("LOCATIONCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'Other Stock Charge - Tranportasi '," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+								 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'GRN')"
+					 'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					connStr.execute("Commit")
+				end if
+				
+				if cdbl(to_nol(rsReceive("othercharge"))) <> 0 then
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("JOBCODE") & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+								 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & rsReceive("LOCATIONTYPE") & "','" & rsReceive("LOCATIONCODE") & "'," & _
+								 "" &  rsReceive("othercharge") & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("LOCATIONCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'Other Stock Charge - Lain '," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+								 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'GRN')"
+					 'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					connStr.execute("Commit")
+				end if
+				
+				if cdbl(to_nol(rsReceive("ppn_other"))) <> 0 then
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcodeppn") & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+								 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & rsReceive("LOCATIONTYPE") & "','" & rsReceive("LOCATIONCODE") & "'," & _
+								 "" &  rsReceive("ppn_other") & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("LOCATIONCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'Other Stock Charge - PPN '," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+								 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'GRN')"
+					 'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					connStr.execute("Commit")
+				end if
+				
+				if cdbl(to_nol(rsReceive("amountsto"))) <> 0 then
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("stocodejob") & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+								 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & rsReceive("LOCATIONTYPE") & "','" & rsReceive("LOCATIONCODE") & "'," & _
+								 "" &  rsReceive("amountsto") & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("LOCATIONCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'STO '," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+								 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'GRN')"
+					 'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					connStr.execute("Commit")
+				end if
+				maxLineNo = maxLineNo + 1
+				qCost_ActivityCR="Insert into Cost_Activity " & _
+							 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+							 " TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+							 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+							 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+							 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+							 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+							 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _	
+                             " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _							 
+							 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+							 " values (" & maxLineNo & ", to_date('" & rsReceive("RNDATE") & "','mm/dd/yyyy') " & ",'" & txtControlJob & "','PR','" & "PR" & "','" & rsReceive("POCODE") & "'," & _
+							 "'" &  rsReceive("PURCHASEITEMCODE") & "','" & "AP" & "','" & rsReceive("SUPPLIERCODE")  & "'," & _
+							 -1*cdbl(rsReceive("TotAmountReceived")) & ",'" & rsReceive("RECEIVENOTECODE") & "'," & rsReceive("QUANTITY") & ",0,'" & Session("fcBA") & "',"  & _
+							 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+							 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Dr'),'"  & rsReceive("SUPPLIERCODE") & "'," & _
+							 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Dr'),'"  & rsReceive("RECEIVENOTECODE") & "'," & _
+							 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'" & rsReceive("POCODE") & " Supplier: "  & rsReceive("suppliername") & " (" & rsReceive("suppliercode") & ")'," & _
+							 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', '" & rsReceive("LOCATIONTYPE") & "','Dr'),'"  & rsReceive("PURCHASEITEMCODE") & "'," & _
+							 " '','" & rsReceive("purchaselinenokey") & "','Cr', " & _
+							 Month(Session("v_Purchase")) & ", " & _
+							 Year(Session("v_Purchase")) & ", " & _
+							 " sysdate, to_char(sysdate,'HH24:MI'),'GRN') "
+				' response.write qCost_ActivityCR
+				response.Flush()			 
+				connstr.execute(qCost_ActivityCR)
+				connStr.execute("Commit")
+
+				
+			  rsReceive.MoveNext
+		  loop
+		End if
+		
+		qjournal=	" MERGE INTO cost_activity x " & _
+					" USING " & _
+					" ( " & _
+					"  SELECT fcba,referenceno,idx||LPAD(ROWNUM,4,0) seq from " & _
+					"  ( " & _
+					"  SELECT DISTINCT fcba,referenceno,'" & session("COMPANYNO") & "/'||fcba||'/'||journalprefix||'/'||LPad(accountingperiod,2,0)||'/'||accountingyear||'/' as idx  " & _
+					"  FROM cost_activity WHERE fcba='" & Session("FCBA") & "' AND accountingperiod="& Month(Session("v_Purchase")) & " AND accountingyear=" & Year(Session("v_Purchase")) & " AND journalprefix='GRN' " & _
+					"  Order BY referenceno " & _
+					"  ) " & _
+					" )y ON (x.referenceno =  y.referenceno and x.fcba=y.fcba) " & _
+					" WHEN MATCHED THEN " & _
+					" UPDATE SET x.journalno = y.seq " 
+		connstr.execute(qjournal)
+		connStr.execute("Commit")
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Closing Good Received Note is successfully...." & "<br><br>" : response.flush()
+		
+      
+	  '-- INVOCE PURCHASING 
+		Response.Write "<font face='Verdana' size='1' color='black'>" & "Closing Purchase Invoice" & "<br>" : response.flush()
+        qReceive =                  " SELECT ish.invoicecode," & _
+									"        ish.fcba," & _
+									"        ish.invoicedate," & _
+									"        ish.suppliercode," & _
+									"        tr.controljob jobinvoice_Cr," & _
+									"        pmd.param_1 jobinvoice_db," & _
+									"        (SELECT controljob_out FROM controljob_tax WHERE fccode = 'PPN') AS jobcodeppn_db," & _
+									"        (SELECT controljob_out FROM controljob_tax WHERE fccode = 'PPN_B') AS jobcodeppn_cr," & _
+									"        pmd2.fccode jobDP_cr," & _
+									"		 tr.fcname suppliername," & _ 
+									"        round(NVL(ish.paid,0),2) paid, " & _
+									"        ish.pocode," & _
+									"        round(NVL(ish.totalppn,0),2) totalppn," & _
+									"        round(NVL(ish.totalamount,0),2) totalamount," & _
+									"        NVL(ish.no_faktur,'') no_faktur, " & _
+									"        To_char(NVL(ish.fakturdate,'01/01/1900'),'MM/DD/YYYY') fakturdate," & _
+									"        round(NVL(ish.otherchargestock,0),2) otherchargestock," & _
+									"		 round(NVL(ish.dp,0),2) dp " & _
+									"   FROM  invoice ish " & _
+									"        INNER JOIN supplier tr " & _
+									"        ON (tr.fccode = ish.suppliercode AND tr.fcba = ish.fcba) " & _
+									"        INNER JOIN " & _
+									"        (SELECT fcba, param_1 FROM parameterDETAIL WHERE parcode = 'HARDCODE' AND PARHEADCODE = 'CONTROLJOB_MODULE' AND fccode = 'PURCHASE') pmd " & _
+									"        ON (ish.fcba = pmd.fcba) " & _
+									"        INNER JOIN " & _
+									"        (SELECT fcba, fccode FROM parameterDETAIL WHERE parcode = 'HARDCODE' AND PARHEADCODE = 'JOBCODE_OTHERCHARGE') pmd2 " & _
+									"        ON (ish.fcba = pmd2.fcba) " & _
+									"  WHERE     TO_NUMBER(TO_CHAR (ish.invoicedate, 'MM')) = '"& Month(Session("v_Purchase")) &"'" & _
+									"        AND TO_NUMBER(TO_CHAR (ish.invoicedate, 'yyyy')) = '"& Year(Session("v_Purchase")) &"'" & _
+									"        AND ish.fcba = '"& session("fcba") &"'" 
+									
+        Set rsReceive = Server.CreateObject("ADODB.Recordset")
+		rsReceive.Open qReceive, connstr
+		
+		if not rsReceive.eof then
+		   Do While Not rsReceive.eof
+		   
+				if cdbl(to_nol(rsReceive("dp"))) > 0 then
+				    maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("invoicedate") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobinvoice_Cr") & "'," & _ 
+								 "'PR','" & "PR" & "','" & rsReceive("invoicecode") & "'," & _
+								 "'" &  rsReceive("pocode") & "','AP','"  & rsReceive("suppliercode") & "'," & _
+								 cdbl(rsReceive("dp")) & ",'" & rsReceive("invoicecode") & "',0,0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Dr'),'"  & rsReceive("suppliercode") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Dr'),'RECLAS UM - " & rsReceive("suppliername") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Dr'),'"  & rsReceive("pocode") & " No.Inv: " & rsReceive("invoicecode") & " FP:" & rsReceive("no_faktur") & "/" & rsReceive("fakturdate") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Dr'),''," & _
+								 " '','','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'INV')"
+					'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("invoicedate") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobDP_cr") & "'," & _ 
+								 "'PR','" & "PR" & "','" & rsReceive("invoicecode") & "'," & _
+								 "'" &  rsReceive("pocode") & "','CB','BS'," & _
+								 -1*cdbl(rsReceive("dp")) & ",'" & rsReceive("invoicecode") & "',0,0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Dr'),'"  & rsReceive("suppliercode") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Dr'),'RECLAS UM - " & rsReceive("suppliername") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Dr'),'"  & rsReceive("pocode") & " No.Inv: " & rsReceive("invoicecode") & " FP:" & rsReceive("no_faktur") & "/" & rsReceive("fakturdate") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Dr'),''," & _
+								 " '','','Cr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'INV')"
+					' response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					
+					connStr.execute("Commit")
+				end if									
+
+                if cdbl(to_nol(rsReceive("totalamount"))) > 0 then
+				    maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("invoicedate") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobinvoice_db") & "'," & _ 
+								 "'PR','" & "PR" & "','" & rsReceive("invoicecode") & "'," & _
+								 "'" &  rsReceive("pocode") & "','AP','"  & rsReceive("suppliercode") & "'," & _
+								 cdbl(rsReceive("totalamount")) & ",'" & rsReceive("invoicecode") & "',0,0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Dr'),'"  & rsReceive("suppliercode") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Dr'),'TAGIHAN - " & rsReceive("suppliername") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Dr'),'"  & rsReceive("pocode") & " No.Inv: " & rsReceive("invoicecode") & " FP:" & rsReceive("no_faktur") & "/" & rsReceive("fakturdate") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Dr'),''," & _
+								 " '','','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'INV')"
+					 'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("invoicedate") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobinvoice_Cr") & "'," & _ 
+								 "'PR','" & "PR" & "','" & rsReceive("invoicecode") & "'," & _
+								 "'" &  rsReceive("pocode") & "','AP','"  & rsReceive("suppliercode") & "'," & _
+								 -1*cdbl(rsReceive("totalamount")) & ",'" & rsReceive("invoicecode") & "',0,0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Dr'),'"  & rsReceive("suppliercode") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Dr'),'TAGIHAN - " & rsReceive("suppliername") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Dr'),'"  & rsReceive("pocode") & " No.Inv: " & rsReceive("invoicecode") & " FP:" & rsReceive("no_faktur") & "/" & rsReceive("fakturdate") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Dr'),''," & _
+								 " '','','Cr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'INV')"
+					' response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					
+					
+					connStr.execute("Commit")
+				end if	
+
+					if cdbl(to_nol(rsReceive("totalppn"))) > 0 then
+				    maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("invoicedate") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcodeppn_db") & "'," & _ 
+								 "'PR','" & "PR" & "','" & rsReceive("invoicecode") & "'," & _
+								 "'" &  rsReceive("pocode") & "','CB','BS'," & _
+								 cdbl(rsReceive("totalppn")) & ",'" & rsReceive("invoicecode") & "',0,0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Dr'),'"  & rsReceive("suppliercode") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Dr'),'PPN - " & rsReceive("suppliername") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Dr'),'"  & rsReceive("pocode") & " No.Inv: " & rsReceive("invoicecode") & " FP:" & rsReceive("no_faktur") & "/" & rsReceive("fakturdate") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Dr'),''," & _
+								 " '','','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'INV')"
+					'response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME ,journalprefix) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("invoicedate") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcodeppn_cr") & "'," & _ 
+								 "'PR','" & "PR" & "','" & rsReceive("invoicecode") & "'," & _
+								 "'" &  rsReceive("pocode") & "','CB','BS'," & _
+								 -1*cdbl(rsReceive("totalppn")) & ",'" & rsReceive("invoicecode") & "',0,0,'" & Session("fcBA") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate , " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Dr'),'"  & rsReceive("suppliercode") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Dr'),'PPN - " & rsReceive("suppliername") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Dr'),'"  & rsReceive("pocode") & " No.Inv: " & rsReceive("invoicecode") & " FP:" & rsReceive("no_faktur") & "/" & rsReceive("fakturdate") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Dr'),''," & _
+								 " '','','Cr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _
+								 " sysdate, to_char(sysdate,'HH24:MI'),'INV')"
+					' response.write qCost_ActivityDB
+					response.Flush()
+					connstr.execute(qCost_ActivityDB)
+					
+					
+					connStr.execute("Commit")
+				end if													
+  
+		  rsReceive.MoveNext
+		  loop
+	End if
+		qjournal=	" MERGE INTO cost_activity x " & _
+					" USING " & _
+					" ( " & _
+					"  SELECT fcba,referenceno,idx||LPAD(ROWNUM,4,0) seq from " & _
+					"  ( " & _
+					"  SELECT DISTINCT fcba,referenceno,'" & session("COMPANYNO") & "/'||fcba||'/'||journalprefix||'/'||LPad(accountingperiod,2,0)||'/'||accountingyear||'/' as idx  " & _
+					"  FROM cost_activity WHERE fcba='" & Session("FCBA") & "' AND accountingperiod="& Month(Session("v_Purchase")) & " AND accountingyear=" & Year(Session("v_Purchase")) & " AND journalprefix='INV' " & _
+					"  Order BY referenceno " & _
+					"  ) " & _
+					" )y ON (x.referenceno =  y.referenceno and x.fcba=y.fcba) " & _
+					" WHEN MATCHED THEN " & _
+					" UPDATE SET x.journalno = y.seq " 
+		connstr.execute(qjournal)
+		connStr.execute("Commit")
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Closing Purchase Invoice is successfully...." & "<br><br>" : response.flush()
+	
+		' qReceive = 	" SELECT tdate," & _
+					' "        jobcode," & _
+					' "        source," & _
+					' "        sourcetype," & _
+					' "        sourcecode," & _
+					' "        sourcecode_status," & _
+					' "        targettype," & _
+					' "        targetcode," & _
+					' "        referenceno," & _
+					' "        quantity," & _
+					' "        amount," & _
+					' "        fcba," & _
+					' "        fcba," & _
+					' "        AUTO_REFERENCE_01," & _
+					' "        AUTO_REFERENCE_02," & _
+					' "        AUTO_REFERENCE_03," & _
+					' "        AUTO_REFERENCE_04," & _
+					' "        AUTO_REFERENCE_05," & _
+					' "        DEBETCREDIT" & _
+					' "   FROM (SELECT inv.invoicedate AS tdate," & _
+					' "                pmd.param_1 AS jobcode," & _
+					' "                'PR' AS source," & _
+					' "                'PR' AS sourcetype," & _
+					' "                invd.invoicecode AS sourcecode," & _
+					' "                invd.pocode AS sourcecode_status," & _
+					' "                'CB' AS targettype," & _
+					' "                'BS' AS targetcode," & _
+					' "                invd.itemcode AS referenceno," & _
+					' "                invd.quantity AS quantity," & _
+					' "                invd.amountbeforevat AS amount," & _
+					' "                inv.fcba," & _
+					' "                inv.fcba," & _
+					' "                inv.suppliercode AS AUTO_REFERENCE_01," & _
+					' "                invd.invoicecode AS AUTO_REFERENCE_02," & _
+					' "                invd.pocode AS AUTO_REFERENCE_03," & _
+					' "                invd.itemcode AS AUTO_REFERENCE_04," & _
+					' "                invd.purchaselinenokey AS AUTO_REFERENCE_05," & _
+					' "                'Dr' AS DEBETCREDIT" & _
+					' "           FROM invoicedetail invd" & _
+					' "                INNER JOIN invoice inv" & _
+					' "                   ON (    invd.fcba = inv.fcba" & _
+					' "                       AND invd.invoicecode = inv.invoicecode)" & _
+					' "                INNER JOIN" & _
+					' "                (SELECT fcba, param_1" & _
+					' "                   FROM parameterDETAIL" & _
+					' "                  WHERE     parcode = 'HARDCODE'" & _
+					' "                        AND PARHEADCODE = 'CONTROLJOB_MODULE'" & _
+					' "                        AND fccode = 'PURCHASE') pmd" & _
+					' "                   ON (inv.fcba = pmd.fcba)" & _
+					' "         UNION ALL" & _
+					' "         SELECT inv.invoicedate AS tdate," & _
+					' "                (SELECT controljob_out" & _
+					' "                   FROM controljob_tax" & _
+					' "                  WHERE fccode = 'PPN')" & _
+					' "                   AS jobcode," & _
+					' "                'PR' AS source," & _
+					' "                'PR' AS sourcetype," & _
+					' "                inv.invoicecode AS sourcecode," & _
+					' "                inv.pocode AS sourcecode_status," & _
+					' "                'CB' AS targettype," & _
+					' "                'BS' AS targetcode," & _
+					' "                inv.invoicecode AS referenceno," & _
+					' "                0 AS quantity," & _
+					' "                inv.totalppn AS amount," & _
+					' "                inv.fcba," & _
+					' "                inv.fcba," & _
+					' "                inv.suppliercode AS AUTO_REFERENCE_01," & _
+					' "                inv.invoicecode AS AUTO_REFERENCE_02," & _
+					' "                inv.pocode AS AUTO_REFERENCE_03," & _
+					' "                '' AS AUTO_REFERENCE_04," & _
+					' "                0 AS AUTO_REFERENCE_05," & _
+					' "                'Dr' AS DEBETCREDIT" & _
+					' "           FROM invoice inv" & _
+					' "         UNION ALL" & _
+					' "         SELECT inv.invoicedate AS tdate," & _
+					' "                pmd.fccode AS jobcode," & _
+					' "                'PR' AS source," & _
+					' "                'PR' AS sourcetype," & _
+					' "                inv.invoicecode AS sourcecode," & _
+					' "                inv.pocode AS sourcecode_status," & _
+					' "                'CB' AS targettype," & _
+					' "                'BS' AS targetcode," & _
+					' "                inv.invoicecode AS referenceno," & _
+					' "                0 AS quantity," & _
+					' "                inv.othercharge AS amount," & _
+					' "                inv.fcba," & _
+					' "                inv.fcba," & _
+					' "                inv.suppliercode AS AUTO_REFERENCE_01," & _
+					' "                inv.invoicecode AS AUTO_REFERENCE_02," & _
+					' "                inv.pocode AS AUTO_REFERENCE_03," & _
+					' "                '' AS AUTO_REFERENCE_04," & _
+					' "                0 AS AUTO_REFERENCE_05," & _
+					' "                'Dr' AS DEBETCREDIT" & _
+					' "           FROM invoice inv" & _
+					' "                INNER JOIN" & _
+					' "                (SELECT fcba, fccode" & _
+					' "                   FROM parameterDETAIL" & _
+					' "                  WHERE     parcode = 'HARDCODE'" & _
+					' "                        AND PARHEADCODE = 'JOBCODE_OTHERCHARGE') pmd" & _
+					' "                   ON (inv.fcba = pmd.fcba))" & _
+					' "  WHERE  " & _
+					' "        fcba = '"& session("fcba") &"'" & _
+					' "        AND TO_NUMBER (TO_CHAR (tdate, 'mm')) = '" & Month(Session("v_Purchase")) & "'" &  _
+					' "        AND TO_NUMBER (TO_CHAR (tdate, 'yyyy')) = '" & Year(Session("v_Purchase")) & "'" &  _
+					' " UNION ALL" & _
+					' "   SELECT inv_cr.tdate," & _
+					' "          sp.controljob AS jobcode," & _
+					' "          inv_cr.source," & _
+					' "          inv_cr.sourcetype," & _
+					' "          inv_cr.sourcecode," & _
+					' "          inv_cr.sourcecode_status," & _
+					' "          'AP' AS targettype," & _
+					' "          inv_cr.AUTO_REFERENCE_01," & _
+					' "          inv_cr.sourcecode AS referenceno," & _
+					' "          0 AS quantity," & _
+					' "          (SUM (amount) * -1) AS amount," & _
+					' "          inv_cr.fcba," & _
+					' "          inv_cr.fcba," & _
+					' "          inv_cr.AUTO_REFERENCE_01," & _
+					' "          inv_cr.AUTO_REFERENCE_02," & _
+					' "          inv_cr.AUTO_REFERENCE_03," & _
+					' "          '' AS AUTO_REFERENCE_04," & _
+					' "          0 AS AUTO_REFERENCE_05," & _
+					' "          'Cr' AS DEBETCREDIT" & _
+					' "     FROM (SELECT inv.invoicedate AS tdate," & _
+					' "                  pmd.param_1 AS jobcode," & _
+					' "                  'PR' AS source," & _
+					' "                  'PR' AS sourcetype," & _
+					' "                  invd.invoicecode AS sourcecode," & _
+					' "                  invd.pocode AS sourcecode_status," & _
+					' "                  'CB' AS targettype," & _
+					' "                  'BS' AS targetcode," & _
+					' "                  invd.itemcode AS referenceno," & _
+					' "                  invd.quantity AS quantity," & _
+					' "                  invd.amountbeforevat AS amount," & _
+					' "                  inv.fcba," & _
+					' "                  inv.fcba," & _
+					' "                  inv.suppliercode AS AUTO_REFERENCE_01," & _
+					' "                  invd.invoicecode AS AUTO_REFERENCE_02," & _
+					' "                  invd.pocode AS AUTO_REFERENCE_03," & _
+					' "                  invd.itemcode AS AUTO_REFERENCE_04," & _
+					' "                  invd.purchaselinenokey AS AUTO_REFERENCE_05," & _
+					' "                  'Dr' AS DEBETCREDIT" & _
+					' "             FROM invoicedetail invd" & _
+					' "                  INNER JOIN invoice inv" & _
+					' "                     ON (    invd.fcba = inv.fcba" & _
+					' "                         AND invd.invoicecode = inv.invoicecode)" & _
+					' "                  INNER JOIN" & _
+					' "                  (SELECT fcba, param_1" & _
+					' "                     FROM parameterDETAIL" & _
+					' "                    WHERE     parcode = 'HARDCODE'" & _
+					' "                          AND PARHEADCODE = 'CONTROLJOB_MODULE'" & _
+					' "                          AND fccode = 'PURCHASE') pmd" & _
+					' "                     ON (inv.fcba = pmd.fcba)" & _
+					' "           UNION ALL" & _
+					' "           SELECT inv.invoicedate AS tdate," & _
+					' "                  (SELECT controljob_out" & _
+					' "                     FROM controljob_tax" & _
+					' "                    WHERE fccode = 'PPN')" & _
+					' "                     AS jobcode," & _
+					' "                  'PR' AS source," & _
+					' "                  'PR' AS sourcetype," & _
+					' "                  inv.invoicecode AS sourcecode," & _
+					' "                  inv.pocode AS sourcecode_status," & _
+					' "                  'CB' AS targettype," & _
+					' "                  'BS' AS targetcode," & _
+					' "                  inv.invoicecode AS referenceno," & _
+					' "                  0 AS quantity," & _
+					' "                  inv.totalppn AS amount," & _
+					' "                  inv.fcba," & _
+					' "                  inv.fcba," & _
+					' "                  inv.suppliercode AS AUTO_REFERENCE_01," & _
+					' "                  inv.invoicecode AS AUTO_REFERENCE_02," & _
+					' "                  inv.pocode AS AUTO_REFERENCE_03," & _
+					' "                  '' AS AUTO_REFERENCE_04," & _
+					' "                  0 AS AUTO_REFERENCE_05," & _
+					' "                  'Dr' AS DEBETCREDIT" & _
+					' "             FROM invoice inv" & _
+					' "           UNION ALL" & _
+					' "           SELECT inv.invoicedate AS tdate," & _
+					' "                  pmd.fccode AS jobcode," & _
+					' "                  'PR' AS source," & _
+					' "                  'PR' AS sourcetype," & _
+					' "                  inv.invoicecode AS sourcecode," & _
+					' "                  inv.pocode AS sourcecode_status," & _
+					' "                  'CB' AS targettype," & _
+					' "                  'BS' AS targetcode," & _
+					' "                  inv.invoicecode AS referenceno," & _
+					' "                  0 AS quantity," & _
+					' "                  inv.othercharge AS amount," & _
+					' "                  inv.fcba," & _
+					' "                  inv.fcba," & _
+					' "                  inv.suppliercode AS AUTO_REFERENCE_01," & _
+					' "                  inv.invoicecode AS AUTO_REFERENCE_02," & _
+					' "                  inv.pocode AS AUTO_REFERENCE_03," & _
+					' "                  '' AS AUTO_REFERENCE_04," & _
+					' "                  0 AS AUTO_REFERENCE_05," & _
+					' "                  'Dr' AS DEBETCREDIT" & _
+					' "             FROM invoice inv" & _
+					' "                  INNER JOIN" & _
+					' "                  (SELECT fcba, fccode" & _
+					' "                     FROM parameterDETAIL" & _
+					' "                    WHERE     parcode = 'HARDCODE'" & _
+					' "                          AND PARHEADCODE = 'JOBCODE_OTHERCHARGE') pmd" & _
+					' "                     ON (inv.fcba = pmd.fcba)) inv_cr" & _
+					' "          INNER JOIN supplier sp" & _
+					' "             ON (inv_cr.fcba = sp.fcba AND inv_cr.auto_reference_01 = sp.fccode)" & _
+					' "    WHERE     " & _
+					' "         inv_cr.fcba = '"& session("fcba") &"'" & _
+					' "          AND TO_NUMBER (TO_CHAR (inv_cr.tdate, 'mm')) = '" & Month(Session("v_Purchase")) & "'" &  _
+					' "          AND TO_NUMBER (TO_CHAR (inv_cr.tdate, 'yyyy')) = '" & Year(Session("v_Purchase")) & "'" &  _
+					' " GROUP BY inv_cr.tdate," & _
+					' "          sp.controljob," & _
+					' "          inv_cr.source," & _
+					' "          inv_cr.sourcetype," & _
+					' "          inv_cr.sourcecode," & _
+					' "          inv_cr.sourcecode_status," & _
+					' "          inv_cr.targettype," & _
+					' "          'AP'," & _
+					' "          inv_cr.AUTO_REFERENCE_01," & _
+					' "          0," & _
+					' "          inv_cr.fcba," & _
+					' "          inv_cr.fcba," & _
+					' "          inv_cr.AUTO_REFERENCE_01," & _
+					' "          inv_cr.AUTO_REFERENCE_02," & _
+					' "          inv_cr.AUTO_REFERENCE_03," & _
+					' "          ''," & _
+					' "          0," & _
+					' "          'Cr'," & _
+					' "          'Cr'"  
+
+
+					' ' " SELECT hdr.invoicecode" & _
+					' ' "        , hdr.invoicedate" & _
+					' ' "        , hdr.suppliercode" & _
+					' ' "        , hdr.paid" & _
+					' ' "        , hdr.remarks" & _
+					' ' "        , hdr.netbalance" & _
+					' ' "        , hdr.pocode" & _
+					' ' "        , hdr.amount" & _
+					' ' "        , hdr.vat" & _
+					' ' "        , hdr.amountvat" & _
+					' ' "        , hdr.totalamount" & _
+					' ' "        , hdr.no_faktur" & _
+					' ' "        , hdr.fakturdate" & _
+					' ' "        , hdr.refinvoice" & _
+					' ' "        , hdr.othercharge" & _
+					' ' "        , hdr.dp" & _
+					' ' "        , hdr.totalppn" & _
+					' ' "        , dtl.itemcode" & _
+					' ' "        , dtl.quantity" & _
+					' ' "        , dtl.amount dtl_amount" & _
+					' ' "        , dtl.receivenotecode" & _
+					' ' "        , dtl.purchaselinenokey" & _
+					' ' "        , dtl.amountbeforevat" & _
+					' ' "        , dtl.fcba" & _
+					' ' "        , hdr.fcba" & _
+					' ' "        , supp.fcname suppliername" & _
+					' ' "        , supp.controljob" & _
+					' ' "        , job.fcname controljobname" & _
+					' ' "        , round(dtl.amountbeforevat ,2) amount_cap" & _
+					' ' "        , (rnd.amountinvoice -rnd.amountpo_receive) amount_var" & _
+					' ' "        , dtl.othercharge dtl_othercharge" & _
+					' ' " FROM invoicedetail dtl" & _
+					' ' " INNER JOIN invoice hdr ON (dtl.invoicecode = hdr.invoicecode AND dtl.fcba = hdr.fcba)" & _
+					' ' " LEFT JOIN receivenotedetail rnd ON (rnd.fcba = dtl.fcba AND rnd.receivenotecode = dtl.receivenotecode AND rnd.purchaselinenokey = dtl.purchaselinenokey)" & _
+					' ' " LEFT JOIN purchaseorderdetails pod ON (dtl.pocode = pod.pocode AND pod.fcba = dtl.fcba AND pod.linenokey = dtl.purchaselinenokey)" & _
+					' ' " LEFT JOIN purchaseorder po ON (pod.pocode = po.pocode AND pod.fcba = po.fcba)" & _
+					' ' " LEFT JOIN supplier supp ON (supp.fcba = hdr.fcba AND supp.fccode = hdr.suppliercode)" & _
+					' ' " LEFT JOIN job ON (job.fcba = supp.fcba AND job.fccode = supp.controljob)" & _
+					' ' " WHERE TO_NUMBER(TO_CHAR(hdr.invoicedate,'mm')) = '" & Month(Session("v_Purchase")) & "'" &  _
+					' ' "       AND TO_NUMBER(TO_CHAR(hdr.invoicedate,'yyyy')) = '" & Year(Session("v_Purchase")) & "'" & _
+     ' '                "       AND hdr.fcba = '" & Session("fcBA") & "'"
+		  ' 'response.write qReceive
+		  
+		' Set rsReceive = Server.CreateObject("ADODB.Recordset")
+		' rsReceive.Open qReceive, connstr
+		' if not rsReceive.eof then
+		   ' Do While Not rsReceive.eof			
+				
+				' maxLineNo = maxLineNo + 1
+				' qCost_ActivityDB="Insert into Cost_Activity " & _
+							 ' "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+							 ' "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+							 ' " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+							 ' " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+							 ' " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+							 ' " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+							 ' " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+							 ' " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+							 ' " LASTUPDATE, LASTTIME ) " & _
+							 ' " values (" & maxLineNo & ", to_date('" & rsReceive("tdate") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcode") & "','PR','" & "PR" & "'" & _
+							 ' " ,'" & rsReceive("sourcecode") & "'," & _
+							 ' " '" &  rsReceive("sourcecode_status") & "','" & "CB" & "','" & "BS" & "'," & _
+							 ' cdbl(to_nol(rsReceive("amount"))) & ",'" & rsReceive("referenceno") & "'," & rsReceive("QUANTITY") & ",0,'" & rsReceive("fcba") & "',"  & _
+							 ' " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+							 ' " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_01") & "'," & _
+							 ' " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_02") & "'," & _
+							 ' " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_03") & "'," & _
+							 ' " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_04") & "'," & _
+							 ' " '','" & rsReceive("AUTO_REFERENCE_05") & "','Dr', " & _
+							 ' Month(Session("v_Purchase")) & ", " & _
+							 ' Year(Session("v_Purchase")) & ", " & _	
+							 ' " sysdate, to_char(sysdate,'HH24:MI')) "
+							 
+				' response.Flush()			 
+				' connstr.execute(qCost_ActivityDB)
+				' connStr.execute("Commit")
+				
+				' ' if cdbl(to_nol(rsReceive("vat"))) <> 0 then
+					' ' post_amount_ppn = 0
+					' 'post_amount_ppn = cdbl(to_nol(rsReceive("vat")))*cdbl(to_nol(rsReceive("amountbeforevat")))/100
+					' ' post_amount_ppn = round(cdbl(to_nol(rsReceive("dtl_amount")))/cdbl(to_nol(rsReceive("amount")))* cdbl(to_nol(rsReceive("totalppn"))),2)
+					
+				' ' 	maxLineNo = maxLineNo + 1
+				' ' 	qCost_ActivityDB="Insert into Cost_Activity " & _
+				' ' 				 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+				' ' 				 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+				' ' 				 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+				' ' 				 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+				' ' 				 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+				' ' 				 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+				' ' 				 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+				' ' 				 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+				' ' 				 " LASTUPDATE, LASTTIME ) " & _
+				' ' 				 " values (" & maxLineNo & ", to_date('" & rsReceive("TDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcode") & "','PR','" & "PR" & "','" & rsReceive("sourcecode") & "'," & _
+				' ' 				 "'" &  rsReceive("sourcecode_status") & "','" & "CB" & "','" & "BS" & "','"& rsReceive("amount")  &"','" & rsReceive("referenceno") & "'," & rsReceive("QUANTITY") & ",0,'" & rsReceive("fcba") & "',"  & _
+				' ' 				 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+				' ' 				 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_01") & "'," & _
+				' ' 				 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_02") & "'," & _
+				' ' 				 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_03") & "'," & _
+				' ' 				 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_04") & "'," & _
+				' ' 				 " '','" & rsReceive("AUTO_REFERENCE_05") & "','Dr', " & _
+				' ' 				 Month(Session("v_Purchase")) & ", " & _
+				' ' 				 Year(Session("v_Purchase")) & ", " & _	
+				' ' 				 " sysdate, to_char(sysdate,'HH24:MI')) "
+								 
+				' ' 	response.Flush()			 
+				' ' 	connstr.execute(qCost_ActivityDB)
+				' ' 	connStr.execute("Commit")
+				' ' else
+				' ' 	post_amount_ppn = 0
+				' ' end if
+				
+				' ' if cdbl(to_nol(rsReceive("othercharge"))) <> 0 then
+				
+				' ' 	maxLineNo = maxLineNo + 1
+				' ' 	qCost_ActivityDB="Insert into Cost_Activity " & _
+				' ' 				 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+				' ' 				 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+				' ' 				 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+				' ' 				 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+				' ' 				 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+				' ' 				 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+				' ' 				 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+				' ' 				 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+				' ' 				 " LASTUPDATE, LASTTIME ) " & _
+				' ' 				 " values (" & maxLineNo & ", to_date('" & rsReceive("tdate") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcode") & "','PR','" & "PR" & "','" & rsReceive("sourcecode") & "'," & _
+				' ' 				 "'" &  rsReceive("sourcecode_status") & "','" & "CB" & "','" & "BS" & "'," & _
+				' ' 				 cdbl(rsReceive("amount")) & ",'" & rsReceive("referenceno") & "'," & rsReceive("QUANTITY") & ",0,'" & rsReceive("fcba") & "',"  & _
+				' ' 				 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+				' ' 				 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_01") & "'," & _
+				' ' 				 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_02") & "'," & _
+				' ' 				 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_03") & "'," & _
+				' ' 				 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_04") & "'," & _
+				' ' 				 " '','" & rsReceive("AUTO_REFERENCE_05") & "','Dr', " & _
+				' ' 				 Month(Session("v_Purchase")) & ", " & _
+				' ' 				 Year(Session("v_Purchase")) & ", " & _	
+				' ' 				 " sysdate, to_char(sysdate,'HH24:MI')) "
+								 
+				' ' 	response.Flush()			 
+				' ' 	connstr.execute(qCost_ActivityDB)
+				' ' 	connStr.execute("Commit")
+				' ' end if
+								
+				' 'if cdbl(to_nol(rsReceive("amount_var"))) <> 0 then
+				' '
+				' '	maxLineNo = maxLineNo + 1
+				' '	qCost_ActivityDB="Insert into Cost_Activity " & _
+				' '				 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+				' '				 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+				' '				 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+				' '				 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+				' '				 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+				' '				 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+				' '				 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+				' '				 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+				' '				 " LASTUPDATE, LASTTIME ) " & _
+				' '				 " values (" & maxLineNo & ", to_date('" & rsReceive("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & get_jobintraco(arr_dataintraco, rsReceive("fcba") ) & "','PR','" & "PR" & "','" & rsReceive("INVOICECODE") & "'," & _
+				' '				 "'" &  rsReceive("POCODE") & "','" & "CB" & "','" & "BS" & "'," & _
+				' '				 cdbl(to_nol(rsReceive("amount_var"))) & ",'" & rsReceive("ITEMCODE") & "'," & rsReceive("QUANTITY") & ",0,'" & rsReceive("fcba") & "',"  & _
+				' '				 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+				' '				 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("SUPPLIERCODE") & "'," & _
+				' '				 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("INVOICECODE") & "'," & _
+				' '				 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("POCODE") & "'," & _
+				' '				 " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Cr'),'"  & rsReceive("ITEMCODE") & "'," & _
+				' '				 " '','" & rsReceive("purchaselinenokey") & "','Dr', " & _
+				' '				 Month(Session("v_Purchase")) & ", " & _
+				' '				 Year(Session("v_Purchase")) & ", " & _	
+				' '				 " sysdate, to_char(sysdate,'HH24:MI')) "
+				' '				 
+				' '	response.Flush()			 
+				' '	connstr.execute(qCost_ActivityDB)
+				' '	connStr.execute("Commit")
+				' 'end if
+				
+				' ' post_hutang_supplier = 0
+				' ' post_hutang_supplier = round(cdbl(to_nol(rsReceive("amount_cap"))) +post_amount_ppn +cdbl(to_nol(rsReceive("dtl_othercharge"))) +cdbl(to_nol(rsReceive("amount_var"))),2)
+				
+				' maxLineNo = maxLineNo + 1
+				' qCost_ActivityCR="Insert into Cost_Activity " & _
+							 ' "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+							 ' "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+							 ' " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+							 ' " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+							 ' " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+							 ' " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+							 ' " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+							 ' " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+							 ' " LASTUPDATE, LASTTIME ) " & _
+							 ' " values (" & maxLineNo & " ,to_date('" & rsReceive("TDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcode") & "','PR','" & "PR" & "','" & rsReceive("sourcecode") & "'," & _
+							 ' "'" &  rsReceive("sourcecode_status") & "','AP','" & rsReceive("AUTO_REFERENCE_01") & "'," & _
+							 ' "" & rsReceive("amount") & ",'" & rsReceive("referenceno") & "'," & rsReceive("QUANTITY") & ",0,'" & rsReceive("fcba") & "',"  & _
+							 ' " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+							 ' " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_01") & "'," & _
+							 ' " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_02") & "'," & _
+							 ' " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_03") & "'," & _
+							 ' " Cost_Activity_Info_Api.Get_Title_Reference_04('PR', 'CB','Cr'),'"  & rsReceive("AUTO_REFERENCE_04") & "'," & _
+							 ' " '','" & rsReceive("AUTO_REFERENCE_05") & "','Cr', " & _	
+                             ' Month(Session("v_Purchase")) & ", " & _
+							 ' Year(Session("v_Purchase")) & ", " & _							 
+							 ' " sysdate, to_char(sysdate,'HH24:MI')) "
+							  
+				' response.Flush() 
+				' ' connstr.execute(qCost_ActivityCR)
+			    ' connStr.execute("Commit")
+				
+				' rsReceive.MoveNext
+		  ' loop
+		' End if
+
+		'--if Session("Estate_Mill") = "HO" then
+			'-- Begin Transporter Invoice
+			
+			'-- Insert Debet 1
+			
+			'-- INVOICE TRANSPORTER
+			Response.Write "<font face='Verdana' size='1' color='black'>" & "Closing Transporter Invoice" & "<br>" : response.flush()
+			qTransporterInvDB1 = 	"   SELECT ish.invoicecode," & _
+									"          ish.fcba," & _
+									"          ish.invoicedate," & _
+									"		   to_number(to_char(ish.invoicedate,'MM')) accountingperiod," & _
+       								"          to_number(to_char(ish.invoicedate,'YYYY')) accountingyear," & _
+									"          ish.transportercode," & _
+									"          ish.paid," & _
+									"          ish.pocode," & _
+									"          ish.stono," & _
+									"          isd.amount," & _
+									"          ish.pph," & _
+									"          ish.amountpph," & _
+									"          ish.totalamount," & _
+									"          ish.no_faktur," & _
+									"          ish.fakturdate," & _
+									"          isd.do_no," & _
+									"          isd.receivenotecode," & _
+									"          isd.itemcode," & _
+									"          isd.unitprice," & _
+									"          isd.quantity," & _
+									"          isd.lineno" & _
+									"     FROM invoicestodetail isd" & _
+									"          INNER JOIN invoicesto ish" & _
+									"             ON (    ish.invoicecode = isd.invoicecode" & _
+									"                 AND ish.fcba = isd.fcba" & _
+									"                 AND ish.pocode = isd.pocode" & _
+									"                 AND ish.stono = isd.stono)" & _
+									"    WHERE     TO_NUMBER(TO_CHAR (ish.invoicedate, 'MM')) = '"& Month(Session("v_Purchase")) &"'" & _
+									"          AND TO_NUMBER(TO_CHAR (ish.invoicedate, 'yyyy')) = '"& year(Session("v_Purchase")) &"'" & _
+									"          AND ish.fcba = '"& session("fcba") &"'" 
+
+			Set rsTransporterInvDB1 = Server.CreateObject("ADODB.Recordset")
+			rsTransporterInvDB1.Open qTransporterInvDB1, connstr
+			if not rsTransporterInvDB1.eof then
+				Do While Not rsTransporterInvDB1.eof
+				
+					 maxLineNo = maxLineNo + 1
+					 qCost_ActivityTRDB1="Insert into Cost_Activity " & _
+									 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+									 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+									 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+									 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+									 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+									 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+									 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+									 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+									 " LASTUPDATE, LASTTIME,journalprefix ) " & _
+									 " values (" & maxLineNo & ",to_date('" & rsTransporterInvDB1("invoicedate") & "','mm/dd/yyyy') " & ",'" & txtControlJob & "','PR','PR','" & rsTransporterInvDB1("INVOICECODE") & "'," & _
+									 " '','CB','BS'," & _
+									 " '" &  rsTransporterInvDB1("AMOUNT") & "','" & rsTransporterInvDB1("ITEMCODE") & "'," & "0,0,'" & rsTransporterInvDB1("fcba") & "',"  & _
+									 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+									 " 'STO - Transporter Code No :','"  & rsTransporterInvDB1("transportercode") & "'," & _
+									 " 'STO - STO INVOICE No :','"  & rsTransporterInvDB1("INVOICECODE") & "'," & _
+									 " 'STO - PO Code :','"  & rsTransporterInvDB1("POCODE") & "'," & _
+									 " 'Auto - Itemcode :','"  & rsTransporterInvDB1("ITEMCODE") & "', " & _
+									 " 'Line No:', '" & rsTransporterInvDB1("LINENO") & "','Db', " & _
+									 " " & rsTransporterInvDB1("ACCOUNTINGPERIOD") & "," & rsTransporterInvDB1("ACCOUNTINGYEAR") & "," & _
+									 " sysdate, to_char(sysdate,'HH24:MI'),'STO') "
+					
+					' response.Write qCost_ActivityTRDB1 & " </br>"
+					
+					 connstr.execute(qCost_ActivityTRDB1)
+					 connStr.execute("Commit")
+					 
+					rsTransporterInvDB1.MoveNext
+				loop
+			end if	
+			'-- End Insert Debet 1
+			
+			'-- Begin Insert Credit 1
+			qTransporterInvCR1 =	"   SELECT ish.invoicecode," & _
+									"          ish.fcba," & _
+									"          ish.invoicedate," & _
+									"		   to_number(to_char(ish.invoicedate,'MM')) accountingperiod," & _
+       								"          to_number(to_char(ish.invoicedate,'YYYY')) accountingyear," & _
+									"          ish.transportercode," & _
+									"          ish.paid," & _
+									"          ish.pocode," & _
+									"          ish.stono," & _
+									"          round(-1 * (isd.amount * ish.pph ),2) amount," & _
+									"          ish.pph," & _
+									"          ish.amountpph," & _
+									"          ish.totalamount," & _
+									"          ish.no_faktur," & _
+									"          isd.do_no," & _
+									"          isd.receivenotecode," & _
+									"          isd.itemcode," & _
+									"          isd.unitprice," & _
+									"          isd.quantity," & _
+									"          isd.lineno" & _
+									"     FROM invoicestodetail isd" & _
+									"          INNER JOIN invoicesto ish" & _
+									"             ON (    ish.invoicecode = isd.invoicecode" & _
+									"                 AND ish.fcba = isd.fcba" & _
+									"                 AND ish.pocode = isd.pocode" & _
+									"                 AND ish.stono = isd.stono)" & _
+									"    WHERE     TO_NUMBER(TO_CHAR (ish.invoicedate, 'MM')) = '"& Month(Session("v_Purchase")) &"'" & _
+									"          AND TO_NUMBER(TO_CHAR (ish.invoicedate, 'yyyy')) = '"& year(Session("v_Purchase")) &"'" & _
+									"          AND ish.fcba = '"& session("fcba") &"'" 
+									
+			'response.write qTransporterInvCR1 & "</br>"
+			
+			Set rsTransporterInvCR1 = Server.CreateObject("ADODB.Recordset")
+			rsTransporterInvCR1.Open qTransporterInvCR1, connstr
+			if not rsTransporterInvCR1.eof then
+				Do While Not rsTransporterInvCR1.eof
+					
+					 maxLineNo = maxLineNo + 1
+					 qCost_ActivityTRCR1 = "Insert into Cost_Activity " & _
+									 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+									 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+									 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+									 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+									 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+									 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+									 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+									 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+									 " LASTUPDATE, LASTTIME,journalprefix ) " & _
+									 " values (" & maxLineNo & ",to_date('" & rsTransporterInvCR1("invoicedate") & "','mm/dd/yyyy') " & ",'" & get_controljob_tax(arr_controljob_tax, "PPH_23", 1) & "','PR','PR','" & rsTransporterInvCR1("INVOICECODE") & "'," & _
+									 " '','CB','BS'," & _
+									 " '" &  rsTransporterInvCR1("AMOUNT") & "','" & rsTransporterInvCR1("ITEMCODE") & "'," & "0,0,'" & rsTransporterInvCR1("fcba") & "',"  & _
+									 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+									 " 'STO - Transporter Code No :','"  & rsTransporterInvCR1("transportercode") & "'," & _
+									 " 'STO - STO INVOICE No :','"  & rsTransporterInvCR1("INVOICECODE") & "'," & _
+									 " 'STO - PO Code :','"  & rsTransporterInvCR1("POCODE") & "'," & _
+									 " 'Auto - Itemcode :','"  & rsTransporterInvCR1("ITEMCODE") & "', " & _
+									 " 'Line No:', '" & rsTransporterInvCR1("LINENO") & "','Cr', " & _
+									 " " & rsTransporterInvCR1("ACCOUNTINGPERIOD") & "," & rsTransporterInvCR1("ACCOUNTINGYEAR") & "," & _
+									 " sysdate, to_char(sysdate,'HH24:MI'),'STO') "
+									 
+					 'response.write qCost_ActivityTRCR1
+					 connstr.execute(qCost_ActivityTRCR1)
+					 connStr.execute("Commit")
+					 
+					rsTransporterInvCR1.MoveNext
+				loop
+			end if	
+			'-- End Insert Credit 1
+			
+			'-- Insert Credit 2
+			qTransporterInvCR2 =	" SELECT ish.invoicecode," & _
+									"        ish.fcba," & _
+									"        ish.invoicedate," & _
+									"        TO_NUMBER (TO_CHAR (ish.invoicedate, 'MM')) accountingperiod," & _
+									"        TO_NUMBER (TO_CHAR (ish.invoicedate, 'YYYY')) accountingyear," & _
+									"        ish.transportercode," & _
+									"        tr.controljob," & _
+									"        ish.paid," & _
+									"        ish.pocode," & _
+									"        ish.stono," & _
+									"        round( -1 * (isd.amount + (isd.amount * ish.pph)) ,2) amount_hutang_contractor," & _
+									"        ish.pph," & _
+									"        ish.amountpph," & _
+									"        ish.totalamount," & _
+									"        ish.no_faktur," & _
+									"        ish.fakturdate," & _
+									"        isd.do_no," & _
+									"        isd.receivenotecode," & _
+									"        isd.itemcode," & _
+									"        isd.unitprice," & _
+									"        isd.quantity," & _
+									"        isd.lineno" & _
+									"   FROM invoicestodetail isd" & _
+									"        INNER JOIN invoicesto ish" & _
+									"           ON (ish.invoicecode = isd.invoicecode AND ish.fcba = isd.fcba)" & _
+									"        INNER JOIN transporter tr" & _
+									"           ON (tr.fccode = ish.transportercode AND tr.fcba = ish.fcba)" & _
+									"  WHERE     TO_NUMBER(TO_CHAR (ish.invoicedate, 'MM')) = '"& Month(Session("v_Purchase")) &"'" & _
+									"        AND TO_NUMBER(TO_CHAR (ish.invoicedate, 'yyyy')) = '"& Year(Session("v_Purchase")) &"'" & _
+									"        AND ish.fcba = '"& session("fcba") &"'" 
+			'response.Write qTransporterInvCR2
+			Set rsTransporterInvCR2 = Server.CreateObject("ADODB.Recordset")
+			rsTransporterInvCR2.Open qTransporterInvCR2, connstr
+			if not rsTransporterInvCR2.eof then
+				Do While Not rsTransporterInvCR2.eof
+					 
+					 maxLineNo = maxLineNo + 1
+					qCost_ActivityTRCR2 = " Insert into Cost_Activity " & _
+										 " (LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+										 " TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA, closing_date, process_date, " & _
+										 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+										 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+										 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+										 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+										 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+										 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+										 " LASTUPDATE, LASTTIME,journalprefix ) " & _
+										 " values (" & maxLineNo & ",to_date('" & rsTransporterInvCR2("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & rsTransporterInvCR2("controljob") & "','PR','PR','" & rsTransporterInvCR2("INVOICECODE") & "'," & _
+										 " '','CA','" & rsTransporterInvCR2("transportercode") & "'," & _
+										 " '" &  cdbl(to_nol(rsTransporterInvCR2("amount_hutang_contractor"))) & "','" & rsTransporterInvCR2("ITEMCODE") & "'," & "0,0,'" & rsTransporterInvCR2("fcba") & "',"  & _
+										 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+									     " 'STO - Transporter Code No :','"  & rsTransporterInvCR2("transportercode") & "'," & _
+										 " 'STO - STO INVOICE No :','"  & rsTransporterInvCR2("invoicecode") & "'," & _
+										 " 'STO - PO Code :','"  & rsTransporterInvCR2("POCODE") & "'," & _
+										 " 'Auto - Itemcode :','"  & rsTransporterInvCR2("ITEMCODE") & "', " & _
+										 " 'Line No:', '" & rsTransporterInvCR2("LINENO") & "','Cr', " & _
+										 " " & rsTransporterInvCR2("ACCOUNTINGPERIOD") & "," & rsTransporterInvCR2("ACCOUNTINGYEAR") & "," & _
+										 " sysdate, to_char(sysdate,'HH24:MI'),'STO') "
+
+					 'response.Write qCost_ActivityTRCR2
+					 connstr.execute(qCost_ActivityTRCR2)
+					 connStr.execute("Commit")
+
+					rsTransporterInvCR2.MoveNext
+				loop
+			end if	
+			'-- End Insert Credit 2
+			
+		'-- End Transporter Invoice
+		'--end if
+		qjournal=	" MERGE INTO cost_activity x " & _
+					" USING " & _
+					" ( " & _
+					"  SELECT fcba,referenceno,idx||LPAD(ROWNUM,4,0) seq from " & _
+					"  ( " & _
+					"  SELECT DISTINCT fcba,referenceno,'" & session("COMPANYNO") & "/'||fcba||'/'||journalprefix||'/'||LPad(accountingperiod,2,0)||'/'||accountingyear||'/' as idx  " & _
+					"  FROM cost_activity WHERE fcba='" & Session("FCBA") & "' AND accountingperiod="& Month(Session("v_Purchase")) & " AND accountingyear=" & Year(Session("v_Purchase")) & " AND journalprefix='STO' " & _
+					"  Order BY referenceno " & _
+					"  ) " & _
+					" )y ON (x.referenceno =  y.referenceno and x.fcba=y.fcba) " & _
+					" WHEN MATCHED THEN " & _
+					" UPDATE SET x.journalno = y.seq " 
+		connstr.execute(qjournal)
+		connStr.execute("Commit")
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Closing Transporter Invoice is successfully...." & "<br><br>" : response.flush()
+	
+		
+		' INVOICE SPECIAL
+		'--if Session("Estate_Mill") = "HO" then
+    		Response.Write "<font face='Verdana' size='1' color='black'>" & "Closing Special Invoice" & "<br>" : response.flush()
+			qReceive = 	" SELECT hdr.fcba " & _
+						"		 , dtl.invoiceno invoicecode" & _
+						"        , hdr.transdate invoicedate" & _
+						"        , hdr.suppliername SUPPLIERCODE" & _
+						"        , supp.controljob" & _
+						"        , dtl.jobcode" & _
+						"        , dtl.targettype" & _
+						"        , dtl.targetcode" & _
+						"        , dtl.description" & _
+						"        , round(NVL(dtl.amount,0),2) amount" & _
+						"        , round(NVL(dtl.othercost,0),2) othercost" & _
+						"        , NVL(hdr.ppn,0) ppn" & _
+						"        , NVL(hdr.pph,0) pph" & _
+						" FROM invoiceservicedtl dtl" & _
+						" INNER JOIN invoiceservicehdr hdr ON (dtl.invoiceno = hdr.invoiceno AND dtl.fcba = hdr.fcba)" & _
+						" INNER JOIN supplier supp ON (hdr.suppliername = supp.fccode AND hdr.fcba = supp.fcba)" & _
+						" WHERE TO_NUMBER(TO_CHAR(hdr.transdate,'mm')) = '" & Month(Session("v_Purchase")) & "'" &  _
+						"       AND TO_NUMBER(TO_CHAR(hdr.transdate,'yyyy')) = '" & Year(Session("v_Purchase")) & "'" & _
+						"       AND hdr.fcba = '" & Session("fcBA") & "'" & _
+						"       AND hdr.invoice_type <> 'TBS'"
+			  
+			Set rsReceive = Server.CreateObject("ADODB.Recordset")
+			rsReceive.Open qReceive, connstr
+			if not rsReceive.eof then
+			   Do While Not rsReceive.eof			
+					
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityDB="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME, journalprefix ) " & _
+								 " values (" & maxLineNo & ", to_date('" & rsReceive("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("jobcode") & "','PR','" & "PR" & "','" & rsReceive("INVOICECODE") & "'," & _
+								 "'" &  rsReceive("description") & "','" & rsReceive("targettype") & "','" & rsReceive("targetcode") & "'," & _
+								 cdbl(to_nol(rsReceive("amount"))) & ",'" & rsReceive("INVOICECODE") & "', 0,0,'" & rsReceive("fcba") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("SUPPLIERCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("INVOICECODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("description") & "'," & _
+								 " '',''," & _
+								 " '','','Dr', " & _
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _	
+								 " sysdate, to_char(sysdate,'HH24:MI'),'SIV') "
+								 
+					response.Flush()			 
+					connstr.execute(qCost_ActivityDB)
+					
+					if cdbl(to_nol(rsReceive("ppn"))) <> 0 then
+						post_amount_ppn = 0
+						post_amount_ppn = cdbl(to_nol(rsReceive("ppn")))*cdbl(to_nol(rsReceive("amount")))/100
+					
+						maxLineNo = maxLineNo + 1
+						qCost_ActivityDB="Insert into Cost_Activity " & _
+									 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+									 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+									 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+									 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+									 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+									 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+									 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+									 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+									 " LASTUPDATE, LASTTIME, journalprefix ) " & _
+									 " values (" & maxLineNo & ", to_date('" & rsReceive("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & get_controljob_tax(arr_controljob_tax, "PPN", 2) & "','PR','" & "PR" & "','" & rsReceive("INVOICECODE") & "'," & _
+									 "'" &  rsReceive("description") & "','" & "CB" & "','" & "BS" & "'," & _
+									 post_amount_ppn & ",'" & rsReceive("INVOICECODE") & "', 0,0,'" & rsReceive("fcba") & "',"  & _
+									 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("SUPPLIERCODE") & "'," & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("INVOICECODE") & "'," & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("description") & "'," & _
+									 " '',''," & _
+									 " '','','Dr', " & _
+									 Month(Session("v_Purchase")) & ", " & _
+									 Year(Session("v_Purchase")) & ", " & _	
+									 " sysdate, to_char(sysdate,'HH24:MI'),'SIV') "
+									 
+						response.Flush()			 
+						connstr.execute(qCost_ActivityDB)
+					else
+						post_amount_ppn = 0
+					end if
+					
+					
+					
+					if cdbl(to_nol(rsReceive("othercost"))) <> 0 then
+					
+						maxLineNo = maxLineNo + 1
+						qCost_ActivityDB="Insert into Cost_Activity " & _
+									 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+									 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+									 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+									 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+									 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+									 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+									 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+									 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+									 " LASTUPDATE, LASTTIME , journalprefix) " & _
+									 " values (" & maxLineNo & ", to_date('" & rsReceive("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & job_othercharge & "','PR','" & "PR" & "','" & rsReceive("INVOICECODE") & "'," & _
+									 "'" &  rsReceive("description") & "','" & "CB" & "','" & "BS" & "'," & _
+									 cdbl(rsReceive("othercost")) & ",'" & rsReceive("INVOICECODE") & "', 0,0,'" & rsReceive("fcba") & "',"  & _
+									 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("SUPPLIERCODE") & "'," & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("INVOICECODE") & "'," & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("description") & "'," & _
+									 " '',''," & _
+									 " '','','Dr', " & _
+									 Month(Session("v_Purchase")) & ", " & _
+									 Year(Session("v_Purchase")) & ", " & _	
+									 " sysdate, to_char(sysdate,'HH24:MI'),'SIV') "
+									 
+						response.Flush()			 
+						connstr.execute(qCost_ActivityDB)
+					end if
+					
+					
+					if cdbl(to_nol(rsReceive("pph"))) <> 0 then
+						post_amount_pph = 0
+						post_amount_pph = cdbl(to_nol(rsReceive("pph")))*cdbl(to_nol(rsReceive("amount")))/100
+					
+						maxLineNo = maxLineNo + 1
+						qCost_ActivityDB="Insert into Cost_Activity " & _
+									 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+									 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+									 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+									 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+									 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+									 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+									 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+									 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+									 " LASTUPDATE, LASTTIME , journalprefix) " & _
+									 " values (" & maxLineNo & ", to_date('" & rsReceive("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & get_controljob_tax(arr_controljob_tax, "PPH_23", 2) & "','PR','" & "PR" & "','" & rsReceive("INVOICECODE") & "'," & _
+									 "'" &  rsReceive("description") & "','" & "CB" & "','" & "BS" & "'," & _
+									 -1*post_amount_pph & ",'" & rsReceive("INVOICECODE") & "', 0,0,'" & rsReceive("fcba") & "',"  & _
+									 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("SUPPLIERCODE") & "'," & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("INVOICECODE") & "'," & _
+									 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("description") & "'," & _
+									 " '',''," & _
+									 " '','','Dr', " & _
+									 Month(Session("v_Purchase")) & ", " & _
+									 Year(Session("v_Purchase")) & ", " & _	
+									 " sysdate, to_char(sysdate,'HH24:MI'),'SIV') "
+									 
+						response.Flush()			 
+						connstr.execute(qCost_ActivityDB)
+					else
+						post_amount_pph = 0
+					end if
+					
+					post_hutang_supplier = 0
+					post_hutang_supplier = cdbl(to_nol(rsReceive("amount"))) +post_amount_ppn +cdbl(to_nol(rsReceive("othercost"))) -post_amount_pph
+					
+					maxLineNo = maxLineNo + 1
+					qCost_ActivityCR="Insert into Cost_Activity " & _
+								 "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+								 " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 " LASTUPDATE, LASTTIME , journalprefix) " & _
+								 " values (" & maxLineNo & " ,to_date('" & rsReceive("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive("CONTROLJOB") & "','PR','" & "PR" & "','" & rsReceive("INVOICECODE") & "'," & _
+								 "'" &  rsReceive("description") & "','AP','" & rsReceive("SUPPLIERCODE") & "'," & _
+								 "" &  -1*post_hutang_supplier & ",'" & rsReceive("INVOICECODE") & "', 0,0,'" & rsReceive("fcba") & "',"  & _
+								 " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive("SUPPLIERCODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive("INVOICECODE") & "'," & _
+								 " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive("description") & "'," & _
+								 " '',''," & _
+								 " '','','Cr', " & _	
+								 Month(Session("v_Purchase")) & ", " & _
+								 Year(Session("v_Purchase")) & ", " & _							 
+								 " sysdate, to_char(sysdate,'HH24:MI'),'SIV') "
+								 
+					'response.write qCost_ActivityCR
+					response.Flush()
+					connstr.execute(qCost_ActivityCR)
+					connStr.execute("Commit")
+					
+					rsReceive.MoveNext
+			  loop
+			End if
+			
+					qjournal=	" MERGE INTO cost_activity x " & _
+					" USING " & _
+					" ( " & _
+					"  SELECT fcba,referenceno,idx||LPAD(ROWNUM,4,0) seq from " & _
+					"  ( " & _
+					"  SELECT DISTINCT fcba,referenceno,'" & session("COMPANYNO") & "/'||fcba||'/'||journalprefix||'/'||LPad(accountingperiod,2,0)||'/'||accountingyear||'/' as idx  " & _
+					"  FROM cost_activity WHERE fcba='" & Session("FCBA") & "' AND accountingperiod="& Month(Session("v_Purchase")) & " AND accountingyear=" & Year(Session("v_Purchase")) & " AND journalprefix='SIV' " & _
+					"  Order BY referenceno " & _
+					"  ) " & _
+					" )y ON (x.referenceno =  y.referenceno and x.fcba=y.fcba) " & _
+					" WHEN MATCHED THEN " & _
+					" UPDATE SET x.journalno = y.seq " 
+		connstr.execute(qjournal)
+		connStr.execute("Commit")
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Closing Special Invoice is successfully...." & "<br><br>" : response.flush()
+	
+		
+		' else
+			' qReceive2 = 	" SELECT hdr.fcba " & _
+						' "		 , dtl.invoiceno invoicecode" & _
+						' "        , hdr.transdate invoicedate" & _
+						' "        , hdr.suppliername SUPPLIERCODE" & _
+						' "        , supp.controljob" & _
+						' "        , dtl.jobcode" & _
+						' "        , dtl.targettype" & _
+						' "        , dtl.targetcode" & _
+						' "        , dtl.description" & _
+						' "        , round(NVL(dtl.totalamount,0),2) amount" & _
+						' "        , round(NVL(dtl.othercost,0),2) othercost" & _
+						' "        , NVL(hdr.ppn,0) ppn" & _
+						' "        , NVL(hdr.pph,0) pph" & _
+						' " FROM invoiceservicedtl dtl" & _
+						' " INNER JOIN invoiceservicehdr hdr ON (dtl.invoiceno = hdr.invoiceno AND dtl.fcba = hdr.fcba)" & _
+						' " LEFT JOIN supplier supp ON (hdr.suppliername = supp.fccode AND hdr.fcba = supp.fcba)" & _
+						' " WHERE TO_NUMBER(TO_CHAR(hdr.transdate,'mm')) = '" & Month(Session("v_Purchase")) & "'" &  _
+						' "       AND TO_NUMBER(TO_CHAR(hdr.transdate,'yyyy')) = '" & Year(Session("v_Purchase")) & "'" & _
+						' "       AND hdr.fcba = '" & Session("fcBA") & "'" & _
+						' "       AND hdr.invoice_type <> 'TBS'"
+			' 'response.write qReceive2
+			' Set rsReceive2 = Server.CreateObject("ADODB.Recordset")
+			' rsReceive2.Open qReceive2, connstr
+			' if not rsReceive2.eof then
+			   ' Do While Not rsReceive2.eof			
+					
+					' maxLineNo = maxLineNo + 1
+					' qCost_ActivityDB2="Insert into Cost_Activity " & _
+								 ' "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 ' "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+								 ' " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 ' " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 ' " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 ' " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 ' " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 ' " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 ' " LASTUPDATE, LASTTIME ) " & _
+								 ' " values (" & maxLineNo & ", to_date('" & rsReceive2("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & rsReceive2("jobcode") & "','PR','" & "PR" & "','" & rsReceive2("INVOICECODE") & "'," & _
+								 ' "'" &  rsReceive2("description") & "','" & rsReceive2("targettype") & "','" & rsReceive2("targetcode") & "'," & _
+								 ' cdbl(to_nol(rsReceive2("amount"))) & ",'" & rsReceive2("INVOICECODE") & "', 0,0,'" & rsReceive2("fcba") & "',"  & _
+								 ' " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+								 ' " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceive2("SUPPLIERCODE") & "'," & _
+								 ' " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceive2("INVOICECODE") & "'," & _
+								 ' " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceive2("description") & "'," & _
+								 ' " '',''," & _
+								 ' " '','','Dr', " & _
+								 ' Month(Session("v_Purchase")) & ", " & _
+								 ' Year(Session("v_Purchase")) & ", " & _	
+								 ' " sysdate, to_char(sysdate,'HH24:MI')) "
+								 
+					' response.Flush()			 
+					' connstr.execute(qCost_ActivityDB2)
+					' connStr.execute("Commit")
+					
+					' post_hutang_supplier = 0
+					' post_hutang_supplier = cdbl(to_nol(rsReceive2("amount")))					
+					
+					' rsReceive2.MoveNext
+			  ' loop
+			' End if
+			
+			' qReceiveCR = " SELECT " & _
+						' " hdr.fcba " & _ 
+						' " , dtl.invoiceno invoicecode " & _ 
+						' " , hdr.transdate invoicedate " & _
+						' " , hdr.suppliername SUPPLIERCODE " & _ 
+						' " , supp.controljob controljob " & _
+						' " , parameterdetail.param_1 jobcode " & _
+						' " , job.job_category targettype " & _
+						' " , gcmaster.fccode targetcode " & _
+						' " , dtl.description description " & _
+						' " , round(NVL(dtl.totalamount,0),2) amount " & _
+						' " , round(NVL(dtl.othercost,0),2) othercost " & _ 
+						' " , NVL(hdr.ppn,0) ppn " & _
+						' " , NVL(hdr.pph,0) pph " & _
+						' " FROM invoiceservicedtl dtl " & _
+						' " INNER JOIN invoiceservicehdr hdr ON (dtl.invoiceno = hdr.invoiceno AND dtl.fcba = hdr.fcba) " & _
+						' " INNER JOIN parameterdetail ON DTL.FCBA = parameterdetail.fcba AND parameterdetail.parheadcode = 'CONTROLJOB_MODULE' " & _
+						' " AND parcode='HARDCODE' and fccode = 'PURCHASE' " & _
+						' " INNER JOIN supplier supp ON (hdr.suppliername = supp.fccode AND hdr.fcba = supp.fcba) " & _
+						' " INNER JOIN job ON (dtl.fcba = job.fcba AND parameterdetail.param_1 = job.fccode) " & _
+						' " INNER JOIN gcmaster ON (DTL.FCBA = gcmaster.fcba AND gcmaster.item = job.job_category) " & _
+						' " WHERE TO_NUMBER(TO_CHAR(hdr.transdate,'mm')) = '" & Month(Session("v_Purchase")) & "'" &  _
+						' "       AND TO_NUMBER(TO_CHAR(hdr.transdate,'yyyy')) = '" & Year(Session("v_Purchase")) & "'" & _
+						' "       AND hdr.fcba = '" & Session("fcBA") & "'" & _
+						' "       AND hdr.invoice_type <> 'TBS'" 
+			
+			' 'response.write qReceiveCR
+			
+			' Set rsReceiveCR = Server.CreateObject("ADODB.Recordset")
+			' rsReceiveCR.Open qReceiveCR, connstr
+			' if not rsReceiveCR.eof then
+			   ' Do While Not rsReceiveCR.eof
+			   
+					' maxLineNo = maxLineNo + 1
+					' qCost_ActivityCR3="Insert into Cost_Activity " & _
+								 ' "(LINENO, TDATE, JOBCODE, SOURCE,SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+								 ' "TARGETTYPE, TARGETCODE, AMOUNT, REFERENCENO, QUANTITY, OUTPUT,FCBA,  closing_date, process_date, " & _
+								 ' " TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+								 ' " TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+								 ' " TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+								 ' " TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+								 ' " TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _
+								 ' " ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+								 ' " LASTUPDATE, LASTTIME ) " & _
+								 ' " values (" & maxLineNo & ", to_date('" & rsReceiveCR("INVOICEDATE") & "','mm/dd/yyyy') " & ",'" & rsReceiveCR("jobcode") & "','PR','" & "PR" & "','" & rsReceiveCR("INVOICECODE") & "'," & _
+								 ' "'" &  rsReceiveCR("description") & "','" & rsReceiveCR("targettype") & "','" & rsReceiveCR("targetcode") & "'," & _
+								 ' -1*cdbl(to_nol(rsReceiveCR("amount"))) & ",'" & rsReceiveCR("INVOICECODE") & "', 0,0,'" & rsReceiveCR("fcba") & "',"  & _
+								 ' " to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') , sysdate, " & _
+								 ' " Cost_Activity_Info_Api.Get_Title_Reference_01('PR', 'CB','Cr'),'"  & rsReceiveCR("SUPPLIERCODE") & "'," & _
+								 ' " Cost_Activity_Info_Api.Get_Title_Reference_02('PR', 'CB','Cr'),'"  & rsReceiveCR("INVOICECODE") & "'," & _
+								 ' " Cost_Activity_Info_Api.Get_Title_Reference_03('PR', 'CB','Cr'),'"  & rsReceiveCR("description") & "'," & _
+								 ' " '',''," & _
+								 ' " '','','Dr', " & _
+								 ' Month(Session("v_Purchase")) & ", " & _
+								 ' Year(Session("v_Purchase")) & ", " & _	
+								 ' " sysdate, to_char(sysdate,'HH24:MI')) "
+								 
+					' 'response.write qCost_ActivityCR3&"<br>"
+					' response.Flush()
+					' connstr.execute(qCost_ActivityCR3)
+					' connStr.execute("Commit")
+					
+					' rsReceiveCR.MoveNext
+			  ' loop
+			' End if			   
+		'--end if
+		%>
+		<br><br>
+		<%
+		' Get the Prefix of Purchase Request
+
+		q = " select to_char(add_months( to_date('" & Session("v_Purchase") & "','MM/DD/YYYY') ,1),'YY') tempDateYear, to_char(add_months(to_date('" & Session("v_Purchase") & "','MM/DD/YYYY') ,1),'MM') tempDateMonth from dual"
+	    Set rsDate = Server.CreateObject("ADODB.Recordset")
+		rsDate.CursorType = 3
+		rsDate.CursorLocation = 3
+		 'response.Write(q)
+		rsDate.Open q, connstr
+		if not rsDate.eof then
+		    tempDateYear = rsDate("tempDateYear")
+			tempDateMonth = rsDate("tempDateMonth")
+		else
+		    tempDateYear = ""
+			tempDateMonth = ""
+		end if
+		
+		rsDate.close
+		set rsDate = Nothing
+
+		tempPrefix = Session("fcBA") & tempDateYear &  tempDateMonth
+		tempSuffix = ""
+		tempLengthPad = 3
+		q = "begin ControlNumber_Api.Generate_Data ('PURCHASEREQUEST',add_months(to_date('" & Session("v_Purchase") & "','MM/DD/YYYY'),1),'" & _ 
+		                                            tempPrefix & "','" & tempSuffix & "'," & _
+													tempLengthPad & ",'" &  Session("fcBA") & "','" & Session("CodeName") & "','" & _
+													Session("CodeName") & "','" & Request.ServerVariables("REMOTE_ADDR") & "'); end;" 
+	    ' response.write q
+		connStr.execute(q)			
+         
+		tempPrefix = "DOC" & Session("fcBA") & tempDateYear &  tempDateMonth
+		tempSuffix = ""
+		tempLengthPad = 3
+		q = "begin ControlNumber_Api.Generate_Data ('UPLOADPO',add_months(to_date('" & Session("v_Purchase") & "','MM/DD/YYYY'),1),'" & _ 
+		                                            tempPrefix & "','" & tempSuffix & "'," & _
+													tempLengthPad & ",'" &  Session("fcBA") & "','" & Session("CodeName") & "','" & _
+													Session("CodeName") & "','" & Request.ServerVariables("REMOTE_ADDR") & "'); end;" 
+	    'response.write q
+		connStr.execute(q)	 
+	     
+		
+		' Format Grn No adalah GRNKSBTTMMXXXX
+		tempPrefix = "GRN" &  Session("fcBA") & tempDateYear & "" & tempDateMonth 
+		tempSuffix = ""
+		tempLengthPad = 4
+		q = "begin ControlNumber_Api.Generate_Data ('RECEIVENOTE',add_months(to_date('" & Session("v_Purchase") & "','MM/DD/YYYY'),1),'" & _ 
+		                                            tempPrefix & "','" & tempSuffix & "'," & _
+													tempLengthPad & ",'" &  Session("fcBA") & "','" & Session("CodeName") & "','" & _
+													Session("CodeName") & "','" & Request.ServerVariables("REMOTE_ADDR") & "'); end;" 
+	    connStr.execute(q)											
+
+													
+													
+		txtLastDay  =FormatDateTime(LastDayOfMonth(Session("v_Purchase"),"2"),2)
+		txtNextMonth=FormatDateTime(LastDayOfMonth(Session("v_Purchase"),"2")+1,2)
+		
+		' Add By Akbar 18 Desemeber 2015
+		
+			Dim QAccountPeriod,rsAccountPeriod,temp_NextCloseAccountingPeriod, temp_NextCloseAccountingYear, temp_NextCurrentAccountingPeriod, temp_NextCurrentAccountingYear,temp_EndingAccountingPeriod
+				
+			QAccountPeriod	=	" select periodcontrol_api.GetNextCloseAccountingPeriod(system,fcba) NextCloseAccountingPeriod ,  " & _ 
+								" periodcontrol_api.GetNextCloseAccountingYear(system,fcba) NextCloseAccountingYear ,  " & _ 
+								" periodcontrol_api.GetNextCurrentAccountingPeriod(system,fcba) NextCurrentAccountingPeriod ,  " & _ 
+								" periodcontrol_api.GetNextCurrentAccountingYear(system,fcba) NextCurrentAccountingYear,  " & _ 
+								" periodcontrol_api.GetEndingAccountingPeriodTY(system,'" & Session("fcBA") & "')  EndingAccountingPeriod " & _ 
+								" from periodcontrol p  " & _ 
+								" where UPPER(system) ='PURCHASE' and fcba='" & Session("fcBA") & "'"
+			Set rsAccountPeriod = Server.CreateObject("ADODB.Recordset")
+				rsAccountPeriod.CursorType = 3
+				rsAccountPeriod.CursorLocation = 3
+				rsAccountPeriod.Open QAccountPeriod, connstr
+				if not rsAccountPeriod.eof then
+					temp_NextCloseAccountingPeriod =  Cint(rsAccountPeriod("NextCloseAccountingPeriod"))
+					temp_NextCloseAccountingYear   =  Cint(rsAccountPeriod("NextCloseAccountingYear"))
+					temp_NextCurrentAccountingPeriod = Cint(rsAccountPeriod("NextCurrentAccountingPeriod"))
+					temp_NextCurrentAccountingYear = Cint(rsAccountPeriod("NextCurrentAccountingYear"))
+					temp_EndingAccountingPeriod = Cint(rsAccountPeriod("EndingAccountingPeriod"))
+				else
+					Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No PERIODCONTROL for PURCHASE " & "<br>"
+				end if
+			rsAccountPeriod.close
+			set rsAccountPeriod = Nothing		
+			
+			IF temp_NextCurrentAccountingPeriod < 12   THEN
+			
+				q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)),CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+				   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _   
+				  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+				  " where UPPER(system) ='PURCHASE' and fcba='" & Session("fcBA") & "'"
+			ELSE
+			    IF temp_NextCloseAccountingPeriod < 12 THEN
+				   q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) ,CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+					  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _   
+					  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+					  " where UPPER(system) ='PURCHASE' and fcba='" & Session("fcBA") & "'"
+				ELSE
+				   IF temp_NextCloseAccountingPeriod = 12 THEN
+						 q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) " & _ 
+						  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+						  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+						  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+						  " ,CurrentAccountingYear= " & temp_NextCurrentAccountingYear & " " & _  
+						  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+						  " where  UPPER(system) ='PURCHASE' AND fcba='" & Session("fcBA") & "'"
+					ELSE
+					    q=" Update PeriodControl Set " & _ 
+						  " CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+						  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+						  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+						  " ,CurrentAccountingYear= " & temp_NextCurrentAccountingYear & " " & _  
+						  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+						  " where  UPPER(system) ='PURCHASE'  AND fcba='" & Session("fcBA") & "'"
+					 
+                    END IF					
+			    END IF
+			END IF
+			
+			IF temp_NextCloseAccountingPeriod = temp_EndingAccountingPeriod AND temp_NextCurrentAccountingPeriod = 1  THEN
+			
+				q=" Update PeriodControl Set CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+				  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _  
+				  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+				  " where  UPPER(system) ='PURCHASE' and fcba='" & Session("fcBA") & "'"
+				ww = " eMPAT " 
+			END IF
+			
+		connStr.execute(q)
+
+
+		
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font color=Black>Finish ... " & time() & "<br><br>"
+		Response.Write " Time Elapsed " & Hour(Lama) & " Hours " & Minute(Lama) & " Minutes " &  Second(Lama) & " Seconds."
+		
+	'--Added by Ukie at 25-Oct-2012--	
+	Endingtime = FormatDateTime(CDate(Now))
+
+	qLineMax = "select nvl(max(lineno),0) tempMaxLine from CLOSINGLOG where fcba = '" & session("fcBA") & "' AND SYSTEM = 'Purchase'" 
+								
+		set rsqLineMax = Server.CreateObject("ADODB.Recordset")
+		rsqLineMax.Open qLineMax, connstr
+		if not rsqLineMax.eof then
+			tempMaxLine = cdbl(rsqLineMax("tempMaxLine"))
+		else
+			tempMaxLine = 0
+		end if 
+
+		tempMaxLine = tempMaxLine + 1
+
+	strClosingLog = " INSERT INTO CLOSINGLOG(SYSTEM, FCBA, STARTINGTIME, ENDINGTIME, LINENO, LASTUPDATE, LASTTIME) VALUES (" & _
+					" 'Purchase', " & _
+					" '" & Session("fcBA") & "'," & _
+					" TO_DATE('" & Startingtime & "', 'mm/dd/yyyy HH:MI:ssam')," & _
+					" TO_DATE('" & Endingtime & "', 'mm/dd/yyyy HH:MI:ssam')," & _
+					" " & tempMaxLine & "" & _
+					" , SYSDATE, TO_CHAR(SYSDATE,'HH24:MI'))"
+	connStr.execute(strClosingLog)
+
+	strLenghtime = 	" SELECT" & _
+					" FCBA," & _
+					" LINENO," & _
+					" SYSTEM," & _
+					" TO_CHAR(STARTINGTIME, 'DD.MM.YYYY:HH24:MI:SS') STARTINGTIME," & _
+					" TO_CHAR(ENDINGTIME, 'DD.MM.YYYY:HH24:MI:SS') ENDINGTIME," & _
+					" TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24) DAYS," & _
+					" TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)-24*(TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24)) HRS," & _
+					" TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)-60*(TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)) MIN," & _
+					" TRUNC(86400*(ENDINGTIME-STARTINGTIME))-60*(TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)) SEC" & _
+					" FROM CLOSINGLOG" & _
+					" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'Purchase'"
+				
+	Set rsLenghtime = Server.CreateObject("ADODB.Recordset")
+	rsLenghtime.CursorType = 3
+	rsLenghtime.CursorLocation = 3
+	rsLenghtime.Open strLenghtime, connstr
+
+	upClosingLog = " UPDATE CLOSINGLOG SET" & _
+					" LENGTHTIME = '" & rsLenghtime(5) & " Days " & rsLenghtime(6) & " Hours " & rsLenghtime(7) & " Minutes " & rsLenghtime(8) & " Seconds " & "'" & _
+					" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'Purchase'"		
+	connStr.execute(upClosingLog)
+	'--End Added--
+
+		%>
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+		<br><br><img src="images/ok.gif" />Purchasing Closing is completed...
+	<%end if
+	if err.number <> 0 then
+		connStr.RollbackTrans
+		response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & err.description & "</font>"
+		cmdView	= "True"%>
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+		<img src="images/error.gif" />
+		 <% fine_result_01 = 0 %>	
+	<% else %>
+		 <% fine_result_01 = 1 %>	
+	 <% End if %>
+	 
+	 <%
+	 if doneReceive <> 1 then 
+		connStr.RollbackTrans
+		response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>Receive String still not defined in PROCESS_TABLEREF_TAB, Call your Administrator </font>"
+		cmdView	= "True"%>
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+		<img src="images/error.gif" />
+		 <% fine_result_02 = 0 %>	
+	<% else %>
+		 <% fine_result_02 = 1 %>	
+	<% end if %>
+
+	 <%
+	 if doneInvoice <> 1 then 
+		connStr.RollbackTrans
+		response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>Invoice String still not defined in PROCESS_TABLEREF_TAB, Call your Administrator </font>"
+		cmdView	= "True"%>
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+		<img src="images/error.gif" />
+		<% fine_result_03 = 0 %>	
+	<% else %>
+		<% fine_result_03 = 1 %>	
+	<% end if %>
+
+
+	<% 
+		if fine_result_01 = 1 and fine_result_02 = 1 and fine_result_03 = 1 then 
+			txtLastDay  =cmdFindPeriod("Purchase")
+			txtNextMonth=cmdPeriodClose("Purchase")
+			
+			Session("v_Purchase") = txtLastDay
+			Session("cls_Purchase")= txtNextMonth	
+		end if
+	 
+	%> 
+
+	<%
+else 
+%>
+	<script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>
+	<br><br><img src="images/error.gif">Purchasing Closing is NOT completed...
+	<%
+    tempErrorWaterFlow = "Please Check Previous Closing Process, its still not DONE yet"
+    response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & tempErrorWaterFlow & "</font>" %>
+	<script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>	
+	<img src="images/error.gif" />
+<%
+end if
+%> 
+
+
+  
+</body>
+</html>

@@ -1,0 +1,225 @@
+				<%
+					if not rsNettoFinal.EOF then
+						
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsNettoFinal.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsNettoFinal("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "PERCENT SORTASI"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'PRODUCTION' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsNettoFinal("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = "p_DailyReport_Mill_FFBNettoBruto.asp?"	
+										tempRounding = rsCodeDesc ("rounding")								
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = "p_DailyReport_Mill_FFBNettoBruto.asp?"
+										tempRounding = 0
+									end if		
+									tempUOM = rsNettoFinal("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+									tempExtendedReference = "txtGroupPlantation=" & v_txtGroupPlantation & _
+															"&txtPlantation="  & v_txtPlantation & _
+															"&txtGroupRegion=" & v_txtGroupRegion & _
+															"&txtRegion=" & v_txtRegion & _
+															"&txtcompany=" & v_txtCompany & _
+															"&txtfcba=" & v_txtFcba & _
+															"&txtToDayDate=" & v_txtdatefrom & _
+															"&txtdatefrom=" &  v_txtdatefrom & _
+															"&txtyear=" & v_txtYear & _
+															"&txtmonth=" & v_txtMonth & _
+					 		 								"&txtyear=" & v_txtBudgetYear & _
+	 		 												"&txtBudgetVersion=" & v_txtBudgetVersion & _
+					 		 								"&txtModuleVersion=" & v_txtModuleVersion															
+						
+									tempReference = tempReference & tempExtendedReference
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYFFBBrutoProductionProcess.html"-->
+								
+								
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>">TBS BRUTO </a></td>
+								<td align="center" >Kg</td>				
+								
+								<% ' Start Compare to Budget 
+
+									tempDataBudget_HI = 0
+									tempDataBudget_SHI = 0
+									tempDataBudget_SBI = 0	
+									
+								%>					
+								
+								<%  
+										tempHI = cdbl(rsNettoFinal("SORTASI_HI")) +  cdbl(rsNettoFinal("TBS_NETTO_HI")) 
+									
+										tempSHI = cdbl(rsNettoFinal("SORTASI_SHI")) +  cdbl(rsNettoFinal("TBS_NETTO_SHI"))
+									
+										tempSBI = cdbl(rsNettoFinal("SORTASI_SBI")) +  cdbl(rsNettoFinal("TBS_NETTO_SBI")) 
+									
+
+								%>
+								
+								<%
+									if rsNettoFinal("CodeDesc") = "FFB01" then 
+									   tempOpeningStock = tempHI
+									end if
+								%>
+
+
+								<td align="center" ><%=FormatNumber(tempHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI,tempRounding)%></td>
+								
+								<%
+								if rsNettoFinal("CodeDesc") = "PROD01" then 
+								   tempOilProcessed = tempHI
+								   tempOilProcessed_SHI = tempSHI
+								   tempOilProcessed_SBI = tempSBI
+								end if		
+
+								if rsNettoFinal("CodeDesc") = "PROD02" then 
+								   tempKernelProcessed = tempHI
+								   tempKernelProcessed_SHI = tempSHI
+								   tempKernelProcessed_SBI = tempSBI
+								end if		
+								%>
+								
+								
+								
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>
+								
+
+								
+								
+								<%
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+									
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+									
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+									
+								%>
+								
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>
+								
+								
+							</tr>
+				<% 
+							rsNettoFinal.MoveNext
+						Wend
+					end if
+					rsNettoFinal.Close
+					set rsNettoFinal = Nothing
+				%>	
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				

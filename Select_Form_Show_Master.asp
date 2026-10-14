@@ -1,0 +1,6409 @@
+     <% dim rsPayment %>
+	 <%if Request("txttable") ="Bank" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <tr> 
+            <td colspan="2" align="left"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                BANK</strong></font></div></td>
+          </tr>
+          <tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </tr>
+          <tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",fccode,"",""%>
+              </select> <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Account Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" name="ACCOUNTCODE"  style="background:#FFFFCC;" title="ACCOUNTCODE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Address</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="ADDRESS"  style="background:#FFFFCC;" title="ADDRESS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">City</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="CITY"  style="background:#FFFFCC;" title="CITY Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">State</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="STATE"  style="background:#FFFFCC;" title="STATE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <tr>
+			<td align="left">Date Created</td>
+			<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=DATE()%>">
+			</td>
+			</tr>
+			<tr>
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+		  <tr>
+            <td align="left"><font face="Verdana" size="1">Trigger System</font></td>
+            <td align="left"><select name="TRIGGER_SYSTEM" title="TRIGGER_SYSTEM Character a s/d z or 1 s/d 9">
+                <Option value="Bank">Bank</Option> 
+				<Option value="Costbook">Costbook</Option>
+              </select>
+			<font color="#FF0000">&nbsp;* &nbsp; Pilih Bank Untuk Penginputan Transaksi Bank, Cash, dan JOURNAL</font> 
+			<br/>
+			<font color="#FF0000" style="padding-left: 95px;">&nbsp;* &nbsp; Pilih Costbook Untuk Penginputan Transaksi Zerorise Journal</font> 
+			</td>
+          </Tr>
+		  <tr>
+            <td align="left"><font face="Verdana" size="1">Bank Type</font></td>
+            <td align="left"><select name="BANKTYPE" title="BANKTYPE Character a s/d z or 1 s/d 9">
+                <Option value="BANK">Bank</Option>
+                <Option value="JOURNAL">Journal</Option>
+				<Option value="CASH">Cash</Option>
+              </select></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                BANK</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",rsSetup("CONTROLJOB"),"",""%>
+              </select> <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Account Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("ACCOUNTCODE")%>" name="ACCOUNTCODE"  style="background:#FFFFCC;" title="ACCOUNTCODE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Address</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("ADDRESS")%>" name="ADDRESS"  style="background:#FFFFCC;" title="ADDRESS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">City</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("CITY")%>" name="CITY"  style="background:#FFFFCC;" title="CITY Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">State</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("STATE")%>" name="STATE"  style="background:#FFFFCC;" title="STATE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("REMARKS")%>" name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+
+		  <tr>
+		<td align="left">Date Created</td>
+		<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=rsSetup("DATECREATED")%>">
+		
+		</td></tr>
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+				</select> </td>
+				<%end if%>
+			</Tr>
+		     <tr>
+            <td align="left"><font face="Verdana" size="1">Trigger System</font></td>
+            <td align="left"><select name="TRIGGER_SYSTEM" title="TRIGGER_SYSTEM Character a s/d z or 1 s/d 9">
+                <Option value="Bank">Bank</Option> 
+				<Option value="Costbook">Costbook</Option>
+              </select>
+			<font color="#FF0000">&nbsp;* &nbsp; Pilih Bank Untuk Penginputan Transaksi Bank, Cash, dan Journal</font> 
+			<br/>
+			<font color="#FF0000" style="padding-left: 95px;">&nbsp;* &nbsp; Pilih Costbook Untuk Penginputan Transaksi Zerorise Journal</font> 
+			</td>
+          </Tr>
+		  <tr>
+            <td align="left"><font face="Verdana" size="1">Bank Type</font></td>
+            <td align="left"><select name="BANKTYPE" title="BANKTYPE Character a s/d z or 1 s/d 9">
+                <Option value="BANK">Bank</Option>
+                <Option value="JOURNAL">Journal</Option>
+				<Option value="CASH">Cash</Option>
+              </select></td>
+          </Tr>
+          <%End if%>
+          <%elseif Request("txttable") ="BankStock" then%>
+		  
+		  <%
+			Dim rsActiveMaterial, strActiveMaterial 
+		  %>
+		  
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>NEW  
+                STOCK</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30"  name="FCCODE" id="fccode"   title="CODE Character a s/d z or 1 s/d 9" required> 
+              <font color="#FF0000">* Code Stock Generate Otomatis</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME" id="fcname"  title="DESCRIPTION Character a s/d z or 1 s/d 9" required> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Item Type</font></td>
+            <td align="left">
+    				<select name="ITEMTYPE" title="ITEMTYPE Character a s/d z or 1 s/d 9">
+    				    <Option value="0" <%if "0" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>STOCK</Option>
+                <Option value="1" <%if "1" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>SEEDING</Option>
+                <Option value="2" <%if "2" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>FIXED ASSET</Option>
+                <Option value="3" <%if "3" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>NON STOCK</Option>
+				<Option value="9" <%if "9" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>PRODUCT</Option>
+				
+    				</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Unit Of Measurement</font></td>
+			<% 	Dim rsComboA
+			'q = "select * from  UNITOFMEASURE " & " where fcBA='" &  Session("fcBA") & "' AND isactive='Y' Order by UNITOFMEASUREDESC"
+			q = "select * from  UNITOFMEASURE " & " where isactive='Y' Order by UNITOFMEASUREDESC"
+			
+			Set rsComboA = Server.CreateObject("ADODB.Recordset")
+			rsComboA.CursorType = 3
+			rsComboA.CursorLocation = 3
+			rsComboA.Open q, connstr
+			if not rsComboA.eof then%>
+     	    <td align="left">
+			<select name="UNITOFMEASUREMENT" title="UNITOFMEASUREMENT Character a s/d z or 1 s/d 9" required>         
+			<option value=""></option> 
+			<%
+			Do While Not rsComboA.eof
+			%>
+			<option value="<%=rsComboA("UNITOFMEASURECODE")%>"><%=rsComboA("UNITOFMEASUREDESC")%></option> 
+			<%rsComboA.movenext
+			loop
+			End if
+			rsComboA.Close
+			set rsComboA = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Stock Group Code</font></td>
+            <td align="left">
+			<select name="STOCKGROUPCODE" id="stockgroupid"  title="STOCKGROUPCODE Character a s/d z or 1 s/d 9" required>
+			<option value="-"></option> 
+            <% 	
+			q = "select distinct fccode,fcname from  STOCKGROUP " & " where Activation='Y' Order by fccode"		
+			Set rsComboA = Server.CreateObject("ADODB.Recordset")
+			rsComboA.CursorType = 3
+			rsComboA.CursorLocation = 3
+			rsComboA.Open q, connstr
+			if not rsComboA.eof then%>
+			<%
+			Do While Not rsComboA.eof
+			%>
+			 
+			<option value="<%=rsComboA("fccode")%>" <% If Request("STOCKGROUPCODE") = rsComboA("fccode") Then %> Selected <%End if%>><%=rsComboA("fccode") &"-" & rsComboA("fcname")%></option> 
+			<%rsComboA.movenext
+			loop
+			End if
+			rsComboA.Close
+			set rsComboA = Nothing
+			q=""
+			%> 
+             </select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Stock Sub.Group Code</font></td>
+            <% 	
+			q = "select fccode,MAX(FCNAME) AS FCNAME from  STOCKSUBGROUP  where Activation='Y' GROUP BY fccode ORDER BY fccode ASC"		
+			Set rsComboA = Server.CreateObject("ADODB.Recordset")
+			rsComboA.CursorType = 3
+			rsComboA.CursorLocation = 3
+			rsComboA.Open q, connstr
+			if not rsComboA.eof then%>
+     	    <td align="left"> 
+			<select name="STOCKSUBGROUPCODE" id="stocksubgroupid" title="STOCKSUBGROUPCODE Character a s/d z or 1 s/d 9" onchange="getNumber()">        
+			<option value="-"></option> 
+			<%
+			Do While Not rsComboA.eof
+			%>
+			
+			<option value="<%=rsComboA("FCCODE")%>" <% If Request("STOCKSUBGROUPCODE") = rsComboA("fccode") Then %> Selected <%End if%>><%=rsComboA("fccode") &"-" & rsComboA("fcname")%></option> 
+			<%rsComboA.movenext
+			loop
+			End if 
+			rsComboA.Close
+			set rsComboA = Nothing
+			q=""
+			%> 
+			</select> <font color="#FF0000">*</font>
+			</td>
+			
+          </Tr>
+		  <tr>
+		  		<td align="left"><font face="verdana" size="1">Active Material</font></td>
+				<td align="left">
+					<select name="ACTIVEMATERIAL" >
+						<option value="" <%If Len(Trim(Request("ACTIVEMATERIAL"))) = 0 then%> Selected <%End If%>>OTHERS</option>
+						<%
+						strActiveMaterial	=	" SELECT FCCODE, FCNAME FROM ACTIVEMATERIAL" & _
+												" ORDER BY FCCODE"
+						
+						Set rsActiveMaterial = Server.CreateObject("ADODB.Recordset")
+						rsActiveMaterial.Open strActiveMaterial, connstr, 3, 3 
+						
+						if not rsActiveMaterial.eof then
+						Do While Not rsActiveMaterial.eof
+						%>
+
+						<option value="<%=rsActiveMaterial("FCCODE")%>" <% If Request("ACTIVEMATERIAL") = rsActiveMaterial("FCCODE") Then %> Selected <%End if%>><%=rsActiveMaterial("FCNAME")%></option> 
+						<%
+							rsActiveMaterial.movenext
+						loop
+						end if
+						strActiveMaterial = ""
+						rsActiveMaterial.Close
+						set rsActiveMaterial = Nothing
+						%>
+					</select>
+				</td>
+		  </tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Manufacture Part Number</font></td>
+            <td align="left"><input type="text" size="20" maxlength="70"  name="MANUFACTUREPARTNUMBER"  style="background:#FFFFCC;" title="MANUFACTUREPARTNUMBER Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Manufacture Code</font></td>
+            <td align="left"><input type="text" size="20" maxlength="70"  name="MANUFACTURECODE"  style="background:#FFFFCC;" title="MANUFACTURECODE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Supplier Part Number</font></td>
+            <td align="left"><input type="text" size="20" maxlength="70"  name="SUPPLIERPARTNUMBER"  style="background:#FFFFCC;" title="SUPPLIERPARTNUMBER Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Supplier Code</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30"  name="SUPPLIERCODE"  style="background:#FFFFCC;" title="SUPPLIERCODE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">QOH less than Zero</font></td>
+            <td align="left">
+			        <select name="IsLessZero" title="True/False">
+                <Option value="TRUE">True</Option>
+                <Option value="FALSE" selected>False</Option>
+              </select>
+			</td>
+          </Tr>
+	      <tr>
+			<td align="left">Valid Until</td>
+			<td align="left"><input class="datepicker" type="text" maxlength="10" name="VALIDUNTIL" size="10" value="" title=" YEAROFMADE Type Date mm/dd/yyyy" >
+			</td>
+	      </tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Min Value</font></td>
+            <td align="left"><input type="text" size="20" name="min_value" title="Min Value Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		    <Tr> 
+            <td align="left"><font face="Verdana" size="1">Max Value</font></td>
+            <td align="left"><input type="text" size="20" name="max_value" title="Max Value Character a s/d z or 1 s/d 9"></td>
+        </Tr>
+        <Tr> 
+            <td align="left"><font face="Verdana" size="1">Stock Minimum</font></td>
+            <td align="left"><input type="text" size="20" name="stockminimum" title="Max Value Character a s/d z or 1 s/d 9"></td>
+        </Tr>
+        <Tr> 
+            <td align="left"><font face="Verdana" size="1">Is Budget Control</font></td>
+            <td align="left">
+              <select name="isbudget_control" title="True/False">
+                  <option value="TRUE" <% If request("isbudget_control") = "TRUE" Then %> Selected <%End if%>>True</option> 
+                  <option value="FALSE" <% If request("isbudget_control") = "FALSE" Then %> Selected <%End if%>>False</option>  
+              </select>
+            </td>
+        </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                STOCK</strong></font></div></td>
+          </TR>
+
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" value="<%=rsSetup("FCCODE")%>" readonly name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Item Type</font></td>
+            <td align="left">
+				<select name="ITEMTYPE" title="ITEMTYPE Character a s/d z or 1 s/d 9">
+				<Option value="0" <%if "0" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>STOCK</Option>
+                <Option value="1" <%if "1" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>SEEDING</Option>
+                <Option value="2" <%if "2" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>FIXED ASSET</Option>
+                <Option value="3" <%if "3" = cstr(""&request("ITEMTYPE")) then %> selected <%end if%>>NON STOCK</Option>
+
+				
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Unit Of Measurement</font></td>
+			<% 	Dim rsCombo
+			'q = "select * from  UNITOFMEASURE " & " where fcBA='" &  Session("fcBA") & "' AND isactive='Y' Order by UNITOFMEASUREDESC"
+			q = "select * from  UNITOFMEASURE " & " where isactive='Y' Order by UNITOFMEASUREDESC"
+			Set rsCombo = Server.CreateObject("ADODB.Recordset")
+			rsCombo.CursorType = 3
+			rsCombo.CursorLocation = 3
+			rsCombo.Open q, connstr
+			if not rsCombo.eof then%>
+     	    <td align="left"> <select name="UNITOFMEASUREMENT" title="UNITOFMEASUREMENT Character a s/d z or 1 s/d 9">         
+			<%
+			Do While Not rsCombo.eof
+			%>
+			
+			<%if rsCombo("UNITOFMEASURECODE") = rssetup("UNITOFMEASUREMENT") then%>
+			<option value="<%=rsCombo("UNITOFMEASURECODE")%>" Selected><%=rsCombo("UNITOFMEASUREDESC")%></option> 
+			<%Else%>
+			<option value="<%=rsCombo("UNITOFMEASURECODE")%>"><%=rsCombo("UNITOFMEASUREDESC")%></option>  
+			<%End if%>
+			<%rsCombo.movenext
+			loop
+			End if
+			rsCombo.Close
+			set rsCombo = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Stock Group Code</font></td>
+            <td align="left"> <select name="STOCKGROUPCODE" title="STOCKGROUPCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "STOCKGROUP",RSSETUP("STOCKGROUPCODE"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Stock Sub.Group Code</font></td>
+            <td align="left"> <select name="STOCKSUBGROUPCODE" title="STOCKSUBGROUPCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "STOCKSUBGROUP",RSSETUP("STOCKSUBGROUPCODE"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <tr>
+		  		<td align="left"><font face="verdana" size="1">Active Material</font></td>
+				<td align="left">
+					<select name="ACTIVEMATERIAL" >
+						<option value = "" <%If Len(Trim(rssetup("ACTIVEMATERIAL"))) = 0 then%> Selected <%End If%>>OTHERS</option>
+						<%
+						strActiveMaterial	=	" SELECT FCCODE, FCNAME FROM ACTIVEMATERIAL" & _
+												" ORDER BY FCCODE"
+						
+						Set rsActiveMaterial = Server.CreateObject("ADODB.Recordset")
+						rsActiveMaterial.Open strActiveMaterial, connstr, 3, 3 
+						
+						if not rsActiveMaterial.eof then
+						Do While Not rsActiveMaterial.eof
+						%>
+
+						<option value="<%=rsActiveMaterial("FCCODE")%>" <% If rssetup("ACTIVEMATERIAL") = rsActiveMaterial("FCCODE") Then %> Selected <%End if%>><%=rsActiveMaterial("FCNAME")%></option> 
+						<%
+							rsActiveMaterial.movenext
+						loop
+						end if
+						strActiveMaterial = ""
+						rsActiveMaterial.Close
+						set rsActiveMaterial = Nothing
+						%>
+					</select>
+				</td>
+		  </tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Manufacture Part Number</font></td>
+            <td align="left"><input type="text" size="20" maxlength="70" value="<%=rsSetup("MANUFACTUREPARTNUMBER")%>" name="MANUFACTUREPARTNUMBER"  style="background:#FFFFCC;" title="MANUFACTUREPARTNUMBER Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Manufacture Code</font></td>
+            <td align="left"><input type="text" size="20" maxlength="70" value="<%=rsSetup("MANUFACTURECODE")%>" name="MANUFACTURECODE"  style="background:#FFFFCC;" title="MANUFACTURECODE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Supplier Part Number</font></td>
+            <td align="left"><input type="text" size="20" maxlength="70" value="<%=rsSetup("SUPPLIERPARTNUMBER")%>" name="SUPPLIERPARTNUMBER"  style="background:#FFFFCC;" title="SUPPLIERPARTNUMBER Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Supplier Code</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" value="<%=rsSetup("SUPPLIERCODE")%>" name="SUPPLIERCODE"  style="background:#FFFFCC;" title="SUPPLIERCODE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">QOH less than Zero</font></td>
+            <td align="left">
+			<select name="IsLessZero" title="True/False">
+				<%IF rsSetup("ISLESSZERO") = "TRUE" THEN %>
+                <Option value="TRUE" selected>True</Option>
+                <Option value="FALSE">False</Option>
+				<%else%>
+				<Option value="TRUE">True</Option>
+                <Option value="FALSE" selected>False</Option>
+				<%end if%>
+              </select>
+			</td>
+          </Tr>
+			
+          <tr>
+				<td align="left">Valid Until</td>
+				<td align="left"><input class="datepicker" type="text" maxlength="10" name="VALIDUNTIL" size="10" value="<%=rsSetup("VALIDUNTIL")%>" title=" YEAROFMADE Type Date mm/dd/yyyy" >
+				</td>
+		  </tr>
+      <Tr> 
+        <td align="left"><font face="Verdana" size="1">Min Value</font></td>
+        <td align="left"><input type="text" size="20" name="min_value" value="<%=rsSetup("min_value")%>" title="Min Value Character a s/d z or 1 s/d 9"></td>
+      </Tr>
+		  <Tr> 
+        <td align="left"><font face="Verdana" size="1">Max Value</font></td>
+        <td align="left"><input type="text" size="20" name="max_value" value="<%=rsSetup("max_value")%>" title="Max Value Character a s/d z or 1 s/d 9"></td>
+      </Tr>
+       <Tr> 
+            <td align="left"><font face="Verdana" size="1">Stock Minimum</font></td>
+            <td align="left"><input type="text" size="20" name="stockminimum"  value="<%=rsSetup("stockminimum")%>"title="Max Value Character a s/d z or 1 s/d 9"></td>
+        </Tr>
+        <Tr> 
+            <td align="left"><font face="Verdana" size="1">Is Budget Control</font></td>
+            <td align="left">
+              <select name="isbudget_control" title="True/False">
+                <%IF rsSetup("isbudget_control") = "TRUE" THEN %>
+                    <Option value="TRUE" selected>True</Option>
+                    <Option value="FALSE">False</Option>
+                <%else%>
+                    <Option value="TRUE">True</Option>
+                    <Option value="FALSE" selected>False</Option>
+                <%end if%> 
+              </select>
+            </td>
+        </Tr>
+          <%End if%>
+          
+		  <%elseif Request("txttable") ="StockGroup" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                STOCK GROUP</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Jobe</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",fccode,"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Group Type</font></td>
+            <td align="left"><select name="GROUPTYPE" title="GROUPTYPE Character a s/d z or 1 s/d 9">
+                <Option value="STOCK">STOCK</Option>
+                <Option value="DIRECTCOST">DIRECTCOST</Option>
+				<Option value="PRODUCT">PRODUCT</Option>
+              </select></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                STOCK GROUP</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",RSSETUP("CONTROLJOB"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Group Type</font></td>
+            <td align="left"><select name="GROUPTYPE" title="GROUPTYPE Character a s/d z or 1 s/d 9">
+                <Option value="STOCK">STOCK</Option>
+                <Option value="DIRECTCOST">DIRECTCOST</Option>
+              </select></td>
+          </Tr>
+        <%end if%>
+		
+		<%elseif Request("txttable") ="StockSubGroup" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                SUB.STOCK GROUP</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		   <Tr> 
+            <td align="left"><font face="Verdana" size="1">Stock Group </font></td>
+            <td align="left"> <select name="STOCKGROUPCODE" title="STOCKGROUPCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "STOCKGROUP",fccode,"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+		 
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                SUB.STOCK GROUP</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Stock Group</font></td>
+            <td align="left"> <select name="STOCKGROUPCODE" title="STOCKGROUPCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "STOCKGROUP",RSSETUP("STOCKGROUPCODE"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+		  
+        <%end if%>
+		
+    <%elseif Request("txttable") ="Activity_Norm" then%>
+    <%if Request("txtJenis") <> "Edit" then%>
+    <tr>
+        <td colspan="2">
+            <div align="left">
+                <font size="2" face="Verdana"><strong>MAINTENANCE ACTIVITY NORM</strong></font>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+        <td align="left">
+            <select id="controljob" onchange="javascript:getuomjob();" class="chosen-select" name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",fccode,"",""%>
+            </select>
+            <font color="#FF0000">*</font>
+        </td>
+    </tr>
+    <tr>
+        <td align="left"><font face="Verdana" size="1">UOM Jobcode</font></td>
+        <td align="left"><input type="text" size="10" maxlength="30" id="uomjob" name="uomjob" style="background: #eee;" readonly title="CODE Character a s/d z or 1 s/d 9" /> <font color="#FF0000">*</font></td>
+    </tr>
+    <tr>
+        <td align="left"><font face="Verdana" size="1">Mandays Norm</font></td>
+        <td align="left"><input type="text" size="70" maxlength="100" name="mandaysnorm" style="background: #ffffcc;" title="DESCRIPTION Character a s/d z or 1 s/d 9" /> <font color="#FF0000">*</font></td>
+    </tr>
+    <%else%>
+    <tr>
+        <td colspan="2">
+            <div align="left">
+                <font size="2" face="Verdana"><strong>MAINTENANCE ACTIVITY NORM</strong></font>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+        <td align="left">
+            <select id="controljob" onchange="javascript:getuomjob();" class="chosen-select" name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",RSSETUP("CONTROLJOB"),"",""%>
+            </select>
+            <font color="#FF0000">*</font>
+        </td>
+    </tr>
+    <tr>
+        <td align="left"><font face="Verdana" size="1">UOM JobCode</font></td>
+        <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("uomjob")%>" id="uomjob" name="uomjob" style="background:#eee;" readonly title="CODE Character a s/d z or 1 s/d 9"> <font color="#FF0000">*</font></td>
+    </tr>
+    <tr>
+        <td align="left"><font face="Verdana" size="1">Mandays Norm</font></td>
+        <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("mandaysnorm")%>" name="mandaysnorm" style="background:#eee;" readonly title="DESCRIPTION Character a s/d z or 1 s/d 9"> <font color="#FF0000">*</font></td>
+    </tr>
+    <%end if%>
+		<%elseif Request("txttable") ="MillQuality" then%>
+			<%if Request("txtJenis") <> "Edit" then%>
+				<TR>
+					<td colspan="2">
+						<div align="left"><font size="2" face="Verdana">
+											<strong>MAINTENANCE MILL QUALITY</strong></font>
+						</div>
+					</td>
+				</TR>
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">Code</font></td>
+					<td align="left">
+						<input type="text" size="10" maxlength="30" name="FCCODE" style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9">
+						<font color="#FF0000">*</font> </td>
+				</Tr>
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">Description</font></td>
+					<td align="left">
+						<input type="text" size="70" maxlength="100" name="FCNAME" style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9">
+						<font color="#FF0000">*</font></td>
+				</Tr> 
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">Moisture & Impurity (Max) %</font></td>
+					<td align="left">
+						<input type="text" size="70" maxlength="100" name="MOISTURE" style="background:#FFFFCC;" title="MOINSTURE Character a s/d z or 1 s/d 9">
+					</td>
+				</Tr>
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">FFA (Max) %</font></td>
+					<td align="left">
+						<input type="text" size="70" maxlength="100" name="FFA" style="background:#FFFFCC;" title="FFA Character a s/d z or 1 s/d 9">
+					</td>
+				</Tr>
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">DOBI</font></td>
+					<td align="left">
+						<input type="text" size="70" maxlength="100" name="DOBI" style="background:#FFFFCC;" title="DOBI Character a s/d z or 1 s/d 9">
+					</td>
+				</Tr>
+			<%else%>
+				<TR>
+					<td colspan="2">
+						<div align="left"><font size="2" face="Verdana">
+							<strong>MAINTENANCE MILL QUALITY</strong></font>
+						</div>
+					</td>
+				</TR>
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">Code</font></td>
+					<td align="left">
+						<input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE" style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9">
+						<font color="#FF0000">*</font> </td>
+				</Tr>
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">Description</font></td>
+					<td align="left">
+						<input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>"  name="FCNAME" style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9">
+						<font color="#FF0000">*</font></td>
+				</Tr> 
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">Moisture & Impority</font></td>
+					<td align="left">
+						<input type="text" size="70" maxlength="100" value="<%=rsSetup("MOISTURE")%>"  name="MOISTURE" style="background:#FFFFCC;" title="MOINSTURE Character a s/d z or 1 s/d 9">
+					</td>
+				</Tr>
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">FFA</font></td>
+					<td align="left">
+						<input type="text" size="70" maxlength="100"  value="<%=rsSetup("FFA")%>" name="FFA" style="background:#FFFFCC;" title="FFA Character a s/d z or 1 s/d 9">
+					</td>
+				</Tr>
+				<Tr>
+					<td align="left"><font face="Verdana" size="1">DOBI</font></td>
+					<td align="left">
+						<input type="text" size="70" maxlength="100"  value="<%=rsSetup("DOBI")%>" name="DOBI" style="background:#FFFFCC;" title="DOBI Character a s/d z or 1 s/d 9">
+					</td>
+				</Tr>
+			<%end if%>
+        <%elseif Request("txttable") ="Asset" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE ASSET</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="30" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;"  title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="150"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+        
+      <Tr> 
+            <td align="left"><font face="Verdana" size="1">Unit Of Measurement</font></td>
+      <%  Dim rsComboB
+      'q = "select * from  UNITOFMEASURE " & " where fcBA='" &  Session("fcBA") & "' Order by UNITOFMEASUREDESC"
+	  q = "select * from  UNITOFMEASURE " & " where isactive='Y' Order by UNITOFMEASUREDESC"
+      Set rsComboB = Server.CreateObject("ADODB.Recordset")
+      rsComboB.CursorType = 3
+      rsComboB.CursorLocation = 3
+      rsComboB.Open q, connstr
+      if not rsComboB.eof then%>
+          <td align="left"> <select name="UNITOFMEASUREMENT" title="UNITOFMEASUREMENT Character a s/d z or 1 s/d 9">         
+      <option value=""></option> 
+      <%
+      Do While Not rsComboB.eof
+      %>
+      <option value="<%=rsComboB("UNITOFMEASURECODE")%>"><%=rsComboB("UNITOFMEASUREDESC")%></option> 
+      <%rsComboB.movenext
+      loop
+      End if
+      rsComboB.Close
+      set rsComboB = Nothing
+      q=""
+      %>
+      </select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Asset Group Code</font></td>
+            <td align="left"> <select name="ASSETGROUPCODE" title="ASSETGROUPCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "ASSETGROUP",request("ASSETGROUPCODE"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr> 
+      
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE ASSET</strong></font></div></td>
+          </TR>
+
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="30" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE" readonly="true" style="background:#ccc;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          
+      <Tr> 
+            <td align="left"><font face="Verdana" size="1">Unit Of Measurement</font></td>
+      <%  Dim rsComboC
+      'q = "select * from  UNITOFMEASURE " & " where fcBA='" &  Session("fcBA") & "' Order by UNITOFMEASUREDESC"
+	  q = "select * from  UNITOFMEASURE " & " where isactive='Y' Order by UNITOFMEASUREDESC"
+      Set rsComboC = Server.CreateObject("ADODB.Recordset")
+      rsComboC.CursorType = 3
+      rsComboC.CursorLocation = 3
+      rsComboC.Open q, connstr
+      if not rsComboC.eof then%>
+          <td align="left"> <select name="UNITOFMEASUREMENT" title="UNITOFMEASUREMENT Character a s/d z or 1 s/d 9">         
+      <%
+      Do While Not rsComboC.eof
+      %>
+      
+      <%if rsComboC("UNITOFMEASURECODE") = rssetup("UNITOFMEASUREMENT") then%>
+      <option value="<%=rsComboC("UNITOFMEASURECODE")%>" Selected><%=rsComboC("UNITOFMEASUREDESC")%></option> 
+      <%Else%>
+      <option value="<%=rsComboC("UNITOFMEASURECODE")%>"><%=rsComboC("UNITOFMEASUREDESC")%></option>  
+      <%End if%>
+      <%rsComboC.movenext
+      loop
+      End if
+      rsComboC.Close
+      set rsComboC = Nothing
+      q=""
+      %>
+      </select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Asset Group Code</font></td>
+            <td align="left"> <select name="ASSETGROUPCODE" title="ASSETGROUPCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "ASSETGROUP",RSSETUP("ASSETGROUPCODE"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+    <%end if%>
+
+      <%elseif Request("txttable") ="AssetGroup" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE ASSET GROUP</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Estimate Life Year</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="estimatelifeyear"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE ASSET GROUP</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE" readonly="True" style="background:#ccc;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Estimate Life Year</font></td>
+            <td align="left"><input type="text" size="70" value="<%=rsSetup("estimatelifeyear")%>" name="estimatelifeyear"  style="background:#FFFFCC;" title="Estimate Life Year Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <%end if%>
+
+      <%elseif Request("txttable") ="FixedAsset" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE FIXED ASSET</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Asset Code</font></td>
+			<td align="left">
+				<select name="assetcode" title="assetcode Character a s/d z or 1 s/d 9">
+				<%
+					  q = " SELECT * FROM asset WHERE fcba = '" &  Session("fcBA") & "' ORDER BY fccode"
+					  Set rsComboB = Server.CreateObject("ADODB.Recordset")
+					  rsComboB.Open q, connstr
+					  if not rsComboB.eof then
+						Do While Not rsComboB.eof
+				%>
+							<option value="<%=rsComboB("fccode")%>"><%=rsComboB("fccode")&": "&rsComboB("fcname")%></option> 
+				<%
+							rsComboB.movenext
+						loop
+					  End if
+					  rsComboB.Close : set rsComboB = Nothing : q = ""
+				%>
+				</select><font color="#FF0000">*</font>
+			</td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE FIXED ASSET</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE" readonly="True" style="background:#ccc;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Asset Code</font></td>
+			<td align="left">
+				<select name="assetcode" title="assetcode Character a s/d z or 1 s/d 9">
+				<%
+					  q = " SELECT * FROM asset WHERE fcba = '" &  Session("fcBA") & "' ORDER BY fccode"
+					  Set rsComboB = Server.CreateObject("ADODB.Recordset")
+					  rsComboB.Open q, connstr
+					  if not rsComboB.eof then
+						Do While Not rsComboB.eof
+				%>
+							<option value="<%=rsComboB("fccode")%>" <%if rsSetup("assetcode") = rsComboB("fccode") then%> selected <%end if%>><%=rsComboB("fccode")&": "&rsComboB("fcname")%></option> 
+				<%
+							rsComboB.movenext
+						loop
+					  End if
+					  rsComboB.Close : set rsComboB = Nothing : q = ""
+				%>
+				</select><font color="#FF0000">*</font>
+			</td>
+          </Tr>
+          <%end if%>
+
+     <%elseif Request("txttable") ="Supplier" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                SUPPLIER</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Type</font></td>
+            <td align="left"> 
+			<select name="FCTYPE" title="TYPE Character a s/d z or 1 s/d 9">
+                <%
+					  q = " SELECT fccode,fcname,param_1 FROM parameter WHERE parcode='SUPPLIER_TYPE' AND fcba = '" &  Session("fcBA") & "' ORDER BY fccode"
+					  Set rsComboB = Server.CreateObject("ADODB.Recordset")
+					  rsComboB.Open q, connstr
+					  if not rsComboB.eof then
+						Do While Not rsComboB.eof
+				%>
+							<option value="<%=rsComboB("fccode")%>"><%=rsComboB("fccode")&": "&rsComboB("fcname")%></option> 
+				<%
+							rsComboB.movenext
+						loop
+					  End if
+					  rsComboB.Close : set rsComboB = Nothing : q = ""
+				%>
+            </select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallComboNonFcba "JobMaster",fccode,"job_category","AP"%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+	  <tr>
+		<td align="left">Date Created</td>
+		<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=date()%>" title=" DATECREATED Type Date mm/dd/yyyy" >
+		
+		</td>
+		</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Address</font></td>
+            <td align="left"><input type="text" size="70" maxlength="300" name="ADDRESS"  style="background:#FFFFCC;" title="ADDRESS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">City</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="CITY"  style="background:#FFFFCC;" title="CITY Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">State</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="STATE"  style="background:#FFFFCC;" title="STATE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><textarea cols="60" rows="20" name="REMARKS"  style="background:#FFFFCC" > </textarea></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Name</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="BANKNAME"  style="background:#FFFFCC;" title="BANKNAME Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Account</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="BANKACCOUNT"  style="background:#FFFFCC;" title="BANKACCOUNT Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Ownership</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="BANK_OWNERSHIP"  style="background:#FFFFCC;" title="BANK_OWNERSHIP Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Phone</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="PHONE"  style="background:#FFFFCC;" title="PHONE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Fax</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="FAX"  style="background:#FFFFCC;" title="FAX Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Contact Person</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="FAX"  style="background:#FFFFCC;" title="Contact Person Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		   <Tr> 
+            <td align="left"><font face="Verdana" size="1">EMail</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="MAIL"  style="background:#FFFFCC;" title="Mail Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		   <Tr> 
+            <td align="left"><font face="Verdana" size="1">NPWP</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="NPWP"  style="background:#FFFFCC;" title="NPWP Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                SUPPLIER</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr>
+		  <td align="left"><font face="Verdana" size="1">Type</font></td>
+			<td align="left">
+				<select name="FCTYPE" title="TYPE Character a s/d z or 1 s/d 9">
+				<%
+					  q = " SELECT fccode,fcname,param_1 FROM parameter WHERE parcode='SUPPLIER_TYPE' AND fcba = '" &  Session("fcBA") & "' ORDER BY fccode"
+					  Set rsComboB = Server.CreateObject("ADODB.Recordset")
+					  rsComboB.Open q, connstr
+					  if not rsComboB.eof then
+						Do While Not rsComboB.eof
+				%>
+							<option value="<%=rsComboB("fccode")%>" <%if rsSetup("FCTYPE") = rsComboB("fccode") then%> selected <%end if%>><%=rsComboB("fccode")&": "&rsComboB("fcname")%></option> 
+				<%
+							rsComboB.movenext
+						loop
+					  End if
+					  rsComboB.Close : set rsComboB = Nothing : q = ""
+				%>
+				</select><font color="#FF0000">*</font>
+			</td>
+		  </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CODE Character a s/d z or 1 s/d 9">
+                <%cmdCallComboNonFcba "JobMaster",rssetup("CONTROLJOB"),"job_category","AP"%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+	  <tr>
+		<td align="left">Date Created</td>
+		<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=rssetup("DATECREATED")%>" title=" DATECREATED Type Date mm/dd/yyyy" >
+		
+		</td>
+		</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+              </select> </td>
+            <%end if%>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Address</font></td>
+            <td align="left"><input type="text" size="70" maxlength="300" value="<%=rsSetup("ADDRESS")%>" name="ADDRESS"  style="background:#FFFFCC;" title="ADDRESS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">City</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("CITY")%>" name="CITY"  style="background:#FFFFCC;" title="CITY Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">State</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("STATE")%>" name="STATE"  style="background:#FFFFCC;" title="STATE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><textarea cols="60" rows="20" name="REMARKS"  style="background:#FFFFCC" > <%=rsSetup("REMARKS")%></textarea></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Name</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("BANKNAME")%>" name="BANKNAME"  style="background:#FFFFCC;" title="BANKNAME Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Account</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("BANKACCOUNT")%>" name="BANKACCOUNT"  style="background:#FFFFCC;" title="BANKACCOUNT Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Ownership</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("BANK_OWNERSHIP")%>" name="BANK_OWNERSHIP"  style="background:#FFFFCC;" title="BANK_OWNERSHIP Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Phone</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("PHONE")%>" name="PHONE"  style="background:#FFFFCC;" title="PHONE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Fax</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("FAX")%>" name="FAX"  style="background:#FFFFCC;" title="FAX Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Contact Person</font></td>
+            <td align="left"><input type="text" size="30" maxlength="30" value="<%=rsSetup("CPerson")%>" name="CPERSON"  style="background:#FFFFCC;" title="CPerson Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		   <Tr> 
+            <td align="left"><font face="Verdana" size="1">EMail</font></td>
+            <td align="left"><input type="text" size="30" maxlength="30" value="<%=rsSetup("MAIL")%>" name="MAIL"  style="background:#FFFFCC;" title="Mail Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		   <Tr> 
+            <td align="left"><font face="Verdana" size="1">NPWP</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="NPWP"  style="background:#FFFFCC;" title="NPWP Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <%end if%>
+          <%elseif Request("txttable") ="Transporter" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                TRANSPORTER</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",fccode,"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+    <tr>
+    <td align="left">Date Created</td>
+    <td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=date()%>" title=" DATECREATED Type Date mm/dd/yyyy" >
+    
+    </td>
+    </tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Address</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" name="ADDRESS"  style="background:#FFFFCC;" title="ADDRESS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">City</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="CITY"  style="background:#FFFFCC;" title="CITY Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">State</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="STATE"  style="background:#FFFFCC;" title="STATE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70"  name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Name</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="BANKNAME"  style="background:#FFFFCC;" title="BANKNAME Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Account</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="BANKACCOUNT"  style="background:#FFFFCC;" title="BANKACCOUNT Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Ownership</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="BANKOWNERSHIP"  style="background:#FFFFCC;" title="BANKOWNERSHIP Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                TRANSPORTER</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",rssetup("CONTROLJOB"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+    <tr>
+    <td align="left">Date Created</td>
+    <td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=rssetup("DATECREATED")%>" title=" DATECREATED Type Date mm/dd/yyyy" >
+    
+    </td>
+    </tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+              </select> </td>
+            <%end if%>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Address</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("ADDRESS")%>" name="ADDRESS"  style="background:#FFFFCC;" title="ADDRESS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">City</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("CITY")%>" name="CITY"  style="background:#FFFFCC;" title="CITY Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">State</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("STATE")%>" name="STATE"  style="background:#FFFFCC;" title="STATE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="70" maxlength="70" value="<%=rsSetup("REMARKS")%>" name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Name</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("BANKNAME")%>" name="BANKNAME"  style="background:#FFFFCC;" title="BANKNAME Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Account</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("BANKACCOUNT")%>" name="BANKACCOUNT"  style="background:#FFFFCC;" title="BANKACCOUNT Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Ownership</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("BANKOWNERSHIP")%>" name="BANKOWNERSHIP"  style="background:#FFFFCC;" title="BANKOWNERSHIP Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <%end if%>
+          <%elseif Request("txttable") ="Store" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                STORE</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"   name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                STORE</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+              </select> </td>
+            <%end if%>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  value="<%=rsSetup("REMARKS")%>" name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <%END IF%>
+		  
+
+    <%elseif Request("txttable") ="Roles" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+				  <TR> 
+					<td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+						Roles</strong></font></div></td>
+				  </TR>
+				  
+				  <Tr> 
+					<td align="left"><font face="Verdana" size="1">Roles Code</font></td>
+					<td align="left"><input type="text" size="25" maxlength="30" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+					  <font color="#FF0000">*</font> </td>
+				  </Tr>
+				  <Tr> 
+					<td align="left"><font face="Verdana" size="1">Roles Name</font></td>
+					<td align="left"><input type="text" size="50" maxlength="70"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+					  <font color="#FF0000">*</font></td>
+				  </Tr>
+		  
+          <%else%>
+				  <TR> 
+					<td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+						Roles</strong></font></div></td>
+				  </TR>
+				  <Tr> 
+					<td align="left"><font face="Verdana" size="1">Roles Code</font></td>
+					<td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+					  <font color="#FF0000">*</font> </td>
+				  </Tr>
+				  <Tr> 
+					<td align="left"><font face="Verdana" size="1">Roles Name</font></td>
+					<td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+					  <font color="#FF0000">*</font></td>
+				  </Tr>
+		  
+          <%END IF%>
+    <%elseif Request("txttable") ="Gang" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                GANG</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+		  
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Gang Type</font></td>
+            <td align="left"><select name="GANGTYPECODE" title="Gang Type">
+                <Option value="SUPERVISION">SUPERVISION</Option>
+                <Option value="OTHERS">OTHERS</Option>
+              </select></td>
+          </Tr>
+		  
+		  
+		  
+		  
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                GANG</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  value="<%=rsSetup("REMARKS")%>" name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+				<%end if%>
+              </select> </td>
+          </Tr>
+		  
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Gang Code</font></td>
+            <td align="left"><select name="GANGTYPECODE" title="Gang Code">
+                <%IF rsSetup("GANGTYPECODE")="SUPERVISION" THEN %>
+                <Option value="SUPERVISION" selected>SUPERVISION</Option>
+                <Option value="OTHERS">OTHERS</Option>
+                <%ELSE%>
+                <Option value="SUPERVISION">SUPERVISION</Option>
+                <Option value="OTHERS" selected>OTHERS</Option>
+				<%end if%>
+                </select> </td>
+          </Tr>
+		  
+		  
+		  
+          <%END IF%>
+	      <%elseif Request("txttable") ="Workshop" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                WORKSHOP</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                WORKSHOP</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  value="<%=rsSetup("REMARKS")%>" name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+              </select> </td>
+            <%end if%>
+          </Tr>
+          <%END IF%>
+          <%Elseif Request("txttable") ="Vehicle" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                VEHICLE</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  
+			<Tr> 
+            <td align="left"><font face="Verdana" size="1">Vehicle Group</font></td>
+			 <td align="left"> <select name="VEHICLEGROUPCODE" title="VEHICLEGROUPCODE Character a s/d z or 1 s/d 9">
+			<option value=""></option> 
+			<% 	Dim rsComboV
+			q = "select * from  VEHICLEGROUP " & " where fcBA='" &  Session("fcBA") & "' Order by DESCRIPTION"
+			Set rsComboV = Server.CreateObject("ADODB.Recordset")
+			rsComboV.CursorType = 3
+			rsComboV.CursorLocation = 3
+			rsComboV.Open q, connstr
+			if not rsComboV.eof then%>
+           
+			<%
+			Do While Not rsCombov.eof
+			%>
+			<option value="<%=rsComboV("VEHICLEGROUPCODE")%>"><%=rsComboV("DESCRIPTION")%></option> 
+			<%rsComboV.movenext
+			loop
+			End if
+			rsComboV.Close
+			set rsComboV = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Vehicle Sub Group</font></td>
+			 <td align="left"> <select name="VEHICLESUBGROUPCODE" title="VEHICLESUBGROUPCODE Character a s/d z or 1 s/d 9">
+			<option value=""></option> 
+			<% 	Dim rsComboSGV
+			q = "select * from  VEHICLESUBGROUP " & " where fcBA='" &  Session("fcBA") & "' Order by DESCRIPTION"
+			Set rsComboSGV = Server.CreateObject("ADODB.Recordset")
+			rsComboSGV.CursorType = 3
+			rsComboSGV.CursorLocation = 3
+			rsComboSGV.Open q, connstr
+			if not rsComboSGV.eof then%>
+           
+			<%
+			Do While Not rsComboSGV.eof
+			%>
+			<option value="<%=rsComboSGV("VEHICLESUBGROUPCODE")%>"><%=rsComboSGV("DESCRIPTION")%></option> 
+			<%rsComboSGV.movenext
+			loop
+			End if
+			rsComboSGV.Close
+			set rsComboSGV = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr> 
+    		<tr>
+			<td align="left">Date Created</td>
+			<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=date()%>" title=" DATECREATED Type Date mm/dd/yyyy" >
+			
+			</td>
+			</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="REGISTRATIONNO Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+		    <tr>
+				<td align="left">Date Terminate</td>
+				<td align="left"><input class="datepicker" type="text" maxlength="10" name="dateterminate" size="10" value="" title=" YEAROFMADE Type Date mm/dd/yyyy" >
+				</td>
+			</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Registration No</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" name="REGISTRATIONNO"  style="background:#FFFFCC;" title="REGISTRATIONNO Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Make</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="MAKE"  style="background:#FFFFCC;" title="MAKE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Model</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="MODEL"  style="background:#FFFFCC;" title="MODEL Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Engine No</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="ENGINENO"  style="background:#FFFFCC;" title="ENGINENO Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Chasis No</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="CHASISNO"  style="background:#FFFFCC;" title="CHASISNO Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+	  <tr>
+		<td align="left">Year Of Made</td>
+		<td align="left"><input class="datepicker" type="text" maxlength="10" name="YEAROFMADE" size="10" value="<%=DATE()%>" title=" YEAROFMADE Type Date mm/dd/yyyy" >
+		
+		</td>
+		</tr>
+	  <tr>
+		<td align="left">Year Of Purchase</td>
+		<td align="left"><input class="datepicker" type="text" maxlength="10" name="YEAROFPURCHASE" size="10" value="<%=DATE()%>" title=" YEAROFPURCHASE Type Date mm/dd/yyyy" >
+		
+		</td>
+		</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Ownership</font></td>
+            <td align="left"><select name="OWNERSHIP" title="OWNERSHIP Character a s/d z or 1 s/d 9">
+                <Option value="0">Own</Option>
+                <Option value="1">Rental</Option>
+                <Option value="2">Leasing</Option>
+              </select></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Vehicle Status</font></td>
+			<td align="left"><select name="VEHICLESTATUS" title="VEHICLESTATUS Character a s/d z or 1 s/d 9">
+                <Option value="0">Vehicle</Option>
+                <Option value="1">Non Vehicle</Option>
+              </select></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Allocation</font></td>
+            <td align="left"><input type="text" size="10" maxlength="1"  name="CONTROLALLOCATION"  style="background:#FFFFCC;" title="CONTROLALLOCATION Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",fccode,"",""%>
+              </select> <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">WB Registered</font></td>
+            <td align="left"><select name="WBREGISTERED" title="WBREGISTERED Character a s/d z or 1 s/d 9">
+                <Option value="FALSE">FALSE</Option>
+                <Option value="NONE">NONE</Option>
+              </select></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                VEHICLE</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+			<Tr> 
+            <td align="left"><font face="Verdana" size="1">Vehicle Group</font></td>
+			<% 	Dim rsComboVG
+			q = "select * from  VEHICLEGROUP " & " where fcBA='" &  Session("fcBA") & "' Order by DESCRIPTION"
+			Set rsComboVG = Server.CreateObject("ADODB.Recordset")
+			rsComboVG.CursorType = 3
+			rsComboVG.CursorLocation = 3
+			rsComboVG.Open q, connstr
+			if not rsComboVG.eof then%>
+            <td align="left"> <select name="VEHICLEGROUPCODE" title="VEHICLEGROUPCODE Character a s/d z or 1 s/d 9">
+			<%
+			Do While Not rsComboVG.eof
+			%>
+						
+			<%if rsComboVG("VEHICLEGROUPCODE") = rssetup("VEHICLEGROUPCODE") then%>
+			<option value="<%=rsComboVG("VEHICLEGROUPCODE")%>" Selected><%=rsComboVG("DESCRIPTION")%></option> 
+			<%Else%>
+			<option value="<%=rsComboVG("VEHICLEGROUPCODE")%>"><%=rsComboVG("DESCRIPTION")%></option> 
+			<%End if%>
+			<%rsComboVG.movenext
+			loop
+			End if
+			rsComboVG.Close
+			set rsComboVG = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Vehicle Sub Group</font></td>
+			<% 	Dim rsComboSGV2
+			q = "select * from  VEHICLESUBGROUP " & " where fcBA='" &  Session("fcBA") & "' Order by DESCRIPTION"
+			Set rsComboSGV2 = Server.CreateObject("ADODB.Recordset")
+			rsComboSGV2.CursorType = 3
+			rsComboSGV2.CursorLocation = 3
+			rsComboSGV2.Open q, connstr
+			if not rsComboSGV2.eof then%>
+            <td align="left"> <select name="VEHICLESUBGROUPCODE" title="VEHICLESUBGROUPCODE Character a s/d z or 1 s/d 9">
+			<%
+			Do While Not rsComboSGV2.eof
+			%>
+						
+			<%if rsComboSGV2("VEHICLESUBGROUPCODE") = rssetup("VEHICLESUBGROUPCODE") then%>
+			<option value="<%=rsComboSGV2("VEHICLESUBGROUPCODE")%>" Selected><%=rsComboSGV2("DESCRIPTION")%></option> 
+			<%Else%>
+			<option value="<%=rsComboSGV2("VEHICLESUBGROUPCODE")%>"><%=rsComboSGV2("DESCRIPTION")%></option> 
+			<%End if%>
+			<%rsComboSGV2.movenext
+			loop
+			End if
+			rsComboSGV2.Close
+			set rsComboSGV2 = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  
+		  
+		  
+			<tr>
+			<td align="left">Date Created</td>
+			<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=rsSetup("DATECREATED")%>" title=" DATECREATED Type Date mm/dd/yyyy" >
+			
+			</td>
+			</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+              </select> </td>
+            <%end if%>
+          </Tr>
+		  <tr>
+				<td align="left">Date Terminate</td>
+				<td align="left"><input class="datepicker" type="text" maxlength="10" name="dateterminate" size="10" value="<%=rsSetup("DATETERMINATE")%>" title=" YEAROFMADE Type Date mm/dd/yyyy" >
+				</td>
+			</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Registration No</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("REGISTRATIONNO")%>" name="REGISTRATIONNO"  style="background:#FFFFCC;" title="REGISTRATIONNO Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Make</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  value="<%=rsSetup("MAKE")%>" name="MAKE"  style="background:#FFFFCC;" title="MAKE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Model</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  value="<%=rsSetup("MODEL")%>" name="MODEL"  style="background:#FFFFCC;" title="MODEL Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Engine No</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  value="<%=rsSetup("ENGINENO")%>" name="ENGINENO"  style="background:#FFFFCC;" title="ENGINENO Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Chasis No</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  value="<%=rsSetup("CHASISNO")%>" name="CHASISNO"  style="background:#FFFFCC;" title="CHASISNO Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+	  <tr>
+		<td align="left">Year Of Made</td>
+		<td align="left"><input class="datepicker" type="text" maxlength="10" name="YEAROFMADE" size="10" value="<%=rsSetup("YEAROFMADE")%>"title=" YEAROFMADE Type Date mm/dd/yyyy" >
+		
+		</td>
+		</tr>
+	  <tr>
+		<td align="left">Year Of Purchase</td>
+		<td align="left"><input class="datepicker" type="text" maxlength="10" name="YEAROFPURCHASE" size="10" value="<%=rsSetup("YEAROFPURCHASE")%>" title=" YEAROFPURCHASE Type Date mm/dd/yyyy" >
+		
+		</td>
+		</tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Ownership</font></td>
+                       <td align="left"><select name="OWNERSHIP" title="OWNERSHIP Character a s/d z or 1 s/d 9">
+          		<%if rsSetup("OWNERSHIP")="0" then%>
+		        <Option value="0" selected>Own</Option>
+                <Option value="1">Rental</Option>
+                <Option value="2">Leasing</Option>
+				<%elseif rsSetup("OWNERSHIP")="1" then%>
+				<Option value="0">Own</Option>
+				<Option value="1" selected>Rental</Option>
+                <Option value="2">Leasing</Option>
+				<%else%>
+				<Option value="0">Own</Option>
+				<Option value="1">Rental</Option>
+                <Option value="2" selected>Leasing</Option>
+
+				<%end if%>
+              </select></td>
+          </Tr>
+
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Vehicle Status</font></td>
+            <td align="left"><select name="VEHICLESTATUS" title="OWNERSHIP Character a s/d z or 1 s/d 9">
+				<% if rsSetup("VEHICLESTATUS")="0" then%>
+                <Option value="0" selected>Vehicle</Option>
+                <Option value="1">Non Vehicle</Option>
+				<%else%>
+                <Option value="0">Vehicle</Option>
+                <Option value="1" selected>Non Vehicle</Option>
+				<%end if%>
+              </select></td>			
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Allocation</font></td>
+            <td align="left"><input type="text" size="30" maxlength="1"  value="<%=rsSetup("CONTROLALLOCATION")%>" name="CONTROLALLOCATION"  style="background:#FFFFCC;" title="CONTROLALLOCATION Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",rssetup("CONTROLJOB"),"",""%>
+              </select> <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">WB Regsitered</font></td>
+            <td align="left"><select name="WBREGISTERED" title="WBREGISTERED Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("WBREGISTERED")="FALSE" THEN %>
+                    <Option value="FALSE" selected>FALSE</Option>
+                    <Option value="NONE">NONE</Option>
+                <%ELSE%>
+                    <Option value="FALSE">FALSE</Option>
+                    <Option value="NONE" selected>NONE</Option>
+                  </select>
+                </td>
+                <%end if%>
+          </Tr>
+          <%END IF%>
+          <%elseif Request("txttable") ="Contractor" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE CONTRACTOR</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",fccode,"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+			<tr>
+			<td align="left">Date Created</td>
+			<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=DATE()%>" title=" DATECREATED Type Date mm/dd/yyyy" >
+			
+			</td>
+			</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Address</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" name="ADDRESS"  style="background:#FFFFCC;" title="ADDRESS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">City</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="CITY"  style="background:#FFFFCC;" title="CITY Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">State</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="STATE"  style="background:#FFFFCC;" title="STATE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Name</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="BANKNAME"  style="background:#FFFFCC;" title="BANKNAME Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Account</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70"  name="BANKACCOUNT"  style="background:#FFFFCC;" title="BANKACCOUNT Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                CONTRACTOR</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROLJOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",rssetup("CONTROLJOB"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+			<tr>
+			<td align="left">Date Created</td>
+			<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATECREATED" size="10" value="<%=rsSetup("DATECREATED")%>" title=" DATECREATED Type Date mm/dd/yyyy" >
+			
+			</td>
+			</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+              </select> </td>
+            <%end if%>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Address</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("ADDRESS")%>" name="ADDRESS"  style="background:#FFFFCC;" title="ADDRESS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">City</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("CITY")%>" name="CITY"  style="background:#FFFFCC;" title="CITY Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">State</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("STATE")%>" name="STATE"  style="background:#FFFFCC;" title="STATE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70" value="<%=rsSetup("REMARKS")%>" name="REMARKS"  style="background:#FFFFCC;" title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Name</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("BANKNAME")%>" name="BANKNAME"  style="background:#FFFFCC;" title="BANKNAME Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Bank Account</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" value="<%=rsSetup("BANKACCOUNT")%>" name="BANKACCOUNT"  style="background:#FFFFCC;" title="BANKACCOUNT Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <%end if%>
+          <%elseif Request("txttable") ="Building" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                BUILDING</strong></font></div></td>
+          </TR>
+
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Building Group</font></td>
+			<% 	Dim rsBuilding
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'B0001'  and fcBA='" &  Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsBuilding = Server.CreateObject("ADODB.Recordset")
+			rsBuilding.CursorType = 3
+			rsBuilding.CursorLocation = 3
+			rsBuilding.Open q, connstr
+			if not rsBuilding.eof then%>
+     	    <td align="left"> <select name="BUILDGROUPCODE_DESC" title="BUILDGROUPCODE_DESC Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%
+			Do While Not rsBuilding.eof
+			%>
+			<option value="<%=rsBuilding("FCCODE")%>"><%=rsBuilding("FCNAME")%></option> 
+			<%rsBuilding.movenext
+			loop
+			End if
+			rsBuilding.Close
+			set rsBuilding = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">ITEM</font></td>
+            <td align="left"><input type="text" size="10" maxlength="1"  name="ITEM"  style="background:#FFFFCC;" title="ITEM Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+     <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                BUILDING</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="70"  value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Building Group Code</font></td>
+			<% 	Dim rsBuildinga
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'B0001' and fcBA='" &  Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsBuildinga = Server.CreateObject("ADODB.Recordset")
+			rsBuildinga.CursorType = 3
+			rsBuildinga.CursorLocation = 3
+			rsBuildinga.Open q, connstr
+			if not rsBuildinga.eof then%>
+     	    <td align="left"> <select name="BUILDGROUPCODE_DESC" title="BUILDGROUPCODE_DESC Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%
+			Do While Not rsBuildinga.eof
+			IF rsBuildinga("FCCODE")=RSSETUP("BUILDGROUPCODE_DESC") THEN%>
+				<option value="<%=rsBuildinga("FCCODE")%>" selected><%=rsBuildinga("FCNAME")%></option> 
+			<%Else%>
+				<option value="<%=rsBuildinga("FCCODE")%>"><%=rsBuildinga("FCNAME")%></option> 
+			<%End IF%>			
+			<%rsBuildinga.movenext
+			loop
+			End if
+			rsBuildinga.Close
+			set rsBuildinga = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>			
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Item</font></td>
+            <td align="left"><input type="text" size="10" maxlength="1"  name="ITEM" value="<%=rsSetup("ITEM")%>"  style="background:#FFFFCC;" title="ITEM Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+              </select> </td>
+            <%end if%>
+          </Tr>
+          <%end if%>
+
+      <%elseif Request("txttable") ="Station" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+		      <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE STATION</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="50" name="FcName"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="JOBCODE" title="JOBCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",fccode,"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <%else%>
+		    <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE STATION</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="50" value="<%=rsSetup("FcName")%>" name="FcName"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="JOBCODE" title="JOBCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",rssetup("JOBCODE"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <%End If%>
+          <%elseif Request("txttable") ="Machine" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+		    <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE MACHINE</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="15"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="50" name="DESCRIPTION"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Fixed Asset Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="15" name="FIXEDASSETCODE"  style="background:#FFFFCC;" title="FIXEDASSETCODE Character a s/d z or 1 s/d 9">
+			</td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Ownership</font></td>
+            <td align="left"><select name="OWNERSHIP" title="OWNERSHIP Character a s/d z or 1 s/d 9">
+                <Option value="0">Own</Option>
+                <Option value="1">Rental</Option>
+                <Option value="2">Leasing</Option>
+              </select></td>
+          </Tr>
+		<tr>
+			<td align="left">Date Purchase</td>
+			<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATEPURCHASE" size="10" value="<%=Date()%>" title="DATEPURCHASE Type Date mm/dd/yyyy" >
+			
+			</td>
+			</tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Purchase Cost</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" name="PURCHASECOST" title="PURCHASECOST Number 1 s/d 9">
+			</td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Station Code</font></td>
+            <td align="left"> <select name="STATION_STATIONCODE" title="STATION_STATIONCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "STATION","fccode","",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <tr>
+		  <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+
+          <%else%>
+		    <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE MACHINE</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" value="<%=rsSetup("FCCODE")%>" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" value="<%=rsSetup("DESCRIPTION")%>"  size="50" maxlength="70" name="DESCRIPTION"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Fixed Asset Code</font></td>
+            <td align="left"><input type="text" value="<%=rsSetup("FIXEDASSETCODE")%>"  size="10" maxlength="70" name="FIXEDASSETCODE"  style="background:#FFFFCC;" title="FIXEDASSETCODE Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+		            <Tr> 
+            <td align="left"><font face="Verdana" size="1">Ownership</font></td>
+            <td align="left"><select name="OWNERSHIP" title="OWNERSHIP Character a s/d z or 1 s/d 9">
+          		<%if rsSetup("OWNERSHIP")="0" then%>
+		        <Option value="0" selected>Own</Option>
+                <Option value="1">Rental</Option>
+                <Option value="2">Leasing</Option>
+				<%elseif rsSetup("OWNERSHIP")="1" then%>
+				<Option value="0">Own</Option>
+				<Option value="1" selected>Rental</Option>
+                <Option value="2">Leasing</Option>
+				<%else%>
+				<Option value="0">Own</Option>
+				<Option value="1">Rental</Option>
+                <Option value="2" selected>Leasing</Option>
+
+				<%end if%>
+              </select></td>
+          </Tr>
+		  	<tr>
+			<td align="left">Date Purchase</td>
+			<td align="left"><input class="datepicker" type="text" maxlength="10" name="DATEPURCHASE" size="10" value="<%=rsSetup("DATEPURCHASE")%>" title=" DATEPURCHASE Type Date mm/dd/yyyy" >
+			
+			</td>
+			</tr>
+            <td align="left"><font face="Verdana" size="1">Purchase Cost</font></td>
+            <td align="left"><input type="text" value="<%=rsSetup("PURCHASECOST")%>"  size="30" maxlength="70" name="PURCHASECOST"  style="background:#FF0000" title="PURCHASECOST Number 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Station Code</font></td>
+            <td align="left"> <select name="STATION_STATIONCODE" title="STATION_STATIONCODE Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "STATION",rsSetup("STATION_STATIONCODE"),"",""%>
+              </select> <font color="#FF0000">*</font></td>
+          </Tr>
+		  <tr>
+		  <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+          <%End If%>
+		  <%elseif Request("txttable") ="WorkingTime" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+		   <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE WORKINGTIME</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="50" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Time IN</font></td>
+            <td align="left"><input type="time" size="10" maxlength="5" name="TIMEIN"  title="TIMEIN Character 1 s/d 9:1 s/d 9">
+			
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Time OUT</font></td>
+            <td align="left"><input type="time" size="10" maxlength="5" name="TIMEOUT"  title="TIMEOUT Character 1 s/d 9:1 s/d 9">			
+			</td>
+          </Tr>
+          <Tr> 
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Rest Time</font></td>
+            <td align="left">
+			<select name="ISRESTIME" >
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Next Day</font></td>
+            <td align="left">
+			<select name="ISNEXTDAY" >
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Add TimeIN</font></td>
+            <td align="left"><input type="text" size="10" maxlength="5" name="ADDIN"   > Minutes			
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Add TimeOut</font></td>
+            <td align="left"><input type="text" size="10" maxlength="5" name="ADDOUT"  > Minutes		
+			</td>
+          </Tr>
+		  <Tr>
+		  <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+        <%else%>
+		   <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE WORKINGTIME</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="15"  name="FCCODE"  value="<%=rsSetup("FCCODE")%>" style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="50" name="FCNAME"  value="<%=rsSetup("FCNAME")%>" style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Time IN</font></td>
+            <td align="left"><input type="time" size="10" maxlength="5" name="TIMEIN"  value="<%=rsSetup("TIMEIN")%>" title="TIMEIN Character 1 s/d 9:1 s/d 9">
+			
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Time OUT</font></td>
+            <td align="left"><input type="time" size="10" maxlength="5" name="TIMEOUT"  value="<%=rsSetup("TIMEOUT")%>"  title="TIMEOUT Character 1 s/d 9:1 s/d 9">			
+			</td>
+          </Tr>
+          <Tr> 
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Rest Time</font></td>
+            <td align="left">
+			  <select name="ISRESTIME" >
+                <%IF rsSetup("ISRESTIME")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+				</select> </td>
+				<%end if%>
+              </select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Next Day</font></td>
+            <td align="left">
+			  <select name="ISNEXTDAY" >
+                <%IF rsSetup("ISNEXTDAY")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+				</select> </td>
+				<%end if%>
+
+              </select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Add TimeIN</font></td>
+            <td align="left"><input type="text" size="10" maxlength="5" name="ADDIN"  value="<%=rsSetup("ADDIN_MINUTES")%>"  > Minutes			
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Add TimeOut</font></td>
+            <td align="left"><input type="text" size="10" maxlength="5" name="ADDOUT"  value="<%=rsSetup("ADDOUT_MINUTES")%>" > Minutes		
+			</td>
+          </Tr>
+		  <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+				</select> </td>
+				<%end if%>
+
+              </select>
+			  </td>
+          </Tr>
+          <%End If%>  
+		  
+  		  <%elseif Request("txttable") ="WorkingTime_Template" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+		   <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE WORKINGTIME TEMPLATE</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="50" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Periode</font></td>
+            <td align="left"><input type="text" size="10" maxlength="4" name="PERIOD"  >
+			<font color="#FF0000">*</font>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Gang Code</font></td>
+			<td align="left"><select name="GANGCODE">
+			        <%cmdCallCombo "GANG",fccode,"",""%>
+			</select>
+			<font color="#FF0000">*</font>            
+			</td>
+          </Tr>
+		  
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Monday</font></td>
+			<td align="left"><select name="D_2">
+					<%cmdCallCombo "WORKINGTIME",fccode,"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Tuesday</font></td>
+			<td align="left"><select name="D_3">
+					<%cmdCallCombo "WORKINGTIME",fccode,"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Wednesday</font></td>
+			<td align="left"><select name="D_4">
+					<%cmdCallCombo "WORKINGTIME",fccode,"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Thursday</font></td>
+			<td align="left"><select name="D_5">
+					<%cmdCallCombo "WORKINGTIME",fccode,"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Friday</font></td>
+			<td align="left"><select name="D_6">
+					<%cmdCallCombo "WORKINGTIME",fccode,"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Saturday</font></td>
+			<td align="left"><select name="D_7">
+					<%cmdCallCombo "WORKINGTIME",fccode,"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Sunday</font></td>
+			<td align="left"><select name="D_1">
+					<%cmdCallCombo "WORKINGTIME",fccode,"",""%>
+			</select>
+			</td>
+          </Tr>
+		
+		  <Tr>
+		  <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+        <%else%>
+		   <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE WORKINGTIME TEMPLATE</strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10"  name="FCCODE"  value="<%=rsSetup("FCCODE")%>"  style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="50" maxlength="50" name="FCNAME" value="<%=rsSetup("FCNAME")%>"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Periode</font></td>
+            <td align="left"><input type="text" size="10" maxlength="4" name="PERIOD"  value="<%=rsSetup("PERIOD")%>" >
+			<font color="#FF0000">*</font>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Gang Code</font></td>
+			<td align="left"><select name="GANGCODE">
+			        <%cmdCallCombo "Gang",rsSetup("GANGCODE"),"",""%>
+			</select>
+			<font color="#FF0000">*</font>            
+			</td>
+          </Tr>
+		  
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Monday</font></td>
+			<td align="left"><select name="D_2">
+					<%cmdCallCombo "WORKINGTIME",rsSetup("D_2"),"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Tuesday</font></td>
+			<td align="left"><select name="D_3">
+					<%cmdCallCombo "WORKINGTIME",rsSetup("D_3"),"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Wednesday</font></td>
+			<td align="left"><select name="D_4">
+					<%cmdCallCombo "WORKINGTIME",rsSetup("D_4"),"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Thursday</font></td>
+			<td align="left"><select name="D_5">
+					<%cmdCallCombo "WORKINGTIME",rsSetup("D_5"),"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Friday</font></td>
+			<td align="left"><select name="D_6">
+					<%cmdCallCombo "WORKINGTIME",rsSetup("D_6"),"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Saturday</font></td>
+			<td align="left"><select name="D_7">
+					<%cmdCallCombo "WORKINGTIME",rsSetup("D_7"),"",""%>
+			</select>
+			</td>
+          </Tr>
+		  <Tr> 
+            <td align="left"><font face="Verdana" size="1">Sunday</font></td>
+			<td align="left"><select name="D_1">
+					<%cmdCallCombo "WORKINGTIME",rsSetup("D_1"),"",""%>
+			</select>
+			</td>
+          </Tr>
+		
+		  <Tr>
+		  <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+				</select> </td>
+				<%end if%>
+              </select></td>
+          </Tr>
+          <%End If%>  
+  
+	 <%elseif Request("txttable") ="Employee_WorkingTime" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+		   <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE EMPLOYEE WORKINGTIME </strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10"  name="FCCODE"   style="background:#FFFFCC;" readonly > 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">YEAR</font></td>
+            <td align="left"><input type="text" size="10" maxlength="4" name="PERIOD_YEAR" style="background:#FFFFCC;" readonly> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">MONTH</font></td>
+            <td align="left"><input type="text" size="10" maxlength="4" name="PERIOD_MONTH" style="background:#FFFFCC;" readonly >
+			<font color="#FF0000">*</font>
+			</td>
+          </Tr>
+		
+		  <Tr>
+			<td colspan="2">
+				<Table class="data">
+				  <Tr> 
+					 <td align="left">01<select name="D_1"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">11<select name="D_11"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">21<select name="D_11"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				  <Tr> 
+					 <td align="left">02<select name="D_2"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">12<select name="D_12"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">22<select name="D_22"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">03<select name="D_3"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">13<select name="D_13"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">23<select name="D_23"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">04<select name="D_4"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">14<select name="D_14"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">24<select name="D_24"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">05<select name="D_5"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">15<select name="D_15"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">25<select name="D_25"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">06<select name="D_6"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">16<select name="D_16"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">26<select name="D_26"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">07<select name="D_7"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">17<select name="D_17"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">27<select name="D_27"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">08<select name="D_8"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">18<select name="D_18"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">28<select name="D_28"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">09<select name="D_9"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">19<select name="D_19"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">29<select name="D_29"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				   <Tr> 
+					 <td align="left">10<select name="D_10"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">20<select name="D_20"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left">30<select name="D_30"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+				  </Tr>
+				  <Tr> 
+					 <td align="left">31<select name="D_31"><%cmdCallCombo "WORKINGTIME",fccode,"",""%></select></td>
+					 <td align="left"></td>
+					 <td align="left"></td>
+				  </Tr>
+				</Table>
+			</td>
+		  <tr>
+		  
+		  <Tr>
+		  <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <Option value="Y">Yes</Option>
+                <Option value="N">No</Option>
+              </select></td>
+          </Tr>
+        <%else%>
+		   <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE EMPLOYEE WORKINGTIME </strong></font></div></td>
+          </TR>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10"  name="FCCODE"   value="<%=rsSetup("EMPCODE")%>" style="background:#FFFFCC;" readonly > 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">YEAR</font></td>
+            <td align="left"><input type="text" size="10" maxlength="4" name="PERIOD_YEAR" value="<%=rsSetup("PERIOD_YEAR")%>" style="background:#FFFFCC;" readonly> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">MONTH</font></td>
+            <td align="left"><input type="text" size="10" maxlength="4" name="PERIOD_MONTH" value="<%=rsSetup("PERIOD_MONTH")%>" style="background:#FFFFCC;" readonly >
+			<font color="#FF0000">*</font>
+			</td>
+          </Tr>
+		
+		  <Tr>
+			<td colspan="2">
+				<Table class="data">
+				  <Tr> 
+					 <td align="left">01<select name="D_1"><%cmdCallCombo "WORKINGTIME",rsSetup("D_1"),"",""%></select></td>
+					 <td align="left">11<select name="D_11"><%cmdCallCombo "WORKINGTIME",rsSetup("D_1"),"",""%></select></td>
+					 <td align="left">21<select name="D_11"><%cmdCallCombo "WORKINGTIME",rsSetup("D_1"),"",""%></select></td>
+				  </Tr>
+				  <Tr> 
+					 <td align="left">02<select name="D_2"><%cmdCallCombo "WORKINGTIME",rsSetup("D_2"),"",""%></select></td>
+					 <td align="left">12<select name="D_12"><%cmdCallCombo "WORKINGTIME",rsSetup("D_12"),"",""%></select></td>
+					 <td align="left">22<select name="D_22"><%cmdCallCombo "WORKINGTIME",rsSetup("D_22"),"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">03<select name="D_3"><%cmdCallCombo "WORKINGTIME",rsSetup("D_3"),"",""%></select></td>
+					 <td align="left">13<select name="D_13"><%cmdCallCombo "WORKINGTIME",rsSetup("D_13"),"",""%></select></td>
+					 <td align="left">23<select name="D_23"><%cmdCallCombo "WORKINGTIME",rsSetup("D_23"),"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">04<select name="D_4"><%cmdCallCombo "WORKINGTIME",rsSetup("D_4"),"",""%></select></td>
+					 <td align="left">14<select name="D_14"><%cmdCallCombo "WORKINGTIME",rsSetup("D_14"),"",""%></select></td>
+					 <td align="left">24<select name="D_24"><%cmdCallCombo "WORKINGTIME",rsSetup("D_24"),"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">05<select name="D_5"><%cmdCallCombo "WORKINGTIME",rsSetup("D_5"),"",""%></select></td>
+					 <td align="left">15<select name="D_15"><%cmdCallCombo "WORKINGTIME",rsSetup("D_15"),"",""%></select></td>
+					 <td align="left">25<select name="D_25"><%cmdCallCombo "WORKINGTIME",rsSetup("D_25"),"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">06<select name="D_6"><%cmdCallCombo "WORKINGTIME",rsSetup("D_6"),"",""%></select></td>
+					 <td align="left">16<select name="D_16"><%cmdCallCombo "WORKINGTIME",rsSetup("D_16"),"",""%></select></td>
+					 <td align="left">26<select name="D_26"><%cmdCallCombo "WORKINGTIME",rsSetup("D_26"),"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">07<select name="D_7"><%cmdCallCombo "WORKINGTIME",rsSetup("D_7"),"",""%></select></td>
+					 <td align="left">17<select name="D_17"><%cmdCallCombo "WORKINGTIME",rsSetup("D_17"),"",""%></select></td>
+					 <td align="left">27<select name="D_27"><%cmdCallCombo "WORKINGTIME",rsSetup("D_27"),"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">08<select name="D_8"><%cmdCallCombo "WORKINGTIME",rsSetup("D_8"),"",""%></select></td>
+					 <td align="left">18<select name="D_18"><%cmdCallCombo "WORKINGTIME",rsSetup("D_18"),"",""%></select></td>
+					 <td align="left">28<select name="D_28"><%cmdCallCombo "WORKINGTIME",rsSetup("D_28"),"",""%></select></td>
+				  </Tr>
+				    <Tr> 
+					 <td align="left">09<select name="D_9"><%cmdCallCombo "WORKINGTIME",rsSetup("D_9"),"",""%></select></td>
+					 <td align="left">19<select name="D_19"><%cmdCallCombo "WORKINGTIME",rsSetup("D_19"),"",""%></select></td>
+					 <td align="left">29<select name="D_29"><%cmdCallCombo "WORKINGTIME",rsSetup("D_29"),"",""%></select></td>
+				  </Tr>
+				   <Tr> 
+					 <td align="left">10<select name="D_10"><%cmdCallCombo "WORKINGTIME",rsSetup("D_10"),"",""%></select></td>
+					 <td align="left">20<select name="D_20"><%cmdCallCombo "WORKINGTIME",rsSetup("D_20"),"",""%></select></td>
+					 <td align="left">30<select name="D_30"><%cmdCallCombo "WORKINGTIME",rsSetup("D_30"),"",""%></select></td>
+				  </Tr>
+				  <Tr> 
+					 <td align="left">31<select name="D_31"><%cmdCallCombo "WORKINGTIME",rsSetup("D_31"),"",""%></select></td>
+					 <td align="left"></td>
+					 <td align="left"></td>
+				  </Tr>
+				</Table>
+			</td>
+		  <tr>
+		
+		  <Tr>
+		  <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+                <%IF rsSetup("ACTIVATION")="Y" THEN %>
+                <Option value="Y" selected>Yes</Option>
+                <Option value="N">No</Option>
+                <%ELSE%>
+                <Option value="Y">Yes</Option>
+                <Option value="N" selected>No</Option>
+				</select> </td>
+				<%end if%>
+              </select></td>
+          </Tr>
+          <%End If%>  
+  
+	  
+		  
+  <%elseif Request("txttable") ="Employee" then%>
+
+
+		<%if Request("txtJenis") <> "Edit" then%>
+  
+		<tr>
+			<td colspan="2">
+				<div align="left">
+					<font size="2" face="Verdana"><strong>MAINTENANCE EMPLOYEE</strong></font>
+				</div>
+			</td>
+		</tr>
+		<!--Personal Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Personal Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+			<td width="180" align="left">
+				<input type="text" size="20" maxlength="30" name="FCCODE"  id="FCCODE" class="numeric" onkeypress="return validateNumber(event);"  title="CODE Character 1 s/d 9" required>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td width="189" align="left"><font face="Verdana" size="1">Name</font></td>
+			<td width="180" align="left">
+				<input type="text" size="20" maxlength="100" name="FCNAME" title="FCNAME Character a s/d z or 1 s/d 9">
+				<font color="#FF0000">*</font>
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left">Date Of Birth</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="DATEOFBIRTH" size="10" value="<%=textdate(date)%>" title="DATEOFBIRTH Type Date mm/dd/yyyy" >
+			</td>
+			
+            <td align="left"><font face="Verdana" size="1">Religion</font></td>
+			<% 	Dim rsReligion
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0003'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsReligion = Server.CreateObject("ADODB.Recordset")
+			rsReligion.CursorType = 3
+			rsReligion.CursorLocation = 3
+			rsReligion.Open q, connstr
+			if not rsReligion.eof then%>
+     	    <td align="left">
+				<select name="RELIGION" title="Religion Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsReligion.eof%>
+					<option value="<%=rsReligion("FCCODE")%>"><%=rsReligion("FCNAME")%></option> 
+			<%rsReligion.movenext
+			loop
+			End if
+			rsReligion.Close
+			set rsReligion = Nothing
+			q=""
+			%>
+				</select><font color="#FF0000"> *</font>
+			</td>
+		</tr>
+			
+		<tr>
+            <td align="left"><font face="Verdana" size="1">Race</font></td>
+			<% 	Dim rsRace
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0004'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsRace = Server.CreateObject("ADODB.Recordset")
+			rsRace.CursorType = 3
+			rsRace.CursorLocation = 3
+			rsRace.Open q, connstr
+			if not rsRace.eof then%>
+     	    <td align="left">
+				<select name="RACE" title="RACE Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsRace.eof%>
+					<option value="<%=rsRace("FCCODE")%>"><%=rsRace("FCNAME")%></option> 
+			<%rsRace.movenext
+			loop
+			End if
+			rsRace.Close
+			set rsRace = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+
+			<td align="left"><font face="Verdana" size="1">Nationality</font></td>
+			<% 	Dim rsNationality
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0005'  and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsNationality = Server.CreateObject("ADODB.Recordset")
+			rsNationality.CursorType = 3
+			rsNationality.CursorLocation = 3
+			rsNationality.Open q, connstr
+			if not rsNationality.eof then%>
+     	    <td align="left">
+				<select name="NATIONALITY" title="NATIONALITY Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsNationality.eof%>
+					<option value="<%=rsNationality("FCCODE")%>"><%=rsNationality("FCNAME")%></option> 
+			<%rsNationality.movenext
+			loop
+			End if
+			rsNationality.Close
+			set rsNationality = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="57"  align="left" ><font face="Verdana" size="1">Gender</font></td>
+			<td width="120" align="left">
+				<select name="GENDER" title="MALE/FEMALE">
+					<Option value="MALE">Laki - Laki</Option>
+					<Option value="FEMALE">Perempuan</Option>
+				</select>
+			</td>
+
+            <td align="left"><font face="Verdana" size="1">Address/ Alamat</font></td>
+            <td align="left"><input type="text" size="50" maxlength="250" name="txtaddress" title="Address Character a s/d z or 1 s/d 9"></td>
+		</tr>
+
+		<tr>
+			<td align="left"><font face="Verdana" size="1">Highest Education</font></td>
+            <td align="left">
+				<input type="text" size="20" maxlength="30" name="HIGHESTEDUCATION" title="HIGHESTEDUCATION Character a s/d z or 1 s/d 9" required>
+			</td>
+			
+			<td align="left">Year Of Graduation</td>
+			<td align="left">
+				<input type="text" maxlength="10" name="YEAROFGRADUATION" size="10"  title="YEAROFGRADUATION Character a s/d z or 1 s/d 9">
+			</td>
+		</tr>
+		  
+		<tr>
+			<td align="left"><font face="Verdana" size="1">Marital Status</font></td>
+			<% 	Dim rsMarital
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0006'  and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsMarital = Server.CreateObject("ADODB.Recordset")
+			rsMarital.CursorType = 3
+			rsMarital.CursorLocation = 3
+			rsMarital.Open q, connstr
+			if not rsMarital.eof then%>
+     	    <td align="left">
+				<select name="MARITALSTATUS" title="MARITALSTATUS Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsMarital.eof%>
+					<option value="<%=rsMarital("FCCODE")%>"><%=rsMarital("FCNAME")%></option> 
+			<%rsMarital.movenext
+			loop
+			End if
+			rsMarital.Close
+			set rsMarital = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+
+			<td align="left"><font face="Verdana" size="1">Spouse</font></td>
+            <td align="left">
+				<input type="text" size="20" maxlength="30" name="SPOUSE" title="SPOUSE Character a s/d z or 1 s/d 9">
+			</td>
+		</tr>
+
+		<tr>
+            <td width="57" align="left"><font face="Verdana" size="1">Dependent Child</font></td>
+            <td width="120" align="left"><input type="text" size="20" maxlength="30" name="DEPENDENTCHILD" title="DEPENDENTCHILD Character a s/d z or 1 s/d 9"></td>
+			
+			<td align="left"><font face="Verdana" size="1">Identity Card</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="IDENTITYCARD" title="IDENTITYCARD Character a s/d z or 1 s/d 9" required></td>
+		</tr>
+		
+		<!--Job Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Job Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr> 
+            <td align="left"><font face="Verdana" size="1">Section Name</font></td>
+			<% 	Dim rsSection
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0002' and fcba='" & Session("fcBA") & "'order by P.FCNAME desc"
+			Set rsSection = Server.CreateObject("ADODB.Recordset")
+			rsSection.CursorType = 3
+			rsSection.CursorLocation = 3
+			rsSection.Open q, connstr
+			if not rsSection.eof then%>
+     	    <td align="left">
+				<select name="SECTIONNAME" title="SECTIONNAME Character a s/d z or 1 s/d 9">         
+				<option value=""></option> 
+			<%Do While Not rsSection.eof%>
+				<option value="<%=rsSection("FCCODE")%>"><%=rsSection("FCNAME")%></option> 
+			<%rsSection.movenext
+			loop
+			End if
+			rsSection.Close
+			set rsSection = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">Gang Code</font></td>
+			<td align="left">
+				<select name="GANGCODE">
+					<%cmdCallCombo "Gang","fccode","",""%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+		</Tr>
+
+		<tr>
+			<td align="left">Date Of Join</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="DATEOFJOIN" size="10" value="<%=Date()%>" title="DATEOFJOIN Type Date mm/dd/yyyy" >
+			</td>
+				
+			<td align="left">Date Of Designation</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="DATEOFDESIGNATION" size="10" value="<%=Date()%>" title="DATEOFDESIGNATION Type Date mm/dd/yyyy" >
+			</td>
+		</tr>
+		
+		<tr>    
+			<td align="left"><font face="Verdana" size="1">Present Grade</font></td>
+			<% 	Dim rsPresent
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0001'  and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsPresent = Server.CreateObject("ADODB.Recordset")
+			rsPresent.CursorType = 3
+			rsPresent.CursorLocation = 3
+			rsPresent.Open q, connstr
+			if not rsPresent.eof then%>
+     	    <td align="left">
+				<select name="PRESENTGRADE" title="PRESENTGRADE Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsPresent.eof%>
+					<option value="<%=rsPresent("FCCODE")%>"><%=rsPresent("FCNAME")%></option> 
+			<%rsPresent.movenext
+			loop
+			End if
+			rsPresent.Close
+			set rsPresent = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">Present Grade Detail</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" name="PRESENTGRADE_DETAIL"    title="PRESENTGRADE_DETAIL Character a s/d z or 1 s/d 9"></td>
+    	</tr>
+		
+		<tr> 
+			<td align="left"><font face="Verdana" size="1">Corp. Present Grade</font></td>
+			<%  
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0012'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+			rsPrevious.CursorType = 3
+			rsPrevious.CursorLocation = 3
+			rsPrevious.Open q, connstr
+			if not rsPrevious.eof then%>
+     	    <td align="left">
+				<select name="PRESENTGRADE2" title="PRESENTGRADE2 Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsPrevious.eof%>
+					<option value="<%=rsPrevious("FCCODE")%>"><%=rsPrevious("FCCODE")%></option> 
+			<%rsPrevious.movenext
+			loop
+			End if
+			rsPrevious.Close
+			set rsPrevious = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			<td align="left"><font face="Verdana" size="1">Corp. Present Grade Detail</font></td> 
+				<%  
+				q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0012'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+				Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+				rsPrevious.CursorType = 3
+				rsPrevious.CursorLocation = 3
+				rsPrevious.Open q, connstr
+				if not rsPrevious.eof then%>
+				<td align="left">
+					<select name="Presentgrade_detail2" title="Presentgrade_detail2 Character a s/d z or 1 s/d 9">         
+						<option value=""></option> 
+				<%Do While Not rsPrevious.eof%>
+						<option value="<%=rsPrevious("FCNAME")%>"><%=rsPrevious("FCNAME")%></option> 
+				<%rsPrevious.movenext
+				loop
+				End if
+				rsPrevious.Close
+				set rsPrevious = Nothing
+				q=""
+				%>
+				</select>
+			</td>
+            
+		</Tr>
+		
+		<tr> 
+			<td align="left"><font face="Verdana" size="1">Previous Grade</font></td>
+			<% 	Dim rsPrevious
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0001'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+			rsPrevious.CursorType = 3
+			rsPrevious.CursorLocation = 3
+			rsPrevious.Open q, connstr
+			if not rsPrevious.eof then%>
+     	    <td align="left">
+				<select name="PREVIOUSGRADE" title="PREVIOUSGRADE Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsPrevious.eof%>
+					<option value="<%=rsPrevious("FCCODE")%>"><%=rsPrevious("FCNAME")%></option> 
+			<%rsPrevious.movenext
+			loop
+			End if
+			rsPrevious.Close
+			set rsPrevious = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td> 
+			
+			<td align="left"><font face="Verdana" size="1">Previous Grade Detail</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" name="PREVIOUSGRADE_DETAIL"    title="PREVIOUSGRADE_DETAIL Character a s/d z or 1 s/d 9"></td>
+		</Tr>
+		
+		<tr> 
+			<td align="left"><font face="Verdana" size="1">Corp. Previous Grade</font></td>
+			<%  
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0012'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+			rsPrevious.CursorType = 3
+			rsPrevious.CursorLocation = 3
+			rsPrevious.Open q, connstr
+			if not rsPrevious.eof then%>
+     	    <td align="left">
+				<select name="Previousgrade2" title="Previousgrade2 Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsPrevious.eof%>
+					<option value="<%=rsPrevious("FCCODE")%>"><%=rsPrevious("FCCODE")%></option> 
+			<%rsPrevious.movenext
+			loop
+			End if
+			rsPrevious.Close
+			set rsPrevious = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+            <td align="left"><font face="Verdana" size="1">Corp. Previous Grade Detail</font></td> 
+				<%  
+				q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0012'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+				Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+				rsPrevious.CursorType = 3
+				rsPrevious.CursorLocation = 3
+				rsPrevious.Open q, connstr
+				if not rsPrevious.eof then%>
+				<td align="left">
+					<select name="Previousgrade_detail2" title="Previousgrade_detail2 Character a s/d z or 1 s/d 9">         
+						<option value=""></option> 
+				<%Do While Not rsPrevious.eof%>
+						<option value="<%=rsPrevious("FCNAME")%>"><%=rsPrevious("FCNAME")%></option> 
+				<%rsPrevious.movenext
+				loop
+				End if
+				rsPrevious.Close
+				set rsPrevious = Nothing
+				q=""
+				%>
+				</select>
+			</td>
+			
+		</Tr>
+		  
+		<Tr> 
+            <td align="left"><font face="Verdana" size="1">Present Rate</font></td>
+            <td align="left">
+				<input type="text" size="20" maxlength="30" name="PRESENTRATE" title="PRESENTRATE Number 1 s/d 9">
+				<font color="#FF0000"> *</font>
+			</td>
+			
+            <td align="left"><font face="Verdana" size="1">Previous Rate</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="PREVIOUSRATE" title="PREVIOUSRATE Number 1 s/d 9"></td>
+		</Tr>
+		  
+		<Tr> 
+            <td align="left"><font face="Verdana" size="1">Position</font></td>
+			<% 	Dim rsPosition
+			q = "select E.POSITION,E.DESCRIPTION from  EMPPOSITION E  where fcba='" & Session("fcBA") & "'  order by E.DESCRIPTION desc"
+			Set rsPosition = Server.CreateObject("ADODB.Recordset")
+			rsPosition.CursorType = 3
+			rsPosition.CursorLocation = 3
+			rsPosition.Open q, connstr
+			if not rsPosition.eof then%>
+     	    <td align="left">
+				<select name="POSITION" title="Position Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsPosition.eof%>
+					<option value="<%=rsPosition("POSITION")%>"><%=rsPosition("DESCRIPTION")%></option> 
+			<%rsPosition.movenext
+			loop
+			End if
+			rsPosition.Close
+			set rsPosition = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">Nature Type</font></td>
+			<% 	Dim rsNatureType, NATARETYPE
+			q = "select FCCODE,FCNAME from  PARAMETER  where PARCODE= 'E0101'  and fcba='" & Session("fcBA") & "'  order by FCNAME desc"
+			Set rsNatureType = Server.CreateObject("ADODB.Recordset")
+			rsNatureType.CursorType = 3
+			rsNatureType.CursorLocation = 3
+			rsNatureType.Open q, connstr
+			if not rsNatureType.eof then%>
+     	    <td align="left">
+				<select name="NATURETYPE" title="NATARETYPE Character a s/d z or 1 s/d 9">    
+			<%Do While Not rsNatureType.eof%>
+					<option value="<%=rsNatureType("FCCODE")%>"><%=rsNatureType("FCNAME")%></option> 
+			<%rsNatureType.movenext
+			loop
+			End if
+			rsNatureType.Close
+			set rsNatureType = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+		</Tr>
+		
+		<Tr> 
+			<td align="left"><font face="Verdana" size="1">Golongan</font></td>
+			<td align="left">
+				<select name="subgrade" title="pilih golongan">         
+					<option value=""></option> 
+			<%
+			q = " SELECT p.fccode, p.fcname FROM parameter p WHERE p.parcode = 'E0010'  and fcba = '" & Session("fcBA") & "' ORDER BY p.fccode"
+			Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+			rsPrevious.Open q, connstr
+			if not rsPrevious.eof then
+				Do While Not rsPrevious.eof%>
+					<option value="<%=rsPrevious("FCCODE")%>"><%=rsPrevious("FCNAME")%></option> 
+			<%rsPrevious.movenext
+			loop
+			End if
+			rsPrevious.Close
+			set rsPrevious = Nothing
+			q=""
+			%>
+				</select>
+			</td>
+			<td align="left">NIK Perusahaan</td>
+			<td align="left">
+				<input type="text" maxlength="100" name="company_nik" size="30" value="" title="NIK Type [0-9] -" >
+			</td>
+		</Tr>
+		  
+		<Tr> 
+			<td align="left">Date Terminate</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="DATETERMINATE" size="10" value="" title="DATETERMINATE Type Date mm/dd/yyyy" >
+			</td>
+      <td align="left"><font face="Verdana" size="1">Employee Type</font></td>
+      <td align="left">
+         <select name="EMP_TYPE" title="Employee Type">         
+          <option value=""></option> 
+            <%
+            q = " SELECT p.fccode, p.fcname FROM parameter p WHERE p.parcode = 'E0103' and fcba = '" & Session("fcBA") & "' ORDER BY p.fccode"
+            Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+            rsPrevious.Open q, connstr
+            if not rsPrevious.eof then
+              Do While Not rsPrevious.eof
+             %>
+                <option value="<%=rsPrevious("FCCODE")%>"><%=rsPrevious("FCNAME")%></option> 
+             <%rsPrevious.movenext
+            loop
+            End if
+            rsPrevious.Close
+            set rsPrevious = Nothing
+            q=""
+            %>
+        </select>
+        <font color="#FF0000">*</font>
+      </td>       
+		</Tr>
+		
+		<!--BPJS Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>BPJS Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left"><font face="Verdana" size="1">BPJS Ketenagakerjaan Category</font></td>
+			<% 	Dim rsJamsostekCategory
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0007'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsJamsostekCategory = Server.CreateObject("ADODB.Recordset")
+			rsJamsostekCategory.CursorType = 3
+			rsJamsostekCategory.CursorLocation = 3
+			rsJamsostekCategory.Open q, connstr
+			if not rsJamsostekCategory.eof then%>
+     	    <td align="left"> <select name="JAMSOSTEKCATEGORY" title="JAMSOSTEKCATEGORY Character a s/d z or 1 s/d 9">         
+			<%
+			Do While Not rsJamsostekCategory.eof
+			%>
+			<option value="<%=rsJamsostekCategory("FCCODE")%>"><%=rsJamsostekCategory("FCNAME")%></option> 
+			<%rsJamsostekCategory.movenext
+			loop
+			End if
+			rsJamsostekCategory.Close
+			set rsJamsostekCategory = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+			
+			<td align="left"><font face="Verdana" size="1">BPJS Ketenagakerjaan No</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="JAMSOSTEKNO"    title="JAMSOSTEKNO Character a s/d z or 1 s/d 9"></td>
+		</tr>
+		
+		<tr>
+			<td align="left"><font face="Verdana" size="1">BPJS Kesehatan Category</font></td>
+			<% 	Dim rsbpjskesCategory
+			q = "select p.fccode, p.fcname from parameter p where p.parcode = 'PAYROLL_BPJSKES' and fcba = '" & Session("fcBA") & "' order by rate_1"
+			Set rsbpjskesCategory = Server.CreateObject("ADODB.Recordset")
+			rsbpjskesCategory.CursorType = 3
+			rsbpjskesCategory.CursorLocation = 3
+			rsbpjskesCategory.Open q, connstr
+			if not rsbpjskesCategory.eof then%>
+     	    <td align="left">
+				<select name="txtbpjs_category" title="BPJS KESEHATAN CATEGORY Character a s/d z or 1 s/d 9">         
+			<%Do While Not rsbpjskesCategory.eof%>
+					<option value="<%=rsbpjskesCategory("FCCODE")%>"><%=rsbpjskesCategory("FCNAME")%></option> 
+			<%rsbpjskesCategory.movenext
+			loop
+			End if
+			rsbpjskesCategory.Close
+			set rsbpjskesCategory = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">No BPJS Kesehatan</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="BPJSKES_NO" title="BPJSKES NO Character a s/d z or 1 s/d 9"></td>
+		</tr>
+		
+		<!--Tax Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Tax Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="57"  align="left" ><font face="Verdana" size="1">Calculate Tax</font></td>
+            <td width="120" align="left">
+			<select name="INCLUDEDTAXCALCULATION" title="True/False">
+                <Option value="TRUE">True</Option>
+                <Option value="FALSE">False</Option>
+			</select>
+			<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">NPWP</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="NPWP"    title="Nomor Pokok Wajib Pajak"></td>
+		</tr>
+		
+		<Tr>
+            <td width="57"  align="left" ><font face="Verdana" size="1">Tax Status</font></td>
+			<% 
+			q = " select p.fccode" & _
+			    "        , p.fcname" & _
+			    " from parameter p" & _
+			    " where p.parcode = 'E0006'" & _
+			    "       and fcba = '" & Session("fcBA") & "'" & _
+				"       and p.fccode <> 'NT'" & _
+			    " order by p.fccode"
+			Set rsMarital = Server.CreateObject("ADODB.Recordset")
+			rsMarital.CursorType = 3
+			rsMarital.CursorLocation = 3
+			rsMarital.Open q, connstr
+			if not rsMarital.eof then%>
+     	    <td align="left"> 
+				<select name="TAXSTATUS" title="TAXSTATUS Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+					<%
+					Do While Not rsMarital.eof
+					%>
+					<option value="<%=rsMarital("FCCODE")%>"><%=rsMarital("FCNAME")%></option> 
+					<%rsMarital.movenext
+					loop
+					End if
+					rsMarital.Close
+					set rsMarital = Nothing
+					q=""
+					%>
+				</select> 
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">PPh 21 Paid By Company</font></td>
+            <td width="120" align="left">
+				<select name="TAXPAIDBYCOMPANY" title="True/False">
+					<Option value="TRUE">True</Option>
+					<Option value="FALSE" selected>False</Option>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+          </Tr>
+		
+		
+		<!--Bank Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Bank Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="57"  align="left" ><font face="Verdana" size="1">Payment Type</font></td>
+			
+			<% 
+			q = "select P.FCCODE,P.FCNAME from  PAYMENTTYPE P "
+			
+			Set rsPayment = Server.CreateObject("ADODB.Recordset")
+			rsPayment.CursorType = 3
+			rsPayment.CursorLocation = 3
+			rsPayment.Open q, connstr
+			if not rsPayment.eof then%>
+     	    <td align="left"> 
+				<select name="PAYMENTTYPE" title="PAYMENTTYPE Male Or Female">         
+					<option value=""></option> 
+					<%
+					Do While Not rsPayment.eof
+					%>
+					<option value="<%=rsPayment("FCCODE")%>"><%=rsPayment("FCNAME")%></option> 
+					<%rsPayment.movenext
+					loop
+					End if
+					rsPayment.Close
+					set rsPayment = Nothing
+					q=""
+					%>
+				</select> 
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">Bank Name</font></td>
+            <td align="left"><input type="text" size="20" maxlength="50" name="BANKNAME"    title="BANKNAME Character a s/d z or 1 s/d 9"></td>
+		</tr>
+		<Tr> 
+            <td align="left"><font face="Verdana" size="1">Account No</font></td>
+            <td align="left"><input type="text" size="20" maxlength="40" name="ACCOUNTNO"    title="ACCOUNT NO Character a s/d z or 1 s/d 9"></td>
+			
+			<td align="left"><font face="Verdana" size="1">Ownership Of Account </font></td>
+            <td align="left"><input type="text" size="20" maxlength="50" name="OWNERSHIPOFACCOUNT"    title="Ownership Of Account Character a s/d z or 1 s/d 9"></td>
+		</Tr>
+
+		
+		
+<%else%>
+		<tr>
+			<td colspan="2">
+				<div align="left">
+					<font size="2" face="Verdana"><strong>MAINTENANCE EMPLOYEE</strong></font>
+				</div>
+			</td>
+		</tr>
+		<!--Personal Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Personal Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+			<td width="180" align="left">
+				<input type="text" size="20" maxlength="30"  name="FCCODE" value="<%=rsSetup("FCCODE")%>" readonly="True" style="background-color: #bdbdbd;" title="CODE Character a s/d z or 1 s/d 9" required>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td width="189" align="left"><font face="Verdana" size="1">Name</font></td>
+			<td width="180" align="left">
+				<input type="text" size="20" maxlength="100" name="FCNAME" value="<%=rsSetup("FCNAME")%>"    title="FCNAME Character a s/d z or 1 s/d 9">
+				<font color="#FF0000">*</font>
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left">Date Of Birth</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="DATEOFBIRTH" size="10" value="<%=rsSetup("DATEOFBIRTH")%>" title="DATEOFBIRTH Type Date mm/dd/yyyy" >
+			</td>
+			
+            <td align="left"><font face="Verdana" size="1">Religion</font></td>
+			<% 	Dim rsReligionA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0003'  and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsReligionA = Server.CreateObject("ADODB.Recordset")
+			rsReligionA.CursorType = 3
+			rsReligionA.CursorLocation = 3
+			rsReligionA.Open q, connstr
+			if not rsReligionA.eof then%>
+     	    <td align="left">
+				<select name="RELIGION" title="Religion Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsReligionA.eof
+			if rsReligionA("FCCODE")=rsSetup("RELIGION") Then%>
+					<option value="<%=rsReligionA("FCCODE")%>" selected><%=rsReligionA("FCNAME")%></option> 
+			<%Else%>
+					<option value="<%=rsReligionA("FCCODE")%>"><%=rsReligionA("FCNAME")%></option> 
+			<%End if%>
+			<%rsReligionA.movenext
+			loop
+			End if
+			rsReligionA.Close
+			set rsReligionA = Nothing
+			q=""
+			%>
+				</select><font color="#FF0000"> *</font>
+			</td>
+		</tr>
+			
+		<tr>
+            <td align="left"><font face="Verdana" size="1">Race</font></td>
+			<% 	Dim rsRaceA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0004' and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsRaceA = Server.CreateObject("ADODB.Recordset")
+			rsRaceA.CursorType = 3
+			rsRaceA.CursorLocation = 3
+			rsRaceA.Open q, connstr
+			if not rsRaceA.eof then%>
+     	    <td align="left">
+				<select name="RACE" title="RACE Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsRaceA.eof
+			if rsRaceA("FCCODE")=rsSetup("RACE") Then%>
+					<option value="<%=rsRaceA("FCCODE")%>" selected><%=rsRaceA("FCNAME")%></option> 
+			<%Else%>
+					<option value="<%=rsRaceA("FCCODE")%>"><%=rsRaceA("FCNAME")%></option> 
+			<%End if%>
+			<%rsRaceA.movenext
+			loop
+			End if
+			rsRaceA.Close
+			set rsRaceA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+
+			<td align="left"><font face="Verdana" size="1">Nationality</font></td>
+			<% 	Dim rsNationalityA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0005'  and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsNationalityA = Server.CreateObject("ADODB.Recordset")
+			rsNationalityA.CursorType = 3
+			rsNationalityA.CursorLocation = 3
+			rsNationalityA.Open q, connstr
+			if not rsNationalityA.eof then%>
+     	    <td align="left">
+				<select name="NATIONALITY" title="NATIONALITY Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsNationalityA.eof
+			if rsNationalityA("FCCODE")=rsSetup("NATIONALITY") Then%>
+					<option value="<%=rsNationalityA("FCCODE")%>" selected><%=rsNationalityA("FCNAME")%></option> 
+			<%Else%>
+					<option value="<%=rsNationalityA("FCCODE")%>"><%=rsNationalityA("FCNAME")%></option> 				
+			<%End if%>
+			<%rsNationalityA.movenext
+			loop
+			End if
+			rsNationalityA.Close
+			set rsNationalityA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="57"  align="left" ><font face="Verdana" size="1">Gender</font></td>
+			<td width="120" align="left">
+				<select name="GENDER" title="MALE/FEMALE">
+					<option value="MALE" <% If rsSetup("GENDER") = "MALE" Then %> Selected <%End if%>>Laki - Laki</option> 
+					<option value="FEMALE" <% If rsSetup("GENDER") = "FEMALE" Then %> Selected <%End if%>>Perempuan</option> 
+				</select>
+			</td>
+
+            <td align="left"><font face="Verdana" size="1">Address/ Alamat</font></td>
+            <td align="left"><input type="text" size="50" maxlength="250" name="txtaddress" value="<%=rsSetup("ADDRESS")%>" title="Address Character a s/d z or 1 s/d 9"></td>
+		</tr>
+
+		<tr>
+			<td align="left"><font face="Verdana" size="1">Highest Education</font></td>
+            <td align="left">
+				<input type="text" size="20" maxlength="30" name="HIGHESTEDUCATION"  value="<%=rsSetup("HIGHESTEDUCATION")%>"   title="HIGHESTEDUCATION Character a s/d z or 1 s/d 9" required>
+			</td>
+			
+			<td align="left">Year Of Graduation</td>
+			<td align="left">
+				<input type="text" maxlength="10" name="YEAROFGRADUATION" size="10" value="<%=rsSetup("YEAROFGRADUATION")%>" title="YEAROFGRADUATION Character a s/d z or 1 s/d 9" >
+			</td>
+		</tr>
+		  
+		<tr>
+			<td align="left"><font face="Verdana" size="1">Marital Status</font></td>
+			<% 	Dim rsMaritalA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0006'  and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsMaritalA = Server.CreateObject("ADODB.Recordset")
+			rsMaritalA.CursorType = 3
+			rsMaritalA.CursorLocation = 3
+			rsMaritalA.Open q, connstr
+			if not rsMaritalA.eof then%>
+     	    <td align="left">
+				<select name="MARITALSTATUS" title="MARITALSTATUS Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsMaritalA.eof
+			if rsMaritalA("FCCODE")=rsSetup("MARITALSTATUS") Then %>
+					<option value="<%=rsMaritalA("FCCODE")%>" selected><%=rsMaritalA("FCNAME")%></option> 
+			<%Else%>
+					<option value="<%=rsMaritalA("FCCODE")%>"><%=rsMaritalA("FCNAME")%></option> 
+			<%End if%>
+			<%rsMaritalA.movenext
+			loop
+			End if
+			rsMaritalA.Close
+			set rsMaritalA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+
+			<td align="left"><font face="Verdana" size="1">Spouse</font></td>
+            <td align="left">
+				<input type="text" size="20" maxlength="30" name="SPOUSE" value="<%=rsSetup("SPOUSE")%>"  title="SPOUSE Character a s/d z or 1 s/d 9">
+			</td>
+		</tr>
+
+		<tr>
+            <td width="57" align="left"><font face="Verdana" size="1">Dependent Child</font></td>
+            <td width="120" align="left"><input type="text" size="20" maxlength="30" name="DEPENDENTCHILD" value="<%=rsSetup("DEPENDENTCHILD")%>"    title="DEPENDENTCHILD Character a s/d z or 1 s/d 9"></td>
+			
+			<td align="left"><font face="Verdana" size="1">Identity Card</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="IDENTITYCARD" value="<%=rsSetup("IDENTITYCARD")%>"    title="IDENTITYCARD Character a s/d z or 1 s/d 9" required></td>
+		</tr>
+		
+		<!--Job Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Job Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr> 
+            <td align="left"><font face="Verdana" size="1">Section Name</font></td>
+			<% 	Dim rsSectionA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0002' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsSectionA = Server.CreateObject("ADODB.Recordset")
+			rsSectionA.CursorType = 3
+			rsSectionA.CursorLocation = 3
+			rsSectionA.Open q, connstr
+			if not rsSectionA.eof then%>
+     	    <td align="left">
+				<select name="SECTIONNAME" title="SECTIONNAME Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsSectionA.eof
+
+			if rsSectionA("FCCODE")=rsSetup("SECTIONNAME") Then %>
+					<option value="<%=rsSectionA("FCCODE")%>" selected><%=rsSectionA("FCNAME")%></option> 
+			<%Else%>			
+					<option value="<%=rsSectionA("FCCODE")%>"><%=rsSectionA("FCNAME")%></option> 
+			<%End if%>
+			<%
+			rsSectionA.movenext
+			loop
+			End if
+			rsSectionA.Close
+			set rsSectionA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">Gang Code</font></td>
+			<td align="left">
+				<select name="GANGCODE">
+					<%cmdCallCombo "Gang",rssetup("GANGCODE"),"",""%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+		</Tr>
+
+		<tr>
+			<td align="left">Date Of Join</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="DATEOFJOIN" size="10" value="<%=rsSetup("DATEOFJOIN")%>" title="DATEOFJOIN Type Date mm/dd/yyyy" >
+			</td>
+				
+			<td align="left">Date Of Designation</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="DATEOFDESIGNATION" size="10" value="<%=rsSetup("DATEOFDESIGNATION")%>" title="DATEOFDESIGNATION Type Date mm/dd/yyyy" >
+			</td>
+		</tr>
+		
+		<tr>    
+			<td align="left"><font face="Verdana" size="1">Present Grade</font></td>
+			<% 	Dim rsPresentA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0001'  and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsPresentA = Server.CreateObject("ADODB.Recordset")
+			rsPresentA.CursorType = 3
+			rsPresentA.CursorLocation = 3
+			rsPresentA.Open q, connstr
+			if not rsPresentA.eof then%>
+     	    <td align="left">
+				<select name="PRESENTGRADE" title="PRESENTGRADE Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsPresentA.eof
+			IF RSSETUP("PRESENTGRADE")=rsPresentA("FCCODE") THEN%>
+					<option value="<%=rsPresentA("FCCODE")%>" selected><%=rsPresentA("FCNAME")%></option> 
+			<%ELSE%>
+					<option value="<%=rsPresentA("FCCODE")%>"><%=rsPresentA("FCNAME")%></option> 
+			<%END IF%>
+			<%rsPresentA.movenext
+			loop
+			End if
+			rsPresentA.Close
+			set rsPresentA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">Present Grade Detail</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" name="PRESENTGRADE_DETAIL"  value="<%=rsSetup("PRESENTGRADE_DETAIL")%>"   title="PRESENTGRADE_DETAIL Character a s/d z or 1 s/d 9"></td>
+    	</tr>
+		<tr> 
+			<td align="left"><font face="Verdana" size="1">Corp. Present Grade</font></td>
+			<%  
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0012'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsPresentA = Server.CreateObject("ADODB.Recordset")
+			rsPresentA.CursorType = 3
+			rsPresentA.CursorLocation = 3
+			rsPresentA.Open q, connstr
+			if not rsPresentA.eof then%>
+     	    <td align="left">
+				<select name="PRESENTGRADE2" title="PRESENTGRADE2 Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%Do While Not rsPresentA.eof
+				IF RSSETUP("PRESENTGRADE2")=rsPresentA("FCCODE") THEN%>
+					<option value="<%=rsPresentA("FCCODE")%>" selected><%=rsPresentA("FCNAME")%></option> 
+				<%ELSE%>
+						<option value="<%=rsPresentA("FCCODE")%>"><%=rsPresentA("FCNAME")%></option> 
+				<%END IF%>
+			<%rsPresentA.movenext
+			loop
+			End if
+			rsPresentA.Close
+			set rsPresentA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			<td align="left"><font face="Verdana" size="1">Corp. Present Grade Detail</font></td> 
+				<%  
+				q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0012'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+				Set rsPresentA = Server.CreateObject("ADODB.Recordset")
+				rsPresentA.CursorType = 3
+				rsPresentA.CursorLocation = 3
+				rsPresentA.Open q, connstr
+				if not rsPresentA.eof then%>
+				<td align="left">
+					<select name="Presentgrade_detail2" title="Presentgrade_detail2 Character a s/d z or 1 s/d 9">         
+						<option value=""></option> 
+				<%Do While Not rsPresentA.eof
+					IF RSSETUP("Presentgrade_detail2")=rsPresentA("FCCODE") THEN%>
+						<option value="<%=rsPresentA("FCCODE")%>" selected><%=rsPresentA("FCNAME")%></option> 
+					<%ELSE%>
+						<option value="<%=rsPresentA("FCCODE")%>"><%=rsPresentA("FCNAME")%></option> 
+					<%END IF%>
+				<%rsPresentA.movenext
+				loop
+				End if
+				rsPresentA.Close
+				set rsPresentA = Nothing
+				q=""
+				%>
+				</select>
+			</td>
+            
+		</Tr>
+		<tr> 
+			<td align="left"><font face="Verdana" size="1">Previous Grade</font></td>
+			<% 	Dim rsPreviousA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0001'  and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsPreviousA = Server.CreateObject("ADODB.Recordset")
+			rsPreviousA.CursorType = 3
+			rsPreviousA.CursorLocation = 3
+			rsPreviousA.Open q, connstr
+			if not rsPreviousA.eof then%>
+     	    <td align="left">
+				<select name="PREVIOUSGRADE" title="PREVIOUSGRADE Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsPreviousA.eof
+			IF rsPreviousA("FCCODE")=RSSETUP("PREVIOUSGRADE") Then%>
+					<option value="<%=rsPreviousA("FCCODE")%>" selected><%=rsPreviousA("FCNAME")%></option> 
+			<%Else%>
+					<option value="<%=rsPreviousA("FCCODE")%>"><%=rsPreviousA("FCNAME")%></option> 
+			<%End if%>
+			<%rsPreviousA.movenext
+			loop
+			End if
+			rsPreviousA.Close
+			set rsPreviousA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+            <td align="left"><font face="Verdana" size="1">Previous Grade Detail</font></td>
+            <td align="left"><input type="text" size="30" maxlength="70" name="PREVIOUSGRADE_DETAIL"  value="<%=rsSetup("PREVIOUSGRADE_DETAIL")%>"  title="PREVIOUSGRADE_DETAIL Character a s/d z or 1 s/d 9"></td>
+		</Tr>
+		<tr> 
+			<td align="left"><font face="Verdana" size="1">Corp. Previous Grade</font></td>
+			<%  
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0012'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsPresentA = Server.CreateObject("ADODB.Recordset")
+			rsPresentA.CursorType = 3
+			rsPresentA.CursorLocation = 3
+			rsPresentA.Open q, connstr
+			if not rsPresentA.eof then%>
+     	    <td align="left">
+				<select name="Previousgrade2" title="Previousgrade2 Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+				<%Do While Not rsPresentA.eof
+					IF RSSETUP("Previousgrade2")=rsPresentA("FCCODE") THEN%>
+						<option value="<%=rsPresentA("FCCODE")%>" selected><%=rsPresentA("FCNAME")%></option> 
+					<%ELSE%>
+						<option value="<%=rsPresentA("FCCODE")%>"><%=rsPresentA("FCNAME")%></option> 
+					<%END IF%>
+			<%rsPresentA.movenext
+			loop
+			End if
+			rsPresentA.Close
+			set rsPresentA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+            <td align="left"><font face="Verdana" size="1">Corp. Previous Grade Detail</font></td> 
+				<%  
+				q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0012'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+				Set rsPresentA = Server.CreateObject("ADODB.Recordset")
+				rsPresentA.CursorType = 3
+				rsPresentA.CursorLocation = 3
+				rsPresentA.Open q, connstr
+				if not rsPresentA.eof then%>
+				<td align="left">
+					<select name="Previousgrade_detail2" title="Previousgrade_detail2 Character a s/d z or 1 s/d 9">         
+						<option value=""></option> 
+				<%Do While Not rsPresentA.eof
+					IF RSSETUP("Previousgrade_detail2")=rsPresentA("FCCODE") THEN%>
+						<option value="<%=rsPresentA("FCCODE")%>" selected><%=rsPresentA("FCNAME")%></option> 
+					<%ELSE%>
+						<option value="<%=rsPresentA("FCCODE")%>"><%=rsPresentA("FCNAME")%></option> 
+					<%END IF%>
+				<%rsPresentA.movenext
+				loop
+				End if
+				rsPresentA.Close
+				set rsPresentA = Nothing
+				q=""
+				%>
+				</select>
+			</td>
+			
+		</Tr>
+		<Tr> 
+            <td align="left"><font face="Verdana" size="1">Present Rate</font></td>
+            <td align="left">
+				<input type="text" size="20" maxlength="30" name="PRESENTRATE" value="<%=rsSetup("PRESENTRATE")%>" title="PRESENTRATE Number 1 s/d 9">
+				<font color="#FF0000"> *</font>
+			</td>
+			
+            <td align="left"><font face="Verdana" size="1">Previous Rate</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="PREVIOUSRATE"  value="<%=rsSetup("PREVIOUSRATE")%>"   title="PREVIOUSRATE Number 1 s/d 9"></td>
+		</Tr>
+		  
+		<Tr> 
+            <td align="left"><font face="Verdana" size="1">Position</font></td>
+			<% 	Dim rsPositionA
+			q = "select E.POSITION,E.DESCRIPTION from  EMPPOSITION E  where fcba='" & Session("fcBA") & "'  order by E.DESCRIPTION desc"
+			Set rsPositionA = Server.CreateObject("ADODB.Recordset")
+			rsPositionA.CursorType = 3
+			rsPositionA.CursorLocation = 3
+			rsPositionA.Open q, connstr
+			if not rsPositionA.eof then%>
+     	    <td align="left">
+				<select name="POSITION" title="Position Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsPositionA.eof
+			IF rsPositionA("POSITION")=rsSetup("POSITION") Then%>
+					<option value="<%=rsPositionA("POSITION")%>" selected><%=rsPositionA("DESCRIPTION")%></option> 
+			<%Else%>
+					<option value="<%=rsPositionA("POSITION")%>"><%=rsPositionA("DESCRIPTION")%></option> 
+			<%End if%>			
+			<%rsPositionA.movenext
+			loop
+			End if
+			rsPositionA.Close
+			set rsPositionA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">Nature Type</font></td>
+			<% 	Dim rsNatureTypeA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0101'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsNatureTypeA = Server.CreateObject("ADODB.Recordset")
+			rsNatureTypeA.CursorType = 3
+			rsNatureTypeA.CursorLocation = 3
+			rsNatureTypeA.Open q, connstr
+			if not rsNatureTypeA.eof then%>
+     	    <td align="left">
+				<select name="NATURETYPE" title="NATURETYPE Character a s/d z or 1 s/d 9">  
+			<%
+			Do While Not rsNatureTypeA.eof
+			if rsNatureTypeA("FCCODE")=rsSetup("NATURETYPE") Then%>
+					<option value="<%=rsNatureTypeA("FCCODE")%>" selected><%=rsNatureTypeA("FCNAME")%></option> 
+			<%Else%>
+					<option value="<%=rsNatureTypeA("FCCODE")%>"><%=rsNatureTypeA("FCNAME")%></option> 
+			<%End if%>
+			<%rsNatureTypeA.movenext
+			loop
+			End if
+			rsNatureTypeA.Close
+			set rsNatureTypeA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+		</Tr>
+		
+		<Tr> 
+			<td align="left"><font face="Verdana" size="1">Golongan</font></td>
+			<td align="left">
+				<select name="subgrade" title="pilih golongan">         
+					<option value=""></option> 
+			<%
+			q = " SELECT p.fccode, p.fcname FROM parameter p WHERE p.parcode = 'E0010'  and fcba = '" & Session("fcBA") & "' ORDER BY p.fccode"
+			Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+			rsPrevious.Open q, connstr
+			if not rsPrevious.eof then
+				Do While Not rsPrevious.eof
+				if rsPrevious("FCCODE")=rsSetup("subgrade") Then%>
+					<option value="<%=rsPrevious("FCCODE")%>" selected><%=rsPrevious("FCNAME")%></option> 
+				<%Else%>
+					<option value="<%=rsPrevious("FCCODE")%>"><%=rsPrevious("FCNAME")%></option> 
+				<%End if%>
+			<%rsPrevious.movenext
+			loop
+			End if
+			rsPrevious.Close
+			set rsPrevious = Nothing
+			q=""
+			%>
+				</select>
+			</td>
+			<td align="left">NIK Perusahaan</td>
+			<td align="left">
+				<input type="text" maxlength="100" name="company_nik" size="30" value="<%=rsSetup("company_nik")%>" title="NIK Type [0-9] -" >
+			</td>
+		</Tr>
+		  
+		<Tr> 
+			<td align="left">Date Terminate</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="DATETERMINATE" size="10" value="<%=rsSetup("DATETERMINATE")%>" title="DATETERMINATE Type Date mm/dd/yyyy" >
+			</td>
+       <td align="left"><font face="Verdana" size="1">Employee Type</font></td>
+      <td align="left">
+         <select name="EMP_TYPE" title="Employee Type">         
+          <option value=""></option> 
+            <%
+            q = " SELECT p.fccode, p.fcname FROM parameter p WHERE p.parcode = 'E0103' and fcba = '" & Session("fcBA") & "' ORDER BY p.fccode"
+            Set rsPrevious = Server.CreateObject("ADODB.Recordset")
+            rsPrevious.Open q, connstr
+            if not rsPrevious.eof then
+              Do While Not rsPrevious.eof
+              if rsPrevious("FCCODE")=rsSetup("EMP_TYPE") Then%>
+                <option value="<%=rsPrevious("FCCODE")%>" selected><%=rsPrevious("FCNAME")%></option> 
+              <%Else%>
+                <option value="<%=rsPrevious("FCCODE")%>"><%=rsPrevious("FCNAME")%></option> 
+              <%End if%>
+            <%rsPrevious.movenext
+            loop
+            End if
+            rsPrevious.Close
+            set rsPrevious = Nothing
+            q=""
+            %>
+        </select>
+        <font color="#FF0000">*</font>
+      </td>            
+		</Tr>
+		
+		<!--BPJS Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>BPJS Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left"><font face="Verdana" size="1">BPJS Ketenagakerjaan Category</font></td>
+			<% 	Dim rsJamsostekCategoryA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0007'  and fcba='" & Session("fcBA") & "'  order by P.FCNAME desc"
+			Set rsJamsostekCategoryA = Server.CreateObject("ADODB.Recordset")
+			rsJamsostekCategoryA.CursorType = 3
+			rsJamsostekCategoryA.CursorLocation = 3
+			rsJamsostekCategoryA.Open q, connstr
+			if not rsJamsostekCategoryA.eof then%>
+     	    <td align="left">
+				<select name="JAMSOSTEKCATEGORY" title="JAMSOSTEKCATEGORY Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsJamsostekCategoryA.eof
+			if rsJamsostekCategoryA("FCCODE")=rsSetup("JAMSOSTEKCATEGORY") Then%>
+					<option value="<%=rsJamsostekCategoryA("FCCODE")%>" selected><%=rsJamsostekCategoryA("FCNAME")%></option> 
+			<%Else%>
+					<option value="<%=rsJamsostekCategoryA("FCCODE")%>"><%=rsJamsostekCategoryA("FCNAME")%></option> 
+			<%End if%>
+			<%rsJamsostekCategoryA.movenext
+			loop
+			End if
+			rsJamsostekCategoryA.Close
+			set rsJamsostekCategoryA = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+			
+			<td align="left"><font face="Verdana" size="1">BPJS Ketenagakerjaan No</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="JAMSOSTEKNO" value="<%=rsSetup("JAMSOSTEKNO")%>" title="JAMSOSTEKNO Character a s/d z or 1 s/d 9"></td>
+		</tr>
+		
+		<tr>
+			<td align="left"><font face="Verdana" size="1">BPJS Kesehatan Category</font></td>
+			<% 	Dim rsbpjskesCategoryA
+			q = "select p.fccode, p.fcname from parameter p where p.parcode = 'PAYROLL_BPJSKES' and fcba = '" & Session("fcBA") & "' order by rate_1"
+			Set rsbpjskesCategoryA = Server.CreateObject("ADODB.Recordset")
+			rsbpjskesCategoryA.CursorType = 3
+			rsbpjskesCategoryA.CursorLocation = 3
+			rsbpjskesCategoryA.Open q, connstr
+			if not rsbpjskesCategoryA.eof then%>
+     	    <td align="left">
+				<select name="txtbpjs_category" title="BPJSKESCATEGORY Character a s/d z or 1 s/d 9">         
+			<%
+			Do While Not rsbpjskesCategoryA.eof
+			if rsbpjskesCategoryA("FCCODE")=rsSetup("bpjskes_category") Then%>
+					<option value="<%=rsbpjskesCategoryA("FCCODE")%>" selected><%=rsbpjskesCategoryA("FCNAME")%></option> 
+			<%Else%>
+					<option value="<%=rsbpjskesCategoryA("FCCODE")%>"><%=rsbpjskesCategoryA("FCNAME")%></option> 
+			<%End if%>
+			<%rsbpjskesCategoryA.movenext
+			loop
+			End if
+			rsbpjskesCategoryA.Close
+			set rsbpjskesCategoryA = Nothing
+			q=""
+			%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">No BPJS Kesehatan</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="BPJSKES_NO" value="<%=rsSetup("BPJSKES_NO")%>" title="BPJSKES NO Character a s/d z or 1 s/d 9"></td>
+		</tr>
+		
+		<!--Tax Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Tax Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="57"  align="left" ><font face="Verdana" size="1">Calculate Tax</font></td>
+            <td width="120" align="left">
+				<select name="INCLUDEDTAXCALCULATION" title="True/False">
+					<%IF rsSetup("INCLUDEDTAXCALCULATION") = "TRUE" THEN %>
+					<Option value="TRUE" selected>True</Option>
+					<Option value="FALSE">False</Option>
+					<%else%>
+					<Option value="TRUE">True</Option>
+					<Option value="FALSE" selected>False</Option>
+					<%end if%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">NPWP</font></td>
+            <td align="left"><input type="text" size="20" maxlength="30" name="NPWP" value="<%=rsSetup("NPWP")%>"  title="Nomor Pokok Wajib Pajak"></td>
+		</tr>
+		
+		<Tr>
+            <td width="57"  align="left" ><font face="Verdana" size="1">Tax Status</font></td>
+			<% 	
+			q = " select p.fccode" & _
+			    "        , p.fcname" & _
+			    " from parameter p" & _
+			    " where p.parcode = 'E0006'" & _
+			    "       and fcba = '" & Session("fcBA") & "'" & _
+				"       and p.fccode <> 'NT'" & _
+			    " order by p.fccode"
+			Set rsSectionA = Server.CreateObject("ADODB.Recordset")
+			rsSectionA.CursorType = 3
+			rsSectionA.CursorLocation = 3
+			rsSectionA.Open q, connstr
+			if not rsSectionA.eof then%>
+     	    <td align="left">
+				<select name="TAXSTATUS" title="TAXSTATUS Character a s/d z or 1 s/d 9">         
+					<option value=""></option> 
+			<%
+			Do While Not rsSectionA.eof
+
+			if rsSectionA("FCCODE")=rsSetup("TAXSTATUS") Then %>
+					<option value="<%=rsSectionA("FCCODE")%>" selected><%=rsSectionA("FCNAME")%></option> 
+			<%Else%>			
+					<option value="<%=rsSectionA("FCCODE")%>"><%=rsSectionA("FCNAME")%></option> 
+			<%End if%>
+			<%
+			rsSectionA.movenext
+			loop
+			End if
+			rsSectionA.Close
+			set rsSectionA = Nothing
+			q=""
+			%>
+				</select> 
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">PPh 21 Paid By Company</font></td>
+            <td width="120" align="left">
+				<select name="TAXPAIDBYCOMPANY" title="True/False">
+					<%IF rsSetup("TAXPAIDBYCOMPANY") = "TRUE" THEN %>
+					<Option value="TRUE" selected>True</Option>
+					<Option value="FALSE">False</Option>
+					<%else%>
+					<Option value="TRUE">True</Option>
+					<Option value="FALSE" selected>False</Option>
+					<%end if%>
+				</select>
+				<font color="#FF0000">*</font>
+			</td>
+          </Tr>
+		
+		
+		<!--Bank Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Bank Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="57"  align="left" ><font face="Verdana" size="1">Payment Type</font></td>
+			
+			<% 
+			q = "select P.FCCODE,P.FCNAME from  PAYMENTTYPE P "
+			
+			Set rsPayment = Server.CreateObject("ADODB.Recordset")
+			rsPayment.CursorType = 3
+			rsPayment.CursorLocation = 3
+			rsPayment.Open q, connstr
+			if not rsPayment.eof then%>
+     	    <td align="left"> 
+				<select name="PAYMENTTYPE" title="PAYMENTTYPE Transfer Or Non Transfer">         
+					<option value=""></option> 
+					<%
+					Do While Not rsPayment.eof
+
+					if rsPayment("FCCODE")=rsSetup("PAYMENTTYPE") Then %>
+					<option value="<%=rsPayment("FCCODE")%>" selected><%=rsPayment("FCNAME")%></option> 
+					<%Else%>			
+					<option value="<%=rsPayment("FCCODE")%>"><%=rsPayment("FCNAME")%></option> 
+					<%End if%>
+					<%
+					rsPayment.movenext
+					loop
+					End if
+					rsPayment.Close
+					set rsPayment = Nothing
+					q=""
+					%>
+				</select> 
+				<font color="#FF0000">*</font>
+			</td>
+			
+			<td align="left"><font face="Verdana" size="1">Bank Name</font></td>
+            <td align="left"><input type="text" size="20" maxlength="50" name="BANKNAME"  value="<%=rsSetup("BANKNAME")%>" title="BANKNAME Character a s/d z or 1 s/d 9"></td>
+		</tr>
+		<Tr> 
+            <td align="left"><font face="Verdana" size="1">Account No</font></td>
+            <td align="left"><input type="text" size="20" maxlength="40" name="ACCOUNTNO"  value="<%=rsSetup("ACCOUNTNO")%>" title="ACCOUNT NO Character a s/d z or 1 s/d 9"></td>
+			
+			<td align="left"><font face="Verdana" size="1">Ownership Of Account </font></td>
+            <td align="left"><input type="text" size="20" maxlength="50" name="OWNERSHIPOFACCOUNT"  value="<%=rsSetup("OWNERSHIPOFACCOUNT")%>" title="Ownership Of Account Character a s/d z or 1 s/d 9"></td>
+		</Tr>
+
+		<!--Presentrate Histori Information-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="4">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Presentrate Histori Information</strong></font>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			   <table class="data">
+				
+					<tr bgcolor="#0C5B24" style="color:#fff;" >
+						<td align="left">NO</td>
+						<td colspan="2">&nbsp;</td>
+						<td align="left">Bulan</td>	
+						<td align="left">Tahun</td>	
+						<td align="left">Nik - Name</td>	
+						<td align="left">Section</td>	
+						<td align="left">Presen Grade</td>	
+						<td align="left">Presen Rate</td>	
+					</tr>
+					<%
+						dim sqldata,rsdata 
+						set rsdata = server.CreateObject("Adodb.recordset")
+						sqldata = "select year,month,fccode ||' - ' || fcname fccode,sectionname,presentgrade,presentrate " & _ 
+						" from employee_hist_Tab " & _  
+						" where fccode='" & rsSetup("fccode") & "' and fcba='" & Session("fcBA") & "' " & _ 
+						" ORDER BY YEAR DESC"
+						rsdata.CursorType = 3
+						rsdata.CursorLocation = 3
+						rsdata.Open sqldata, connstr
+
+						 if Not rsdata.eof then
+							no=1
+							While Not rsdata.EOF
+					%>
+					<tr>
+						<td align="left"><%=no%></td>
+						<td colspan="2">&nbsp;</td>
+						<td align="center"><%=rsdata("month")%></td>	
+						<td align="left"><%=rsdata("year")%></td>	
+						<td align="left"><%=rsdata("fccode")%></td>	
+						<td align="left"><%=rsdata("sectionname")%></td>	
+						<td align="left"><%=rsdata("presentgrade")%></td>	
+						<td align="right"><%=formatnumber(rsdata("presentrate"),0)%></td>	
+					</tr>
+					<%
+						 	rsdata.MoveNext
+							no=no+1
+							Wend
+						end if 
+						rsdata.Close
+						set rsdata = Nothing 
+
+					%>
+				</table>
+		</tr>
+		<br/>
+		
+<%end if%>
+      <%Elseif Request("txttable") ="Allowded" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+		  <TR> 
+            <td colspan="2" align="center"><font size="2" face="Verdana" ><center><strong>MAINTENANCE ALLOWANCE DEDUCTION </strong></center></font></div></td>
+          </TR>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCCODE"  title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font> </td>
+            <td width="149" align="left"><font face="Verdana" size="1">Description</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30" name="FCNAME" title="FCNAME Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font></td>
+          </Tr>        
+		  <td width="189" align="left"><font face="Verdana" size="1">Allowance/Deduction</font></td>
+            <td align="left"><select name="ALLDED" title="ALLDED Character a s/d z or 1 s/d 9">
+                <Option value="A">Allowance</Option>
+                <Option value="D">Deduction</Option>
+              </select></td>
+			  
+            <td width="149" align="left"><font face="Verdana" size="1">Group</font></td>
+			<% 	Dim rsGroup
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0009'  and fcBA='" &  Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsGroup = Server.CreateObject("ADODB.Recordset")
+			rsGroup.CursorType = 3
+			rsGroup.CursorLocation = 3
+			rsGroup.Open q, connstr
+			if not rsGroup.eof then%>
+     	    <td align="left"> <select name="ALLDED_GROUP" title="Group Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%			Do While Not rsGroup.eof%>
+				<option value="<%=rsGroup("FCCODE")%>"><%=rsGroup("FCNAME")%></option> 
+			<%rsGroup.movenext
+			loop
+			End if
+			rsGroup.Close
+			set rsGroup = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+			</Tr>		 
+ 			<tr>
+            <td align="left"><font face="Verdana" size="1">Crop</font></td>
+			<% 	Dim rsCrop
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0005'  and fcBA='" &  Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsCrop = Server.CreateObject("ADODB.Recordset")
+			rsCrop.CursorType = 3
+			rsCrop.CursorLocation = 3
+			rsCrop.Open q, connstr
+			if not rsCrop.eof then%>
+     	    <td align="left"> <select name="CROP" title="Crop Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%			Do While Not rsCrop.eof%>
+				<option value="<%=rsCrop("FCCODE")%>"><%=rsCrop("FCNAME")%></option> 
+			<%rsCrop.movenext
+			loop
+			End if
+			rsCrop.Close
+			set rsCrop = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROL_JOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",fccode,"",""%>
+              </select> <font color="#FF0000">*</font> </td>
+			</tr>
+			<tr>
+            <td width="189" align="left"><font face="Verdana" size="1">Manual/Auto</font></td>
+            <td align="left"><select name="MAN_AUTO" title="MAN_AUTO Character a s/d z or 1 s/d 9">
+                <Option value="A">Auto</Option>
+                <Option value="M">Manual</Option>
+              </select></td>
+			</tr>			
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Type 1</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10" name="TYPE_1" title="TYPE_1 Character a s/d z or 1 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Type 2</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10" name="TYPE_2"  title="TYPE_2 Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Type 3</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10" name="TYPE_3" title="TYPE_3 Character a s/d z or 1 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Type 4</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10" name="TYPE_4"  title="TYPE_4 Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Minimum Value</font></td>
+            <td align="left"><input type="text" size="10" name="MIN_AMT"   title="MIN_AMT Number 0 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Maximum Value</font></td>
+            <td align="left"><input type="text" size="10"  name="MAX_AMT"   title="MAX_AMT Number 0 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Rate 1</font></td>
+            <td align="left"><input type="text" size="10" name="RATE_1"   title="RATE_1 Number 0 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Rate 2</font></td>
+            <td align="left"><input type="text" size="10" name="RATE_2" title="RATE_2 Number s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Rate 3</font></td>
+            <td align="left"><input type="text" size="10" name="RATE_3"   title="RATE_3 Number 0 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Rate 4</font></td>
+            <td align="left"><input type="text" size="10" name="RATE_4"   title="RATE_4 Number s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="40" maxlength="150" name="REMARKS"   title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+	<%Else%>
+		  <TR> 
+            <td colspan="2" align="center"><font size="2" face="Verdana" ><center><strong>MAINTENANCE ALLOWANCE DEDUCTION </strong></center></font></div></td>
+          </TR>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCCODE" value="<%=rsSetup("FCCODE")%>" readonly="True" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font> </td>
+            <td width="149" align="left"><font face="Verdana" size="1">Description</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30" name="FCNAME" value="<%=rsSetup("FCNAME")%>" readonly="True" title="FCNAME Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font></td>
+          </Tr>
+		  <Tr>
+		  <td width="189" align="left"><font face="Verdana" size="1">Allowance/Deduction</font></td>
+            <td align="left"><select name="ALLDED" title="ALLDED Character a s/d z or 1 s/d 9">
+				<%if rsSetup("ALLDED")="A" Then%>
+					<Option value="A" selected>Allowance</Option>
+					<Option value="D">Deduction</Option>
+				<%Else%>
+					<Option value="A">Allowance</Option>
+					<Option value="D" selected>Deduction</Option>
+				<%End if%>
+              </select></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Group</font></td>
+			<% 	Dim rsGroupA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'E0009' and  fcBA='" &  Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsGroupA = Server.CreateObject("ADODB.Recordset")
+			rsGroupA.CursorType = 3
+			rsGroupA.CursorLocation = 3
+			rsGroupA.Open q, connstr
+			if not rsGroupA.eof then%>
+     	    <td align="left"> <select name="ALLDED_GROUP" title="Group Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%Do While Not rsGroupA.eof%>
+			<%IF rsGroupA("FCCODE")=RSsETUP("ALLDED_GROUP") Then %>
+				<option value="<%=rsGroupA("FCCODE")%>" selected><%=rsGroupA("FCNAME")%></option> 
+			<%Else%>
+				<option value="<%=rsGroupA("FCCODE")%>" selected><%=rsGroupA("FCNAME")%></option> 
+			<%End If%>
+			<%rsGroupA.movenext
+			loop
+			End if
+			rsGroupA.Close
+			set rsGroupA = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+            </Tr>
+			<tr>
+            <td align="left"><font face="Verdana" size="1">Crop</font></td>
+			<% 	Dim rsCropA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0005' and fcBA='" &  Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsCropA = Server.CreateObject("ADODB.Recordset")
+			rsCropA.CursorType = 3
+			rsCropA.CursorLocation = 3
+			rsCropA.Open q, connstr
+			if not rsCropA.eof then%>
+     	    <td align="left"> <select name="CROP" title="Crop Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%Do While Not rsCropA.eof%>
+			<%if rsCropA("FCCODE")=rsSetup("CROP") Then%>
+				<option value="<%=rsCropA("FCCODE")%>" selected><%=rsCropA("FCNAME")%></option> 
+			<%Else%>
+				<option value="<%=rsCropA("FCCODE")%>"><%=rsCropA("FCNAME")%></option> 
+			<%End if%>
+			<%rsCropA.movenext
+			loop
+			End if
+			rsCropA.Close
+			set rsCropA = Nothing
+			q=""
+			%>
+
+			</select> <font color="#FF0000">*</font></td>
+            <td align="left"><font face="Verdana" size="1">Control Job</font></td>
+            <td align="left"> <select name="CONTROL_JOB" title="CONTROLJOB Character a s/d z or 1 s/d 9">
+                <%cmdCallCombo "Job",rsSetup("CONTROL_JOB"),"",""%>
+              </select> <font color="#FF0000">*</font> </td>
+			</tr>
+
+			<tr>
+            <td width="189" align="left"><font face="Verdana" size="1">Manual/Auto</font></td>
+            <td align="left"><select name="MAN_AUTO" title="MAN_AUTO Character a s/d z or 1 s/d 9">
+			<%if rsSetup("MAN_AUTO")="A" Then%>
+                <Option value="A" selected>Auto</Option>
+                <Option value="M">Manual</Option>
+			<%Else%>
+                <Option value="A">Auto</Option>
+                <Option value="M" selected>Manual</Option>
+			<%End if%>
+              </select></td>
+			</tr>			
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Type 1</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10" name="TYPE_1" value="<%=rsSetup("TYPE_1")%>" title="TYPE_1 Character a s/d z or 1 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Type 2</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10" name="TYPE_2" value="<%=rsSetup("TYPE_2")%>" title="TYPE_2 Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Type 3</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10" name="TYPE_3" value="<%=rsSetup("TYPE_3")%>" title="TYPE_3 Character a s/d z or 1 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Type 4</font></td>
+            <td align="left"><input type="text" size="10" maxlength="10" name="TYPE_4" value="<%=rsSetup("TYPE_4")%>" title="TYPE_4 Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Minimum Value</font></td>
+            <td align="left"><input type="text" size="10" name="MIN_AMT" value="<%=rsSetup("MIN_AMT")%>"  title="MIN_AMT Number 0 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Maximum Value</font></td>
+            <td align="left"><input type="text" size="10"  name="MAX_AMT" value="<%=rsSetup("MAX_AMT")%>"   title="MAX_AMT Number 0 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Rate 1</font></td>
+            <td align="left"><input type="text" size="10" name="RATE_1" value="<%=rsSetup("RATE_1")%>"   title="RATE_1 Number 0 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Rate 2</font></td>
+            <td align="left"><input type="text" size="10" name="RATE_2"value="<%=rsSetup("RATE_2")%>" title="RATE_2 Number s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Rate 3</font></td>
+            <td align="left"><input type="text" size="10" name="RATE_3" value="<%=rsSetup("RATE_3")%>"  title="RATE_3 Number 0 s/d 9"></td>
+            <td align="left"><font face="Verdana" size="1">Rate 4</font></td>
+            <td align="left"><input type="text" size="10" name="RATE_4" value="<%=rsSetup("RATE_4")%>"  title="RATE_4 Number s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td align="left"><input type="text" size="40" maxlength="150" name="REMARKS" value="<%=rsSetup("REMARKS")%>"  title="REMARKS Character a s/d z or 1 s/d 9"></td>
+          </Tr>
+
+
+    <%End If%>
+	
+	<%elseif Request("txttable") ="UntaxableIncome" then%>
+	
+	 <tr><td colspan="4"><div align="left"><font size="2" face="Verdana"><strong>UNTAXABLE INCOME</strong></font></div><br/></td></tr>	  
+		<%if Request("txtJenis") <> "Edit" then%>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Tax Code</font></td>
+            <td width="180" align="right"><input type="text" size="20" maxlength="30"  name="MARITALSTATUSCODE" title="CODE Character a s/d z or 1 s/d 9">
+			</td>
+			<td width="100" align="left" style="padding-left:0px;" >
+			<font color="#FF0000" style="paddung-top:10px;">&nbsp*</font>
+			<a href="javascript:launchwin('PrintData.Asp?txtModule=Data Master&txtTable=<%=Request("txttable")%>&txtSearch=<%=txtSearch%>&txtField=<%=txtField%>&Mode=Print','newwindow','width='+(700)+',height='+(505)+',screenX=0,screenY=0,directories=0,fullscreen=0,location=0,menubar=0,scrollbars=1,status=0,toolbar=1')"><font face="Verdana"   size="1"> Tax Code</a>
+			</td>
+			<td width="70" align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td valign="top" rowspan="7" width="180" align="left"><textarea style="width:470px; height:275px; max-width:470px; max-height:195px;"  name="REMARKS" title="CODE Character a s/d z or 1 s/d 9"></textarea></td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Name</font></td>
+            <td width="180" align="right"><input type="text" size="20" maxlength="30"  name="FCNAME" title="CODE Character a s/d z or 1 s/d 9"></td>
+			<td width="100" align="left" style="padding-left:0px;" >
+			<font color="#FF0000">&nbsp*</font> 
+			</td>
+		</tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Uti Employee</font></td>
+            <td width="180" align="right"><input class="numeric" type="text" size="20" maxlength="30"  name="UTI_EMPLOYEE" title="CODE Numeric 0 s/d 9"></td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Uti Spouse</font></td>
+            <td width="180" align="right"><input class="numeric" type="text" size="20" maxlength="30"  name="UTI_SPOUSE" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Uti Child</font></td>
+            <td width="180" align="right"><input class="numeric" type="text" size="20" maxlength="30"  name="UTI_CHILD" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Uti Child</font></td>
+            <td width="180" align="right"><input class="numeric" type="text" size="20" maxlength="30"  name="UTI_CHILD" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr>
+		<td colspan="4" content=" "> </td>
+		</tr>
+		
+		<%else%>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Marital Status Code</font></td>
+            <td width="180" align="left"><%=rsSetup("MARITALSTATUSCODE")%>
+			<input type="hidden" size="20" maxlength="30"  name="MARITALSTATUSCODE" value="<%=rsSetup("MARITALSTATUSCODE")%>"  >
+			</td>
+			<td width="70" align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td valign="top" rowspan="7" width="180" align="left"><textarea style="width:470px; height:275px; max-width:470px; max-height:195px;"  name="REMARKS" title="CODE Character a s/d z or 1 s/d 9"><%=rsSetup("REMARKS")%></textarea></td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Name</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCNAME" value="<%=rsSetup("FCNAME")%>" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Uti Employee</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="UTI_EMPLOYEE" value="<%=rsSetup("UTI_EMPLOYEE")%>" title="CODE Numeric 0 s/d 9"></td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Uti Spouse</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="UTI_SPOUSE" value="<%=rsSetup("UTI_SPOUSE")%>" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Uti Child</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="UTI_CHILD" value="<%=rsSetup("UTI_CHILD")%>" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr>
+		<td colspan="4" content=" "> </td>
+		</tr>
+		
+		<%end if%>
+  <%elseif Request("txttable") ="RangeTaxGroup" then%>
+	 <tr><td colspan="4"><div align="left"><font size="2" face="Verdana"><strong>RANGE TAX GROUP</strong></font></div><br/></td></tr>	  
+	<%if Request("txtJenis") <> "Edit" then%>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCCODE" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+			<td width="70" align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td valign="top" rowspan="5" width="180" align="left"><textarea style="width:470px; height:275px; max-width:470px; max-height:275px;"  name="REMARKS" title="CODE Character a s/d z or 1 s/d 9"></textarea></td>
+		</tr> 
+		 <tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Name</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCNAME" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Range From</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="RANGEFROM" title="CODE Numeric 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Range Until</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="RANGEUNTIL" title="CODE Numeric 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Tariff Percentage</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="TARIFFPERCENTAGE" title="CODE Numeric 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr>
+	
+	<%ELSE%>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+            <td width="180" align="left"><%=rsSetup("FCCODE")%>
+			<input type="hidden" size="20" maxlength="30"  name="FCCODE" title="CODE Character a s/d z or 1 s/d 9" value="<%=rsSetup("FCCODE")%>"></td>
+            <td width="70" align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td valign="top" rowspan="5" width="180" align="left"><textarea style="width:470px; height:275px; max-width:470px; max-height:190px;"  name="REMARKS" title="CODE Character a s/d z or 1 s/d 9"><%=rsSetup("REMARKS")%></textarea></td>
+		
+		</tr> 
+		 <tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Name</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30" value="<%=rsSetup("FCNAME")%>"  name="FCNAME" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">&nbsp*</font></td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Range From</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30" value="<%=rsSetup("RANGEFROM")%>"  name="RANGEFROM" title="CODE Numeric 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Range Until</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30" value="<%=rsSetup("RANGEUNTIL")%>"  name="RANGEUNTIL" title="CODE Numeric 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Tariff Percentage</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30" value="<%=rsSetup("TARIFFPERCENTAGE")%>"  name="TARIFFPERCENTAGE" title="CODE Numeric 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr
+	
+	
+	
+	<%END IF%>
+	
+  <%elseif Request("txttable") ="MaritalStatus" then%>
+	 <tr><td colspan="4"><div align="left"><font size="2" face="Verdana"><strong>MARITAL STATUS</strong></font></div><br/></td></tr>	  
+	<%if Request("txtJenis") <> "Edit" then%>
+	
+	   <tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCCODE" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr> 
+		 <tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Name</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCNAME" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">&nbsp*</font> </td>
+        </tr> 
+	
+	<%ELSE%>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+            <td width="180" align="left"><%=rsSetup("FCCODE")%>
+			<input type="hidden" size="20" maxlength="30"  name="FCCODE" title="CODE Character a s/d z or 1 s/d 9" value="<%=rsSetup("FCCODE")%>"></td>
+        </tr> 
+		 <tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Name</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30" value="<%=rsSetup("FCNAME")%>"  name="FCNAME" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">&nbsp*</font></td>
+        </tr>
+	
+	<%END IF%>
+		
+  <%elseif Request("txttable") ="EmployeeAllowdedDetail" then%>
+	 <tr><td colspan="4"><div align="left"><font size="2" face="Verdana"><strong>EMPLOYEE ALLOWDED DETAIL</strong></font></div><br/></td></tr>	  
+	<%if Request("txtJenis") <> "Edit" then%>
+		<tr>
+            <td width="189" align="left"><font face="Verdana" size="1">Employee Code</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="EMPLOYEECODE" value="<%=Request("EMPLOYEECODE")%>" title="CODE Character 0 s/d 9"><font color="#FF0000" style="paddung-top:10px;">&nbsp*</font> </td>
+		</tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Allowance / Deduction</font></td>
+            <td width="330" align="left">
+			<select name="ALLOWDEDCODE" title="ALLOWDED CODE Character a s/d z or 1 s/d 9">
+			<option value=""<%If request("ALLOWDEDCODE") = "" then%> Selected <%End If%>></option>
+								<%
+								Dim rsAllowded, strAllowded
+								strAllowded = " select fccode, fcname" & _
+								              " from parameter" & _
+											  " where parcode = 'PAYROLL_FIXED'" & _
+											  "       and fcba = '" & session("fcba") & "'" & _
+											  "       and ALLOWDED_API.GetIncludedPayrollProcessing(fccode, fcba) = 'TRUE'" & _
+											  " order by rate_1"
+								
+								Set rsAllowded = Server.CreateObject("ADODB.Recordset")
+								rsAllowded.Open strAllowded, connstr
+								
+								if not rsAllowded.eof then
+								Do While Not rsAllowded.eof
+								if rsAllowded("FCCODE") = request("ALLOWDEDCODE") then%>
+								<option value="<%=rsAllowded("FCCODE")%>" Selected><%=rsAllowded("FCCODE")%> : <%=rsAllowded("FCname")%></option> 
+								<%Else%>
+								<option value="<%=rsAllowded("FCCODE")%>"><%=rsAllowded("FCCODE")%> : <%=rsAllowded("FCname")%></option>  
+								<%End if
+									rsAllowded.movenext
+								loop
+								end if
+								rsAllowded.Close
+								set rsAllowded = Nothing
+								%>
+
+			</select><span><font color="#FF0000">&nbsp*</font></span></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 1</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="RATE_1"  title="CODE Numeric 0 s/d 9"></td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 2</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="RATE_2" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 3</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="RATE_3" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 4</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="RATE_4" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 5</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30"  name="RATE_5" title="CODE Numeric 0 s/d 9"></td>
+        </tr>
+		<tr>
+		<td width="70" align="left" valign="top"><font face="Verdana" size="1" style="margin-top:5px;">Remarks</font></td>
+        <td valign="top" width="180" align="left"><textarea style="width:470px; height:50px; max-width:300px; max-height:275px;"  name="REMARKS" title="CODE Character a s/d z or 1 s/d 9"></textarea></td>
+        </tr>
+		<tr>
+		<td colspan="4" content=" "> </td>
+		</tr>		
+	
+	<%ELSE %>
+		
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Employee Code</font></td>
+            <td width="180" align="left">
+				<input type="text" size="20" maxlength="30" value="<%=rsSetup("EMPLOYEECODE")%>" name="EMPLOYEECODE" readonly="True" style="background-color: #bdbdbd;" title="CODE Character 0 s/d 9" >
+			</td>
+			
+			<td width="70" align="left"><font face="Verdana" size="1">Remarks</font></td>
+            <td valign="top" rowspan="7" width="180" align="left"><textarea style="width:470px; height:275px; max-width:470px; max-height:275px;"  name="REMARKS" title="CODE Character a s/d z or 1 s/d 9"><%=rsSetup("REMARKS")%></textarea></td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Allowance / Deduction</font></td>
+            <td width="180" align="left">
+			<input type="text" size="20" maxlength="30" value="<%=rsSetup("ALLOWDEDCODE")%>" name="ALLOWDEDCODE" readonly="True" style="background-color: #bdbdbd;" title="CODE Character a s/d z or 1 s/d 9" ></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 1</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30" value="<%=rsSetup("RATE_1")%>" name="RATE_1" title="CODE Numeric 0 s/d 9"></td>
+        </tr>
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 2</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30" value="<%=rsSetup("RATE_2")%>" name="RATE_2" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 3</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30" value="<%=rsSetup("RATE_3")%>" name="RATE_3" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 4</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30" value="<%=rsSetup("RATE_4")%>" name="RATE_4" title="CODE Numeric 0 s/d 9"></td>
+        </tr> 
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Rate 5</font></td>
+            <td width="180" align="left"><input class="numeric" type="text" size="20" maxlength="30" value="<%=rsSetup("RATE_5")%>" name="RATE_5" title="CODE Numeric 0 s/d 9"></td>
+        </tr>
+		<tr>
+		<td colspan="4" content=" "> </td>
+		</tr>	
+	<%END IF %>
+   <%elseif Request("txttable") ="Field" then%>
+  <%Dim rsHarvestingSection, strHarvestingSection%>
+  <%if Request("txtJenis") <> "Edit" then%>
+		<TR> 
+			<td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE FIELD</strong></font></div></td>
+		</TR>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Period</font></td>
+			<td width="180" align="left"><input  type="text" size="2" maxlength="2"  value=<%=month(date)%> name="MONTH" id="MONTH"><input  type="text" size="4" maxlength="4"  value=<%=year(date)%> name="YEAR" id="YEAR"> <font color="#FF0000"><font color="#FF0000">*</font>
+			</td>
+		</TR>
+		
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+			<td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCCODE" id="FCCODE" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font> </td>
+			<td width="149" align="left"><font face="Verdana" size="1">Description</font></td>
+			<td width="180" align="left"><input type="text" size="20" maxlength="70" name="FCNAME"  id="FCNAME" title="FCNAME Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Division</font></td>
+			<% 	Dim rsDIVISION
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0001' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsDIVISION = Server.CreateObject("ADODB.Recordset")
+			rsDIVISION.CursorType = 3
+			rsDIVISION.CursorLocation = 3
+			rsDIVISION.Open q, connstr
+			if not rsDIVISION.eof then%>
+			<td align="left"> <select name="DIVISION" id="DIVISION" title="DIVISION Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%			Do While Not rsDIVISION.eof%>
+				<option value="<%=rsDIVISION("FCCODE")%>"><%=rsDIVISION("FCNAME")%></option> 
+			<%rsDIVISION.movenext
+			loop
+			End if
+			rsDIVISION.Close
+			set rsDIVISION = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+		</Tr>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Hectare Planted</font></td>
+			<td width="180" align="left"><input type="text" size="20" maxlength="30"  name="HECTARAGEPLANTED" id="HECTARAGEPLANTED"    title="HECTARAGEPLANTED Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font> </td>
+
+			<td width="149" align="left"><font face="Verdana" size="1">Planting Date</font></td>
+				<td align="left"><input class="datepicker" type="text" maxlength="10" name="PLANTINGDATE" id="PLANTINGDATE" size="10" value="<%=textdate(date)%>">
+				</td>
+			<td width="149" align="left"><font face="Verdana" size="1">Status</font></td>
+			<% 	Dim rsStatus
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0006' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsStatus = Server.CreateObject("ADODB.Recordset")
+			rsStatus.CursorType = 3
+			rsStatus.CursorLocation = 3
+			rsStatus.Open q, connstr
+			if not rsStatus.eof then%>
+			<td align="left"> <select name="STATUS" id="STATUS" title="STATUS Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%			Do While Not rsStatus.eof%>
+				<option value="<%=rsStatus("FCCODE")%>"><%=rsStatus("FCNAME")%></option> 
+			<%rsStatus.movenext
+			loop
+			End if
+			rsStatus.Close
+			set rsStatus = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+		</Tr>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Crop</font></td>
+			<% 	Dim rsCropB
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0005' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsCropB = Server.CreateObject("ADODB.Recordset")
+			rsCropB.CursorType = 3
+			rsCropB.CursorLocation = 3
+			rsCropB.Open q, connstr
+			if not rsCropB.eof then%>
+			<td align="left"> <select name="CROPTYPE" id="CROPTYPE" title="CROPTYPE Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%			Do While Not rsCropB.eof%>
+				<option value="<%=rsCropB("FCCODE")%>"><%=rsCropB("FCNAME")%>(<%=rsCropB("FCCODE")%>)</option> 
+			<%rsCropB.movenext
+			loop
+			End if
+			rsCropB.Close
+			set rsCropB = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Soil</font></td>
+			<% 	Dim rsSoil
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0003' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsSoil = Server.CreateObject("ADODB.Recordset")
+			rsSoil.CursorType = 3
+			rsSoil.CursorLocation = 3
+			rsSoil.Open q, connstr
+			if not rsSoil.eof then%>
+			<td align="left"> <select name="SOILTYPE" id="SOILTYPE" title="SOILTYPE Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%			Do While Not rsSoil.eof%>
+				<option value="<%=rsSoil("FCCODE")%>"><%=rsSoil("FCNAME")%>(<%=rsSoil("FCCODE")%>)</option> 
+			<%rsSoil.movenext
+			loop
+			End if
+			rsSoil.Close
+			set rsSoil = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Terrain</font></td>
+			<% 	Dim rsTerrain
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0002' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsTerrain = Server.CreateObject("ADODB.Recordset")
+			rsTerrain.CursorType = 3
+			rsTerrain.CursorLocation = 3
+			rsTerrain.Open q, connstr
+			if not rsTerrain.eof then%>
+			<td align="left"> <select name="TERRAINTYPE" id="TERRAINTYPE" title="TERRAINTYPE Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%			Do While Not rsTerrain.eof%>
+				<option value="<%=rsTerrain("FCCODE")%>"><%=rsTerrain("FCNAME")%>(<%=rsTerrain("FCCODE")%>)</option> 
+			<%rsTerrain.movenext
+			loop
+			End if
+			rsTerrain.Close
+			set rsTerrain = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+		</Tr>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Planting Material</font></td>
+			<td width="180" align="left"><input type="text" size="20" maxlength="70"  name="PLANTINGMATERIAL" id="PLANTINGMATERIAL" title="PLANTINGMATERIAL Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font> </td>
+			<td width="149" align="left"><font face="Verdana" size="1">Total Stand</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="TOTALSTAND"  id="TOTALSTAND"  title="TOTALSTAND Numeric 0 s/d 9"><font color="#FF0000">*</font></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Ownership</font></td>
+			<% 	Dim rsOwnership
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0004' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsOwnership = Server.CreateObject("ADODB.Recordset")
+			rsOwnership.CursorType = 3
+			rsOwnership.CursorLocation = 3
+			rsOwnership.Open q, connstr
+			if not rsOwnership.eof then%>
+			<td align="left"> <select name="OWNERSHIP" id="OWNERSHIP" title="OWNERSHIP Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%			Do While Not rsOwnership.eof%>
+				<option value="<%=rsOwnership("FCCODE")%>"><%=rsOwnership("FCNAME")%></option> 
+			<%rsOwnership.movenext
+			loop
+			End if
+			rsOwnership.Close
+			set rsOwnership = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+		</Tr>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Main Road</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="MAIN_ROAD" id="MAIN_ROAD" title="MAIN_ROAD Numeric 0 s/d 9"> </td>
+			<td width="149" align="left"><font face="Verdana" size="1">Collection Road</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="COLLECTIONROAD" id="COLLECTIONROAD" title="COLLECTIONROAD Numeric 0 s/d 9"></td>
+		</Tr>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Main Drain</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="MAINDRAIN" id="MAINDRAIN"  title="MAINDRAIN Numeric 0 s/d 9"></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Collection Drain</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="COLLECTIONDRAIN" id="COLLECTIONDRAIN" title="COLLECTIONDRAIN Numeric s/d 9"></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Subsidiary Drain</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="SUBSIDIARYDRAIN" id="SUBSIDIARYDRAIN" title="SUBSIDIARYDRAIN Numeric 0 s/d 9"></td>
+		</Tr>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Permanen Bridge</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="PERMANENTBRIDGE" id="PERMANENTBRIDGE" title="PERMANENTBRIDGE Numeric 0 s/d 9"></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Wood Bridge</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="WOODBRIDGE" id="WOODBRIDGE" title="WOODBRIDGE Numeric 0 s/d 9"></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Buist</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="BUIST" id="BUIST" title="BUIST Numeric 0 s/d 9"></td>
+		</Tr>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Collection Point</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="COLLECTIONPOINT" id="COLLECTIONPOINT" title="COLLECTIONPOINT Numeric 0 s/d 9"></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Harvesting Bridge</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="HARVESTINGBRIDGE" id="HARVESTINGBRIDGE" title="HARVESTINGBRIDGE Numeric 0 s/d 9"></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Owlnest</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="OWLNEST" id="OWLNEST" title="OWLNEST Numeric s/d 9"></td>
+		</Tr>
+		<Tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Previous Semester ABW</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="PREVSEMESTER_ABW"  id="PREVSEMESTER_ABW" title="PREVSEMESTER_ABW Numeric 0 s/d 9"></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Present Semester ABW</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="PRESSEMESTER_ABW" id="PRESSEMESTER_ABW"  title="PRESSEMESTER_ABW Numeric 0 s/d 9"></td>
+			<td width="149" align="left"><font face="Verdana" size="1">Harvesting Based ABW</font></td>
+			<td width="180" align="left"><input type="text" size="20" name="HARVESTINGBASED_ABW" id="HARVESTINGBASED_ABW"   title="HARVESTINGBASED_ABW Numeric 0 s/d 9"></td>
+		</Tr>
+		<Tr> 
+			<td align="left">
+			Koperasi		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_01" id="FIELD_INFO_01" value=""  title="FIELD_INFO">	
+			</td>
+			<td align="left">
+			Field info 02		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_02" id="FIELD_INFO_02" value=""  title="FIELD_INFO">		
+			</td>
+			<td align="left">
+			Field info 03		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_03" id="FIELD_INFO_03" value=""  title="FIELD_INFO">		
+			</td>
+		</Tr>
+		<Tr> 
+			<td align="left">
+			Field info 04		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_04" id="FIELD_INFO_04" value=""  title="FIELD_INFO">		
+			</td>
+			<td align="left">
+			Field info 05		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_05" id="FIELD_INFO_05" value=""  title="FIELD_INFO">		
+			</td>
+			<td align="left">
+			Isactive Harvested		
+			</td>
+			<td align="left">
+			
+			<select width="100" name="ISACTIVE_HARVESTED"  id="ISACTIVE_HARVESTED" title="Isactive Harvested">	
+				<option disabled selected>--- No Select ---</option>
+				<option value="TRUE">True</option>
+				<option value="FALSE">False</option>
+
+			</select>				
+			</td>
+		</Tr>
+		<tr> 
+			<td align="left"><font face="Verdana" size="1">Activation</font></td>
+			<td align="left"><select name="ACTIVATION" id="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+				<Option value="Y">Yes</Option>
+				<Option value="N">No</Option>
+			</select></td>
+		
+				
+				<td align="left"><font face="Verdana" size="1">Valid From</font>
+				</td>
+				<td align="left">
+				<input class="datepicker" type="text" size="20" name="VALID_FROM" id="VALID_FROM" value="<%=textdate(date)%>"  title="VALID FROM">	
+				</td>
+		</tr>
+		
+		<!--Panen Info-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="6">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Informasi Panen</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left"><font face="verdana" size="1">HARVESTING SECTION</font></td>
+			<td align="left">
+				<select name="HARVESTINGSECTION" id="HARVESTINGSECTION">
+					<option value = "" <%If Len(Trim(Request("HARVESTINGSECTION"))) = 0 then%> Selected <%End If%>>OTHERS</option>
+					<%
+					strHarvestingSection = " SELECT distinct FCCODE, FCNAME FROM HARVESTINGGROUP" & _
+										" WHERE FCBA = '" & Session("FCBA") & "'" & _
+										" ORDER BY FCCODE"
+					
+					Set rsHarvestingSection = Server.CreateObject("ADODB.Recordset")
+					rsHarvestingSection.Open strHarvestingSection, connstr, 3, 3 
+					
+					if not rsHarvestingSection.eof then
+					Do While Not rsHarvestingSection.eof
+					%>
+
+					<option value="<%=rsHarvestingSection("FCCODE")%>" <% If Request("HARVESTINGSECTION") = rsHarvestingSection("FCCODE") Then %> Selected <%End if%>><%=rsHarvestingSection("FCNAME")%></option> 
+					<%
+						rsHarvestingSection.movenext
+					loop
+					end if
+					strHarvestingSection = ""
+					rsHarvestingSection.Close
+					set rsHarvestingSection = Nothing
+					%>
+				</select>
+			</td>
+			
+			<td align="left"><font face="verdana" size="1">HARVESTING SECTION NUMBER</font></td>
+			<td align="left">
+				<select name="HARVESTINGSECTIONNUMBER" id="HARVESTINGSECTIONNUMBER">
+					<option value = "" <%If "" & Request("HARVESTINGSECTIONNUMBER") = "" then%> Selected <%End If%>></option>
+					<% for i=1 to 6%>
+
+					<option value="<%=i%>" <% If Request("HARVESTINGSECTIONNUMBER") = cint(i) Then %> Selected <%End if%>><%=cint(i)%></option> 
+					<%next%>
+				</select>
+			</td>
+	<td align="left"><font face="verdana" size="1">Planting Point</font></td>
+	<td align="left">
+		<input type="text" size="20" maxlength="30" name="plantingpoint" id="plantingpoint"  onkeypress="return harusangka(event);">
+	</td>
+		</tr>
+		
+		<tr> 
+			<td width="189" align="left"><font face="Verdana" size="1">Hectare Harvested</font></td>
+			<td width="180" align="left">
+				<input type="text" size="20" maxlength="30" name="hectarageharvested" id="hectarageharvested" title="HECTARAGE HARVESTED Character 1 s/d 9" onkeypress="return harusangka(event);">
+			</td>
+			
+			<td width="189" align="left"><font face="Verdana" size="1">Productive Stand</font></td>
+			<td width="180" align="left">
+				<input type="text" size="20" maxlength="30" name="productivestand" id="productivestand" title="PRODUCTIVE STAND Character 1 s/d 9" onkeypress="return harusangka(event);">
+			</td>
+		<td width="189" align="left"><font face="Verdana" size="1">Fullstand</font></td>
+		<td width="180" align="left">
+		<select width="100" name="Fullstand"  id="Fullstand" title="Fullstand">  
+			<%if rsSetup.RecordCount <> 0 Then %>	
+			<%if rsSetup("Fullstand")="TRUE" THEN %>
+				<Option value="TRUE" selected>True</Option>
+				<Option value="FALSE">False</Option>
+			<%Elseif rsSetup("Fullstand") ="FALSE" THEN  %>
+				<Option value="TRUE">True</Option>
+				<Option value="FALSE"selected>False</Option>
+			<%else%>
+			<option disabled selected>--- No Select ---</option>
+			<option value="TRUE">True</option>
+			<option value="FALSE">False</option>
+			<%End if%>
+			<%else%>
+			<Option value="TRUE" selected>True</Option>
+			<Option value="FALSE">False</Option>
+			<%End if%>
+			
+	</select>
+	</td>
+		</tr>
+			
+		<!-- Additional New Entry FieldDetail-->
+		<!--Land Use-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="6">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Land Use</strong></font>
+				</div>
+			</td>
+		</tr>
+		<Tr> 
+			<td align="left">Areal LC</td>
+			<td align="left">
+				<input type="text" size="20" name="AREAL_LC" id="AREAL_LC" value="0"  title="AREAL_LC" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Cadangan</td>
+			<td align="left">
+				<input type="text" size="20" name="CADANGAN" id="CADANGAN" value="0"  title="CADANGAN" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Okupasi</td>
+			<td align="left">
+				<input type="text" size="20" name="OKUPASI" id="OKUPASI" value="0"  title="OKUPASI" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<Tr> 
+			<td align="left">Bibitan</td>
+			<td align="left">
+				<input type="text" size="20" name="BIBITAN" id="BIBITAN" value="0"  title="BIBITAN" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Pabrik</td>
+			<td align="left">
+				<input type="text" size="20" name="PABRIK" id="PABRIK" value="0"  title="PABRIK" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Emplasmen</td>
+			<td align="left">
+				<input type="text" size="20" name="EMPLASMEN" id="EMPLASMEN" value="0"  title="EMPLASMEN" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<Tr> 
+			<td align="left">Parit</td>
+			<td align="left">
+				<input type="text" size="20" name="PARIT" id="PARIT" value="0"  title="PARIT" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Jalan</td>
+			<td align="left">
+				<input type="text" size="20" name="JALAN" id="JALAN" value="0"  title="JALAN" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Prasarana Lainnya</td>
+			<td align="left">
+				<input type="text" size="20" name="PRASARANA_LAINNYA" id="PRASARANA_LAINNYA" value="0"  title="PRASARANA_LAINNYA" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<Tr> 
+			<td align="left">Quarry</td>
+			<td align="left">
+				<input type="text" size="20" name="QUARRY" id="QUARRY" value="0"  title="QUARRY" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Tanggul</td>
+			<td align="left">
+				<input type="text" size="20" name="TANGGUL" id="TANGGUL" value="0"  title="TANGGUL" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Enclave</td>
+			<td align="left">
+				<input type="text" size="20" name="ENCLAVE" id="ENCLAVE" value="0"  title="ENCLAVE" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<Tr>
+			<td align="left">Tambang</td>
+			<td align="left">
+				<input type="text" size="20" name="TAMBANG" id="TAMBANG" value="0"  title="TAMBANG" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Konservasi</td>
+			<td align="left">
+				<input type="text" size="20" name="KONSERVASI" id="KONSERVASI" value="0"  title="KONSERVASI" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Bukit Sungai</td>
+			<td align="left">
+				<input type="text" size="20" name="BUKIT_SUNGAI" id="BUKIT_SUNGAI" value="0"  title="BUKIT_SUNGAI" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<Tr>
+			<td align="left">No Imagery</td>
+			<td align="left">
+				<input type="text" size="20" name="NO_IMAGERY" id="NO_IMAGERY" value="0"  title="NO_IMAGERY" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Luas Gross</td>
+			<td align="left">
+				<input type="text" size="20" name="LUAS_GROSS" id="LUAS_GROSS" value="0"  title="LUAS_GROSS" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<!-- Additional New Entry FieldDetail-->
+	<%Else%>
+		<tr> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE FIELD</strong></font></div></td>
+        </tr>
+		<Tr> 
+		    <td width="189" align="left"><font face="Verdana" size="1">Period</font></td>
+            <td width="180" align="left"><input readonly type="text" size="2" maxlength="2"  name="MONTH" id="MONTH" value="<%=rsSetup("MONTH")%>"><input readonly type="text" size="4" maxlength="4"  name="YEAR" id="YEAR" value="<%=rsSetup("YEAR")%>"> <font color="#FF0000"><font color="#FF0000">*</font>
+		    </td>
+		</TR>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Code</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="FCCODE" id="FCCODE" value="<%=rsSetup("FCCODE")%>" title="CODE Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font> </td>
+            <td width="149" align="left"><font face="Verdana" size="1">Description</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="70" name="FCNAME" id="FCNAME" value="<%=rsSetup("FCNAME")%>"  title="FCNAME Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Division</font></td>
+			<% 	Dim rsDIVISIONA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0001' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsDIVISIONA = Server.CreateObject("ADODB.Recordset")
+			rsDIVISIONA.CursorType = 3
+			rsDIVISIONA.CursorLocation = 3
+			rsDIVISIONA.Open q, connstr
+			if not rsDIVISIONA.eof then%>
+     	    <td align="left"> <select name="DIVISION" id="DIVISION" title="DIVISION Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%	Do While Not rsDIVISIONA.eof%>
+			<%IF rsDIVISIONA("FCCODE")=rsSetup("DIVISION") Then%> 
+				<option value="<%=rsDIVISIONA("FCCODE")%>" selected><%=rsDIVISIONA("FCNAME")%></option> 
+			<%Else%>
+				<option value="<%=rsDIVISIONA("FCCODE")%>"><%=rsDIVISIONA("FCNAME")%></option> 
+			<%End if%>			
+			<%rsDIVISIONA.movenext
+			loop
+			End if
+			rsDIVISIONA.Close
+			set rsDIVISIONA = Nothing
+			q=""
+			%>
+
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Hectare Planted</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="30"  name="HECTARAGEPLANTED" id="HECTARAGEPLANTED"  value="<%=rsSetup("HECTARAGEPLANTED")%>"   title="HECTARAGEPLANTED Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font> </td>
+
+            <td width="149" align="left"><font face="Verdana" size="1">Planting Date</font></td>
+				<td align="left"><input class="datepicker" type="text" maxlength="10" name="PLANTINGDATE" id="PLANTINGDATE" size="10" value="<%=rsSetup("PLANTINGDATE")%>" >
+				</td>
+            <td width="149" align="left"><font face="Verdana" size="1">Status</font></td>
+			<% 	Dim rsStatusA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0006' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsStatusA = Server.CreateObject("ADODB.Recordset")
+			rsStatusA.CursorType = 3
+			rsStatusA.CursorLocation = 3
+			rsStatusA.Open q, connstr
+			if not rsStatusA.eof then%>
+     	    <td align="left"> <select name="STATUS" id="STATUS" title="STATUS Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%Do While Not rsStatusA.eof%>
+			<%IF rsStatusA("FCCODE")=rsSetup("STATUS") Then%>
+				<option value="<%=rsStatusA("FCCODE")%>" selected><%=rsStatusA("FCNAME")%></option> 
+			<%Else%>
+				<option value="<%=rsStatusA("FCCODE")%>"><%=rsStatusA("FCNAME")%></option> 
+			<%End if%>
+			<%rsStatusA.movenext
+			loop
+			End if
+			rsStatusA.Close
+			set rsStatusA = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Crop</font></td>
+			<% 	Dim rsCropBA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0005' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsCropBA = Server.CreateObject("ADODB.Recordset")
+			rsCropBA.CursorType = 3
+			rsCropBA.CursorLocation = 3
+			rsCropBA.Open q, connstr
+			if not rsCropBA.eof then%>
+     	    <td align="left"> <select name="CROPTYPE" id="CROPTYPE" title="CROPTYPE Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%Do While Not rsCropBA.eof%>
+			<%IF rsCropBA("FCCODE")=rsSetup("CROPTYPE") Then%>
+				<option value="<%=rsCropBA("FCCODE")%>" selected><%=rsCropBA("FCNAME")%></option> 
+			<%Else%>				
+				<option value="<%=rsCropBA("FCCODE")%>"><%=rsCropBA("FCNAME")%></option> 
+			<%End if%>			
+			<%rsCropBA.movenext
+			loop
+			End if
+			rsCropBA.Close
+			set rsCropBA = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Soil</font></td>
+			<% 	Dim rsSoilA
+
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0003' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsSoilA = Server.CreateObject("ADODB.Recordset")
+			rsSoilA.CursorType = 3
+			rsSoilA.CursorLocation = 3
+			rsSoilA.Open q, connstr
+			if not rsSoilA.eof then%>
+     	    <td align="left"> <select name="SOILTYPE" id="SOILTYPE" title="SOILTYPE Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%Do While Not rsSoilA.eof%>
+			<%If rsSoilA("FCCODE")=rsSetup("SOILTYPE") Then%>
+				<option value="<%=rsSoilA("FCCODE")%>" selected><%=rsSoilA("FCNAME")%></option> 
+			<%Else%>
+				<option value="<%=rsSoilA("FCCODE")%>"><%=rsSoilA("FCNAME")%></option> 
+			<%End If%>
+			<%rsSoilA.movenext
+			loop
+			End if
+			rsSoilA.Close
+			set rsSoilA = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Terrain</font></td>
+			<% 	Dim rsTerrainA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0002' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsTerrainA = Server.CreateObject("ADODB.Recordset")
+			rsTerrainA.CursorType = 3
+			rsTerrainA.CursorLocation = 3
+			rsTerrainA.Open q, connstr
+			if not rsTerrainA.eof then%>
+     	    <td align="left"> <select name="TERRAINTYPE" id="TERRAINTYPE" title="TERRAINTYPE Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%Do While Not rsTerrainA.eof%>
+			<%If rsTerrainA("FCCODE")=rsSetup("TERRAINTYPE") Then %>
+				<option value="<%=rsTerrainA("FCCODE")%>" selected><%=rsTerrainA("FCNAME")%></option>
+			<%Else%> 
+				<option value="<%=rsTerrainA("FCCODE")%>"><%=rsTerrainA("FCNAME")%></option>			
+			<%End if%>
+			<%rsTerrainA.movenext
+			loop
+			End if
+			rsTerrainA.Close
+			set rsTerrainA = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Planting Material</font></td>
+            <td width="180" align="left"><input type="text" size="20" maxlength="70"  name="PLANTINGMATERIAL" id="PLANTINGMATERIAL"  value="<%=rsSetup("PLANTINGMATERIAL")%>"  title="PLANTINGMATERIAL Character a s/d z or 1 s/d 9"><font color="#FF0000">*</font> </td>
+            <td width="149" align="left"><font face="Verdana" size="1">Total Stand</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="TOTALSTAND" id="TOTALSTAND" value="<%=rsSetup("TOTALSTAND")%>"   title="TOTALSTAND Numeric 0 s/d 9"><font color="#FF0000">*</font></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Ownership</font></td>
+			<% 	Dim rsOwnershipA
+			q = "select P.FCCODE,P.FCNAME from  PARAMETER P  where P.PARCODE= 'F0004' and fcba='" & Session("fcBA") & "' order by P.FCNAME desc"
+			Set rsOwnershipA = Server.CreateObject("ADODB.Recordset")
+			rsOwnershipA.CursorType = 3
+			rsOwnershipA.CursorLocation = 3
+			rsOwnershipA.Open q, connstr
+			if not rsOwnershipA.eof then%>
+     	    <td align="left"> <select name="OWNERSHIP" id="OWNERSHIP" title="OWNERSHIP Character a s/d z or 1 s/d 9">         
+			<option value=""></option> 
+			<%Do While Not rsOwnershipA.eof%>
+			<%IF rsOwnershipA("FCCODE")=rsSetup("OWNERSHIP") Then %>
+				<option value="<%=rsOwnershipA("FCCODE")%>" selected><%=rsOwnershipA("FCNAME")%></option> 
+			<%Else%>
+				<option value="<%=rsOwnershipA("FCCODE")%>"><%=rsOwnershipA("FCNAME")%></option> 
+			<%End if%>			
+			<%rsOwnershipA.movenext
+			loop
+			End if
+			rsOwnershipA.Close
+			set rsOwnershipA = Nothing
+			q=""
+			%>
+			</select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Main Road</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="MAIN_ROAD" id="MAIN_ROAD" value="<%=rsSetup("MAIN_ROAD")%>"   title="MAIN_ROAD Numeric 0 s/d 9"> </td>
+            <td width="149" align="left"><font face="Verdana" size="1">Collection Road</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="COLLECTIONROAD" id="COLLECTIONROAD" value="<%=rsSetup("COLLECTIONROAD")%>"   title="COLLECTIONROAD Numeric 0 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Main Drain</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="MAINDRAIN" id="MAINDRAIN" value="<%=rsSetup("MAINDRAIN")%>"  title="MAINDRAIN Numeric 0 s/d 9"></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Collection Drain</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="COLLECTIONDRAIN" id="COLLECTIONDRAIN" value="<%=rsSetup("COLLECTIONDRAIN")%>"    title="COLLECTIONDRAIN Numeric s/d 9"></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Subsidiary Drain</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="SUBSIDIARYDRAIN" id="SUBSIDIARYDRAIN" value="<%=rsSetup("SUBSIDIARYDRAIN")%>"   title="SUBSIDIARYDRAIN Numeric 0 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Permanen Bridge</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="PERMANENTBRIDGE" id="PERMANENTBRIDGE" value="<%=rsSetup("PERMANENTBRIDGE")%>"   title="PERMANENTBRIDGE Numeric 0 s/d 9"></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Wood Bridge</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="WOODBRIDGE" id="WOODBRIDGE" value="<%=rsSetup("WOODBRIDGE")%>"  title="WOODBRIDGE Numeric 0 s/d 9"></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Buist</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="BUIST" id="BUIST" value="<%=rsSetup("BUIST")%>"  title="BUIST Numeric 0 s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Collection Point</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="COLLECTIONPOINT" id="COLLECTIONPOINT"  value="<%=rsSetup("COLLECTIONPOINT")%>"  title="COLLECTIONPOINT Numeric 0 s/d 9"></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Harvesting Bridge</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="HARVESTINGBRIDGE" id="HARVESTINGBRIDGE" value="<%=rsSetup("HARVESTINGBRIDGE")%>"  title="HARVESTINGBRIDGE Numeric 0 s/d 9"></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Owlnest</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="OWLNEST" id="OWLNEST" value="<%=rsSetup("OWLNEST")%>"  title="OWLNEST Numeric s/d 9"></td>
+          </Tr>
+          <Tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Previous Semester ABW</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="PREVSEMESTER_ABW" id="PREVSEMESTER_ABW" value="<%=rsSetup("PREVSEMESTER_ABW")%>"   title="PREVSEMESTER_ABW Numeric 0 s/d 9"></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Present Semester ABW</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="PRESSEMESTER_ABW" id="PRESSEMESTER_ABW" value="<%=rsSetup("PRESSEMESTER_ABW")%>"   title="PRESSEMESTER_ABW Numeric 0 s/d 9"></td>
+            <td width="149" align="left"><font face="Verdana" size="1">Harvesting Based ABW</font></td>
+            <td width="180" align="left"><input type="text" size="20" name="HARVESTINGBASED_ABW" id="HARVESTINGBASED_ABW" value="<%=rsSetup("HARVESTINGBASED_ABW")%>" title="HARVESTINGBASED_ABW Numeric 0 s/d 9"></td>
+          </Tr>
+		  <Tr> 
+			<td align="left">
+			Koperasi		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_01" id="FIELD_INFO_01" value="<%=rsSetup("FIELD_INFO_01")%>"  title="FIELD_INFO">	
+			</td>
+			<td align="left">
+			Field info 02		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_02" id="FIELD_INFO_02" value="<%=rsSetup("FIELD_INFO_02")%>"  title="FIELD_INFO">		
+			</td>
+			<td align="left">
+			Field info 03		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_03" id="FIELD_INFO_03" value="<%=rsSetup("FIELD_INFO_03")%>"  title="FIELD_INFO">		
+			</td>
+		  </Tr>
+		  <Tr> 
+			<td align="left">
+			Field info 04		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_04" id="FIELD_INFO_04" value="<%=rsSetup("FIELD_INFO_04")%>"  title="FIELD_INFO">		
+			</td>
+			<td align="left">
+			Field info 05		
+			</td>
+			<td align="left">
+			<input type="text" size="20" name="FIELD_INFO_05" id="FIELD_INFO_05" value="<%=rsSetup("FIELD_INFO_05")%>"  title="FIELD_INFO">		
+			</td>
+			<td align="left">
+			Isactive Harvested		
+			</td>
+			<td align="left">
+			
+			<select width="100" name="ISACTIVE_HARVESTED"  id="ISACTIVE_HARVESTED" title="Isactive Harvested">	
+			<%if rsSetup("ISACTIVE_HARVESTED")="TRUE" THEN %>
+					<Option value="TRUE" selected>True</Option>
+					<Option value="FALSE">False</Option>
+			<%Elseif rsSetup("ISACTIVE_HARVESTED") ="FALSE" THEN  %>
+					<Option value="TRUE">True</Option>
+					<Option value="FALSE"selected>False</Option>
+			<%else%>
+				<option disabled selected>--- No Select ---</option>
+				<option value="TRUE">True</option>
+				<option value="FALSE">False</option>
+			<%End if%>
+				
+			</select>				
+			</td>
+		  </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"><select name="ACTIVATION" id="ACTIVATION" title="ACTIVATION Character a s/d z or 1 s/d 9">
+				<%if rsSetup("ACTIVATION")="Y" THEN %>
+					<Option value="Y" selected>Yes</Option>
+					<Option value="N">No</Option>
+				<%Else%>
+					<Option value="Y">Yes</Option>
+					<Option value="N" selected>No</Option>
+				<%End if%>
+              </select></td>
+				<td align="left"><font face="Verdana" size="1">Valid From</font>
+				</td>
+				<td align="left">
+				<input class="datepicker" type="text" size="20" name="VALID_FROM" id="VALID_FROM" value="<%=DATE()%>"  title="VALID FROM">	
+				</td>
+											
+		  </tr>
+		  
+		<!--Panen Info-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="6">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Informasi Panen</strong></font>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left"><font face="verdana" size="1">HARVESTING SECTION</font></td>
+			<td align="left">
+				<select name="HARVESTINGSECTION" id="HARVESTINGSECTION">
+					<option value = "" <%If "" & rssetup("HARVESTINGSECTION") = "" then%> Selected <%End If%>>OTHERS</option>
+					<%
+					strHarvestingSection = " SELECT FCCODE, FCNAME FROM HARVESTINGGROUP" & _
+										   " WHERE FCBA = '" & Session("FCBA") & "'" & _
+										   " ORDER BY FCCODE"
+					
+					Set rsHarvestingSection = Server.CreateObject("ADODB.Recordset")
+					rsHarvestingSection.Open strHarvestingSection, connstr, 3, 3 
+					
+					if not rsHarvestingSection.eof then
+					Do While Not rsHarvestingSection.eof
+					%>
+
+					<option value="<%=rsHarvestingSection("FCCODE")%>" <% If rssetup("HARVESTINGSECTION") = rsHarvestingSection("FCCODE") Then %> Selected <%End if%>><%=rsHarvestingSection("FCNAME")%></option> 
+					<%
+						rsHarvestingSection.movenext
+					loop
+					end if
+					strHarvestingSection = ""
+					rsHarvestingSection.Close
+					set rsHarvestingSection = Nothing
+					%>
+				</select>
+			</td>
+			
+			<td align="left"><font face="verdana" size="1">HARVESTING SECTION NUMBER</font></td>
+			<td align="left">
+				<select name="HARVESTINGSECTIONNUMBER" id="HARVESTINGSECTIONNUMBER">
+					<option value = "" ></option>
+					<%If "" & rssetup("HARVESTINGSECTIONNUMBER") <> "" then%>
+						<% for i=1 to 6%>
+							<option value="<%=i%>" <% If cint(rssetup("HARVESTINGSECTIONNUMBER")) = cint(i) Then %> Selected <%End if%>><%=cint(i)%></option> 
+						<%next%>
+					<%else%>
+						<% for i=1 to 6%>
+						<option value="<%=i%>"> <%=cint(i)%></option> 
+						<%next%>
+					<%end if%>
+				</select>
+			</td>
+      <td align="left"><font face="verdana" size="1">Planting Point</font></td>
+      <td align="left">
+          <input type="text" size="20" maxlength="30" name="plantingpoint" id="plantingpoint" value="<%=rsSetup("plantingpoint")%>"   onkeypress="return harusangka(event);">
+      </td>
+		</tr>
+		
+		<tr> 
+            <td width="189" align="left"><font face="Verdana" size="1">Hectare Harvested</font></td>
+            <td width="180" align="left">
+				<input type="text" size="20" maxlength="30" name="hectarageharvested" id="hectarageharvested" value="<%=rsSetup("hectarageharvested")%>"  title="HECTARAGE HARVESTED Character 1 s/d 9" onkeypress="return harusangka(event);">
+			</td>
+			
+			<td width="189" align="left"><font face="Verdana" size="1">Productive Stand</font></td>
+            <td width="180" align="left">
+				<input type="text" size="20" maxlength="30" name="productivestand" id="productivestand" value="<%=rsSetup("productivestand")%>"  title="PRODUCTIVE STAND Character 1 s/d 9" onkeypress="return harusangka(event);">
+			</td>
+      
+		<td width="189" align="left"><font face="Verdana" size="1">Fullstand</font></td>
+        <td width="180" align="left">
+        <select width="100" name="Fullstand"  id="Fullstand" title="Fullstand">  
+            <%if rsSetup("Fullstand")="TRUE" THEN %>
+                <Option value="TRUE" selected>True</Option>
+                <Option value="FALSE">False</Option>
+            <%Elseif rsSetup("Fullstand") ="FALSE" THEN  %>
+                <Option value="TRUE">True</Option>
+                <Option value="FALSE"selected>False</Option>
+            <%else%>
+              <option disabled selected>--- No Select ---</option>
+              <option value="TRUE">True</option>
+              <option value="FALSE">False</option>
+            <%End if%>
+      </select>
+      </td>
+      </td>
+		</tr>
+		  
+		<!-- Additional EDIT Entry FieldDetail-->
+		<!--Land Use-->
+		<tr bgcolor="#00a300"> 
+			<td colspan="6">
+				<div align="left">
+					<font size="2" face="Verdana" color="#fff"><strong>Land Use</strong></font>
+				</div>
+			</td>
+		</tr>
+		<Tr> 
+			<td align="left">Areal LC</td>
+			<td align="left">
+				<input type="text" size="20" name="AREAL_LC" id="AREAL_LC" value="<%=rsSetup("AREAL_LC")%>"  title="AREAL_LC" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Cadangan</td>
+			<td align="left">
+				<input type="text" size="20" name="CADANGAN" id="CADANGAN" value="<%=rsSetup("CADANGAN")%>"  title="CADANGAN" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Okupasi</td>
+			<td align="left">
+				<input type="text" size="20" name="OKUPASI" id="OKUPASI" value="<%=rsSetup("OKUPASI")%>"   title="OKUPASI" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>  
+		<Tr> 
+			<td align="left">Bibitan</td>
+			<td align="left">
+				<input type="text" size="20" name="BIBITAN" id="BIBITAN" value="<%=rsSetup("BIBITAN")%>"  title="BIBITAN" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Pabrik</td>
+			<td align="left">
+				<input type="text" size="20" name="PABRIK" id="PABRIK" value="<%=rsSetup("PABRIK")%>"  title="PABRIK" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Emplasmen</td>
+			<td align="left">
+				<input type="text" size="20" name="EMPLASMEN" id="EMPLASMEN" value="<%=rsSetup("EMPLASMEN")%>"  title="EMPLASMEN" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<Tr> 
+			<td align="left">Parit</td>
+			<td align="left">
+				<input type="text" size="20" name="PARIT" id="PARIT" value="<%=rsSetup("PARIT")%>"   title="PARIT" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Jalan</td>
+			<td align="left">
+				<input type="text" size="20" name="JALAN" id="JALAN" value="<%=rsSetup("JALAN")%>"  title="JALAN" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Prasarana Lainnya</td>
+			<td align="left">
+				<input type="text" size="20" name="PRASARANA_LAINNYA" id="PRASARANA_LAINNYA" value="<%=rsSetup("PRASARANA_LAINNYA")%>"  title="PRASARANA_LAINNYA" onkeypress="return harusangka(event);">		
+			</td>
+			</Tr>
+		<Tr> 
+			<td align="left">Quarry</td>
+			<td align="left">
+				<input type="text" size="20" name="QUARRY" id="QUARRY" value="<%=rsSetup("QUARRY")%>"  title="QUARRY" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Tanggul</td>
+			<td align="left">
+				<input type="text" size="20" name="TANGGUL" id="TANGGUL" value="<%=rsSetup("TANGGUL")%>"  title="TANGGUL" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Enclave</td>
+			<td align="left">
+				<input type="text" size="20" name="ENCLAVE" id="ENCLAVE" value="<%=rsSetup("ENCLAVE")%>"  title="ENCLAVE" onkeypress="return harusangka(event);">		
+			</td>	
+		</Tr>
+		<Tr> 
+			<td align="left">Tambang</td>
+			<td align="left">
+				<input type="text" size="20" name="TAMBANG" id="TAMBANG" value="<%=rsSetup("TAMBANG")%>"  title="TAMBANG" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Konservasi</td>
+			<td align="left">
+				<input type="text" size="20" name="KONSERVASI" id="KONSERVASI" value="<%=rsSetup("KONSERVASI")%>"  title="KONSERVASI" onkeypress="return harusangka(event);">	
+			</td>
+			<td align="left">Bukit Sungai</td>
+			<td align="left">
+				<input type="text" size="20" name="BUKIT_SUNGAI" id="BUKIT_SUNGAI" value="<%=rsSetup("BUKIT_SUNGAI")%>"  title="BUKIT_SUNGAI" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<Tr> 
+			<td align="left">No Imagery</td>
+			<td align="left">
+				<input type="text" size="20" name="NO_IMAGERY" id="NO_IMAGERY" value="<%=rsSetup("NO_IMAGERY")%>"  title="NO_IMAGERY" onkeypress="return harusangka(event);">		
+			</td>
+			<td align="left">Luas Gross</td>
+			<td align="left">
+				<input type="text" size="20" name="LUAS_GROSS" id="LUAS_GROSS" value="<%=rsSetup("LUAS_GROSS")%>"  title="LUAS_GROSS" onkeypress="return harusangka(event);">		
+			</td>
+		</Tr>
+		<!-- Additional EDIT Entry FieldDetail-->
+		  
+	<%End IF%>
+	
+  <%elseif Request("txttable") ="Koperasi" then%>
+          <tr> 
+            <td colspan="2" align="left"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE KOPERASI</strong></font></div></td>
+          </tr>
+		  <tr>
+			<td align="left" width="20%">
+				<font face="Verdana" size="1">Kode</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "30" size="30" name="fccode" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("fccode")%>" style="background:#ccc;" readonly="True" <%end if%> required>
+				<font color="#FF0000">*</font>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Deskripsi</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="fcname" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("fcname")%>" <%end if%> required>
+				<font color="#FF0000">&nbsp;*</font>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Tanggal Berdiri</font>
+			</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="datecreated" size="10" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("datecreated")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">No Badan Hukum</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="registrationno" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("registrationno")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Tanggal Badan Hukum</font>
+			</td>
+			<td align="left">
+				<input class="datepicker" type="text" maxlength="10" name="registrationdate" size="10" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("registrationdate")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Alamat</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="70" name="address" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("address")%>" <%end if%>>
+			</td>
+		</tr>		
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Kota</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="city" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("city")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Negara</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="state" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("state")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Telp</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="phone" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("phone")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Fax</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="fax" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("fax")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Bentuk Koperasi</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="formco" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("formco")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Jenis Koperasi</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="typeco" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("typeco")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Kelompok Koperasi</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="groupco" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("groupco")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Sektor Usaha</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="sectorco" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("sectorco")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">NIK</font>
+			</td>
+			<td align="left">
+				<input type="text" maxlength = "70" size="50" name="idno" <%if Request("txtJenis") = "Edit" then%> value="<%=rsSetup("idno")%>" <%end if%>>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Sertifikasi</font>
+			</td>
+			<td align="left">
+				<select name="iscertified" style="width:50%;">
+					<option value="N" <%if Request("txtJenis") = "Edit" then%> <%IF rsSetup("iscertified") = "N" THEN%> selected <%END IF%> <%end if%>>Tidak</option>
+					<option value="Y" <%if Request("txtJenis") = "Edit" then%> <%IF rsSetup("iscertified") = "Y" THEN%> selected <%END IF%> <%end if%>>Ya</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td align="left">
+				<font face="Verdana" size="1">Status</font>
+			</td>
+			<td align="left">
+				<select name="activation" style="width:50%;">
+					<option value="N" <%if Request("txtJenis") = "Edit" then%> <%IF rsSetup("activation") = "N" THEN%> selected <%END IF%> <%end if%>>Tidak</option>
+					<option value="Y" <%if Request("txtJenis") = "Edit" then%> <%IF rsSetup("activation") = "Y" THEN%> selected <%END IF%> <%end if%>>Ya</option>
+				</select>
+			</td>
+		</tr>
+
+
+ <%elseif Request("txttable") ="EmpPosition" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                EMPLOYEE POSITION</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left"> 
+              <select name="ACTIVATION">
+                <option value="EM">EMPLOYEE (EM)</option>
+                <option value="ES">SUPERVISION (ES)</option>  
+              </select>
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                EMPLOYEE POSITION</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Activation</font></td>
+            <td align="left">  
+              <select name="ACTIVATION">
+                <option value="EM">EMPLOYEE (EM)</option>
+                <option value="ES">SUPERVISION (ES)</option>  
+              </select><font color="#FF0000">*</font></td>
+          </Tr>
+          <%end if%>
+      <%elseif Request("txttable") ="SectionName" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                SECTION NAME</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                SECTION NAME</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <%end if%>
+      <%elseif Request("txttable") ="Product" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                PRODUCT</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE" style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="PRODUCTDESCRIPTION"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Crop Code</font></td>
+            <td align="left">  
+              <select name="CROPCODE">
+                <option value="OP">Oil Palm</option>
+                <option value="CO">Cacao</option>
+                <option value="SG">Sugar</option>  
+              </select><font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Unit Of Measurement</font></td>
+                <%  Dim rsComboP
+                'q = "select * from  UNITOFMEASURE " & " where fcBA='" &  Session("fcBA") & "' Order by UNITOFMEASUREDESC"
+				q = "select * from  UNITOFMEASURE " & " where isactive='Y' Order by UNITOFMEASUREDESC"
+                Set rsComboP = Server.CreateObject("ADODB.Recordset")
+                rsComboP.CursorType = 3
+                rsComboP.CursorLocation = 3
+                rsComboP.Open q, connstr
+                if not rsComboP.eof then%>
+                    <td align="left"> <select name="UNITOFMEASUREMENT" title="UNITOFMEASUREMENT Character a s/d z or 1 s/d 9">         
+                <option value=""></option> 
+                <%
+                Do While Not rsComboP.eof
+                %>
+                <option value="<%=rsComboP("UNITOFMEASURECODE")%>"><%=rsComboP("UNITOFMEASUREDESC")%></option> 
+                <%rsComboP.movenext
+                loop
+                End if
+                rsComboP.Close
+                set rsComboP = Nothing
+                q=""
+                %>
+                </select> <font color="#FF0000">*</font></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                PRODUCT</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("PRODUCTDESCRIPTION")%>" name="PRODUCTDESCRIPTION"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Crop Code</font></td>
+            <td align="left">  
+              <select name="CROPCODE">
+                <option value="OP">Oil Palm</option>
+                <option value="CO">Cacao</option>
+                <option value="SG">Sugar</option>  
+              </select><font color="#FF0000">*</font></td>
+          </Tr>
+         <Tr> 
+            <td align="left"><font face="Verdana" size="1">Unit Of Measurement</font></td>
+                <%  Dim rsComboPR
+                'q = "select * from  UNITOFMEASURE " & " where fcBA='" &  Session("fcBA") & "' Order by UNITOFMEASUREDESC"
+				q = "select * from  UNITOFMEASURE " & " where isactive='Y' Order by UNITOFMEASUREDESC"
+                Set rsComboPR = Server.CreateObject("ADODB.Recordset")
+                rsComboPR.CursorType = 3
+                rsComboPR.CursorLocation = 3
+                rsComboPR.Open q, connstr
+                if not rsComboPR.eof then%>
+                    <td align="left"> <select name="UNITOFMEASUREMENT" title="UNITOFMEASUREMENT Character a s/d z or 1 s/d 9">         
+                <option value=""></option> 
+                <%
+                Do While Not rsComboPR.eof
+                %>
+                <option value="<%=rsComboPR("UNITOFMEASURECODE")%>"><%=rsComboPR("UNITOFMEASUREDESC")%></option> 
+                <%rsComboPR.movenext
+                loop
+                End if
+                rsComboPR.Close
+                set rsComboPR = Nothing
+                q=""
+                %>
+                </select> <font color="#FF0000">*</font></td>
+          </Tr>
+        <%end if%>
+        <%elseif Request("txttable") ="UnitOfMeasure" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                UNIT OF MEASUREMENT</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  <tr>
+			<td align="left"><font face="Verdana" size="1">Is Active</font></td>
+				<td align="left"><select name="isactive" id="isactive" title="isactive Character a s/d z or 1 s/d 9">
+				<%if rsSetup("isactive")="Y" THEN %>
+					<Option value="Y" selected>Yes</Option>
+					<Option value="N">No</Option>
+				<%Else%>
+					<Option value="Y">Yes</Option>
+					<Option value="N" selected>No</Option>
+				<%End if%>
+              </select></td>
+		  </tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                UNIT OF MEASUREMENT</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+		  <tr>
+			<td align="left"><font face="Verdana" size="1">Is Active</font></td>
+				<td align="left"><select name="isactive" id="isactive" title="isactive Character a s/d z or 1 s/d 9">
+				<%if rsSetup("isactive")="Y" THEN %>
+					<Option value="Y" selected>Yes</Option>
+					<Option value="N">No</Option>
+				<%Else%>
+					<Option value="Y">Yes</Option>
+					<Option value="N" selected>No</Option>
+				<%End if%>
+              </select></td>
+		  </tr>
+          <%end if%>
+        <%elseif Request("txttable") ="VehicleGroup" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                VEHICLE GROUP</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30"  name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Vehicle Type</font></td>
+            <td align="left">  
+              <select name="vehicletypecode">
+                <option value="KR">Kendaraan Ringan</option>
+                <option value="AB">Alat Berat</option>
+                <option value="MS">Mesin</option>  
+				<option value="WS">Bengkel</option>  
+				
+              </select><font color="#FF0000">*</font></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                VEHICLE GROUP</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left"><input type="text" size="10" maxlength="30" value="<%=rsSetup("FCCODE")%>" name="FCCODE"   style="background:#FFFFCC;" title="CODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font> </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Description</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("FCNAME")%>" name="FCNAME"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Vehicle Type</font></td>
+            <td align="left">  
+              <select name="vehicletypecode">
+                <option value="KR">Kendaraan Ringan</option>
+                <option value="AB">Alat Berat</option>
+                <option value="MS">Mesin</option>  
+              </select><font color="#FF0000">*</font></td>
+          </Tr>
+          <%end if%>
+      <%elseif Request("txttable") ="OpHarvRate" then%>
+          <%if Request("txtJenis") <> "Edit" then%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                OP HARVEST RATE</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left">
+              <select name="fccode" title="CROPCODE Character a s/d z or 1 s/d 9">
+              <option value=""></option> 
+              <%  Dim rsComboCR
+              q = "select * from  CROP  Order by CROPCODE"
+              Set rsComboCR = Server.CreateObject("ADODB.Recordset")
+              rsComboCR.CursorType = 3
+              rsComboCR.CursorLocation = 3
+              rsComboCR.Open q, connstr
+              if not rsComboCR.eof then%>
+                   
+              <%
+              Do While Not rsComboCR.eof
+              %>
+              <option value="<%=rsComboCR("CROPCODE")%>"><%=rsComboCR("DESCRIPTION")%></option> 
+              <%rsComboCR.movenext
+              loop
+              End if
+              rsComboCR.Close
+              set rsComboCR = Nothing
+              q=""
+              %>
+              </select> <font color="#FF0000">*</font>
+            </td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">BJR Sensus</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="bjr_sensus"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Tipe Tanah</font></td>
+            <td align="left">  
+              <select name="soil_type">
+                <option value="FLU">DATAR-BERGELOMBANG</option>
+                <option value="UNR">BERGELOMBANG-BERBUKIT</option>
+                <option value="ROH">BERBUKIT-BERGUNUNG</option>  
+              </select><font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">BJR Minimal</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="bjr_min"  style="background:#FFFFCC;" title="BJR Minimal Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">BJR Maksimal</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="bjr_max"  style="background:#FFFFCC;" title="BJR Maksimal Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Basis Quantity</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="bas_qty"  style="background:#FFFFCC;" title="Basis Quantity Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Basis Rate</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="bas_rate"  style="background:#FFFFCC;" title="Basis Rate Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Extra Basis</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="ext_bas"  style="background:#FFFFCC;" title="Extra Basis Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Basis Ha</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100"  name="bas_ha"  style="background:#FFFFCC;" title="Basis Ha Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <%else%>
+          <TR> 
+            <td colspan="2"><div align="left"><font size="2" face="Verdana"><strong>MAINTENANCE 
+                OP HARVEST RATE</strong></font></div></td>
+          </TR>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Code</font></td>
+            <td align="left">
+             <input type="text" size="10" maxlength="100" value="<%=rsSetup("CROPCODE")%>"  name="fccode" readonly style="background:#EEE;" title="CROPCODE Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+         <Tr> 
+            <td align="left"><font face="Verdana" size="1">BJR Sensus</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("ABW_CENSUS")%>"  name="bjr_sensus"  style="background:#FFFFCC;" title="DESCRIPTION Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Tipe Tanah</font></td>
+            <td align="left">  
+              <select name="soil_type">
+                <option value="FLU">DATAR-BERGELOMBANG</option>
+                <option value="UNR">BERGELOMBANG-BERBUKIT</option>
+                <option value="ROH">BERBUKIT-BERGUNUNG</option>  
+              </select><font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">BJR Minimal</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("ABW_MIN")%>"  name="bjr_min"  style="background:#FFFFCC;" title="BJR Minimal Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">BJR Maksimal</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("ABW_MAX")%>" name="bjr_max"  style="background:#FFFFCC;" title="BJR Maksimal Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Basis Quantity</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("BASIS_QTY")%>" name="bas_qty"  style="background:#FFFFCC;" title="Basis Quantity Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Basis Rate</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("BASIS_RATE")%>" name="bas_rate"  style="background:#FFFFCC;" title="Basis Rate Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Extra Basis</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("EXTRA_BASIS_RATE")%>" name="ext_bas"  style="background:#FFFFCC;" title="Extra Basis Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <Tr> 
+            <td align="left"><font face="Verdana" size="1">Basis Ha</font></td>
+            <td align="left"><input type="text" size="70" maxlength="100" value="<%=rsSetup("BASIS_HA")%>" name="bas_ha"  style="background:#FFFFCC;" title="Basis Ha Character a s/d z or 1 s/d 9"> 
+              <font color="#FF0000">*</font></td>
+          </Tr>
+          <%end if%>
+  <%else
+			for i = 0 to  nCountofField-4%>
+          <%
+				if rsSetup(i).type = 135  then
+					txtBoxColor="FFFF99"
+					txtTitle   =rsSetup(i).name & " Type Date as mm/dd/yyyy"
+				elseif rsSetup(i).type = 131  then
+					txtBoxColor="FF0000"
+					txtTitle   =rsSetup(i).name & " Numeric 1 s/d 9"
+				else
+					txtBoxColor="99FF99"
+					txtTitle   =rsSetup(i).name & " Character a s/d z or 1 s/d 9"
+				end if	 	 
+				%>
+          <%if Request("txtJenis")="Edit" then%>
+          <tr> 
+            <td align="left"><%=(rsSetup(i).name)%></td>
+            <td><input type="text" value="<%=rsSetup(i)%>" name="<%=rsSetup(i).name%>"  align="left" 
+					title="<%=txtTitle%>" style="background:#<%=txtBoxColor%>"></td>
+          </tr>
+          <%else%>
+          <tr> 
+            <td align="left"><%=(rsSetup(i).name)%></td>
+            <td><input type="text" value="<%=request(rsSetup(i).name)%>" name="<%=rsSetup(i).name%>" align="left" 
+					title= "<%=txtTitle%>" style= "background:#<%=txtBoxColor%>"></td>
+          </tr>
+          <%end if%>
+          <%next%>
+          <%end if%>
+<script language="JavaScript" type="text/javascript">
+	function convertLetterToNumber(letter) {
+        if (letter.length === 1 && /^[a-zA-Z]$/.test(letter)) {
+            var charCode = letter.toUpperCase().charCodeAt(0);
+            var number = charCode - 64; // 'A' is 65 in ASCII, so 'A' should be 1
+            // Convert number to two digits
+            return number < 10 ? '0' + number : number;
+        } else {
+            return "";
+        }
+    }
+	function getNumber(){
+		var group = $('#stockgroupid').val();
+		var subgroup = $('#stocksubgroupid').val(); 
+		var abjad = $('#fcname').val().charAt(0);
+        var abjad1 = convertLetterToNumber(abjad);
+
+		if(group=="-"){
+			alert("STOCK GROUP CODE HARUS DI ISI");
+		}else{
+
+			if (subgroup != "" && abjad1 != "") {
+                $.post("bkm_employee.asp?stocksubgroupcode=" + subgroup + "&employee=" + 400 + "&fcname=" + abjad1, function(data) {
+                    var json = JSON.parse(data);
+                    var jumlview = json.results.length;
+                    if (jumlview != "") {
+                        var fccode = json.results[0].fccode;
+                        var numberstock = fccode.split('.');
+                        var groupstk = numberstock[0];
+                        var subgroupstk = numberstock[1];
+                        var abjadstk = numberstock[2];
+                        var numbercount = numberstock[3];
+                        fccodenum = parseInt(numbercount) + 1;
+                        let num = fccodenum;
+                        let currentnomor = String(num).padStart(3, "0");
+                        currentnomor = groupstk + "." + subgroupstk + "." + abjadstk + "." + currentnomor;
+                        $('#fccode').val(currentnomor);
+                    } else {
+                        var initialCode = group + "." + subgroup + "." + abjad1 + ".001";
+                        $('#fccode').val(initialCode);
+                    }
+                });
+            } else {
+                alert("SUBGROUPCODE atau NAMA ITEM HARUS DI ISI");
+			
+            }
+        }
+    }
+</script>

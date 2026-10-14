@@ -1,0 +1,227 @@
+<table id="form-table" class="centered-margin">
+<tr>
+<th>TAHUN</th>
+<th>BULAN</th>
+<th>STATUS</th>
+<th>OWNERSHIP</th>
+<th>CROPTYPE</th>
+<th>KODE</th>
+<th>DIVISION</th>
+<th>TAHUN TANAM</th>
+<th>SOURCE</th>
+<th>COST ELEMENT</th>
+<th>SAP CODE</th>
+<th>&nbsp;</th>
+</tr>
+<tr>
+
+			<td>
+				<font size="2"  color="#0000FF" ></font>
+				<% 
+					MM=v_txtMonth
+					yyyy=v_txtYear
+
+					mon = Month(Session("v_Costbook"))
+					If len(MM)=0 then MM=mon
+
+					Yr = Year(Session("v_Costbook"))
+					MinYr = 2015
+					MaxYr = Yr  + 2
+					If len(yyyy)= 0 then yyyy = Yr
+				%>
+				<select name="txtYear">
+						<%
+							For i = MinYr to MaxYr
+						%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(yyyy) then%> Selected <%End If%>><%=i%></option>
+						<%
+							Next
+						%>
+				</select>
+			</td>
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="txtMonth">
+						<%
+							For i = 1 to 12
+						%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+						<%
+							Next
+						%>
+					</select>
+			</td>
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vStatus" id="vStatus" onchange="javascript:filtering()">
+			    <option value="TMTBM" <%if request.Form("vStatus")="TMTBM" Then%> Selected <%End if%>>--ALL--</option>
+				<option value="TM" <%if request.Form("vStatus")="TM" Then%> Selected <%End if%>>TM</option>
+				<option value="TBM" <%if request.Form("vStatus")="TBM" Then%> Selected <%End if%>>TBM</option>
+			</select>
+			</td>
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vOwnership">
+				
+				<option value="ALL" <%if request.Form("vOwnership")="ALL" then%> selected <%End if%>>::ALL::</option>
+				<%
+				Dim rsOwner
+				Set rsOwner = Server.CreateObject("ADODB.Recordset")
+				rsOwner.CursorLocation = adUseClient
+				strsql =  " SELECT distinct  t.ownership FROM sac_accountreport_tm_tbm t order by  t.ownership "
+				rsOwner.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+				if not rsOwner.eof then
+				DO while not rsOwner.eof
+				%>
+				<option value="<%=rsOwner("ownership")%>" <%if request.Form("vOwnership")=rsOwner("ownership") then%> selected <%End if%>><%=rsOwner("ownership")%></option>
+				<%
+				  rsOwner.movenext
+				loop
+				End if
+                rsOwner.Close
+				set rsOwner = nothing
+				%>
+			</select>			
+			</td>
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vCROPTYPE">
+				<option value="OP" <%if Request.Form("vCROPTYPE")="OP" then%> selected <%End if%>>Sawit (Oil Palm)</option>
+				<option value="RB"<%if Request.Form("vCROPTYPE")="RB" then%> selected <%End if%>>Karet (Rubber)</option>
+				<option value="CO" <%if Request.Form("vCROPTYPE")="CO" then%> selected <%End if%>>Coklat (COCOA)</option>
+			</select>
+			</td>
+			<td>
+				<select name="txtJob">
+					<option value="--ALL--" <%if request("v_txtJob")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+					<%
+					
+					Set rsJob = Server.CreateObject("ADODB.Recordset")
+					rsJob.CursorLocation = adUseClient
+					strsql =  " select  a.fccode,a.fcname from jobcodeTMTBM a "
+					rsJob.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsJob.eof then
+					DO while not rsJob.eof
+					  if v_txtJob= rsJob("FCCODE") then
+						%>			
+						<option value="<%=rsJob("FCCODE")%>" Selected><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% Else %>	
+						<option value="<%=rsJob("FCCODE")%>"><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% End If
+					  rsJob.movenext
+					loop
+					End if
+					rsJob.Close
+					set rsJob = Nothing
+					%>
+					
+				</select>
+			</td>
+			<td align="center">
+			<select name="txtDivision">	
+				<option value="--SUMMARY--">--SUMMARY--</option>
+				<%
+					Dim rsDivision
+					Set rsDivision = Server.CreateObject("ADODB.Recordset")
+					rsDivision.CursorLocation = adUseClient
+					
+
+			
+					if len(trim(v_txtDivision)) > 0 then 
+						strsql =  " SELECT '--ALL--' as DIVISION from DUAL UNION SELECT DISTINCT Division as Division FROM FIELDDETAIL WHERE FCBA = '" & v_txtFcba & "'"
+					else
+						strsql =  " SELECT '--ALL--' as DIVISION from DUAL UNION SELECT DISTINCT Division as Division FROM FIELDDETAIL WHERE FCBA = '" & Session("fcBA") & "'"
+					end if
+					
+					
+					rsDivision.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsDivision.eof then
+						DO while not rsDivision.eof
+						if v_txtDivision = rsDivision("Division") then
+				%>			<option value="<%=rsDivision("Division")%>" Selected><%=rsDivision("Division")%></option>
+						<%else%>
+							<option value="<%=rsDivision("Division")%>"><%=rsDivision("Division")%></option>
+						<%end if%>
+				<%			rsDivision.movenext
+						loop
+					End if
+					rsDivision.Close
+					set rsDivision = nothing
+				%>
+			</select>		
+		</td>
+		<td align="center">
+			<select name="txtPlantingDate" id ="txtPlantingDate">	
+					<option value="--SUMMARY--">--SUMMARY--</option>
+					<%
+					if request.Form("vStatus") = "" Then
+						Dim rsPlantingDate 
+						Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+						rsPlantingDate.CursorLocation = adUseClient	
+						strsql =  " SELECT '--ALL--' as PlantingDate from DUAL UNION SELECT DISTINCT to_char(PLANTINGDATE, 'yyyy') as PlantingDate FROM Budget_Field"
+						
+						rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+						if not rsPlantingDate.eof then
+							DO while not rsPlantingDate.eof
+							if v_txtPlantingDate = rsPlantingDate("PlantingDate") then
+					%>			<option value="<%=rsPlantingDate("PlantingDate")%>" Selected><%=rsPlantingDate("PlantingDate")%></option>
+							<%else%>
+								<option value="<%=rsPlantingDate("PlantingDate")%>"><%=rsPlantingDate("PlantingDate")%></option>
+							<%end if%>
+					<%			rsPlantingDate.movenext
+							loop
+						End if
+						rsPlantingDate.Close
+						set rsPlantingDate = nothing
+					End IF
+					%>
+			</select>		
+		</td>
+
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vJenisReport">
+			<option value="Group" <%if request.Form("vJenisReport")="Group" Then%> Selected <%End if%>>Per-Group Pekerjaan</option>
+			<option value="Job" <%if request.Form("vJenisReport")="Job" Then%> Selected <%End if%>>Per-Pekerjaan</option>
+			</select>
+			</td>
+       <td>
+	
+			<select name="txtCostElm">
+			<option value="Tutup" <%if request.Form("txtCostElm")="Tutup" Then%> Selected <%End if%>>Tidak Tampilkan</option>
+			<option value="Tampil" <%if request.Form("txtCostElm")="Tampil" Then%> Selected <%End if%>>Tampilkan</option>
+			</select>
+		</td>
+		
+		 <td align="center">
+			<select name="txtASPCode">	
+					<option value="NONE">NONE</option>
+					<%
+						Dim rsASPCode
+						Set rsASPCode = Server.CreateObject("ADODB.Recordset")
+						rsASPCode.CursorLocation = adUseClient
+						
+							strsql =  " select distinct field_info_01 ASPCODE from field where field_info_01 is not null"
+						
+						rsASPCode.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+						if not rsASPCode.eof then
+							DO while not rsASPCode.eof
+							if v_txtASPCode = rsASPCode("ASPCODE") then
+					%>			<option value="<%=rsASPCode("ASPCODE")%>" Selected><%=rsASPCode("ASPCODE")%></option>
+							<%else%>
+								<option value="<%=rsASPCode("ASPCODE")%>"><%=rsASPCode("ASPCODE")%></option>
+							<%end if%>
+					<%			rsASPCode.movenext
+							loop
+						End if
+						rsASPCode.Close
+						set rsASPCode = nothing
+					%>
+			</select>		
+		</td>
+
+<td><input type="submit" value="View" /></td>
+
+</tr>
+</table>

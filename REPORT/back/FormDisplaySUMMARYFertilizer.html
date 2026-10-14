@@ -1,0 +1,363 @@
+	<%
+	' This is for Group Plantation 
+	%>
+
+
+    <%	
+		if len(trim(v_txtGroupPlantation)) > 0 then 
+			if v_txtGroupPlantation = "--ALL--" then
+				%>
+					<%
+					tempGroupPlantation = rsFertilizer("GroupPlantationCode")
+					%>
+
+					<% if sPrevGroupPlantation <> tempGroupPlantation then %>				
+						<td class="boldfont" align="center" ><%=tempGroupPlantation%></td>
+						<% sPrevGroupPlantation = tempGroupPlantation %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtGroupPlantation <> "--SUMMARY--" then 
+					%>
+					<%
+					tempGroupPlantation = rsFertilizer("GroupPlantationCode")
+					%>
+
+					<% if sPrevGroupPlantation <> tempGroupPlantation then %>				
+						<td class="boldfont" align="center" ><%=tempGroupPlantation%></td>
+						<% sPrevGroupPlantation = tempGroupPlantation %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>
+						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+			<%
+					tempGroupPlantation = rsFertilizer("GroupPlantationCode")
+					%>
+
+					<% if sPrevGroupPlantation <> tempGroupPlantation then %>				
+						<td class="boldfont" align="center" ><%=tempGroupPlantation%></td>
+						<% sPrevGroupPlantation = tempGroupPlantation %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>
+						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	%>	    
+    
+	
+	
+	<%
+	' This is for Plantation 
+	%>
+	<%	
+	if cint(visibleP) >= 1 then 
+		if len(trim(v_txtPlantation)) > 0 then 
+			if v_txtPlantation = "--ALL--" then
+				%>
+					<%
+					tempPlantation = rsFertilizer("PlantationCode")
+					%>
+
+					<% if sPrevPlantation <> tempPlantation then %>				
+						<td class="boldfont" align="center" ><%=tempPlantation%></td>
+						<% sPrevPlantation = tempPlantation %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtPlantation <> "--SUMMARY--" then 
+					%>
+					<%
+					tempPlantation = rsFertilizer("PlantationCode")
+					%>
+
+					<% if sPrevPlantation <> tempPlantation then %>				
+						<td class="boldfont" align="center" ><%=tempPlantation%></td>
+						<% sPrevPlantation = tempPlantation %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+			<%
+					tempPlantation = rsFertilizer("PlantationCode")
+					%>
+
+					<% if sPrevPlantation <> tempPlantation then %>				
+						<td class="boldfont" align="center" ><%=tempPlantation%></td>
+						<% sPrevPlantation = tempPlantation %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+
+	
+    <%
+	' This is for Group Region 
+
+	%>
+	<%	
+	if cint(visibleGR) >= 1 then 
+		if len(trim(v_txtGroupRegion)) > 0 then 
+			if v_txtGroupRegion = "--ALL--" then
+				%>
+					<%
+					tempGroupRegion = rsFertilizer("GroupRegionCode")
+					%>
+
+					<% if sPrevGroupRegion <> tempGroupRegion then %>				
+						<td class="boldfont" align="center" ><%=tempGroupRegion%></td>
+						<% sPrevGroupRegion = tempGroupRegion %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtGroupRegion <> "--SUMMARY--" then 
+					%>
+					<%
+					tempGroupRegion = rsFertilizer("GroupRegionCode")
+					%>
+
+					<% if sPrevGroupRegion <> tempGroupRegion then %>				
+						<td class="boldfont" align="center" ><%=tempGroupRegion%></td>
+						<% sPrevGroupRegion = tempGroupRegion %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+			<%
+					tempGroupRegion = rsFertilizer("GroupRegionCode")
+					%>
+
+					<% if sPrevGroupRegion <> tempGroupRegion then %>				
+						<td class="boldfont" align="center" ><%=tempGroupRegion%></td>
+						<% sPrevGroupRegion = tempGroupRegion %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+	
+
+    <%
+	' This is for  Region 
+
+	%>
+	<%	
+	if cint(visibleR) >= 1 then 
+		if len(trim(v_txtRegion)) > 0 then 
+			if v_txtRegion = "--ALL--" then
+				%>
+					<%
+					tempRegion = rsFertilizer("RegionCode")
+					%>
+
+					<% if sPrevRegion <> tempRegion then %>				
+						<td class="boldfont" align="center" ><%=tempRegion%></td>
+						<% sPrevRegion = tempRegion %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtRegion <> "--SUMMARY--" then 
+					%>
+					<%
+					tempRegion = rsFertilizer("RegionCode")
+					%>
+
+					<% if sPrevRegion <> tempRegion then %>				
+						<td class="boldfont" align="center" ><%=tempRegion%></td>
+						<% sPrevRegion = tempRegion %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+			<%
+					tempRegion = rsFertilizer("RegionCode")
+					%>
+
+					<% if sPrevRegion <> tempRegion then %>				
+						<td class="boldfont" align="center" ><%=tempRegion%></td>
+						<% sPrevRegion = tempRegion %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+
+	
+    <%
+	' This is for  Company
+
+	%>
+	<%	
+	if cint(visibleC) >= 1 then 
+		if len(trim(v_txtCompany)) > 0 then 
+			if v_txtCompany = "--ALL--" then
+				%>
+					<%
+					tempCompany = rsFertilizer("CompanyCode")
+					%>
+
+					<% if sPrevCompany <> tempCompany then %>				
+						<td class="boldfont" align="center" ><%=tempCompany%></td>
+						<% sPrevCompany = tempCompany %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtCompany <> "--SUMMARY--" then 
+					%>
+					<%
+					tempCompany = rsFertilizer("CompanyCode")
+					%>
+
+					<% if sPrevCompany <> tempCompany then %>				
+						<td class="boldfont" align="center" ><%=tempCompany%></td>
+						<% sPrevCompany = tempCompany %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+			<%
+					tempCompany = rsFertilizer("CompanyCode")
+					%>
+
+					<% if sPrevCompany <> tempCompany then %>				
+						<td class="boldfont" align="center" ><%=tempCompany%></td>
+						<% sPrevCompany = tempCompany %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+	
+	
+    <%
+	' This is for  Company
+
+	%>
+	<%	
+	if cint(visibleS) >= 1 then 
+		if len(trim(v_txtFcba)) > 0 then 
+			if v_txtFcba = "--ALL--" then
+				%>
+					<%
+					tempFcba = rsFertilizer("fcba")
+					%>
+
+					<% if sPrevFcba <> tempFcba then %>				
+						<td class="boldfont" align="center" ><%=tempFcba%></td>
+						<% sPrevFcba = tempFcba %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtFcba <> "--SUMMARY--" then 
+					%>
+					<%
+					tempFcba = rsFertilizer("fcba")
+					%>
+
+					<% if sPrevFcba <> tempFcba then %>				
+						<td class="boldfont" align="center" ><%=tempFcba%></td>
+						<% sPrevFcba = tempFcba %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+			<%
+					tempFcba = rsFertilizer("fcba")
+					%>
+
+					<% if sPrevFcba <> tempFcba then %>				
+						<td class="boldfont" align="center" ><%=tempFcba%></td>
+						<% sPrevFcba = tempFcba %>
+						<% sPrevDesc = "" %>
+						<% tempNumber = 0 %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+	
+	
+
+	

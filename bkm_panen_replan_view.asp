@@ -1,0 +1,926 @@
+<%@Language=VBScript%>
+<% Option Explicit %>
+<% ValidateSession %>
+<!--#include virtual="/connDb1.Inc"-->
+<!--#include virtual="/txtFunction.inc"-->
+<!--#include virtual="/adovbs.inc"-->
+
+<%
+dim businessunit,fcbaname,CompanyName,q,sqltotdata,bkmno,totalpremi,bkmdate
+dim ScriptName,btnApprove,bkmno1,SQL,fcbaview
+ScriptName	=	Request.ServerVariables("SCRIPT_NAME")
+bkmno		= trim(request("bkmno"))
+businessunit= trim(session("fcba"))
+fcbaview	= trim(request("fcba"))
+
+
+
+q = "Select fccode,fccompanycode, FCNAME,FCCOMPANYNAME,FCMANAGER,FCKTU,FCCROP,FCTYPE from BusinessUnit where fcCode='" & businessunit & "' "
+	' response.write q
+set rsCat = connStr.Execute(q)
+if not rsCat.eof then
+   fcbaname = rsCat("fcName")
+   CompanyName=rsCat("FCCOMPANYNAME")
+ 
+end if
+
+
+' get data header
+dim sqlheader,rsHeader,bkmnohdr,DATECREATED,SECTIONNAME,GANGCODE
+dim ROWSTATEID,SUPERVISI1,SUPERVISI2,SUPERVISI3,SUPERVISI4,SUPERVISINAME1
+dim SUPERVISINAME2,SUPERVISINAME3,SUPERVISINAME4,Clasification,Clasificationname,ROWSTATE,HUJAN,POSTINGFLG
+sqlheader = "select h.BKMNO,TO_CHAR(h.BKMDATE,'dd/mm/yyyy')BKMDATE,h.GANGCODE,h.SUPERVISI1,(SELECT s1.FCNAME FROM EMPLOYEE  s1 WHERE h.SUPERVISI1=s1.FCCODE and s1.fcba=h.fcba ) AS SUPERVISINAME1, " & _
+" h.SUPERVISI2,(SELECT s2.FCNAME FROM EMPLOYEE s2 WHERE h.SUPERVISI2=s2.FCCODE and s2.fcba=h.fcba) AS SUPERVISINAME2,h.SUPERVISI3, " & _
+" (SELECT s3.FCNAME FROM EMPLOYEE s3 WHERE h.SUPERVISI3=s3.FCCODE and s3.fcba=h.fcba) AS SUPERVISINAME3,h.SUPERVISI4, " & _
+" (SELECT s4.FCNAME FROM EMPLOYEE s4 WHERE h.SUPERVISI4=s4.FCCODE and s4.fcba=h.fcba) AS SUPERVISINAME4,h.SECTIONCODE, " & _ 
+" h.DOCUMENT_CLASSIFICATION,c.fcname, h.ROWSTATE,h.POSTINGFLG,h.HUJAN " & _
+" from bkmhdr h,DOCUMENT_CLASSIFICATION c where h.DOCUMENT_CLASSIFICATION=c.FCCODE and h.BKMNO='" & bkmno & "'"
+'response.write sqlheader
+set rsHeader = connStr.Execute(sqlheader)
+
+if not rsHeader.eof then 
+	bkmnohdr = rsHeader("BKMNO")
+	DATECREATED = rsHeader("BKMDATE")
+	SECTIONNAME = rsHeader("SECTIONCODE")
+	GANGCODE = rsHeader("GANGCODE")
+	SUPERVISI1 = rsHeader("SUPERVISI1")
+	SUPERVISI2 = rsHeader("SUPERVISI2")
+	SUPERVISI3 = rsHeader("SUPERVISI3")
+	SUPERVISI4 = rsHeader("SUPERVISI4")
+	SUPERVISINAME1 = rsHeader("SUPERVISINAME1")
+	SUPERVISINAME2 = rsHeader("SUPERVISINAME2")
+	SUPERVISINAME3 = rsHeader("SUPERVISINAME3")
+	SUPERVISINAME4 = rsHeader("SUPERVISINAME4")
+	Clasification = rsHeader("DOCUMENT_CLASSIFICATION")
+	Clasificationname 	= rsHeader("fcname")
+	POSTINGFLG = rsHeader("POSTINGFLG")
+	ROWSTATE = rsHeader("ROWSTATE")
+	HUJAN = rsHeader("HUJAN")
+	
+end if
+
+IF POSTINGFLG = "0" THEN 
+   POSTINGFLG = "TIDAK"
+ELSE
+   POSTINGFLG	= "YA"
+END IF
+
+'count detailupah
+Dim SQL_Rows, NoOfRows,RSCount
+
+SQL_Rows = "SELECT Count (*) from BKMUPAHDTL u " & _ 
+" where u.BKMNO='" & bkmno & "'"
+set RSCount = connStr.Execute(SQL_Rows)
+if not RSCount.eof then 
+	NoOfRows = RSCount(0).value
+end if
+RSCount.close
+
+'count detailbahan
+Dim SQL_Rowsitem, NoOfRowsitem,RSCountitem
+
+SQL_Rowsitem = "SELECT Count (*) from BKMMUTU where BKMNO='" & bkmno & "'"
+set RSCountitem = connStr.Execute(SQL_Rowsitem)
+if not RSCountitem.eof then 
+	NoOfRowsitem = RSCountitem(0).value
+end if
+RSCountitem.close
+
+'count detaildenda
+Dim SQL_Rowsdenda, NoOfRowsdenda,RSCountdenda
+
+SQL_Rowsdenda = "SELECT Count (*) from BKMDENDA where BKMNO='" & bkmno & "'"
+set RSCountdenda = connStr.Execute(SQL_Rowsdenda)
+if not RSCountdenda.eof then 
+	NoOfRowsdenda = RSCountdenda(0).value
+end if
+RSCountdenda.close
+
+dim strQueryStatus,modulFile,executeQry,modulFile1,executeQry1,bkmtype,sectionnameview,gangcodeview
+'proses dibawah ini digunakan untuk approved bkm dan create jurnal
+btnApprove 	= request("btnsave")
+bkmno1 		= request("bkmno1")
+bkmdate 	= request("bkmdate")
+bkmtype 	= request("bkmtype")
+sectionnameview 	= request("sectionname")
+gangcodeview 	= request("gangcode")
+
+if btnApprove = "Replanned" then 
+	fcbaview		= trim(request("fcbaview"))
+
+	strQueryStatus = "UPDATE bkmhdr SET rowstate = 'Planned', postingflg='0',fcedit='" & Session("CodeName") & "',lastupdate=sysdate WHERE fcba = '" & fcbaview & "' AND bkmno = '" & bkmno1 & "'"
+	connStr.execute(strQueryStatus)
+	modulFile 	= session("username") & " Execution at: " & Now() &  ScriptName 
+	executeQry	= "Query executed:" & strQueryStatus
+	ExecuteAndLog  modulFile,executeQry
+	
+	 q = " INSERT INTO BKMREPLANNEDHISTORI ( BKMNO" & _
+                            "                                           , CREATEDATE" & _
+                            "                                           , BKMDATE" & _
+                            "                                           , BKMTYPE" & _
+                            "                                           , SECTIONNAME" & _
+                            "                                           , GANG" & _
+                            "                                           , VEHICLECODE" & _
+                            "                                           , LASTUPDATE" & _
+                            "                                           , FCBA" & _
+                            "                                           , FCIP" & _
+                            "                                           , FCENTRY, LASTTIME)"& _
+                            " VALUES ('" & bkmno1 & "', " & _ 
+                            " sysdate, " & _
+                            " TO_DATE('" & bkmdate & "', 'dd/mm/yyyy'), " & _
+                            " '" & bkmtype & "', " & _
+                            " '" & sectionnameview & "', " & _
+                            " '" & gangcodeview & "', " & _
+                            " '', " & _
+                            " sysdate, " & _
+                            " '" & fcbaview & "', " & _
+                            " '" & Request.ServerVariables("REMOTE_ADDR") & "', " & _
+                            " '" & Session("CodeName") & "', " & _
+                            " TO_CHAR(SYSDATE, 'hh24:mi'))"
+                   ''   response.write q
+                    '  Response.end
+                        connStr.execute(q)
+
+
+	response.redirect("bkm_panen_replan_view.asp?bkmno="&bkmno1&"&fcba="&fcbaview)
+
+end if
+
+
+%>
+
+<html>
+	<head>
+		<title>FBPlants - View BKM Operasional Panen</title>
+		<link href="/js/tabbedpanels/SpryTabbedPanels.css" rel="stylesheet" type="text/css"/>
+		<script src="/js/tabbedpanels/SpryTabbedPanels.js" type="text/javascript"></script>
+		<script src="/js/jquery-1.9.1.js"></script>
+		<script src="/js/jquery-ui.js"></script>
+		<link rel="stylesheet" href="css/jquery-ui.css" />
+		<link rel="StyleSheet" href="style-content.css" type="text/css" />
+		<link href="/js/spry/widgets/textfieldvalidation/SpryValidationTextField.css" rel="stylesheet" type="text/css"/>
+		<script src="/js/spry/widgets/textfieldvalidation/SpryValidationTextField.js" type="text/javascript"></script>
+	<% if Request("oldui") <> "1" then %>
+<!-- Tampilan baru (css/fbp-shell.css + css/fbp-forms.css). ?oldui=1 = tampilan lama -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="StyleSheet" href="/css/login/font-awesome.min.css" type="text/css" />
+<link rel="StyleSheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
+<link rel="StyleSheet" href="/css/fbp-forms.css?v=20261009e" type="text/css" />
+<script type="text/javascript" src="/js/fbp-shell.js?v=20261014a"></script>
+<% end if %>
+</head>
+
+<style>
+	.posisikirijudul{
+		position: relative;
+		left: 0px;
+	}
+	.posisikiri{
+		position: relative;
+		left: -15px;
+	}
+	.lebarsection{
+		width: 160px;
+	}
+	.lebargangcode{
+		width: 200px;
+	}
+	.lebarhk{
+		width: 45px;
+	}
+	.lebarabsen{
+		width: 48px;
+	}
+	.lebarlokasi{
+		width: 60px;
+	}
+	.lebartc{
+		width: 70px;
+	}
+	.lebardenda{
+		width: 60px;
+	}
+	.lebarrate{
+		width: 60px;
+	}
+	.lebaractivity{
+		width: 110px;
+	}
+	.lebarallow{
+		width: 90px;
+	}
+	.lebarupah{
+		width: 80px;
+	}
+	.warnagaris{
+		border-color: #FFA800;
+	}
+	.tebal{
+		font-weight: bold;
+	}
+	.ratakiri{
+		text-align: left;
+	}
+	.ratakanan{
+		text-align: right;
+	}
+	.ratatengah{
+		text-align: center;
+	}
+	.lebaritembarang{
+		width: 400px;
+	}
+	.lebaractbarang{
+		width: 300px;
+	}
+	.lebarvehicle{
+		width: 200px;
+	}
+	.lebartime{
+		width: 90px;
+	}
+
+	.lebarspkno{
+		width: 250px;
+	}
+	.lebarovtime{
+		width: 70px;
+	}
+	.warnaamount{
+		background-color: #eee;
+	}
+	
+</style>
+
+
+
+<body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-bkm"<% end if %>>
+<!--#include file="top.jsp"-->
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div id="head_judul" style="float:left;font-size:10px; text-align:left;">
+		<strong class="">&nbsp;&nbsp;PT. <%=CompanyName%> - &nbsp;<%=FcbaName%>   -           MODULE : BKM OPERASIONAL PANEN VIEW</strong><br>					
+</div>
+<br>
+<br>
+<div class="box_bothall" style="overflow:scroll;">			
+<form name="frmEntry" method="post" action="bkm_panen_replan_view.asp">
+	<input type="hidden" name="jumldata" id="jumldata" value="<%=NoOfRows%>" />
+	<input type="hidden" name="jumldataitem" id="jumldataitem" value="<%=NoOfRowsitem%>" />
+	<input type="hidden" name="jumldatadenda" id="jumldatadenda" value="<%=NoOfRowsdenda%>" />
+	<input type="hidden" name="proses" id="proses" value="2" />
+	<input type="hidden" name="bkmno1" id="bkmno1" value="<%=bkmno%>" />
+	<input type="hidden" name="bkmdate" id="bkmdate" value="<%=DATECREATED%>" />
+	<input type="hidden" name="bkmtype" id="bkmtype" value="<%=Clasification%>" />
+	<input type="hidden" name="sectionname" id="sectionname" value="<%=SECTIONNAME%>" />
+	<input type="hidden" name="gangcode" id="gangcode" value="<%=GANGCODE%>" />
+	<input type="hidden" name="fcbaview" id="fcbaview" value="<%=fcbaview%>" />
+	<table class="data posisikiri" border="0" width="90%">			
+		<tr>
+			<td align="left" >BKM No:</td>
+			<td align="left">
+				<%=bkmno%>
+			</td>
+
+
+			<td align="left" >Section Name</td>
+			<td align="left">
+				<%=SECTIONNAME%>
+			</td>
+			<td align="left" >Mandor I</td>
+			<td align="left">
+				<select name="supervisi1" id="supervisi1" class="lebarsection" >
+					<option value="<%=SUPERVISI1%>"><%=SUPERVISINAME1%></option>
+				</select>
+			</td>
+			<td align="left" >Kerani Panen</td>
+			<td align="left">
+				<select name="supervisi3" id="supervisi3" class="lebarsection" >
+					<option value="<%=SUPERVISI3%>"><%=SUPERVISINAME3%></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td align="left" >Tanggal</td>
+			<td align="left">
+				<%=DATECREATED%>
+			</td>
+			
+			<td align="left" >Gang</td>
+			<td align="left">
+				<%=GANGCODE%>
+			</td>
+			<td align="left" >Mandor</td>
+			<td align="left">
+				<select name="supervisi2" id="supervisi2" class="lebarsection" >
+					<option value="<%=SUPERVISI2%>"><%=SUPERVISINAME2%></option>
+				</select>
+			</td>
+			<td align="left" >Kerani Transport</td>
+			<td align="left">
+				<select name="supervisi4" id="supervisi4" class="lebarsection" >
+					<option value="<%=SUPERVISI4%>"><%=SUPERVISINAME4%></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			
+			<td align="left" >Posting</td>
+			<td align="left"><%=POSTINGFLG%>-<%=ROWSTATE%></td>
+			
+			<td align="left" >Hujan</td>
+			<td align="left">
+				<%
+				if HUJAN = "1" THEN %>
+					<input type="checkbox" name="hujan" id="hujan" checked >
+					</input>
+
+				<%else%>
+					<input type="checkbox" name="hujan" id="hujan" >
+					</input>
+				<%end if%>
+			</td>
+		</tr>
+	</table>
+	
+	<br>
+		
+	<table align=center border="0" class='data posisikiri' width='900' id='tableall'>
+		<tr>
+			<td>
+				<div class="TabbedPanels" id="tp1" align='center'>
+				
+					<ul class="TabbedPanelsTabGroup">
+						<li class="TabbedPanelsTab">BKM UPAH</li>
+						<li class="TabbedPanelsTab">BKM MUTU</li>
+						<li class="TabbedPanelsTab">BKM DENDA</li>
+						
+					</ul>
+
+					<div class="TabbedPanelsContentGroup">
+
+						<!-- view bkm upah-->
+						<div class="TabbedPanelsContent">
+							<table align=center border="0" width="600" class='data' id='table2'>
+								<tr id="trheader2">
+									<th>Employee</th>
+									<th>TimeIn</th>
+									<th>TimeOut</th>
+									<th>Lokasi</th>
+									<th>Absen</th>
+									<th>Activity</th>
+									<th>Uom</th>
+									<th>TC</th>
+									<th>HK</th>
+									<th>JJG</th>
+									<th>JJG UN</th>
+									<th>JJG BA</th>
+									<th>BJR</th>
+									<th>Brdln</th>
+									<th>KG TBS</th>
+									<th>Output</th>
+									<th>Rate</th>
+									<th>Allowed Code</th>
+									<th>Rate Allowed</th>
+									
+									<th colspan="2">&nbsp;</th>
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								dim sqldtlupah,rsdtlupah,no,ttlhk,ttlbunch,ttlbunchun,ttlbunchba,ttlbjr,ttlbrndln,ttlkgtbs,ttloutput,ttlrate,ttlrateallowen, totalamount
+								sqldtlupah = "SELECT u.BKMNO,u.fcba, u.chargeunit ,u.EMPLOYEECODE,e.fcname || '-' ||  e.fccode as fcname, u.ACTCODE,a.fcname || '-' ||  u.ACTCODE as activityname, NVL(u.MANDAYS,0)MANDAYS, " & _
+								" u.ALLOWANCE_CODE, nvl(u.ALLOWANCE_AMT,0)ALLOWANCE_AMT, u.ATTENDANCE,u.OVERTIME_HOURS,u.TYPE_OVERTIME,o.fcname type_ovname, " & _ 
+								" to_char(u.IN_FIN,'hh24:mi:ss')IN_FINDEPAN,to_char(u.OUT_FIN,'hh24:mi:ss')OUT_FINDEPAN,	" & _
+								" to_char(u.IN_FIN,'dd/mm/yyyy hh24:mi:ss')IN_FIN,to_char(u.OUT_FIN,'dd/mm/yyyy hh24:mi:ss')OUT_FIN,  " & _
+								" u.LOCATIONCODE, NVL(u.OUTPUT,0)OUTPUT,NVL(u.rate,0)rate, NVL(u.UNIT,0)UNIT ,u.ALLOWANCE_CODE, " & _ 
+								" al.FCCODE || ' - ' || al.fcname as ALLOWDEDNAME,NVL(u.bunch_weight,0)bunch_weight, " & _ 
+								" NVL(u.bunchun,0)bunchun,NVL(u.bunchba,0)bunchba,NVL(u.abw,0)abw,nvl(u.kg_brondolan,0)kg_brondolan,a.uom_unit " & _
+								" FROM BKMUPAHDTL u " & _ 
+								" INNER JOIN employee e ON (u.EMPLOYEECODE=e.fccode and u.fcba=e.fcba) " & _
+								" INNER JOIN Jobmaster a ON (u.ACTCODE=a.FCCODE) " & _
+								" LEFT JOIN ALLOWDED al ON (al.FCCODE = u.ALLOWANCE_CODE and al.fcba=u.fcba) " & _ 
+								" LEFT JOIN overtime_convertion o ON (o.type=u.TYPE_OVERTIME and o.HOURS=u.OVERTIME_HOURS and o.fcba=u.fcba)" & _
+								" where u.BKMNO='" & bkmno & "' and u.EMPLOYEECODE not in " & _ 
+								" (select h1.SUPERVISI1 from BKMHDR h1 where h1.bkmno=u.bkmno AND h1.SUPERVISI1=e.fccode union all  select h2.SUPERVISI2 from BKMHDR h2 where h2.bkmno=u.bkmno AND h2.SUPERVISI2=e.fccode " & _ 
+								" union all  select h3.SUPERVISI3 from BKMHDR h3 where h3.bkmno=u.bkmno  AND h3.SUPERVISI3=e.fccode " & _ 
+								" union all  select h4.SUPERVISI2 from BKMHDR h4 where h4.bkmno=u.bkmno  AND h4.SUPERVISI4=e.fccode) " & _ 
+								" order by e.fcname, a.fcname,u.LOCATIONCODE,u.ALLOWANCE_CODE"
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+								'response.write sqldtlupah
+								
+
+																
+								no = 0
+								totalamount = 0
+								ttlhk = 0
+								ttlbunch = 0 
+								ttlbunchun = 0
+								ttlbunchba = 0 
+								ttlbjr = 0 
+								ttlbrndln = 0 
+								ttlkgtbs = 0 
+								ttloutput = 0 
+								ttlrate = 0
+								ttlrateallowen = 0
+								While Not rsdtlupah.EOF %>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("fcname")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("IN_FINDEPAN")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("OUT_FINDEPAN")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("chargeunit")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("ATTENDANCE")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("activityname")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("uom_unit")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("LOCATIONCODE")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("MANDAYS")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("unit")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("bunchun")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("bunchba")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("abw")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("kg_brondolan")%>
+									</td>
+									<td class="ratatengah">
+										<%=rsdtlupah("bunch_weight")%>
+									</td>
+									
+									<td class="ratatengah">
+										<%=rsdtlupah("OUTPUT")%>
+									</td>
+									
+									<td class="ratatengah">
+										<%=rsdtlupah("rate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("ALLOWDEDNAME")%>
+									</td>
+																		
+									<td class="ratatengah">
+										<%=rsdtlupah("ALLOWANCE_AMT")%>
+									</td>
+								
+									
+									
+									<td></td>
+									
+								</tr>
+								<%
+									no = no +1
+									ttlhk = cdbl(ttlhk) + cdbl(rsdtlupah("MANDAYS"))
+									ttlbunch = cdbl(ttlbunch) + cdbl(rsdtlupah("unit"))
+									ttlbunchun = cdbl(ttlbunchun) + cdbl(rsdtlupah("bunchun"))
+									ttlbunchba = cdbl(ttlbunchba) + cdbl(rsdtlupah("bunchba"))
+									ttlbjr = cdbl(ttlbjr) + cdbl(rsdtlupah("abw"))
+									ttlbrndln = cdbl(ttlbrndln) + cdbl(rsdtlupah("kg_brondolan"))
+									ttlkgtbs = cdbl(ttlkgtbs) + cdbl(rsdtlupah("bunch_weight"))
+									ttloutput = cdbl(ttloutput) + cdbl(rsdtlupah("output"))
+									ttlrate = cdbl(ttlrate) + cdbl(rsdtlupah("rate"))
+									ttlrateallowen = cdbl(ttlrateallowen) + cdbl(rsdtlupah("ALLOWANCE_AMT"))
+									
+									rsdtlupah.MoveNext
+									Wend
+								%>
+									<tr class="ratakanan">
+										<td colspan="8" class="tebal">Total</td>
+										<td class="tebal ratatengah"><input class="ratatengah lebarhk" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlhk,0)%>"/></td>
+										<td class="tebal ratakanan"><input class="ratatengah lebarhk" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlbunch,0)%>"/></td>
+										<td class="tebal  ratakanan"><input class="ratatengah lebarhk" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlbunchun,0)%>"/></td>
+										<td class="tebal ratatengah"><input class="ratatengah lebarhk" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlbunchba,0)%>"/></td>
+										<td class="tebal ratatengah"><input class="ratatengah lebarhk" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlbjr,0)%>"/></td>
+										<td class="tebal ratatengah"><input class="ratatengah lebarhk" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlbrndln,0)%>"/></td>
+										<td class="tebal ratatengah"><input class="ratatengah lebarhk" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlkgtbs,0)%>"/></td>
+										<td class="tebal ratakiri"><input class="ratatengah lebarhk" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttloutput,2)%>"/></td>
+										<td class="tebal ratatengah"><input class="ratatengah lebarrate" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlrate,0)%>"/></td>
+										<td></td>
+										<td class="tebal ratatengah"><input class="ratakanan lebarrate" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(ttlrateallowen,0)%>"/></td>
+										
+									</tr>
+							</table>
+						</div>
+
+						<!-- view bkm MUTU-->
+						<div class="TabbedPanelsContent">
+							<!-- ============================================================================================================================= -->
+							<div id="datadetail">
+								<table align=center border="0" width="750" class='data' id='table1'>
+									<tr id="trheader1">
+										<th>Blok</th>
+										<th>B. Mateng</th>
+										<th>B. LMateng</th>
+										<th>B. KMateng</th>
+										<th>B. Mentah</th>
+										<th>B. Busuk</th>
+										
+										<th colspan="2">&nbsp;</th>
+									</tr>
+
+									<%
+									
+										dim sqlbarang,rsbarang 
+										sqlbarang = "select * " & _
+										" from BKMMUTU " & _
+										" where BKMNO='" & bkmno & "' order by blok asc"
+										 set rsbarang = connStr.Execute(sqlbarang)
+										 'response.write sqlbarang
+									%>
+
+									<% 
+										dim nobr
+										nobr = 0
+										While Not rsbarang.EOF 
+									%>
+										<tr id='trb<%=nobr%>'>
+											<td class="ratatengah">
+												<%=rsbarang("blok")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsbarang("bmateng")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsbarang("blmateng")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsbarang("bkmateng")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsbarang("bmentah")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsbarang("bbusuk")%>
+											</td>
+											
+
+										
+											<td></td>
+										</tr>
+
+											
+										
+									<%
+										nobr = nobr + 1
+										rsbarang.MoveNext
+										Wend
+									
+									%>
+									
+								</table>
+							</div>
+							
+						</div>
+
+						<!-- view bkm denda-->
+						<div class="TabbedPanelsContent">
+							<!-- ============================================================================================================================= -->
+							<div id="detaildenda">
+								<table align=center border="0" width="950" class='data' id='table3'>
+									<tr >
+										
+											<th rowspan="2">Employee</th>
+											<th colspan="7">Kualitas TBS</th>
+											<th colspan="7">Kualitas Ancak</th>
+											<th rowspan="2" colspan="2">&nbsp;</th>
+									</tr>
+									<tr id="trheader3">
+										
+										<th>(A)</th>
+										<th>(BA)</th>
+										<th>(TP)</th>
+										<th>(BK)</th>
+										<th>(O)</th>
+										<th>(AB)</th>
+										<th>(E)</th>
+
+										<th>(BT)</th>
+										<th>(PS)</th>
+										<th>(SP)</th>
+										<th>(BRD)</th>
+										<th>(OP)</th>
+										<th>(BM)</th>
+										<th>(BDT)</th>
+									</tr>
+
+									<%
+									
+										dim sqldenda,rsdenda,nodenda 
+										sqldenda = "Select B.EMPLOYEECODE,E.FCNAME, B.LINENOKEY, B.REMARKS, " & _
+										" B.TBSA, B.TBSBA, B.TBSTP, B.TBSBK, B.TBSO, " & _
+										" B.TBSAB, B.TBSE, B.ANCAKBT, B.ANCAKPS, B.ANCAKSP, " & _
+										" B.ANCAKBRD, B.ANCAKOP, B.ANCAKBM, B.ANCAKBDT " & _
+										" From   BKMDENDA B " & _
+										" LEFT JOIN EMPLOYEE E ON (B.EMPLOYEECODE=E.FCCODE AND B.FCBA=E.FCBA) " & _
+										" WHERE B.BKMNO='" & bkmno & "' order by e.fcname asc"
+										 set rsdenda = connStr.Execute(sqldenda)
+										 'response.write sqlbarang
+									%>
+
+									<% 
+										 
+										nodenda = 0
+										While Not rsdenda.EOF 
+									%>
+										<tr id='trd<%=nodenda%>'>
+											<td class="ratakiri">
+												<%=rsdenda("FCNAME")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("TBSA")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("TBSBA")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("TBSTP")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("TBSBK")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("TBSO")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("TBSAB")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("TBSE")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("ANCAKBT")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("ANCAKPS")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("ANCAKSP")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("ANCAKBRD")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("ANCAKOP")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("ANCAKBM")%>
+											</td>
+											<td class="ratatengah">
+												<%=rsdenda("ANCAKBDT")%>
+											</td>
+											
+
+											
+											<td></td>
+										</tr>
+
+											
+										
+									<%
+										nodenda = nodenda + 1
+										rsdenda.MoveNext
+										Wend
+									
+									%>
+									
+								</table>
+							</div> 
+							<!-- ============================================================================================================================= -->
+						</div>
+
+						
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+		<td colspan="9" align="center" >
+		<% if ROWSTATE="Approved"  Then %>
+			<input type=Submit name="btnsave" id="btnsave" value="Replanned">&nbsp;&nbsp;
+		<%end if%>
+		    <input type=button onclick="window.close();" name="btnclose" value="CLOSE">
+		</td>
+		</tr>
+	</table>
+
+
+	<br>
+	<table align=center border="0" class='data ratakiri' width='1100' id='tbldtl'>
+		<tr>
+			<th>Employee</th>
+			<th>Lokasi</th>
+			<th>Absen</th>
+			<th>Activity</th>
+			<th>Uom</th>
+			<th>TC</th>
+			<th>HK</th>
+			<th>JJG</th>
+			<th>Brondln</th>
+			<th>KGTbs</th>
+			<th>Output</th>
+			<th>Rate</th>
+			<th>Allowed Code</th>
+			<th>Rate Allowed</th>
+			<th>Amount</th>
+		</tr>
+		<%
+			'get data detail upah
+			dim sqlupah, rsupah,allcode,rateallow,hkview, dtlamt
+			sqlupah = "SELECT u.BKMNO,u.fcba, u.EMPLOYEECODE,e.fcname || '-' ||  e.fccode as fcname, u.ACTCODE,a.fcname || '-' ||  u.ACTCODE as activityname, NVL(u.MANDAYS,0)MANDAYS, " & _
+			" p.ALLOWDEDCODE, nvl(u.ALLOWANCE_AMT,0)ALLOWANCE_AMT, u.ATTENDANCE,u.OVERTIME_HOURS,u.TYPE_OVERTIME," & _ 
+			" nvl(u.unit,0) unit,nvl(u.kg_brondolan,0)kg_brondolan,NVL(u.bunch_weight,0)bunch_weight, " & _
+			" u.LOCATIONCODE, nvl(u.OUTPUT,0)output,u.rate,p.ALLOWDEDCODE,al.FCCODE || ' - ' || al.fcname as ALLOWDEDNAME,nvl(p.AMOUNT,0)AMOUNT,a.uom_unit " & _
+			" FROM BKMUPAHDTL u " & _ 
+			" INNER JOIN employee e ON (u.EMPLOYEECODE=e.fccode and u.fcba=e.fcba) " & _
+			" INNER JOIN JobMaster a ON (u.ACTCODE=a.FCCODE) " & _
+			" LEFT JOIN BKMPROSES  p ON (u.EMPLOYEECODE=p.EMPLOYEECODE AND p.BKMNO = u.BKMNO AND p.LINENOKEY = u.LINENOKEY AND u.fcba=p.fcba) " & _ 
+			" LEFT JOIN ALLOWDED al ON (al.FCCODE = p.ALLOWDEDCODE and al.fcba=p.fcba) " & _ 
+			" where u.BKMNO='" & bkmno & "' order by e.fcname, a.fcname,u.LOCATIONCODE,p.ALLOWDEDCODE"
+			set rsupah = connStr.Execute(sqlupah)
+			'response.write sqldtlupah
+			totalamount = 0
+			totalpremi = 0
+			While Not rsupah.EOF
+
+			allcode = rsupah("ALLOWDEDCODE")
+
+			if allcode = "A01" THEN 
+				rateallow = 0
+				hkview    = rsupah("MANDAYS")
+			ELSE 
+				rateallow = rsupah("ALLOWANCE_AMT")
+				hkview    = 0
+			END IF 
+
+			
+
+		%>
+		<tr>
+			<td class="ratakiri"><%=rsupah("fcname")%></td>
+			<td class="ratatengah"><%=rsupah("fcba")%></td>
+			<td class="ratatengah"><%=rsupah("ATTENDANCE")%></td>
+			<td class="ratakiri"><%=rsupah("activityname")%></td>
+			<td class="ratakiri"><%=rsupah("uom_unit")%></td>
+			<td class="ratatengah"><%=rsupah("LOCATIONCODE")%></td>
+			<td class="ratatengah"><%=hkview%></td>
+			<td class="ratatengah"><%=rsupah("UNIT")%></td>
+			<td class="ratatengah"><%=rsupah("kg_brondolan")%></td>
+			<td class="ratatengah"><%=rsupah("bunch_weight")%></td>
+			<td class="ratatengah"><%=rsupah("OUTPUT")%></td>
+			<td class="ratatengah"><%=rsupah("RATE")%></td>
+			<td class="ratakiri"><%=rsupah("ALLOWDEDNAME")%></td>
+			<td class="ratakanan"><%=formatnumber(rateallow,0)%></td>
+			<td class="ratakanan"><%=formatnumber(rsupah("AMOUNT"),0)%></td>
+		</tr>
+		<%
+			totalpremi = cdbl(totalpremi) + cdbl(rateallow)
+			totalamount = cdbl(totalamount) + cdbl(rsupah("AMOUNT"))
+			rsupah.MoveNext
+			Wend
+		%>
+		<tr>
+			<td colspan="13" class="ratakanan tebal">Total</td>
+			<td class="ratakanan tebal"><%=formatnumber(totalpremi,0)%></td>
+			<td class="ratakanan tebal"><%=formatnumber(totalamount,0)%></td>
+		</tr>
+		
+	</table>
+
+</form>
+</div>
+</body>
+<!--#include file="bottom.jsp"-->
+</html>
+<link href="/js/select2/select2.min.css" rel="stylesheet" type="text/css"/>
+<script src="/js/select2/select2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	new Spry.Widget.TabbedPanels("tp1", {
+		defaultTab: 0
+	});
+
+$(function() {	
+	showSupervisi1();
+	showSupervisi2();
+	showSupervisi3();
+	showSupervisi4();
+});
+
+
+
+//get supervisi 1
+function showSupervisi1() {
+	
+	$('#supervisi1').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsupervisi.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get supervisi 2
+function showSupervisi2() {
+	
+	$('#supervisi2').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsupervisi.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get supervisi 3
+function showSupervisi3() {
+	
+	$('#supervisi3').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsupervisi.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get supervisi 1
+function showSupervisi4() {
+	
+	$('#supervisi4').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsupervisi.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+</script>

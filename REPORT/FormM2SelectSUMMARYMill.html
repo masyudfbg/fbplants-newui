@@ -1,0 +1,50 @@
+	<table id="form-table" class="centered-margin">
+
+
+	</table>
+
+	
+	
+	
+	
+	<table id="form-table" class="centered-margin">
+
+		<tr>
+			<td><font face="verdana" size="1">BUDGET YEAR</font></td>
+			<td><font face="verdana" size="1">BUDGET VERSION</font></td>
+			<td><font face="verdana" size="1">MODULE VERSION</font></td>
+			<td><font face="verdana" size="1">YEAR</font></td>
+			<td><font face="verdana" size="1">MONTH</font></td>			
+			<td>&nbsp;</td>
+		</tr>
+
+		<tr>
+			<td align="center"><input type="text" name="txtBudgetYear" value="<%=v_txtBudgetYear%>"></td>
+			<td align="center"><input type="text" name="txtBudgetVersion" value="<%=v_txtBudgetVersion%>"></td>
+			<td align="center"><input type="text" name="txtModuleVersion" value="<%=v_txtModuleVersion%>"></td>
+			<td align="center"><input type="text" name="txtyear" value="<%=v_txtyear%>"></td>
+			
+			<td width="2">
+				<select name="txtMonth">
+					<%
+						For i_month = 1 to 12
+					%>
+							<Option Value="<%=i_month%>" <% If cint(i_month) = cint(v_txtMonth) then %> selected <%End If%> >
+							      <%=Bulan(cint(i_month))%>
+						    </option>
+					<%
+						Next
+					%>
+				</select>
+			</td>			
+			
+
+		    <td align="center"><input type="submit" value="View" /></td>
+			
+			<td>&nbsp;</td>
+		</tr>
+		
+
+
+	</table>
+

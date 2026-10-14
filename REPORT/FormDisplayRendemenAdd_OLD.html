@@ -1,0 +1,484 @@
+				<%
+					if not rsRendemenFinalAdd.EOF then
+						no = 0
+						
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsRendemenFinalAdd.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsRendemenFinalAdd("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "RENDEMEN"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'PRODUCTION' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsRendemenFinalAdd("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")								
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""		
+										tempRounding = 2
+									end if		
+									tempUOM = rsRendemenFinalAdd("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>								
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>">O E R</a></td>
+								<!--#include file="FormDisplaySUMMARYRendemenAdd.html"-->								
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+									if cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_HI"))  <> 0 then 
+										tempDataBudget_HI = cdbl(rsRendemenFinalAdd("CPO_PRODUCTION_BUDGET_HI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_HI")) * 100
+									else
+									    tempDataBudget_HI = 0 
+									end if
+									
+									if cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_SHI")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsRendemenFinalAdd("CPO_PRODUCTION_BUDGET_SHI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_SHI")) * 100
+									else
+										tempDataBudget_SHI = 0
+									end if
+									
+									if cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_SBI")) <> 0 then
+										tempDataBudget_SBI = cdbl(rsRendemenFinalAdd("CPO_PRODUCTION_BUDGET_SBI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_SBI")) * 100	
+									else
+										tempDataBudget_SBI = 0 
+									end if
+									
+								%>					
+								
+								<%  
+									if rsRendemenFinalAdd("TBS_PROCESS_HI") <> "" then 
+									    if cdbl(rsRendemenFinalAdd("TBS_PROCESS_HI")) <> 0 then 
+											tempHI = cdbl(rsRendemenFinalAdd("CPO_PRODUCTION_HI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_HI")) * 100
+										else
+										    tempHI = 0
+										end if
+									else
+										tempHI = 0
+									end if
+									
+									if rsRendemenFinalAdd("TBS_PROCESS_SHI") <> "" then 
+										if cdbl(rsRendemenFinalAdd("TBS_PROCESS_SHI")) <> 0 then 
+											tempSHI = cdbl(rsRendemenFinalAdd("CPO_PRODUCTION_SHI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_SHI")) * 100
+										else
+											tempSHI = 0
+										end if
+									else
+										tempSHI = 0
+									end if
+									
+									if rsRendemenFinalAdd("TBS_PROCESS_SBI") <> "" then 
+										if cdbl(rsRendemenFinalAdd("TBS_PROCESS_SBI")) <> 0 then 
+											tempSBI = cdbl(rsRendemenFinalAdd("CPO_PRODUCTION_SBI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_SBI")) * 100
+										else
+											tempSBI = 0 
+										end if
+									else
+										tempSBI = 0
+									end if
+								
+
+								%>
+								
+								<%
+									if rsRendemenFinalAdd("CodeDesc") = "FFB01" then 
+									   tempOpeningStock = tempHI
+									end if
+								%>
+
+
+								<td align="center" ><%=FormatNumber(tempHI, tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSHI, tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI, tempRounding)%></td>
+								
+								<%
+								if rsRendemenFinalAdd("CodeDesc") = "PROD01" then 
+								   tempOilProcessed = tempHI
+								   tempOilProcessed_SHI = tempSHI
+								   tempOilProcessed_SBI = tempSBI
+								end if		
+
+								if rsRendemenFinalAdd("CodeDesc") = "PROD02" then 
+								   tempKernelProcessed = tempHI
+								   tempKernelProcessed_SHI = tempSHI
+								   tempKernelProcessed_SBI = tempSBI
+								end if		
+								%>
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+								
+								
+								<%
+								    if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = tempHI/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = tempSHI/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = tempSBI/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+									%>
+													
+									<%
+										tempRefCode = "OER"
+										strGetColor = "select " & _
+										   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_HI & "," & tempHI & "," & tempDataBudget_HI & " ) colorHI, " & _
+										   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_SHI & "," & tempSHI & "," & tempDataBudget_SHI & " ) colorSHI, " & _
+										   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_SBI & "," & tempSBI & "," & tempDataBudget_SBI & " ) colorSBI " & _
+										"from dual "
+										
+										Set rsGetColor = Server.CreateObject("ADODB.Recordset")	
+										rsGetColor.Open strGetColor, connstr, adOpenStatic 
+										
+										if not rsGetColor.EOF then
+											cClassAssigned_HI = rsGetColor("colorHI")
+											cClassAssigned_SHI = rsGetColor("colorSHI")
+											cClassAssigned_SBI = rsGetColor("colorSBI")
+										else
+											cClassAssigned_HI = "white"
+											cClassAssigned_SHI = "white"
+											cClassAssigned_SBI = "white"
+										end if
+
+										rsGetColor.Close
+										set rsGetColor = Nothing
+										
+									%>			
+									
+								
+								<td class="<%=cClassAssigned_HI%>" align="center" ><%=FormatNumber(tempCompare_HI,0)%></td>
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+								
+								
+							</tr>
+							
+				<% 
+				 ' XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  START KERNEL
+
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsRendemenFinalAdd("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = ""
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'PRODUCTION' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsRendemenFinalAdd("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")								
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""		
+										tempRounding = 2
+									end if		
+									tempUOM = rsRendemenFinalAdd("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								
+								
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>">K E R</a></td>
+								<!--#include file="FormDisplaySUMMARYRendemenAdd.html"-->
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+									if cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_HI")) <> 0 then 
+										tempDataBudget_HI = cdbl(rsRendemenFinalAdd("KERNEL_PRODUCTION_BUDGET_HI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_HI")) * 100
+									else
+										tempDataBudget_HI = 0 
+									end if
+									
+									if cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_SHI")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsRendemenFinalAdd("KERNEL_PRODUCTION_BUDGET_SHI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_SHI")) * 100
+									else
+										tempDataBudget_SHI = 0 
+									end if
+									
+									if cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_SBI")) <> 0 then 
+										tempDataBudget_SBI = cdbl(rsRendemenFinalAdd("KERNEL_PRODUCTION_BUDGET_SBI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_BUDGET_SBI")) * 100	
+									else
+										tempDataBudget_SBI = 0 
+									end if
+	
+
+									
+								%>					
+								
+								<%  
+									if rsRendemenFinalAdd("TBS_PROCESS_HI") <> "" then 
+										if cdbl(rsRendemenFinalAdd("TBS_PROCESS_HI"))  <> 0 then 
+											tempHI = cdbl(rsRendemenFinalAdd("KERNEL_PRODUCTION_HI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_HI")) * 100
+										else 
+											tempHI = 0
+										end if
+									else
+										tempHI = 0
+									end if
+									
+									if rsRendemenFinalAdd("TBS_PROCESS_SHI") <> "" then 
+										if cdbl(rsRendemenFinalAdd("TBS_PROCESS_SHI")) <> 0 then 
+											tempSHI = cdbl(rsRendemenFinalAdd("KERNEL_PRODUCTION_SHI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_SHI")) * 100
+										else
+											tempSHI = 0
+										end if
+									else
+										tempSHI = 0
+									end if
+									
+									if rsRendemenFinalAdd("TBS_PROCESS_SBI") <> "" then 
+										if cdbl(rsRendemenFinalAdd("TBS_PROCESS_SBI")) <> 0 then 
+											tempSBI = cdbl(rsRendemenFinalAdd("KERNEL_PRODUCTION_SBI")) /  cdbl(rsRendemenFinalAdd("TBS_PROCESS_SBI")) * 100
+										else
+											tempSBI = 0
+										end if
+									else
+										tempSBI = 0
+									end if
+								
+
+								%>
+								
+								<%
+									if rsRendemenFinalAdd("CodeDesc") = "FFB01" then 
+									   tempOpeningStock = tempHI
+									end if
+								%>
+
+
+								<td align="center" ><%=FormatNumber(tempHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI,tempRounding)%></td>
+								
+								<%
+								if rsRendemenFinalAdd("CodeDesc") = "PROD01" then 
+								   tempOilProcessed = tempHI
+								   tempOilProcessed_SHI = tempSHI
+								   tempOilProcessed_SBI = tempSBI
+								end if		
+
+								if rsRendemenFinalAdd("CodeDesc") = "PROD02" then 
+								   tempKernelProcessed = tempHI
+								   tempKernelProcessed_SHI = tempSHI
+								   tempKernelProcessed_SBI = tempSBI
+								end if		
+								%>
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+								
+								
+								<%
+									  if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = tempHI/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = tempSHI/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = tempSBI/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									%>
+									
+								<%
+										tempRefCode = "KER"
+										strGetColor = "select " & _
+										   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_HI & "," & tempHI & "," & tempDataBudget_HI & " ) colorHI, " & _
+										   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_SHI & "," & tempSHI & "," & tempDataBudget_SHI & " ) colorSHI, " & _
+										   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_SBI & "," & tempSBI & "," & tempDataBudget_SBI & " ) colorSBI " & _
+										"from dual "
+										
+										Set rsGetColor = Server.CreateObject("ADODB.Recordset")	
+										rsGetColor.Open strGetColor, connstr, adOpenStatic 
+										
+										if not rsGetColor.EOF then
+											cClassAssigned_HI = rsGetColor("colorHI")
+											cClassAssigned_SHI = rsGetColor("colorSHI")
+											cClassAssigned_SBI = rsGetColor("colorSBI")
+										else
+											cClassAssigned_HI = "white"
+											cClassAssigned_SHI = "white"
+											cClassAssigned_SBI = "white"
+										end if
+
+										rsGetColor.Close
+										set rsGetColor = Nothing
+										
+									%>		
+									
+								
+								<td class="<%=cClassAssigned_HI%>" align="center" ><%=FormatNumber(tempCompare_HI,0)%></td>
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+								
+								
+							</tr>
+						<%
+				
+				
+							rsRendemenFinalAdd.MoveNext
+						Wend
+					end if
+					rsRendemenFinalAdd.Close
+					set rsRendemenFinalAdd = Nothing
+				%>	
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				

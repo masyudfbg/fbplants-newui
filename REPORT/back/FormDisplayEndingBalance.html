@@ -1,0 +1,189 @@
+	<%
+		if not rsEndingBalance.EOF then
+			no = 0
+			sPrevGroupPlantation = ""
+			sPrevPlantation = ""
+			sPrevGroupRegion = ""
+			sPrevRegion = ""
+			sPrevCompany = ""
+			sPrevFcba = ""
+			sPrevDesc = ""
+			tempNumber = 0			
+			while not rsEndingBalance.EOF
+				if no  mod 2 = 1 then
+					cClass = "odd"
+				else
+					cClass = "default"
+				end if
+				no = no + 1
+	%>
+
+
+				<tr class="<%=cClass%>">
+				
+					<%
+					strCodeDesc = "SELECT param_1 CodeDescription, rate_1 theRowSpan FROM PARAMETERDETAIL " & _
+										" WHERE " & _
+										" parcode = 'SR003' AND " & _
+										" parheadcode = 'REPORTCODE' AND " & _
+										" param_2 = 'DEFAULT' AND " & _
+										" fccode = '" & rsEndingBalance("codedesc") & "'" 
+						
+						Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+						rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+						if not rsCodeDesc.EOF then
+							tempCodeDescription = rsCodeDesc ("CodeDescription")
+						else
+							tempCodeDescription = ""				
+							
+						end if		
+						tempUOM = rsEndingBalance("UnitOfMeasurement")
+										
+										
+					%>
+					
+					<!--#include file="FormDisplaySUMMARYEndingBalance.html"-->
+
+					
+					<% if sPrevDesc <> tempCodeDescription then %>				
+						<td class="boldfont" rowspan="<%=tempRowSpan%>" align="center" ><%=tempCodeDescription%></td>
+						<% sPrevDesc = tempCodeDescription %>
+					<% else %>
+						<td align="left"></td>
+					<% end if %>
+					
+					<% tempNumber = tempNumber + 1 %>
+					<td align="center"  ><%=tempNumber%></td>
+					
+					<% 
+						tempRefCode = rsEndingBalance("codedesc")
+						strHRef = " SELECT param_5 reference FROM PARAMETERDETAIL " & _
+									" WHERE " & _
+									" parcode = 'SR003' AND " & _
+									" fccode = '" & tempRefCode & "' AND " & _
+									" param_2 = 'DEFAULT' " 
+					
+						Set rsHRef = Server.CreateObject("ADODB.Recordset")	
+						rsHRef.Open strHRef, connstr, adOpenStatic 
+						
+						if not rsHRef.EOF then
+							tempReference = rsHRef ("reference")
+						else
+							tempReference = ""					
+						end if
+						tempUOM = rsEndingBalance("unitofmeasurement")
+						
+						rsHRef.Close
+						set rsHRef = Nothing
+						
+						tempExtendedReference = "txtfcba=" & v_txtfcba & "&txttodaydate=" & v_txtdatefrom & "&txtStockGroup=&txtStock=--SUMMARY--&txtComp=" & v_txtComp & ""
+						tempReference = tempReference & tempExtendedReference
+					%>
+					<td align="left" ><a href="<%=tempReference%>"><%=rsEndingBalance("description")%></a></td>
+					<td align="center" ><%=tempUOM%></td>				
+					
+
+					<% ' Start Compare to Budget 
+
+						tempDataBudget_HI = 0
+						tempDataBudget_SHI = 0
+						tempDataBudget_SBI = 0	
+
+						if tempDataBudget_HI <> 0 then 
+							tempCompare_HI = cdbl(rsEndingBalance("hi"))/tempDataBudget_HI * 100
+						else
+							tempCompare_HI = 0
+						end if
+						
+						if tempDataBudget_SHI <> 0 then 
+							tempCompare_SHI = cdbl(rsEndingBalance("shi"))/tempDataBudget_SHI * 100
+						else
+							tempCompare_SHI = 0
+						end if
+
+						if tempDataBudget_SBI <> 0 then 
+							tempCompare_SBI = cdbl(rsEndingBalance("sbi"))/tempDataBudget_SBI * 100
+						else
+							tempCompare_SBI = 0
+						end if
+						
+					%>					
+					
+					<%  if rsEndingBalance("hi") <>  "" then 
+							tempData = cdbl(rsEndingBalance("hi"))
+						else
+							tempData = 0
+						end if
+					%>
+					<td align="right" ><%=FormatNumber(tempData,0)%></td>
+					<%  if rsEndingBalance("shi") <>  "" then 
+							tempData = cdbl(rsEndingBalance("shi"))
+						else
+							tempData = 0
+						end if
+					%>
+					
+					<td class="grey" align="right" ></td>
+					<%  if rsEndingBalance("sbi") <>  "" then 
+							tempData = cdbl(rsEndingBalance("sbi"))
+						else
+							tempData = 0
+						end if
+					%>
+					<td class="grey" align="right" ></td>
+					
+					<td class="grey" align="right" ></td>
+					<td class="grey" align="right" ></td>
+					<td class="grey" align="right" ></td>
+
+					<%
+						if tempCompare_HI > 95 then
+							cClassAssigned_HI = "green"
+						else
+							if tempCompare_HI > 85 then 
+								 cClassAssigned_HI = "yellow"
+							else
+								 cClassAssigned_HI = "red"
+							end if
+						end if
+						
+						if tempCompare_SHI > 95 then
+							cClassAssigned_SHI = "green"
+						else
+							if tempCompare_SHI > 85 then 
+								 cClassAssigned_SHI = "yellow"
+							else
+								 cClassAssigned_SHI = "red"
+							end if
+						end if
+						
+						if tempCompare_SBI > 95 then
+							cClassAssigned_SBI = "green"
+						else
+							if tempCompare_SBI > 85 then 
+								 cClassAssigned_SBI = "yellow"
+							else
+								 cClassAssigned_SBI = "red"
+							end if
+						end if
+						
+					%>
+					
+					<!--td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td-->
+					<!--td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td-->
+					<!--td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td-->
+
+					<td class="grey" align="right" ></td-->
+					<td class="grey" align="right" ></td-->
+					<td class="grey" align="right" ></td-->
+					
+				</tr>
+	<%
+
+				rsEndingBalance.MoveNext
+			Wend
+		end if
+		rsEndingBalance.Close
+		set rsEndingBalance = Nothing
+	%>	

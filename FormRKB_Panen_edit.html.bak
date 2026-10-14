@@ -1,0 +1,142 @@
+<div class="TabbedPanels" id="tp1" align='center'>
+				
+					<ul class="TabbedPanelsTabGroup">
+						<li class="TabbedPanelsTab">RKB HARVESTING</li>
+					</ul>
+
+					<div class="TabbedPanelsContentGroup">
+
+						<!-- view bkm upah-->
+						<div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">
+									
+									<th>Employee</th>
+									<th>Lokasi</th>
+									<th>Absen</th>
+									<th>Activity</th>
+									<th>TC</th>
+									<th>HK</th>
+									<th>Bunch</th>
+									<th>ABW</th>
+									<th>Brdln</th>
+									<th>Unit</th>
+									<th>Output</th>
+									<th>Rate</th>
+									<th>Allowed Code</th>
+									<th>Amount</th>
+									<th colspan="2">&nbsp;</th>
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = "SELECT u.BKMNO,u.fcba, u.EMPLOYEECODE,e.fccode || '-' ||  e.fcname as fcname, u.ACTCODE,u.ACTCODE || '-' ||  a.fcname as activityname, u.MANDAYS, " & _
+								" u.ALLOWANCE_CODE, u.ALLOWANCE_AMT, u.ATTENDANCE,u.ABW,u.BUNCH_WEIGHT, u.KG_BRONDOLAN,  " & _
+								" u.LOCATIONCODE, u.OUTPUT,u.rate, u.UNIT,p.ALLOWDEDCODE,al.FCCODE || ' - ' || al.fcname as ALLOWDEDNAME,p.AMOUNT " & _
+								" FROM BKMUPAHDTL u,employee e,ACTMASTER a,BKMPROSES  p,ALLOWDED al " & _
+								" where u.EMPLOYEECODE=e.fccode and u.fcba=e.fcba and u.ACTCODE=a.FCCODE and u.EMPLOYEECODE=p.EMPLOYEECODE and al.FCCODE = p.ALLOWDEDCODE and al.fcba=p.fcba " & _ 
+								" and u.fcba=p.fcba and p.BKMNO = u.BKMNO and p.LINENOKEY = u.LINENOKEY and u.BKMNO='" & bkmno & "' order by p.EMPLOYEECODE,a.fcname,u.LOCATIONCODE,p.ALLOWDEDCODE"
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+								'response.write sqldtlupah
+								
+
+																
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF %>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<select class="lebaractivity " name="fccode<%=no%>" id="fccode<%=no%>">
+											<option value=<%=rsdtlupah("EMPLOYEECODE")%>><%=rsdtlupah("fcname")%></option>
+										</select>
+									</td>
+									<td class="ratatengah">
+										<select class="lebarabsen " name="lokasi<%=no%>" id="lokasi<%=no%>" >
+											<option value=<%=rsdtlupah("fcba")%>><%=rsdtlupah("fcba")%></option>
+										</select>
+									</td>
+									<td class="ratatengah">
+										<select class="lebarabsen " name="absen<%=no%>" id="absen<%=no%>" onchange="getDisable(<%=no%>)">
+											<option value=<%=rsdtlupah("ATTENDANCE")%>><%=rsdtlupah("ATTENDANCE")%></option>
+										</select>
+									</td>
+									<td class="ratakiri">
+										<select class="lebaractivity ratakiri" name="activity<%=no%>" id="activity<%=no%>" onchange="getTC(<%=no%>);getDisable2(<%=no%>)">
+											<option value=<%=rsdtlupah("ACTCODE")%>><%=rsdtlupah("activityname")%></option>
+										</select>
+									</td>
+									<td class="ratatengah">
+										<select class="lebartc ratakiri" name="tcupah<%=no%>" id="tcupah<%=no%>">
+											<option value=<%=rsdtlupah("LOCATIONCODE")%>><%=rsdtlupah("LOCATIONCODE")%></option>
+										</select>
+									</td>
+									<td>
+										<input class="ratatengah lebarhk" type="text" name="hk<%=no%>" id="hk<%=no%>" value="<%=rsdtlupah("MANDAYS")%>"/>
+									</td>
+									<td>
+										<input class="ratatengah lebarabsen" type="text" name="bunch<%=no%>" id="bunch<%=no%>" value="<%=rsdtlupah("BUNCH_WEIGHT")%>"/>
+									</td>
+									<td>
+										<input class="ratatengah lebarabsen" type="text" name="abw<%=no%>" id="abw<%=no%>" value="<%=rsdtlupah("ABW")%>"/>
+									</td>
+									<td>
+										<input class="ratatengah lebarabsen" type="text" name="kgbrondolan<%=no%>" id="kgbrondolan<%=no%>" value="<%=rsdtlupah("KG_BRONDOLAN")%>"/>
+									</td>
+									<td>
+										<input class="ratatengah lebarabsen" type="text" name="unit<%=no%>" id="unit<%=no%>" value="<%=rsdtlupah("UNIT")%>"/>
+									</td>
+									<td>
+										<input class="ratatengah lebarabsen" type="text" name="output<%=no%>" id="output<%=no%>" value="<%=rsdtlupah("OUTPUT")%>"/>
+									</td>
+									
+									<td>
+										<input class="ratatengah lebarrate" type="text" name="ratekb<%=no%>" id="ratekb<%=no%>" value="<%=rsdtlupah("rate")%>"/>
+									</td>
+									<td class="ratakiri">
+										<select class="lebarallow ratakiri" name="allowedcode" id="allowedcode<%=no%>">
+											<option value=<%=rsdtlupah("ALLOWDEDCODE")%>><%=rsdtlupah("ALLOWDEDNAME")%></option>
+										</select>
+									</td>
+									
+
+									<td class="ratakanan">
+										<input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount<%=no%>" id="amount<%=no%>" value="<%=FormatNumber(rsdtlupah("AMOUNT"),0)%>"/>
+									</td>
+									
+									
+									<td>
+										<img src='css/login/images/add.jpg' onclick="addrowUpah('<%=no%>')" />
+									</td>
+									<td>
+										<% if no >= 0 then %>
+											<img src='css/login/images/del.png' onclick="deleterowUpah('<%=no%>')" />
+										<% else 
+											response.write "&nbsp;"
+										end if %>
+									</td>
+									<td></td>
+									
+								</tr>
+								<%
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("AMOUNT"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+									<tr class="ratakanan">
+										<td colspan="13" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,0)%>"/></td>
+									</tr>
+							</table>
+						</div>
+
+						
+							
+						</div>
+
+					</div>
+				</div>

@@ -1,0 +1,73 @@
+<tr>
+    <%if request.Form("vJenisReport")="Source" then%>
+          <td style="<%=cmdstyleLeft%>"valign="top" bgcolor="#F7F7F7" align="right" colspan="4">
+		  <i>SUB TOTAL <%=HeadActivity%></i></td>
+   <%else%>
+          <td style="<%=cmdstyleLeft%>"valign="top" bgcolor="#F7F7F7" align="right" colspan="3">
+		  <i>SUB TOTAL <%=HeadActivity%></i></td>
+   <%End if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Tm_Amt_Actual,2)%></td>
+   <%if len(trim(sub_Pembagi_Actual_TM)) > 0 then%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Tm_Amt_Actual/cdbl(sub_Pembagi_Actual_TM)),2)%></td>
+   <%else%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Tm_Amt_Budget,2)%></td>
+   <%if len(trim(sub_Pembagi_Budget_TM)) > 0 then%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM)),2)%></td>
+   <%else%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+   <%if len(trim(sub_Pembagi_Budget_TM)) > 0 then
+	   if sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM) > 0 then
+		  sub_PersenTM=((sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM)) - (sub_Tm_Amt_Actual/cdbl(sub_Pembagi_Actual_TM))) / (sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM)) * 100
+	   else
+		  sub_PersenTM=0
+	   End if
+   End if %>
+   <%if sub_PersenTM <0 then%>
+       <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><font color="#FF0000"><%=FormatNumber(sub_PersenTM ,2)%></td>
+   <%else%>
+       <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_PersenTM ,2)%></td>
+   <%end if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Ty_Amt_Actual,2)%></td>
+   <%if len(trim(sub_Pembagi_Actual_Ty)) > 0 then%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Ty_Amt_Actual/cdbl(sub_Pembagi_Actual_Ty)),2)%></td>
+   <%else%>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Ty_Amt_BUdget,2)%></td>
+   <%if len(trim(sub_Pembagi_Budget_Ty)) > 0 Then%>
+    <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((cdbl(sub_Ty_Amt_BUdget)/cdbl(sub_Pembagi_Budget_Ty)),2)%></td>
+   <%else%>
+    <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+   <%
+   if len(trim(sub_Pembagi_Budget_Ty)) > 0 then
+	   if sub_Ty_Amt_Budget/cdbl(sub_Pembagi_Budget_Ty) > 0 then
+		  sub_PersenTy=((sub_Ty_Amt_Budget/cdbl(sub_Pembagi_Budget_Ty)) - (sub_Ty_Amt_Actual/cdbl(sub_Pembagi_Actual_Ty))) / (sub_Ty_Amt_Budget/cdbl(sub_Pembagi_Budget_Ty)) * 100
+	   else
+		  sub_PersenTy=0
+	   End if
+   end if%>
+   <%if sub_PersenTY <0 then%>
+      <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><font color="#FF0000"><%=FormatNumber(sub_PersenTY,2)%></td>
+   <%else%>
+      <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_PersenTY,2)%></td>
+   <%End if%>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Total_AMT_Annual,2)%></td>
+   <%if len(trim(sub_Pembagi_Annual)) > 0 then %>
+     <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Total_AMT_Annual/cdbl(sub_Pembagi_Annual)),2)%></td>
+   <%else%>
+     <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
+   <%End if%>
+		 </tr>
+         <%
+		 '--- Normalisasi Variable
+		  sub_Tm_Amt_Actual = 0
+		  sub_Tm_Amt_Budget = 0
+		  sub_TY_Amt_Actual = 0
+		  sub_TY_Amt_Budget = 0
+		  sub_Total_AMT_Annual= 0		 
+		 
+		 %>

@@ -1,0 +1,588 @@
+/* =====================================================================
+   fbp-forms.css - tampilan modern untuk isi form modul di show.asp
+   (semua blok Select_Form_Show.asp). HANYA tampilan: tidak ada markup,
+   nama field, atau JavaScript yang diubah.
+   Semua aturan di-scope ke .lf (pembungkus konten di show.asp), ke
+   body.page-legacy :is(.box_both, .box_bothall) (halaman lama seperti TableMaster.Asp,
+   UsersRoles.Asp, dsb. yang memakai class page-legacy) atau ke
+   body.page-show untuk widget yang ditempel ke <body> (datepicker, dsb).
+   ===================================================================== */
+
+/* ---------- Halaman BKM/LHP lama: jangan bisa digeser ke samping ----------
+ .posisiheader (left:100px) dan .posisikiri (left:20px) menggeser tabel yang di tampilan baru sudah
+ selebar halaman, sehingga melewati tepi kanan; wadah juga ber-overflow:scroll (scrollbar selalu ada). */
+body.page-legacy :is(.box_both, .box_bothall) :is(.posisiheader, .posisikiri, .posisikirijudul) { left: 0 !important; }
+body.page-legacy :is(.box_both, .box_bothall)[style*="overflow:scroll"], body.page-legacy :is(.box_both, .box_bothall)[style*="overflow: scroll"] { overflow: auto !important; }
+
+/* ---------- Judul halaman ---------- */
+body.page-show .page-title { margin: 0 0 16px; }
+body.page-show .page-title .eyebrow {
+	font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+	color: var(--brand);
+}
+body.page-show .page-title h2 {
+	margin: 2px 0 0;
+	font-family: inherit; font-size: 20px; font-weight: 700;
+	color: var(--ink);
+	text-transform: capitalize;
+}
+
+/* ---------- Kartu pembungkus ---------- */
+body.page-show .lf {
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	padding: 22px 26px 26px;
+	overflow-x: auto;
+	color: var(--ink);
+	font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+/* Teks lama (<font face="Verdana" size="1">) mengikuti font halaman.
+   Warna dari atribut color tetap dipertahankan. */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) font { font-family: inherit !important; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) font[size="1"] { font-size: 13px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) font[size="2"] { font-size: 14px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) b, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) strong { font-weight: 600; }
+
+/* ---------- Tabel layout filter ---------- */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) table { border-collapse: collapse; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.table_body { margin: 6px 0 4px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) td { padding: 6px 14px 6px 0; vertical-align: middle; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) td:first-child > font:only-child,
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) td:first-child > span > font:only-child {
+	font-weight: 600;
+	color: var(--ink);
+	white-space: nowrap;
+}
+
+/* ---------- Tabel data / hasil ---------- */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) th {
+	padding: 10px 12px;
+	background: #f6f9f8;
+	color: var(--muted);
+	font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+	text-align: left;
+	border-bottom: 1px solid var(--line);
+	white-space: nowrap;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.data, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.green {
+	width: 100%;
+	max-width: 100%;
+	margin-top: 8px;
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+	font-size: 13px;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.data th, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.green th {
+	background: #f6f9f8;
+	color: var(--muted);
+	padding: 10px 12px;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.data td, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.green td {
+	padding: 8px 12px;
+	border-bottom: 1px solid #eef2f1;
+	font-variant-numeric: tabular-nums;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.data tr:last-child td, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.green tr:last-child td { border-bottom: 0; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.data tbody tr:hover td, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) table.green tbody tr:hover td { background: #f8fbfa; }
+
+/* ---------- Input & select ---------- */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="text"], :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="password"], :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="number"],
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="search"], :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="email"], :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="date"],
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input:not([type]), :is(.lf, .page-legacy :is(.box_both, .box_bothall)) select, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) textarea {
+	box-sizing: border-box;
+	min-height: 36px;
+	padding: 6px 10px;
+	font: inherit; font-size: 14px;
+	color: var(--ink);
+	background-color: #fff;
+	border: 1px solid #d5dfdc;
+	border-radius: 8px;
+	outline: none;
+	transition: border-color .15s, box-shadow .15s;
+	vertical-align: middle;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) select { min-width: 180px; padding-right: 30px; cursor: pointer; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) select[multiple] { min-height: 96px; padding-right: 10px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) select:not([multiple]) {
+	-webkit-appearance: none; appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%235d6d69' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input:focus, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) select:focus, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) textarea:focus {
+	border-color: var(--brand);
+	box-shadow: 0 0 0 3px rgba(27, 120, 99, .18);
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[readonly], :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input:disabled, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) select:disabled, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) textarea[readonly] {
+	background-color: #f5f7f6;
+	color: var(--muted);
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input.datepicker {
+	padding-right: 32px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2' fill='none' stroke='%235d6d69' stroke-width='1.6'/%3E%3Cpath d='M3.5 9.5h17M8 3v4M16 3v4' stroke='%235d6d69' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 9px center;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="checkbox"], :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="radio"] {
+	width: 16px; height: 16px;
+	margin: 0 6px 0 0;
+	vertical-align: middle;
+	accent-color: var(--brand);
+	cursor: pointer;
+}
+
+/* ---------- Tombol ---------- */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="submit"], :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="button"], :is(.lf, .page-legacy :is(.box_both, .box_bothall)) button, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="reset"] {
+	min-height: 38px;
+	padding: 0 18px;
+	font: inherit; font-size: 14px; font-weight: 600;
+	color: #fff;
+	background: var(--brand);
+	border: 1px solid var(--brand);
+	border-radius: 8px;
+	cursor: pointer;
+	vertical-align: middle;
+	transition: background .15s;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="submit"]:hover, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="button"]:hover, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) button:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="reset"] { color: var(--brand); background: #fff; border-color: #b9d9d0; }
+/* Tombol bergaya lama (.button dengan text-shadow putih) jadi berbayang di atas warna baru */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) :is(button, input[type="submit"], input[type="button"], input[type="reset"], a.button, .button) { text-shadow: none !important; background-image: none; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) button.button { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 600; color: #fff; background-color: var(--brand); border: 1px solid var(--brand); border-radius: 8px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) button.button:hover:not(:disabled) { background-color: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) button.button.danger { background-color: #c0392b; border-color: #c0392b; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) button.button.danger:hover:not(:disabled) { background-color: #a5301f; border-color: #a5301f; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="submit"]:focus-visible, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="button"]:focus-visible, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) button:focus-visible {
+	outline: 3px solid rgba(27, 120, 99, .35); outline-offset: 2px;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="submit"]:disabled, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) input[type="button"]:disabled, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) button:disabled {
+	background: #c9d3d0; border-color: #c9d3d0; cursor: not-allowed;
+}
+
+/* Tombol aksi lama (<a class="button_menu_top"><img><span>..</span></a>) */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.button_menu_top, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.disabledButton {
+	display: inline-flex; align-items: center; gap: 8px;
+	min-height: 36px;
+	margin: 2px 6px 6px 0;
+	padding: 0 14px;
+	font-size: 13px; font-weight: 600; line-height: 1;
+	color: var(--brand);
+	background: #fff;
+	border: 1px solid #b9d9d0;
+	border-radius: 8px;
+	text-decoration: none;
+	box-shadow: none;
+	cursor: pointer;
+	vertical-align: middle;
+	transition: background .15s, border-color .15s;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.button_menu_top:hover { background: var(--brand-tint); border-color: var(--brand); text-decoration: none; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.button_menu_top span, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.disabledButton span { color: inherit; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.button_menu_top img, :is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.disabledButton img { height: 18px; width: auto; margin: 0; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.disabledButton {
+	color: #9aa8a4;
+	background: #f5f7f6;
+	border-color: var(--line);
+	cursor: not-allowed;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) a.disabledButton img { opacity: .45; filter: grayscale(1); }
+
+/* ---------- Lain-lain ---------- */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) hr { border: 0; border-top: 1px solid var(--line); margin: 16px 0; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .ckbox_list { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) a { color: var(--brand); }
+
+/* ---------- Widget yang ditempel ke <body> ---------- */
+/* jQuery UI datepicker */
+body.page-show .ui-datepicker {
+	padding: 10px;
+	font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+	font-size: 13px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	box-shadow: 0 16px 40px rgba(23, 38, 42, .14);
+	z-index: 100 !important;
+}
+body.page-show .ui-datepicker .ui-datepicker-header {
+	background: none; border: 0; color: var(--ink); font-weight: 700; padding: 4px 0 8px;
+}
+body.page-show .ui-datepicker .ui-datepicker-prev,
+body.page-show .ui-datepicker .ui-datepicker-next { top: 4px; border-radius: 6px; cursor: pointer; }
+body.page-show .ui-datepicker .ui-datepicker-prev-hover,
+body.page-show .ui-datepicker .ui-datepicker-next-hover { background: var(--brand-tint); border: 0; }
+body.page-show .ui-datepicker th { color: var(--muted); font-weight: 600; font-size: 11px; }
+body.page-show .ui-datepicker td a, body.page-show .ui-datepicker td span {
+	text-align: center; padding: 6px 0;
+	border: 0 !important; border-radius: 6px;
+	background: none !important;
+	color: var(--ink);
+}
+body.page-show .ui-datepicker td a:hover { background: var(--brand-tint) !important; color: var(--brand-dark); }
+body.page-show .ui-datepicker td a.ui-state-highlight { color: var(--brand); font-weight: 700; }
+body.page-show .ui-datepicker td a.ui-state-active { background: var(--brand) !important; color: #fff; }
+
+/* chosen */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .chosen-container { font-size: 14px; vertical-align: middle; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .chosen-container-single .chosen-single {
+	height: 36px; line-height: 34px;
+	padding: 0 0 0 10px;
+	color: var(--ink);
+	background: #fff;
+	border: 1px solid #d5dfdc;
+	border-radius: 8px;
+	box-shadow: none;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .chosen-container-single .chosen-single div b { background-position: 0 8px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .chosen-container-active .chosen-single,
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .chosen-container-active.chosen-with-drop .chosen-single {
+	border-color: var(--brand);
+	box-shadow: 0 0 0 3px rgba(27, 120, 99, .18);
+	background: #fff;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .chosen-container .chosen-drop {
+	border-color: var(--line);
+	border-radius: 0 0 8px 8px;
+	box-shadow: 0 12px 28px rgba(23, 38, 42, .12);
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .chosen-container .chosen-results li.highlighted { background: var(--brand); }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .chosen-container-multi .chosen-choices {
+	min-height: 36px; padding: 2px 6px;
+	border: 1px solid #d5dfdc; border-radius: 8px;
+	background: #fff;
+}
+
+/* select2 */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .select2-container { vertical-align: middle; min-width: 180px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .select2-container .select2-selection--single {
+	height: 36px !important;  /* select2.min.css proyek memakai height:22px !important */
+	border: 1px solid #d5dfdc;
+	border-radius: 8px;
+}
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .select2-container .select2-selection__rendered { line-height: 34px !important; padding-left: 10px !important; color: var(--ink); }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .select2-container .select2-selection__arrow { height: 34px !important; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .select2-container--focus .select2-selection--single,
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) .select2-container--open .select2-selection--single { border-color: var(--brand); }
+body.page-show .select2-dropdown { border-color: var(--line); border-radius: 8px; overflow: hidden; }
+body.page-show .select2-results__option--highlighted[aria-selected] { background: var(--brand) !important; }
+
+/* =====================================================================
+   Halaman lama (body.page-legacy): TableMaster, TableStatistik, Users*,
+   RolesMenu, authorizetemplate, ... Konten langsung di .box_both.
+   ===================================================================== */
+body.page-legacy :is(.box_both, .box_bothall) {
+	background: #fff !important;
+	color: var(--ink);
+	font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+}
+/* Form "Maintenance ..." dan tabel daftar memakai table.data */
+.page-legacy :is(.box_both, .box_bothall) table.data {
+	width: auto;
+	min-width: 60%;
+	margin: 0 0 18px;
+}
+.page-legacy :is(.box_both, .box_bothall) table.data td { padding: 8px 12px; }
+.page-legacy :is(.box_both, .box_bothall) table.data td[colspan] font[size="2"],
+.page-legacy :is(.box_both, .box_bothall) font[size="2"] > strong {
+	font-size: 16px; font-weight: 700; color: var(--ink);
+}
+/* Baris header lama: <tr bgcolor="#0C5B24" style="color:#fff"><td>..</td> */
+.page-legacy :is(.box_both, .box_bothall) tr:is([bgcolor="#0C5B24" i], [bgcolor="#00A300" i]) > td,
+.page-legacy :is(.box_both, .box_bothall) tr:is([bgcolor="#0C5B24" i], [bgcolor="#00A300" i]) > th {
+	background: #f6f9f8 !important;
+	color: var(--muted) !important;
+	font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+	white-space: nowrap;
+	border-bottom: 1px solid var(--line);
+}
+.page-legacy :is(.box_both, .box_bothall) tr:is([bgcolor="#0C5B24" i], [bgcolor="#00A300" i]) a,
+.page-legacy :is(.box_both, .box_bothall) tr:is([bgcolor="#0C5B24" i], [bgcolor="#00A300" i]) font { color: var(--muted) !important; }
+/* Warna baris lama (#EEEEEE/#E5E5E5) diganti zebra yang lebih lembut */
+.page-legacy :is(.box_both, .box_bothall) table.data tr[bgcolor]:not([bgcolor="#0C5B24" i]) { background-color: #fff; }
+.page-legacy :is(.box_both, .box_bothall) table.data tr[bgcolor]:not([bgcolor="#0C5B24" i]):nth-child(odd) { background-color: #fbfcfc; }
+.page-legacy :is(.box_both, .box_bothall) table.data tr:not([bgcolor="#0C5B24" i]):hover > td { background: var(--brand-tint); }
+/* Ikon edit / hapus di tabel daftar */
+.page-legacy :is(.box_both, .box_bothall) table.data td a img { vertical-align: middle; opacity: .85; }
+.page-legacy :is(.box_both, .box_bothall) table.data td a:hover img { opacity: 1; }
+/* Field readonly lama (style="background:#999999") */
+.page-legacy :is(.box_both, .box_bothall) input[style*="999999"], .page-legacy :is(.box_both, .box_bothall) select[style*="999999"] {
+	background: #f1f4f3 !important;
+	color: var(--muted) !important;
+}
+
+/* Bingkai abu-abu dari aturan global "form { border; padding }" */
+.page-legacy :is(.box_both, .box_bothall) form { margin: 0 0 8px; padding: 0; border: 0; }
+/* .data / .entry dari 2col_leftNav.css memaksa Verdana 10px & latar teal */
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) :is(table.data, table.entry) { font-family: inherit; font-size: 13px; }
+:is(.lf, .page-legacy :is(.box_both, .box_bothall)) :is(input, select, textarea, button) { font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Arial, sans-serif; }
+.page-legacy :is(.box_both, .box_bothall) table.entry {
+	width: auto;
+	min-width: 60%;
+	margin: 0 0 18px;
+	color: var(--ink);
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+}
+.page-legacy :is(.box_both, .box_bothall) table.entry td { padding: 8px 12px; border-bottom: 1px solid #eef2f1; }
+.page-legacy :is(.box_both, .box_bothall) table.entry tr:last-child > td { border-bottom: 0; }
+/* Baris pertama tabel .entry = judul kolom */
+.page-legacy :is(.box_both, .box_bothall) table.entry tr:first-child > td {
+	background: #f6f9f8;
+	color: var(--muted);
+	font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+	border-bottom: 1px solid var(--line);
+}
+.page-legacy :is(.box_both, .box_bothall) table.entry tr[bgcolor] { background-color: #fff; }
+.page-legacy :is(.box_both, .box_bothall) table.entry tr[bgcolor]:nth-child(odd):not(:first-child) { background-color: #fbfcfc; }
+.page-legacy :is(.box_both, .box_bothall) table.entry tr:not(:first-child):hover > td { background: var(--brand-tint); }
+
+/* Field readonly dengan warna inline apa pun (#999999, #CCCCCC, ...) */
+.page-legacy :is(.box_both, .box_bothall) :is(input, select, textarea)[readonly] {
+	background: #f1f4f3 !important;
+	color: var(--muted) !important;
+}
+
+/* ---------- Halaman voucher (Payment/Receive/KasBon/Journal) ---------- */
+/* Baris aksi status di bawah form header: Print, Edit Header, Confirmed, Start Authorize, ... */
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] table.data td[colspan="2"] > a {
+	display: inline-flex; align-items: center; gap: 6px;
+	min-height: 32px;
+	margin: 4px 6px 4px 0;
+	padding: 0 12px;
+	font-size: 13px; font-weight: 600;
+	color: var(--brand);
+	background: #fff;
+	border: 1px solid #b9d9d0;
+	border-radius: 8px;
+	text-decoration: none;
+	vertical-align: middle;
+}
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] table.data td[colspan="2"] > a:hover { background: var(--brand-tint); border-color: var(--brand); }
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] table.data td[colspan="2"] > a img { height: 16px; width: auto; }
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] table.data td[colspan="2"] > a font { font-size: 13px; }
+/* Pesan izin / validasi berwarna merah di baris aksi */
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] table.data td[colspan="2"] > font[color="#FF0000" i] {
+	display: inline-flex; align-items: center;
+	min-height: 28px;
+	margin: 4px 6px 4px 0;
+	padding: 0 10px;
+	font-size: 12px; font-weight: 600;
+	color: #b42318;
+	background: #fdecec;
+	border-radius: 999px;
+	vertical-align: middle;
+}
+/* Tanda wajib isi (*) */
+.page-legacy :is(.box_both, .box_bothall) td > font[color="#FF0000" i]:not(:has(a)) { color: #c0392b; font-weight: 700; }
+/* Banner "sudah Closing" (div border hitam inline) */
+.page-legacy :is(.box_both, .box_bothall) > div[style*="solid black"] {
+	margin: 0 0 16px;
+	border: 1px solid #f3c7c3 !important;
+	border-radius: 12px;
+	background: #fdecec;
+}
+.page-legacy :is(.box_both, .box_bothall) > div[style*="solid black"] p { margin: 0; font-weight: 600; color: #b42318 !important; }
+/* Pesan error server (<div class='error'>) */
+.page-legacy :is(.box_both, .box_bothall) div.error {
+	margin: 0 0 16px;
+	padding: 12px 14px 12px 40px;
+	min-height: 0;
+	font-size: 13px; line-height: 1.5;
+	color: #b42318;
+	background: #fdecec url(none);
+	border: 1px solid #f3c7c3;
+	border-radius: 10px;
+	position: relative;
+}
+.page-legacy :is(.box_both, .box_bothall) div.error::before { content: "\f06a"; font-family: FontAwesome; position: absolute; left: 14px; top: 12px; font-size: 16px; }
+/* Tombol Approve / Reject di halaman otorisasi */
+.page-legacy :is(.box_both, .box_bothall) button.button { margin: 4px 6px 4px 0; }
+.page-legacy :is(.box_both, .box_bothall) button.button.danger { background: #c0392b; border-color: #c0392b; }
+.page-legacy :is(.box_both, .box_bothall) button.button.danger:hover { background: #a93226; border-color: #a93226; }
+
+/* =====================================================================
+   Halaman input / edit / view BKM (body.page-bkm): tanpa sidebar menu,
+   konten selebar penuh di .box_bothall, tab Spry, grid entri padat.
+   ===================================================================== */
+body.dash.fbp-no-menu #siteInfo > img { margin-left: 20px !important; }
+body.page-bkm > br { display: none; }
+/* Bilah judul "PT. ... - MODULE : BKM ..." */
+body.page-bkm #head_judul {
+	position: fixed !important;
+	top: var(--hdr); left: 0; right: 0;
+	float: none !important;
+	height: 46px;
+	display: flex; align-items: center;
+	padding: 0 24px;
+	font-size: 13px !important;
+	background: #fff;
+	border-bottom: 1px solid var(--line);
+	z-index: 5;
+}
+body.page-bkm #head_judul strong { position: static; left: 0; font-weight: 600; color: var(--ink); }
+body.page-bkm #head_judul strong::before { content: "\f0ae"; font-family: FontAwesome; margin-right: 8px; color: var(--brand); font-weight: normal; }
+body.page-bkm #head_judul br { display: none; }
+body.page-bkm .box_bothall {
+	position: fixed !important;
+	top: calc(var(--hdr) + 46px) !important;
+	left: 0 !important; right: 0 !important;
+	bottom: var(--foot) !important;
+	padding: 20px 24px 32px !important;
+	overflow: auto !important;
+	background: var(--bg) !important;
+}
+body.page-bkm #sitebottom { left: 0; }
+/* Kartu: form header & area tab */
+body.page-bkm .box_bothall > form > table.data:first-of-type,
+body.page-bkm .box_bothall > table.data:first-of-type {
+	width: auto !important;
+	min-width: 0;
+	margin: 0 0 16px;
+	padding: 6px 8px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	border-collapse: separate;
+}
+body.page-bkm .posisikiri { left: 0 !important; }
+body.page-bkm table.data td { padding: 6px 8px; border-bottom: 0; }
+body.page-bkm table.data > tbody > tr > td:nth-child(odd):not([colspan]),
+body.page-bkm table.data > tr > td:nth-child(odd):not([colspan]) { font-weight: 600; white-space: nowrap; }
+/* Tab Spry (BKM UPAH / BKM BAHAN / ...) */
+body.page-bkm .TabbedPanels { margin: 0; text-align: left; }
+body.page-bkm ul.TabbedPanelsTabGroup { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 -1px; padding: 0; list-style: none; }
+body.page-bkm .TabbedPanelsTab {
+	float: none;
+	margin: 0;
+	padding: 9px 18px;
+	font: inherit; font-size: 13px; font-weight: 600;
+	color: var(--muted);
+	background: #eef2f1;
+	border: 1px solid var(--line);
+	border-bottom-color: var(--line);
+	border-radius: 10px 10px 0 0;
+	cursor: pointer;
+}
+body.page-bkm .TabbedPanelsTabHover { color: var(--brand-dark); background: var(--brand-tint); }
+body.page-bkm .TabbedPanelsTabSelected { color: var(--brand); background: #fff; border-bottom-color: #fff; box-shadow: inset 0 3px 0 var(--brand); }
+body.page-bkm .TabbedPanelsContentGroup {
+	clear: none;
+	padding: 14px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 0 12px 12px 12px;
+	overflow-x: auto;
+}
+body.page-bkm .TabbedPanelsContent { padding: 0; }
+/* Grid entri di dalam tab: input mengikuti lebar kolom asli (kelas lebar*) */
+body.page-bkm .TabbedPanelsContent table.data { width: auto; min-width: 0; margin: 0; border-radius: 10px; }
+body.page-bkm .TabbedPanelsContent table.data th { padding: 8px 6px; font-size: 10.5px; white-space: nowrap; text-align: center; }
+body.page-bkm .TabbedPanelsContent table.data td { padding: 4px 4px; border-bottom: 1px solid #eef2f1; vertical-align: middle; }
+body.page-bkm .TabbedPanelsContent :is(input[type="text"], input[type="number"], input:not([type]), select) {
+	min-width: 0;
+	min-height: 30px;
+	padding: 3px 6px;
+	font-size: 12px;
+	border-radius: 6px;
+}
+body.page-bkm .TabbedPanelsContent select:not([multiple]) { padding-right: 20px; background-position: right 5px center; background-size: 9px; }
+body.page-bkm .TabbedPanelsContent :is(input, select)[readonly] { background-color: #f1f4f3 !important; }
+body.page-bkm .TabbedPanelsContent tr:hover > td { background: #f8fbfa; }
+/* Tombol simpan per tab */
+body.page-bkm .TabbedPanelsContent td[colspan] > input[type="submit"] { min-width: 160px; margin: 10px 0 4px; }
+/* Tombol tambah/hapus baris berupa gambar atau link di grid */
+body.page-bkm .TabbedPanelsContent td a img { vertical-align: middle; }
+
+/* select2 di dalam grid BKM: ringkas seperti input grid lain */
+body.page-bkm .TabbedPanelsContent .select2-container { min-width: 0; }
+body.page-bkm .TabbedPanelsContent .select2-container .select2-selection--single { height: 30px !important; border-radius: 6px; }
+body.page-bkm .TabbedPanelsContent .select2-container .select2-selection__rendered { line-height: 28px !important; padding-left: 6px !important; font-size: 12px; }
+body.page-bkm .TabbedPanelsContent .select2-container .select2-selection__arrow { height: 28px !important; }
+/* Tabel pembungkus tab ber-atribut width="1100": ikuti lebar layar, grid di dalamnya bisa digeser */
+body.page-bkm .box_bothall table.data[width]:not(:first-of-type) { width: 100% !important; max-width: 100%; table-layout: fixed; }
+body.page-bkm .box_bothall table.data[width]:not(:first-of-type) > tbody > tr > td { overflow: hidden; }
+
+/* BKM: kartu filter, kartu tab, dan tabel grid selebar penuh */
+body.page-bkm .box_bothall > form > table.data:first-of-type,
+body.page-bkm .box_bothall > table.data:first-of-type { width: 100% !important; }
+body.page-bkm .TabbedPanelsContent table.data { width: 100% !important; }
+body.page-bkm .TabbedPanels, body.page-bkm .TabbedPanelsContentGroup { width: auto; box-sizing: border-box; }
+/* Kartu filter BKM: label secukupnya, field mengisi kolom */
+body.page-bkm .box_bothall > form > table.data:first-of-type td:nth-child(odd) { width: 1%; white-space: nowrap; padding-right: 12px; }
+body.page-bkm .box_bothall > form > table.data:first-of-type td:nth-child(even) :is(select, input[type="text"]),
+body.page-bkm .box_bothall > form > table.data:first-of-type td:nth-child(even) .select2-container { width: 100% !important; max-width: 360px; }
+/* Tab Spry mengambang (float) -> paksa selebar penuh */
+body.page-bkm .TabbedPanels { float: none !important; width: 100% !important; }
+/* Tabel pembungkus tab Spry (mis. #tableall di bud_finmod_input / bud_rkt_input) dengan baris tombol colspan=15:
+   jangan dibagi per kolom, supaya sel berisi tab memakai lebar penuh */
+body.page-bkm table.data:has(> tbody > tr > td > .TabbedPanels), body.page-bkm table.data:has(> tbody > tr > td > .TabbedPanels) > tbody, body.page-bkm table.data:has(> tbody > tr > td > .TabbedPanels) > tbody > tr, body.page-bkm table.data:has(> tbody > tr > td > .TabbedPanels) > tbody > tr > td { display: block !important; width: 100% !important; box-sizing: border-box; }
+body.page-bkm table.data:has(> tbody > tr > td > .TabbedPanels) > tbody > tr > td { padding-left: 0; padding-right: 0; }
+body.page-bkm .TabbedPanelsContentGroup { clear: both; width: 100% !important; }
+/* Grid BKM: field mengisi lebar kolomnya (tidak lagi kecil di tengah kolom yang lebar) */
+body.page-bkm .TabbedPanelsContent table.data td > :is(input[type="text"], input[type="number"], input:not([type]), select),
+body.page-bkm .TabbedPanelsContent table.data td > .select2-container {
+	width: 100% !important;
+	min-width: 64px;
+}
+body.page-bkm .TabbedPanelsContent table.data td > select.lebaractivity,
+body.page-bkm .TabbedPanelsContent table.data td > input.lebarupah,
+body.page-bkm .TabbedPanelsContent table.data td > select.lebaritembarang,
+body.page-bkm .TabbedPanelsContent table.data td > select.lebaractbarang { min-width: 120px; }
+/* Proporsi kolom grid BKM: kolom angka/singkat secukupnya, sisa ruang untuk kolom teks (Activity, Item, Employee) */
+body.page-bkm .TabbedPanelsContent table.data td:has(> .lebarhk, > .lebarabsen, > .lebarlokasi) { width: 90px; }
+body.page-bkm .TabbedPanelsContent table.data td:has(> .lebartc, > .lebarrate, > .lebarovtime, > .lebarallow) { width: 120px; }
+body.page-bkm .TabbedPanelsContent table.data td > select.lebaractbarang,
+body.page-bkm .TabbedPanelsContent table.data td > select.lebaractbarang + .select2-container { min-width: 220px; }
+body.page-bkm .TabbedPanelsContent table.data td > select.lebaritembarang,
+body.page-bkm .TabbedPanelsContent table.data td > select.lebaritembarang + .select2-container { min-width: 300px; }
+/* Tab BKM MUTU (bkm_panen_input/edit/view/replan_view, table#table1): selebar panel,
+   kolom Blok lebih lebar, 5 kolom buah dibagi rata, kolom tombol sempit, isian mengisi sel */
+body.page-bkm .TabbedPanelsContent table.data#table1:has(#trheader1) { width: 100% !important; table-layout: fixed; }
+body.page-bkm .TabbedPanelsContent table.data#table1 #trheader1 > th:first-child { width: 24%; }
+body.page-bkm .TabbedPanelsContent table.data#table1 #trheader1 > th[colspan] { width: 84px; }
+body.page-bkm .TabbedPanelsContent table.data#table1 td,
+body.page-bkm .TabbedPanelsContent table.data#table1 td:has(> .lebartc) { width: auto; }
+body.page-bkm .TabbedPanelsContent table.data#table1 td > input.lebartc,
+body.page-bkm .TabbedPanelsContent table.data#table1 td > select.lebartc,
+body.page-bkm .TabbedPanelsContent table.data#table1 td > .select2-container { width: 100% !important; max-width: none; box-sizing: border-box; }
+body.page-bkm .TabbedPanelsContent table.data#table1 td:has(> img) { text-align: center; }
+
+/* Form filter (frmEntry) dan tabel berisi dropdown Chosen/Select2: card selebar halaman, dan
+   overflow terlihat agar daftar pilihan dropdown tidak terpotong oleh card (sudut membulat
+   dipindah ke sel pojok) */
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] > table.data,
+.page-legacy :is(.box_both, .box_bothall) table.data:has(.chosen-container, .select2-container) {
+	width: 100%;
+	min-width: 0;
+	overflow: visible;
+}
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] > table.data tr:first-child > td:first-child,
+.page-legacy :is(.box_both, .box_bothall) table.data:has(.chosen-container, .select2-container) tr:first-child > td:first-child { border-top-left-radius: 10px; }
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] > table.data tr:first-child > td:last-child,
+.page-legacy :is(.box_both, .box_bothall) table.data:has(.chosen-container, .select2-container) tr:first-child > td:last-child { border-top-right-radius: 10px; }
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] > table.data tr:last-child > td:first-child,
+.page-legacy :is(.box_both, .box_bothall) table.data:has(.chosen-container, .select2-container) tr:last-child > td:first-child { border-bottom-left-radius: 10px; }
+.page-legacy :is(.box_both, .box_bothall) form[name="frmEntry"] > table.data tr:last-child > td:last-child,
+.page-legacy :is(.box_both, .box_bothall) table.data:has(.chosen-container, .select2-container) tr:last-child > td:last-child { border-bottom-right-radius: 10px; }
+/* daftar pilihan Chosen tampil di atas elemen lain */
+.page-legacy .chosen-container.chosen-with-drop .chosen-drop { z-index: 1010; }
+
+/* table.entry yang ditulis width="100%" (mis. daftar user di Authorize Structure) tampil selebar halaman */
+.page-legacy :is(.box_both, .box_bothall) table.entry[width="100%"] { width: 100%; min-width: 0; }
+/* Latar kelompok bawaan (#DDD / #AAA, inline) terlalu gelap: diganti selang-seling lembut */
+.page-legacy :is(.box_both, .box_bothall) table.entry tr[style*="#DDD" i] { background-color: #fff !important; }
+.page-legacy :is(.box_both, .box_bothall) table.entry tr[style*="#AAA" i] { background-color: #f3f8f6 !important; }
+.page-legacy :is(.box_both, .box_bothall) table.entry td[rowspan] { vertical-align: top; font-weight: 600; color: var(--brand-dark); border-right: 1px solid #eef2f1; }

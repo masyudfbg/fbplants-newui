@@ -1,0 +1,486 @@
+	<%
+		if not rsTBSPengangkutanFinal.EOF then
+			no = 0
+			
+			sPrevGroupPlantation = ""
+			sPrevPlantation = ""
+			sPrevGroupRegion = ""
+			sPrevRegion = ""
+			sPrevCompany = ""
+			sPrevFcba = ""
+
+			tempNumber = 0
+			while not rsTBSPengangkutanFinal.EOF
+				if no  mod 2 = 1 then
+					cClass = "odd"
+				else
+					cClass = "default"
+				end if
+				no = no + 1
+	%>
+
+
+				<tr class="<%=cClass%>">
+					
+					<%
+						strCodeDesc = "SELECT param_1 CodeDescription, rate_1 theRowSpan FROM PARAMETERDETAIL " & _
+										" WHERE " & _
+										" parcode = 'SR003' AND " & _
+										" parheadcode = 'REPORTCODE' AND " & _
+										" param_2 = 'DEFAULT' AND " & _
+										" fccode = '" & rsTBSPengangkutanFinal("codedesc") & "'" 
+						
+						Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+						rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+						if not rsCodeDesc.EOF then
+							tempCodeDescription = rsCodeDesc ("CodeDescription")
+						else
+							tempCodeDescription = ""	
+						end if					
+										
+										
+					%>
+					
+					<!--#include file="FormDisplaySUMMARYTBSPengangkutan.html"-->
+					
+					
+					<% if sPrevDesc <> tempCodeDescription then %>		
+					     <% response.write finalRowSpan %>
+						<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeDescription%></td>
+						<% sPrevDesc = tempCodeDescription %>
+					<% end if %>	
+					
+					
+					
+					<% tempNumber = tempNumber + 1 %>
+					<td align="center"  >6</td>
+					
+					
+					<% 
+						tempRefCode = rsTBSPengangkutanFinal("codedesc")
+						strHRef = " SELECT param_5 reference,  rate_3 rounding, param_6 UOM,  param_7 budgetType FROM PARAMETERDETAIL " & _
+									" WHERE " & _
+									" parcode = 'SR003' AND " & _
+									" fccode = '" & tempRefCode & "' AND " & _
+									" param_2 = 'DEFAULT' " 
+					
+						Set rsHRef = Server.CreateObject("ADODB.Recordset")	
+						rsHRef.Open strHRef, connstr, adOpenStatic 
+
+						tempBudget_HI = 0 
+						tempBudget_SHI = 0
+						tempBudget_SBI = 0
+
+						
+						if not rsHRef.EOF then
+							tempReference = rsHRef ("reference")
+							tempUOM = rsHRef("UOM")
+							tempRounding = cdbl(rsHRef("rounding"))
+							tempBudgetType = rsHRef("budgetType")
+						else
+							tempReference = ""	
+							tempUOM = ""
+							tempRounding = 0
+							tempBudgetType = "QUANTITY"
+						end if
+						
+						rsHRef.Close
+						set rsHRef = Nothing
+
+						if cdbl(rsTBSPengangkutanFinal("curr_budget_qty_hi")) <> 0 then 
+							tempDataBudget_HI = cdbl(rsTBSPengangkutanFinal("prev_budget_amt_hi")) / cdbl(rsTBSPengangkutanFinal("curr_budget_qty_hi"))
+						else
+						    tempDataBudget_HI = 0 
+						end if
+						
+						if cdbl(rsTBSPengangkutanFinal("curr_budget_qty_shi")) <> 0 then 
+							tempDataBudget_SHI = cdbl(rsTBSPengangkutanFinal("prev_budget_amt_shi")) / cdbl(rsTBSPengangkutanFinal("curr_budget_qty_shi"))
+						else
+							tempDataBudget_SHI = 0 
+						end if
+						
+						if  cdbl(rsTBSPengangkutanFinal("curr_budget_qty_sbi")) <> 0 then 
+							tempDataBudget_SBI = cdbl(rsTBSPengangkutanFinal("prev_budget_amt_sbi")) / cdbl(rsTBSPengangkutanFinal("curr_budget_qty_sbi"))
+						else
+							tempDataBudget_SBI =  0 
+						end if
+						
+						
+						
+						
+						tempExtendedReference = "txtyear="& v_txtyear & "&txtMonth=" & v_txtMonth & "&txtDate=" & v_txtdatefrom & "&txttodaydate=" & _ 
+						v_txtdatefrom & "&txtDivision=--SUMMARY--&txtBlok=--SUMMARY--&txtPlantingDate=--SUMMARY--&txtfcba=" & v_txtfcba & "&txtComp=" & v_txtComp & ""
+						
+						tempReference = tempReference & tempExtendedReference
+						
+					%>
+					
+					<td align="left" >Biaya Pengangkutan</td>
+					<td align="center" ><%=rsTBSPengangkutanFinal("UnitOfMeasurement")%></td>
+					
+					
+					<%  if rsTBSPengangkutanFinal("prev_qty_hi") <>  "" and rsTBSPengangkutanFinal("tbs_qty_hi") <> "" then 
+					        if  cdbl(rsTBSPengangkutanFinal("prev_qty_hi")) <> 0 and cdbl(rsTBSPengangkutanFinal("tbs_qty_hi")) <> 0 then 
+								tempData = cdbl(rsTBSPengangkutanFinal("prev_amt_hi")) / cdbl(rsTBSPengangkutanFinal("curr_qty_hi")) 
+							else
+							    tempData = cdbl(rsTBSPengangkutanFinal("prev_qty_hi"))
+							end if
+						else
+							tempData = 0
+						end if
+					%>
+					
+					<%  if rsTBSPengangkutanFinal("prev_qty_shi") <>  "" and rsTBSPengangkutanFinal("tbs_qty_shi") <> "" then 
+					        if  cdbl(rsTBSPengangkutanFinal("prev_qty_shi")) <> 0 and cdbl(rsTBSPengangkutanFinal("tbs_qty_shi")) <> 0 then 
+								tempData_shi = cdbl(rsTBSPengangkutanFinal("prev_amt_shi")) / cdbl(rsTBSPengangkutanFinal("curr_qty_shi")) 
+							else
+							    tempData_shi = 0
+							end if
+						else
+							tempData_shi = 0
+						end if
+					%>					
+					
+					<%  if rsTBSPengangkutanFinal("prev_qty_sbi") <>  "" and rsTBSPengangkutanFinal("tbs_qty_sbi") <> "" then 
+					        if  cdbl(rsTBSPengangkutanFinal("prev_qty_sbi")) <> 0 and cdbl(rsTBSPengangkutanFinal("tbs_qty_sbi")) <> 0 then 
+								tempData_sbi = cdbl(rsTBSPengangkutanFinal("prev_amt_sbi")) / cdbl(rsTBSPengangkutanFinal("curr_qty_sbi")) 
+							else
+							    tempData_sbi = 0
+							end if
+						else
+							tempData_sbi = 0
+						end if
+						
+					%>						
+
+					
+
+					
+
+					
+					
+					
+					
+					
+					
+					<% if rsTBSPengangkutanFinal("codedesc") = "SR003_02" or rsTBSPengangkutanFinal("codedesc") = "SR003_03" then %>
+						<td class="grey" align="right" ></td>
+						<td class="grey" align="right" ></td>
+					<% else %>
+						<td align="right" ><%=FormatNumber(tempData_shi,tempRounding)%></td>
+						<td align="right" ><%=FormatNumber(tempData_sbi,tempRounding)%></td>
+					<% end if %>
+					
+					
+					<% if rsTBSPengangkutanFinal("codedesc") = "SR003_04" or rsTBSPengangkutanFinal("codedesc") = "SR003_02" or rsTBSPengangkutanFinal("codedesc") = "SR003_03"  then %>
+						<td class="grey" align="right" ></td>
+						<td class="grey" align="right" ></td>
+					<% else %>
+						<td align="right" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+						<td align="right" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+					<% end if %>
+						
+
+					<% ' Start Compare to Budget 
+					   ' Later, This Temporary Variable must be picked from Master Budget Table.
+
+						
+					   ' End of Modification
+
+						if tempDataBudget_HI <> 0 then 
+							tempCompare_HI = tempData /tempDataBudget_HI * 100
+						else
+							tempCompare_HI = 0
+						end if
+						
+						if tempDataBudget_SHI <> 0 then 
+							tempCompare_SHI = tempData_shi/tempDataBudget_SHI * 100
+						else
+							tempCompare_SHI = 0
+						end if
+
+						if tempDataBudget_SBI <> 0 then 
+							tempCompare_SBI = tempData_sbi/tempDataBudget_SBI * 100
+						else
+							tempCompare_SBI = 0
+						end if
+						
+					%>
+
+
+					<%
+						strGetColor = "select " & _
+						   " ParameterSysDetail_Api.ColoringCode('CC_MSRE','" & tempRefCode & "'," & tempCompare_HI & "," & tempData & "," & tempDataBudget_HI & " ) colorHI, " & _
+						   " ParameterSysDetail_Api.ColoringCode('CC_MSRE','" & tempRefCode & "'," & tempCompare_SHI & "," & tempData_SHI & "," & tempDataBudget_SHI & " ) colorSHI, " & _
+						   " ParameterSysDetail_Api.ColoringCode('CC_MSRE','" & tempRefCode & "'," & tempCompare_SBI & "," & tempData_SBI & "," & tempDataBudget_SBI & " ) colorSBI " & _
+						"from dual "
+						
+						Set rsGetColor = Server.CreateObject("ADODB.Recordset")	
+						rsGetColor.Open strGetColor, connstr, adOpenStatic 
+						
+						if not rsGetColor.EOF then
+						    cClassAssigned_HI = rsGetColor("colorHI")
+							cClassAssigned_SHI = rsGetColor("colorSHI")
+							cClassAssigned_SBI = rsGetColor("colorSBI")
+					    else
+						    cClassAssigned_HI = "white"
+							cClassAssigned_SHI = "white"
+							cClassAssigned_SBI = "white"
+						end if
+
+						rsGetColor.Close
+						set rsGetColor = Nothing
+						
+						'if tempBudgetType = "QUANTITY" then  
+						'	if tempCompare_HI > 95 then
+						'		cClassAssigned_HI = "green"
+						'	else
+						'		if tempCompare_HI > 85 then 
+						'			 cClassAssigned_HI = "yellow"
+						'		else
+						'			 cClassAssigned_HI = "red"
+						'		end if
+						'	end if
+						
+						'	if tempCompare_SHI > 95 then
+						'		cClassAssigned_SHI = "green"
+						'	else
+						'		if tempCompare_SHI > 85 then 
+						'			 cClassAssigned_SHI = "yellow"
+						'		else
+						'			 cClassAssigned_SHI = "red"
+						'		end if
+						'	end if
+						
+						'	if tempCompare_SBI > 95 then
+						'		cClassAssigned_SBI = "green"
+						'	else
+						'		if tempCompare_SBI > 85 then 
+						'			 cClassAssigned_SBI = "yellow"
+						'		else
+						'			 cClassAssigned_SBI = "red"
+						'		end if
+						'	end if
+						'else
+						'	if tempCompare_HI > 105 then
+						'		cClassAssigned_HI = "red"
+						'	else
+						'		if tempCompare_HI > 95 then 
+						'			 cClassAssigned_HI = "yellow"
+						'		else
+						'			 cClassAssigned_HI = "green"
+						'		end if
+						'	end if
+						
+						'	if tempCompare_SHI > 105 then
+						'		cClassAssigned_SHI = "red"
+						'	else
+						'		if tempCompare_SHI > 95 then 
+						'			 cClassAssigned_SHI = "yellow"
+						'		else
+						'			 cClassAssigned_SHI = "green"
+						'		end if
+						'	end if
+						
+						'	if tempCompare_SBI > 105 then
+						'		cClassAssigned_SBI = "red"
+						'	else
+						'		if tempCompare_SBI > 95 then 
+						'			 cClassAssigned_SBI = "yellow"
+						'		else
+						'			 cClassAssigned_SBI = "green"
+						'		end if
+						'	end if
+						'end if					
+					%>
+					
+
+					
+					<% if rsTBSPengangkutanFinal("codedesc") = "SR003_04" or rsTBSPengangkutanFinal("codedesc") = "SR003_02" or rsTBSPengangkutanFinal("codedesc") = "SR003_03"  then %>
+						<td class="grey" align="right" ></td>
+						<td class="grey" align="right" ></td>
+					<% else %>
+						<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+						<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+					<% end if %>
+					
+					
+				</tr>
+	<%
+
+				rsTBSPengangkutanFinal.MoveNext
+			Wend
+		end if
+
+	%>
+	
+	
+    <% if v_txtDetailInfo = "Yes" then %>
+			<%
+				rsTBSPengangkutanFinal.MoveFirst
+				if not rsTBSPengangkutanFinal.EOF then
+					no = 0
+					
+
+					tempNumber = 0
+					while not rsTBSPengangkutanFinal.EOF
+						if no  mod 2 = 1 then
+							cClass = "odd"
+						else
+							cClass = "default"
+						end if
+						no = no + 1
+			%>
+
+
+						<tr class="<%=cClass%>">
+							
+							<%
+							    tempCodeDescription = "Qty Angkut"
+								tempUnitOfMeasurement = "Kg"
+							%>
+							
+							<!--#include file="FormDisplaySUMMARYTBSPengangkutan.html"-->
+							<td align="center"  ></td>
+							
+							<% 
+
+								tempReference = ""	
+								tempUOM = ""
+								tempRounding = 0
+								tempBudget_HI = 0
+								tempBudget_SHI = 0
+								tempBudget_SBI = 0
+								tempBudgetType = "QUANTITY"
+
+								tempDataBudget_HI = tempBudget_HI
+								tempDataBudget_SHI = tempBudget_SHI
+								tempDataBudget_SBI = tempBudget_SBI
+								
+								tempExtendedReference = "txtyear="& v_txtyear & "&txtMonth=" & v_txtMonth & "&txttodaydate=" & _ 
+								v_txtdatefrom & "&txtDivision=--SUMMARY--&txtBlok=--SUMMARY--&txtPlantingDate=--SUMMARY--&txtfcba=" & v_txtfcba & "&txtComp=" & v_txtComp & ""
+								
+								tempReference = tempReference & tempExtendedReference
+								
+							%>
+							
+							<td align="left" ><a href="<%=tempReference%>"><%=tempCodeDescription%></a></td>
+							<td align="center" ><%=tempUnitOfMeasurement%></td>
+
+							<%  
+							    tempData = cdbl(rsTBSPengangkutanFinal("curr_qty_hi")) 
+							    tempData_shi = cdbl(rsTBSPengangkutanFinal("curr_qty_shi")) 
+								tempData_sbi = cdbl(rsTBSPengangkutanFinal("curr_qty_sbi")) 
+								tempDataBudget_HI = cdbl(rsTBSPengangkutanFinal("curr_budget_qty_hi")) 
+								tempDataBudget_SHI = cdbl(rsTBSPengangkutanFinal("curr_budget_qty_shi")) 
+								tempDataBudget_SBI = cdbl(rsTBSPengangkutanFinal("curr_budget_qty_sbi")) 
+							%>
+							
+							
+							<td align="right" ><%=FormatNumber(tempData_shi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempData_sbi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+								
+							<td class="grey" align="right" ></td>
+							<td class="grey" align="right" ></td>
+							
+						</tr>
+			<%
+
+						rsTBSPengangkutanFinal.MoveNext
+					Wend
+				end if
+			%>
+			
+			<% 
+			    ' ++++++++++++++++++++++++++++++++++++++++++++
+			%>
+			
+			<%
+				rsTBSPengangkutanFinal.MoveFirst
+				if not rsTBSPengangkutanFinal.EOF then
+					no = 0
+					
+
+					tempNumber = 0
+					while not rsTBSPengangkutanFinal.EOF
+						if no  mod 2 = 1 then
+							cClass = "odd"
+						else
+							cClass = "default"
+						end if
+						no = no + 1
+			%>
+
+
+						<tr class="<%=cClass%>">
+							
+							<%
+							    tempCodeDescription = "Calculation Amount"
+								tempUnitOfMeasurement = "Rp"
+							%>
+							
+							<!--#include file="FormDisplaySUMMARYTBSPengangkutan.html"-->
+							<td align="center"  ></td>
+							
+							<% 
+
+								tempReference = ""	
+								tempUOM = ""
+								tempRounding = 0
+								tempBudget_HI = 0
+								tempBudget_SHI = 0
+								tempBudget_SBI = 0
+								tempBudgetType = "QUANTITY"
+
+								tempDataBudget_HI = tempBudget_HI
+								tempDataBudget_SHI = tempBudget_SHI
+								tempDataBudget_SBI = tempBudget_SBI
+								
+								tempExtendedReference = "txtyear="& v_txtyear & "&txtMonth=" & v_txtMonth & "&txttodaydate=" & _ 
+								v_txtdatefrom & "&txtDivision=--SUMMARY--&txtBlok=--SUMMARY--&txtPlantingDate=--SUMMARY--&txtfcba=" & v_txtfcba & "&txtComp=" & v_txtComp & ""
+								
+								tempReference = tempReference & tempExtendedReference
+								
+							%>
+							
+							<td align="left" ><a href="<%=tempReference%>"><%=tempCodeDescription%></a></td>
+							<td align="center" ><%=tempUnitOfMeasurement%></td>
+
+							<%  
+							    tempData = cdbl(rsTBSPengangkutanFinal("prev_amt_hi")) 
+							    tempData_shi = cdbl(rsTBSPengangkutanFinal("prev_amt_shi")) 
+								tempData_sbi = cdbl(rsTBSPengangkutanFinal("prev_amt_sbi")) 
+							%>
+							
+							
+							<td align="right" ><%=FormatNumber(tempData_shi,tempRounding)%></td>
+							<td align="right" ><%=FormatNumber(tempData_sbi,tempRounding)%></td>
+							<td class="grey" align="right" ></td>
+							<td class="grey" align="right" ></td>
+								
+							<td class="grey" align="right" ></td>
+							<td class="grey" align="right" ></td>
+							
+						</tr>
+			<%
+
+						rsTBSPengangkutanFinal.MoveNext
+					Wend
+				end if
+			%>
+			
+			
+			
+			
+	<% end if %>
+	
+	<%
+		rsTBSPengangkutanFinal.Close
+		set rsTBSPengangkutanFinal = Nothing	
+	%>	
+	
+	
+	

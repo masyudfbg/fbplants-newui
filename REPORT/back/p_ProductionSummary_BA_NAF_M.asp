@@ -1,0 +1,874 @@
+<%@Language=VBScript%>
+<% Option Explicit %>
+<% ValidateSession %>
+<!--#include virtual="/connDb1.Inc"-->
+<!--#include virtual="/txtFunction.inc"-->
+<!--#include virtual="/adovbs.inc"-->
+<%	
+	Dim rsEPS, strEPS
+	Dim v_txtyear, v_txtmonth, v_txttodaydate, v_txtDivision, v_txtBlok, v_txtPlantingDate, NO, cClass, v_txtFcba
+	Dim strMain, nSpanTotal
+	Dim txtfcba, txtyear, txtmonth, txttodaydate, txtDivision, txtBlok, txtPlantingDate
+    Dim tempDivision, tempBlok, tempPlantingDate 
+	
+	
+	
+	'txtfcba 		= Request("txtfcba")
+	txtyear 		= Request("txtyear")
+	txtmonth 		= Request("txtmonth")
+	txttodaydate 	= Request("txttodaydate")
+	txtDivision 	= Request("txtDivision")
+	txtBlok			= Request("txtBlok")
+	txtPlantingDate = Request("txtPlantingDate")
+	
+	
+	'response.write "TAHUN " & txtyear
+
+	
+	nSpanTotal = 3
+
+	'v_txtfcba 			=   txtfcba
+	v_txtyear			=	txtyear
+	v_txtmonth			=	txtmonth
+	v_txttodaydate		=	txttodaydate
+	v_txtDivision		=	txtDivision
+	v_txtBlok			=	txtBlok
+	v_txtPlantingDate	=	txtPlantingDate
+	
+	
+	strMain = " SELECT   fcba, division, fieldcode, fieldname, plantingyear, " & _
+								 " SUM (hi) hi, SUM (shi) shi, SUM (bi) bi, SUM (sbi) sbi, " & _
+								 " SUM (tonase_hi) tonase_hi, SUM (tonase_shi) tonase_shi, " & _
+								 " SUM (tonase_bi) tonase_bi, SUM (tonase_sbi) tonase_sbi, " & _
+								 " SUM (pom_hi) pom_hi, SUM (pom_shi) pom_shi, " & _
+								 " SUM (pom_bi) pom_bi, SUM (pom_sbi) pom_sbi, " & _
+								 " SUM (pom_tonase_hi) pom_tonase_hi, " & _
+								 " SUM (pom_tonase_shi) pom_tonase_shi, " & _
+								 " SUM (pom_tonase_bi) pom_tonase_bi, " & _
+								 " SUM (pom_tonase_sbi) pom_tonase_sbi, SUM (restan) restan, " & _
+								 " SUM (mandays_hi) mandays_hi, sum(mandays_shi) mandays_shi, sum(mandays_bi) mandays_bi, sum(mandays_sbi) mandays_sbi " & _
+							" FROM (SELECT fcba, division, fieldcode, fieldname, plantingyear, " & _
+										 " totaldailyproduction hi, 0 shi, 0 bi, 0 sbi, " & _
+										 " totaldailyprodtonase tonase_hi, 0 tonase_shi, " & _
+										 " 0 tonase_bi, 0 tonase_sbi, 0 pom_hi, 0 pom_shi, " & _
+										 " 0 pom_bi, 0 pom_sbi, 0 pom_tonase_hi, " & _
+										 " 0 pom_tonase_shi, 0 pom_tonase_bi, 0 pom_tonase_sbi, " & _
+										 " 0 restan, " & _
+										 " 0 mandays_hi, 0 mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _										 
+									" FROM view_dailyharvesting_prod " & _
+								   " WHERE " & _
+									 " accountingyear = '" & v_txtyear & "' " & _
+									 " AND accountingperiod = '" & v_txtmonth & "' " & _
+									 " AND fddate = TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " UNION " & _
+								  " SELECT   fcba, division, fieldcode, fieldname, plantingyear, " & _
+										   " 0 hi, SUM (totaldailyproduction) shi, 0 bi, 0 sbi, " & _
+										   " 0 tonase_hi, SUM (totaldailyprodtonase) tonase_shi, " & _
+										   " 0 tonase_bi, 0 tonase_sbi, 0 pom_hi, 0 pom_shi, " & _
+										   " 0 pom_bi, 0 pom_sbi, 0 pom_tonase_hi, " & _
+										   " 0 pom_tonase_shi, 0 pom_tonase_bi, " & _
+										   " 0 pom_tonase_sbi, 0 restan , " & _
+										   " 0 mandays_hi, 0 mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _										   
+									  " FROM view_dailyharvesting_prod " & _
+									 " WHERE  " & _
+									   " accountingyear = '" & v_txtyear & "' " & _
+									   " AND accountingperiod = '" & v_txtmonth & "' " & _
+									   " AND fddate <= TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " GROUP BY fcba, " & _
+										   " accountingyear, " & _
+										   " accountingperiod, " & _
+										   " division, " & _
+										   " fieldcode, " & _
+										   " fieldname, " & _
+										   " plantingyear " & _
+								  " UNION " & _
+								  " SELECT   fcba, division, fieldcode, fieldname, plantingyear, " & _
+										   " 0 hi, 0 shi, 0 bi, SUM (totaldailyproduction) sbi, " & _
+										   " 0 tonase_hi, 0 tonase_shi, 0 tonase_bi, " & _
+										   " SUM (totaldailyprodtonase) tonase_sbi, 0 pom_hi, " & _
+										   " 0 pom_shi, 0 pom_bi, 0 pom_sbi, 0 pom_tonase_hi, " & _
+										   " 0 pom_tonase_shi, 0 pom_tonase_bi, " & _
+										   " 0 pom_tonase_sbi, 0 restan, " & _
+										   " 0 mandays_hi, 0 mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _										   
+									  " FROM view_dailyharvesting_prod " & _
+									 " WHERE  " & _
+									   " accountingyear = '" & v_txtyear & "' " & _
+									   " AND fddate <= TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " GROUP BY fcba, division, fieldcode, fieldname, plantingyear " & _
+								  " UNION " & _
+								  " SELECT fcba, division, fieldcode, fieldname, plantingyear, " & _
+										 " 0 hi, 0 shi, 0 bi, 0 sbi, 0 tonase_hi, 0 tonase_shi, " & _
+										 " 0 tonase_bi, 0 tonase_sbi, totaldailyreceive pom_hi, " & _
+										 " 0 pom_shi, 0 pom_bi, 0 pom_sbi, " & _
+										 " totaldailyreceivetonase1 pom_tonase_hi, " & _
+										 " 0 pom_tonase_shi, 0 pom_tonase_bi, 0 pom_tonase_sbi, " & _
+										 " 0 restan, " & _
+										 " 0 mandays_hi, 0 mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _										 
+									" FROM view_dailyharvesting_mill " & _
+								   " WHERE  " & _
+									 " accountingyear = '" & v_txtyear & "' " & _
+									 " AND accountingperiod = '" & v_txtmonth & "' " & _
+									 " AND receptiondate = TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " UNION " & _
+								  " SELECT   fcba, division, fieldcode, fieldname, plantingyear, " & _
+										   " 0 hi, 0 shi, 0 bi, 0 sbi, 0 tonase_hi, " & _
+										   " 0 tonase_shi, 0 tonase_bi, 0 tonase_sbi, 0 pom_hi, " & _
+										   " SUM (totaldailyreceive) pom_shi, 0 pom_bi, " & _
+										   " 0 pom_sbi, 0 pom_tonase_hi, " & _
+										   " SUM (totaldailyreceivetonase1) pom_tonase_shi, " & _
+										   " 0 pom_tonase_bi, 0 pom_tonase_sbi, 0 restan, " & _
+										   " 0 mandays_hi, 0 mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _										   
+									  " FROM view_dailyharvesting_mill " & _
+									 " WHERE " & _
+									   " accountingyear = '" & v_txtyear & "' " & _
+									   " AND accountingperiod = '" & v_txtmonth & "' " & _
+									   " AND receptiondate <=  TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " GROUP BY fcba, " & _
+										   " accountingyear, " & _
+										   " accountingperiod, " & _
+										   " division, " & _
+										   " fieldcode, " & _
+										   " fieldname, " & _
+										   " plantingyear " & _
+								  " UNION " & _
+								  " SELECT   fcba, division, fieldcode, fieldname, plantingyear, " & _
+										   " 0 hi, 0 shi, 0 bi, 0 sbi, 0 tonase_hi, " & _
+										   " 0 tonase_shi, 0 tonase_bi, 0 tonase_sbi, 0 pom_hi, " & _
+										   " 0 pom_shi, 0 pom_bi, " & _
+										   " SUM (totaldailyreceive) pom_sbi, 0 pom_tonase_hi, " & _
+										   " 0 pom_tonase_shi, 0 pom_tonase_bi, " & _
+										   " SUM (totaldailyreceivetonase1) pom_tonase_sbi, " & _
+										   " 0 restan, " & _
+										   " 0 mandays_hi, 0 mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _										   
+									  " FROM view_dailyharvesting_mill " & _
+									 " WHERE " & _
+									   " accountingyear = '" & v_txtyear & "' " & _
+									   " AND receptiondate <= TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " GROUP BY fcba, division, fieldcode, fieldname, plantingyear " & _
+								  " UNION " & _
+								  " select FCBA, DIVISION, FIELDCODE, FIELDNAME, PLANTINGYEAR,  " & _
+										   " 0 hi, 0 shi, 0 bi, 0 sbi, 0 tonase_hi, " & _
+										   " 0 tonase_shi, 0 tonase_bi, 0 tonase_sbi, 0 pom_hi, " & _
+										   " 0 pom_shi, 0 pom_bi, " & _
+										   " 0 pom_sbi, 0 pom_tonase_hi, " & _
+										   " 0 pom_tonase_shi, 0 pom_tonase_bi, " & _
+										   " 0 pom_tonase_sbi, " & _
+										   " sum(variantemp) + sum(restantemp) restan , " & _
+										   " 0 mandays_hi, 0 mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _
+										" from (	 " & _
+											" select FCBA, DIVISION, FIELDCODE, FIELDNAME, PLANTINGYEAR,  varian variantemp,  " & _
+											" 0 restantemp from view_dailyharvesting_varian " & _
+											" where " & _
+											" DATEPROD = TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+											" UNION " & _
+											" select FCBA, DIVISION, FIELDCODE, FIELDNAME, PLANTINGYEAR,  0 variantemp,  " & _
+											" sum(varian) restantemp from view_dailyharvesting_varian " & _
+											" where " & _
+											" DATEPROD < TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+											" group by FCBA, DIVISION, FIELDCODE, FIELDNAME, PLANTINGYEAR " & _
+										" )  " & _
+										" group by FCBA, DIVISION, FIELDCODE, FIELDNAME, PLANTINGYEAR " & _
+									" UNION " & _
+									" SELECT fcba, division, fieldcode, fieldname, plantingyear, " & _
+										 " 0 hi, 0 shi, 0 bi, 0 sbi, " & _
+										 " 0 tonase_hi, 0 tonase_shi, " & _
+										 " 0 tonase_bi, 0 tonase_sbi, 0 pom_hi, 0 pom_shi, " & _
+										 " 0 pom_bi, 0 pom_sbi, 0 pom_tonase_hi, " & _
+										 " 0 pom_tonase_shi, 0 pom_tonase_bi, 0 pom_tonase_sbi, " & _
+										 " 0 restan, " & _
+										 " totaldailymandays mandays_hi, 0 mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _
+									" FROM view_dailyharvesting_mandays " & _
+								   " WHERE " & _
+									 " accountingyear = '" & v_txtyear & "' " & _
+									 " AND accountingperiod = '" & v_txtmonth & "' " & _
+									 " AND fddate = TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " UNION " & _
+								  " SELECT   fcba, division, fieldcode, fieldname, plantingyear, " & _
+										   " 0 hi, 0 shi, 0 bi, 0 sbi, " & _
+										   " 0 tonase_hi, 0 tonase_shi, " & _
+										   " 0 tonase_bi, 0 tonase_sbi, 0 pom_hi, 0 pom_shi, " & _
+										   " 0 pom_bi, 0 pom_sbi, 0 pom_tonase_hi, " & _
+										   " 0 pom_tonase_shi, 0 pom_tonase_bi, " & _
+										   " 0 pom_tonase_sbi, 0 restan, " & _
+										   " 0 mandays_hi, SUM(totaldailymandays) mandays_shi, 0 mandays_bi, 0 mandays_sbi " & _
+									  " FROM view_dailyharvesting_mandays " & _
+									 " WHERE  " & _
+									   " accountingyear = '" & v_txtyear & "' " & _
+									   " AND accountingperiod = '" & v_txtmonth & "' " & _
+									   " AND fddate <= TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " GROUP BY fcba, " & _
+										   " accountingyear, " & _
+										   " accountingperiod, " & _
+										   " division, " & _
+										   " fieldcode, " & _
+										   " fieldname, " & _
+										   " plantingyear " & _
+								  " UNION " & _
+								  " SELECT   fcba, division, fieldcode, fieldname, plantingyear, " & _
+										   " 0 hi, 0 shi, 0 bi, 0 sbi, " & _
+										   " 0 tonase_hi, 0 tonase_shi, 0 tonase_bi, " & _
+										   " 0 tonase_sbi, 0 pom_hi, " & _
+										   " 0 pom_shi, 0 pom_bi, 0 pom_sbi, 0 pom_tonase_hi, " & _
+										   " 0 pom_tonase_shi, 0 pom_tonase_bi, " & _
+										   " 0 pom_tonase_sbi, 0 restan, " & _
+										   " 0 mandays_hi, 0 mandays_shi, 0 mandays_bi, SUM(totaldailymandays) mandays_sbi " & _
+									  " FROM view_dailyharvesting_mandays " & _
+									 " WHERE  " & _
+									   " accountingyear = '" & v_txtyear & "' " & _
+									   " AND fddate <= TO_DATE ('" & v_txttodaydate & "', 'MM/DD/YYYY') " & _
+								  " GROUP BY fcba, division, fieldcode, fieldname, plantingyear " & _									  
+								  " ) " & _
+						" GROUP BY fcba, division, fieldcode, fieldname, plantingyear "
+	
+	strEPS = " SELECT fcba "
+	if len(trim(v_txtDivision)) > 0 then 
+		if v_txtDivision <> "--SUMMARY--" then
+			strEPS = strEPS & " , DIVISION "
+		end if
+	else
+		strEPS = strEPS & " , DIVISION "
+	end if
+
+	if len(trim(v_txtBlok)) > 0 then 
+		if v_txtBlok <> "--SUMMARY--" then
+			strEPS = strEPS & " , FIELDCODE "
+		end if
+	else
+		strEPS = strEPS & " , FIELDCODE "	
+	end if
+
+	if len(trim(v_txtPlantingDate)) > 0 then 
+		if v_txtPlantingDate <> "--SUMMARY--" then
+			strEPS = strEPS & " , PLANTINGYEAR "
+		end if
+	else
+	    strEPS = strEPS & " , PLANTINGYEAR "
+	end if
+	
+	
+	strEPS = strEPS &            ", SUM (hi) hi, SUM (shi) shi, SUM (bi) bi, SUM (sbi) sbi, " & _
+								 " SUM (tonase_hi) tonase_hi, SUM (tonase_shi) tonase_shi, " & _
+								 " SUM (tonase_bi) tonase_bi, SUM (tonase_sbi) tonase_sbi, " & _
+								 " SUM (pom_hi) pom_hi, SUM (pom_shi) pom_shi, " & _
+								 " SUM (pom_bi) pom_bi, SUM (pom_sbi) pom_sbi, " & _
+								 " SUM (pom_tonase_hi) pom_tonase_hi, " & _
+								 " SUM (pom_tonase_shi) pom_tonase_shi, " & _
+								 " SUM (pom_tonase_bi) pom_tonase_bi, " & _
+								 " SUM (pom_tonase_sbi) pom_tonase_sbi, SUM (restan) restan ,  " & _
+								 " SUM (mandays_hi) mandays_hi, SUM(mandays_shi) mandays_shi, SUM(mandays_bi) mandays_bi, SUM(mandays_sbi) mandays_sbi "
+
+	
+	strEPS = strEPS &  " FROM ( " & strMain & " )  " 
+
+	    strEPS = strEPS & " WHERE fcba = '" & Session("fcba") & "' " 
+
+	' Where Condion
+	if len(trim(v_txtDivision)) > 0 then 
+		if v_txtDivision <> "--SUMMARY--" then
+			strEPS = strEPS & " AND DIVISION = '" & v_txtDivision & "'"
+		end if
+	end if
+	if len(trim(v_txtBlok)) > 0 then 
+		if  v_txtBlok <> "--SUMMARY--" then
+			strEPS = strEPS & " AND FIELDCODE = '" & v_txtBlok & "'"
+		end if
+	end if
+	if len(trim(v_txtPlantingDate)) > 0  then
+		if v_txtPlantingDate <> "--SUMMARY--" then
+			strEPS = strEPS & " AND PLANTINGYEAR = " & cint(v_txtplantingdate)
+		end if 
+	end if
+
+
+	' Group By
+	strEPS = strEPS & " GROUP BY FCBA "
+	if len(trim(v_txtDivision)) > 0 then 
+		if v_txtDivision <> "--SUMMARY--" then
+			strEPS = strEPS & " , DIVISION "
+		end if
+	else
+		strEPS = strEPS & " , DIVISION "
+	end if
+
+	if len(trim(v_txtBlok)) > 0 then 
+		if v_txtBlok <> "--SUMMARY--" then
+			strEPS = strEPS & " , FIELDCODE "
+		end if
+	else
+		strEPS = strEPS & " , FIELDCODE "	
+	end if
+
+	if len(trim(v_txtPlantingDate)) > 0 then 
+		if v_txtPlantingDate <> "--SUMMARY--" then
+			strEPS = strEPS & " , PLANTINGYEAR "
+		end if
+	else
+	    strEPS = strEPS & " , PLANTINGYEAR "
+	end if
+
+	' Order By
+	strEPS = strEPS & " ORDER BY FCBA "
+	if len(trim(v_txtDivision)) > 0 then 
+		if v_txtDivision <> "--SUMMARY--" then
+			strEPS = strEPS & " , DIVISION "
+		end if
+	else
+		strEPS = strEPS & " , DIVISION "
+	end if
+
+	if len(trim(v_txtPlantingDate)) > 0 then 
+		if v_txtPlantingDate <> "--SUMMARY--" then
+			strEPS = strEPS & " , PLANTINGYEAR "
+		end if
+	else
+	    strEPS = strEPS & " , PLANTINGYEAR "
+	end if
+	
+	if len(trim(v_txtBlok)) > 0 then 
+		if v_txtBlok <> "--SUMMARY--" then
+			strEPS = strEPS & " , FIELDCODE "
+		end if
+	else
+		strEPS = strEPS & " , FIELDCODE "	
+	end if
+
+
+	' Dim str
+' str = " insert into temp_error (valuestring) values ('" & strEPS & "') "
+
+				
+					 
+				' connStr.execute(str)
+' connStr.execute("commit")
+				
+Set rsEPS = Server.CreateObject("ADODB.Recordset")
+'response.write strEPS
+
+rsEPS.Open strEPS, connstr, adOpenStatic 
+
+
+%>
+
+<html>
+
+<head>
+<link rel="stylesheet" href="/css/stylereport2.css" type="text/css" />
+<title>iPS Reporting - Production Summary</title>
+<script language="JavaScript" src="/js/date-picker.js"></script> 
+<script language="JavaScript">
+
+var newwin;
+function launchwin(winurl,winname,winfeatures)
+{
+	//This launches a new window and then
+	//focuses it if window.focus() is supported.
+	newwin = window.open(winurl,winname,winfeatures);
+
+}
+</script>
+</head>
+
+<body>
+<form name="frmEntry" method="post" action="p_ProductionSummary_BA_NAF_M.asp">
+
+<div id="wrapper">
+	<!--#include file="menutop.asp"-->
+	<div id="header-wrapper">
+		<div id="header">
+			<h4>PT. <%=Session("COMPANY")%></h4>
+			<h5><%=Session("BA")%></h5>
+		</div>
+		<div id="subheader"class="centered">
+			<h2>LAPORAN HARIAN PRODUKSI PER KEBUN</h2>
+			<% if v_txttodaydate <> "" and v_txtFcba <> "" then %>
+				<h3>PERIODE : <%=v_txttodaydate%></h3>
+			<% end if %>
+		</div>
+	</div>
+
+<%
+	if len(trim(request("txtYear"))) = 0 then
+		v_txtyear = year(Now)	 
+	end if
+
+	if len(trim(request("txtmonth"))) = 0 then
+		v_txtmonth = Month(Now)	 
+	end if
+%>
+<table id="form-table" class="centered-margin">
+	<tr>
+		<th>TAHUN</th>
+		<th>BULAN</th>
+		<th>TANGGAL</th>
+		<th>AFDELING</th>
+		<th>TAHUN TANAM</th>
+		<th>BLOK</th>
+		<th>&nbsp;</th>
+	</tr>
+	<tr>
+	    <!--%response.write v_txtfcba %-->
+	    <!--%response.write v_txtyear %-->
+	    <!--%response.write v_txtmonth %-->
+		<!--%response.write len(trim(request("txtYear"))) %-->
+		<td align="center"><input type="text" name="txtyear" value="<%=v_txtyear%>"></td>
+		<td align="center"><input type="text" name="txtmonth" value="<%=v_txtmonth%>"></td>
+		<td align="center">
+		<% if v_txttodaydate <> "" and v_txttodaydate = v_txttodaydate then %>
+			<input type="text" maxlength="10" name="txttodaydate" size="10" value="<%=v_txttodaydate%>" title="Type Date mm/dd/yyyy" >
+		<% else%>
+			<input type="text" maxlength="10" name="txttodaydate" size="10" value="<%=textDate(Date)%>" title="Type Date mm/dd/yyyy" >
+		<% end if%>
+			<a href="javascript:show_calendar('frmEntry.txttodaydate');" onMouseOver="window.status='Date Picker';return true;" onmouseout="window.status='';return true;">
+				<img src="../Images/show-calendar.gif" width=24 height=22 border=0 align=top>
+			</a>
+		</td>
+		
+		
+		
+		
+		
+		<td align="center">
+		<select name="txtDivision">	
+		<option value="">--ALL--</option>
+		<%
+			Dim rsDivision
+			Set rsDivision = Server.CreateObject("ADODB.Recordset")
+			rsDivision.CursorLocation = adUseClient
+			
+
+	
+		    if len(trim(v_txtDivision)) > 0 then 
+				strsql =  " SELECT '--SUMMARY--' as DIVISION from DUAL UNION SELECT DISTINCT Division as Division FROM FIELD WHERE FCBA = '" & v_txtFcba & "'"
+			else
+				strsql =  " SELECT '--SUMMARY--' as DIVISION from DUAL UNION SELECT DISTINCT Division as Division FROM FIELD WHERE FCBA = '" & Session("fcBA") & "'"
+			end if
+			
+			
+			rsDivision.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+			if not rsDivision.eof then
+				DO while not rsDivision.eof
+				if v_txtDivision = rsDivision("Division") then
+		%>			<option value="<%=rsDivision("Division")%>" Selected><%=rsDivision("Division")%></option>
+				<%else%>
+					<option value="<%=rsDivision("Division")%>"><%=rsDivision("Division")%></option>
+				<%end if%>
+		<%			rsDivision.movenext
+				loop
+			End if
+			rsDivision.Close
+			set rsDivision = nothing
+		%>
+		</select>		
+		</td>
+
+
+		<td align="center">
+		<select name="txtPlantingDate">	
+		<option value="">--ALL--</option>
+		<%
+			Dim rsPlantingDate, strsql
+			Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+			rsPlantingDate.CursorLocation = adUseClient
+			
+	
+	
+		    if len(trim(v_txtPlantingDate)) > 0 then 
+				strsql =  " SELECT '--SUMMARY--' as PlantingDate from DUAL UNION SELECT DISTINCT to_char(PLANTINGDATE, 'yyyy') as PlantingDate FROM FIELD WHERE FCBA = '" & v_txtFcba & "'"
+			else
+				strsql =  " SELECT '--SUMMARY--' as PlantingDate from DUAL UNION SELECT DISTINCT to_char(PLANTINGDATE, 'yyyy') as PlantingDate FROM FIELD WHERE FCBA = '" & Session("fcBA") & "'"
+			end if
+			
+			
+			rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+			if not rsPlantingDate.eof then
+				DO while not rsPlantingDate.eof
+				if v_txtPlantingDate = rsPlantingDate("PlantingDate") then
+		%>			<option value="<%=rsPlantingDate("PlantingDate")%>" Selected><%=rsPlantingDate("PlantingDate")%></option>
+				<%else%>
+					<option value="<%=rsPlantingDate("PlantingDate")%>"><%=rsPlantingDate("PlantingDate")%></option>
+				<%end if%>
+		<%			rsPlantingDate.movenext
+				loop
+			End if
+			rsPlantingDate.Close
+			set rsPlantingDate = nothing
+		%>
+		</select>		
+		</td>
+		<td align="center">
+		<select name="txtBlok">	
+		<option value="">--ALL--</option>
+		<%
+			Dim rsBlok
+			Set rsBlok = Server.CreateObject("ADODB.Recordset")
+			rsBlok.CursorLocation = adUseClient
+
+	
+		    if len(trim(v_txtBlok)) > 0 then 
+				strsql =  " SELECT '--SUMMARY--' as Blok from DUAL UNION SELECT DISTINCT fccode as Blok FROM FIELD WHERE FCBA = '" & v_txtFcba & "'"
+			else
+				strsql =  " SELECT '--SUMMARY--' as Blok from DUAL UNION SELECT DISTINCT fccode as Blok FROM FIELD WHERE FCBA = '" & Session("fcBA") & "'"
+			end if
+			
+			rsBlok.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+			if not rsBlok.eof then
+				DO while not rsBlok.eof
+				if v_txtBlok = rsBlok("Blok") then
+		%>			<option value="<%=rsBlok("Blok")%>" Selected><%=rsBlok("Blok")%></option>
+				<%else%>
+					<option value="<%=rsBlok("Blok")%>"><%=rsBlok("Blok")%></option>
+				<%end if%>
+		<%			rsBlok.movenext
+				loop
+			End if
+			rsBlok.Close
+			set rsBlok = nothing
+		%>
+		</select>		
+		</td>
+		
+		
+		<td align="center"><input type="submit" value="View" /></td>
+
+	</tr>
+</table>
+
+<table border="0" width="100%" id="product-table">
+	<tr>
+		<th rowspan="5">NO</th>
+		
+
+		
+		<% if trim(request("txtDivision")) <> "--SUMMARY--" then %>
+		    <th rowspan="5">AFDELING</th>
+		<% else
+			nSpanTotal = nSpanTotal - 1 			
+	    end if %>
+		
+		
+		<% if trim(request("txtPlantingDate")) <> "--SUMMARY--" then %>
+		    <th rowspan="5">TT</th>
+		<% else
+		    nSpanTotal = nSpanTotal - 1 			
+	    end if %>
+
+
+		<% if trim(request("txtBlok")) <> "--SUMMARY--" then %>
+		    <th rowspan="5">BLOK</th>
+		<% else
+		    nSpanTotal = nSpanTotal - 1 		
+	    end if %>
+		
+		
+		<th colspan="8">PRODUKSI TBS KEBUN</th>
+		<th colspan="8">TBS DITERIMA PMKS</th>
+		<th rowspan="5">RESTAN (JJG)</th>
+		<th colspan="8">TENAGA KERJA POTONG BUAH</th>
+	</tr>
+	<tr>
+		<th colspan="4">JANJANG PANEN</th>
+		<th colspan="4">TONASE</th>
+		<th colspan="4">JANJANG KIRIM</th>
+		<th colspan="4">TONASE</th>
+		<th colspan="4">HARI KERJA (HK)</th>
+		<th colspan="4">OUTPUT (KG/HK)</th>
+	</tr>
+	
+	<tr>
+		<th colspan="3">BI</th>
+		<th rowspan="3">SBI</th>
+		<th colspan="3">BI</th>
+		<th rowspan="3">SBI</th>
+		<th colspan="3">BI</th>
+		<th rowspan="3">SBI</th>
+		<th colspan="3">BI</th>
+		<th rowspan="3">SBI</th>
+		<th colspan="3">BI</th>
+		<th rowspan="3">SBI</th>
+		<th colspan="3">BI</th>
+		<th rowspan="3">SBI</th>
+	</tr>
+	
+	<tr>
+		<th colspan="2">REALISASI</th>
+		<th>BUDGET</th>
+		<th colspan="2">REALISASI</th>
+		<th>BUDGET</th>
+		<th colspan="2">REALISASI</th>
+		<th>BUDGET</th>
+		<th colspan="2">REALISASI</th>
+		<th>BUDGET</th>
+		<th colspan="2">REALISASI</th>
+		<th>BUDGET</th>
+		<th colspan="2">REALISASI</th>
+		<th>BUDGET</th>
+	</tr>	
+	<tr>
+		<th>HI</th>
+		<th>SHI</th>
+		<th>BI</th>
+		<th>HI</th>
+		<th>SHI</th>
+		<th>BI</th>
+		<th>HI</th>
+		<th>SHI</th>
+		<th>BI</th>
+		<th>HI</th>
+		<th>SHI</th>
+		<th>BI</th>
+		<th>HI</th>
+		<th>SHI</th>
+		<th>BI</th>
+		<th>HI</th>
+		<th>SHI</th>
+		<th>BI</th>
+	</tr>
+<%
+Dim nsubhi, nsubshi, nsubbi, nsubsbi, nsubtonase_hi
+Dim nsubtonase_shi, nsubtonase_bi, nsubtonase_sbi, nsubpom_hi, nsubpom_shi
+Dim nsubpom_bi, nsubpom_sbi, nsubpom_tonase_hi, nsubpom_tonase_shi, nsubpom_tonase_bi, nsubpom_tonase_sbi, nsubrestan
+Dim nsubmandays_hi, nsubmandays_shi, nsubmandays_bi, nsubmandays_sbi
+Dim sprevFcba, sprevDivision, sprevPlantingYear, sprevFieldCode
+Dim nsubOutput_hi, nsubOutput_shi, nsubOutput_bi, nsubOutput_sbi
+Dim nOutput_hi, nOutput_shi, nOutput_bi, nOutput_sbi 
+
+
+	if not rsEPS.EOF then
+		NO = 1
+		nsubhi = 0
+		nsubshi = 0
+		nsubbi = 0
+		nsubsbi = 0
+		nsubtonase_hi = 0
+		nsubtonase_shi = 0
+		nsubtonase_bi = 0
+		nsubtonase_sbi = 0
+		nsubpom_hi = 0
+		nsubpom_shi = 0
+		nsubpom_bi = 0
+		nsubpom_sbi = 0
+		nsubpom_tonase_hi = 0
+		nsubpom_tonase_shi = 0
+		nsubpom_tonase_bi = 0
+		nsubpom_tonase_sbi = 0
+		nsubrestan = 0
+		
+		
+		nsubmandays_hi = 0
+		nsubmandays_shi = 0
+		nsubmandays_bi = 0
+		nsubmandays_sbi = 0
+		
+		nsubOutput_hi = 0
+		nsubOutput_shi = 0
+		nsubOutput_bi = 0
+		nsubOutput_sbi = 0
+		
+		sprevFcba = ""
+		sprevDivision = ""
+		sprevPlantingYear = ""
+		sprevFieldCode = ""
+		while not rsEPS.EOF
+			if no  mod 2 = 1 then
+				cClass = "odd"
+			else
+				cClass = "default"
+			end if
+%>
+			<tr class="<%=cClass%>">
+				<td align="center"><%=NO%></td>						 
+				
+				<% if trim(request("txtDivision")) <> "--SUMMARY--" then %>
+				    <% tempDivision = rsEPS("division") %>
+					<% tempPlantingDate = "" %>
+					<% tempBlok = "--SUMMARY--" %>
+				
+				
+				    <% if sprevDivision <> rsEPS("division") then %>
+					    <td align="center">
+							<a href="p_ProductionSummary_BA_NAF_M.asp?txtfcba=<%=rsEPS("fcba")%>&txtyear=<%=v_txtyear%>&txtMonth=<%=v_txtMonth%>&txttodaydate=<%=v_txttodaydate%>&txtDivision=<%=tempDivision%>&txtBlok=<%=tempBlok%>&txtPlantingDate=<%=tempPlantingDate%>">
+							<%=rsEPS("division")%>
+							</a>
+						</td>
+						<% sprevDivision = rsEPS("division") %>
+					<% else	%>
+					    <td align="center"></td>					
+					<% end if %>							 
+				<% end if %>
+
+				<% if trim(request("txtPlantingDate")) <> "--SUMMARY--" then %>
+				    <% if trim(request("txtDivision")) <> "--SUMMARY--" then %>
+						<% tempDivision = rsEPS("division") %>
+					<% else %>
+						<% tempDivision = "" %>
+					<% end if %>
+					
+					<% tempPlantingDate = rsEPS("plantingyear") %>
+					<% tempBlok = "" %>
+					
+				    <% if sprevPlantingYear <> rsEPS("plantingyear") then %>
+				        <td align="center">
+							<a href="p_ProductionSummary_BA_NAF_M.asp?txtfcba=<%=rsEPS("fcba")%>&txtyear=<%=v_txtyear%>&txtMonth=<%=v_txtMonth%>&txttodaydate=<%=v_txttodaydate%>&txtDivision=<%=tempDivision%>&txtBlok=<%=tempBlok%>&txtPlantingDate=<%=tempPlantingDate%>">
+							<%=rsEPS("plantingyear")%>
+							</a>
+						</td>
+						<% sprevPlantingYear = rsEPS("plantingyear") %>
+					<% else	%>
+					    <td align="center"></td>					
+					<% end if %>							 
+				<% end if %>
+
+
+				<% if trim(request("txtBlok")) <> "--SUMMARY--" then %>
+				    <% if sprevFieldCode <> rsEPS("fieldcode") then %>				
+					    <td align="center"><%=rsEPS("fieldcode")%></td>				
+						<% sprevFieldCode = rsEPS("fieldcode") %>
+					<% else	%>
+					    <td align="center"></td>					
+					<% end if %>							 
+				<% end if %>				
+				
+				
+				<td align="right"><%=FormatNumber(rsEPS("hi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("shi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("tonase_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("tonase_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("tonase_bi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("tonase_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_bi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_bi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("restan"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_hi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_shi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_bi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_sbi"),0)%></td>
+				
+				<% if cdbl(rsEPS("mandays_hi")) <> 0 then %>
+				    <% nOutput_hi = cdbl(rsEPS("pom_tonase_hi")) * 1000 / cdbl(rsEPS("mandays_hi")) %>
+				<% else %>
+				    <% nOutput_hi = 0 %>
+				<% end if %>
+				
+				<% if cdbl(rsEPS("mandays_shi")) <> 0 then %>
+					<% nOutput_shi = cdbl(rsEPS("pom_tonase_shi")) * 1000 / cdbl(rsEPS("mandays_shi")) %>
+				<% else %>
+				    <% nOutput_shi = 0 %>
+				<% end if %>
+
+				<% if cdbl(rsEPS("mandays_bi")) <> 0 then %>
+					<% nOutput_bi = cdbl(rsEPS("pom_tonase_bi")) * 1000 / cdbl(rsEPS("mandays_bi")) %>
+				<% else %>
+				    <% nOutput_bi = 0 %>
+				<% end if %>
+				
+				<% if cdbl(rsEPS("mandays_sbi")) <> 0 then %>
+					<% nOutput_sbi = cdbl(rsEPS("pom_tonase_sbi")) * 1000 / cdbl(rsEPS("mandays_sbi")) %>
+				<% else %>
+				    <% nOutput_sbi = 0 %>
+				<% end if %>
+
+				
+				<td align="right"><%=FormatNumber(nOutput_hi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_shi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_bi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_sbi,0)%></td>
+			</tr>
+<%
+			NO = NO + 1
+			nsubhi = nsubhi + Cdbl(rsEPS("hi"))
+			nsubshi = nsubshi + Cdbl(rsEPS("shi"))
+			nsubbi = nsubbi + Cdbl(rsEPS("bi"))
+			nsubsbi = nsubsbi + Cdbl(rsEPS("sbi"))
+			nsubtonase_hi = nsubtonase_hi + Cdbl(rsEPS("tonase_hi"))
+			nsubtonase_shi = nsubtonase_shi + Cdbl(rsEPS("tonase_shi"))
+			nsubtonase_bi = nsubtonase_bi + Cdbl(rsEPS("tonase_bi"))
+			nsubtonase_sbi = nsubtonase_sbi + Cdbl(rsEPS("tonase_sbi"))
+			nsubpom_hi = nsubpom_hi + Cdbl(rsEPS("pom_hi"))
+			nsubpom_shi = nsubpom_shi + Cdbl(rsEPS("pom_shi"))
+			nsubpom_bi = nsubpom_bi + Cdbl(rsEPS("pom_bi"))
+			nsubpom_sbi = nsubpom_sbi + Cdbl(rsEPS("pom_sbi"))
+			nsubpom_tonase_hi = nsubpom_tonase_hi + Cdbl(rsEPS("pom_tonase_hi"))
+			nsubpom_tonase_shi = nsubpom_tonase_shi + Cdbl(rsEPS("pom_tonase_shi"))
+			nsubpom_tonase_bi = nsubpom_tonase_bi + Cdbl(rsEPS("pom_tonase_bi"))
+			nsubpom_tonase_sbi = nsubpom_tonase_sbi + Cdbl(rsEPS("pom_tonase_sbi"))
+			nsubrestan = nsubrestan + Cdbl(rsEPS("restan"))
+			
+			nsubmandays_hi = nsubmandays_hi + Cdbl(rsEPS("mandays_hi"))
+			nsubmandays_shi = nsubmandays_shi + Cdbl(rsEPS("mandays_shi"))
+			nsubmandays_bi = nsubmandays_bi + Cdbl(rsEPS("mandays_bi"))
+			nsubmandays_sbi = nsubmandays_sbi + Cdbl(rsEPS("mandays_sbi"))		
+
+			nsubOutput_hi = nsubOutput_hi + nOutput_hi
+			nsubOutput_shi = nsubOutput_shi + nOutput_shi
+			nsubOutput_bi = nsubOutput_bi + nOutput_bi
+			nsubOutput_sbi = nsubOutput_sbi + nOutput_sbi
+			
+
+			rsEPS.MoveNext			
+		Wend
+	end if
+	rsEPS.Close
+	set rsEPS = Nothing
+%>
+			<tr bgcolor="#9CB770">
+				<td align="center" colspan="<%= 1 + nSpanTotal %>">TOTAL</td>				
+				<td align="right"><%=FormatNumber(nsubhi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubshi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubsbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubtonase_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubtonase_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubtonase_bi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubtonase_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_hi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_shi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_bi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_bi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubrestan,0)%></td>
+
+				<td align="right"><%=FormatNumber(nsubmandays_hi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_shi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_bi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_sbi,0)%></td>
+			<%if nsubmandays_hi = 0 then%>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_hi*1000)/1,0)%></td>
+			<%else%>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_hi*1000)/nsubmandays_hi,0)%></td>
+			<%end if%>
+			
+			<%if nsubmandays_shi = 0 then%>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_shi*1000)/1,0)%></td>
+			<%else%>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_shi*1000)/nsubmandays_shi,0)%></td>
+			<%end if%>
+			
+				<td align="right"><%=FormatNumber(nsubOutput_bi,0)%></td>
+				
+			<%if nsubmandays_sbi = 0 then%>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_sbi*1000)/1,0)%></td>
+			<%else%>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_sbi*1000)/nsubmandays_sbi,0)%></td>
+			<%end if%>
+				
+				
+
+				
+			</tr>
+
+</table>
+</form>
+
+<!--#include file="../Bottom_Report.asp"-->
+

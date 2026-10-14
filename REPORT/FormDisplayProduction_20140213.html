@@ -1,0 +1,339 @@
+
+
+	<%
+		if not rsProduction.EOF then
+			no = 0
+			
+			sPrevGroupPlantation = ""
+			sPrevPlantation = ""
+			sPrevGroupRegion = ""
+			sPrevRegion = ""
+			sPrevCompany = ""
+			sPrevFcba = ""
+
+			tempNumber = 0
+			
+			
+			while not rsProduction.EOF
+				if no  mod 2 = 1 then
+					cClass = "odd"
+				else
+					cClass = "default"
+				end if
+				no = no + 1
+	%>
+
+
+				<tr class="<%=cClass%>">
+					
+					<%
+						strCodeDesc = "SELECT param_1 CodeDescription, rate_1 theRowSpan FROM PARAMETERDETAIL " & _
+										" WHERE " & _
+										" parcode = 'SR003' AND " & _
+										" parheadcode = 'REPORTCODE' AND " & _
+										" param_2 = 'DEFAULT' AND " & _
+										" fccode = '" & rsProduction("codedesc") & "'" 
+						
+						Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+						rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+						if not rsCodeDesc.EOF then
+							tempCodeDescription = rsCodeDesc ("CodeDescription")
+						else
+							tempCodeDescription = ""	
+						end if					
+										
+										
+					%>
+					
+					<!--#include file="FormDisplaySUMMARYProduction.html"-->
+					
+					<% if sPrevDesc <> tempCodeDescription then %>		
+					 	<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeDescription%></td>
+						<% sPrevDesc = tempCodeDescription %>
+					<% end if %>					
+					
+					
+					
+					
+					<% tempNumber = tempNumber + 1 %>
+					<td align="center"  ><%=tempNumber%></td>
+					
+					
+					<% 
+						tempRefCode = rsProduction("codedesc")
+						strHRef = " SELECT param_5 reference,  rate_3 rounding, param_6 UOM,  param_7 budgetType FROM PARAMETERDETAIL " & _
+									" WHERE " & _
+									" parcode = 'SR003' AND " & _
+									" fccode = '" & tempRefCode & "' AND " & _
+									" param_2 = 'DEFAULT' " 
+					
+						Set rsHRef = Server.CreateObject("ADODB.Recordset")	
+						rsHRef.Open strHRef, connstr, adOpenStatic 
+
+						tempBudget_HI = 0 
+						tempBudget_SHI = 0
+						tempBudget_SBI = 0
+
+						
+						if not rsHRef.EOF then
+							tempReference = rsHRef ("reference")
+							tempUOM = rsHRef("UOM")
+							tempRounding = cdbl(rsHRef("rounding"))
+							tempBudget_HI = cdbl(rsProduction("budget_hi"))
+							tempBudget_SHI = cdbl(rsProduction("budget_shi"))
+							tempBudget_SBI = cdbl(rsProduction("budget_sbi"))
+							tempBudgetType = rsHRef("budgetType")
+						else
+							tempReference = ""	
+							tempUOM = ""
+							tempRounding = 0
+							tempBudget_HI = 0
+							tempBudget_SHI = 0
+							tempBudget_SBI = 0
+							tempBudgetType = "QUANTITY"
+						end if
+						
+						rsHRef.Close
+						set rsHRef = Nothing
+
+						tempDataBudget_HI = tempBudget_HI
+						tempDataBudget_SHI = tempBudget_SHI
+						tempDataBudget_SBI = tempBudget_SBI
+						
+						tempExtendedReference = "txtyear="& v_txtyear & "&txtMonth=" & v_txtMonth & "&txtDate=" & v_txtdatefrom & "&txttodaydate=" & _ 
+						v_txtdatefrom & "&txtDivision=--SUMMARY--&txtBlok=--SUMMARY--&txtPlantingDate=--SUMMARY--&txtfcba=" & v_txtfcba & "&txtComp=" & v_txtComp & ""
+						
+						tempReference = tempReference & tempExtendedReference
+						
+					%>
+					
+					<td align="left" ><a href="<%=tempReference%>" target="_blank"><%=rsProduction("description")%></a></td>
+					<td align="center" ><%=tempUOM%></td>
+					
+					
+					<%  if rsProduction("hi") <>  "" then 
+							tempData = cdbl(rsProduction("hi"))
+						else
+							tempData = 0
+						end if
+					%>
+					
+					<%  if rsProduction("shi") <>  "" then 
+							tempData_shi = cdbl(rsProduction("shi"))
+						else
+							tempData_shi = 0
+						end if
+					%>
+					
+					<%  if rsProduction("sbi") <>  "" then 
+							tempData_sbi = cdbl(rsProduction("sbi"))
+						else
+							tempData_sbi = 0
+						end if
+					%>
+					
+
+					
+					<% if tempRefCode = "SR003_01" then 
+						tempTBSProduksi = cdbl(rsProduction("hi"))
+						tempTBSProduksi_shi = cdbl(rsProduction("shi"))
+						tempTBSProduksi_sbi = cdbl(rsProduction("sbi"))
+					   end if
+					   
+					   if tempRefCode = "SR003_BA" then 
+						  if tempTBSProduksi <> 0 then 
+							  tempBiayaAngkut = cdbl(rsProduction("hi")) / tempTBSProduksi
+						  else
+							  tempBiayaAngkut = cdbl(rsProduction("hi")) 
+						  end if
+						  
+						  if tempTBSProduksi_shi <> 0 then 
+							  tempBiayaAngkut_shi = cdbl(rsProduction("shi")) / tempTBSProduksi_shi
+						  else
+							  tempBiayaAngkut_shi = cdbl(rsProduction("shi")) 
+						  end if
+						  
+						  if tempTBSProduksi_sbi <> 0 then 
+							  tempBiayaAngkut_sbi = cdbl(rsProduction("sbi")) / tempTBSProduksi_sbi
+						  else
+							  tempBiayaAngkut_sbi = cdbl(rsProduction("sbi")) 
+						  end if
+						  
+						  tempData = tempBiayaAngkut
+						  tempData_shi = tempBiayaAngkut_shi
+						  tempData_sbi = tempBiayaAngkut_sbi
+						  
+					   end if
+
+					   if tempRefCode = "SR003_OP" then 
+						  if cdbl(rsProduction("hi")) <> 0 then 
+							  tempBiayaAngkut = tempTBSProduksi / cdbl(rsProduction("hi")) 
+						  else
+							  tempBiayaAngkut = 0
+						  end if
+						  
+						  if cdbl(rsProduction("shi")) <> 0 then 
+							  tempBiayaAngkut_shi =  tempTBSProduksi_shi / cdbl(rsProduction("shi"))
+						  else
+							  tempBiayaAngkut_shi = 0
+						  end if
+						  
+						  if cdbl(rsProduction("sbi")) <> 0 then 
+							  tempBiayaAngkut_sbi =  tempTBSProduksi_sbi / cdbl(rsProduction("sbi"))
+						  else
+							  tempBiayaAngkut_sbi = 0
+						  end if
+						  
+						  tempData = tempBiayaAngkut
+						  tempData_shi = tempBiayaAngkut_shi
+						  tempData_sbi = tempBiayaAngkut_sbi
+						  
+					   end if
+					   
+					   
+					   
+					%>  				
+					
+					<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+					
+					
+					
+					<% if rsProduction("codedesc") = "SR003_02" or rsProduction("codedesc") = "SR003_03" then %>
+						<td class="grey" align="right" ></td>
+						<td class="grey" align="right" ></td>
+					<% else %>
+						<td align="right" ><%=FormatNumber(tempData_shi,tempRounding)%></td>
+						<td align="right" ><%=FormatNumber(tempData_sbi,tempRounding)%></td>
+					<% end if %>
+					
+					<% if rsProduction("codedesc") = "SR003_04" or rsProduction("codedesc") = "SR003_02"  then %>
+						<td class="grey" align="right" ></td>
+					<% else %>
+						<td align="right" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+					<% end if %>
+					
+					<% if rsProduction("codedesc") = "SR003_04" or rsProduction("codedesc") = "SR003_02" or rsProduction("codedesc") = "SR003_03"  then %>
+						<td class="grey" align="right" ></td>
+						<td class="grey" align="right" ></td>
+					<% else %>
+						<td align="right" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+						<td align="right" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+					<% end if %>
+						
+
+					<% ' Start Compare to Budget 
+					   ' Later, This Temporary Variable must be picked from Master Budget Table.
+
+						
+					   ' End of Modification
+
+						if tempDataBudget_HI <> 0 then 
+							tempCompare_HI = tempData /tempDataBudget_HI * 100
+						else
+							tempCompare_HI = 0
+						end if
+						
+						if tempDataBudget_SHI <> 0 then 
+							tempCompare_SHI = tempData_shi/tempDataBudget_SHI * 100
+						else
+							tempCompare_SHI = 0
+						end if
+
+						if tempDataBudget_SBI <> 0 then 
+							tempCompare_SBI = tempData_sbi/tempDataBudget_SBI * 100
+						else
+							tempCompare_SBI = 0
+						end if
+						
+					%>
+
+
+					<%
+						if tempBudgetType = "QUANTITY" then  
+							if tempCompare_HI > 95 then
+								cClassAssigned_HI = "green"
+							else
+								if tempCompare_HI > 85 then 
+									 cClassAssigned_HI = "yellow"
+								else
+									 cClassAssigned_HI = "red"
+								end if
+							end if
+						
+							if tempCompare_SHI > 95 then
+								cClassAssigned_SHI = "green"
+							else
+								if tempCompare_SHI > 85 then 
+									 cClassAssigned_SHI = "yellow"
+								else
+									 cClassAssigned_SHI = "red"
+								end if
+							end if
+						
+							if tempCompare_SBI > 95 then
+								cClassAssigned_SBI = "green"
+							else
+								if tempCompare_SBI > 85 then 
+									 cClassAssigned_SBI = "yellow"
+								else
+									 cClassAssigned_SBI = "red"
+								end if
+							end if
+						else
+							if tempCompare_HI > 105 then
+								cClassAssigned_HI = "red"
+							else
+								if tempCompare_HI > 95 then 
+									 cClassAssigned_HI = "yellow"
+								else
+									 cClassAssigned_HI = "green"
+								end if
+							end if
+						
+							if tempCompare_SHI > 105 then
+								cClassAssigned_SHI = "red"
+							else
+								if tempCompare_SHI > 95 then 
+									 cClassAssigned_SHI = "yellow"
+								else
+									 cClassAssigned_SHI = "green"
+								end if
+							end if
+						
+							if tempCompare_SBI > 105 then
+								cClassAssigned_SBI = "red"
+							else
+								if tempCompare_SBI > 95 then 
+									 cClassAssigned_SBI = "yellow"
+								else
+									 cClassAssigned_SBI = "green"
+								end if
+							end if
+						end if					
+					%>
+					
+					<% if rsProduction("codedesc") = "SR003_04"  or rsProduction("codedesc") = "SR003_02" then %>
+						<td class="grey" align="right" ></td>
+					<% else %>				
+						<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
+					<% end if %>
+					
+					<% if rsProduction("codedesc") = "SR003_04" or rsProduction("codedesc") = "SR003_02" or rsProduction("codedesc") = "SR003_03"  then %>
+						<td class="grey" align="right" ></td>
+						<td class="grey" align="right" ></td>
+					<% else %>
+						<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+						<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+					<% end if %>
+					
+					
+				</tr>
+	<%
+
+				rsProduction.MoveNext
+			Wend
+		end if
+		rsProduction.Close
+		set rsProduction = Nothing
+	%>

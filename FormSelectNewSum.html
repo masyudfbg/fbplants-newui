@@ -1,0 +1,406 @@
+<table id="form-table" class="centered-margin">
+
+<% 
+  Dim v_txtGroupPlantation, v_txtPlantation, v_txtGroupRegion, v_txtRegion, v_txtCompany, v_txtFcba
+  Dim txtGroupPlantation, txtPlantation, txtGroupRegion, txtRegion, txtCompany, txtFcba
+  
+  Dim rsCount,visibleGP,visibleP,visibleGR,visibleR,visibleC,visibleS
+  Set rsCount = Server.CreateObject("ADODB.Recordset")
+	  rsCount.CursorLocation = adUseClient
+ 
+  strsql =  " SELECT count(*) ncount from (SELECT DISTINCT a.plantation fccode  " & _
+			" FROM company a, plantation b  " & _
+			" WHERE a.plantation = b.fccode  " & _
+			" AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE' ) " 
+ 
+  rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+  if not rsCount.eof then
+     visibleP = rsCount("ncount")
+	 rsCount.Close
+	 if cint(visibleP) = 1 then 
+		 strsql =   " SELECT DISTINCT a.plantation fccode  " & _
+					" FROM company a, plantation b  " & _
+					" WHERE a.plantation = b.fccode  " & _
+					" AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  " 
+		 rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+		 txtPlantation = rsCount("fccode")
+		 rsCount.Close
+	 end if	 
+  else
+     visibleP = 0
+	 rsCount.Close
+  end if  
+  
+
+  
+  strsql =  " SELECT count(*) ncount from ( SELECT DISTINCT a.groupregion fccode  " & _
+			" FROM company a, groupregion b  " & _
+			" WHERE a.groupregion = b.fccode  " & _
+			" AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  ) " 
+ 
+  rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+  if not rsCount.eof then
+     visibleGR = rsCount("ncount")
+	 rsCount.Close
+	 if cint(visibleGR) = 1 then 
+		 strsql =   " SELECT DISTINCT a.groupregion fccode  " & _
+					" FROM company a, groupregion b  " & _
+					" WHERE a.groupregion = b.fccode  " & _
+					" AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  " 
+		 rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+		 txtGroupRegion = rsCount("fccode")
+		 rsCount.Close
+	 end if	 
+  else
+     visibleGR = 0
+	 rsCount.Close
+  end if  
+  
+  'response.write visibleGR
+  
+   strsql =  " SELECT count(*) ncount from ( SELECT DISTINCT a.region fccode  " & _
+			 " FROM company a, region b  " & _
+			 " WHERE a.region = b.fccode  " & _
+			 " AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  ) " 
+  
+  rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+  if not rsCount.eof then
+     visibleR = rsCount("ncount")
+	 rsCount.Close
+	 if cint(visibleR) = 1 then     
+		 strsql =   " SELECT DISTINCT a.region fccode  " & _
+					" FROM company a, region b  " & _
+					" WHERE a.region = b.fccode  " & _
+					" AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  " 
+		 rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+		 txtRegion = rsCount("fccode")
+		 rsCount.Close
+	 end if	 
+  else
+     visibleR = 0
+	 rsCount.Close
+  end if  
+  
+  'response.write visibleR
+  
+  
+  strsql =  " SELECT count(*) ncount from ( select companycode from company where USER_COMPANY_API.ISAUTHORIZEDCOMPANY('" & Session("CodeName") & "', companycode) = 'TRUE'   ) " 
+  rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+  if not rsCount.eof then
+     visibleC = rsCount("ncount")
+	 rsCount.Close
+	 if cint(visibleR) = 1 then 
+		 strsql =   " select companycode fccode from company where USER_COMPANY_API.ISAUTHORIZEDCOMPANY('" & Session("CodeName") & "', companycode) = 'TRUE'  " 
+		 rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+		 txtCompany = rsCount("fccode")
+		 rsCount.Close
+	 end if	 
+  else
+     visibleC = 0
+	 rsCount.Close
+  end if  
+  
+ ' response.write visibleC
+  
+  
+   strsql =  " SELECT count(*) ncount from ( select fccode fcba from businessunit " & _
+			 " where " & _
+			 " USER_COMPANY_API.GETCOMPANYCODE('" & Session("CodeName") & "',fccode) IS NOT NULL    ) " 
+  rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+  if not rsCount.eof then
+     visibleS = rsCount("ncount")
+	 rsCount.Close
+	 if cint(visibleS) = 1 then 
+		 strsql =   " select fccode  from businessunit where USER_COMPANY_API.GetCompanyCode('" & Session("CodeName") & "', fccode) is not null  " 
+		 'response.write strsql
+		 rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+		 txtFcba = rsCount("fccode")
+		 rsCount.Close
+	 end if	 
+  else
+     visibleS = 0
+	  rsCount.Close
+  end if  
+  
+ ' response.write visibleS
+ ' response.write  "GP " & v_txtGroupPlantation & "  P " & v_txtPlantation & "  GR " & v_txtGroupRegion & " R " & v_txtRegion & " C " & v_txtcompany & " S " & v_txtfcba   
+
+  
+%>
+
+<tr>
+			
+					
+			<% IF cint(visibleP) > 1 then %>		
+			       <td>
+						<font face="verdana" size="1">GROUP PLANTATION</font>
+					</td>
+					<td>
+						<select name="txtGroupPlantation">
+								<option value="--ALL--" <%if request("txtGroupPlantation")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+								<%
+								Dim rsGroupPlantation
+								Set rsGroupPlantation = Server.CreateObject("ADODB.Recordset")
+								rsGroupPlantation.CursorLocation = adUseClient
+								strsql =  " SELECT DISTINCT a.groupplantation fccode  " & _
+										  " FROM company a, groupplantation b  " & _
+										  " WHERE a.groupplantation = b.fccode  " & _
+										  " AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  " 
+
+
+								rsGroupPlantation.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+								if not rsGroupPlantation.eof then
+									DO while not rsGroupPlantation.eof
+										if txtGroupPlantation = rsGroupPlantation("fccode") then
+										%>			
+											<option value="<%=rsGroupPlantation("fccode")%>" Selected><%=rsGroupPlantation("fccode")%></option>
+										<% Else %>	
+											<option value="<%=rsGroupPlantation("fccode")%>"><%=rsGroupPlantation("fccode")%></option>
+										<% End If
+										
+										rsGroupPlantation.movenext
+									loop
+								End if
+								rsGroupPlantation.Close
+								set rsGroupPlantation = Nothing
+								%>
+						</select>
+					</td>	
+			<% else %>
+                  <td>
+					 <%=v_txtGroupPlantation %>	
+				  </td>	 				
+			<% End If %>
+			
+            <% IF cint(visibleGR) > 1 and cint(visibleP) > 1 then %>
+					<td>
+						<font face="verdana" size="1">PLANTATION</font>
+					</td>
+					<td>
+						<select name="txtPlantation">
+								<option value="--ALL--" <%if v_txtPlantation ="--ALL--" then%> selected <%End if%>>--ALL--</option>
+								<%
+								Dim rsPlantation
+								Set rsPlantation = Server.CreateObject("ADODB.Recordset")
+								rsPlantation.CursorLocation = adUseClient
+								strsql =  " SELECT '--SUMMARY--' as fccode from DUAL UNION " & _
+								          " SELECT DISTINCT a.plantation fccode  " & _
+										  " FROM company a, plantation b  " & _
+										  " WHERE a.plantation = b.fccode  " & _
+										  " AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  " 
+
+
+								rsPlantation.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+								if not rsPlantation.eof then
+									DO while not rsPlantation.eof
+										if v_txtPlantation = rsPlantation("fccode") then
+										%>			
+											<option value="<%=rsPlantation("fccode")%>" Selected><%=rsPlantation("fccode")%></option>
+										<% Else %>	
+											<option value="<%=rsPlantation("fccode")%>"><%=rsPlantation("fccode")%></option>
+										<% End If
+										
+										rsPlantation.movenext
+									loop
+								End if
+								rsPlantation.Close
+								set rsPlantation = Nothing
+								%>
+						</select>
+					</td>	
+			<% Elseif cint(visibleGR) > 1 and cint(visibleP) = 1 then %>
+			        <td>
+						<font face="verdana" size="1">PLANTATION</font>
+					</td>
+					<td>
+						<select name="txtPlantation">
+						        <option value="<%=txtPlantation%>" selected ><%=txtPlantation%></option>
+								<option value="--SUMMARY--">--SUMMARY--</option>
+						</select>
+					</td>	
+			<% End If %>
+			
+			<% IF cint(visibleR) > 1 and cint(visibleGR) > 1 then %>
+					<td>
+						<font face="verdana" size="1">GROUP REGION</font>
+					</td>
+					<td>
+						<select name="txtGroupRegion">
+								<option value="--ALL--" <%if request("v_txtGroupRegion")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+								<%
+								Dim rsGroupRegion
+								Set rsGroupRegion = Server.CreateObject("ADODB.Recordset")
+								rsGroupRegion.CursorLocation = adUseClient
+								strsql =  " SELECT '--SUMMARY--' as fccode from DUAL UNION " & _
+           								  " SELECT DISTINCT a.groupregion fccode  " & _
+										  " FROM company a, groupregion b  " & _
+										  " WHERE a.groupregion = b.fccode  " & _
+										  " AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  " 
+
+
+								rsGroupRegion.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+								if not rsGroupRegion.eof then
+									DO while not rsGroupRegion.eof
+										if v_txtGroupRegion = rsGroupRegion("fccode") then
+										%>			
+											<option value="<%=rsGroupRegion("fccode")%>" Selected><%=rsGroupRegion("fccode")%></option>
+										<% Else %>	
+											<option value="<%=rsGroupRegion("fccode")%>"><%=rsGroupRegion("fccode")%></option>
+										<% End If
+										
+										rsGroupRegion.movenext
+									loop
+								End if
+								rsGroupRegion.Close
+								set rsGroupRegion = Nothing
+								%>
+						</select>
+					</td>	
+			<% Elseif cint(visibleR) > 1 and cint(visibleGR) = 1 then %>
+			         <td>
+						<font face="verdana" size="1">GROUP REGION</font>
+					</td>
+					<td>
+						<select name="txtGroupRegion">
+								<option value="<%=txtGroupRegion%>" selected ><%=txtGroupRegion%></option>
+								<option value="--SUMMARY--">--SUMMARY--</option>
+						</select>
+					</td>			
+			<% End If %>		
+			<% IF cint(visibleC) > 1 and cint(visibleR) > 1 then %>
+					<td>
+						<font face="verdana" size="1">REGION</font>
+					</td>
+					<td>
+						<select name="txtRegion">
+								<option value="--ALL--" <%if request("v_txtRegion")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+								<%
+								Dim rsRegion
+								Set rsRegion = Server.CreateObject("ADODB.Recordset")
+								rsRegion.CursorLocation = adUseClient
+								strsql =  " SELECT '--SUMMARY--' as fccode from DUAL UNION " & _
+								          " SELECT DISTINCT a.region fccode  " & _
+										  " FROM company a, region b  " & _
+										  " WHERE a.region = b.fccode  " & _
+										  " AND USER_COMPANY_API.ISAUTHORIZEDCOMPANY ('" & Session("CodeName") & "', companycode) =  'TRUE'  " 
+
+
+								rsRegion.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+								if not rsRegion.eof then
+									DO while not rsRegion.eof
+										if v_txtRegion = rsRegion("fccode") then
+										%>			
+											<option value="<%=rsRegion("fccode")%>" Selected><%=rsRegion("fccode")%></option>
+										<% Else %>	
+											<option value="<%=rsRegion("fccode")%>"><%=rsRegion("fccode")%></option>
+										<% End If
+										
+										rsRegion.movenext
+									loop
+								End if
+								rsRegion.Close
+								set rsRegion = Nothing
+								%>
+						</select>
+					</td>
+            <% Elseif cint(visibleC) > 1 and cint(visibleR) = 1 then %>
+			         <td>
+						<font face="verdana" size="1">REGION</font>
+					</td>
+					<td>
+						<select name="txtRegion">
+								<option value="<%=txtRegion%>" selected ><%=txtRegion%></option>
+								<option value="--SUMMARY--">--SUMMARY--</option>
+						</select>
+					</td>									
+			<% End If %>
+			<% IF cint(visibleS) > 1 and cint(visibleC) > 1 then %>
+					<td>
+						<font face="verdana" size="1">COMPANY</font>
+					</td>
+					<td>
+						<select name="txtCompany">
+								<option value="--ALL--" <%if request("v_txtCompany")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+								<%
+								Dim rsCompany
+								Set rsCompany = Server.CreateObject("ADODB.Recordset")
+								rsCompany.CursorLocation = adUseClient
+								strsql = " SELECT '--SUMMARY--' as companycode from DUAL UNION " & _
+								         " select companycode from company where USER_COMPANY_API.ISAUTHORIZEDCOMPANY('" & Session("CodeName") & "', companycode) = 'TRUE' " 
+
+
+								
+								rsCompany.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+								if not rsCompany.eof then
+									DO while not rsCompany.eof
+										if v_txtCompany = rsCompany("companycode") then
+										%>			
+											<option value="<%=rsCompany("companycode")%>" Selected><%=rsCompany("companycode")%></option>
+										<% Else %>	
+											<option value="<%=rsCompany("companycode")%>"><%=rsCompany("companycode")%></option>
+										<% End If
+										
+										rsCompany.movenext
+									loop
+								End if
+								rsCompany.Close
+								set rsCompany = Nothing
+								%>
+						</select>
+					</td>
+             <% ElseIF cint(visibleS) > 1 and cint(visibleC) = 1 then %>	
+                   	<td>
+						<font face="verdana" size="1">COMPANY</font>
+					</td>
+					<td>
+						<select name="txtCompany">
+								<option value="<%=txtCompany%>" selected ><%=txtCompany%></option>
+								<option value="--SUMMARY--">--SUMMARY--</option>
+						</select>
+					</td>		 
+			 <% End If %>
+			 
+			 <% if cint(VisibleS) > 1 then  %> 
+			<td>
+				<font face="verdana" size="1">SITE</font>
+			</td>
+			<td>
+				<select name="txtFcba">
+						<option value="--ALL--" <%if request("v_txtFcba")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+						<%
+						Dim rsFcba
+						Set rsFcba = Server.CreateObject("ADODB.Recordset")
+						rsFcba.CursorLocation = adUseClient
+						strsql =    " SELECT '--SUMMARY--' as fcba from DUAL UNION " & _
+            						" select fccode fcba from businessunit " & _
+									" where " & _
+									" USER_COMPANY_API.GETCOMPANYCODE('" & Session("CodeName") & "',fccode) IS NOT NULL " 
+						  
+						
+						rsFcba.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+						if not rsFcba.eof then
+							DO while not rsFcba.eof
+								if v_txtFcba = rsFcba("fcba") then
+								%>			
+									<option value="<%=rsFcba("fcba")%>" Selected><%=rsFcba("fcba")%></option>
+								<% Else %>	
+									<option value="<%=rsFcba("fcba")%>"><%=rsFcba("fcba")%></option>
+								<% End If
+								
+								rsFcba.movenext
+							loop
+						End if
+						rsFcba.Close
+						set rsFcba = Nothing
+						%>
+				</select>
+			</td>	
+			<% end if %>
+			<td>&nbsp;</td>
+		</tr>
+		
+
+
+
+
+</table>

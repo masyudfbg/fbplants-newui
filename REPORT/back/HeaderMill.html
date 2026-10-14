@@ -1,0 +1,394 @@
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyleTop%>;border-left: 1 solid #0000FF" rowspan="2"><div align="center">CODE</div></td>
+    <td style="<%=cmdstyleTop%>" rowspan="2"><div align="center">STATION</div></td>
+    <td style="<%=cmdstyleTop%>" colspan="6"><div align="center">BULAN INI </div></td>
+    <td style="<%=cmdstyleTop%>" colspan="6"><div align="center">S.D BULAN INI </div></td>
+    <td style="<%=cmdstyleTop%>" colspan="3" rowspan="2"><div align="center">ANGGARAN<br />
+      TAHUNAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>;border-left: 1 solid #0000FF" rowspan="6"><div align="center">&nbsp;</div></td>
+    <td style="<%=cmdstyle%>">TBS PROSES (KG)</td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_FFB_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI CPO (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI KER (KG)</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>"><div align="LEFT">PALM (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL)+cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET)+cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL)+cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET)+cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL)+cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center">&nbsp</div></td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>"><div align="center">TBS</div></td>
+  </tr>
+  <%elseif request.Form("vJenisReport")="Machine" Then%>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyleTop%>" width="10" rowspan="2" align="center">CODE</td>
+    <td style="<%=cmdstyleTop%>" width="88" rowspan="2" align="center"><div align="center"></div>STATION</td>
+    <td style="<%=cmdstyleTop%>" width="152" rowspan="2" align="center"> <div align="center"></div>ACTIVITY</td>
+    <td style="<%=cmdstyleTop%>" colspan="6"><div align="center">BULAN INI </div></td>
+    <td style="<%=cmdstyleTop%>" colspan="6"><div align="center">S.D BULAN INI </div></td>
+    <td style="<%=cmdstyleTop%>" colspan="3" rowspan="2"><div align="center">ANGGARAN<br />
+      TAHUNAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="6">&nbsp;</td>
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">TBS PROSES (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_FFB_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI CPO (KG)  </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI KER (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PALM (KG)  </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL)+cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET)+cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL)+cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET)+cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL)+cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="2">&nbsp;</td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center"></div>&nbsp;</td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+  </tr>
+  <%elseif request.Form("vJenisReport")="StationMachine" Then%>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyletop%>" width="10" rowspan="2" align="center">CODE</td>
+    <td style="<%=cmdstyletop%>" width="88" rowspan="2" align="center"><div align="center"></div>STATION</td>
+    <td style="<%=cmdstyletop%>" width="152" rowspan="2" align="center"> <div align="center"></div>MACHINE</td>
+    <td style="<%=cmdstyletop%>" colspan="6"><div align="center">BULAN INI </div></td>
+    <td style="<%=cmdstyletop%>" colspan="6"><div align="center">S.D BULAN INI </div></td>
+    <td style="<%=cmdstyletop%>" colspan="3" rowspan="2"><div align="center">ANGGARAN<br />
+      TAHUNAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="6">&nbsp;</td>
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">TBS PROSES (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_FFB_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI CPO (KG)  </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI KER (KG)</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PALM (KG)  </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL)+cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET)+cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL)+cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET)+cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL)+cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="2">&nbsp;</td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center"></div>&nbsp</td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+  </tr>
+  <%elseif request.Form("vJenisReport")="JobMachine" Then%>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyletop%>" width="10" rowspan="2" align="center">CODE</td>
+    <td style="<%=cmdstyletop%>" width="10" rowspan="2" align="center">STATION</td>
+    <td style="<%=cmdstyletop%>" width="88" rowspan="2" align="center"><div align="center"></div>ACTIVITY</td>
+    <td style="<%=cmdstyletop%>" width="152" rowspan="2" align="center"> <div align="center"></div>MACHINE</td>
+    <td style="<%=cmdstyletop%>" colspan="6"><div align="center">BULAN INI </div></td>
+    <td style="<%=cmdstyletop%>" colspan="6"><div align="center">S.D BULAN INI </div></td>
+    <td style="<%=cmdstyletop%>" colspan="3" rowspan="2"><div align="center">ANGGARAN<br />
+      TAHUNAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="6">&nbsp;</td>
+    <td style="<%=cmdstyle%>" rowspan="6">&nbsp;</td>
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">TBS PROSES (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_FFB_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI CPO (KG)  </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI KER (KG)</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PALM (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL)+cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET)+cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL)+cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET)+cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL)+cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="2">&nbsp;</td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center"></div>&nbsp</td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+  </tr>
+  <%elseif request.Form("vJenisReport")="MachineJob" Then%>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyletop%>" width="10" rowspan="2" align="center">CODE</td>
+    <td style="<%=cmdstyletop%>" width="10" rowspan="2" align="center">STATION</td>
+    <td style="<%=cmdstyletop%>" width="10" rowspan="2" align="center">MACHINE</td>
+    <td style="<%=cmdstyletop%>" width="88" rowspan="2" align="center"><div align="center"></div>ACTIVITY</td>
+    <td style="<%=cmdstyletop%>" width="152" rowspan="2" align="center"> <div align="center"></div>SOURCE</td>
+    <td style="<%=cmdstyletop%>" colspan="6"><div align="center">BULAN INI </div></td>
+    <td style="<%=cmdstyletop%>" colspan="6"><div align="center">S.D BULAN INI </div></td>
+    <td style="<%=cmdstyletop%>" colspan="3" rowspan="2"><div align="center">ANGGARAN<br />
+      TAHUNAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">REALISASI</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center">ANGGARAN</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="6">&nbsp;</td>
+    <td style="<%=cmdstyle%>" rowspan="6">&nbsp;</td>
+    <td style="<%=cmdstyle%>" rowspan="6">&nbsp;</td>
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">TBS PROSES (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_FFB_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_FFB_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI CPO (KG)  </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PRODUKSI KER (KG)</div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>">&nbsp;</td>
+    <td style="<%=cmdstyle%>"><div align="LEFT">PALM (KG) </div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_ACTUAL)+cdbl(v_TM_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TM_CPO_BUDGET)+cdbl(v_TM_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_ACTUAL)+cdbl(v_TY_KER_ACTUAL),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_TY_CPO_BUDGET)+cdbl(v_TY_KER_BUDGET),2)%></div></td>
+    <td style="<%=cmdstyle%>" colspan="3"><div align="center"><%=FormatNumber(cdbl(v_CPO_ANNUAL)+cdbl(v_KER_ANNUAL),2)%></div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" rowspan="2">&nbsp;</td>
+    <td style="<%=cmdstyle%>" rowspan="2"><div align="center"></div>&nbsp</td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+    <td style="<%=cmdstyle%>" width="31" rowspan="2"><div align="center">Total</div></td>
+    <td style="<%=cmdstyle%>" colspan="2"><div align="center">Rp./Kg.</div></td>
+  </tr>
+  <tr bgcolor="#F7F7F7">
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+    <td style="<%=cmdstyle%>" width="30"><div align="center">Palm</div></td>
+    <td style="<%=cmdstyle%>" width="28"><div align="center">TBS</div></td>
+  </tr>

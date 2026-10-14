@@ -1,0 +1,97 @@
+
+<%
+Response.CharSet="euc-kr"
+Session.codepage="949"
+Response.codepage="949"
+Response.ContentType="text/html;charset=euc-kr"
+%>
+<%
+Response.LCID = 1046 
+%>
+
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+
+<!--#includes file="include/JSON.asp" --> 
+<!--#includes file="include/json.objectClass.asp"-->
+<!--#includes file="include/aspJSON.asp" -->
+
+<%
+
+
+dim txtcari,fcba,tahun,bulan,msg,ScriptName
+Dim TimeAwal,TimeAkhir,Hitung,Lama
+	ScriptName	=	Request.ServerVariables("SCRIPT_NAME")
+	TimeAwal=Time()
+    fcba  = session("fcba")
+	tahun = Request("tahun")
+    bulan = Request("bulan")
+	
+	
+	'-- Check for Empallded PreProcess
+qCheckStatus = "select EMPALLDEDSTATUS_API.GetCheckPreProcess (" & tahun & "," & bulan & ",'" & fcba & "') closingStatus from dual "
+Set rsCheckStatus = Server.CreateObject("ADODB.Recordset")
+rsCheckStatus.CursorType = 3
+rsCheckStatus.CursorLocation = 3
+rsCheckStatus.Open qCheckStatus, connstr
+if not rsCheckStatus.eof then
+   txtClosingStatus = rsCheckStatus("closingStatus")
+else
+   msg =  "<font face=Verdana size=1 color=red>" & "EmpalldedStatus are not defined "
+   txtClosingStatus="FALSE"
+end if
+rsCheckStatus.close
+set rsCheckStatus = Nothing
+	
+IF txtClosingStatus = "TRUE" THEN  
+	
+	sqlexec = "BEGIN " & _ 
+			  "bkmcalculate_pph21_api.proses('" & bulan & "','" & tahun & "','" & fcba & "');" & _
+              "END; " 
+    'connStr.Execute(sqlexec)
+	ExecuteAndLog ScriptName, sqlexec
+  
+    
+	
+	'sqlexec = "UPDATE empalldedstatus SET closing_executed='TRUE' WHERE fcba='" & fcba & "' AND year='" & tahun & "' AND month='" & bulan & "'"  
+    'connstr.execute(sqlexec)
+	'ExecuteAndLog ScriptName, sqlexec
+    
+
+TimeAkhir=Time()
+Lama =TimeAkhir-TimeAwal
+
+
+msg =  "Proses pph 21 Finish and payroll periode " & bulan & "/" & tahun & " closed !" & time() & "<br>" & _
+       " Time Elapsed " & Hour(Lama) & " Hours " & Minute(Lama) & " Minutes " &  Second(Lama) & " Seconds."
+
+   
+   
+ELSE
+    msg = "<font face=Verdana size=1 color=red>" & "System are UNABLE to continue calculate Please UnClose Payroll Lock"
+END IF	
+Set List = Server.CreateObject("ADODB.Recordset")
+
+ sqlview = "select  '" & msg & "' as msg from dual"
+    List.Open sqlview, connStr, 1
+    ListCount = List.RecordCount 
+
+    Set caljson = new JSON  'JSON.asp가 필요함
+    Set rs = connStr.Execute(sqlview)
+
+    Dim List_jsonStringgl
+    List_jsonStringgl = caljson.toJSON("results",rs, false)
+
+    Dim jsonObjgl, outputObjgl
+    set jsonObjgl = new JSONobject
+    set outputObjgl = jsonObjgl.parse(List_jsonStringgl)  'json.objectClass.asp가 필요함(파싱하려면)
+
+
+    Set oJSON = New aspJSON     'aspJSON.asp 필요함(for문)
+    oJSON.loadJSON(List_jsonStringgl)
+
+    Response.write List_jsonStringgl
+
+    
+     
+%>

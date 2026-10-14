@@ -1,0 +1,98 @@
+<table id="form-table" class="centered-margin">
+<tr>
+
+
+
+
+<th>&nbsp;</th>
+<th>&nbsp;</th>
+<th>&nbsp;</th>
+<th>TAHUN</th>
+<th>BULAN</th>
+<th>KODE KENDARAAN</th>
+<th>UOM</th>
+<th>&nbsp;</th>
+</tr>
+<tr>
+		
+		<th>&nbsp;</th> 
+        <th>&nbsp;</th>	
+        <th>&nbsp;</th>		
+			<td>
+				<font size="2"  color="#0000FF" ></font>
+				<% 
+					MM=Request("vMonth")
+					yyyy=Request("vYear")
+
+					mon = Month(Session("v_Costbook"))
+					If len(MM)=0 then MM=mon
+
+					Yr = Year(Session("v_Costbook"))
+					MinYr = 2015
+					MaxYr = Yr  + 10
+					If len(yyyy)= 0 then yyyy = Yr
+				%>
+				<select name="vYear">
+					<%
+						For i = MinYr to MaxYr
+					%>
+							<Option Value="<%=i%>" <%If cint(i) = cint(yyyy) then%> Selected <%End If%>><%=i%></option>
+					<%
+						Next
+					%>
+				</select>
+			</td>
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="vMonth">
+						<%
+							For i = 1 to 12
+						%>
+							<Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+						<%
+							Next
+						%>
+					</select>
+			</td>		
+
+			<td align="center">
+			<select name="txtVH">	
+				<option value="--ALL--">--ALL--</option>
+			<%
+				Dim rsVH1
+				Set rsVH1 = Server.CreateObject("ADODB.Recordset")
+				rsVH1.CursorLocation = adUseClient
+				if len(trim(v_txtVH)) > 0 then 
+					strsql =  " SELECT DISTINCT FCCODE, FCNAME FROM Vehicle WHERE USER_COMPANY_API.IsAuthorizedFcba('" & Session("CodeName") & "', fcba) =  'TRUE'  and  USER_COMPANY_API.GetfcbaType('" & Session("CodeName") & "',fcba) = '" & Request("TxtTypeFCBA") &"' and fcba = '"& v_txtFcba &"' ORDER BY FCNAME ASC"
+				Else
+					strsql =  " SELECT DISTINCT FCCODE, FCNAME FROM Vehicle WHERE USER_COMPANY_API.IsAuthorizedFcba('" & Session("CodeName") & "', fcba) =  'TRUE'  and  USER_COMPANY_API.GetfcbaType('" & Session("CodeName") & "',fcba) = '" & Request("TxtTypeFCBA") &"' and fcba = '"& Session("fcba") &"' ORDER BY FCNAME ASC"
+				End If
+				rsVH1.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+				if not rsVH1.eof then
+					DO while not rsVH1.eof
+					if v_txtVH = rsVH1("fccode") then
+			%>			<option value="<%=rsVH1("fccode")%>" Selected><%=rsVH1("fccode")%> - <%=rsVH1("FCNAME")%></option>
+					<%else%>
+						<option value="<%=rsVH1("fccode")%>"><%=rsVH1("fccode")%> - <%=rsVH1("FCNAME")%></option>
+					<%end if%>
+			<%			rsVH1.movenext
+					loop
+				End if
+				rsVH1.Close
+				set rsVH1 = nothing
+			%>
+			</select>		
+		</td> 
+		<td align="left">
+			<select name="txtUOM" >
+				<option value="--ALL--">--ALL--</option>
+				<option value="KM" <% If cstr(""&v_txtUOM) = "KM" Then %> Selected <%End if%>>KM</option> 
+				<option value="HM" <% If cstr(""&v_txtUOM) = "HM" Then %> Selected <%End if%>>HM</option>  
+			</select>
+		</td>	
+
+<td><input type="submit" value="View" /></td>
+
+</tr>
+</table>

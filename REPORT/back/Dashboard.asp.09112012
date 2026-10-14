@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+<link rel="stylesheet" href="/css/stylereport.css" type="text/css" />
+<title>iPS Reporting</title>
+</head>
+<body>
+<div id="container">
+	<div id="header" class="clearfix">
+		<div class="left"><a href="../login.asp" title="Back to Home"><img src="../images/latar.jpg" alt="RW Plant Reports"/></a></div>
+		<div class="right"><h1>Reports</h1></div>
+		<div class='clear'></div>
+	</div><!--End Header-->
+	<div class='clear'></div>
+	
+	<div id="content">
+		<div class="entry-header"><h2 class="headings">Data Master</h2></div>
+		<div class="entry-body">
+			<div class="navlist">
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=Bank">Bank</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Stock">Stock</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=StockGroup">Stock Group</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Supplier">Supplier</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Store">Store</a></li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=Gang">Gang</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Employee">Employee</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Workshop">Workshop</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Vehicle">Vehicle</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Contractor">Contractor</a></li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=Building">Building</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Allowded">Allowance-Deduction</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Field">Field</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Station">Station</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Machine">Machine</a></li>
+				</ul>
+			</div>
+		</div><!--End Entry Body-->
+		<div class='clear'></div>
+		
+		<div class="entry-header"><h2 class="headings">Data Transactions</h2></div>
+		<div class="entry-body">
+			<div class="navlist">
+				<h3>Bank</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=ReceivedVoucher">Received Voucher</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=PaymentVoucher">Payment Voucher</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=ArusCash">Arus Cash</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>Purchase</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=PurchaseOrderList">Purchase Order</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=POOutstanding">PO Outstanding</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Aging">Aging</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>Store</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=StockIssue">Stock Issue</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+		</div><!--End Entry Body-->
+		<div class='clear'></div>
+		
+		<div class="entry-body">
+			<div class="navlist">
+				<h3>Employee &amp; Supervision</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=AttendanceList">Employee Attendance</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=EmployeeActivity">Employee Activity</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>Workshop</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=WorkshopRunningAccount">Workshop Activity</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>Vehicle</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=VehicleRunningAccount">Vehicle Activity</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+		</div><!--End Entry Body-->
+		<div class='clear'></div>
+		
+		<div class="entry-body">
+			<div class="navlist">
+				<h3>Contract</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=ContractAgreement">Contract Agreement</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=WorkinProgress">Contract Work In Progress</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>Nursery</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=NurseryCulling">Nursery Culling</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=NurseryIssue">Nursery Issue</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>Estate Production</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=ProductionSummary">Production Summary</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=ProductionDetails">Production Details</a></li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+		</div><!--End Entry Body-->
+		<div class='clear'></div>
+	
+		<div class="entry-body">
+		
+			<div class="navlist">
+				<h3>Mill Production</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=MillProductionSummary">Mill Production Summary</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=MillProductionDetails">Mill Production Details</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=MillProcess">Mill Process</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=MillStorage">Mill Storage</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Downtime">Downtime</a></li>
+				</ul>
+			</div>
+			
+		</div><!--End Entry Body-->
+		<div class='clear'></div>
+<!--		
+		<div class="entry-header"><h2 class="headings">Daily Reports</h2></div>
+		<div class="entry-body">
+			<div class="navlist">
+				<h3>Estate</h3>
+				<ul>
+					<li><a href="p_ProductionSummary.asp">Production</a></li>
+					<li><a href="p_PerawatanTM.asp">Perawatan</a></li>
+					<li><a href="p_StockGudang.asp">Stock Gudang</a></li>
+					<li><a href="p_StockGudangMonthly.asp">Stock Gudang per Period</a></li>
+					<li><a href="p_AttendanceDaily.asp">Tenaga Kerja</a></li>
+					<li><a href="p_SolarDaily.asp">Pemakaian Solar</a></li>					
+					<li><a href="p_DailyVehicle.asp">Output Kendaraan</a></li>
+					<li><a href="p_DailyVehicleSolar.asp">Fuel Consumption Kendaraan</a></li>	
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>HO</h3>
+				<ul>
+					<li><a href="p_ProductionSummary_BA_NAF.asp">Production per BA</a></li>
+					<li><a href="p_PerawatanTM_BA_NAF.asp">Perawatan per BA</a></li>
+					<li><a href="p_StockGudang_BA_NAF.asp">Stock Gudang per BA</a></li>
+					<li><a href="p_StockGudangMonthly_BA_NAF.asp">Stock Gudang per Period per BA</a></li>
+					<li><a href="p_AttendanceDaily_BA_NAF.asp">Tenaga Kerja per BA</a></li>
+					<li><a href="p_SolarDaily_BA.asp">Pemakaian Solar per BA</a></li>					
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+		</div><!--End Entry Body-->
+		<div class='clear'></div>
+
+		<div class="entry-header"><h2 class="headings">Monthly Reports</h2></div>
+		<div class="entry-body">
+						<div class="navlist">
+				<h3>Employee Payments</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=PayslipSummary">Payslip Summary</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=EmpAllded">Payslip Details</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=PayEmployee">Payslip for Employee</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Absence">Absences</a></li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>Ledgers</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=StockLedger">Stock Ledger</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=InvoiceLedger">Invoice Ledger</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=ContractorLedger">Contract Ledger</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=NurseryLedger">Nursery Ledger</a></li>
+					<li>&nbsp;</li>
+				</ul>
+			</div>
+			
+			<div class="navlist">
+				<h3>Account Reports</h3>
+				<ul>
+					<li><a href="d_DashFormShow.asp?txtKind=TrialBalance">Trial Balance</a></li>
+					<li><a href="d_DashFormShow.asp?txtKind=Cost_Activity">Activity Base Costing</a></li>
+					<li><a href="p_Estate_Direct.Asp">Mature/Immature Cost Summary</a></li>
+					<li><a href="p_CostElement.Asp?txtKind=Estate Cost Details">Mature/Immature Cost Details</a></li>
+					<li><a href="p_inDirect.Asp?txtKind=DirectChargeMill">Indirect Cost</a></li>
+					<li><a href="p_Mill_Direct.Asp?txtKind=in-Direct">Mill Cost</a></li>
+				</ul>
+			</div>
+			
+		</div><!--End Entry Body-->
+		<div class='clear'></div>
+	
+		
+	</div><!--End Content-->
+	<div class='clear'></div>
+</div><!--End Container-->
+<div class='clear'></div>
+</body>
+</html>

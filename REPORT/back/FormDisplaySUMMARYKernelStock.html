@@ -1,0 +1,407 @@
+    <%
+	' This is for Plantation 
+	%>
+	<%	
+	if cint(visibleP) >= 1 then 
+		tempSelectedDate = v_txtToDayDate 
+
+		if len(trim(v_txtPlantation)) > 0 then 
+			if v_txtPlantation = "--ALL--" then
+				%>
+						<% tempGroupPlantation = v_txtGroupPlantation %>
+						<% tempPlantation = rsKernelStock("PlantationCode")%>
+						<% tempGroupRegion = "--ALL--" %>
+						<% tempRegion = "--SUMMARY--" %>
+						<% tempCompany = "--SUMMARY--" %>
+						<% tempfcba = "--SUMMARY--" %>
+						
+					<% if sPrevPlantation <> tempPlantation then %>		
+						<td class="boldfont" align="center" >
+						     <a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								 <%=tempPlantation%>
+							 </a>
+					    </td>
+						<% sPrevPlantation = tempPlantation %>
+						<% sPrevDesc = "" %>					
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtPlantation <> "--SUMMARY--" then %>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = rsKernelStock("PlantationCode")%>
+					<% tempGroupRegion = "--ALL--" %>
+					<% tempRegion = "--SUMMARY--" %>
+					<% tempCompany = "--SUMMARY--" %>
+					<% tempfcba = "--SUMMARY--" %>
+						
+					<% if sPrevPlantation <> tempPlantation then %>				
+						<td class="boldfont" align="center" >
+						     <a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								 <%=tempPlantation%>
+							 </a>
+					    </td>
+						<% sPrevPlantation = tempPlantation %>
+						<% sPrevDesc = "" %>					
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+						<% tempGroupPlantation = v_txtGroupPlantation %>
+						<% tempPlantation = rsKernelStock("PlantationCode")%>
+						<% tempGroupRegion = "--ALL--" %>
+						<% tempRegion = "--SUMMARY--" %>
+						<% tempCompany = "--SUMMARY--" %>
+						<% tempfcba = "--SUMMARY--" %>
+
+					<% if sPrevPlantation <> tempPlantation then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								 <%=tempPlantation%>
+							 </a>
+					    </td>
+						<% sPrevPlantation = tempPlantation %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+
+	
+    <%
+	' This is for Group Region 
+
+	%>
+	<%	
+	if cint(visibleGR) >= 1 then 
+		tempSelectedDate = v_txtToDayDate 
+
+		if len(trim(v_txtGroupRegion)) > 0 then 
+			if v_txtGroupRegion = "--ALL--" then
+				%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = rsKernelStock("GroupRegionCode") %>
+					<% tempRegion = "--ALL--" %>
+					<% tempCompany = "--SUMMARY--" %>
+					<% tempfcba = "--SUMMARY--" %>				
+				
+
+					<% if sPrevGroupRegion <> tempGroupRegion then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempGroupRegion%>
+							</a> 
+					    </td>
+						<% sPrevGroupRegion = tempGroupRegion %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtGroupRegion <> "--SUMMARY--" then 
+					%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = rsKernelStock("GroupRegionCode") %>
+					<% tempRegion = "--ALL--" %>
+					<% tempCompany = "--SUMMARY--" %>
+					<% tempfcba = "--SUMMARY--" %>	
+
+					<% if sPrevGroupRegion <> tempGroupRegion then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempGroupRegion%>
+							</a> 
+					    </td>
+						<% sPrevGroupRegion = tempGroupRegion %>
+						<% sPrevDesc = "" %>					
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = rsKernelStock("GroupRegionCode") %>
+					<% tempRegion = "--ALL--" %>
+					<% tempCompany = "--SUMMARY--" %>
+					<% tempfcba = "--SUMMARY--" %>	
+
+					<% if sPrevGroupRegion <> tempGroupRegion then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempGroupRegion%>
+							</a> 
+					    </td>
+						<% sPrevGroupRegion = tempGroupRegion %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+	
+
+    <%
+	' This is for  Region 
+
+	%>
+	<%	
+	if cint(visibleR) >= 1 then 
+		tempSelectedDate = v_txtToDayDate 	
+		if len(trim(v_txtRegion)) > 0 then 
+			if v_txtRegion = "--ALL--" then
+				%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = rsKernelStock("RegionCode") %>
+					<% tempCompany = "--ALL--" %>
+					<% tempfcba = "--SUMMARY--" %>					
+				
+
+					<% if sPrevRegion <> tempRegion then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempRegion%>
+							</a> 
+					    </td>					
+						<% sPrevRegion = tempRegion %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtRegion <> "--SUMMARY--" then 
+					%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = rsKernelStock("RegionCode") %>
+					<% tempCompany = "--ALL--" %>
+					<% tempfcba = "--SUMMARY--" %>	
+
+					<% if sPrevRegion <> tempRegion then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempRegion%>
+							</a> 
+					    </td>
+						<% sPrevRegion = tempRegion %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = rsKernelStock("RegionCode") %>
+					<% tempCompany = "--ALL--" %>
+					<% tempfcba = "--SUMMARY--" %>	
+
+					<% if sPrevRegion <> tempRegion then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempRegion%>
+							</a> 
+					    </td>
+						<% sPrevRegion = tempRegion %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+
+	
+    <%
+	' This is for  Company
+
+	%>
+	<%	
+	if cint(visibleC) >= 1 then 
+		tempSelectedDate = v_txtToDayDate 	
+		if len(trim(v_txtCompany)) > 0 then 
+			if v_txtCompany = "--ALL--" then
+				%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = v_txtRegion %>
+					<% tempCompany = rsKernelStock("CompanyCode") %>
+					<% tempfcba = "--ALL--" %>	
+					
+
+
+					<% if sPrevCompany <> tempCompany then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempCompany%>
+							</a> 
+					    </td>
+						<% sPrevCompany = tempCompany %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtCompany <> "--SUMMARY--" then 
+					%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = v_txtRegion %>
+					<% tempCompany = rsKernelStock("CompanyCode") %>
+					<% tempfcba = "--ALL--" %>	
+
+
+					<% if sPrevCompany <> tempCompany then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempCompany%>
+							</a> 
+					    </td>
+						<% sPrevCompany = tempCompany %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = v_txtRegion %>
+					<% tempCompany = rsKernelStock("CompanyCode") %>
+					<% tempfcba = "--ALL--" %>	
+
+
+					<% if sPrevCompany <> tempCompany then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempCompany%>
+							</a> 
+					    </td>
+						<% sPrevCompany = tempCompany %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+	
+	
+    <%
+	' This is for  Company
+
+	%>
+	<%	
+	if cint(visibleS) >= 1 then 
+		tempSelectedDate = v_txtToDayDate 	
+		if len(trim(v_txtFcba)) > 0 then 
+			if v_txtFcba = "--ALL--" then
+				%>
+					
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = v_txtRegion %>
+					<% tempCompany = v_txtCompany %>
+					<% tempfcba = rsKernelStock("fcba") %>	
+
+					<% if sPrevFcba <> tempFcba then %>	
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempFcba%>
+							</a> 
+					    </td>					
+						<% sPrevFcba = tempFcba %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				<%
+			else
+				if v_txtFcba <> "--SUMMARY--" then 
+					%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = v_txtRegion %>
+					<% tempCompany = v_txtCompany %>
+					<% tempfcba = rsKernelStock("fcba") %>
+
+					<% if sPrevFcba <> tempFcba then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempFcba%>
+							</a> 
+					    </td>
+						<% sPrevFcba = tempFcba %>
+						<% sPrevDesc = "" %>						
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+					<%
+				end if
+			end if
+		else
+			%>
+					<% tempGroupPlantation = v_txtGroupPlantation %>
+					<% tempPlantation = v_txtPlantation %>
+					<% tempGroupRegion = v_txtGroupRegion %>
+					<% tempRegion = v_txtRegion %>
+					<% tempCompany = v_txtCompany %>
+					<% tempfcba = rsKernelStock("fcba") %>
+
+					<% if sPrevFcba <> tempFcba then %>				
+						<td class="boldfont" align="center" >
+							<a href="p_Summary_Production_NAF.asp?txtGroupPlantation=<%=tempGroupPlantation%>&txtPlantation=<%=tempPlantation%>&txtGroupRegion=<%=tempGroupRegion%>&txtRegion=<%=tempRegion%>&txtcompany=<%=tempCompany%>&txtfcba=<%=tempfcba%>&txtdatefrom=<%=tempSelectedDate%>">
+								<%=tempFcba%>
+							</a> 
+					    </td>
+						<% sPrevFcba = tempFcba %>
+						<% sPrevDesc = "" %>					
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+			<%
+		end if
+	end if
+	%>			
+	
+	
+
+	
+	
+
+	

@@ -1,0 +1,83 @@
+	<table id="form-table" class="centered-margin">
+
+		<tr>
+			<td><font face="verdana" size="1">BUDGET YEAR</font></td>
+			<td><font face="verdana" size="1">BUDGET VERSION</font></td>
+			<td><font face="verdana" size="1">MODULE VERSION</font></td>
+			<td><font face="verdana" size="1">YEAR</font></td>
+			<td><font face="verdana" size="1">MONTH</font></td>			
+		    <td><font face="verdana" size="1">ITEM REPORT</font></td>			
+			<td><font face="verdana" size="1">DETAIL INFO</font></td>
+			<td><font face="verdana" size="1">DATE</font></td>
+			
+			<td>&nbsp;</td>
+		</tr>
+
+		<tr>
+			<td align="center"><input type="text" name="txtBudgetYear" value="<%=v_txtBudgetYear%>"></td>
+			<td align="center"><input type="text" name="txtBudgetVersion" value="<%=v_txtBudgetVersion%>"></td>
+			<td align="center"><input type="text" name="txtModuleVersion" value="<%=v_txtModuleVersion%>"></td>
+			<td align="center"><input type="text" name="txtyear" value="<%=v_txtyear%>"></td>
+			<td align="center"><input type="text" name="txtmonth" value="<%=v_txtmonth%>"></td>
+			
+			<td>
+				<select name="txtGroupItem">
+					<option value="--NONE--" <% if v_txtGroupItem="--NONE--" then%> selected <%End if%>>--NONE--</option>
+					<%
+					Dim rsGroupItem
+					Set rsGroupItem = Server.CreateObject("ADODB.Recordset")
+					rsGroupItem.CursorLocation = adUseClient
+					
+					strsql =  " select itemcode, itemname from parameterreport " & _
+							  " where " & _
+							  " reportcode = 'LHK'"
+
+					rsGroupItem.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsGroupItem.eof then
+						DO while not rsGroupItem.eof
+							if v_txtGroupItem = rsGroupItem("itemcode") then
+							%>			
+								<option value="<%=rsGroupItem("itemcode")%>" selected><%=rsGroupItem("itemname")%></option>
+							<% Else %>	
+								<option value="<%=rsGroupItem("itemcode")%>" ><%=rsGroupItem("itemname")%></option>
+							<% End If
+							
+							rsGroupItem.movenext
+						loop
+					End if
+					rsGroupItem.Close
+					set rsGroupItem = Nothing
+					%>
+				</select>
+			</td>			
+			
+			
+			
+			<td align="center">
+				<select name="txtDetailInfo">
+				        <option value="No" <% if v_txtDetailInfo = "No" then %> selected <% end if%> >-- No --</option>
+						<option value="Yes" <% if v_txtDetailInfo = "Yes" then %> selected <% end if%>>-- Yes Please... --</option>
+				</select>
+			</td>
+			<td align="center">
+			<% if v_txtdatefrom <> "" and v_txtdatefrom = v_txtdatefrom then %>
+				<input id="datepicker" type="text" maxlength="10" name="txtdatefrom" size="10" value="<%=v_txtdatefrom%>" title="Type Date mm/dd/yyyy" >
+			<% else %>
+				<input id="datepicker" type="text" maxlength="10" name="txtdatefrom" size="10" value="<%=textDate(Date)%>" title="Type Date mm/dd/yyyy" >
+			<% end if%>
+				<!--<a href="javascript:show_calendar('frmEntry.txtdatefrom');" onMouseOver="window.status='Date Picker';return true;" onmouseout="window.status='';return true;">
+					<img src="../Images/show-calendar.gif" width=24 height=22 border=0 align=top>
+				</a>-->
+			</td>	
+			
+		    <td align="center"><input type="button" value="View" onclick="ajaxurlpost('insertreportlog.asp', 'Laporan Harian Kebun');"/></td>
+			
+			<td>&nbsp;</td>
+		</tr>
+		
+
+
+	</table>
+
+
+

@@ -1,0 +1,252 @@
+/* =====================================================================
+   fbp-docdetail.css - halaman detail dokumen (PurchaseRequestDetails.Asp,
+   PurchaseOrderDetails.Asp). Dipakai bersama css/fbp-forms.css
+   (body.page-legacy) dan hanya aktif di <body class="... page-doc">.
+   Tampilan saja: tidak mengubah nama field, link, atau alur form.
+   ===================================================================== */
+
+/* Judul tiap bagian (Header / Detail Item / Daftar Item) */
+body.page-doc .fbp-doc-title {
+	display: flex; align-items: center; gap: 10px;
+	margin: 22px 0 10px;
+	font-size: 15px; font-weight: 700;
+	color: var(--ink);
+}
+body.page-doc .box_both > .fbp-doc-title:first-child,
+body.page-doc .box_both > form:first-of-type > .fbp-doc-title { margin-top: 4px; }
+body.page-doc .fbp-doc-title .fa {
+	display: inline-flex; align-items: center; justify-content: center;
+	width: 30px; height: 30px;
+	font-size: 14px;
+	color: var(--brand);
+	background: var(--brand-tint);
+	border-radius: 8px;
+}
+body.page-doc .fbp-doc-title small { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--muted); }
+
+/* Form header & detail (tabel label | isian, maksimal 4 sel per baris; grid entri 5+ kolom tidak disentuh).
+   Sel label (teks saja) dan sel isian (berisi field) dikenali dari isinya, bukan dari urutan kolom,
+   karena beberapa baris punya <input type="hidden"> langsung di <tr>. */
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):not(:has(input:not([type="hidden"]), select, textarea, div)) {
+	width: 1%;
+	padding-right: 18px;
+	white-space: nowrap;
+	font-weight: 600;
+	color: #34474b;
+}
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) textarea { min-height: 72px; }
+/* 4 kolom (label | isian | label | isian): kolom isian sama lebar */
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))):has(> tbody > tr > td:nth-of-type(4)) { table-layout: fixed; width: 100% !important; }
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))):has(> tbody > tr > td:nth-of-type(4)) > tbody > tr > td:not([colspan]):not(:has(input:not([type="hidden"]), select, textarea, div)) { width: 13% !important; white-space: normal !important; }
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))):has(> tbody > tr > td:nth-of-type(4)) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) { width: 37%; }
+/* 2 kolom: kolom isian mengambil sisa lebar (field berlebar persen tidak memberi lebar minimum) */
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))):not(:has(> tbody > tr > td:nth-of-type(4))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) { width: 85%; }
+/* Field mengisi penuh kolomnya (termasuk dropdown chosen yang dimuat via AJAX); tanda * tetap di samping */
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) :is(input[type="text"]:not([size="5"]), input:not([type]), select, textarea) { width: calc(100% - 18px) !important; max-width: none !important; }
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) .chosen-container { width: calc(100% - 18px) !important; max-width: none !important; }
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) input[type="text"].datepicker:not([size="5"]) { width: 170px !important; }
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div):has(> input[size="5"]) > input:not([size="5"]) { width: calc(100% - 110px) !important; }
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) > div:is(#fcbalist, #polist, #purchasebylist, #supplierlist, #deliverydestinationlist, #stonolist) { display: inline-block; width: calc(100% - 18px); vertical-align: middle; }
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) > div:is(#fcbalist, #polist, #purchasebylist, #supplierlist, #deliverydestinationlist, #stonolist) :is(select, .chosen-container) { width: 100% !important; max-width: none !important; }
+
+/* Status dokumen (field RowStateId) sebagai badge */
+body.page-doc input[name="RowStateId"] {
+	width: auto !important; max-width: 240px;
+	font-weight: 700;
+	letter-spacing: .3px;
+	color: #44575b !important;
+	background: #eef2f1 !important;
+	border-color: #dbe3e1 !important;
+	border-radius: 999px !important;
+}
+body.page-doc input[name="RowStateId"]:is([value="Confirmed"], [value="Ordered"]) { color: #1d5fa8 !important; background: #e7f0fb !important; border-color: #c6dbf3 !important; }
+body.page-doc input[name="RowStateId"]:is([value="AuthorizeOnProgress"], [value="ReleaseOnProgress"]) { color: #8a5a00 !important; background: #fdf3dc !important; border-color: #f3dda6 !important; }
+body.page-doc input[name="RowStateId"]:is([value="Approved"], [value="Released"], [value="Received"]) { color: var(--brand-dark) !important; background: var(--brand-tint) !important; border-color: #b9d9d0 !important; }
+body.page-doc input[name="RowStateId"]:is([value="Cancelled"], [value="Canceled"], [value="Closed"], [value="Rejected"]) { color: #a8322a !important; background: #fdecea !important; border-color: #f3c7c2 !important; }
+
+/* Baris tombol aksi header: Select, Print, Hapus, Confirmed, Cancel, dst. */
+body.page-doc td.fbp-doc-actions {
+	padding-top: 14px !important;
+	border-top: 1px solid #eef2f1;
+}
+body.page-doc td.fbp-doc-actions > a {
+	display: inline-flex; align-items: center; gap: 6px;
+	height: 38px;
+	margin: 4px 6px 4px 0;
+	padding: 0 14px !important;
+	vertical-align: middle;
+	font-size: 13px !important; font-weight: 600;
+	color: var(--brand) !important;
+	background: #fff !important;
+	border: 1px solid #b9d9d0;
+	border-radius: 8px !important;
+	text-decoration: none !important;
+	white-space: nowrap;
+}
+body.page-doc td.fbp-doc-actions > a:hover { background: var(--brand-tint) !important; border-color: var(--brand); }
+body.page-doc td.fbp-doc-actions > a img { width: auto; height: 16px; margin: 0; }
+body.page-doc td.fbp-doc-actions > a font { font-size: 13px !important; color: inherit !important; }
+/* Aksi berdasarkan link (txtJenis=...) */
+body.page-doc td.fbp-doc-actions > a:is([href*="txtJenis=Confirmed"], [href*="txtJenis=Ordered"], [href*="txtJenis=StartAuthorize"]) {
+	color: #fff !important; background: var(--brand) !important; border-color: var(--brand);
+}
+body.page-doc td.fbp-doc-actions > a:is([href*="txtJenis=Confirmed"], [href*="txtJenis=Ordered"], [href*="txtJenis=StartAuthorize"]):hover { background: var(--brand-dark) !important; }
+body.page-doc td.fbp-doc-actions > a:is([href*="txtJenis=RePlanned"], [href*="txtJenis=UnRelease"]) {
+	color: #8a5a00 !important; background: #fdf3dc !important; border-color: #f3dda6;
+}
+body.page-doc td.fbp-doc-actions > a[href*="txtJenis=Cancel"] {
+	margin-left: 0 !important;
+	color: #fff !important; background: #c0392b !important; border-color: #c0392b;
+}
+body.page-doc td.fbp-doc-actions > a[href*="txtJenis=Header"] { color: #a8322a !important; border-color: #f3c7c2; }
+body.page-doc td.fbp-doc-actions > a[href*="txtJenis=Header"]:hover { background: #fdecea !important; }
+body.page-doc td.fbp-doc-actions > a[href*="txtJenis=Header"]::after { content: "Hapus"; }
+body.page-doc td.fbp-doc-actions > a[href*="HeaderEdit"]::before { content: "\f040"; font-family: FontAwesome; font-weight: normal; }
+body.page-doc td.fbp-doc-actions > font[color] {
+	display: inline-flex; align-items: center;
+	height: 38px; margin: 4px 0; padding: 0 12px;
+	font-size: 12px;
+	color: #a8322a !important;
+	background: #fdecea;
+	border-radius: 8px;
+}
+body.page-doc td.fbp-doc-actions > img[src*="IconClose"] { vertical-align: middle; margin: 0 6px; }
+
+/* Tabel daftar item */
+body.page-doc .fbp-doc-scroll {
+	overflow-x: auto;
+	margin-bottom: 8px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+}
+body.page-doc .fbp-doc-scroll > table.fbp-doc-lines {
+	width: 100% !important;
+	margin: 0 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+body.page-doc table.fbp-doc-lines thead tr > td {
+	position: sticky; top: 0;
+	padding: 10px 10px !important;
+	font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+	white-space: nowrap;
+	color: #fff;
+	background: var(--brand) !important;
+}
+body.page-doc table.fbp-doc-lines tbody td {
+	padding: 8px 10px !important;
+	vertical-align: middle !important;
+	border-bottom: 1px solid #eef2f1;
+}
+body.page-doc table.fbp-doc-lines tbody tr:nth-child(even) > td { background: #fbfcfc; }
+body.page-doc table.fbp-doc-lines tbody tr:hover > td { background: var(--brand-tint); }
+body.page-doc table.fbp-doc-lines tbody td:first-child { color: var(--muted); text-align: center; }
+body.page-doc table.fbp-doc-lines tbody td a img { vertical-align: middle; }
+body.page-doc table.fbp-doc-lines tbody td > a:not(:has(img)) {
+	display: inline-block;
+	padding: 3px 10px;
+	font-size: 12px; font-weight: 600;
+	color: var(--brand);
+	border: 1px solid #b9d9d0;
+	border-radius: 6px;
+	text-decoration: none;
+}
+body.page-doc table.fbp-doc-lines tbody td > a:is([href*="CancelOnProgressDet"], [href*="CanceledDetails"]) { color: #a8322a; border-color: #f3c7c2; }
+body.page-doc table.fbp-doc-lines td.fbp-doc-empty { padding: 28px 10px !important; text-align: center !important; color: var(--muted) !important; font-style: italic; }
+/* Angka rata kanan (judul kolom dari nama field) */
+body.page-doc table.fbp-doc-lines tbody td:is(
+	[title="REQUESTEDQTY" i], [title="APPROVEDQTY" i], [title="ORDEREDQTY" i],
+	[title="QUANTITY" i], [title="UNITPRICE" i], [title="AMOUNT" i], [title="DISC" i],
+	[title="OTCSTOCK1" i], [title="OTCSTOCK2" i], [title="OTCSTOCK3" i], [title="OTCSTOCK4" i],
+	[title="OTHERCHARGESTOCK" i], [title="OTHERCHARGE" i], [title="AMOUNTCHARGE" i], [title="RECEIVED" i],
+	[title="STO_QUANTITY" i], [title="DELIVERY_QUANTITY" i]) {
+	text-align: right;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+body.page-doc table.fbp-doc-lines tbody td[title="AMOUNTCHARGE" i] { font-weight: 700; }
+body.page-doc table.fbp-doc-lines tbody td:is([title="PRCODE" i], [title="POCODE" i], [title="ITEMCODE" i], [title="WANTEDDELIVERYDATE" i], [title="DO_NO" i], [title="STONO" i]) { white-space: nowrap; }
+body.page-doc table.fbp-doc-lines tbody td:is([title="ITEMNAME" i], [title="STOCKNAME" i]) { min-width: 200px; }
+/* Status baris sebagai badge (span.fbp-state dibuat oleh skrip kecil di halaman; warna dari data-state di <tr>) */
+body.page-doc table.fbp-doc-lines tbody td[title="ROWSTATEID" i] { white-space: nowrap; }
+body.page-doc .fbp-state {
+	display: inline-block;
+	padding: 3px 10px;
+	font-size: 12px; font-weight: 700;
+	color: #44575b; background: #eef2f1;
+	border-radius: 999px;
+}
+body.page-doc tr:is([data-state="Confirmed"], [data-state="Ordered"]) .fbp-state { color: #1d5fa8; background: #e7f0fb; }
+body.page-doc tr:is([data-state="AuthorizeOnProgress"], [data-state="ReleaseOnProgress"]) .fbp-state { color: #8a5a00; background: #fdf3dc; }
+body.page-doc tr:is([data-state="Approved"], [data-state="Released"], [data-state="Received"]) .fbp-state { color: var(--brand-dark); background: var(--brand-tint); }
+body.page-doc tr:is([data-state="Cancelled"], [data-state="Canceled"], [data-state="Closed"], [data-state="Rejected"]) .fbp-state { color: #a8322a; background: #fdecea; }
+
+/* Field + tombol cari di sel yang sama (mis. No.Issue + "Cari ..."): tombol tetap di samping */
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(> input[type="button"]) > input[type="text"]:not([size="5"]):not(.datepicker) { width: calc(100% - 150px) !important; }
+/* Stock Return: tabel item mengisi lebar */
+body.page-doc table#tableall, body.page-doc table#tableall table#table2 { width: 100% !important; }
+body.page-doc table#tableall > tbody > tr > td { padding: 0 !important; border: 0 !important; }
+
+/* Field + link popup (mis. Stock Code + "Stock" -> popup_allstock_new.Asp): link jadi tombol kecil di samping isian */
+body.page-doc .box_both > form > table.data > tbody > tr > td:not([colspan]):has(> a[href^="javascript:launchwin"]) { white-space: nowrap; }
+/* spesifisitas disamakan dengan aturan lebar isian di atas (baris 45) agar aturan ini yang menang */
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div):has(> a[href^="javascript:launchwin"]) > input[type="text"]:not([size="5"]) { width: calc(100% - 110px) !important; vertical-align: middle; }
+body.page-doc .box_both > form > table.data > tbody > tr > td > a[href^="javascript:launchwin"] {
+	display: inline-flex; align-items: center; gap: 6px; vertical-align: middle;
+	height: 34px; margin-left: 6px; padding: 0 12px;
+	color: var(--brand, #1B7863); background: #fff; border: 1px solid #b9d9d0; border-radius: 8px; text-decoration: none;
+}
+body.page-doc .box_both > form > table.data > tbody > tr > td > a[href^="javascript:launchwin"]::before { content: "\f002"; font-family: FontAwesome; font-size: 12px; }
+body.page-doc .box_both > form > table.data > tbody > tr > td > a[href^="javascript:launchwin"]:hover { background: #e8f3f0; border-color: var(--brand, #1B7863); }
+body.page-doc .box_both > form > table.data > tbody > tr > td > a[href^="javascript:launchwin"] font { font-family: inherit; font-size: 13px; font-weight: 600; color: inherit; }
+
+/* Link popup pilih data di dalam <font>/<span> (mis. IssueDetails: Stock, Job, Location Code) -> .fbp-pick (js/fbp-shell.js) */
+body.page-doc td.fbp-pick-cell { white-space: normal; }
+body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div).fbp-pick-cell > input[type="text"]:not([size="5"]) { width: calc(100% - 175px) !important; vertical-align: middle; }
+body.page-doc a.fbp-pick {
+	display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; white-space: nowrap;
+	height: 34px; margin-left: 6px; padding: 0 12px;
+	font-size: 13px; font-weight: 600; color: var(--brand, #1B7863); background: #fff;
+	border: 1px solid #b9d9d0; border-radius: 8px; text-decoration: none;
+}
+body.page-doc a.fbp-pick::before { content: ""; width: 12px; height: 12px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Ccircle cx=%2710.5%27 cy=%2710.5%27 r=%276.5%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.5%27/%3E%3Cpath d=%27M15.5 15.5L21 21%27 stroke=%27black%27 stroke-width=%272.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Ccircle cx=%2710.5%27 cy=%2710.5%27 r=%276.5%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.5%27/%3E%3Cpath d=%27M15.5 15.5L21 21%27 stroke=%27black%27 stroke-width=%272.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center / contain no-repeat; }
+body.page-doc a[href^="javascript:launchwin"].fbp-pick::before { content: ""; font-family: inherit; }
+body.page-doc a.fbp-pick:hover { background: #e8f3f0; border-color: var(--brand, #1B7863); }
+body.page-doc a.fbp-pick font { font-family: inherit; font-size: 13px; color: inherit; }
+body.page-doc .fbp-pick-hint { display: block; margin-top: 4px; font-size: 12px; color: var(--muted, #5d6d69); text-align: left; padding-left: 2px; }
+
+/* =====================================================================
+   Tampilan HP (<= 760px): form header/detail (maks. 4 sel per baris) jadi satu kolom,
+   label di atas isian. Grid daftar item (5+ kolom) tidak disentuh (tetap digeser ke samping).
+   ===================================================================== */
+@media (max-width: 760px) {
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) {
+		display: block; table-layout: auto; width: 100% !important; min-width: 0;
+	}
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody { display: block; }
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr {
+		display: grid; grid-template-columns: minmax(0, 1fr); border-bottom: 1px solid #eef2f1;
+	}
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr:last-child { border-bottom: 0; }
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td {
+		display: block; width: 100% !important; box-sizing: border-box; justify-self: stretch; min-width: 0; border-bottom: 0 !important;
+		padding: 2px 12px 8px !important; white-space: normal !important;
+	}
+	/* sel label: teks kecil di atas isiannya */
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):not(:has(input:not([type="hidden"]), select, textarea, div)) {
+		padding: 10px 12px 2px !important; font-size: 12px; color: var(--muted, #5d6d69);
+	}
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):not(:has(input:not([type="hidden"]), select, textarea, div)):empty { display: none; }
+	/* isian selebar layar (tanda * tetap di samping) */
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) input[type="text"].datepicker:not([size="5"]) { width: calc(100% - 18px) !important; }
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) .select2-container { width: calc(100% - 18px) !important; }
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))) > tbody > tr > td.fbp-pick-cell > input[type="text"]:not([size="5"]) { width: calc(100% - 130px) !important; }
+	/* form 4 kolom: lebar 13% / 37% dibatalkan agar label tidak terlipat */
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))):has(> tbody > tr > td:nth-of-type(4)) > tbody > tr > td:not([colspan]):not(:has(input:not([type="hidden"]), select, textarea, div)),
+	body.page-doc .box_both > form > table.data:not(:has(> tbody > tr > td:nth-of-type(5))):has(> tbody > tr > td:nth-of-type(4)) > tbody > tr > td:not([colspan]):has(input:not([type="hidden"]), select, textarea, div) { width: 100% !important; box-sizing: border-box; white-space: normal !important; }
+	/* judul kartu & tombol aksi */
+	body.page-doc .fbp-doc-title { flex-wrap: wrap; }
+	body.page-doc .box_both > form > table.data td[colspan] { padding: 10px 12px !important; }
+}

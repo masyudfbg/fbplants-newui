@@ -1,0 +1,261 @@
+	<%
+		if not rsMandays.EOF then
+			no = 0
+			
+
+			tempNumber = 0
+			
+			while not rsMandays.EOF
+				if no  mod 2 = 1 then
+					cClass = "odd"
+				else
+					cClass = "default"
+				end if
+				no = no + 1
+	%>
+
+				<% 
+					strCompare =   " select itemcode, factorreport from parameterreport " & _
+									  " where " & _
+									  " reportcode = 'LHK' and " & _
+									  " itemcode = '" & v_txtGroupItem & "' "
+					
+					Set rsCompare = Server.CreateObject("ADODB.Recordset")	
+					rsCompare.Open strCompare, connstr, adOpenStatic 		
+
+					if not rsCompare.EOF then
+						tempStrCompare = rsCompare ("factorreport")
+					else
+						tempStrCompare = ""	
+					end if	
+
+				    'response.write "v_txtGroupItem : " & v_txtGroupItem
+				    'response.write "tempStrCompare : " & tempStrCompare
+				    'response.write "rsMandaysdescription : " & rsMandays("description")
+
+					
+				    if tempStrCompare  = rsMandays("description") or v_txtGroupItem  = "--NONE--"  then 		
+				%>
+					<tr class="<%=cClass%>">
+						<%
+						strCodeDesc = "SELECT param_1 CodeDescription, rate_1 theRowSpan, nvl(rate_10,0) budget_hi, nvl(rate_11,0) budget_shi, nvl(rate_12,0) budget_sbi, param_7 tempBudgetType FROM PARAMETERDETAIL " & _
+											" WHERE " & _
+											" parcode = 'SR003' AND " & _
+											" parheadcode = 'REPORTCODE' AND " & _
+											" param_2 = 'DEFAULT' AND " & _
+											" fccode = '" & rsMandays("codedesc") & "'" 
+							'response.write rsMandays("codedesc")
+							Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+							rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+							if not rsCodeDesc.EOF then
+								tempCodeDescription = rsCodeDesc ("CodeDescription")
+								tempDataBudget_HI = cdbl(rsMandays ("budget_hi"))
+								tempDataBudget_SHI = cdbl(rsMandays ("budget_shi"))
+								tempDataBudget_SBI = cdbl(rsMandays ("budget_sbi"))	
+								tempBudgetType = rsCodeDesc ("tempBudgetType")
+							else
+								tempCodeDescription = ""					
+								tempDataBudget_HI = 0
+								tempDataBudget_SHI = 0
+								tempDataBudget_SBI = 0	
+								tempBudgetType = "QUANTITY"
+							end if		
+							
+											
+											
+						%>
+
+						
+						
+						<% if sPrevDesc <> tempCodeDescription then %>		
+							<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeDescription%></td>
+							<% sPrevDesc = tempCodeDescription %>
+						<% end if %>	
+					
+						
+						<% 
+							tempRefCode = rsMandays("codedesc")
+							strHRef = " SELECT param_5 reference, nvl(rate_3,0) rounding, param_6 UOM FROM PARAMETERDETAIL " & _
+										" WHERE " & _
+										" parcode = 'SR003' AND " & _
+										" fccode = '" & tempRefCode & "' AND " & _
+										" param_2 = 'DEFAULT' " 
+						
+							Set rsHRef = Server.CreateObject("ADODB.Recordset")	
+							rsHRef.Open strHRef, connstr, adOpenStatic 
+							
+							if not rsHRef.EOF then
+								tempReference = rsHRef ("reference")
+								tempUOM = rsHRef ("UOM")
+								tempRounding = cdbl(rsHRef ("rounding"))
+							else
+								tempReference = ""					
+								tempUOM = ""
+								tempRounding = 0
+							end if
+							
+							rsHRef.Close
+							set rsHRef = Nothing
+							
+							tempExtendedReference = "txtGroupItem="& rsMandays("description") & _
+							                        "&txtMonth=" & v_txtMonth & _
+													"&txtYear=" & v_txtYear & _
+													"&txtDateFrom=" & v_txtdatefrom & _ 
+													"&txtDateTo=" & v_txtdatefrom & _ 
+													"&txtBudgetYear=" & v_txtBudgetYear & _
+													"&txtBudgetVersion=" & v_txtBudgetVersion & _
+													"&txtModuleVersion=" & v_txtModuleVersion 
+							if cdbl(visibleGP) > 1 then
+								tempExtendedReferenceDetail = "&txtGroupPlantation=--ALL--"
+							else
+								tempExtendedReferenceDetail = "&txtGroupPlantation="
+								if cdbl(visibleP) > 1 then
+									tempExtendedReferenceDetail = "&txtPlantation=--ALL--"
+								else
+									tempExtendedReferenceDetail = "&txtPlantation="
+									if cdbl(visibleGR) > 1 then
+										tempExtendedReferenceDetail = "&txtGroupRegion=--ALL--"
+									else
+										tempExtendedReferenceDetail = "&txtGroupRegion="
+										if cdbl(visibleR) > 1 then
+											tempExtendedReferenceDetail = "&txtRegion=--ALL--"
+										else
+											tempExtendedReferenceDetail = "&txtRegion="
+											if cdbl(visibleC) > 1 then
+													tempExtendedReferenceDetail = "&txtCompany=--ALL--"
+											else
+												tempExtendedReferenceDetail = "&txtCompany="
+												if cdbl(visibleS) > 1 then
+													tempExtendedReferenceDetail = "&txtFcba=--ALL--"
+												else
+													tempExtendedReferenceDetail = "&txtFcba=" & v_txtFcba
+												end if
+											end if
+										end if
+									end if
+								end if
+							end if
+
+							'tempReference = "p_HarianLC.asp?" & tempExtendedReference
+							tempReference = "p_Summary_BA_NAF.asp?" & tempExtendedReference & tempExtendedReferenceDetail	
+							
+						%>
+						
+						
+						<% 
+							tempCodeSubDescription = rsMandays("description")
+							if sPrevSubDesc <> tempCodeSubDescription then %>		
+							
+								<% tempNumber = tempNumber + 1 %>
+								<td align="center"  ><%=tempNumber%></td>
+							
+								<td align="left" ><a href="<%=tempReference%>"><%=tempCodeSubDescription%></a></td>
+						<% 		
+								sPrevSubDesc = tempCodeSubDescription 
+							else %>
+								<td align="center"  ></td>
+								<td align="left" ></td>						
+						<%	
+							end if 
+						%>
+						
+						<!--#include file="FormDisplaySUMMARYMandays.html"-->					
+						<td align="center" ><%=tempUOM%></td>		
+
+						<% ' Start Compare to Budget 
+
+
+							tempHI = cdbl(rsMandays("hi"))
+							tempSHI = cdbl(rsMandays("shi"))
+							tempSBI = cdbl(rsMandays("sbi"))
+							
+							if tempDataBudget_HI <> 0 then 
+								tempCompare_HI = cdbl(rsMandays("hi"))/tempDataBudget_HI * 100
+							else
+								tempCompare_HI = 0
+							end if
+							
+							if tempDataBudget_SHI <> 0 then 
+								tempCompare_SHI = cdbl(rsMandays("shi"))/tempDataBudget_SHI * 100
+							else
+								tempCompare_SHI = 0
+							end if
+
+							if tempDataBudget_SBI <> 0 then 
+								tempCompare_SBI = cdbl(rsMandays("sbi"))/tempDataBudget_SBI * 100
+							else
+								tempCompare_SBI = 0
+							end if
+							
+						%>					
+						
+						<%  if rsMandays("hi") <>  "" then 
+								tempData = cdbl(rsMandays("hi"))
+							else
+								tempData = 0
+							end if
+						%>
+						<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+						<%  if rsMandays("shi") <>  "" then 
+								tempData = cdbl(rsMandays("shi"))
+							else
+								tempData = 0
+							end if
+						%>
+						<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+						<%  if rsMandays("sbi") <>  "" then 
+								tempData = cdbl(rsMandays("sbi"))
+							else
+								tempData = 0
+							end if
+						%>
+						<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+						
+						<td align="right" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+						<td align="right" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+						<td align="right" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+						
+						<%
+							tempRefCode = "TENAGA_KERJA"
+							strGetColor = "select " & _
+							   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_HI & "," & tempHI & "," & tempDataBudget_HI & " ) colorHI, " & _
+							   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_SHI & "," & tempSHI & "," & tempDataBudget_SHI & " ) colorSHI, " & _
+							   " ParameterSysDetail_Api.ColoringCode('CC_DSRE','" & tempRefCode & "'," & tempCompare_SBI & "," & tempSBI & "," & tempDataBudget_SBI & " ) colorSBI " & _
+							"from dual "
+							
+							Set rsGetColor = Server.CreateObject("ADODB.Recordset")	
+							rsGetColor.Open strGetColor, connstr, adOpenStatic 
+							
+							if not rsGetColor.EOF then
+								cClassAssigned_HI = rsGetColor("colorHI")
+								cClassAssigned_SHI = rsGetColor("colorSHI")
+								cClassAssigned_SBI = rsGetColor("colorSBI")
+							else
+								cClassAssigned_HI = "white"
+								cClassAssigned_SHI = "white"
+								cClassAssigned_SBI = "white"
+							end if
+
+							rsGetColor.Close
+							set rsGetColor = Nothing
+							
+						%>					
+						
+						
+						
+						<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
+						<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+						<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+
+						
+					</tr>
+				<%end if%>
+	<%
+
+				rsMandays.MoveNext
+			Wend
+		end if
+		rsMandays.Close
+		set rsMandays = Nothing
+	%>

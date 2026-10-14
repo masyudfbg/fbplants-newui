@@ -1,0 +1,287 @@
+/* =====================================================================
+   fbp-table.css - toolbar, pagination & ringkasan untuk js/fbp-table.js
+   ===================================================================== */
+.fbt-page, .fbt-filter { display: none; }
+@media print {
+	.fbt-page:not(.fbt-filter) { display: table-row; }   /* cetak: semua baris hasil filter */
+	.fbt-toolbar-row, .fbt-foot, .fbt-summary { display: none !important; }
+}
+
+#product-table thead tr.fbt-toolbar-row th,
+table[data-fbt] thead tr.fbt-toolbar-row th {
+	padding: 6px 0 10px;
+	background: #fff !important;
+	border: 0 !important;
+	color: #17262a;
+	font-weight: 400;
+	text-align: left;
+}
+.fbt-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.fbt-tools label { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #5d6d69; font-weight: 400; }
+.fbt-tools select {
+	min-height: 32px; padding: 0 28px 0 10px;
+	font: inherit; font-size: 13px; color: #17262a;
+	border: 1px solid #d5dfdc; border-radius: 8px;
+	-webkit-appearance: none; appearance: none;
+	background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%235d6d69' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 9px center;
+}
+.fbt-search { position: relative; width: 300px; max-width: 100%; }
+.fbt-search::before {
+	content: ""; position: absolute; left: 11px; top: 50%; width: 13px; height: 13px; transform: translateY(-50%);
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='%238a9a96' stroke-width='2'/%3E%3Cpath d='M15.5 15.5L21 21' stroke='%238a9a96' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+}
+.fbt-search input {
+	box-sizing: border-box; width: 100%; min-height: 34px;
+	padding: 4px 12px 4px 32px;
+	font: inherit; font-size: 13px; color: #17262a;
+	border: 1px solid #d5dfdc; border-radius: 8px; outline: none;
+}
+.fbt-search input:focus, .fbt-tools select:focus { border-color: #1B7863; box-shadow: 0 0 0 3px rgba(27, 120, 99, .18); }
+
+/* Judul kolom bisa diurutkan */
+.fbt-sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+.fbt-sortable::after { content: "\2195"; margin-left: 6px; opacity: .45; font-size: 11px; }
+.fbt-sortable[aria-sort="ascending"]::after { content: "\2191"; opacity: 1; }
+.fbt-sortable[aria-sort="descending"]::after { content: "\2193"; opacity: 1; }
+.fbt-sortable:focus-visible { outline: 2px solid #F7BD28; outline-offset: -2px; }
+
+tr.fbt-empty-row td { padding: 20px !important; text-align: center; color: #5d6d69; }
+
+.fbt-foot {
+	display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+	margin: 10px 0 18px;
+	font-size: 13px; color: #5d6d69;
+}
+.fbt-pager { display: flex; flex-wrap: wrap; gap: 4px; }
+.fbt-pager button, .fbt-pager span {
+	min-width: 32px; height: 32px; padding: 0 10px;
+	display: inline-flex; align-items: center; justify-content: center;
+	font: inherit; font-size: 13px; font-weight: 400; color: #17262a;
+	background: #fff; border: 1px solid #e1e7e5; border-radius: 8px; box-shadow: none;
+	text-shadow: none; min-height: 0;
+}
+.fbt-pager button { cursor: pointer; }
+.fbt-pager button:hover:not(:disabled) { background: #e8f3f0; border-color: #b9d9d0; color: #17262a; }
+.fbt-pager button[aria-current="page"] { color: #fff; background: #1B7863; border-color: #1B7863; font-weight: 600; }
+.fbt-pager button:disabled { color: #b5c0bd; background: #fff; cursor: default; }
+.fbt-pager span { border-color: transparent; background: transparent; }
+
+/* Kartu ringkasan */
+.fbt-summary {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 12px;
+	margin: 14px 0 16px;
+}
+.fbt-card {
+	padding: 14px 16px;
+	background: #fff;
+	border: 1px solid #e1e7e5;
+	border-radius: 12px;
+	border-top: 3px solid #1B7863;
+}
+.fbt-card.accent { border-top-color: #F7BD28; }
+.fbt-card .fbt-card-label { font-size: 12px; font-weight: 600; color: #5d6d69; text-transform: uppercase; letter-spacing: .4px; }
+.fbt-card .fbt-card-value { margin-top: 4px; font-size: 24px; font-weight: 700; color: #17262a; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.fbt-card .fbt-card-note { margin-top: 2px; font-size: 12px; color: #5d6d69; }
+
+/* Pager tetap bergaya pager walau berada di halaman lama (fbp-forms.css memberi gaya ke semua button) */
+body .fbt-foot .fbt-pager button {
+	min-width: 34px; height: 34px; margin: 0; padding: 0 10px;
+	font: inherit; font-size: 13px; font-weight: 400;
+	color: #17262a; background: #fff;
+	border: 1px solid #e1e7e5; border-radius: 8px;
+	box-shadow: none;
+}
+body .fbt-foot .fbt-pager button:hover:not(:disabled) { color: #17262a; background: #e8f3f0; border-color: #b9d9d0; }
+body .fbt-foot .fbt-pager button[aria-current="page"] { color: #fff; background: #1B7863; border-color: #1B7863; font-weight: 600; }
+body .fbt-foot .fbt-pager button:disabled { color: #b5c0bd; background: #fff; border-color: #e1e7e5; opacity: 1; cursor: default; }
+
+/* Aktivasi otomatis di laporan (js/fbp-table-auto.js) */
+/* Salinan header xTableHeaderFixed tidak dipakai: lebarnya tidak ikut pagination/pencarian */
+table.fbt-xthf-off { display: none !important; }
+/* Pengganti: judul kolom lengket di atas saat halaman digulir */
+table[data-fbt-auto] > thead > tr:last-child > th { position: sticky; top: 0; z-index: 3; }
+@media print { table[data-fbt-auto] > thead > tr:last-child > th { position: static; } }
+tr.fbt-auto-empty td { padding: 20px !important; text-align: center; color: #5d6d69; }
+
+/* Blok tanda tangan laporan (Bottom_Report.asp: Approved by / Prepared by) */
+table.fbp-sign { width: auto; margin: 18px 24px 24px; border-collapse: separate; table-layout: fixed; }
+table.fbp-sign:not(#x) { width: calc(100% - 48px); box-sizing: border-box; padding: 18px 12px 22px; background: #fff; border: 1px solid #e1e7e5; border-radius: 14px; box-shadow: 0 1px 3px rgba(23, 38, 42, .06); }
+table.fbp-sign td { width: 50%; padding: 0 12px; text-align: center; vertical-align: bottom; background: none; border: 0; }
+table.fbp-sign font { font-family: inherit; font-size: 13px; color: #17262a; background: none; }
+table.fbp-sign tr:nth-child(1) td { height: 0; line-height: 0; font-size: 0; }
+table.fbp-sign tr:nth-child(2) font { font-size: 12px; font-weight: 600; color: #5d6d69; text-transform: uppercase; letter-spacing: .6px; }
+table.fbp-sign tr:nth-child(3) td { height: 64px; }
+table.fbp-sign tr:nth-child(4) font { display: inline-block; min-width: 220px; min-height: 18px; padding-top: 6px; border-top: 1px solid #8a9a96; font-weight: 600; vertical-align: top; }
+@media (max-width: 640px) { table.fbp-sign:not(#x) { width: calc(100% - 32px); margin: 16px; } table.fbp-sign tr:nth-child(4) font { min-width: 120px; } }
+@media print { table.fbp-sign:not(#x) { width: 100%; margin: 24px 0 0; border: 0; box-shadow: none; page-break-inside: avoid; } }
+
+/* =====================================================================
+   Kulit laporan otomatis (js/fbp-table-auto.js) - sama dengan laporan Purchase Request
+   ===================================================================== */
+body.rpt-skin { background: #f3f6f5; }
+body.rpt-skin #wrapper > .printhide:empty { display: none; }
+body.rpt-skin .rpt-orig-hidden { display: none !important; }
+body.rpt-skin #product-table tr.rpt-xls { display: none; }
+.rpt-head {
+	display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px;
+	padding: 18px 22px; background: #fff; border: 1px solid #e1e7e5; border-radius: 14px;
+	border-left: 5px solid #1B7863; box-shadow: 0 1px 3px rgba(23, 38, 42, .06);
+}
+.rpt-company { font-size: 12px; font-weight: 700; color: #5d6d69; text-transform: uppercase; letter-spacing: .6px; }
+.rpt-ba { margin-top: 2px; font-size: 12px; color: #8a9a96; }
+.rpt-title { margin: 6px 0 0; font-size: 24px; font-weight: 700; color: #12584a; letter-spacing: .2px; }
+.rpt-sub { margin-top: 2px; font-size: 13px; color: #5d6d69; }
+.rpt-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.rpt-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; font-size: 12px; color: #17262a; background: #eef5f3; border: 1px solid #d3e6e0; border-radius: 999px; }
+.rpt-chip b { font-weight: 600; color: #5d6d69; }
+.rpt-actions { display: flex; align-items: center; gap: 8px; }
+.rpt-actions input[type="button"] { float: none !important; margin: 0 !important; }
+.rpt-print { min-height: 36px; padding: 0 14px; font: inherit; font-size: 13px; font-weight: 600; color: #1B7863; background: #fff; border: 1px solid #b9d9d0; border-radius: 8px; cursor: pointer; }
+.rpt-print:hover, .rpt-print:focus { background: #e8f3f0; border-color: #1B7863; }
+.rpt-summary { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important; }
+.rpt-mini { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.rpt-panel { margin-top: 16px; background: #fff; border: 1px solid #e1e7e5; border-radius: 14px; padding: 12px 14px 4px; box-shadow: 0 1px 3px rgba(23, 38, 42, .06); }
+.rpt-summary + .rpt-panel { margin-top: 0; }
+.rpt-panel .fbt-tools { margin-bottom: 10px; }
+.rpt-scroll { overflow-x: auto; border: 1px solid #e1e7e5; border-radius: 10px; margin-bottom: 10px; }
+.rpt-scroll.rpt-scroll-fixed { overflow: auto; max-height: 70vh; }
+body.rpt-skin .rpt-scroll #product-table { margin: 0; border-collapse: separate; border-spacing: 0; min-width: 100%; }
+body.rpt-skin #product-table tr.fbt-toolbar-row { display: none; }
+body.rpt-skin #product-table thead tr:last-child th { white-space: nowrap; border-width: 0 1px 0 0; border-color: #2f8a75; }
+body.rpt-skin .rpt-scroll-fixed #product-table thead tr:last-child th { position: sticky; top: 0; z-index: 2; }
+/* judul bertingkat: semua baris judul lengket (top per baris diisi js freezeHead) */
+body.rpt-skin .rpt-scroll-fixed #product-table thead :is(th, td).fbt-freeze { position: sticky; }
+body.rpt-skin #product-table td { border-width: 0 0 1px 0 !important; border-style: solid !important; border-color: #e6ecea !important; vertical-align: middle; }
+body.rpt-skin #product-table tfoot td { background: #f1f7f5; font-weight: 700; border-top: 2px solid #1B7863 !important; border-bottom: 0 !important; }
+body.rpt-skin .rpt-scroll-fixed #product-table tfoot td { position: sticky; bottom: 0; z-index: 1; }
+.rpt-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; line-height: 1.5; background: #eef1f0; color: #4a5a56; white-space: nowrap; }
+.rpt-badge.ok { background: #e2f4ec; color: #136a4b; }
+.rpt-badge.warn { background: #fff4d6; color: #8a5a00; }
+.rpt-badge.bad { background: #fde8e6; color: #a8322a; }
+.rpt-badge.info { background: #e6f0fb; color: #1f5a96; }
+@media (max-width: 640px) {
+	body.rpt-skin #wrapper { padding: 12px 16px; }
+	.rpt-title { font-size: 20px; }
+	.rpt-summary { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px; }
+	.rpt-summary .fbt-card { padding: 10px 12px; }
+	.rpt-summary .fbt-card-value { font-size: 17px; overflow-wrap: anywhere; }
+	.rpt-panel { padding: 10px 10px 2px; }
+}
+@media print {
+	body.rpt-skin { background: #fff; }
+	.rpt-actions { display: none !important; }
+	.rpt-head, .rpt-panel { border: 0; box-shadow: none; padding: 0; }
+	.rpt-scroll, .rpt-scroll.rpt-scroll-fixed { overflow: visible; max-height: none; border: 0; }
+	body.rpt-skin #product-table thead tr:last-child th, body.rpt-skin #product-table tfoot td { position: static; }
+	.rpt-badge { background: none !important; padding: 0; }
+}
+/* Baris grup judul kolom (class rpt-keep) tetap tampil: latar sedikit lebih gelap */
+body.rpt-skin #product-table thead tr.rpt-keep th { background: #12584a; color: #fff; text-align: center; border-width: 0 1px 1px 0; border-color: #2f8a75; }
+
+/* Tombol Export di kop laporan: abaikan posisi lama (print_excel_blob.asp: .tableToExcel position:fixed di pojok) */
+:is(.rpt-actions, .pr-actions, .po-actions, .ci-actions, .br-actions, .ms-actions) input[type="button"],
+#wrapper :is(.rpt-actions, .pr-actions, .po-actions, .ci-actions, .br-actions, .ms-actions) .tableToExcel {
+	position: static !important; float: none !important; margin: 0 !important;
+	top: auto !important; right: auto !important;
+	min-height: 36px; padding: 0 14px !important; background-image: none !important;
+	color: #fff !important; background-color: #1B7863 !important; border: 1px solid #1B7863 !important; border-radius: 8px !important;
+	font: inherit; font-size: 13px !important; font-weight: 600; cursor: pointer;
+}
+:is(.rpt-actions, .pr-actions, .po-actions, .ci-actions, .br-actions, .ms-actions) { flex-wrap: nowrap; }
+/* Judul kolom bertingkat (table.fbt-multi): seluruh thead lengket, semua baris judul ikut */
+body.rpt-skin .rpt-scroll-fixed #product-table.fbt-multi > thead { position: sticky; top: 0; z-index: 3; }
+body.rpt-skin .rpt-scroll-fixed #product-table.fbt-multi > thead > tr > th { position: static !important; text-align: center; border-bottom: 1px solid #2f8a75; }
+@media print { body.rpt-skin #product-table.fbt-multi > thead { position: static; } }
+
+/* =====================================================================
+   Kartu filter laporan (js/fbp-table-auto.js: table#form-table -> .rpt-filter)
+   ===================================================================== */
+body.rpt-filtered { background: #f3f6f5; }
+body.rpt-filtered #menu-table { margin: 4px 0 12px; border-collapse: separate; border-spacing: 8px 0; }
+body.rpt-filtered #menu-table td { padding: 0; }
+body.rpt-filtered #menu-table a {
+	display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+	font-size: 13px; font-weight: 600; color: #1B7863; text-decoration: none;
+	background: #fff; border: 1px solid #d3e6e0; border-radius: 999px;
+}
+body.rpt-filtered #menu-table a:hover { background: #e8f3f0; border-color: #1B7863; }
+.rpt-filter {
+	margin: 0 0 16px; padding: 16px 18px;
+	background: #fff; border: 1px solid #e1e7e5; border-radius: 14px; box-shadow: 0 1px 3px rgba(23, 38, 42, .06);
+	text-align: left;
+}
+.rpt-filter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: 12px 14px; align-items: start; }
+.rpt-field.rpt-field-wide { grid-column: span 2; }
+.rpt-field > label {
+	display: block; margin: 0 0 5px;
+	font-family: inherit; font-size: 12px; font-weight: 600; color: #5d6d69; letter-spacing: .2px;
+}
+.rpt-field-ctl { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.rpt-field-ctl font { font-family: inherit; font-size: 12px; color: #5d6d69; }
+.rpt-field-ctl select, .rpt-field-ctl input[type="text"], .rpt-field-ctl input[type="date"], .rpt-field-ctl input[type="number"], .rpt-field-ctl input:not([type]) {
+	box-sizing: border-box; width: 100% !important; min-width: 0; height: 38px !important; margin: 0;
+	padding: 0 12px; font: inherit; font-size: 13px; color: #17262a; line-height: normal;
+	background-color: #fff; border: 1px solid #d5dfdc; border-radius: 8px; box-shadow: none; outline: none;
+}
+.rpt-field-ctl select {
+	padding-right: 32px; -webkit-appearance: none; appearance: none; cursor: pointer;
+	background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%235d6d69' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+}
+.rpt-field-ctl select:focus, .rpt-field-ctl input:focus { border-color: #1B7863; box-shadow: 0 0 0 3px rgba(27, 120, 99, .18); }
+.rpt-field-ctl .chosen-container { width: 100% !important; }
+.rpt-filter-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #eef2f1; }
+.rpt-filter-actions input[type="submit"], .rpt-filter-actions input[type="button"], .rpt-filter-actions button {
+	min-height: 38px; padding: 0 22px; margin: 0 !important; float: none !important;
+	font: inherit; font-size: 13px; font-weight: 600; color: #fff; background: #1B7863;
+	border: 1px solid #1B7863; border-radius: 8px; cursor: pointer;
+}
+.rpt-filter-actions input:hover, .rpt-filter-actions button:hover { background: #12584a; }
+@media print { .rpt-filter, body.rpt-filtered #menu-table { display: none !important; } }
+/* Wadah dropdown AJAX (mis. #divisilist) mengisi kolom; Chosen disamakan dengan isian lain */
+.rpt-field-ctl > div, .rpt-field-ctl > span:not(.chosen-container) { flex: 1 1 auto; min-width: 0; }
+.rpt-field-ctl .chosen-container-single .chosen-single {
+	height: 38px; line-height: 36px; padding: 0 0 0 12px; font-size: 13px; color: #17262a;
+	background: #fff; border: 1px solid #d5dfdc; border-radius: 8px; box-shadow: none;
+}
+.rpt-field-ctl .chosen-container-single .chosen-single div b { background-position: 0 9px; }
+.rpt-field-ctl .chosen-container-active .chosen-single { border-color: #1B7863; box-shadow: 0 0 0 3px rgba(27, 120, 99, .18); }
+.rpt-field-ctl .chosen-container .chosen-drop { border-color: #b9d9d0; border-radius: 0 0 8px 8px; }
+/* Tabel daftar di halaman bertampilan baru (fbp-table-auto.js enhanceDashList) */
+table.fbt-dash-list > thead > tr.fbt-toolbar-row > th { padding: 10px 2px 12px !important; background: transparent !important; border: 0 !important; }
+table.fbt-dash-list > thead > tr:last-child > :is(td, th) { white-space: nowrap; }
+table.fbt-dash-list + .fbt-foot { margin-top: 10px; }
+/* Responsif ala DataTables: tabel selebar wadah, kolom yang tidak muat pindah ke baris detail */
+/* ala DataTables scrollY: daftar panjang digulir di dalam kotak, judul kolom menempel di atas */
+.fbt-dash-scroll { width: 100%; max-width: 100%; max-height: max(320px, calc(100vh - 240px)); overflow: auto; border: 1px solid #e1e7e5; border-radius: 10px; }
+.fbt-dash-scroll > table.fbt-dash-list { border-collapse: separate !important; border-spacing: 0; overflow: visible !important; }   /* overflow:hidden (sudut membulat) mematikan judul sticky */
+.fbt-dash-scroll > table.fbt-dash-list > thead > tr:last-child > :is(td, th) { position: sticky; top: 0; z-index: 2; box-shadow: inset 0 -1px 0 #e1e7e5; }
+@media print { .fbt-dash-scroll { max-height: none; overflow: visible; border: 0; } .fbt-dash-scroll > table.fbt-dash-list > thead > tr:last-child > :is(td, th) { position: static; } }
+.fbt-dash-scroll + .fbt-foot { margin-top: 10px; }
+.fbt-dash-scroll > table.fbt-dash-list { width: 100% !important; margin: 0; }
+table[data-fbt-resp] > thead > tr:last-child > :is(td, th) { white-space: normal !important; min-width: 56px; line-height: 1.3; vertical-align: bottom; }
+table[data-fbt-resp] > tbody > tr > td { white-space: nowrap; }
+table.fbt-resp-wrap > tbody > tr:not(.fbt-rdetail) > td { white-space: normal; overflow-wrap: anywhere; }
+table.fbt-resp-wrap > tbody > tr:not(.fbt-rdetail) > td:first-child { white-space: nowrap; }
+table[data-fbt-resp] > thead > tr > .fbt-rhide { display: none; }
+table.fbt-resp-on > tbody > tr:not(.fbt-rdetail) > td:first-child { cursor: pointer; white-space: nowrap; }
+table.fbt-resp-on > tbody > tr:not(.fbt-rdetail) > td:first-child::before {
+	content: "+"; display: inline-block; width: 16px; height: 16px; margin-right: 6px; border-radius: 50%;
+	background: #1B7863; color: #fff; font: 700 13px/16px Arial, sans-serif; text-align: center; vertical-align: -2px;
+}
+table.fbt-resp-on > tbody > tr.fbt-ropen > td:first-child::before { content: "\2212"; background: #b3412f; }
+table.fbt-resp-on > tbody > tr.fbt-ropen > td { background: #eef6f3 !important; }
+tr.fbt-rdetail > td { padding: 10px 14px 12px 34px !important; background: #f8fbfa !important; white-space: normal !important; }
+tr.fbt-rdetail .fbt-rd { text-align: left; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px 24px; }
+tr.fbt-rdetail .fbt-rd > div { min-width: 0; padding-bottom: 6px; border-bottom: 1px dashed #dfe8e5; }
+tr.fbt-rdetail .fbt-rd b { display: block; margin-bottom: 2px; font-size: 10.5px; font-weight: 600; letter-spacing: .3px; text-transform: uppercase; color: #5d6d69; }
+tr.fbt-rdetail .fbt-rd span { font-size: 13px; color: #17262a; overflow-wrap: anywhere; }
+@media print { table[data-fbt-resp] > thead > tr > .fbt-rhide { display: table-cell; } tr.fbt-rdetail, table.fbt-resp-on td:first-child::before { display: none !important; } }
+.fbt-dash-tools { position: sticky; left: 0; max-width: calc(100vw - 340px); margin: 4px 0 10px; }
+.fbt-dash-tools .fbt-tools { font-size: 13px; text-transform: none; letter-spacing: 0; }
+.fbt-dash-tools .fbt-tools label { font-weight: 400; color: #5d6d69; }
+.fbt-dash-tools .fbt-tools select { width: auto !important; min-width: 70px; height: 34px !important; min-height: 34px; padding: 0 28px 0 10px !important; font-size: 13px !important; }
+.fbt-dash-tools .fbt-search { width: 300px; max-width: 100%; }
+.fbt-dash-tools .fbt-search input { width: 100% !important; height: 34px !important; min-height: 34px; padding: 4px 12px 4px 32px !important; font-size: 13px !important; }
+@media (max-width: 760px) { .fbt-dash-tools { max-width: calc(100vw - 32px); } .fbt-dash-tools .fbt-search { width: 100%; } }

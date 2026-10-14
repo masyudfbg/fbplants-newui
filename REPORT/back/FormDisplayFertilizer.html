@@ -1,0 +1,263 @@
+	<%
+		if not rsFertilizer.EOF then
+			no = 0
+			
+			sPrevGroupPlantation = ""
+			sPrevPlantation = ""
+			sPrevGroupRegion = ""
+			sPrevRegion = ""
+			sPrevCompany = ""
+			sPrevFcba = ""
+			sPrevDesc = ""
+			tempNumber = 0
+			
+			while not rsFertilizer.EOF
+				if no  mod 2 = 1 then
+					cClass = "odd"
+				else
+					cClass = "default"
+				end if
+				no = no + 1
+	%>
+
+
+				<tr class="<%=cClass%>">
+				
+					 
+					<%
+						strCodeDesc = "SELECT param_1 CodeDescription, rate_1 theRowSpan FROM PARAMETERDETAIL " & _
+										" WHERE " & _
+										" parcode = 'SR003' AND " & _
+										" parheadcode = 'REPORTCODE' AND " & _
+										" param_2 = 'DEFAULT' AND " & _
+										" fccode = '" & rsFertilizer("codedesc") & "'" 
+						
+						Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+						rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+						if not rsCodeDesc.EOF then
+							tempCodeDescription = rsCodeDesc ("CodeDescription")
+						else
+							tempCodeDescription = ""	
+						end if					
+										
+										
+					%>
+					
+					<!--#include file="FormDisplaySUMMARYFertilizer.html"-->
+					
+					
+					<% if sPrevDesc <> tempCodeDescription then %>				
+						<td class="boldfont" rowspan="<%=tempRowSpan%>" align="center" ><%=tempCodeDescription%></td>
+						<% sPrevDesc = tempCodeDescription %>
+					<% else %>
+						<td align="left" ></td>
+					<% end if %>
+				
+					<% tempNumber = tempNumber + 1 %>
+					<td align="center"  ><%=tempNumber%></td>
+					
+					<% 
+						tempRefCode = rsFertilizer("codedesc")
+						strHRef = " SELECT param_5 reference FROM PARAMETERDETAIL " & _
+									" WHERE " & _
+									" parcode = 'SR003' AND " & _
+									" fccode = '" & tempRefCode & "' AND " & _
+									" param_2 = 'DEFAULT' " 
+					
+						Set rsHRef = Server.CreateObject("ADODB.Recordset")	
+						rsHRef.Open strHRef, connstr, adOpenStatic 
+						
+						if not rsHRef.EOF then
+							tempReference = rsHRef ("reference")
+						else
+							tempReference = ""					
+						end if
+						tempUOM = rsFertilizer("UnitOfMeasurement")
+						
+						rsHRef.Close
+						set rsHRef = Nothing
+						tempExtendedReference = "txtfcba=" & v_txtfcba & "&txttodaydate=" & v_txtdatefrom & "&txtStockGroup=&txtStock=--SUMMARY--&txtComp=" & v_txtComp & ""
+						tempReference = "p_StockGudangMonthly_BA_NAF.asp?" & tempExtendedReference
+					%>
+					<td align="left" ><a href="<%=tempReference%>"><%=rsFertilizer("description")%></a></td>
+					<td align="center" ><%=tempUOM%></td>		
+
+
+					<% 
+						strHRef = " SELECT nvl(rate_3,0) rounding  FROM PARAMETER " & _
+									" WHERE " & _
+									" parcode = 'SR003_PUPDET' AND " & _
+									" fccode = '" & rsFertilizer("JobGenCode") & "'"
+					
+						Set rsHRef = Server.CreateObject("ADODB.Recordset")	
+						rsHRef.Open strHRef, connstr, adOpenStatic 
+						
+						if not rsHRef.EOF then
+							if rsHRef ("rounding") <> "" then 
+								tempRounding = cdbl(rsHRef ("rounding"))
+							else
+								tempRounding = 0
+							end if
+						else
+							tempRounding = 0				
+						end if
+
+						rsHRef.Close
+						set rsHRef = Nothing
+					%>				
+					
+					<% ' Start Compare to Budget 
+
+						strBudget = " select param_1 tempBudgetType " & _
+									  " from parameterdetail " & _
+									  " where " & _
+									  " parcode ='BUDGET' and  " & _
+									  " parheadcode = 'BUDGET_PUPUK' and  " & _
+									  " param_2 = 'DEFAULT' and  " & _
+									  " fccode = '" & rsFertilizer("JobGenCode") & "'"
+						Set rsBudget = Server.CreateObject("ADODB.Recordset")	
+						rsBudget.Open strBudget, connstr, adOpenStatic 
+						
+						if not rsBudget.EOF then
+							tempBudgetType = rsBudget ("tempBudgetType")
+							tempDataBudget_HI = cdbl(rsFertilizer ("budget_hi"))
+							tempDataBudget_SHI = cdbl( rsFertilizer ("budget_shi"))
+							tempDataBudget_SBI = cdbl( rsFertilizer ("budget_sbi"))
+						else
+							tempDataBudget_HI = 0
+							tempDataBudget_SHI = 0
+							tempDataBudget_SBI = 0
+							tempBudgetType = "QUANTITY"
+						end if
+						
+						rsBudget.Close
+						set rsBudget = Nothing			  	
+
+						if tempDataBudget_HI <> 0 then 
+							tempCompare_HI = cdbl(rsFertilizer("hi"))/tempDataBudget_HI * 100
+						else
+							tempCompare_HI = 0
+						end if
+						
+						if tempDataBudget_SHI <> 0 then 
+							tempCompare_SHI = cdbl(rsFertilizer("shi"))/tempDataBudget_SHI * 100
+						else
+							tempCompare_SHI = 0
+						end if
+
+						if tempDataBudget_SBI <> 0 then 
+							tempCompare_SBI = cdbl(rsFertilizer("sbi"))/tempDataBudget_SBI * 100
+						else
+							tempCompare_SBI = 0
+						end if
+						
+					%>					
+					
+					<%  if rsFertilizer("hi") <>  "" then 
+							tempData = cdbl(rsFertilizer("hi"))
+						else
+							tempData = 0
+						end if
+					%>
+					<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+					<%  if rsFertilizer("shi") <>  "" then 
+							tempData = cdbl(rsFertilizer("shi"))
+						else
+							tempData = 0
+						end if
+					%>
+					<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+					<%  if rsFertilizer("sbi") <>  "" then 
+							tempData = cdbl(rsFertilizer("sbi"))
+						else
+							tempData = 0
+						end if
+					%>
+					<td align="right" ><%=FormatNumber(tempData,tempRounding)%></td>
+					
+					<td align="right" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+					<td align="right" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+					<td align="right" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+
+					
+					<%
+						if tempBudgetType = "QUANTITY" then  
+							if tempCompare_HI > 95 then
+								cClassAssigned_HI = "green"
+							else
+								if tempCompare_HI > 85 then 
+									 cClassAssigned_HI = "yellow"
+								else
+									 cClassAssigned_HI = "red"
+								end if
+							end if
+						
+							if tempCompare_SHI > 95 then
+								cClassAssigned_SHI = "green"
+							else
+								if tempCompare_SHI > 85 then 
+									 cClassAssigned_SHI = "yellow"
+								else
+									 cClassAssigned_SHI = "red"
+								end if
+							end if
+						
+							if tempCompare_SBI > 95 then
+								cClassAssigned_SBI = "green"
+							else
+								if tempCompare_SBI > 85 then 
+									 cClassAssigned_SBI = "yellow"
+								else
+									 cClassAssigned_SBI = "red"
+								end if
+							end if
+						else
+							if tempCompare_HI > 105 then
+								cClassAssigned_HI = "red"
+							else
+								if tempCompare_HI > 95 then 
+									 cClassAssigned_HI = "yellow"
+								else
+									 cClassAssigned_HI = "green"
+								end if
+							end if
+						
+							if tempCompare_SHI > 105 then
+								cClassAssigned_SHI = "red"
+							else
+								if tempCompare_SHI > 95 then 
+									 cClassAssigned_SHI = "yellow"
+								else
+									 cClassAssigned_SHI = "green"
+								end if
+							end if
+						
+							if tempCompare_SBI > 105 then
+								cClassAssigned_SBI = "red"
+							else
+								if tempCompare_SBI > 95 then 
+									 cClassAssigned_SBI = "yellow"
+								else
+									 cClassAssigned_SBI = "green"
+								end if
+							end if
+						end if					
+					%>					
+					
+					
+
+					
+					<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
+					<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+					<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+					
+				</tr>
+	<%
+
+				rsFertilizer.MoveNext
+			Wend
+		end if
+		rsFertilizer.Close
+		set rsFertilizer = Nothing
+	%>

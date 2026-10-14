@@ -1,0 +1,227 @@
+			<%
+
+					if not rsCPOStock.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						sPrevDesc = ""
+						
+						while not rsCPOStock.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsCPOStock("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "CPO"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan,  rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'CPOSTOCK' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsCPOStock("CODEDESC") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")		
+										tempRounding =  rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""		
+										tempRounding = 0
+									end if		
+									tempUOM = rsCPOStock("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+
+								<!--#include file="FormDisplaySUMMARYCPOStock.html"-->
+
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>				
+									<td class="boldfont"  align="center" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% else %>
+									<td align="left" ></td>
+								<% end if %>
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"><%= rsCPOStock("GROUPNAME") %></a></td>
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+
+									tempDataBudget_HI = 0
+									tempDataBudget_SHI = 0
+									tempDataBudget_SBI = 0	
+
+									if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = cdbl(rsCPOStock("hi"))/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = cdbl(rsCPOStock("shi"))/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = cdbl(rsCPOStock("sbi"))/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>					
+								
+								
+								<%  
+									if rsCPOStock("HI") <> "" then 
+										tempHI = cdbl(rsCPOStock("HI")) 
+									else
+										tempHI = 0
+									end if
+								
+									if rsCPOStock("SHI") <> "" then 
+										tempSHI = cdbl(rsCPOStock("SHI")) 						
+									else
+										tempSHI = 0
+									end if
+
+									if rsCPOStock("SBI") <> "" then 
+										tempSBI = cdbl(rsCPOStock("SBI")) 									
+									else
+										tempSBI = 0
+									end if
+								%>
+								
+
+
+								<td align="center" ><%=FormatNumber(tempHI,tempRounding)%></td>
+								
+								<% 					   
+								   if rsCPOStock("CODEDESC") = "CPO001" then 
+									   tempOpeningCPOStock_HI = tempHI
+								   end if		
+
+								   if rsCPOStock("CODEDESC") = "CPO002" then 
+									   tempDespatchCPOStock_HI = tempHI
+								   end if					   
+								   
+								%>
+								
+								<% if rsCPOStock("CODEDESC") = "CPO001" or rsCPOStock("CODEDESC") = "CPO003" then %> 
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+								<% else %>
+									<td align="center" ><%=FormatNumber(tempSHI,tempRounding)%></td>
+									<td align="center" ><%=FormatNumber(tempSBI,tempRounding)%></td>
+									
+
+									
+									<td align="center" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+									<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+									<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+									
+									
+									<%
+										if tempCompare_HI > 95 then
+											cClassAssigned_HI = "green"
+										else
+											if tempCompare_HI > 85 then 
+												 cClassAssigned_HI = "yellow"
+											else
+												 cClassAssigned_HI = "red"
+											end if
+										end if
+										
+										if tempCompare_SHI > 95 then
+											cClassAssigned_SHI = "green"
+										else
+											if tempCompare_SHI > 85 then 
+												 cClassAssigned_SHI = "yellow"
+											else
+												 cClassAssigned_SHI = "red"
+											end if
+										end if
+										
+										if tempCompare_SBI > 95 then
+											cClassAssigned_SBI = "green"
+										else
+											if tempCompare_SBI > 85 then 
+												 cClassAssigned_SBI = "yellow"
+											else
+												 cClassAssigned_SBI = "red"
+											end if
+										end if
+										
+									%>
+									
+									
+									<td class="<%=cClassAssigned_HI%>" align="center" ><%=FormatNumber(tempCompare_HI,tempRounding)%></td>
+									<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,tempRounding)%></td>
+									<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,tempRounding)%></td>
+								<% end if %>
+								
+							</tr>
+				<%
+
+							rsCPOStock.MoveNext
+						Wend
+					end if
+					rsCPOStock.Close
+					set rsCPOStock = Nothing
+				%>	
+				
+				

@@ -1,0 +1,99 @@
+  <tr>
+    <td style="<%=cmdstyleTop%>;border-Left: 1 solid #0000FF;" colspan=<%=jlhcolomdipilih%>>
+	    <div align="center"><span class="style1"> D E S C R I P T I O N </span>&nbsp;</div></td>
+    <td style="<%=cmdstyleTop%>" colspan="2"><div align="center">BULAN INI &nbsp;</div></td>
+    <td style="<%=cmdstyleTop%>" colspan="2"><div align="center">S/D BULAN INI &nbsp;</div></td>
+    <td style="<%=cmdstyleTop%>" rowspan="2"><div align="center">ANGGARAN<br/>TAHUNAN&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td style="<%=cmdstyle%>;border-Left: 1 solid #0000FF;" colspan=<%=jlhcolomdipilih%>><div align="center">&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center" class="style1">REALISASI&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center" class="style1">ANGGARAN&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><span class="style1">REALISASI</span>&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><span class="style1">ANGGARAN</span>&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td style="<%=cmdstyle%>;border-Left: 1 solid #0000FF;" colspan=<%=jlhcolomdipilih%>>
+	    <div align="Right"><span class="style1">L U A S    -   H A</span>&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><%=FormatNumber(CDBL(nHA),2)%></div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><%=FormatNumber(CDBL(nHA),2)%></div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><%=FormatNumber(CDBL(nHA),2)%></div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><%=FormatNumber(CDBL(nHA),2)%></div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><%=FormatNumber(CDBL(nHA),2)%></div></td>
+  </tr>
+  <tr>
+    <td style="<%=cmdstyle%>;border-Left: 1 solid #0000FF;" colspan=<%=jlhcolomdipilih%>>
+	     <div align="Right"><span class="style1">H A S I L     P R O D U K S I</span>&nbsp;</div></td>
+	<%if len(trim(nTM_KG_ACTUAL)) > 0 then%>
+         <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nTM_KG_ACTUAL)/1000,2)%></div></td>
+	<%else%>	 
+         <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	<%if len(trim(nTM_KG_BUDGET)) > 0 then%>
+         <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nTM_KG_BUDGET)/1000,2)%></div></td>
+	<%else%>	 
+         <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	<%if len(trim(nTY_KG_ACTUAL)) > 0 then%>
+         <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nTY_KG_ACTUAL)/1000,2)%></div></td>
+	<%else%>	 
+         <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	<%if len(trim(nTY_KG_BUDGET)) > 0 then%>
+         <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nTY_KG_BUDGET)/1000,2)%></div></td>
+	<%else%>	 
+         <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	<%if len(trim(nKG_ANNUAL)) > 0 then%>
+         <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nKG_Annual)/1000,2)%></div></td>
+	<%else%>	 
+         <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+  </tr>
+  <tr>
+  <%if len(trim(nHA)) > 0 then%>
+	<td style="<%=cmdstyle%>;border-Left: 1 solid #0000FF;" colspan=<%=jlhcolomdipilih%>><div align="Right"><span class="style1">T O N   /   H A 
+	     </span>&nbsp;</div></td>
+	<%if len(trim(nTM_KG_ACTUAL)) > 0 then%>
+	 <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nTM_KG_ACTUAL)/1000/CDBL(nHA),2)%></div></td>
+	<%else%>	 
+     <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	<%if len(trim(nTM_KG_BUDGET)) > 0 then%>
+	 <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nTM_KG_BUDGET)/1000/CDBL(nHA),2)%></div></td>
+	<%else%>	 
+     <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	<%if len(trim(nTY_KG_ACTUAL)) > 0 then%>
+	 <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nTY_KG_ACTUAL)/1000/CDBL(nHA),2)%></div></td>
+	<%else%>	 
+     <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	<%if len(trim(nTY_KG_BUDGET)) > 0 then%>
+	 <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nTY_KG_BUDGET)/1000/CDBL(nHA),2)%></div></td>
+	<%else%>	 
+     <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	<%if len(trim(nKG_ANNUAL)) > 0 then%>
+	 <td style="<%=cmdstyle%>"><div align="center"><%=FormatNumber(CDBL(nKG_ANNUAL)/1000/CDBL(nHA),2)%></div></td>
+	<%else%>	 
+     <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%End if%>
+	
+	<%else%>
+	 <td style="<%=cmdstyle%>;border-Left: 1 solid #0000FF;" colspan=<%=jlhcolomdipilih%>><div align="Right"><span class="style1">0</span>&nbsp;</div></td>
+	 <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	 <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	 <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	 <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	 <td style="<%=cmdstyle%>"><div align="center">0</div></td>
+	<%end if%>
+  </tr>
+  <tr>
+    <td style="<%=cmdstyle%>;border-Left: 1 solid #0000FF;" colspan=<%=jlhcolomdipilih%>><div align="Right">&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><span class="style1">Total</span>&nbsp;&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><span class="style1">Total</span>&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><span class="style1">Total</span>&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><span class="style1">Total</span>&nbsp;</div></td>
+    <td style="<%=cmdstyle%>" ><div align="center"><span class="style1">Total</span>&nbsp;</div></td>
+  </tr>

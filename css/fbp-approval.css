@@ -1,0 +1,110 @@
+/* =====================================================================
+   fbp-approval.css - halaman persetujuan dokumen (PurchaseRequestAuthorization.Asp,
+   PurchaseOrderAuthorization.Asp). Aktif di <body class="... page-approval">,
+   dipakai bersama css/fbp-forms.css (page-legacy) dan css/fbp-table.css.
+   Tampilan saja: nama field, tombol submit, dan alur approve/reject tetap.
+   ===================================================================== */
+
+body.page-approval .pra-head { margin: 2px 0 16px; }
+body.page-approval .pra-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--brand); }
+body.page-approval .pra-head h2 { margin: 2px 0 0; font-size: 22px; font-weight: 700; color: var(--ink); }
+body.page-approval .pra-head p { max-width: 860px; margin: 6px 0 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
+
+/* Kartu tabel */
+body.page-approval .pra-card {
+	padding: 16px 18px 12px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	overflow-x: auto;
+}
+body.page-approval .pra-card > table.pra-table {
+	width: 100% !important;
+	margin: 0 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+body.page-approval table.pra-table thead tr:not(.fbt-toolbar-row) > td {
+	padding: 10px 12px !important;
+	font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase;
+	white-space: nowrap;
+	color: #fff !important;
+	background: var(--brand) !important;
+	opacity: 1 !important;
+}
+body.page-approval table.pra-table thead tr:not(.fbt-toolbar-row) > td:first-child { border-radius: 10px 0 0 0; }
+body.page-approval table.pra-table thead tr:not(.fbt-toolbar-row) > td:last-child { border-radius: 0 10px 0 0; }
+body.page-approval table.pra-table tbody td {
+	padding: 10px 12px !important;
+	vertical-align: middle !important;
+	border-bottom: 1px solid #eef2f1;
+}
+body.page-approval table.pra-table tbody tr:nth-child(even) > td { background: #fbfcfc; }
+body.page-approval table.pra-table tbody tr:hover > td { background: #f3f8f6; }
+body.page-approval table.pra-table tbody tr.pra-checked > td { background: var(--brand-tint) !important; }
+body.page-approval table.pra-table tbody tr.pra-checked > td:first-child { box-shadow: inset 3px 0 0 var(--brand); }
+body.page-approval table.pra-table tbody td:first-child { color: var(--muted); }
+body.page-approval table.pra-table tbody td a {
+	font-weight: 700;
+	color: var(--brand);
+	text-decoration: none;
+	white-space: nowrap;
+}
+body.page-approval table.pra-table tbody td a:hover { text-decoration: underline; }
+body.page-approval table.pra-table tbody td a[target="_blank"]::after {
+	content: "\f08e";
+	margin-left: 6px;
+	font-family: FontAwesome; font-size: 11px; font-weight: normal;
+	opacity: .6;
+}
+body.page-approval table.pra-table input[type="checkbox"] {
+	width: 18px; height: 18px;
+	margin: 0;
+	accent-color: var(--brand);
+	cursor: pointer;
+	vertical-align: middle;
+}
+body.page-approval table.pra-table td.pra-empty { padding: 32px 12px !important; text-align: center !important; color: var(--muted); font-style: italic; }
+
+/* Bilah aksi: jumlah terpilih + Approve / Reject (menempel di bawah saat scroll) */
+body.page-approval .pra-actions {
+	position: sticky; bottom: 0;
+	z-index: 3;
+	display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+	margin-top: 14px;
+	padding: 12px 16px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	box-shadow: 0 -6px 18px rgba(23, 38, 42, .06);
+}
+body.page-approval .pra-selected { margin-right: auto; font-size: 13px; color: var(--muted); }
+body.page-approval .pra-selected b { color: var(--ink); font-size: 15px; }
+body.page-approval .pra-actions button.button {
+	display: inline-flex; align-items: center; gap: 8px;
+	height: 40px;
+	padding: 0 20px !important;
+	font: inherit !important; font-size: 14px !important; font-weight: 600 !important;
+	text-shadow: none !important;
+	color: #fff !important;
+	background: var(--brand) !important;
+	background-image: none !important;
+	border: 1px solid var(--brand) !important;
+	border-radius: 8px !important;
+	box-shadow: none !important;
+	cursor: pointer;
+}
+body.page-approval .pra-actions button.button:hover:not(:disabled) { background: var(--brand-dark) !important; border-color: var(--brand-dark) !important; }
+body.page-approval .pra-actions button.button.danger { background: #c0392b !important; border-color: #c0392b !important; }
+body.page-approval .pra-actions button.button.danger:hover:not(:disabled) { background: #a5301f !important; border-color: #a5301f !important; }
+body.page-approval .pra-actions button.button:disabled {
+	color: #93a3a0 !important;
+	background: #eef2f1 !important;
+	border-color: #e1e7e5 !important;
+	cursor: not-allowed;
+}
+body.page-approval .pra-actions button.button:focus-visible { outline: 3px solid rgba(27, 120, 99, .35); outline-offset: 2px; }
+
+/* Nilai uang (PO: grandtotal) */
+body.page-approval table.pra-table tbody td[title="GRANDTOTAL" i] { text-align: right; white-space: nowrap; font-weight: 700; font-variant-numeric: tabular-nums; }

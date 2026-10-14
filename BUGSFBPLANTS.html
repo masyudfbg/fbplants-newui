@@ -1,0 +1,1890 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bug FB-Plants</title>
+<style>
+	:root {
+		--bg: #f3f6f5; --card: #ffffff; --ink: #17262a; --muted: #5d6d69; --line: #e1e7e5; --brand: #1B7863; --tint: #e8f3f0;
+		--crit: #b42318; --crit-bg: #fdecec; --high: #b54708; --high-bg: #fef0e6; --med: #8a5a00; --med-bg: #fff4d6; --low: #344054; --low-bg: #eef1f4;
+		--ok: #146c2e; --ok-bg: #e6f4ea; --mit: #1d4f91; --mit-bg: #e8f0fb; --open: #5d6d69; --open-bg: #f1f4f3;
+	}
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme="light"]) {
+			--bg: #101615; --card: #18201f; --ink: #e9efed; --muted: #a3b2ae; --line: #2a3533; --brand: #4fbf9f; --tint: #1d2d29;
+			--crit: #ff8a80; --crit-bg: #3a1d1b; --high: #ffb27a; --high-bg: #3a2616; --med: #f5c869; --med-bg: #33290f; --low: #c5ccd6; --low-bg: #252c33;
+			--ok: #7bd69a; --ok-bg: #16301f; --mit: #93b8f0; --mit-bg: #182638; --open: #a3b2ae; --open-bg: #232c2a;
+		}
+	}
+	* { box-sizing: border-box; }
+	body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+	.wrap { max-width: 1120px; margin: 0 auto; padding: 32px 16px 64px; }
+	header h1 { margin: 0; font-size: 26px; }
+	header p { margin: 6px 0 0; color: var(--muted); max-width: 760px; }
+	.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 24px 0; }
+	.stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+	.stat b { display: block; font-size: 26px; line-height: 1.2; }
+	.stat span { font-size: 12px; color: var(--muted); }
+	.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+	.filters button {
+		font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+		background: var(--card); color: var(--ink); border: 1px solid var(--line);
+	}
+	.filters button[aria-pressed="true"] { background: var(--brand); color: #fff; border-color: var(--brand); }
+	section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 18px; overflow: hidden; }
+	section > h2 { margin: 0; padding: 14px 18px; font-size: 16px; border-bottom: 1px solid var(--line); }
+	section > h2 small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+	.bug { display: grid; grid-template-columns: 92px 1fr 150px; gap: 14px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+	.bug:last-child { border-bottom: 0; }
+	.bug h3 { margin: 0 0 4px; font-size: 14px; }
+	.bug p { margin: 0 0 4px; color: var(--muted); }
+	.bug .fix { color: var(--ink); }
+	.bug code { font: 12px ui-monospace, Consolas, monospace; background: var(--tint); padding: 1px 5px; border-radius: 4px; color: var(--ink); }
+	.loc { font: 12px ui-monospace, Consolas, monospace; color: var(--muted); word-break: break-all; }
+	.badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+	.badge::before { font-size: 11px; }
+	.sev-crit { color: var(--crit); background: var(--crit-bg); } .sev-crit::before { content: "\25B2"; }
+	.sev-high { color: var(--high); background: var(--high-bg); } .sev-high::before { content: "\25B2"; }
+	.sev-med  { color: var(--med);  background: var(--med-bg); }  .sev-med::before  { content: "\25CF"; }
+	.sev-low  { color: var(--low);  background: var(--low-bg); }  .sev-low::before  { content: "\25BC"; }
+	.st-ok   { color: var(--ok);   background: var(--ok-bg); }   .st-ok::before   { content: "\2713"; }
+	.st-mit  { color: var(--mit);  background: var(--mit-bg); }  .st-mit::before  { content: "\25D0"; }
+	.st-open { color: var(--open); background: var(--open-bg); } .st-open::before { content: "\25CB"; }
+	.status { text-align: right; }
+	.modsum { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 14px; margin-bottom: 20px; }
+	.modsum h2 { margin: 0; font-size: 16px; }
+	.modsum-lead { margin: 4px 0 12px; color: var(--muted); }
+	.modsum-lead b { color: var(--ink); }
+	.modsum-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
+	.modsum-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 3px; vertical-align: -1px; }
+	.k-crit { background: var(--crit); } .k-high { background: var(--high); } .k-med { background: var(--med); } .k-low { background: var(--low); opacity: .55; }
+	.modsum-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+	.modsum-table th { padding: 8px 10px; font-size: 11px; font-weight: 600; letter-spacing: .3px; text-transform: uppercase; text-align: left; color: var(--muted); border-bottom: 1px solid var(--line); }
+	.modsum-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+	.modsum-table tbody tr:last-child td { border-bottom: 0; }
+	.modsum-table .n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+	.modsum-table td.rank { width: 28px; color: var(--muted); }
+	.modsum-table td.mod { font-weight: 600; }
+	.modsum-table tr.top td.mod::after { content: "terbanyak"; margin-left: 8px; padding: 1px 8px; font-size: 11px; font-weight: 600; color: var(--crit); background: var(--crit-bg); border-radius: 999px; }
+	.modsum-table td.total { font-size: 15px; font-weight: 700; }
+	.bar-col { width: 38%; }
+	.sbar { display: flex; height: 14px; gap: 2px; }
+	.sbar span { display: block; height: 100%; min-width: 3px; border-radius: 3px; }
+	.modsum-note { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+	@media (max-width: 720px) { .modsum-table th.bar-col, .modsum-table td.bar { display: none; } }
+	.note { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--brand); border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; }
+	.note ul { margin: 6px 0 0; padding-left: 18px; }
+	.hidden { display: none; }
+	@media (max-width: 720px) {
+		.bug { grid-template-columns: 1fr; gap: 6px; }
+		.status { text-align: left; }
+	}
+	@media print { .filters { display: none; } body { background: #fff; } section { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+	<header>
+		<h1>Daftar Bug FB-Plants</h1>
+		<p>Bug yang ditemukan di file yang diubah selama perbaikan tampilan: login, dashboard, administrasi &amp; master data, Finance &amp; Accounting, input BKM, Fixed Asset, Procurement &amp; Stores (PR, PO, persetujuan, Delivery Order, Receive Note, Issue, Write Off, Transport Task, Stock Return), Sales, Payroll, dan Vehicle. Dikelompokkan per area, dari yang paling berat. Ringkasan per modul ada di bawah. Diperbarui 7 Oktober 2026.</p>
+	</header>
+
+	<div class="stats" id="stats"></div>
+
+	<div class="modsum" id="modsum" aria-labelledby="modsum-title">
+		<h2 id="modsum-title">Bug per modul</h2>
+		<p class="modsum-lead" id="modsum-lead"></p>
+		<div class="modsum-legend" aria-hidden="true">
+			<span><i class="k-crit"></i>Kritis</span><span><i class="k-high"></i>Tinggi</span><span><i class="k-med"></i>Sedang</span><span><i class="k-low"></i>Rendah</span>
+		</div>
+		<table class="modsum-table">
+			<thead><tr><th scope="col">#</th><th scope="col">Modul</th><th scope="col" class="n">Total</th><th scope="col" class="bar-col">Tingkat keparahan</th><th scope="col" class="n">Kritis + Tinggi</th><th scope="col" class="n">Belum diperbaiki</th></tr></thead>
+			<tbody id="modsum-body"></tbody>
+		</table>
+		<p class="modsum-note">Dihitung otomatis dari daftar di bawah. Satu modul bisa mencakup beberapa bagian, misalnya Procurement &amp; Stores mencakup Pencarian Stock, PR/PO, Persetujuan, Delivery Order, Service PO, dan transaksi Stores. Bagian "Catatan teknis" tidak dihitung.</p>
+	</div>
+
+	<div class="note">
+		<b>Cara membaca status</b>
+		<ul>
+			<li><span class="badge st-ok">Sudah diperbaiki</span> sudah diubah di kode. Tetap perlu dites di server dev.</li>
+			<li><span class="badge st-mit">Dimitigasi</span> dampaknya dikurangi lewat tampilan, tapi akar masalahnya belum diperbaiki.</li>
+			<li><span class="badge st-open">Belum diperbaiki</span> sengaja tidak diubah karena perbaikan tampilan tidak boleh mengubah fungsi. Perlu keputusan/perbaikan terpisah.</li>
+		</ul>
+		<p style="margin:8px 0 0;color:var(--muted)">Semua perubahan tampilan diperiksa lewat pratinjau statis di browser dengan data contoh, belum di server IIS + Oracle.</p>
+	</div>
+
+	<div class="filters" role="group" aria-label="Filter status">
+		<button type="button" data-filter="all" aria-pressed="true">Semua</button>
+		<button type="button" data-filter="st-open" aria-pressed="false">Belum diperbaiki</button>
+		<button type="button" data-filter="st-mit" aria-pressed="false">Dimitigasi</button>
+		<button type="button" data-filter="st-ok" aria-pressed="false">Sudah diperbaiki</button>
+		<button type="button" data-filter="sev-crit" aria-pressed="false">Hanya kritis</button>
+	</div>
+
+	<!-- ===================================================== LOGIN -->
+	<section data-module="Login &amp; Keamanan">
+		<h2>Halaman Login<small>logout.asp, getlistfcbaajax.asp, conndB1.inc</small></h2>
+
+		<div class="bug" data-sev="sev-crit" data-st="st-ok">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>Login bisa ditembus tanpa password (SQL injection)</h3>
+				<p>Username disambung langsung ke query. Mengisi username <code>admin' --</code> dengan password apa saja membuat pengecekan password menjadi komentar.</p>
+				<p class="fix">Diperbaiki: semua query login memakai <code>ADODB.Command</code> berparameter lewat <code>include/db_param.asp</code> (DbQuery/DbExec): cek username/password, cek akses BA (pilihan BA dari form juga dulu bisa disuntik), UPDATE BA default, data BusinessUnit, dan log login. Halaman login lama <code>admin.asp</code>/<code>admin123.asp</code> ikut diperbaiki. Sekaligus: user tanpa akses ke BA yang dipilih tidak lagi mendapat sesi login. Diuji di server lokal: <code>admin' --</code> dan <code>SEM_01' --</code> dengan password sembarang ditolak; login valid tetap berhasil.</p>
+				<div class="loc">logout.asp:380-550, admin.asp:73-84, admin123.asp:73-84, include/db_param.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-crit" data-st="st-ok">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>Parameter business unit masuk mentah ke query UPDATE</h3>
+				<p>Nilai <code>businessunit</code> dari form dipakai di dua query <code>UPDATE user_fcba_tab</code>, jadi bisa dipakai untuk mengubah data.</p>
+				<p class="fix">Diperbaiki bersama perbaikan SQL injection login: kedua UPDATE <code>user_fcba_tab</code> memakai parameter (<code>DbExec</code>), dan UPDATE kedua tidak lagi memakai nilai <code>businessunit</code> dari form, melainkan kode BA yang sudah dicek ada di <code>user_fcba_tab</code> milik user. Keduanya hanya berjalan bila cek akses BA lolos.</p>
+				<div class="loc">logout.asp:398-416</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-crit" data-st="st-ok">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>Hampir semua halaman bisa dibuka tanpa login</h3>
+				<p>Redirect di <code>ValidateSession</code> di-comment, jadi fungsi itu tidak melakukan apa-apa. Hanya sekitar 5 dari 2.059 halaman yang mengecek session sendiri.</p>
+				<p class="fix">Diperbaiki: <code>ValidateSession</code> kembali mengalihkan ke halaman login (permintaan AJAX/JSON dijawab 401 JSON; aman juga untuk halaman dengan <code>Response.Buffer = False</code>). Karena ~1.000 halaman (termasuk 209 endpoint di <code>ajax/</code> dan <code>bkm_viewdata.asp</code>) tidak memanggil ValidateSession sama sekali, <code>conndB1.inc</code> kini menjalankan pengecekan login otomatis di setiap halaman yang memuatnya. Pengecualian hanya untuk halaman yang memang dibuka sebelum login atau oleh sistem: logout.asp (form login), getlistfcbaajax.asp (daftar BA di form login), login.asp, email/send_po_outbox.asp (key), ba_switch.asp (401 sendiri), dan printingpo.asp. Link PO di email supplier kini memakai token HMAC-SHA256 (<code>email/po_link_token.inc</code>), sehingga supplier tetap bisa membuka PO-nya tanpa login tetapi PO lain tidak bisa ditebak; link email lama tanpa token akan meminta login. Diuji: 57 dari 60 halaman acak dialihkan ke login (3 sisanya memang rusak, lihat entri include REPORT), halaman utama tetap normal saat login.</p>
+				<div class="loc">conndB1.inc (ValidateSession, FbpAuthIsPublicPage), printingpo.asp, email/po_link_token.inc, email/po_mail_sender.inc</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-crit" data-st="st-open">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>Password database (DEV &amp; PROD) tersimpan di riwayat git</h3>
+				<p><code>conndB1.inc</code> sudah dihapus dan di-ignore, tetapi 4 commit sebelumnya masih berisi kredensial dan sudah ter-push ke GitHub.</p>
+				<p class="fix">Saran: ganti password user Oracle. Menghapus file tidak menghapus riwayatnya.</p>
+				<div class="loc">git history sebelum commit 798fc39</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-high" data-st="st-mit">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Password asli disimpan di cookie selama 365 hari</h3>
+				<p>Bila <code>persistent=y</code>, password disimpan apa adanya di cookie tanpa <code>HttpOnly</code>/<code>Secure</code>. Sekarang password dari cookie tidak lagi dicetak ke HTML form, tetapi kode penyimpanan cookie-nya masih ada.</p>
+				<div class="loc">logout.asp:542</div>
+			</div>
+			<div class="status"><span class="badge st-mit">Dimitigasi</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Password user di-hash dengan MD5 tanpa salt</h3>
+				<p>Bila tabel <code>users_tab</code> bocor, hash MD5 mudah dibongkar.</p>
+				<div class="loc">logout.asp:384</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Endpoint daftar BU rentan SQL injection dan bisa diakses tanpa login</h3>
+				<p>Parameter <code>fccompanycode</code> disambung mentah. Charset-nya juga <code>euc-kr</code> (sisa copy-paste) dan query dijalankan dua kali.</p>
+				<div class="loc">getlistfcbaajax.asp:29</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Session setengah login saat akses BU ditolak</h3>
+				<p><code>Session("USERNAME")</code> sudah terisi sebelum akses BU dicek, dan <code>isdefault</code> semua BU user di-set FALSE walaupun aksesnya ditolak.</p>
+				<div class="loc">logout.asp (blok setelah query users_tab)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Tidak ada batas percobaan login dan login gagal tidak dicatat</h3>
+				<p>Tebak-tebakan password (brute force) bisa dilakukan tanpa hambatan.</p>
+				<div class="loc">logout.asp</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Password salah tidak memunculkan pesan; nama BU di pesan error tidak di-encode (XSS); sisa debug "PJG"</h3>
+				<p>Sekarang ada pesan "Incorrect username or password", nama BU di-encode dengan <code>Server.HTMLEncode</code>, dan output debug dihapus.</p>
+				<div class="loc">logout.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== CONTRACTOR INVOICE -->
+	<section data-module="Finance &amp; Accounting">
+		<h2>Laporan Contractor Invoice<small>p_contractorinvoice.asp</small></h2>
+
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Total PPn dan PPh terhitung ganda</h3>
+				<p>Nilai pajak header ikut terulang di setiap baris jobcode, jadi totalnya membengkak. Sekarang dijumlah sekali per invoice.</p>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Filter agreement tertimpa parameter contractno</h3>
+				<p><code>agreementcode</code> langsung ditimpa <code>Request("contractno")</code>. Sekarang membaca <code>contractno</code>, lalu <code>agreementcode</code> bila kosong.</p>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>SQL injection dan XSS di semua parameter filter</h3>
+				<p>Sekarang semua parameter di-escape (<code>SqlStr</code>), tanggal divalidasi, dan output di-encode (<code>H</code>). Belum memakai query berparameter.</p>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Invoice hilang dari laporan bila control job tidak ada di JOBMASTER</h3>
+				<p>INNER JOIN diganti LEFT JOIN, dan fungsi <code>get_controljob</code> sekarang dipanggil sekali per header.</p>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Filter tanggal: transaksi hari terakhir terbuang, kolom ambigu, format tanggal ikut locale server</h3>
+				<p>Sekarang memakai <code>cih.transdate &lt; tanggal + 1</code> dan tanggal diparse manual dari MM/DD/YYYY.</p>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Baris total bergeser satu kolom, "No Data" kurang lebar, error saat ada nilai NULL</h3>
+				<p>Footer 22 kolom dengan <code>colspan="10"</code>, "No Data" <code>colspan='22'</code>, dan semua penjumlahan memakai <code>to_nol</code>.</p>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-mit">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Kolom Rate tidak bermakna bila satu jobcode punya beberapa rate</h3>
+				<p>Sebelumnya <code>SUM(rate)</code>, sekarang <code>MAX(rate)</code>. Kalau rate per jobcode bisa berbeda, perlu diputuskan apakah lebih tepat memakai rate rata-rata (amount &divide; total final).</p>
+			</div>
+			<div class="status"><span class="badge st-mit">Dimitigasi</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== DASHBOARD -->
+	<section data-module="Dashboard">
+		<h2>Dashboard<small>login.asp, dashboard_acct_closing.asp, slideMonitoringDataInput.asp, bottom.jsp</small></h2>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Kartu ringkasan menampilkan angka periode sebelumnya bila periode baru tidak punya data</h3>
+				<p>Kartu Summary, Tepat Waktu, Telat, Teratas, dan Terendah hanya diperbarui bila ada data. Saat ganti bulan ke periode kosong, tabel dikosongkan tetapi kartu masih memakai angka lama.</p>
+				<div class="loc">dashboard_acct_closing.asp:542</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Definisi "Tepat Waktu" tidak sama antara kartu dan tabel</h3>
+				<p>Kartu menghitung PT dengan skor &gt; 90, sedangkan label status di tabel hanya "Tepat Waktu" bila skor = 100. Perlu keputusan bisnis mana yang benar.</p>
+				<div class="loc">dashboard_acct_closing.asp:563 vs :403</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Dua versi jQuery dimuat di halaman yang sama</h3>
+				<p>jQuery 3.7.1 (CDN) dimuat oleh widget closing, lalu ditimpa jQuery 1.9.1 oleh widget monitoring. Plugin yang menempel ke versi pertama (DataTables) ikut hilang dari <code>$</code>.</p>
+				<div class="loc">dashboard_acct_closing.asp:3, slideMonitoringDataInput.asp:85</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Chart.js dimuat dari CDN tanpa versi, dan dimuat dua kali</h3>
+				<p><code>cdn.jsdelivr.net/npm/chart.js</code> selalu mengambil versi terbaru, jadi dashboard bisa rusak tanpa ada perubahan kode. Plugin matrix juga dimuat dua kali.</p>
+				<div class="loc">dashboard_acct_closing.asp:8, :385</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Tidak ada penanganan error dan data tidak di-escape</h3>
+				<p>Bila endpoint gagal atau mengembalikan bukan-JSON, widget kosong tanpa pesan. Data dari server disisipkan langsung sebagai HTML.</p>
+				<div class="loc">dashboard_acct_closing.asp, slideMonitoringDataInput.asp</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Pilihan tahun dan daftar user khusus di-hard-code</h3>
+				<p>Tahun hanya 2024&ndash;2030. Daftar user yang melihat data semua BU ditulis langsung di kode.</p>
+				<div class="loc">dashboard_acct_closing.asp (filter Tahun, blok userlogins1)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Footer menampilkan "&Acirc;&copy;2022"</h3>
+				<p><code>bottom.jsp</code> disimpan sebagai UTF-8, sedangkan halaman memakai charset iso-8859-1. Terjadi di semua halaman yang memakai footer ini. Simbol &copy; kini ditulis sebagai entitas HTML <code>&amp;copy;</code>, jadi tampil benar apa pun charset halamannya.</p>
+				<div class="loc">bottom.jsp:13</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>txtFunction.inc di-include dua kali</h3>
+				<p>Sudah di-include oleh <code>login.asp</code>, lalu di-include lagi oleh widget monitoring.</p>
+				<div class="loc">slideMonitoringDataInput.asp:1</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>CSS widget monitoring mengubah padding semua tabel; monitoring kosong tanpa pesan</h3>
+				<p>Selector <code>.table1, td</code> berlaku ke semua <code>td</code> di halaman. Sekarang di-scope ke widget, dan ada pesan "Data Tidak Ada".</p>
+				<div class="loc">slideMonitoringDataInput.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== SEARCH STOCK -->
+	<section data-module="Procurement &amp; Stores">
+		<h2>Pencarian Stock<small>show.asp (semua modul) dan Pencarian Stock &mdash; show.asp, Select_Form_Show.asp, bkm_viewdata.asp</small></h2>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Tombol View Data tidak bereaksi saat Sub Group (mode Stock) kosong</h3>
+				<p><code>$("#src_subgroupmam").val().trim()</code> dipanggil sebelum cek null. Setelah Unit diganti, Sub Group menjadi select2 tanpa pilihan, <code>val()</code> mengembalikan null, lalu muncul TypeError.</p>
+				<p class="fix">Saran: <code>var psubgroup = ($("#src_subgroupmam").val() || '').trim();</code></p>
+				<div class="loc">Select_Form_Show.asp:14691</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Menekan Enter di kolom Stock membuka tab baru yang error</h3>
+				<p>Field berada di dalam form <code>frmEntry</code> dengan action <code>p_search_stock.asp</code> (target _blank). File itu tidak ada, jadi hasilnya 404.</p>
+				<p class="fix">Saran: tangkap Enter di <code>#src_stock</code> lalu panggil <code>tampilData()</code>.</p>
+				<div class="loc">show.asp (form action generik p_&lt;txtTable&gt;.asp)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>SQL injection di query pencarian stock</h3>
+				<p>Parameter group, sub group, stock, dan fcba disambung mentah. Mengetik tanda kutip (<code>'</code>) di kolom Stock membuat query error.</p>
+				<div class="loc">bkm_viewdata.asp:2709 (idview=32)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Teks pencarian tidak di-encode di URL</h3>
+				<p>Karakter <code>&amp;</code>, <code>#</code>, <code>%</code>, atau <code>+</code> di kolom Stock memutus atau mengubah parameter, sehingga hasilnya salah.</p>
+				<p class="fix">Saran: bungkus setiap nilai dengan <code>encodeURIComponent()</code>.</p>
+				<div class="loc">Select_Form_Show.asp:14708</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Daftar Sub Group tidak sinkron dengan Source/Unit</h3>
+				<p>Sub Group hanya difilter per unit saat dropdown Unit diganti. Memilih Stock lalu langsung memakai unit default tetap memakai daftar global, dan kembali ke BankStock tetap memakai daftar unit.</p>
+				<div class="loc">Select_Form_Show.asp:14662 (ShowSubGroup), :14518</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Unit default tidak mengikuti BA yang sedang login</h3>
+				<p>Pilihan unit dicocokkan dengan variabel <code>fcba</code>, padahal yang diisi di awal file adalah <code>businessunit</code>. Akibatnya selalu unit pertama yang terpilih.</p>
+				<div class="loc">Select_Form_Show.asp:2 dan blok select businessunitstk</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Hasil tanpa batas jumlah; jumldata tidak di-reset; data tidak di-escape</h3>
+				<p>Memilih Group saja bisa mengembalikan ribuan baris. <code>#jumldata</code> tetap memakai nilai lama bila hasil 0. Nama stock disisipkan langsung sebagai HTML.</p>
+				<div class="loc">Select_Form_Show.asp (tampilData), bkm_viewdata.asp idview=32</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Error JavaScript di setiap halaman modul</h3>
+				<p><code>xAddEventListener</code> dipanggil tetapi <code>x.js</code> tidak dimuat, sehingga muncul "xAddEventListener is not defined". <code>txtModule</code>/<code>txtTable</code> juga dicetak tanpa encode di breadcrumb (XSS dari URL).</p>
+				<div class="loc">show.asp:21, show.asp:186</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>show.asp tanpa DOCTYPE dan blok form memasang CSS global sendiri</h3>
+				<p>Tanpa <code>&lt;!DOCTYPE html&gt;</code> browser merender semua halaman modul dalam <i>quirks mode</i> (ukuran font tabel dan box model berbeda). Sekitar 40 blok di Select_Form_Show.asp juga menulis aturan untuk <code>body</code>, <code>table</code>, <code>td</code>, dan <code>th</code> secara global, misalnya <code>mutasistockharian</code> dan <code>p_hppreport_daily</code>. Tampilan baru (<code>css/fbp-forms.css</code>) sudah lebih spesifik, tetapi beberapa halaman itu bisa tetap terlihat sedikit berbeda.</p>
+				<div class="loc">show.asp:5, Select_Form_Show.asp (blok dengan &lt;style&gt; sendiri)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-mit">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Indikator loading macet bila pencarian gagal</h3>
+				<p>Kode lama tidak menangani error request. Sekarang handler tampilan (<code>ajaxError</code>) menyembunyikan loading dan menampilkan "Gagal memuat data". Error <code>JSON.parse</code> di dalam callback belum tertangani.</p>
+				<div class="loc">Select_Form_Show.asp (blok search_stock)</div>
+			</div>
+			<div class="status"><span class="badge st-mit">Dimitigasi</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Struktur tabel hasil tidak valid dan id "bodytable" ganda</h3>
+				<p><code>&lt;tbody&gt;</code> berada di dalam <code>&lt;tr&gt;</code> dan ada dua elemen ber-id <code>bodytable</code>. Sekarang hanya satu <code>tbody#bodytable</code> dengan <code>thead</code> yang benar.</p>
+				<div class="loc">Select_Form_Show.asp (blok search_stock)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+	<!-- ===================================================== ADMIN USER & MASTER -->
+	<section data-module="Administrasi &amp; Master Data">
+		<h2>Administrasi User &amp; Master Data<small>TableMaster.Asp, TableStatistik.asp, UsersRoles.Asp, UsersCompany.asp, UsersBusinessUnit.asp, UsersChanged.asp, UsersChangedBusinessUnit.asp, UsersChangedPassword.asp, RolesMenu.Asp, authorizetemplate.asp, authorizelevel.asp, authorizestructure.asp, document_classification.asp</small></h2>
+
+		<div class="bug" data-sev="sev-crit" data-st="st-open">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>Halaman pengaturan hak akses tidak mengecek hak akses di server</h3>
+				<p>Halaman seperti UsersRoles, RolesMenu, UsersBusinessUnit, dan UsersCompany hanya "disembunyikan" lewat menu. Tidak ada pengecekan role di halaman itu sendiri, dan <code>ValidateSession</code> juga mati. Siapa pun yang tahu URL-nya bisa memberi role atau akses BU ke user mana pun.</p>
+				<p class="fix">Saran: cek <code>USER_ROLES_API.GetAccessUsers</code> (dan session) di awal setiap halaman, lalu redirect bila tidak berhak.</p>
+				<div class="loc">UsersRoles.Asp, RolesMenu.Asp, UsersBusinessUnit.asp, UsersCompany.asp, UsersChanged*.asp</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>SQL injection di query insert, update, delete, dan pencarian</h3>
+				<p>Nilai form disambung langsung ke SQL di semua halaman ini. Contoh: <code>UsersRoles.Asp</code> pada DELETE/INSERT/UPDATE <code>USER_ROLES_TAB</code> dan filter <code>LIKE '%" &amp; FCCODE &amp; "%'</code>. TableMaster.Asp sendiri berisi ratusan penyambungan serupa.</p>
+				<div class="loc">UsersRoles.Asp:78-128, :190 &middot; TableMaster.Asp &middot; TableStatistik.asp &middot; halaman Users* lainnya</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Hapus data lewat link GET (<code>txtJenis=Delete</code>)</h3>
+				<p>Penghapusan dipicu oleh link biasa yang hanya dilindungi <code>confirm()</code> JavaScript. Link seperti ini bisa terpicu dari halaman lain (CSRF) atau oleh prefetch browser.</p>
+				<div class="loc">TableMaster.Asp, TableStatistik.asp, UsersRoles.Asp, authorizetemplate.asp, document_classification.asp</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Ganti password: MD5, tanpa aturan kekuatan password</h3>
+				<p>Password baru disimpan sebagai MD5 tanpa salt, dan tidak ada syarat panjang atau kerumitan. Pengecekan password lama sudah memakai session user yang login.</p>
+				<div class="loc">UsersChangedPassword.asp</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Error JS xAddEventListener dan breadcrumb tanpa encode</h3>
+				<p>Sama dengan show.asp: <code>x.js</code> tidak dimuat, dan <code>txtModule</code>/<code>txtTable</code> dari URL dicetak apa adanya di baris "Module : ... / ...".</p>
+				<div class="loc">Semua 10 halaman di atas (bagian &lt;head&gt; dan div.judul)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Menu Laporan: link laporan tanpa tanda kutip dan query menyambung session</h3>
+				<p>Link ditulis <code>&lt;a href=&lt;%=menuLink%&gt;&gt;</code> tanpa tanda kutip. Kalau <code>formlink</code> di database berisi spasi atau karakter khusus, link akan terpotong. Query menu dan gambar dashboard juga menyambung <code>Session("CodeName")</code>/<code>fcBA</code> langsung ke SQL.</p>
+				<div class="loc">Report/Dashboard.asp:219, :13-14, :154-169</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Form filter laporan: error JS di setiap jenis form selain voucher</h3>
+				<p><code>getlistbank()</code> dipanggil saat halaman dimuat untuk semua <code>txtKind</code> (misalnya JobGroup). Fungsi ini membaca <code>#businessunit</code>, yang hanya ada di form voucher, jadi muncul TypeError di konsol. Selain itu <code>txtSearch</code>/<code>txtField</code> dicetak ke HTML tanpa encode (25 tempat), dan judul halaman diambil langsung dari <code>txtKind</code> di URL.</p>
+				<div class="loc">REPORT/d_DashFormShow.asp:117, :4053 (baris akhir), cabang JobGroup dan sejenisnya</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== FINANCE -->
+	<section data-module="Finance &amp; Accounting">
+		<h2>Finance &amp; Accounting (Voucher)<small>PaymentVoucherDetail.Asp (Payment &amp; Receive), KasBonVoucherDetail.Asp, JournalVoucherDetail.Asp, JournalReclass.asp, PaymentVoucherAuthorization.asp, p_AuthorizeTransactionPV.asp</small></h2>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Pembayaran invoice DP / Payment Request (jenis 4) tidak pernah tercatat</h3>
+				<p>Query MERGE tertulis <code>i.payment=i.paymentj.pay</code> (tanda <code>+</code> hilang). Oracle menolaknya, dan <code>ExecuteAndLog</code> menelan error, sehingga saat voucher di-Approve kolom payment di INVOICEDPHDR tidak pernah bertambah. Sekarang ditulis <code>i.payment+j.pay</code>, sama dengan jenis invoice lain.</p>
+				<div class="loc">PaymentVoucherDetail.Asp (Sub UpdateAmountPaymentInvoice, jenis 4)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Ubah baris detail Payment/Receive Voucher bisa menghapus baris</h3>
+				<p>Baris lama dihapus, lalu baris baru di-insert lewat <code>ExecuteAndLog</code> yang menelan error. Bila insert gagal, transaksi tetap di-commit dan baris hilang. Sekarang insert memakai <code>ExecuteChecked</code>; bila gagal, transaksi di-rollback dan pesan error ditampilkan.</p>
+				<div class="loc">PaymentVoucherDetail.Asp (Sub UpdateDataPaymentVoucherDetail)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Kas Bon: detail baru bisa menempel ke voucher milik orang lain</h3>
+				<p>Saat nomor dari controlnumber sudah terpakai, nomor disusun ulang dengan mengambil bagian ke-5 dari format <code>PREFIX/KASBON/YYMM/NNNN</code> yang hanya punya 4 bagian. Hasilnya selalu .../0001; header tidak dibuat dan detail masuk ke voucher 0001 yang sudah ada. Sekarang memakai bagian ke-4, sama dengan kode tampilan.</p>
+				<div class="loc">KasBonVoucherDetail.Asp:516-517</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Payment Voucher (Costbook): cost_activity tercatat walau detail ditolak</h3>
+				<p>Di jalur Costbook (New/Edit), baris <code>cost_activity</code> tetap disisipkan meskipun validasi detail gagal (misalnya Charge Unit/Job/Type/Code wajib diisi). Akibatnya biaya tercatat tanpa detail voucher. Sekarang hanya diproses bila detail berhasil disimpan.</p>
+				<div class="loc">PaymentVoucherDetail.Asp (txtJenis New &amp; Edit, cabang Costbook)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Hapus header voucher menjalankan ProsesClosing untuk BA yang salah</h3>
+				<p>Parameter kode BA diisi tanggal (<code>DATECREATED</code>), padahal jalur Posting mengisinya <code>fcba</code>. Sekarang memakai <code>fcba</code>.</p>
+				<div class="loc">PaymentVoucherDetail.Asp (txtJenis Header)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Halaman Payment Voucher error bila status closing kas bank bulan berjalan belum ada</h3>
+				<p><code>rsqLineMax("KASBANK_CLOSING")</code> dibaca tanpa cek EOF, jadi di awal bulan atau untuk BA baru halaman gagal dibuka. Sekarang dicek dulu.</p>
+				<div class="loc">PaymentVoucherDetail.Asp (sebelum form frmEntry)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>User dengan module_01: field teknis terbuka dan nomor voucher otomatis salah</h3>
+				<p>Field <code>transtype</code>/<code>banktype</code> tampil sebagai kotak teks yang bisa diubah, dan field <code>fcba</code> tidak ada sehingga <code>getNoVoucher()</code> mengirim BA kosong. Sekarang ketiganya hidden, sama dengan cabang user lain.</p>
+				<div class="loc">PaymentVoucherDetail.Asp (cabang module_01, Bank Code)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Journal Voucher: BA kosong bila URL tanpa parameter fcba</h3>
+				<p>Cabang fallback tertulis <code>fcba = fcba</code>. Sekarang memakai <code>session("fcba")</code> seperti halaman voucher lain.</p>
+				<div class="loc">JournalVoucherDetail.Asp:473</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Journal Voucher: baris bisa hilang atau gagal tersimpan tanpa pesan</h3>
+				<p>Ubah detail menghapus lalu insert tanpa transaksi lewat <code>ExecuteAndLog</code>. Insert baru yang gagal (misalnya Qty berkoma) tidak memunculkan pesan, dan detail tetap disimpan walau header gagal dibuat. Sekarang ubah memakai transaksi, error insert ditampilkan, dan detail hanya disimpan bila header berhasil.</p>
+				<div class="loc">JournalVoucherDetail.Asp (InsertData/UpdateData, txtJenis New)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Journal Reclass: jurnal bisa timpang atau hilang</h3>
+				<p>Pasangan baris debet/kredit disimpan (dan saat Edit dihapus lalu dibuat ulang) tanpa transaksi. Bila langkah kedua gagal, hanya satu sisi yang tersimpan atau keduanya hilang. Sekarang dibungkus satu transaksi.</p>
+				<div class="loc">JournalReclass.asp (txtJenis New &amp; Edit)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Otorisasi PV: Reject memanggil state machine dengan voucher/BA kosong</h3>
+				<p><code>PAYMENTVOUCHER_API.NextState</code> untuk Reject memakai variabel <code>fcba</code>/<code>vouchercode</code> yang tidak pernah diisi. Sekarang memakai nilai per baris, sama seperti Approve.</p>
+				<div class="loc">PaymentVoucherAuthorization.asp:846</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>SQL mentah dan teks debug tampil di halaman</h3>
+				<p>Query Kas Bon di Payment Voucher, teks "X|nomor" dan query penomoran di Kas Bon, serta tanda kutip nyasar setelah tabel detail PV ikut tampil ke user. Semuanya dihapus atau dinonaktifkan.</p>
+				<div class="loc">PaymentVoucherDetail.Asp, KasBonVoucherDetail.Asp:493, :526</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Pesan "Accounting Period / LOCKED" kosong; Kas Bon tanpa tag body</h3>
+				<p>Pesan periode terkunci dibuat sebelum variabel periode diisi, sehingga tampil "Accounting Period  /  LOCKED". Sekarang menyebut tanggal dan BA. Kas Bon juga tidak punya tag <code>&lt;body&gt;</code>, dan kini sudah ditambahkan.</p>
+				<div class="loc">PaymentVoucherDetail.Asp, KasBonVoucherDetail.Asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Laporan otorisasi PV: kolom bergeser, judul salah, filter rawan SQL injection</h3>
+				<p>Header 12 kolom untuk 11 data, judul tab "Purchase Request", tanpa pesan saat kosong, <code>&lt;body&gt;</code> ganda, dan parameter filter disambung mentah ke SQL. Kolom diselaraskan, judul diperbaiki, ditambah pesan kosong, dan parameter di-escape.</p>
+				<div class="loc">p_AuthorizeTransactionPV.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Update pembayaran invoice tidak konsisten antar-halaman</h3>
+				<p>Halaman Detail <b>menambahkan</b> (<code>payment = payment + j.pay</code>), sedangkan halaman Otorisasi <b>menimpa</b> (<code>payment = j.pay</code>). Approve yang terkirim ulang (refresh/back) bisa menghitung dua kali, Re-Planned tidak mengembalikan pembayaran, dan untuk sales invoice (jenis 8) Detail memakai <code>RECEIVEAMT = i.payment + j.pay</code> yang kemungkinan gagal karena kolomnya berbeda. Perlu keputusan aturan bisnis sebelum diubah.</p>
+				<div class="loc">PaymentVoucherDetail.Asp &amp; PaymentVoucherAuthorization.asp (UpdateAmountPaymentInvoice)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>SQL injection di semua halaman voucher</h3>
+				<p>Semua nilai form (kode voucher, job, lokasi, remarks, dan lainnya) disambung langsung ke SQL. Perbaikan menyeluruh butuh query berparameter.</p>
+				<div class="loc">PaymentVoucherDetail.Asp, KasBonVoucherDetail.Asp, JournalVoucherDetail.Asp, JournalReclass.asp, PaymentVoucherAuthorization.asp</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Validasi voucher dihitung lalu diabaikan</h3>
+				<p><code>validasi_voucher_api.check_data</code> dijalankan, tetapi hasilnya langsung ditimpa <code>check_data = "Success"</code>, sehingga validasi tidak pernah menolak data. Mungkin disengaja; perlu konfirmasi.</p>
+				<div class="loc">PaymentVoucherDetail.Asp (New/Edit), JournalVoucherDetail.Asp (New/Edit)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Kas Bon: Confirmed langsung menjadi Approved</h3>
+				<p>Tombol Confirmed mengubah status langsung ke Approved, sehingga tombol Start Authorize untuk status Confirmed tidak pernah muncul. Perlu konfirmasi apakah Kas Bon memang tanpa otorisasi.</p>
+				<div class="loc">KasBonVoucherDetail.Asp (txtJenis Confirmed)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Aksi status dan hapus lewat link GET; nomor baris MAX+1 tanpa penguncian</h3>
+				<p>Confirmed, Approved, Posting, dan Delete dijalankan lewat link biasa, sehingga bisa terulang saat refresh/back. Nomor baris dihitung <code>MAX(lineno)+1</code>, sehingga bisa bentrok bila dua user menyimpan bersamaan. Pengecekan closing harian memakai <code>Session("FCBA")</code> padahal transaksi bisa untuk BA lain dari URL.</p>
+				<div class="loc">Semua halaman voucher</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Inisialisasi JS Payment/Journal Voucher berhenti di tengah</h3>
+				<p><code>getselectedjobcode()</code> membaca <code>#jobcode</code> sebelum daftar job selesai dimuat lewat AJAX, sehingga baris Charge tidak disembunyikan seperti yang dimaksud kode. Sengaja tidak diubah karena justru dibutuhkan saat mengedit baris intraco.</p>
+				<div class="loc">PaymentVoucherDetail.Asp, JournalVoucherDetail.Asp (document.ready)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Slip gaji: filter disambung mentah ke SQL; tombol Print merusak halaman</h3>
+				<p>Gangcode, status, NIK, bulan, dan tahun disambung langsung ke query (bulan/tahun tanpa tanda kutip), sehingga rawan SQL injection dan error bila diisi bukan angka. Tombol Print memakai <code>printDiv()</code> yang mengganti seluruh <code>document.body.innerHTML</code> lalu mengembalikannya; setelah mencetak, isian filter kembali ke awal. Saat halaman pertama dibuka, query sengaja memakai <code>gangcode = 'TEST'</code> agar kosong (sekarang tampil sebagai petunjuk "pilih filter").</p>
+				<div class="loc">REPORT/p_slipgaji.asp (query oSQL, fungsi printDiv)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Data Karyawan (REPORT): error bila BA kosong, query dobel, filter Status Aktif salah bulan</h3>
+				<p><code>rsEmployee.Open</code> dijalankan lagi di luar blok <code>if v_txtfcba &lt;&gt; ""</code>, sehingga saat BA kosong SQL-nya kosong dan halaman error; saat BA terisi query yang sama dijalankan dua kali. Filter Status Aktif membaca tanggal <code>txtMonth/1/txtYear</code> dengan format <code>dd/mm/yyyy</code> (Oktober terbaca Januari). Penutup <code>&lt;/script</code> tidak lengkap, dan <code>getselecteddivisi()</code> membaca dropdown sebelum dimuat AJAX (TypeError). Semua sudah diperbaiki; judul kolom bertingkat dirapikan agar tabel bisa dicari/diurutkan.</p>
+				<div class="loc">REPORT/p_Master_Employee.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Print data master: judul kolom lebih sedikit dari isi; kop menempel di pojok layar</h3>
+				<p>PrintData.asp menulis daftar judul tetap per tabel (mis. 11 kolom untuk Contractor) tetapi mencetak semua kolom query (&plusmn;19), sehingga judul tidak selebar tabel. Kop memakai <code>position:fixed</code> sehingga tercetak dobel/menimpa. Judul kini dilengkapi otomatis dari nama kolom query dan kop memakai posisi normal.</p>
+				<div class="loc">PrintData.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Laporan Payment Voucher error 80020009 bila status closing kas/bank tidak ada</h3>
+				<p>Untuk setiap baris, halaman membaca <code>EMPALLDEDSTATUS.KASBANK_CLOSING</code> (per BA dari session, tahun, bulan) lalu langsung memakai <code>rsqLineMax("KASBANK_CLOSING")</code> tanpa cek EOF. Bila periode belum punya baris status (atau session BA kosong), laporan berhenti dengan error di tengah tabel. Query ini juga dijalankan ulang di setiap baris. Ditemukan saat menguji tabel ala DataTables; belum diubah.</p>
+				<div class="loc">p_PaymentVoucherDetail.asp:276-282</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== BKM -->
+	<section data-module="Operasional (BKM)">
+		<h2>Input BKM<small>bkm_*_input / _edit / _view / _replan_view, bkm_approval, bkm_replanned, bkm_jurnal*, mbkm_data_view, updatebkm (27 halaman)</small></h2>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Upload BKM mobile mencetak teks debug di atas halaman</h3>
+				<p>Setiap baris yang di-upload mencetak teks seperti <code>Y-0-1M0012...</code> sebelum tag &lt;html&gt;. Baris debug dinonaktifkan.</p>
+				<div class="loc">mbkm_data_view.asp:36</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Halaman BKM: filter dan data disambung mentah ke SQL; tampilan baru belum diaudit menyeluruh</h3>
+				<p>Halaman input/edit BKM membangun query dari nilai Request dan session tanpa escape. Perubahan tampilan ini hanya menyentuh &lt;head&gt; dan &lt;body&gt;; logika simpan/edit BKM (sekitar 30 ribu baris) belum diaudit baris per baris, jadi bug logika lain mungkin masih ada.</p>
+				<div class="loc">27 halaman BKM</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Approve BKM Panen tidak pernah menjalankan jurnal D34</h3>
+				<p>Saat tombol Approve ditekan, halaman memanggil <code>bkmjournal_api.Update_bkm</code> lalu langsung <code>response.redirect</code>. Redirect menghentikan eksekusi, jadi <code>bkmjournal_api.Update_bkm_d34</code> di bawahnya (dan redirect kedua ke bkm_traksi_view.asp) tidak pernah dijalankan. Bila jurnal D34 memang diperlukan, redirect pertama harus dipindah ke setelah pemanggilan D34. Log kedua juga mencatat variabel <code>SQL</code>, bukan <code>SQL1</code>. Ditemukan saat memetakan stored procedure; belum diubah karena menyangkut alur jurnal.</p>
+				<div class="loc">bkm_panen_view.asp:163-170</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>View Jurnal BKM (idview=5) timeout &gt; 90 detik: JSON disusun sangat lambat</h3>
+				<p>Query Oracle hanya &plusmn;1 detik (4.699 baris), tetapi <code>include/JSON.asp</code> menyusun JSON dengan <code>output = output &amp; val</code> (waktu naik kuadratik), menyalin seluruh string di setiap nilai (<code>generateValue = output</code>), dan meng-escape setiap karakter satu per satu. Cabang idview=5 juga menjalankan query dua kali dan mem-parse JSON hasilnya dua kali lagi tanpa dipakai. Akibatnya ASP 0113 Script timed out. Sekarang JSON.asp memakai buffer array + jalur cepat escape (output dibuktikan identik dengan versi lama), dan pemrosesan tak terpakai di idview=5 dibuang: 4,6 detik. Cabang idview lain (&plusmn;40) masih punya pola query dobel + parse tak terpakai yang sama.</p>
+				<div class="loc">include/JSON.asp (dipakai &plusmn;73 halaman), bkm_viewdata.asp idview=5</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Daftar BKM: &lt;tbody&gt; berada di dalam &lt;tr&gt;, angka diurutkan sebagai teks</h3>
+				<p>Tabel hasil View Data menaruh <code>&lt;tbody id="bodytable"&gt;</code> di dalam <code>&lt;tr id="tru"&gt;</code> (HTML tidak valid) dan baris total ikut di badan tabel. Header kini di <code>&lt;thead&gt;</code>, total di <code>&lt;tfoot&gt;</code>. Tabel mendapat cari, jumlah baris per halaman, urut kolom (angka bertitik ribuan dan tanggal dd/mm/yyyy diurutkan benar), dan total ikut hasil pencarian. <code>tampilData()</code> tidak diubah.</p>
+				<div class="loc">Select_Form_Show.asp (txtTable=bkm_operasional_input)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Laporan BKM UnApproval: filter disambung mentah ke SQL</h3>
+				<p><code>entry_From</code>, <code>entry_To</code>, <code>businessunit</code>, <code>sectionname</code>, <code>modulname</code> dan user dari session disambung langsung ke query, dan semua nilai ditulis ke HTML tanpa encode; tanggal yang salah membuat <code>to_date</code> Oracle error. Sekarang tanggal divalidasi (MM/DD/YYYY), teks di-escape, output di-encode. Halaman juga punya <code>&lt;body&gt;</code> ganda dan <code>&lt;/form&gt;</code> tanpa pembuka; sudah dirapikan. Query tidak berubah.</p>
+				<div class="loc">p_bkm_replanned.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== ASSET GROUP -->
+	<section data-module="Fixed Asset">
+		<h2>Asset Group<small>assetgroup.asp</small></h2>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Saat Edit, Control Job Depreciation dan Accumulated Depreciation terisi nilai Control Job</h3>
+				<p>Dropdown kedua dan ketiga menandai <code>selected</code> dengan membandingkan ke variabel <code>controljob</code>, bukan <code>controljob_depreciation</code> / <code>controljob_accd_depreciation</code>. Akibatnya form Edit menampilkan pilihan yang salah. Jika user langsung klik Update, nilai asli di database tertimpa dengan kode Control Job.</p>
+				<div class="loc">assetgroup.asp:481, assetgroup.asp:504</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Nama job di kolom Control Job Depreciation dan Accumulated Depreciation salah</h3>
+				<p>Query daftar hanya join ke <code>job</code> untuk <code>controljob</code>, lalu <code>jobname</code> yang sama dipakai di tiga kolom. Kode job depresiasi dan akumulasi tampil dengan nama milik Control Job.</p>
+				<div class="loc">assetgroup.asp:371, assetgroup.asp:587-588</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Pencarian berdasarkan nama tidak menemukan data jika diketik huruf kecil</h3>
+				<p><code>UPPER(ag.fcname) LIKE ('%...%')</code>: kata kunci tidak ikut di-UPPER, sedangkan pencarian kode sudah benar. Kata kunci juga disambung mentah ke SQL (SQL injection, dan tanda kutip membuat error).</p>
+				<div class="loc">assetgroup.asp:374</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Script awal form tidak pernah jalan: <code>document.ready</code> bukan fungsi</h3>
+				<p><code>document.ready(function(){ loaddepreciationrange(); })</code> menghasilkan TypeError. Jika diperbaiki apa adanya, fungsi itu justru mengosongkan Depreciation Range saat Edit (STRAIGHT LINE). Jadi logikanya perlu diputuskan dulu. Selain itu, <code>xAddEventListener</code> di &lt;head&gt; tidak terdefinisi (sama seperti di show.asp).</p>
+				<div class="loc">assetgroup.asp:20, assetgroup.asp:628</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Depreciation Range / Rate tidak tervalidasi</h3>
+				<p>Validasi angka tidak berfungsi karena <code>harusangka(this)</code> mengirim elemen, bukan event. Rate dihitung <code>100 / range</code>, sehingga range kosong atau 0 menghasilkan <code>Infinity</code>/<code>NaN</code>. Saat metode diganti ke NOT DEPRECIABLE, field range diisi teks "NOT DEPRECIABLE". Server memang menyimpan 0 untuk metode itu, tetapi field required (*) tidak dicek sama sekali.</p>
+				<div class="loc">assetgroup.asp:86, assetgroup.asp:157, assetgroup.asp:435</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Delete lewat link GET dan semua input disambung mentah ke SQL</h3>
+				<p>Hapus data cukup dengan membuka <code>assetgroup.asp?fccode=..&amp;txtJenis=Delete</code>. Tidak ada cek role atau pemakaian di tabel aset. INSERT/UPDATE/DELETE memakai nilai Request tanpa escape. Link Edit/Delete juga tidak membawa <code>txtModule</code>/<code>txtTable</code>/<code>searchdata</code>, sehingga judul menjadi "Module : /" dan filter hilang.</p>
+				<div class="loc">assetgroup.asp:216, assetgroup.asp:573-576</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>HTML form dan tabel rusak (tag &lt;tr&gt; / &lt;/div&gt;)</h3>
+				<p>Baris "Asset Group Name" dan "Description" tidak punya <code>&lt;tr&gt;</code> pembuka. Ada <code>&lt;/div&gt;</code> berlebih di dalam tabel daftar yang menutup container halaman lebih awal. Sudah dirapikan sebagai bagian dari perbaikan tampilan.</p>
+				<div class="loc">assetgroup.asp (form entry dan tabel daftar)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Link Print mengirim parameter yang tidak relevan</h3>
+				<p>Tombol print mengirim <code>txt_CUSTOMERCODE</code> (sisa salinan dari halaman Customer) dan tidak mengirim kata kunci pencarian, sehingga hasil print tidak mengikuti filter.</p>
+				<div class="loc">assetgroup.asp:364</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== MONITORING STOCK -->
+	<section data-module="Procurement &amp; Stores">
+		<h2>Monitoring Stock Pupuk &amp; Agrochemical<small>p_monstocknew.asp (dibuka dari Select_Form_Show.asp)</small></h2>
+		<div class="bug" data-sev="sev-crit" data-st="st-open">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>Saldo awal Agrochemical selalu diambil dari Januari 2026</h3>
+				<p>Query Agrochemical memakai <code>l.YEAR='2026' AND l.MONTH='1'</code> yang di-hardcode, bukan <code>tahun</code>/<code>bulan</code> dari tanggal yang dipilih (bagian Pupuk sudah benar). Untuk tanggal selain Januari 2026, stok Agrochemical salah.</p>
+				<div class="loc">p_monstocknew.asp:371-372</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-crit" data-st="st-open">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>Mutasi hanya dihitung untuk satu hari, bukan dari awal bulan</h3>
+				<p>Semua mutasi (receive note, issue, transfer, received, write off, return) memakai <code>BETWEEN to_date(tgl) AND to_date(tgl)</code>, sehingga hanya transaksi pada tanggal itu yang ikut. Rumusnya: saldo awal bulan + mutasi tanggal itu saja. Mutasi tanggal 1 sampai H-1 hilang, jadi stok yang tampil bukan stok per tanggal tersebut. Kemungkinan seharusnya dari tanggal 1 bulan itu sampai tanggal yang dipilih.</p>
+				<div class="loc">p_monstocknew.asp:245-321, 387-463</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Qty return issue berlipat karena join <code>stock st</code> tanpa kondisi</h3>
+				<p>Bagian return memakai <code>FROM returnissuehdr h, returnissuedtl d, stock st</code> tanpa kondisi join ke <code>st</code> (cartesian join). Di Pupuk, setiap baris return dikali jumlah stock grup 103/305. Di Agrochemical, filter grup pada <code>st</code> bahkan tidak ada, jadi dikali seluruh tabel stock. <code>SELECT DISTINCT</code> menutupi sebagian efeknya, tetapi query menjadi sangat berat dan hasilnya rawan salah.</p>
+				<div class="loc">p_monstocknew.asp:319-321, 461-463</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>SELECT DISTINCT di setiap sumber transaksi menghilangkan baris yang qty-nya sama</h3>
+				<p>Kolom yang dipilih tidak menyertakan nomor dokumen. Dua transaksi item yang sama di BA/gudang yang sama dengan qty sama dianggap satu baris, sehingga hanya dihitung sekali.</p>
+				<div class="loc">p_monstocknew.asp:217 dst. (semua UNION)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Aturan Pupuk dan Agrochemical tidak konsisten; tanda write off perlu dicek</h3>
+				<p>Filter <code>rowstateid NOT IN ('Rejected')</code> untuk transport task hanya ada di Agrochemical. Write off tidak difilter <code>POSTINGFLG</code>, dan qty-nya <b>ditambahkan</b> ke stok (<code>+sum(qtywriteoff)</code>), padahal biasanya write off mengurangi stok. Saldo awal hanya dari gudang <code>ST1</code>, sedangkan mutasi dari semua gudang. Perlu keputusan bisnis.</p>
+				<div class="loc">p_monstocknew.asp:215, 230, 306, 357, 417</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Halaman error 500 jika tanggal kosong atau formatnya tidak sesuai</h3>
+				<p><code>CDate(datemonstock)</code> dipanggil tanpa cek. Jika dibuka tanpa memilih tanggal, VBScript error "Type mismatch". Format tanggal juga bergantung pada locale server (CDate), sedangkan SQL mengharapkan <code>mm/dd/yyyy</code>. Nilai tanggal disambung mentah ke SQL (SQL injection).</p>
+				<div class="loc">p_monstocknew.asp:148-149</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Teks "Data is empty" muncul di luar tabel; judul tab tertulis 2025</h3>
+				<p>Pesan kosong ditulis langsung di antara baris tabel, sehingga browser memindahkannya ke atas tabel. Sekarang pesan itu menjadi baris tabel. Judul tab browser yang di-hardcode "2025" diganti tanpa tahun; tahun tampil di kartu judul.</p>
+				<div class="loc">p_monstocknew.asp (tampilan)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== MUTASI STOCK HARIAN -->
+	<section data-module="Procurement &amp; Stores">
+		<h2>Mutasi Stock Harian<small>show.asp?txtTable=mutasistockharian &mdash; Select_Form_Show.asp, bkm_viewdata.asp idview=38</small></h2>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Saldo awal tidak difilter per gudang, sehingga terhitung di setiap baris store</h3>
+				<p>Hasil dikelompokkan per <code>storecode</code>, tetapi subquery saldo awal hanya memfilter <code>itemcode</code> dan <code>fcba</code>. Item yang ada di dua gudang mendapat saldo awal seluruh BA di masing-masing baris, sehingga Saldo Awal dan Saldo Akhir berlipat. Hal yang sama terjadi saat memilih satu Store.</p>
+				<div class="loc">bkm_viewdata.asp:3311</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Periode saldo awal tidak cocok dengan rentang tanggal</h3>
+				<p>Tahun saldo awal diambil dari <code>datefrom</code>, tetapi bulannya dari <code>dateto</code>. Rentang lintas bulan/tahun mengambil saldo awal yang salah. Jika <code>datefrom</code> bukan tanggal 1, mutasi dari tanggal 1 sampai H-1 tidak ikut dihitung. Bulan dibandingkan sebagai <code>'01'</code>..<code>'09'</code>, sedangkan laporan lain (p_monstocknew.asp) memakai <code>MONTH='1'</code>. Jika kolom MONTH disimpan tanpa nol di depan, saldo awal Januari&ndash;September selalu kosong. Item yang punya saldo tetapi tidak ada transaksi di rentang tanggal tidak muncul sama sekali.</p>
+				<div class="loc">bkm_viewdata.asp:3311 (idview=38)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Validasi Business Unit tidak menghentikan proses</h3>
+				<p>Setelah <code>alert("Business Unit belum dipilih!")</code> tidak ada <code>return</code>, jadi request tetap dikirim. Sejak BU memakai select2 ajax, nilai kosongnya <code>null</code>, bukan <code>0</code>, sehingga alert pun tidak muncul dan server menerima <code>fcba=null</code>. Jika respons gagal di-parse, indikator loading dulu tidak pernah hilang. Sekarang indikator itu disembunyikan dan pesan gagal ditampilkan (perbaikan tampilan).</p>
+				<div class="loc">Select_Form_Show.asp:14263</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Label "HI" / "s/d HI" tidak sesuai isi kolom</h3>
+				<p>Kedua kolom dihitung dari rentang tanggal yang sama (<code>datefrom</code>..<code>dateto</code>). Kolom "s/d HI" ternyata berisi transfer/penerimaan antar gudang, bukan akumulasi sampai hari ini. Rumus Saldo Akhir menjumlahkan keduanya, jadi totalnya benar hanya jika keduanya memang transaksi yang berbeda. Perlu konfirmasi bisnis untuk nama kolom dan rumusnya.</p>
+				<div class="loc">bkm_viewdata.asp:3276-3300, Select_Form_Show.asp (kolom saldo akhir)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Daftar Store tidak mengikuti Business Unit; DataTables dimuat dua versi</h3>
+				<p>Dropdown Store berisi semua gudang aktif dari semua BA (<code>SELECT DISTINCT ... FROM store</code>), sehingga user bisa memilih gudang BA lain dan hasilnya kosong. Halaman memuat DataTables 2.0.8 lalu 1.13.8 (yang kedua menimpa yang pertama), juga jQuery dan jQuery UI kedua kalinya. Variabel <code>company</code> untuk opsi terpilih tidak pernah diisi.</p>
+				<div class="loc">Select_Form_Show.asp:14106, 14128, 14165</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Angka tidak berformat; CSS tabel bocor ke seluruh halaman</h3>
+				<p>Kolom angka memakai <code>render: $.fn.dataTable.render</code> (objek, bukan renderer), jadi angka tampil mentah. Sekarang angka memakai pemisah ribuan dan rata kanan. Style blok ini sebelumnya mengubah semua <code>table</code>, <code>td</code>, dan <code>th</code> di halaman (termasuk header dan menu); sekarang di-scope ke <code>.msh</code>. Lebar kolom <code>30%</code> &times; 4 juga dihapus.</p>
+				<div class="loc">Select_Form_Show.asp (blok mutasistockharian)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== PURCHASE REQUEST / ORDER -->
+	<section data-module="Procurement &amp; Stores">
+		<h2>Purchase Request &amp; Purchase Order<small>PurchaseRequestDetails.Asp, PurchaseOrderDetails.Asp</small></h2>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Tombol Cancel PR langsung membatalkan tanpa konfirmasi</h3>
+				<p>Link Cancel memakai <code>onClick="return cancel('Are you sure ...')"</code>, padahal fungsi <code>cancel()</code> tidak ada. Klik memicu ReferenceError, handler gagal, dan browser tetap membuka link <code>txtJenis=Cancel</code>. PR langsung dibatalkan tanpa dialog konfirmasi. Seharusnya <code>confirm(...)</code>.</p>
+				<div class="loc">PurchaseRequestDetails.Asp:958</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Tombol Print khusus BU KKP/KPK di PO tidak pernah muncul</h3>
+				<p>Kondisinya <code>len(trim(businessunit)) = "KKP"</code>, yaitu membandingkan <b>panjang</b> teks (angka) dengan "KKP", sehingga selalu False. Kemungkinan maksudnya <code>trim(businessunit) = "KKP"</code>.</p>
+				<div class="loc">PurchaseOrderDetails.Asp:1858</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Hapus header PO tampil di hampir semua status</h3>
+				<p>Ikon hapus header PO muncul untuk semua status selain <code>AuthorizeOnProgress</code>, termasuk Approved/Ordered/Released, dan aksinya lewat link GET. Perlu dicek apakah server menolak penghapusan PO yang sudah diproses. Di PR, link hapus header juga mengirim <code>Decription=&lt;PrDate&gt;</code> (salah ketik nama parameter dan nilainya tanggal).</p>
+				<div class="loc">PurchaseOrderDetails.Asp:1868, PurchaseRequestDetails.Asp:951</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Link Print PR membawa data mentah di URL</h3>
+				<p>Print PR mengirim Description, Remarks, dan field lain lewat query string tanpa <code>Server.URLEncode</code>. Teks yang berisi <code>&amp;</code>, <code>#</code>, atau tanda kutip akan terpotong atau merusak link JavaScript. Nama parameternya juga salah ketik (<code>Decription</code>).</p>
+				<div class="loc">PurchaseRequestDetails.Asp:946</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>HTML tabel daftar item rusak; "Data is empty" di luar tabel</h3>
+				<p>Ada <code>&lt;BR&gt;</code> di dalam &lt;table&gt; dan <code>&lt;/div&gt;</code> berlebih sebelum <code>&lt;/TABLE&gt;</code> yang menutup container halaman lebih awal. Pesan "Data is empty" juga ditulis di luar baris tabel. Sekarang sudah dirapikan (thead/tbody, pesan kosong sebagai baris tabel). Form header PR masih punya baris Requestor tanpa <code>&lt;/tr&gt;</code>; browser masih bisa menampilkannya, jadi tidak diubah.</p>
+				<div class="loc">PurchaseRequestDetails.Asp, PurchaseOrderDetails.Asp (tabel daftar item)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== PERSETUJUAN PR / PO & DELIVERY ORDER -->
+	<section data-module="Procurement &amp; Stores">
+		<h2>Persetujuan PR / PO &amp; Delivery Order<small>PurchaseRequestAuthorization.Asp, PurchaseOrderAuthorization.Asp, deliveryorder_purchase.asp</small></h2>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Approve final PO hanya memperbarui satu baris PR, dan nilainya ditimpa</h3>
+				<p>Setelah approve final, kode mengambil detail PO yang punya PR tetapi hanya membaca <b>baris pertama</b> (<code>if not EOF</code>, tanpa loop). Akibatnya hanya satu baris PR yang <code>orderedqty</code>-nya diperbarui. Nilainya juga <b>ditimpa</b> dengan qty PO itu, bukan ditambahkan. PO dengan banyak baris, atau PR yang dipecah ke beberapa PO, membuat Ordered Qty di PR salah.</p>
+				<div class="loc">PurchaseOrderAuthorization.Asp:645-675</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Status final bergantung pada <code>is_final = 1</code> persis; proses approve tanpa transaksi</h3>
+				<p>Jika user terdaftar di lebih dari satu baris authorize structure yang cocok, COUNT bernilai 2 atau lebih dan dokumen tidak pernah naik ke Approved/Ordered (seharusnya <code>&gt; 0</code>). Setiap PR/PO dijalankan sebagai beberapa UPDATE/INSERT/NextState tanpa BeginTrans dan tanpa cek error, sehingga kegagalan di tengah menyisakan data setengah jadi. Level dan template diambil dari hidden field yang bisa diubah di browser.</p>
+				<div class="loc">PurchaseRequestAuthorization.Asp:642, PurchaseOrderAuthorization.Asp:616</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Komentar persetujuan PO selalu kosong; PO tanpa riwayat tidak muncul</h3>
+				<p>Variabel <code>comments</code> yang disimpan ke <code>po_authorization_comments</code> tidak pernah diisi di halaman ini. Query daftar memakai <code>aus.fcba = hist.fcba</code> di INNER JOIN, sehingga PO yang belum punya baris di <code>purchaseorderdetails_hist</code> tidak tampil (perlu dicek apakah memang dibuat saat Start Authorize).</p>
+				<div class="loc">PurchaseOrderAuthorization.Asp:586, 710</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Delivery Order: detail bisa diubah/dihapus kapan saja dan tidak difilter per BA</h3>
+				<p>Status PO (<code>HdrState</code>) sudah dihitung, tetapi tidak dipakai. Komentar "Validasi Period Control taro sini" menunjukkan validasi belum dibuat, sehingga tombol edit/hapus selalu tersedia lewat link GET. Daftar item memfilter <code>do_no</code> saja tanpa <code>fcba</code>, sehingga nomor DO yang sama di BA lain ikut tampil.</p>
+				<div class="loc">deliveryorder_purchase.asp:871, 1032</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Delivery Order: error JS saat ganti Company; Description bertambah spasi setiap simpan</h3>
+				<p><code>onchange</code> Company memanggil <code>getlistrentby()</code> dan <code>getdeliverydest()</code> yang tidak ada (ReferenceError). Daftar BU tetap termuat karena dipanggil lebih dulu. Textarea Description berisi baris baru dan tab setelah nilai (<code>&lt;%=OTHERITEMDESC%&gt;</code> lalu enter), jadi setiap kali disimpan ulang deskripsi bertambah whitespace.</p>
+				<div class="loc">deliveryorder_purchase.asp:786, 955</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Tombol Approve/Reject aktif tanpa pilihan; "pilih semua" ikut baris tersembunyi</h3>
+				<p>Dulu Approve/Reject bisa diklik tanpa ada yang dicentang, dan <code>colspan</code> baris kosong 14 untuk tabel 8 kolom. Sekarang tombol nonaktif sampai ada pilihan, ada penghitung "X dari Y dipilih", dan baris terpilih disorot. Karena tabel sekarang punya cari dan halaman, "pilih semua" hanya mencentang baris yang sedang tampil, supaya PR/PO tersembunyi tidak ter-approve tanpa terlihat.</p>
+				<div class="loc">PurchaseRequestAuthorization.Asp, PurchaseOrderAuthorization.Asp (tampilan)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Cetak PO: SQL injection dan XSS lewat parameter URL</h3>
+				<p><code>fcba</code>, <code>pocode</code>, <code>purchaseby</code> dan <code>deliverydestination</code> disambung langsung ke tiga query, dan semua nilai (nama supplier, alamat, catatan, deskripsi item) ditulis ke HTML tanpa encode. Sekarang parameter di-escape dan semua output di-encode. Belum memakai query berparameter.</p>
+				<div class="loc">printingpo.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Cetak PO: paper.css tidak ada, Gudang selalu "Kebun", tag tabel tidak seimbang</h3>
+				<p><code>/plugins/paper-css/paper.min.css</code> tidak ada di repo (404 di IIS lokal), jadi ukuran lembar A4 tidak berlaku. Lembar A4 sekarang didefinisikan di halaman sendiri. Kolom Gudang selalu tertulis "Kebun"; sekarang memakai nama gudang tujuan (atau "Kebun" bila kosong), sama dengan PDF lampiran email. Tabel Catatan punya <code>&lt;/tr&gt;</code> tanpa pembuka; markup ditulis ulang. PO yang tidak ditemukan kini menampilkan pesan, bukan halaman kosong.</p>
+				<div class="loc">printingpo.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Email PO: BaseUrl memakai port 80, IIS lokal berjalan di port 92</h3>
+				<p><code>PoMailCfg_BaseUrl = "http://localhost"</code>, tetapi IIS di laptop uji sekarang hanya mendengarkan port 92. <code>PoMail_Kick</code> (pemicu kirim email setelah approval) akan gagal tersambung di laptop ini. Sesuaikan BaseUrl dengan port IIS di server yang dipakai.</p>
+				<div class="loc">email/po_mail_config.inc:38</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Popup pilih stock: tombol Select ikut submit form, filter hilang, SQL injection</h3>
+				<p>Tombol Select berada di dalam <code>&lt;form&gt;</code> tanpa <code>type="button"</code> sehingga saat diklik form ikut terkirim ulang. Pilihan Sub Group dan kata pencarian hilang setelah View. Sub Group, kata pencarian, BA, dan BA session disambung mentah ke query; nama stock ditulis ke atribut <code>value</code> tanpa encode (nama dengan tanda kutip merusak data yang dikirim ke form pemanggil). Tanggal kosong/tidak valid membuat <code>month()</code> error. Semua sudah diperbaiki; query dan <code>getSelected()</code> tidak berubah.</p>
+				<div class="loc">popup_allstock_new.asp, popup_stock_new.asp (popup stock untuk Issue: masalah yang sama, sudah diperbaiki)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Laporan PO: baris Total bergeser satu kolom</h3>
+				<p>Label Total memakai <code>colspan="9"</code> untuk tabel 15 kolom, sehingga total Qty tampil di kolom Remarks, total Amount di kolom Price, dan Grand Total di kolom PPn. Sekarang <code>colspan="10"</code> dan total berada di <code>&lt;tfoot&gt;</code>. Judul juga memakai colspan 14/13 untuk 15 kolom, dan ada <code>&lt;/form&gt;</code> tanpa pembuka serta <code>&lt;body&gt;</code> ganda; semuanya sudah dirapikan.</p>
+				<div class="loc">p_PurchaseOrderDetails.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Laporan PO: SQL injection, XSS, dan error tanggal tidak valid</h3>
+				<p>Semua filter (businessunit, POCODE, ITEMCODE, SUPPLIERCODE, ROWSTATEID, purchaseby, deliverydestination) disambung mentah ke SQL, dan semua nilai ditulis ke HTML tanpa encode. Tanggal yang tidak valid membuat <code>FormatDateTime</code> error. Sekarang parameter di-escape, tanggal divalidasi (format MM/DD/YYYY), dan output di-encode. Belum memakai query berparameter.</p>
+				<div class="loc">p_PurchaseOrderDetails.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Laporan PR: SQL injection, ikon Cancel dari situs luar, judul tidak selebar tabel</h3>
+				<p>Filter PR (businessunit, PRCODE, ITEMCODE, REQUESTORID, ROWSTATEID) disambung mentah ke SQL dan nilai ditulis ke HTML/URL tanpa encode; tanggal tidak valid membuat <code>FormatDateTime</code> error. Ikon Cancel PR diambil dari <code>static.vecteezy.com</code> (gambar rusak bila tidak ada internet / diblokir) dan nomor PR dikirim ke <code>updatedata.asp</code> tanpa <code>encodeURIComponent</code>. Judul memakai colspan 13 untuk 16 kolom. Semua sudah diperbaiki: parameter di-escape, output & URL di-encode, tombol Cancel lokal, colspan 16. Fungsi Edit/Print/Cancel tidak berubah.</p>
+				<div class="loc">p_PurchaseRequestDetails.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Monitoring Stock: laporan kosong bila Group tidak dipilih; fcba=null; total Qty End beda dengan baris</h3>
+				<p>Filter group dipakai bila <code>type &lt;&gt; "-"</code>, padahal halaman pemanggil mengirim <code>type=</code> (kosong), sehingga query mencari group <code>''</code> dan laporan selalu kosong. Pemanggil juga mengirim <code>fcba=null</code> sebagai teks. Baris Qty End dihitung (open + masuk &minus; keluar) tetapi totalnya menjumlahkan <code>endingbalance</code> dari database, jadi total tidak sama dengan jumlah baris. Sekarang: filter group/store hanya bila diisi, BA diambil dari session bila kosong/null, total Qty End = jumlah baris, parameter di-escape dan output di-encode.</p>
+				<div class="loc">p_listingmamxls.asp (idview=9)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Laporan PO: karakter khusus di catatan PO tampil rusak</h3>
+				<p>Contoh pada data asli GWE: "sesuai&iquest;am&iquest;antor". Catatan PO kemungkinan berisi karakter di luar latin1 (mis. tanda kutip miring dari Word) yang rusak saat disimpan atau dibaca. Halaman memakai meta charset UTF-8 sementara output ASP latin1. Perlu dicek di data/charset koneksi; tampilan tidak mengubah isi.</p>
+				<div class="loc">p_PurchaseOrderDetails.asp (kolom Remarks)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== SERVICE PURCHASE ORDER -->
+	<section data-module="Procurement &amp; Stores">
+		<h2>Service Purchase Order<small>servicepurchaseorder.asp</small></h2>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3><code>IsInBridge</code> hanya dari URL; tombol Ordered/Confirmed bisa error atau salah tampil</h3>
+				<p><code>IsInBridge = Request("IsInBridge")</code> tidak pernah diisi dari database, lalu dipakai di <code>cint(IsInBridge)</code>. Untuk SPO berstatus Planned yang dibuka tanpa parameter itu, <code>cint("")</code> menghasilkan "Type mismatch". Jika ada <code>On Error Resume Next</code>, VBScript justru masuk ke cabang pertama, sehingga tombol "Ordered" muncul padahal seharusnya "Confirmed".</p>
+				<div class="loc">servicepurchaseorder.asp:375, 955-961</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Link Cancel baris memakai kolom yang kemungkinan tidak ada; konteks hilang</h3>
+				<p>Untuk baris berstatus Ordered, link Cancel/Close membaca <code>ItemCode</code>, <code>PRCODE</code>, dan <code>PRLINEID</code> dari SERVICEPURCHASEORDERDETAILS. Jika kolom itu tidak ada di tabel jasa, ADO error "Item cannot be found" dan halaman berhenti. Link Cancel juga tidak membawa <code>fccompanycode</code>/<code>businessunit</code>, sehingga setelah cancel daftar tidak tampil lagi.</p>
+				<div class="loc">servicepurchaseorder.asp:1121-1124</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Business Unit tidak dibatasi hak akses; hapus header tampil di semua status</h3>
+				<p>Dropdown BU berisi semua BU milik company (<code>SELECT * FROM businessunit WHERE fccompanycode=...</code>), tidak difilter ke <code>user_fcba_tab</code> seperti dropdown Company. Ikon hapus header SPO selalu tampil, termasuk untuk status Ordered/Closed.</p>
+				<div class="loc">servicepurchaseorder.asp:847, 954</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Print KKP/KPK tidak pernah dipakai; Remarks bertambah spasi setiap simpan</h3>
+				<p>Kondisi <code>len(trim(businessunit)) = "KKP"</code> selalu False (sama seperti di PurchaseOrderDetails.Asp), sehingga BU KKP/KPK selalu memakai PrintPO.Asp. Textarea Remarks berisi baris baru dan tab setelah nilai, sehingga setiap kali disimpan ulang isinya bertambah whitespace. Dropdown Vendor diberi kelas <code>chosen-select</code>, tetapi plugin chosen tidak dimuat (tidak ada kolom cari).</p>
+				<div class="loc">servicepurchaseorder.asp:890, 945, 1023</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>HTML tabel daftar jasa rusak; "Data is empty" di luar tabel</h3>
+				<p><code>&lt;BR&gt;</code> di dalam &lt;table&gt;, <code>&lt;/div&gt;</code> berlebih sebelum <code>&lt;/TABLE&gt;</code>, dan pesan kosong di luar baris. Sudah dirapikan (thead/tbody, baris kosong, wrapper scroll), dan status baris tampil sebagai badge.</p>
+				<div class="loc">servicepurchaseorder.asp (tabel daftar jasa)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== TRANSAKSI STORES / PROCUREMENT (10 halaman) -->
+	<section data-module="Procurement &amp; Stores">
+		<h2>Transaksi Stores &amp; Procurement<small>cancel_pr, cancel_po, ReceiveNote, StockTransferOrder, IssueDetails, WriteOff, TransportTask, TransportTaskDiv, stockreturn, ReceivedTask</small></h2>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Cancel PR: qty PR tidak di-reset; ada sisa kode yang menghapus Delivery Order</h3>
+				<p>Pada aksi Save, query <code>UPDATE purchaserequestdetails SET orderedqty = 0, approveqty=0</code> disusun lalu langsung ditimpa query berikutnya tanpa dieksekusi. Nama kolomnya juga salah ketik (<code>approveqty</code>, seharusnya <code>approvedqty</code>). Halaman ini dan cancel_po.asp juga masih punya cabang <code>txtJenis=HeaderDelete</code>/<code>Delete</code> hasil salinan dari halaman lain, yang menjalankan <code>DELETE FROM deliveryorder</code> berdasarkan <code>salescontractno</code>. Cabang itu bisa dipanggil lewat URL GET. Pada HeaderDelete, <code>BeginTrans</code> tidak pernah di-rollback jika gagal atau sudah closing.</p>
+				<div class="loc">cancel_pr.asp:664-704, cancel_po.asp:665-690</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Received Task: tombol Submit lolos tanpa validasi tanggal dan tanpa konfirmasi</h3>
+				<p><code>onClick="if(!validateTransportTaskDate()) return false; return confirm(...)"</code> memanggil fungsi yang tidak didefinisikan. Error di handler membatalkan handler, tetapi <b>tidak</b> membatalkan submit, sehingga form langsung terkirim tanpa cek tanggal dan tanpa dialog konfirmasi.</p>
+				<div class="loc">ReceivedTask.asp:1104</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Atribut <code>value=&lt;%=...%&gt;</code> tanpa tanda kutip (19 field)</h3>
+				<p>Jika nilainya kosong, atribut berikutnya terbaca sebagai nilai. Contohnya Target Type menampilkan <code>readonly="True"</code>: field <b>tidak</b> menjadi readonly dan teks itu ikut terkirim ke server. Nilai yang mengandung spasi juga terpotong. Terjadi di Item Code, Job Code, Location Type/Code, Price, Quantity, dan Amount.</p>
+				<div class="loc">IssueDetails.Asp:1056-1095 (7), WriteOff.Asp:1019-1045 (8), TransportTask.asp:1151, 1157, TransportTaskDiv.asp:754</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Fungsi JavaScript yang dipanggil tetapi tidak ada</h3>
+				<p><b>cancel_pr / cancel_po:</b> saat halaman dimuat dipanggil <code>getlistinvoice()</code>, <code>getlistpocode()</code>, dan <code>getpoinfo()</code>. Error di fungsi pertama menghentikan sisa inisialisasi, sehingga <code>getselectedfcba()</code> tidak jalan. <b>TransportTaskDiv:</b> <code>getPrice()</code> pada Item Code dan Line By tidak ada, sehingga harga tidak terisi otomatis. <b>StockTransferOrder:</b> <code>getdeliverydest()</code> di onchange Company tidak ada.</p>
+				<div class="loc">cancel_pr.asp:998, cancel_po.asp:1052, TransportTaskDiv.asp:766, 832, stocktransferorder.asp:910</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Stock Return: No.Issue tidak bisa diketik; remark header berisi spasi</h3>
+				<p>Field No.Issue <code>readonly</code> tetapi memakai <code>onkeyup="getDetailreturn()"</code>, sehingga detail hanya termuat jika popup "Cari ..." memanggil fungsi itu. Textarea Remark header berisi baris baru dan tab bawaan, sehingga remark tersimpan dengan whitespace. Tabel item ditaruh di dalam <code>&lt;tr&gt;&lt;tbody&gt;</code> (HTML tidak valid).</p>
+				<div class="loc">stockreturn.asp (form header &amp; tabel item)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Hapus data lewat link GET di semua halaman transaksi</h3>
+				<p>ReceiveNote, StockTransferOrder, IssueDetails, WriteOff, TransportTask, TransportTaskDiv, dan ReceivedTask menghapus header/detail lewat link <code>?txtJenis=Header</code>/<code>Details</code>/<code>Delete</code> (hanya dilindungi <code>confirm()</code> di browser), dan semua parameter disambung mentah ke SQL.</p>
+				<div class="loc">7 halaman transaksi</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>HTML tabel daftar rusak; pesan kosong di luar tabel; div berlebih</h3>
+				<p>Di 5 halaman (StockTransferOrder, IssueDetails, WriteOff, TransportTask, TransportTaskDiv) ada <code>&lt;BR&gt;</code> di dalam &lt;table&gt; dan <code>&lt;/div&gt;</code> berlebih sebelum <code>&lt;/TABLE&gt;</code>. stockreturn.asp punya <code>&lt;/div&gt;</code> berlebih di akhir. Di cancel_pr/cancel_po, <code>d_span</code> tidak pernah diisi (colspan kosong). Pesan "Data is empty" kini menjadi baris tabel. Semua sudah dirapikan sebagai bagian tampilan.</p>
+				<div class="loc">10 halaman (tampilan)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== SALES / PAYROLL / VEHICLE -->
+	<section data-module="Sales, Payroll &amp; Vehicle">
+		<h2>Sales, Payroll &amp; Vehicle<small>salesagreement, transportercontract, deliveryorder, salesshipment, p_payroll_bkm(_daily), fingerprint_validation, upload_ba_fp_01/02, sn_finger, WorkshopActivity, VehicleActivity, VehicleOperation</small></h2>
+		<div class="bug" data-module="Payroll &amp; Absensi" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Monitoring Payroll Harian error / timeout</h3>
+				<p>Untuk setiap section, query payroll yang berat (CTE dengan fungsi PL/SQL per baris) dijalankan <b>ulang seluruhnya</b> hanya untuk menghitung rowspan, sehingga halaman mudah kena "Script timed out". Semua angka memakai <code>cdbl(...)</code> tanpa pengaman NULL ("Invalid use of Null"). Jika BA tidak dipilih, query berjalan dengan <code>fcba = ''</code>. Sudah diperbaiki: jumlah baris per section dihitung sekali di memori, <code>cdbl(to_nol(...))</code> di 72 tempat, fallback ke BA default user (sama seperti p_payroll_bkm.asp), dan error Oracle ditampilkan di tabel, tidak lagi muncul halaman error ASP. Belum diuji di server. Jika masih error, pesan Oracle-nya sekarang tampil di halaman.</p>
+				<div class="loc">p_payroll_bkm_daily.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-module="Payroll &amp; Absensi" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Fingerprint Validation: BA baru tidak pernah tersimpan</h3>
+				<p>Pengecekan data memakai <code>select count(1) ...</code>, yang <b>selalu</b> mengembalikan satu baris, lalu <code>if not EOF then rowdata = 1</code>. Akibatnya cabang INSERT tidak pernah dijalankan. Untuk BA yang belum punya baris di <code>fingervalidation</code>, hanya UPDATE yang dijalankan dan mengenai 0 baris, sehingga status ON/OFF tidak tersimpan tanpa pesan apa pun. Seharusnya memakai nilai <code>rowdata</code> hasil COUNT.</p>
+				<div class="loc">fingerprint_validation.asp:61-69</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-module="Payroll &amp; Absensi" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Upload BA Fingerprint: jam masuk/keluar tanpa tanda kutip; Workshop: <code>showHint()</code> tidak ada</h3>
+				<p><code>value=&lt;%=timein%&gt;</code> dan <code>value=&lt;%=timeout%&gt;</code> tanpa tanda kutip. Saat ini aman karena format hh:mm tidak berisi spasi, tetapi rawan rusak. Di WorkshopActivity, field Job memanggil <code>showHint()</code> saat mengetik, padahal fungsi itu tidak ada (error JS di setiap ketikan).</p>
+				<div class="loc">upload_ba_fp_01.asp:453, 459, WorkshopActivity.asp:987</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-module="Sales &amp; Vehicle" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>HTML tabel daftar rusak dan <code>&lt;/div&gt;</code> berlebih</h3>
+				<p>Di 9 halaman ada <code>&lt;BR&gt;</code> di dalam &lt;table&gt; dan <code>&lt;/div&gt;</code> berlebih sebelum/sesudah &lt;/TABLE&gt; yang menutup container halaman lebih awal (salesshipment dan upload_ba_fp_01 masing-masing dua). ReceivedTask.asp juga punya satu <code>&lt;/div&gt;</code> nyasar setelah grid. Semua sudah dirapikan, dan jumlah &lt;div&gt; buka/tutup sekarang seimbang. Tombol "Export PDF" di laporan payroll tampil dengan font serif; sudah diperbaiki di stylereport2.css.</p>
+				<div class="loc">12 halaman (tampilan)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== MILL PRODUCTION, CONTRACT, ESTATE -->
+	<section data-module="Mill Production">
+		<h2>Mill Production, Contract &amp; Estate<small>SHIFT, SHIFTREPORT, PRODUCTSTORAGE, PRODUCTQUALITY, PRODUCTSTORAGEREADING, PRODUCTADJUSTMENT, PRODUCTLOSSES, PRODUCTSTORAGETRANSFER, lhp, lhp_closing_produksi, AgreementDetail, upload_wip_gis, wipfinal, wipfinalreplanned, open_final_wip, Nursery, spbharvesting, Weather, activity_norm(_vra/_harv), materialactivity_norm, bkm_replanned</small></h2>
+		<div class="bug" data-module="Operasional (BKM)" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Tulisan tombol Replanned dan Close berbayang</h3>
+				<p>Style lama halaman memberi <code>.button</code> efek <code>text-shadow: 1px 1px 0 #fff</code>. Setelah tombol berwarna hijau/merah di tampilan baru, bayangan putih itu membuat tulisan tampak dobel. Sekarang bayangan teks dihapus untuk semua tombol di halaman legacy (fbp-forms.css), dan <code>.button.danger</code> (Close) berwarna merah. Perbaikan ini berlaku juga untuk halaman lain yang memakai <code>.button</code>.</p>
+				<div class="loc">bkm_replanned.Asp:711-712, css/fbp-forms.css</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-module="Mill Production" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Mill Production: <code>&lt;/div&gt;</code> berlebih dan urutan penutup terbalik</h3>
+				<p>Delapan halaman Product/Shift punya <code>&lt;/div&gt;</code> nyasar sebelum <code>&lt;/TABLE&gt;</code> yang menutup container halaman lebih awal. lhp.asp dan lhp_closing_produksi.asp menutup <code>&lt;/div&gt;&lt;/div&gt;&lt;/form&gt;&lt;/div&gt;</code> (div ditutup di dalam form, lalu div ekstra). Semua sudah dirapikan, dan jumlah &lt;div&gt; buka/tutup kini seimbang.</p>
+				<div class="loc">8 halaman PRODUCT*/SHIFT*, lhp.asp, lhp_closing_produksi.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-module="Contract &amp; WIP" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Contract / WIP: <code>&lt;/div&gt;</code> berlebih di sekitar tabel</h3>
+				<p>AgreementDetail.asp, wipfinal.asp, dan upload_wip_gis.asp (dua tabel) punya <code>&lt;/div&gt;</code> tanpa pasangan sebelum/sesudah <code>&lt;/TABLE&gt;</code>. Sudah dibuang.</p>
+				<div class="loc">AgreementDetail.asp, wipfinal.asp, upload_wip_gis.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-module="Contract &amp; WIP" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Upload WIP GIS: input hidden di dalam baris judul tabel</h3>
+				<p>Kedua tabel daftar menaruh <code>&lt;input type="hidden"&gt;</code> (fcCode, txtYear, UPLOADDOCDATE) langsung di dalam <code>&lt;tr&gt;</code> judul kolom (HTML tidak valid; browser memindahkannya keluar tabel), dan pesan "Data is empty" ditulis di luar baris tabel. Masih berfungsi, tetapi tabel ini sengaja tidak diubah strukturnya agar nilai hidden tetap ikut terkirim.</p>
+				<div class="loc">upload_wip_gis.asp:364-367, 456-459</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-module="Estate &amp; Nursery" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Estate &amp; Nursery: <code>&lt;/div&gt;</code> berlebih sebelum <code>&lt;/TABLE&gt;</code></h3>
+				<p>Nursery, SPB Harvesting, Weather, dan keempat halaman Activity/Material Norm punya <code>&lt;BR&gt;</code> di dalam tabel dan <code>&lt;/div&gt;</code> nyasar yang menutup container halaman lebih awal. Sudah dirapikan.</p>
+				<div class="loc">Nursery.asp, spbharvesting.asp, Weather.asp, activity_norm*.asp, materialactivity_norm.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== KEAMANAN (temuan saat membuat email PO) -->
+	<section data-module="Login &amp; Keamanan">
+		<h2>Keamanan Aplikasi<small>conndB1.inc, email/SendMail.asp &mdash; ditemukan saat membuat fitur email PO</small></h2>
+		<div class="bug" data-sev="sev-crit" data-st="st-ok">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>Pengecekan login dimatikan: halaman bisa dibuka tanpa login</h3>
+				<p><code>ValidateSession</code> di conndB1.inc hanya berisi <code>If session("USERNAME") = "" Then</code> dengan baris <code>Response.Redirect "/login.asp"</code> yang <b>dikomentari</b>. Semua halaman yang mengandalkan <code>&lt;% ValidateSession %&gt;</code> (misalnya PurchaseOrderDetailsApproval.Asp, laporan payroll) tetap terbuka walau user belum login. Siapa pun di jaringan yang tahu URL-nya bisa membuka data, bahkan menjalankan aksi lewat link GET.</p>
+				<p class="fix">Diperbaiki: <code>ValidateSession</code> kembali mengalihkan ke halaman login (permintaan AJAX/JSON dijawab 401 JSON; aman juga untuk halaman dengan <code>Response.Buffer = False</code>). Karena ~1.000 halaman (termasuk 209 endpoint di <code>ajax/</code> dan <code>bkm_viewdata.asp</code>) tidak memanggil ValidateSession sama sekali, <code>conndB1.inc</code> kini menjalankan pengecekan login otomatis di setiap halaman yang memuatnya. Pengecualian hanya untuk halaman yang memang dibuka sebelum login atau oleh sistem: logout.asp (form login), getlistfcbaajax.asp (daftar BA di form login), login.asp, email/send_po_outbox.asp (key), ba_switch.asp (401 sendiri), dan printingpo.asp. Link PO di email supplier kini memakai token HMAC-SHA256 (<code>email/po_link_token.inc</code>), sehingga supplier tetap bisa membuka PO-nya tanpa login tetapi PO lain tidak bisa ditebak; link email lama tanpa token akan meminta login. Diuji: 57 dari 60 halaman acak dialihkan ke login (3 sisanya memang rusak, lihat entri include REPORT), halaman utama tetap normal saat login.</p>
+				<div class="loc">conndB1.inc (Sub ValidateSession)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Password akun email tersimpan di git (email/SendMail.asp)</h3>
+				<p>File percobaan <code>email/SendMail.asp</code> menyimpan username dan password SMTP <code>intra.indo-palm.co.id</code> dalam teks biasa, dan file itu ikut masuk repository. Password akun tersebut sebaiknya segera diganti dan file percobaan dihapus dari server. Nama setting password di file itu juga salah ketik (<code>...microsofthttp://schemas...</code>), sehingga password tidak pernah terpakai. Fitur email PO yang baru tidak memakai file ini; password Gmail-nya disimpan di <code>email/po_mail_config.inc</code> yang dikecualikan dari git.</p>
+				<div class="loc">email/SendMail.asp</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== BUDGET -->
+	<section data-module="Budget">
+		<h2>Budget<small>bud_finmod_input.asp (Financial Model), bud_rkt_input.asp (RKT)</small></h2>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Id elemen dipakai berulang di setiap tab; tbody di dalam tr</h3>
+				<p>Setiap tab memakai <code>id='table2'</code>, <code>id='trheader2'</code>, dan <code>id='tru'</code> yang sama (Financial Model 6x, RKT 5x). Id harus unik, sehingga skrip yang memakai <code>getElementById('table2')</code> hanya mendapat tabel tab pertama. Baris data juga ditaruh lewat <code>&lt;tr id='tru'&gt;&lt;tbody id=...&gt;</code> (tbody di dalam tr, HTML tidak valid; browser memindahkannya). Masih berfungsi karena isi tab diisi lewat id <code>bodytable_*</code> yang unik.</p>
+				<div class="loc">bud_finmod_input.asp, bud_rkt_input.asp (blok tab)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Tab menyempit karena baris tombol SIMPAN memakai colspan 15</h3>
+				<p>Tabel pembungkus tab (<code>#tableall</code>) berisi baris tombol dengan <code>colspan='15'</code>, sedangkan sel tab hanya 1 kolom (bahkan <code>colspan=</code> tanpa nilai). Di tampilan baru, tab hanya mendapat 1/15 lebar halaman. Sudah ditangani lewat CSS: tabel pembungkus tab Spry di halaman input kini memakai lebar penuh.</p>
+				<div class="loc">bud_finmod_input.asp, bud_rkt_input.asp; css/fbp-forms.css</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== INVOICE -->
+	<section data-module="Invoice &amp; Pembayaran">
+		<h2>Invoice &amp; Pembayaran<small>InvoiceService, Invoice, InvoiceSTO, PaymentRequest, TransporterInvoice, PurchaseInvoice(DP), ContractorInvoice(DP), SalesInvoice(DP), InvoiceTBS, PriceTBS</small></h2>
+		<div class="bug" data-sev="sev-med" data-st="st-open">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Inisialisasi halaman berhenti karena salah huruf nama fungsi</h3>
+				<p>Purchase Invoice dan Sales Invoice mendefinisikan <code>var Getdetinvoicedp = function ()</code> (huruf G kapital), tetapi saat halaman dimuat memanggil <code>getdetinvoicedp()</code>. JavaScript membedakan huruf besar-kecil, sehingga terjadi ReferenceError dan <code>getselectedinvoicedpno()</code> serta <code>getselectedlinenosales()</code> sesudahnya tidak pernah dijalankan. Detail invoice DP tidak termuat saat halaman dibuka ulang.</p>
+				<div class="loc">purchaseinvoice.asp:386, 1889; salesinvoice.asp:386, 1891</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Contractor Invoice DP: <code>hitungPpn()</code> tidak ada</h3>
+				<p>Field Rate memanggil <code>onkeyup="hitungPpn()"</code>, padahal fungsi itu tidak didefinisikan di halaman maupun di file JS yang dimuat. Setiap ketikan menimbulkan error JS dan PPN tidak dihitung otomatis. Field itu juga punya dua atribut <code>style</code> (yang kedua diabaikan browser).</p>
+				<div class="loc">contractorinvoicedp.Asp:103</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3><code>&lt;/div&gt;</code> berlebih yang menutup container halaman lebih awal</h3>
+				<p>Dua belas dari 13 halaman invoice (semua kecuali Harga TBS) punya <code>&lt;/div&gt;</code> tanpa pasangan di sekitar <code>&lt;/TABLE&gt;</code> (Purchase Invoice dan Sales Invoice: satu di tiap cabang If/Else). Semua sudah dibuang, dan jumlah &lt;div&gt; buka/tutup kini seimbang di ke-13 halaman.</p>
+				<div class="loc">13 halaman invoice (tampilan)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+
+	<!-- ===================================================== CATATAN TEKNIS -->
+	<section data-module="">
+		<h2>Catatan teknis<small>proses perubahan tampilan</small></h2>
+		<div class="bug" data-sev="sev-low" data-st="st-ok">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Line ending 50 file sempat berubah ke LF, sudah dikembalikan ke CRLF</h3>
+				<p>Saat menaikkan versi cache <code>fbp-shell.css</code> (<code>?v=20261007b</code>), <code>sed -i</code> di Git Bash mengubah CRLF menjadi LF di 50 file .asp. Semua sudah dikembalikan ke CRLF dan dicek tidak ada LF tersisa. Isi file tidak berubah selain versi cache.</p>
+				<div class="loc">50 file yang memuat css/fbp-shell.css</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Sempat rusak: tag &lt;script&gt; di print_excel.asp (Export Excel tidak jalan)</h3>
+				<p>Saat memasang pemuat tabel otomatis, IIS ASP menolak teks <code>&lt;script</code> di dalam blok skrip (error ASP 0138, semua laporan berhenti), lalu perbaikan pertamanya ikut mengubah penutup <code>&lt;/script&gt;</code> fungsi <code>tableToExcel</code> sehingga Export Excel dan skrip sesudahnya error. Keduanya sudah diperbaiki dan diuji (tanpa error konsol); isi asli print_excel.asp utuh, hanya ada tambahan pemuat di atasnya.</p>
+				<div class="loc">print_excel.asp, Bottom_Report.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok" data-module="Finance &amp; Accounting">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Kartu ringkasan laporan otorisasi PV salah karena regex kehilangan backslash</h3>
+				<p>Saat laporan ini diperbarui sebelumnya, backslash di dua regex JavaScript hilang (<code>/B(?=(d{3})+(?!d))/</code> dan <code>/s+/g</code>). Akibatnya angka Total amount tampil tanpa pemisah ribuan, dan huruf "s" di nama user pada kartu "Paling banyak ditunggu" berubah menjadi spasi. Regex sudah dikembalikan (<code>\B</code>, <code>\d</code>, <code>\s</code>). File lain sudah dicek dan tidak punya masalah yang sama.</p>
+				<div class="loc">p_AuthorizeTransactionPV.asp:329-330</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Data Setup">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>TableStatistik: error JavaScript xAddEventListener is not defined</h3>
+				<p>Halaman memanggil <code>xAddEventListener</code> / <code>xTableHeaderFixed</code> tetapi <code>x.js</code> tidak pernah dimuat, sehingga setiap kali dibuka muncul ReferenceError di console. Pemanggilan kini dijaga <code>if (window.xAddEventListener)</code>. Header sticky sekarang ditangani oleh tabel ala DataTables.</p>
+				<div class="loc">TableStatistik.asp:20</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open" data-module="Data Setup">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>TableStatistik: paging server (AbsolutePage) tidak berpengaruh, semua baris tetap dicetak</h3>
+				<p>Kode mengatur <code>PageSize</code> dan <code>AbsolutePage</code>, tetapi loop tetap mencetak semua record sampai EOF. Contohnya Jobmaster: 959 baris dicetak sekaligus. Kini paging dilakukan di sisi browser oleh tabel ala DataTables. Kode server belum diubah.</p>
+				<div class="loc">TableStatistik.asp:664-977</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok" data-module="Purchasing">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Monitoring PR: judul kolom tidak sejajar dengan isi tabel</h3>
+				<p>Untuk user non-purchasing, sel "Dura" PO selalu dicetak tetapi judulnya tidak, sehingga semua kolom setelah Tgl.PO bergeser satu. Colspan grup PO (selalu 6) dan GRN (5 atau 2) juga tidak sesuai jumlah kolom sebenarnya (5/6 dan 6/3). Tanda "-" yang dicetak di luar sel muncul berserakan di atas tabel, dan setiap baris punya &lt;tbody&gt; sendiri. Sekarang judul dan colspan mengikuti kolom yang benar-benar tampil, dan semua baris berada dalam satu &lt;tbody&gt;. Diuji untuk user biasa (27 kolom) dan purchasing (30 kolom).</p>
+				<div class="loc">p_monitoring_pr.Asp:218-300</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open" data-module="Purchasing">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Monitoring PR bisa dibuka tanpa login dan parameternya rawan SQL injection</h3>
+				<p>Halaman tidak memanggil <code>ValidateSession</code>, sehingga siapa pun yang tahu URL-nya bisa melihat data PR, PO, harga, dan supplier. Parameter <code>CREATIONDATE_From/To</code>, <code>company</code>, <code>businessunit</code>, dan <code>document_classification</code> langsung disambung ke SQL tanpa escape. Saran: tambahkan <code>&lt;% ValidateSession %&gt;</code> dan escape/validasi parameter. Belum diubah karena menyangkut akses.</p>
+				<div class="loc">p_monitoring_pr.Asp:1-105</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok" data-module="Finance &amp; Accounting">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Neraca Group Bulanan: mode BUDGET.Qty menampilkan tabel kosong dan total salah</h3>
+				<p>Tabel view1 dan view2 sama-sama memakai <code>tbody id="bodytablebsb"</code>, sehingga pada mode BUDGET.Qty baris dimasukkan ke tabel view1 yang sedang disembunyikan dan view2 tampil kosong. Span total Rp view2 juga ber-id sama dengan view1 (<code>b1</code>..<code>b15</code>), sehingga totalnya masuk ke tabel yang tersembunyi. Selain itu total kolom 15 memakai nilai <code>b1_</code> (bulan Januari). Sekarang view2 punya tbody dan span total sendiri (<code>bodytablebsb2</code>, <code>b1rp</code>..<code>b15rp</code>), dan total kolom 15 memakai <code>b15_</code>.</p>
+				<div class="loc">Select_Form_Show.asp (txtTable=p_neracagroup_monthly)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok" data-module="Finance &amp; Accounting">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Neraca Group Bulanan sangat lambat (80-95 detik untuk JOB.Code)</h3>
+				<p>Pada <code>bkm_viewdata.asp</code> idview 24 dan 27, JSON yang sudah jadi di-parse ulang dua kali (<code>JSONobject.parse</code> dan <code>aspJSON.loadJSON</code>) tanpa hasilnya dipakai. Untuk 953 baris langkah ini memakan 80 detik dari total 86 detik. Query data juga dijalankan dua kali (<code>List.Open</code> hanya untuk RecordCount yang tidak dipakai). Selain itu, bila Company = ALL, <code>ProsesNeraca</code> dijalankan untuk semua BA aktif di semua region walaupun yang ditampilkan hanya region terpilih. Ketiganya sudah diperbaiki: PT.BIA JOB.Code turun dari 79 detik ke 2,7 detik, dan KALBAR semua PT turun dari 13,4 ke 8,5 detik. Output JSON terbukti identik dengan versi lama (dibandingkan byte per byte untuk 3 skenario). Pola yang sama masih ada di idview lain di bkm_viewdata.asp.</p>
+				<div class="loc">bkm_viewdata.asp idview 24 &amp; 27</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-mit" data-module="Data Setup">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>TableMaster: View sangat lambat untuk tabel besar (Employee 2.286 baris)</h3>
+				<p>Paging server (PageSize/AbsolutePage) tidak berpengaruh, sehingga semua record dicetak sekaligus. Employee GWE menghasilkan 8,7 MB HTML (2.286 baris x 46 kolom). Setiap sel memanggil <code>rsGAD(i).Name</code> dan ditulis dengan <code>align/valign</code> serta spasi berlebih. Sudah diperbaiki: nama kolom diambil sekali, sel ditulis ringkas, satu baris ditulis sekali jalan. Output jadi 4,9 MB dan server 6,5 menjadi 3,3 detik; isi sel identik sel per sel di 7 tabel. Penyesuaian kolom responsif tabel ala DataTables juga dipercepat dari 1,6 ke 0,5 detik. Sisa waktu terbesar ada di parsing browser karena volume data. Saran: aktifkan kompresi dinamis IIS (perlu admin) atau batasi data per pencarian.</p>
+				<div class="loc">TableMaster.Asp (loop daftar), js/fbp-table-auto.js (responsive)</div>
+			</div>
+			<div class="status"><span class="badge st-mit">Dimitigasi</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Operasional">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Halaman BKM/LHP bisa digeser ke samping (tabel header terpotong di kanan)</h3>
+				<p>Class lama <code>.posisiheader</code> (left:100px) dan <code>.posisikiri</code> (left:20px) menggeser tabel yang di tampilan baru sudah selebar halaman, ditambah wadah ber-<code>overflow:scroll</code>. Contoh bkm_jurnal_view.asp: isi 1972px di layar 1896px. Diperbaiki di css/fbp-forms.css untuk 29 halaman BKM/LHP/budget (tampilan baru saja).</p>
+				<div class="loc">css/fbp-forms.css; bkm_*_view/input/edit.asp, lhp.asp, dll.</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-open" data-module="Data Setup">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>TableMaster Employee: form Maintenance Employee lebih lebar dari layar</h3>
+				<p>Lebar minimum tabel form input Employee 1.338px, sehingga pada layar 1600px melewati wadah sekitar 93px dan halaman bisa digeser ke samping. Belum diubah.</p>
+				<div class="loc">TableMaster.Asp (form Employee)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok" data-module="Report">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Tombol View tidak merespons di laporan dengan &lt;form&gt; di dalam &lt;table&gt;</h3>
+				<p>Pada REPORT/p_Hk_Khl.asp, p_RekapAbsensiKhl.Asp, dan p_Hk_KhtKbt.asp, <code>&lt;form&gt;</code> ditulis di antara <code>&lt;table&gt;</code> dan <code>&lt;tr&gt;</code>. Kartu filter modern (js/fbp-table-auto.js) memindahkan isian ke kartu baru dan menghapus tabel lama beserta form kosong itu, sehingga tombol View kehilangan form-nya. Ini regresi dari perubahan tampilan filter. Sekarang form pemilik dideteksi dari <code>input.form</code>, form dipindah keluar tabel, dan kartu filter dimasukkan ke dalamnya. Ketiga laporan sudah diuji bisa submit.</p>
+				<div class="loc">js/fbp-table-auto.js (enhanceFilters)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-open" data-module="Sistem">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Halaman Users menampilkan hash password, dan banyak akun memakai password default yang sama</h3>
+				<p>TableStatistik.Asp?txtTable=Users menampilkan kolom PASSWORD berisi hash MD5 tanpa salt. Banyak akun memiliki hash yang sama, yaitu hash MD5 yang sudah umum diketahui untuk password default yang sangat sederhana, sehingga mudah ditebak. Saran: sembunyikan kolom password dari daftar, paksa ganti password default, dan pertimbangkan hash dengan salt. Belum diubah.</p>
+				<div class="loc">TableStatistik.Asp / Select_Form_Show_Setup.asp (txtTable=Users)</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok" data-module="Sistem">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Dropdown ganti BA menampilkan BA dari PT yang tidak di-assign ke user</h3>
+				<p>Daftar BA hanya diambil dari user_fcba_tab, padahal 131 pasangan user-BA berada di PT yang tidak di-assign ke user tersebut di user_company_tab. Sekarang daftar dan validasi ganti BA hanya menerima BA yang PT-nya juga di-assign. User yang tidak punya PT sama sekali tetap melihat semua BA dari user_fcba_tab.</p>
+				<div class="loc">ba_switch.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok" data-module="Sistem">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Fitur "ingat saya" menyimpan password asli di cookie selama 365 hari</h3>
+				<p>Saat login dengan opsi persisten, <code>logout.asp</code> menulis <code>txtPassword</code> apa adanya ke cookie <code>myCookies</code> yang berlaku 365 hari. Siapa pun yang bisa membaca cookie browser (komputer bersama, malware, atau koneksi HTTP tanpa enkripsi) mendapat password asli user. Saran: jangan simpan password di cookie; cukup simpan kode user/BA, atau pakai token yang bisa dicabut. Belum diubah.</p>
+				<p class="fix">Diperbaiki: cookie <code>myCookies</code> kini hanya menyimpan user &amp; BA, tidak lagi password, di logout.asp, admin.asp, admin123.asp, dan logout_.asp. Ketiga halaman lama juga berhenti mengisi kolom password dari cookie (dulu password dicetak ke atribut <code>value</code> form). Cookie lama yang masih berisi password dibersihkan otomatis saat halaman login dibuka. Catatan teknis: ASP menyalin sub-key lama dari cookie request, jadi cookie dikosongkan dulu sebelum ditulis ulang. Diuji: cookie lama dibersihkan, login ulang dengan ingat-saya tidak menyimpan password, form tidak memuat password.</p>
+				<div class="loc">logout.asp (blok awal &amp; login), admin.asp, admin123.asp, logout_.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Sistem">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>login.asp tanpa sesi menampilkan dashboard dengan header "Please login first..."</h3>
+				<p>Membuka login.asp sebelum login menampilkan kerangka dashboard (header LOGIN hijau dan kartu Closing Accounting). Sekarang halaman langsung mengarahkan ke halaman login (logout.asp). Bila sudah login, dashboard tampil seperti biasa.</p>
+				<div class="loc">login.asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Report">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Header laporan bertingkat "nyangkut" saat digulir (mis. Laporan VRA)</h3>
+				<p>Di wadah gulir laporan hanya baris judul terakhir yang dibuat lengket, sehingga pada laporan dengan judul 3 baris dan rowspan (REPORT/p_vra.asp) potongan judul hijau KM/HM, LTR, RASIO, BI, SBI menempel di atas data sementara judul di atasnya ikut tergulir. Sekarang semua baris judul dibekukan bersama (posisi tiap baris dihitung otomatis dan ikut dihitung ulang saat ukuran berubah). Berlaku untuk semua laporan bertampilan baru dengan judul bertingkat.</p>
+				<div class="loc">js/fbp-table-auto.js (freezeHead), css/fbp-table.css</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open" data-module="Report">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>42 laporan di REPORT/ error "Include file not found"</h3>
+				<p>Laporan seperti REPORT/p_VehicleActivity.asp, log_activity.asp, dan p_AgreementDetail.asp memakai <code>&lt;!--#include file="connDb1.Inc"--&gt;</code> (relatif), padahal file itu tidak ada di folder REPORT/, sehingga halaman langsung error ASP 0126 (sudah begitu sejak sebelum perubahan sesi ini). Saran: ganti menjadi <code>&lt;!--#include virtual="/connDb1.Inc"--&gt;</code> seperti laporan lain. Belum diubah.</p>
+				<div class="loc">REPORT/*.asp (42 file dengan include file="connDb1.Inc")</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok" data-module="Sistem">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>logout_.asp masih ada di server: salinan lama halaman login dengan SQL injection</h3>
+				<p><code>logout_.asp</code> adalah salinan lama halaman login yang masih bisa diakses. Query login di dalamnya masih menyambung username langsung ke SQL (celah yang sudah ditutup di logout.asp). Sejak penjaga login di conndB1.inc aktif, orang yang belum login tidak bisa memakainya, tetapi user yang sudah login bisa memakainya untuk masuk sebagai user lain. Saran: hapus file ini (beserta salinan cadangan lain seperti admin123.asp bila tidak dipakai). </p>
+				<p class="fix">Diperbaiki: <code>logout_.asp</code> dan <code>admin123.asp</code> (dua salinan lama halaman login yang tidak dirujuk halaman mana pun) dihapus; keduanya kini 404. Bila dibutuhkan lagi, bisa dipulihkan dari git.</p>
+				<div class="loc">logout_.asp, admin123.asp (dihapus)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-mit" data-module="Finance &amp; Accounting">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Cetak Bank/Payment Voucher error: laporan disimpan dengan Telerik Report Designer 2025</h3>
+				<p>print_bank_payment_voucher.html menampilkan "Cannot read a document with the specified schema .../reporting/2025/2.0". Runtime Telerik Reporting di server versi 12.1.18.620 (R2 2018) dan hanya membaca skema 2018. File Reports/print_bank_payment_voucher.trdp disimpan ulang dengan designer 2025 pada commit 18 Nov 2025 ("Alokasi Barang"); isi query &amp; tata letak tidak berubah, tetapi koneksi diubah menjadi nama koneksi yang tidak terdaftar. Maksud perubahannya tampaknya memindahkan database ke server 38.47.88.27 (satu-satunya server yang bisa dijangkau). Langkah yang sudah dilakukan: file dikembalikan ke versi skema 2018 dari commit pertama dengan host diganti ke 38.47.88.27 (isi lain identik byte per byte). Laporan kini terbaca dan terhubung, tetapi login database ditolak (ORA-01017) karena kredensial yang tertanam di file laporan adalah kredensial server lama. Perlu keputusan: pakai OraConn di web.config (disarankan) atau tanam kredensial baru di file laporan. Catatan lain: semua laporan .trdp menanam connection string lengkap dengan password ke host yang berbeda-beda (10.10.1.19, 103.108.126.148, localhost); print_journal_voucher.trdp memakai host lama yang sama; print_bank_payment_voucheredit.trdp sudah berskema 2020 sejak commit pertama (tidak bisa dibaca runtime 2018).</p>
+				<div class="loc">Reports/print_bank_payment_voucher.trdp, web.config (OraConn), bin/Telerik.Reporting*.dll 12.1.18.620</div>
+			</div>
+			<div class="status"><span class="badge st-mit">Dimitigasi</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok" data-module="Material Management">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Popup pilih barang Kartu Stock lambat (20+ detik) dan tombol Select ikut submit form</h3>
+				<p>popup_kartustock.asp mencetak semua barang BA sekaligus (GHE: 8.992 baris, 5 MB HTML, 19-24 detik). Tombol Select berada di dalam &lt;form&gt; tanpa type="button" sehingga setiap klik ikut submit form; nama barang tidak di-escape; parameter fcba disambung ke SQL.</p>
+				<p class="fix">Diperbaiki: halaman kini ringan (16 KB, langsung tampil) dan data diambil per halaman lewat AJAX (?ajax=1) dengan paging &amp; pencarian di database (satu query berparameter dengan COUNT(*) OVER), 0,3-1,7 detik per halaman. UI baru: kolom cari dengan highlight, pilihan 10/25/50/100 baris, pagination, navigasi keyboard (panah, Enter, PgUp/PgDn, Esc), klik baris untuk memilih. Hasil sama dengan query lama (8.992 barang) dan kontrak ke halaman pembuka (itemcode, StockName, productcode) tidak berubah.</p>
+				<div class="loc">popup_kartustock.asp (dibuka dari Select_Form_Show.asp)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok" data-module="Operasional">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>Listing BKM Perawatan: Finger Time salah (menit berisi bulan) dan struktur tabel rusak</h3>
+				<p>Query memakai <code>to_char(IN_FIN, 'HH:MM:SS')</code>; di Oracle <code>MM</code> adalah bulan, sehingga kolom Finger Time menampilkan angka bulan di posisi menit (mis. 06:10:xx untuk Oktober). Selain itu <code>&lt;thead&gt;</code> dibuka setelah baris judul dan tidak ditutup, total tidak berada di <code>&lt;tfoot&gt;</code>, dan dua tabel memakai id <code>product-table</code> yang sama.</p>
+				<p class="fix">Diperbaiki: format jam menjadi <code>HH24:MI:SS</code>; markup tabel dibetulkan (thead/tbody/tfoot, id bkm-upah &amp; bkm-bahan). Tampilan baru (css/fbp-bkmlist.css, js/fbp-bkmlist.js): kartu judul, ringkasan (baris, BKM, karyawan, total HK, total amount), tab dengan jumlah data, tabel ala DataTables dengan judul &amp; kolom No/No.BKM menempel, total mengikuti pencarian, 11 kolom kosong disembunyikan (bisa ditampilkan), badge status posting. Export Excel diverifikasi identik dengan versi lama (baris &amp; total asli).</p>
+				<div class="loc">p_listing_bkm_perawatan.asp:57</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Report">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Laporan dengan baris TOTAL di luar &lt;/tbody&gt; tidak menjadi tabel ala DataTables</h3>
+				<p>Contoh p_salesshipment.asp: baris TOTAL ditulis setelah <code>&lt;/tbody&gt;</code> sehingga browser membuat tbody kedua, dan mesin tabel otomatis (fbp-table-auto.js) menolak tabel dengan lebih dari satu tbody. Akibatnya laporan tetap tabel polos tanpa cari/urut/pagination.</p>
+				<p class="fix">Diperbaiki di mesin tabel: tbody tambahan yang hanya berisi baris non-data (mis. TOTAL) digabung lalu dipindah ke tfoot; tabel yang dikelompokkan per tbody (berisi baris data) tetap dilewati. p_salesshipment.asp kini 505 baris dengan cari, urut, pagination, total di tfoot. Berlaku juga untuk laporan lain dengan pola yang sama.</p>
+				<div class="loc">js/fbp-table-auto.js (enhance), p_salesshipment.asp:212-221</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-crit" data-st="st-mit" data-module="Operasional">
+			<div><span class="badge sev-crit">Kritis</span></div>
+			<div>
+				<h3>BKM Traksi View: tombol/proses Approve tanpa pengecekan hak akses di server</h3>
+				<p>Proses Approve (btnsave=Approve) langsung meng-UPDATE bkmhdr menjadi Approved/posting=1 dan menjalankan <code>bkmjournal_api.Update_bkm</code> tanpa memeriksa hak akses, status BKM, maupun section user. Cukup mengirim POST dengan <code>bkmno1</code> untuk meng-approve BKM mana pun di BA sesi. Tombol Approve juga ditampilkan ke <b>semua user</b> bila status BKM "Review Accounting" (cabang <code>elseif</code> tidak memeriksa akses). Fungsi <code>Akses_User</code> (cek per section) didefinisikan tetapi tidak pernah dipakai. Nilai <code>bkmno1</code> dan <code>bkmdate</code> juga disambung langsung ke SQL.</p>
+				<p class="fix">Syarat approve kini dicek ulang di server sebelum UPDATE &amp; Update_bkm: BKM harus milik BA aktif, belum diposting, dan (Planned + akses posting) atau Review Accounting (aturan sama dengan tampilan tombol). Tanggal diambil dari database; semua query berparameter. Diuji: POST approve tanpa akses dan dengan injeksi ditolak, status BKM tidak berubah. Sisa: status Review Accounting masih bisa di-approve oleh semua user BA tsb (sesuai aturan lama) dan Akses_User (cek section) belum dipakai - perlu keputusan aturan.</p>
+				<div class="loc">bkm_traksi_view.asp:26-53, 133-153, 599-603</div>
+			</div>
+			<div class="status"><span class="badge st-mit">Dimitigasi</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok" data-module="Operasional">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>BKM Traksi View: baris kendaraan hilang dari tab BKM VEHICLE/WORKSHOP</h3>
+				<p>Query tab kendaraan memakai <code>INNER JOIN ACTMASTER</code>, padahal kode aktivitas kendaraan mengacu ke JOBMASTER (halaman edit memakai <code>LEFT JOIN JOBMASTER</code>). Baris yang kodenya tidak ada di ACTMASTER terbuang diam-diam. Contoh BKM/ARE/202610/241D49DA4EE: 1 baris kendaraan (aktivitas 1321403) tidak tampil. Tiga bulan terakhir: 202 baris di 177 BKM terdampak. INNER JOIN ke EMPLOYEE dan VEHICLE juga berpotensi menyembunyikan baris.</p>
+				<p class="fix">Nama aktivitas kendaraan kini dari JOBMASTER (seperti halaman edit) dengan cadangan ACTMASTER; karyawan &amp; kendaraan memakai LEFT JOIN. Contoh BKM/ARE/202610/241D49DA4EE kini menampilkan barisnya (1321403 PENANAMAN DAN PEMELIHARAAN KACANGAN TBM). Tab Upah &amp; tabel rincian juga tidak lagi memakai INNER JOIN ACTMASTER: ACTMASTER punya 10 kode ganda sehingga baris (dan total) bisa tampil dobel; nama aktivitas kini diambil lewat subquery.</p>
+				<div class="loc">bkm_traksi_view.asp:504-514</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-ok" data-module="Operasional">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>BKM Traksi View: BKM BA lain bisa dibuka, judul PT/BA salah</h3>
+				<p>Semua query memakai <code>bkmno</code> saja tanpa filter BA sesi, sehingga BKM dari BA mana pun bisa dibuka dengan mengetik nomornya. Judul halaman tetap memakai PT/BA sesi (mis. sesi GWE menampilkan BKM ARE dengan judul "PT. ARJUNA UTAMA SAWIT - GANDIWA ESTATE"). Bila tombol Approve diklik, UPDATE tidak mengenai apa pun (memakai fcba sesi) tetapi <code>Update_bkm</code> tetap dijalankan untuk BA sesi dan tanggal BKM.</p>
+				<p class="fix">BKM hanya ditampilkan bila milik BA aktif atau BA aktif menjadi charge unit di detailnya; selain itu tampil pesan "BKM tidak ditemukan". Judul PT/BA mengikuti BA pemilik BKM. Tombol Approve hanya untuk BKM milik BA aktif.</p>
+				<div class="loc">bkm_traksi_view.asp:17, 84, 115, 125, 379, 514</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Operasional">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>BKM Traksi View: beberapa kesalahan tampilan total &amp; kolom</h3>
+				<p>(1) Total OVTH diformat tanpa desimal (1,5 jam tampil 2). (2) Total Rate menjumlahkan tarif, bukan nilai bermakna. (3) Tabel bawah: kolom "Lokasi" menampilkan fcba, bukan lokasi. (4) Tab Upah menyembunyikan absen KP, tabel bawah tidak, sehingga isi/total kedua tabel bisa berbeda. (5) Kolom Unit rata kanan tetapi Output/Rate rata kiri sehingga angka berdempetan. (6) Judul tab Upah ber-colspan 2 sedangkan baris data 1 sel; beberapa input total memakai id/name sama.</p>
+				<p class="fix">Total OVTH 2 desimal; kolom Lokasi tabel rincian menampilkan charge unit; angka rata kanan di semua tabel; judul kolom aksi tidak lagi ber-colspan 2; jarak sel diperlebar (permintaan user) dan kolom nama/aktivitas tidak terpotong. Tidak diubah: total Rate (penjumlahan tarif) dan perbedaan baris absen KP antara tab Upah dan tabel rincian, karena maksud bisnisnya perlu dikonfirmasi.</p>
+				<div class="loc">bkm_traksi_view.asp:417-475, 663, 667-675</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+	</section>
+</div>
+
+<script>
+(function () {
+	var bugs = Array.prototype.slice.call(document.querySelectorAll('.bug'));
+	var count = function (attr, val) { return bugs.filter(function (b) { return b.getAttribute(attr) === val; }).length; };
+	var stats = [
+		[bugs.length, 'Total temuan'],
+		[count('data-sev', 'sev-crit'), 'Kritis'],
+		[count('data-st', 'st-open'), 'Belum diperbaiki'],
+		[count('data-st', 'st-mit'), 'Dimitigasi'],
+		[count('data-st', 'st-ok'), 'Sudah diperbaiki']
+	];
+	document.getElementById('stats').innerHTML = stats.map(function (s) {
+		return '<div class="stat"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>';
+	}).join('');
+
+	// ---- ringkasan bug per modul ----
+	(function () {
+		var mods = {}, order = ['sev-crit', 'sev-high', 'sev-med', 'sev-low'];
+		var names = { 'sev-crit': 'Kritis', 'sev-high': 'Tinggi', 'sev-med': 'Sedang', 'sev-low': 'Rendah' };
+		var colors = { 'sev-crit': 'var(--crit)', 'sev-high': 'var(--high)', 'sev-med': 'var(--med)', 'sev-low': 'var(--low)' };
+		bugs.forEach(function (b) {
+			var sec = b.closest('section');
+			var m = b.getAttribute('data-module') || (sec && sec.getAttribute('data-module'));
+			if (!m) return;
+			var o = mods[m] || (mods[m] = { name: m, total: 0, open: 0, 'sev-crit': 0, 'sev-high': 0, 'sev-med': 0, 'sev-low': 0 });
+			o.total++;
+			o[b.getAttribute('data-sev')]++;
+			if (b.getAttribute('data-st') === 'st-open') o.open++;
+		});
+		var list = Object.keys(mods).map(function (k) { return mods[k]; });
+		list.forEach(function (o) { o.score = o['sev-crit'] * 4 + o['sev-high'] * 3 + o['sev-med'] * 2 + o['sev-low']; });
+		list.sort(function (a, b) { return b.total - a.total || b.score - a.score || a.name.localeCompare(b.name); });
+		if (!list.length) return;
+		var max = list[0].total;
+		var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+		document.getElementById('modsum-body').innerHTML = list.map(function (o, i) {
+			var bar = order.filter(function (s) { return o[s]; }).map(function (s) {
+				return '<span style="flex:0 0 ' + (o[s] / max * 100).toFixed(2) + '%;background:' + colors[s] + (s === 'sev-low' ? ';opacity:.55' : '') + '" title="' + names[s] + ': ' + o[s] + '"></span>';
+			}).join('');
+			var detail = order.filter(function (s) { return o[s]; }).map(function (s) { return names[s] + ' ' + o[s]; }).join(', ');
+			return '<tr' + (i === 0 ? ' class="top"' : '') + '><td class="rank">' + (i + 1) + '</td><td class="mod">' + esc(o.name) + '</td>' +
+				'<td class="n total">' + o.total + '</td><td class="bar"><div class="sbar" role="img" aria-label="' + detail + '">' + bar + '</div></td>' +
+				'<td class="n">' + (o['sev-crit'] + o['sev-high']) + '</td><td class="n">' + o.open + '</td></tr>';
+		}).join('');
+		var top = list[0];
+		var worst = list.slice().sort(function (a, b) { return (b['sev-crit'] + b['sev-high']) - (a['sev-crit'] + a['sev-high']) || b.score - a.score; })[0];
+		var lead = 'Modul dengan bug terbanyak: <b>' + esc(top.name) + '</b> (' + top.total + ' dari ' + list.reduce(function (s, o) { return s + o.total; }, 0) + ' temuan, ' + top.open + ' belum diperbaiki).';
+		if (worst !== top) lead += ' Bug kritis + tinggi terbanyak ada di <b>' + esc(worst.name) + '</b> (' + (worst['sev-crit'] + worst['sev-high']) + ').';
+		else lead += ' Modul ini juga punya bug kritis + tinggi terbanyak (' + (top['sev-crit'] + top['sev-high']) + ').';
+		document.getElementById('modsum-lead').innerHTML = lead;
+	})();
+
+	var buttons = document.querySelectorAll('.filters button');
+	Array.prototype.forEach.call(buttons, function (btn) {
+		btn.addEventListener('click', function () {
+			var f = btn.getAttribute('data-filter');
+			Array.prototype.forEach.call(buttons, function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+			bugs.forEach(function (b) {
+				var show = f === 'all' || b.getAttribute('data-st') === f || b.getAttribute('data-sev') === f;
+				b.classList.toggle('hidden', !show);
+			});
+			Array.prototype.forEach.call(document.querySelectorAll('section'), function (sec) {
+				sec.classList.toggle('hidden', !sec.querySelector('.bug:not(.hidden)'));
+			});
+		});
+	});
+})();
+</script>
+</body>
+</html>

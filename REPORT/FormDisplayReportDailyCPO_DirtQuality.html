@@ -1,0 +1,479 @@
+				<%
+
+					if not rsCPO_DirtQuality.EOF then
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						
+						while not rsCPO_DirtQuality.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsCPO_DirtQuality("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = ""
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'KAPASITAS_OLAH' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsCPO_DirtQuality("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""	
+										tempRounding = 2
+									end if		
+									tempUOM = rsCPO_DirtQuality("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYCPO_DirtQuality.html"-->
+								
+
+												
+								<!--td align="left"  ><%= no %></td-->					
+								<td align="center" ><%=no%></td>		
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"</a> Dirt </td>
+								<td align="center" >%</td>				
+								
+				
+								
+								<%  
+									tempH_01 = cdbl(rsCPO_DirtQuality("h_01")) 
+									tempH_02 = cdbl(rsCPO_DirtQuality("h_02")) 
+									tempH_03 = cdbl(rsCPO_DirtQuality("h_03")) 
+									tempH_04 = cdbl(rsCPO_DirtQuality("h_04")) 
+									tempH_05 = cdbl(rsCPO_DirtQuality("h_05")) 
+									tempH_06 = cdbl(rsCPO_DirtQuality("h_06")) 
+									tempH_07 = cdbl(rsCPO_DirtQuality("h_07")) 
+									tempH_08 = cdbl(rsCPO_DirtQuality("h_08")) 
+									tempH_09 = cdbl(rsCPO_DirtQuality("h_09")) 
+									tempH_10 = cdbl(rsCPO_DirtQuality("h_10")) 
+									tempH_11 = cdbl(rsCPO_DirtQuality("h_11")) 
+									tempH_12 = cdbl(rsCPO_DirtQuality("h_12")) 
+									tempH_13 = cdbl(rsCPO_DirtQuality("h_13")) 
+									tempH_14 = cdbl(rsCPO_DirtQuality("h_14")) 
+									tempH_15 = cdbl(rsCPO_DirtQuality("h_15")) 
+									tempH_16 = cdbl(rsCPO_DirtQuality("h_16")) 
+									tempH_17 = cdbl(rsCPO_DirtQuality("h_17")) 
+									tempH_18 = cdbl(rsCPO_DirtQuality("h_18")) 
+									tempH_19 = cdbl(rsCPO_DirtQuality("h_19")) 
+									tempH_20 = cdbl(rsCPO_DirtQuality("h_20")) 
+									tempH_21 = cdbl(rsCPO_DirtQuality("h_21")) 
+									tempH_22 = cdbl(rsCPO_DirtQuality("h_22")) 
+									tempH_23 = cdbl(rsCPO_DirtQuality("h_23")) 
+									tempH_24 = cdbl(rsCPO_DirtQuality("h_24")) 
+									tempH_25 = cdbl(rsCPO_DirtQuality("h_25")) 
+									tempH_26 = cdbl(rsCPO_DirtQuality("h_26")) 
+									tempH_27 = cdbl(rsCPO_DirtQuality("h_27")) 
+									tempH_28 = cdbl(rsCPO_DirtQuality("h_28")) 
+									tempH_29 = cdbl(rsCPO_DirtQuality("h_29")) 
+									tempH_30 = cdbl(rsCPO_DirtQuality("h_30")) 
+									tempH_31 = cdbl(rsCPO_DirtQuality("h_31")) 
+									tempData_SHI = cdbl(rsCPO_DirtQuality("shi")) 
+									tempData_SBI = cdbl(rsCPO_DirtQuality("sbi")) 
+									
+
+									tempDIV_01 = cdbl(rsCPO_DirtQuality("div_01")) 
+									tempDIV_02 = cdbl(rsCPO_DirtQuality("div_02")) 
+									tempDIV_03 = cdbl(rsCPO_DirtQuality("div_03")) 
+									tempDIV_04 = cdbl(rsCPO_DirtQuality("div_04")) 
+									tempDIV_05 = cdbl(rsCPO_DirtQuality("div_05")) 
+									tempDIV_06 = cdbl(rsCPO_DirtQuality("div_06")) 
+									tempDIV_07 = cdbl(rsCPO_DirtQuality("div_07")) 
+									tempDIV_08 = cdbl(rsCPO_DirtQuality("div_08")) 
+									tempDIV_09 = cdbl(rsCPO_DirtQuality("div_09")) 
+									tempDIV_10 = cdbl(rsCPO_DirtQuality("div_10")) 
+									tempDIV_11 = cdbl(rsCPO_DirtQuality("div_11")) 
+									tempDIV_12 = cdbl(rsCPO_DirtQuality("div_12")) 
+									tempDIV_13 = cdbl(rsCPO_DirtQuality("div_13")) 
+									tempDIV_14 = cdbl(rsCPO_DirtQuality("div_14")) 
+									tempDIV_15 = cdbl(rsCPO_DirtQuality("div_15")) 
+									tempDIV_16 = cdbl(rsCPO_DirtQuality("div_16")) 
+									tempDIV_17 = cdbl(rsCPO_DirtQuality("div_17")) 
+									tempDIV_18 = cdbl(rsCPO_DirtQuality("div_18")) 
+									tempDIV_19 = cdbl(rsCPO_DirtQuality("div_19")) 
+									tempDIV_20 = cdbl(rsCPO_DirtQuality("div_20")) 
+									tempDIV_21 = cdbl(rsCPO_DirtQuality("div_21")) 
+									tempDIV_22 = cdbl(rsCPO_DirtQuality("div_22")) 
+									tempDIV_23 = cdbl(rsCPO_DirtQuality("div_23")) 
+									tempDIV_24 = cdbl(rsCPO_DirtQuality("div_24")) 
+									tempDIV_25 = cdbl(rsCPO_DirtQuality("div_25")) 
+									tempDIV_26 = cdbl(rsCPO_DirtQuality("div_26")) 
+									tempDIV_27 = cdbl(rsCPO_DirtQuality("div_27")) 
+									tempDIV_28 = cdbl(rsCPO_DirtQuality("div_28")) 
+									tempDIV_29 = cdbl(rsCPO_DirtQuality("div_29")) 
+									tempDIV_30 = cdbl(rsCPO_DirtQuality("div_30")) 
+									tempDIV_31 = cdbl(rsCPO_DirtQuality("div_31")) 
+									tempDataDiv_SHI = cdbl(rsCPO_DirtQuality("div_shi")) 
+									tempDataDiv_SBI = cdbl(rsCPO_DirtQuality("div_sbi")) 									
+
+
+									
+								%>
+
+								<% ' Start Compare to Budget 
+
+									
+									if cdbl(rsCPO_DirtQuality("budget_shi")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsCPO_DirtQuality("budget_shi")) 
+										tempDataDivBudget_SHI = cdbl(rsCPO_DirtQuality("div_budget_shi"))  
+									else
+										tempDataBudget_SHI = 0
+										tempDataDivBudget_SHI = 1
+									end if
+									
+									if cdbl(rsCPO_DirtQuality("budget_sbi")) <> 0 then 
+										tempDataBudget_SBI = cdbl(rsCPO_DirtQuality("budget_sbi"))
+										tempDataDivBudget_SBI = cdbl(rsCPO_DirtQuality("div_budget_sbi"))  
+									else
+										tempDataBudget_SBI = 0
+										tempDataDivBudget_SBI = 0										
+									end if
+									
+									response.write "NAFIS " & txtDay
+									
+								%>									
+								
+								<% if txtDay >= 1 then %>								
+									<td align="center" ><%=FormatNumber(tempH_01/tempDIV_01,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 2 then %>								
+									<td align="center" ><%=FormatNumber(tempH_02/tempDIV_02,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 3 then %>								
+									<td align="center" ><%=FormatNumber(tempH_03/tempDIV_03,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 4 then %>								
+									<td align="center" ><%=FormatNumber(tempH_04/tempDIV_04,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 5 then %>								
+									<td align="center" ><%=FormatNumber(tempH_05/tempDIV_05,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 6 then %>								
+									<td align="center" ><%=FormatNumber(tempH_06/tempDIV_06,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 7 then %>								
+									<td align="center" ><%=FormatNumber(tempH_07/tempDIV_07,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 8 then %>								
+									<td align="center" ><%=FormatNumber(tempH_08/tempDIV_08,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 9 then %>								
+									<td align="center" ><%=FormatNumber(tempH_09/tempDIV_09,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 10 then %>								
+									<td align="center" ><%=FormatNumber(tempH_10/tempDIV_10,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 11 then %>								
+									<td align="center" ><%=FormatNumber(tempH_11/tempDIV_11,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 12 then %>								
+									<td align="center" ><%=FormatNumber(tempH_12/tempDIV_12,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 13 then %>								
+									<td align="center" ><%=FormatNumber(tempH_13/tempDIV_13,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 14 then %>								
+									<td align="center" ><%=FormatNumber(tempH_14/tempDIV_14,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 15 then %>								
+									<td align="center" ><%=FormatNumber(tempH_15/tempDIV_15,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 16 then %>								
+									<td align="center" ><%=FormatNumber(tempH_16/tempDIV_16,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 17 then %>								
+									<td align="center" ><%=FormatNumber(tempH_17/tempDIV_17,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 18 then %>								
+									<td align="center" ><%=FormatNumber(tempH_18/tempDIV_18,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 19 then %>								
+									<td align="center" ><%=FormatNumber(tempH_19/tempDIV_19,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 20 then %>								
+									<td align="center" ><%=FormatNumber(tempH_20/tempDIV_20,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 21 then %>								
+									<td align="center" ><%=FormatNumber(tempH_21/tempDIV_21,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 22 then %>								
+								<td align="center" ><%=FormatNumber(tempH_22/tempDIV_22,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 23 then %>								
+									<td align="center" ><%=FormatNumber(tempH_23/tempDIV_23,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 24 then %>								
+									<td align="center" ><%=FormatNumber(tempH_24/tempDIV_24,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 25 then %>								
+									<td align="center" ><%=FormatNumber(tempH_25/tempDIV_25,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 26 then %>								
+									<td align="center" ><%=FormatNumber(tempH_26/tempDIV_26,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 27 then %>								
+									<td align="center" ><%=FormatNumber(tempH_27/tempDIV_27,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 28 then %>								
+									<% if tempDIV_28 <> 0 then %>
+										<td align="center" ><%=FormatNumber(tempH_28/tempDIV_28,tempRounding)%></td>
+									<% else %>
+										<td align="center" ></td>
+									<% end if %>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+									
+
+								<% if txtDay >= 29 then %>																
+									<% if tempDIV_29 <> 0 then %>
+										<td align="center" ><%=FormatNumber(tempH_29/tempDIV_29,tempRounding)%></td>
+									<% else %>
+										<td align="center" ></td>
+									<% end if %>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+
+								<% if txtDay >= 30 then %>								
+									<% if tempDIV_30 <> 0 then %>
+										<td align="center" ><%=FormatNumber(tempH_30/tempDIV_30,tempRounding)%></td>
+									<% else %>
+										<td align="center" ></td>
+									<% end if %>	
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+												
+								
+								<% if txtDay >= 31 then %>								
+									<% if tempDIV_31 <> 0 then %>
+										<td align="center" ><%=FormatNumber(tempH_31/tempDIV_31,tempRounding)%></td>
+									<% else %>
+										<td align="center" ></td>
+									<% end if %>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+												
+								
+								<td align="center" ><%=FormatNumber(tempData_SHI/tempDataDiv_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempData_SBI/tempDataDiv_SBI,tempRounding)%></td>
+
+
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI/tempDataDivBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI/tempDataDivBudget_SBI,tempRounding)%></td>
+								
+								<%
+								    ' Start to compare budget
+									tempCompare_SHI = (tempData_SHI/tempDataDiv_SHI)/(tempDataBudget_SHI/tempDataDivBudget_SHI) * 100
+									tempCompare_SBI = (tempData_SBI/tempDataDiv_SBI)/(tempDataBudget_SBI/tempDataDivBudget_SBI) * 100
+									
+								%>	
+								
+								<%
+								if tempBudgetType = "QUANTITY" then  
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+								else
+									if tempCompare_HI > 105 then
+										cClassAssigned_HI = "red"
+									else
+										if tempCompare_HI > 95 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "green"
+										end if
+									end if
+
+									if tempCompare_SHI > 105 then
+										cClassAssigned_SHI = "red"
+									else
+										if tempCompare_SHI > 95 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "green"
+										end if
+									end if
+
+									if tempCompare_SBI > 105 then
+										cClassAssigned_SBI = "red"
+									else
+										if tempCompare_SBI > 95 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "green"
+										end if
+									end if
+								end if					
+								%>				
+								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+								
+							</tr>
+				<%
+
+							rsCPO_DirtQuality.MoveNext
+						Wend
+					end if
+					rsCPO_DirtQuality.Close
+					set rsCPO_DirtQuality = Nothing
+				%>	

@@ -1,0 +1,475 @@
+			<%
+
+					if not rsKernelStock.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsKernelStock.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsKernelStock("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "KERNEL"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan,  rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'PKSTOCK' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsKernelStock("CODEDESC") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")
+										tempRounding = rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""								
+										tempRounding = 0
+									end if		
+									tempUOM = rsKernelStock("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+
+								<!--#include file="FormDisplayDailyReportSUMMARYKernelStock.html"-->
+
+								
+
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"><%= rsKernelStock("GROUPNAME") %></a></td>
+								<td align="center" ><%=tempUOM%></td>
+								
+								<%  
+									tempH_01 = cdbl(rsKernelStock("h_01")) 
+									tempH_02 = cdbl(rsKernelStock("h_02")) 
+									tempH_03 = cdbl(rsKernelStock("h_03")) 
+									tempH_04 = cdbl(rsKernelStock("h_04")) 
+									tempH_05 = cdbl(rsKernelStock("h_05")) 
+									tempH_06 = cdbl(rsKernelStock("h_06")) 
+									tempH_07 = cdbl(rsKernelStock("h_07")) 
+									tempH_08 = cdbl(rsKernelStock("h_08")) 
+									tempH_09 = cdbl(rsKernelStock("h_09")) 
+									tempH_10 = cdbl(rsKernelStock("h_10")) 
+									tempH_11 = cdbl(rsKernelStock("h_11")) 
+									tempH_12 = cdbl(rsKernelStock("h_12")) 
+									tempH_13 = cdbl(rsKernelStock("h_13")) 
+									tempH_14 = cdbl(rsKernelStock("h_14")) 
+									tempH_15 = cdbl(rsKernelStock("h_15")) 
+									tempH_16 = cdbl(rsKernelStock("h_16")) 
+									tempH_17 = cdbl(rsKernelStock("h_17")) 
+									tempH_18 = cdbl(rsKernelStock("h_18")) 
+									tempH_19 = cdbl(rsKernelStock("h_19")) 
+									tempH_20 = cdbl(rsKernelStock("h_20")) 
+									tempH_21 = cdbl(rsKernelStock("h_21")) 
+									tempH_22 = cdbl(rsKernelStock("h_22")) 
+									tempH_23 = cdbl(rsKernelStock("h_23")) 
+									tempH_24 = cdbl(rsKernelStock("h_24")) 
+									tempH_25 = cdbl(rsKernelStock("h_25")) 
+									tempH_26 = cdbl(rsKernelStock("h_26")) 
+									tempH_27 = cdbl(rsKernelStock("h_27")) 
+									tempH_28 = cdbl(rsKernelStock("h_28")) 
+									tempH_29 = cdbl(rsKernelStock("h_29")) 
+									tempH_30 = cdbl(rsKernelStock("h_30")) 
+									tempH_31 = cdbl(rsKernelStock("h_31")) 
+									tempData_SHI = cdbl(rsKernelStock("shi")) 
+									tempData_SBI = cdbl(rsKernelStock("sbi")) 
+									
+
+									tempDIV_01 = cdbl(rsKernelStock("div_01")) 
+									tempDIV_02 = cdbl(rsKernelStock("div_02")) 
+									tempDIV_03 = cdbl(rsKernelStock("div_03")) 
+									tempDIV_04 = cdbl(rsKernelStock("div_04")) 
+									tempDIV_05 = cdbl(rsKernelStock("div_05")) 
+									tempDIV_06 = cdbl(rsKernelStock("div_06")) 
+									tempDIV_07 = cdbl(rsKernelStock("div_07")) 
+									tempDIV_08 = cdbl(rsKernelStock("div_08")) 
+									tempDIV_09 = cdbl(rsKernelStock("div_09")) 
+									tempDIV_10 = cdbl(rsKernelStock("div_10")) 
+									tempDIV_11 = cdbl(rsKernelStock("div_11")) 
+									tempDIV_12 = cdbl(rsKernelStock("div_12")) 
+									tempDIV_13 = cdbl(rsKernelStock("div_13")) 
+									tempDIV_14 = cdbl(rsKernelStock("div_14")) 
+									tempDIV_15 = cdbl(rsKernelStock("div_15")) 
+									tempDIV_16 = cdbl(rsKernelStock("div_16")) 
+									tempDIV_17 = cdbl(rsKernelStock("div_17")) 
+									tempDIV_18 = cdbl(rsKernelStock("div_18")) 
+									tempDIV_19 = cdbl(rsKernelStock("div_19")) 
+									tempDIV_20 = cdbl(rsKernelStock("div_20")) 
+									tempDIV_21 = cdbl(rsKernelStock("div_21")) 
+									tempDIV_22 = cdbl(rsKernelStock("div_22")) 
+									tempDIV_23 = cdbl(rsKernelStock("div_23")) 
+									tempDIV_24 = cdbl(rsKernelStock("div_24")) 
+									tempDIV_25 = cdbl(rsKernelStock("div_25")) 
+									tempDIV_26 = cdbl(rsKernelStock("div_26")) 
+									tempDIV_27 = cdbl(rsKernelStock("div_27")) 
+									tempDIV_28 = cdbl(rsKernelStock("div_28")) 
+									tempDIV_29 = cdbl(rsKernelStock("div_29")) 
+									tempDIV_30 = cdbl(rsKernelStock("div_30")) 
+									tempDIV_31 = cdbl(rsKernelStock("div_31")) 
+									tempDataDiv_SHI = cdbl(rsKernelStock("div_shi")) 
+									tempDataDiv_SBI = cdbl(rsKernelStock("div_sbi")) 									
+
+
+									
+								%>
+								
+								<% ' Start Compare to Budget 
+
+									tempDataBudget_SHI = cdbl(rsKernelStock("budget_shi"))
+									tempDataBudget_SBI = cdbl(rsKernelStock("budget_sbi"))	
+
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = cdbl(rsKernelStock("shi"))/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = cdbl(rsKernelStock("sbi"))/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>					
+								
+								
+								<%  								
+									if rsKernelStock("SHI") <> "" then 
+										tempSHI = cdbl(rsKernelStock("SHI")) 						
+									else
+										tempSHI = 0
+									end if
+
+									if rsKernelStock("SBI") <> "" then 
+										tempSBI = cdbl(rsKernelStock("SBI")) 									
+									else
+										tempSBI = 0
+									end if
+								%>
+								
+								
+								<% 					   
+								   if rsKernelStock("CODEDESC") = "CPO001" then 
+									   tempOpeningCPOStock_HI = tempHI
+								   end if		
+
+								   if rsKernelStock("CODEDESC") = "CPO002" then 
+									   tempDespatchCPOStock_HI = tempHI
+								   end if					   
+								   
+								%>
+								
+								<% if txtDay >= 1 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_01,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 2 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_02,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 3 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_03,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 4 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_04,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 5 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_05,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 6 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_06,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 7 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_07,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 8 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_08,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 9 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_09,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 10 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_10,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 11 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_11,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 12 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_12,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 13 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_13,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 14 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_14,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 15 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_15,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 16 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_16,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 17 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_17,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 18 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_18,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 19 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_19,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 20 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_20,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 21 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_21,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 22 then %>								
+								<td align="Right" ><%=FormatNumber(tempH_22,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 23 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_23,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 24 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_24,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 25 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_25,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 26 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_26,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 27 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_27,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 28 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_28,tempRounding)%></td>									
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+									
+
+								<% if txtDay >= 29 then %>																
+									<td align="Right" ><%=FormatNumber(tempH_29,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+
+								<% if txtDay >= 30 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_30,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+												
+								
+								<% if txtDay >= 31 then %>								
+									<td align="Right" ><%=FormatNumber(tempH_31,tempRounding)%></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+
+								
+								
+								
+								
+								
+								<% if rsKernelStock("CODEDESC") = "PK001" or rsKernelStock("CODEDESC") = "PK003" then %> 
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+									<td class="grey" align="right" ></td>
+									<td class="grey" align="right" ></td>
+									
+								<% else %>
+									<td align="Right" ><%=FormatNumber(tempData_SHI,tempRounding)%></td>
+									<td align="Right" ><%=FormatNumber(tempData_SBI,tempRounding)%></td>
+									
+
+									
+									<td align="Right" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+									<td align="Right" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+									
+									
+									<%
+										if tempCompare_HI > 95 then
+											cClassAssigned_HI = "green"
+										else
+											if tempCompare_HI > 85 then 
+												 cClassAssigned_HI = "yellow"
+											else
+												 cClassAssigned_HI = "red"
+											end if
+										end if
+										
+										if tempCompare_SHI > 95 then
+											cClassAssigned_SHI = "green"
+										else
+											if tempCompare_SHI > 85 then 
+												 cClassAssigned_SHI = "yellow"
+											else
+												 cClassAssigned_SHI = "red"
+											end if
+										end if
+										
+										if tempCompare_SBI > 95 then
+											cClassAssigned_SBI = "green"
+										else
+											if tempCompare_SBI > 85 then 
+												 cClassAssigned_SBI = "yellow"
+											else
+												 cClassAssigned_SBI = "red"
+											end if
+										end if
+										
+									%>
+									
+									
+									<td class="<%=cClassAssigned_SHI%>" align="Right" ><%=FormatNumber(tempCompare_SHI,tempRounding)%></td>
+									<td class="<%=cClassAssigned_SBI%>" align="Right" ><%=FormatNumber(tempCompare_SBI,tempRounding)%></td>
+								<% end if %>
+								
+							</tr>
+				<%
+
+							rsKernelStock.MoveNext
+						Wend
+					end if
+					rsKernelStock.Close
+					set rsKernelStock = Nothing
+				%>	
+				
+				

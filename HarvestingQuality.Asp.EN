@@ -1,0 +1,315 @@
+<%'Option Explicit%>
+<%'On Error resume Next%>
+<%response.buffer=True%>
+<%validatesession%>
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+<html>
+<head>
+<title>iPS - Harvesting Quality</title>
+<script type="text/javascript" language="JavaScript1.2" src="stlib.js"></script>
+<script language="JavaScript" src="date-picker.js"></script> 
+<script language="JavaScript"> 
+var newwin;
+function launchwin(winurl,winname,winfeatures)
+{
+	//This launches a new window and then
+	//focuses it if window.focus() is supported.
+	newwin = window.open(winurl,winname,winfeatures);
+
+}
+</script> 
+</head>
+<body>
+<!--#include file="top.jsp"-->
+<table width="100%">
+<tr>
+ <td width="22%" valign="top">
+ <!--#include file="menu.asp"-->
+ </td>
+ <td width="78%" valign="top">
+ <%'-------------awal-----------------------%>
+ <%
+
+
+Dim FCENTRY, FCEDIT, FCIP, FCBA
+DIM PeriodDate,	EMPCODE,FDDATE,FIELDCODE,UNDER_RIPE,OVER_RIPE,ABNORMAL,LONG_STALK,EATEN_BY_RAT,UNHARVEST_FFB,UNCOLLECT_LF_CIRCLE,UNCOLLECT_LF_PIECE
+DIM UNARRANGE_FFB,UNPRUNE_FROND,QE_1,QE_2,QE_3,QE_4,QE_5,QE_6,QE_7,QE_8,QE_9,QE_10
+Dim cmdView
+
+ if Request("txtJenis")="New" or Request("txtJenis")= "Delete" or Request("txtJenis")="Edit" Then
+	PeriodDate =request("PeriodDate")
+	EMPCODE=request("EMPCODE")
+	FIELDCODE=request("FIELDCODE")
+	UNDER_RIPE=To_Nol(request("UNDER_RIPE"))
+	OVER_RIPE=To_Nol(request("OVER_RIPE"))
+	ABNORMAL=To_Nol(request("ABNORMAL"))
+	LONG_STALK=To_Nol(request("LONG_STALK"))
+	EATEN_BY_RAT=To_Nol(request("EATEN_BY_RAT"))
+	UNHARVEST_FFB=To_Nol(request("UNHARVEST_FFB"))
+	UNCOLLECT_LF_CIRCLE=To_Nol(request("UNCOLLECT_LF_CIRCLE"))
+	UNCOLLECT_LF_PIECE=To_Nol(request("UNCOLLECT_LF_PIECE"))
+	UNARRANGE_FFB=To_Nol(request("UNARRANGE_FFB"))
+	UNPRUNE_FROND=To_Nol(request("UNPRUNE_FROND"))
+	QE_1=To_Nol(request("QE_1"))
+	QE_2=To_Nol(request("QE_2"))
+	QE_3=To_Nol(request("QE_3"))
+	QE_4=To_Nol(request("QE_4"))
+	QE_5=To_Nol(request("QE_5"))
+	QE_6=To_Nol(request("QE_6"))
+	QE_7=To_Nol(request("QE_7"))
+	QE_8=To_Nol(request("QE_8"))
+	QE_9=To_Nol(request("QE_9"))
+	QE_10=To_Nol(request("QE_10"))
+
+	if Request("txtJenis")= "Delete" then
+       q="Delete from HarvestingQuality where  EMPCODE='" & EMPCODE & "' And FIELDCODE='" & FIELDCODE & "'" & _
+	   " and  fddate =to_Date('" & request("PeriodDate") & "','MM/DD/YYYY') and fcBA='" & Session("fcBA") & "'"
+   	   connStr.execute(q)
+       cmdView	= "True"
+	elseif Request("txtJenis")="New" then
+	
+	  q="Insert into HarvestingQuality (EMPCODE, FDDATE, FIELDCODE, UNDER_RIPE, OVER_RIPE, ABNORMAL, LONG_STALK, " & _
+	    "EATEN_BY_RAT, UNHARVEST_FFB, UNCOLLECT_LF_CIRCLE, UNCOLLECT_LF_PIECE, UNARRANGE_FFB,UNPRUNE_FROND, " & _
+		"QE_1,QE_2,QE_3,QE_4,QE_5,QE_6,QE_7,QE_8,QE_9,QE_10,FCENTRY, FCEDIT, FCIP, FCBA) " & _
+		"values ('" & EMPCODE & "'," & _
+		" to_date('" & PeriodDate & "','mm/dd/yyyy') " & ",'" & FIELDCODE & "','" &  UNDER_RIPE & "','" &  OVER_RIPE & "'," & _
+		"'" &  ABNORMAL & "','" &  LONG_STALK & "','" &  EATEN_BY_RAT & "'," & _
+		"'" &  UNHARVEST_FFB & "','" &  UNCOLLECT_LF_CIRCLE & "','" &  UNCOLLECT_LF_PIECE & "'," & _
+		"'" &  UNARRANGE_FFB & "','" &  UNPRUNE_FROND & "','" &  QE_1 & "'," & _
+		"'" &  QE_2 & "','" &  QE_3 & "','" &  QE_4 & "'," & _
+		"'" &  QE_5 & "','" &  QE_6 & "','" &  QE_7 & "'," & _
+		"'" &  QE_8 & "','" &  QE_9 & "','" &  QE_10 & "'," & _
+		"'" & Session("CodeName") & "','" & Session("CodeName") & "','" & _
+		Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "')"
+		'response.Write(q)
+		response.Flush()
+	    connStr.execute(q)
+        cmdView	= "True"
+	elseif Request("txtJenis")="Edit" and Request("Add")="Update" then
+       q="Update HarvestingQuality set EMPCODE ='" & EMPCODE & "'," & _
+		"FDDATE=" & " to_date('" & PeriodDate & "','mm/dd/yyyy') ," & _
+		"FIELDCODE ='" & FIELDCODE & "',UNDER_RIPE='" & UNDER_RIPE & "'," & _
+		"OVER_RIPE ='" & OVER_RIPE & "'," & _
+		"ABNORMAL ='" & ABNORMAL & "',LONG_STALK='" & LONG_STALK & "'," & _
+		"EATEN_BY_RAT ='" & EATEN_BY_RAT & "',UNHARVEST_FFB='" & UNHARVEST_FFB & "'," & _
+		"UNCOLLECT_LF_CIRCLE ='" & UNCOLLECT_LF_CIRCLE & "',UNCOLLECT_LF_PIECE='" & UNCOLLECT_LF_PIECE & "'," & _
+		"UNARRANGE_FFB ='" & UNARRANGE_FFB & "',UNPRUNE_FROND='" & UNPRUNE_FROND & "'," & _
+		"QE_1 ='" & QE_1 & "',QE_2='" & QE_2 & "'," & _
+		"QE_3 ='" & QE_3 & "',QE_4='" & QE_4 & "'," & _
+		"QE_5 ='" & QE_5 & "',QE_6='" & QE_6 & "'," & _
+		"QE_7 ='" & QE_7 & "',QE_8='" & QE_8 & "'," & _
+		"QE_9 ='" & QE_9 & "',QE_10='" & QE_10 & "'" & _
+        " where  EMPCODE='" & EMPCODE & "' And FIELDCODE='" & FIELDCODE & "'" & _
+	   " and  fddate =to_Date('" & PeriodDate & "','MM/DD/YYYY') and fcBA='" & Session("fcBA") & "'"
+		connStr.execute(q)
+		connStr.execute("commit")
+		'RESPONSE.Write "SQLnsddsdya : " & Q
+        cmdView	= "True"
+    else
+        cmdView	= "True"
+	end if								 
+	'Response.Write "sql " & q
+else
+    cmdView	= request("cmdView")
+End if
+Dim txtModule,txtTable,txtSearch,txtField,i,q,nCountofField,NO,txtJenis
+if Request("PeriodDate")<>"" then
+   PeriodDate   =Request("PeriodDate")
+else
+   PeriodDate   =textDate(date)
+end if
+
+txtTable =Request("txtTable")
+txtModule=Request("txtModule")
+txtSearch=Request("txtSearch")
+txtField =Request("txtField")
+'fcCode=request("fcCode")
+txtJenis = request("txtJenis")
+If Err.Number <> 0 then
+   Response.Write "<font color=red>" & "Error Number : " & Err.Number &  " Desc. " & Err.Description & "</font>"
+End if
+
+ '-------------ISI Payment Form%>
+ 
+ <form name="frmEntry" method="post" action="HarvestingQuality.asp">
+	<table class="data" width="100%">
+		<tr><td align="left">Periode</td>
+		<td align="left"><input type="text" maxlength="10" name="PeriodDate" size="10" value="<%=PeriodDate%>">
+		<a href="javascript:show_calendar('frmEntry.PeriodDate');" onMouseOver="window.status='Date Picker';return true;" 
+		onmouseout="window.status='';return true;">
+		<img src="Images/show-calendar.gif" width=24 height=22 border=0 align=top></a>
+		Employee Code<input type="text" maxlength="10" name="EmployeeCode" size="10" value="<%=EmployeeCode%>">
+		<a href="javascript:launchwin('PrintData.Asp?txtModule=Data Master&txtTable=Employee&txtSearch=<%=txtSearch%>&txtField=<%=txtField%>&Mode=Print','newwindow','width='+(700)+',height='+(505)+',screenX=0,screenY=0,directories=0,fullscreen=0,location=0,menubar=0,scrollbars=1,status=0,toolbar=1')">Employee<font face="Verdana" size="1"></font></a>
+		</td></tr>	
+		<tr><td colspan="2"  align="left">
+		<input Type="Hidden" Value="True" Name="cmdView">
+		<input Type="Hidden" Value="<%=request("txtTable")%>" Name="txtTable">
+		<input Type="Hidden" Value="<%=request("txtModule")%>" Name="txtModule">
+		<input Type="Submit" style="background-color: #298CF7; color: #F7C610;
+		font-weight: bold; font-size: 8pt; font-family:Verdana" name="Add" value="Select">&nbsp;&nbsp;
+		<a href="PrintHarvestingQuality.Asp?txtTable=<%=request("txtTable")%>&txtModule=<%=request("txtModule")%>&PeriodDate=<%=PeriodDate%>" 
+		title="Print Data" target="_blank"><img src="IMAGES/Print.gif" border="0"></a>
+		</td>
+		</tr>
+    </table>  
+ </form>
+<%if cmdView = "True" Then
+   Dim rsVH,intRecordsPerPage,cColor
+   set rsVH = server.CreateObject("Adodb.recordset")
+   'Field Numeric Jangan di Sum karena ditampilkan mesti level detail
+	q="select EMPCODE,to_char(FDDATE,'mm/dd/yyyy') as FDDATE,FIELDCODE,UNDER_RIPE,OVER_RIPE,ABNORMAL,LONG_STALK,EATEN_BY_RAT,UNHARVEST_FFB,UNCOLLECT_LF_CIRCLE,UNCOLLECT_LF_PIECE, " & _
+	" UNARRANGE_FFB,UNPRUNE_FROND,QE_1,QE_2,QE_3,QE_4,QE_5,QE_6,QE_7,QE_8,QE_9,QE_10 from  HarvestingQuality where " & _
+	" to_char(FDDATE,'mm/yyyy')=to_char(to_date('" & PeriodDate & "','" & "MM/DD/YYYY" & "'),'mm/yyyy') " & _
+	" and EMPCODE='" & request("EmployeeCode") & "' and fcBA='" & session("fcBA") & "'"
+'response.Write q
+   Set rsVH = Server.CreateObject("ADODB.Recordset")
+   rsVH.CursorType = 3
+   rsVH.CursorLocation = 3
+   rsVH.Open q, connstr%>
+   <form action="HarvestingQuality.Asp" method="post" name="eForm">
+   <table class="data" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+		<%IF txtJenis="Edit" Then%>
+		<td align="left">Employee Code</td><td align="left"><input type="text" size="15" name="EMPCODE" value="<%=EMPCODE%>" readonly="True" style="background:#999999"></td>
+		<%else%>
+		<td align="left">Employee Code</td><td align="left"><input type="text" size="15" name="EMPCODE" value="<%=EMPCODE%>"></td>
+		<%end if%>
+		<td align="left">Un Prune Frond</td><td align="left"><input type="text" size="15" name="UNPRUNE_FROND" value="<%=UNPRUNE_FROND%>"></td>
+		</tr>
+		<tr>
+		<%IF txtJenis="Edit" Then%>
+		<td align="left">Field Code</td><td align="left"><input type="text" size="15" name="FIELDCODE" value="<%=FIELDCODE%>" readonly="True" style="background:#999999"></td>
+		<%else%>
+		<td align="left">Field Code</td><td align="left"><input type="text" size="15" name="FIELDCODE" value="<%=FIELDCODE%>"></td>
+		<%end if%>
+		<td align="left">QE_1</td><td align="left"><input type="text" size="15" name="QE_1" value="<%=QE_1%>"></td>
+		</tr>
+		<tr>
+		<td align="left">Under Ripe</td><td align="left"><input type="text" size="15" name="UNDER_RIPE" value="<%=UNDER_RIPE%>"></td>
+		<td align="left">QE_2</td><td align="left"><input type="text" size="15" name="QE_2" value="<%=QE_2%>"></td>
+		</tr>
+		<tr>
+		<td align="left">Over Ripe</td><td align="left"><input type="text" size="15" name="OVER_RIPE" value="<%=OVER_RIPE%>"></td>
+		<td align="left">QE_3</td><td align="left"><input type="text" size="15" name="QE_3" value="<%=QE_3%>"></td>
+		</tr>
+		<tr>
+		<td align="left">AbNormal</td><td align="left"><input type="text" size="15" name="ABNORMAL" value="<%=ABNORMAL%>"></td>
+		<td align="left">QE_4</td><td align="left"><input type="text" size="15" name="QE_4" value="<%=QE_4%>"></td>
+		</tr>
+		<tr>
+		<td align="left">Long Stalk</td><td align="left"><input type="text" size="15" name="LONG_STALK" value="<%=LONG_STALK%>"></td>
+		<td align="left">QE_5</td><td align="left"><input type="text" size="15" name="QE_5" value="<%=QE_5%>"></td>
+		</tr>
+		<tr>
+		<td align="left">Eaten by Rat</td><td align="left"><input type="text" size="15" name="EATEN_BY_RAT" value="<%=EATEN_BY_RAT%>"></td>
+		<td align="left">QE_6</td><td align="left"><input type="text" size="15" name="QE_6" value="<%=QE_6%>"></td>
+		</tr>
+		<td align="left">Un Harvest FFB</td><td align="left"><input type="text" size="15" name="UNHARVEST_FFB" value="<%=UNHARVEST_FFB%>"></td>
+		<td align="left">QE_7</td><td align="left"><input type="text" size="15" name="QE_7" value="<%=QE_7%>"></td>
+		<tr>
+		<td align="left">Un Collect Left Circle</td><td align="left"><input type="text" size="15" name="UNCOLLECT_LF_CIRCLE" value="<%=UNCOLLECT_LF_CIRCLE%>"></td>
+		<td align="left">QE_8</td><td align="left"><input type="text" size="15" name="QE_8" value="<%=QE_8%>"></td>
+		</tr>
+		<tr>
+		<td align="left">Un Collect Left Piece</td><td align="left"><input type="text" size="15" name="UNCOLLECT_LF_PIECE" value="<%=UNCOLLECT_LF_PIECE%>"></td>
+		<td align="left">QE_9</td><td align="left"><input type="text" size="15" name="QE_9" value="<%=QE_9%>"></td>
+		</tr>
+		<tr>
+		<td align="left">Un Arrange FFB</td><td align="left"><input type="text" size="15" name="UNARRANGE_FFB" value="<%=UNARRANGE_FFB%>"></td>
+		<td align="left">QE_10</td><td align="left"><input type="text" size="15" name="QE_10" value="<%=QE_10%>"></td>
+		</tr>
+	    <TR><td colspan="2" align="left">
+		  <input type="hidden" name="PeriodDate" value="<%=PeriodDate%>">
+		  <input Type="Hidden" Value="<%=request("txtTable")%>" Name="txtTable">
+		  <input Type="Hidden" Value="<%=request("txtModule")%>" Name="txtModule">
+		  <%IF Request("txtJenis")="Edit" then%>
+		       <input type="hidden" name="txtJenis" value="Edit">
+		       <input Type="Submit" style="background-color: #298CF7; color: #F7C610; font-weight: 
+		       bold; font-size: 8pt; font-family:Verdana" name="Add" value="Update">
+		  <%Else%>
+		       <input type="hidden" name="txtJenis" value="New">
+		       <input Type="Submit" style="background-color: #298CF7; color: #F7C610; font-weight: 
+		       bold; font-size: 8pt; font-family:Verdana" name="Add" value="Add">
+		  <%End if%>
+		  <input Type="Reset" style="background-color: #298CF7; color: #F7C610; font-weight:
+		  bold; font-size: 8pt; font-family:Verdana" name="Reset" value="Reset">
+		  <input Type="Button" style="background-color: #298CF7; color: #F7C610; font-weight: 
+		  bold; font-size: 8pt; font-family:Verdana" value="Back" name="B2" OnClick="javascript:history.back(1)"></td>
+	  </tr>
+   </table>
+
+   <table class="data">
+   <table class="data">
+	<BR>
+	<tr bgcolor="#6666FF" >
+	<TD align="left">NO</TD>
+	<TD colspan="2">&nbsp;</TD>
+	<TD align="left">EMP.CODE</TD>	
+	<TD align="left">DATE</TD>	
+	<TD align="left">FIELD</TD>	
+	<TD align="left">UNDER RIPE</TD>	
+	<TD align="left">OVER RIPE</TD>	
+	<TD align="left">ABNORMAL</TD>	
+	<TD align="left">LONG STALK</TD>	
+	<TD align="left">EATEN BY RATE</TD>	
+	<TD align="left">UNHARVEST</TD>	
+	<TD align="left">UNCOLLECT LC</TD>	
+	<TD align="left">UNCOLLECT LP</TD>	
+	<TD align="left">UNARRANGE</TD>	
+	<TD align="left">UNPRUNE</TD>	
+	<TD align="left">QE 1</TD>	
+	<TD align="left">QE 2</TD>	
+	<TD align="left">QE 3</TD>	
+	<TD align="left">QE 4</TD>	
+	<TD align="left">QE 5</TD>	
+	<TD align="left">QE 6</TD>	
+	<TD align="left">QE 7</TD>	
+	<TD align="left">QE 8</TD>	
+	<TD align="left">QE 9</TD>	
+	<TD align="left">QE 10</TD>	
+	</tr>
+   <%
+   if Not rsVH.eof then
+      nCountofField=rsVH.fields.count-1
+	  no=1
+	  While Not rsVH.EOF
+		  if no  mod 2 = 1 then
+             cColor = "#EEEEEE"
+		  else
+		     cColor = "#E5E5E5"
+		  end if%>
+		  <tr bgcolor="<%=cColor%>">
+		  <td align="left" valign="top"><%=NO%></td>
+			<td valign="middle" width="30">
+
+			<a href="HarvestingQuality.Asp?EMPCODE=<%=rsVH("EMPCODE")%>&FIELDCODE=<%=rsVH("FIELDCODE")%>&PeriodDate=<%=rsVH("FDDATE")%>&UNDER_RIPE=<%=rsVH("UNDER_RIPE")%>&OVER_RIPE=<%=rsVH("OVER_RIPE")%>&ABNORMAL=<%=rsVH("ABNORMAL")%>&LONG_STALK=<%=rsVH("LONG_STALK")%>&EATEN_BY_RAT=<%=rsVH("EATEN_BY_RAT")%>&UNHARVEST_FFB=<%=rsVH("UNHARVEST_FFB")%>&UNCOLLECT_LF_CIRCLE=<%=rsVH("UNCOLLECT_LF_CIRCLE")%>&UNCOLLECT_LF_PIECE=<%=rsVH("UNCOLLECT_LF_PIECE")%>&UNARRANGE_FFB=<%=rsVH("UNARRANGE_FFB")%>&UNPRUNE_FROND=<%=rsVH("UNPRUNE_FROND")%>&QE_1=<%=rsVH("QE_1")%>&QE_2=<%=rsVH("QE_2")%>&QE_3=<%=rsVH("QE_3")%>&QE_4=<%=rsVH("QE_4")%>&QE_5=<%=rsVH("QE_5")%>&QE_6=<%=rsVH("QE_6")%>&QE_7=<%=rsVH("QE_7")%>&QE_8=<%=rsVH("QE_8")%>&QE_9=<%=rsVH("QE_9")%>&QE_10=<%=rsVH("QE_10")%>&txtJenis=Edit"><img src="IMAGES/edit.gif" alt="Edit Data : <%=rsVH(1)%>" border="0"></a></td><td>
+			<a href="HarvestingQuality.Asp?EMPCODE=<%=rsVH("EMPCODE")%>&FIELDCODE=<%=rsVH("FIELDCODE")%>&PeriodDate=<%=rsVH("FDDATE")%>&txtJenis=Delete"><img src="IMAGES/delete.gif" alt="Delete Data : <%=rsVH(1)%>" border="0"></a>
+			</td>
+		    <%for i = 0 to nCountofField%>
+			    <td align="left" title="<%=rsVH(i).Name%>" valign="top"><%=rsVH(i)%></td>
+		    <%next%>
+		  </tr>
+		  <%
+		  rsVH.MoveNext
+		  intRecordsPerPage = intRecordsPerPage - 1
+		  no=no+1
+	  Wend
+   end if 
+   rsVH.Close
+   set rsVH = Nothing%>
+   </TABLE>
+   </form>
+<%End if%>  
+ 
+  <%'-------------akhir----------------------%>
+ </td>
+</tr>
+<tr>
+  <td colspan="2">
+  <!--#include file="bottom.jsp"-->
+  </td>
+</tr>
+</table>
+</body>
+</html>

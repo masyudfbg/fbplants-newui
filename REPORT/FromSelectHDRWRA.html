@@ -1,0 +1,89 @@
+<table id="form-table" class="centered-margin">
+<tr>
+
+
+
+
+<th>&nbsp;</th>
+<th>&nbsp;</th>
+<th>&nbsp;</th>
+<th>TAHUN</th>
+<th>BULAN</th>
+<th>KODE </th>
+<th>&nbsp;</th>
+</tr>
+<tr>
+		
+		<th>&nbsp;</th> 
+        <th>&nbsp;</th>	
+        <th>&nbsp;</th>		
+			<td>
+				<font size="2"  color="#0000FF" ></font>
+				<% 
+					MM=Request("vMonth")
+					yyyy=Request("vYear")
+
+					mon = Month(Session("v_Costbook"))
+					If len(MM)=0 then MM=mon
+
+					Yr = Year(Session("v_Costbook"))
+					MinYr = 2015
+					MaxYr = Yr  + 10
+					If len(yyyy)= 0 then yyyy = Yr
+				%>
+				<select name="vYear">
+					<%
+						For i = MinYr to MaxYr
+					%>
+							<Option Value="<%=i%>" <%If cint(i) = cint(yyyy) then%> Selected <%End If%>><%=i%></option>
+					<%
+						Next
+					%>
+				</select>
+			</td>
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="vMonth">
+						<%
+							For i = 1 to 12
+						%>
+							<Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+						<%
+							Next
+						%>
+					</select>
+			</td>		
+
+			<td>
+				<select name="txtJob">
+					<option value="--ALL--" <%if request("v_txtJob")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+					<%
+					
+					Set rsJob = Server.CreateObject("ADODB.Recordset")
+					rsJob.CursorLocation = adUseClient
+					strsql =  " select  a.fccode,a.fcname from jobcodeWRA a order by a.fccode "
+					rsJob.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsJob.eof then
+					DO while not rsJob.eof
+					  if v_txtJob= rsJob("FCCODE") then
+						%>			
+						<option value="<%=rsJob("FCCODE")%>" Selected><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% Else %>	
+						<option value="<%=rsJob("FCCODE")%>"><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% End If
+					  rsJob.movenext
+					loop
+					End if
+					rsJob.Close
+					set rsJob = Nothing
+					%>
+					
+				</select>
+			</td>
+		</td>
+
+<td><input type="submit" value="View" /></td>
+
+</tr>
+</table>

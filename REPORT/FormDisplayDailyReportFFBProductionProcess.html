@@ -1,0 +1,443 @@
+				<%
+
+					if not rsProses.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsProses.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsProses("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "TBS PROSES"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_3 decrease_hi, param_4 decrease_shi, param_5 decrease_sbi , param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'TBS_PROSES' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsProses("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempDecrease_hi = rsCodeDesc ("decrease_hi")
+										tempDecrease_shi = rsCodeDesc ("decrease_shi")
+										tempDecrease_sbi = rsCodeDesc ("decrease_sbi")	
+										tempRounding = rsCodeDesc ("rounding")	
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""	
+										tempDecrease_hi = ""
+										tempDecrease_shi = ""
+										tempDecrease_sbi = ""								
+										tempRounding = 0	
+									end if		
+									tempUOM = rsProses("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplayDailyReportSUMMARYFFBProductionProcess.html"-->
+								
+								
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>
+												
+								<td align="center"  ><%= no %></td>					
+													
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>">TBS NETTO</a></td>
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<%  
+									tempH_01 = cdbl(rsProses("h_01")) 
+									tempH_02 = cdbl(rsProses("h_02")) 
+									tempH_03 = cdbl(rsProses("h_03")) 
+									tempH_04 = cdbl(rsProses("h_04")) 
+									tempH_05 = cdbl(rsProses("h_05")) 
+									tempH_06 = cdbl(rsProses("h_06")) 
+									tempH_07 = cdbl(rsProses("h_07")) 
+									tempH_08 = cdbl(rsProses("h_08")) 
+									tempH_09 = cdbl(rsProses("h_09")) 
+									tempH_10 = cdbl(rsProses("h_10")) 
+									tempH_11 = cdbl(rsProses("h_11")) 
+									tempH_12 = cdbl(rsProses("h_12")) 
+									tempH_13 = cdbl(rsProses("h_13")) 
+									tempH_14 = cdbl(rsProses("h_14")) 
+									tempH_15 = cdbl(rsProses("h_15")) 
+									tempH_16 = cdbl(rsProses("h_16")) 
+									tempH_17 = cdbl(rsProses("h_17")) 
+									tempH_18 = cdbl(rsProses("h_18")) 
+									tempH_19 = cdbl(rsProses("h_19")) 
+									tempH_20 = cdbl(rsProses("h_20")) 
+									tempH_21 = cdbl(rsProses("h_21")) 
+									tempH_22 = cdbl(rsProses("h_22")) 
+									tempH_23 = cdbl(rsProses("h_23")) 
+									tempH_24 = cdbl(rsProses("h_24")) 
+									tempH_25 = cdbl(rsProses("h_25")) 
+									tempH_26 = cdbl(rsProses("h_26")) 
+									tempH_27 = cdbl(rsProses("h_27")) 
+									tempH_28 = cdbl(rsProses("h_28")) 
+									tempH_29 = cdbl(rsProses("h_29")) 
+									tempH_30 = cdbl(rsProses("h_30")) 
+									tempH_31 = cdbl(rsProses("h_31")) 
+									tempData_SHI = cdbl(rsProses("shi")) 
+									tempData_SBI = cdbl(rsProses("sbi")) 
+									
+
+
+
+									
+								%>
+								
+								<% ' Start Compare to Budget 
+
+									tempDataBudget_SHI = cdbl(rsProses("budget_shi"))
+									tempDataBudget_SBI = cdbl(rsProses("budget_sbi"))
+
+									if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = cdbl(rsProses("hi"))/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = cdbl(rsProses("shi"))/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = cdbl(rsProses("sbi"))/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>					
+								
+								
+								<%  
+								
+									if rsProses("SHI") <> "" then 
+										tempSHI = cdbl(rsProses("SHI"))		
+										if tempDecrease_Shi = "DECREASE_GRADING" then 
+											tempSHI = tempSHI 
+										end if							
+									else
+										tempSHI = 0
+									end if
+
+									if rsProses("SBI") <> "" then 
+										tempSBI = cdbl(rsProses("SBI"))		
+										if tempDecrease_Sbi = "DECREASE_GRADING" then 
+											tempSBI = tempSBI 
+										end if								
+									else
+										tempSBI = 0
+									end if
+								%>
+								
+								
+								<% if txtDay >= 1 then %>								
+									<td align="Right" >
+									<a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_01,tempRounding)%></a>
+									</td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 2 then %>								
+									<td align="Right" >
+									<a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_02,tempRounding)%></a>
+									</td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 3 then %>								
+									<td align="Right" >
+									<a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_03,tempRounding)%></a>
+									</td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 4 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_04,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 5 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_05,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 6 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_06,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 7 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_07,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 8 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_08,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 9 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_09,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 10 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_10,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 11 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_11,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 12 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_12,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 13 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_13,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 14 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_14,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 15 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_15,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 16 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_16,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 17 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_17,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 18 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_18,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 19 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_19,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 20 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_20,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 21 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_21,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 22 then %>								
+								    <td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_22,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 23 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_23,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 24 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_24,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 25 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_25,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 26 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_26,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 27 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_27,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 28 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_28,tempRounding)%></a></td>									
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+									
+
+								<% if txtDay >= 29 then %>																
+									<td align="Right" >
+									<a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_29,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+								
+
+								<% if txtDay >= 30 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_30,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+												
+								
+								<% if txtDay >= 31 then %>								
+									<td align="Right" ><a href="../p_SHIFTREPORT.asp?PRODUCTIONDATE_FROM=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>&PRODUCTIONDATE_TO=<%=v_txtMonth%>/<%=txtDay%>/<%=v_txtYear%>" target="_blank"><%=FormatNumber(tempH_31,tempRounding)%></a></td>
+								<% else %>
+									<td align="Right" ></td>
+								<% end if %>
+
+								<td align="center" ><%=FormatNumber(tempData_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempData_SBI,tempRounding)%></td>
+								
+								<%
+									if rsProses("CodeDesc") = "FFB0701" then 
+										tempData_Proses_HI = tempHI
+										tempData_Proses_SHI = tempSHI
+										tempData_Proses_SBI = tempSBI
+									end if
+								
+								%>
+								
+								
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+
+								<%
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+									
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+									
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+									
+								%>
+								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,tempRounding)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,tempRounding)%></td>
+								
+							</tr>
+				<%
+
+							rsProses.MoveNext
+						Wend
+					end if
+					rsProses.Close
+					set rsProses = Nothing
+				%>

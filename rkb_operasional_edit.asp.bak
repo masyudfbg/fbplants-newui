@@ -1,0 +1,1356 @@
+<%@Language=VBScript%>
+<% Option Explicit %>
+<% ValidateSession %>
+<!--#include virtual="/connDb1.Inc"-->
+<!--#include virtual="/txtFunction.inc"-->
+<!--#include virtual="/adovbs.inc"-->
+
+<%
+dim businessunit,fcbaname,CompanyName,q,sqltotdata,bkmno 
+bkmno= trim(request("rkbno"))
+businessunit= trim(session("fcba"))
+
+q = "Select fccode,fccompanycode, FCNAME,FCCOMPANYNAME,FCMANAGER,FCKTU,FCCROP,FCTYPE from BusinessUnit where fcCode='" & businessunit & "' "
+	' response.write q
+set rsCat = connStr.Execute(q)
+if not rsCat.eof then
+   fcbaname = rsCat("fcName")
+   CompanyName=rsCat("FCCOMPANYNAME")
+ 
+end if
+
+
+' get data header
+dim sqlheader,rsHeader,bkmnohdr,DATECREATED,SECTIONNAME,GANGCODE,ROWSTATEID
+dim SUPERVISI1,SUPERVISI2,SUPERVISI3,SUPERVISI4,SUPERVISINAME1,SUPERVISINAME2,SUPERVISINAME3,SUPERVISINAME4,Clasification,Clasificationname,ROWSTATE 
+dim period_month,period_year 
+
+sqlheader = "select rkbno,period_month,period_year,sectioncode,document_classification,rowstate,totupah,totbahan,totvra,totwip,classification_api.get_fcname(document_classification) docname " & _
+            " from rkbhdr where rkbno='" & bkmno & "' AND fcba='" & businessunit & "'"
+set rsHeader = connStr.Execute(sqlheader)
+
+if not rsHeader.eof then 
+	bkmnohdr = rsHeader("rkbno")
+	period_month = rsHeader("period_month")
+	period_year = rsHeader("period_year")
+	SECTIONNAME = rsHeader("sectioncode")
+	Clasification = rsHeader("document_classification")
+	Clasificationname = rsHeader("docname")
+	
+	ROWSTATE = rsHeader("rowstate")
+end if
+
+
+'count detailupah
+Dim SQL_Rows, NoOfRows,RSCount
+
+SQL_Rows = "SELECT Count (linenokey) from rkbupahdtl where rkbno='" & bkmno & "' and fcba='" & businessunit & "'"
+set RSCount = connStr.Execute(SQL_Rows)
+if not RSCount.eof then 
+	NoOfRows = RSCount(0).value
+end if
+RSCount.close
+
+'count detailbahan
+Dim SQL_Rowsitem, NoOfRowsitem,RSCountitem
+
+SQL_Rowsitem = "SELECT Count (linenokey) from rkbbahandtl where rkbno='" & bkmno & "' and fcba='" & businessunit & "'"
+set RSCountitem = connStr.Execute(SQL_Rowsitem)
+if not RSCountitem.eof then 
+	NoOfRowsitem = RSCountitem(0).value
+end if
+RSCountitem.close
+
+
+'count detailvh
+Dim SQL_Rowsvh, NoOfRowsvh,RSCountvh
+
+SQL_Rowsvh = "SELECT Count (*) from BKMVEHICLEDTL where BKMNO='" & bkmno & "'"
+set RSCountvh = connStr.Execute(SQL_Rowsvh)
+if not RSCountvh.eof then 
+	NoOfRowsvh = RSCountvh(0).value
+end if
+RSCountvh.close
+
+'count detailwip
+Dim SQL_Rowswip, NoOfRowswip,RSCountwip
+
+SQL_Rowswip = "SELECT Count (*) from BKMWIPDTL where BKMNO='" & bkmno & "'"
+set RSCountwip = connStr.Execute(SQL_Rowswip)
+if not RSCountwip.eof then 
+	NoOfRowswip = RSCountwip(0).value
+end if
+RSCountwip.close
+
+%>
+
+<html>
+	<head>
+		<title>FBPlants - RKB Operasional</title>
+		<link href="/js/tabbedpanels/SpryTabbedPanels.css" rel="stylesheet" type="text/css"/>
+		<script src="/js/tabbedpanels/SpryTabbedPanels.js" type="text/javascript"></script>
+		<script src="/js/jquery-1.9.1.js"></script>
+		<script src="/js/jquery-ui.js"></script>
+		<link rel="stylesheet" href="css/jquery-ui.css" />
+		<link rel="StyleSheet" href="style-content.css" type="text/css" />
+		<link href="/js/spry/widgets/textfieldvalidation/SpryValidationTextField.css" rel="stylesheet" type="text/css"/>
+		<script src="/js/spry/widgets/textfieldvalidation/SpryValidationTextField.js" type="text/javascript"></script>
+	</head>
+
+<style>
+	.posisikirijudul{
+		position: relative;
+		left: 0px;
+	}
+	.posisikiri{
+		position: relative;
+		left: -15px;
+	}
+	.lebarsection{
+		width: 160px;
+	}
+	.lebargangcode{
+		width: 200px;
+	}
+	.lebarhk{
+		width: 45px;
+	}
+	.lebarabsen{
+		width: 48px;
+	}
+	.lebarlokasi{
+		width: 60px;
+	}
+	.lebartc{
+		width: 70px;
+	}
+	.lebarrate{
+		width: 60px;
+	}
+	.lebaractivity{
+		/*width: 135px;*/
+	}
+	.lebarallow{
+		width: 130px;
+	}
+	.lebarupah{
+		width: 80px;
+	}
+	.warnagaris{
+		border-color: #FFA800;
+	}
+	.tebal{
+		font-weight: bold;
+	}
+	.ratakiri{
+		text-align: left;
+	}
+	.ratakanan{
+		text-align: right;
+	}
+	.ratatengah{
+		text-align: center;
+	}
+	.lebaritembarang{
+		width: 400px;
+	}
+	.lebaractbarang{
+		width: 300px;
+	}
+	.lebarvehicle{
+		width: 200px;
+	}
+	.lebartime{
+		width: 90px;
+	}
+
+	.lebarspkno{
+		width: 250px;
+	}
+	
+</style>
+
+
+
+<body>
+<!--#include file="top.jsp"-->
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div id="head_judul" style="float:left;font-size:10px; text-align:left;">
+		<strong class="posisikiri">&nbsp;&nbsp;PT. <%=CompanyName%> - &nbsp;<%=FcbaName%>   -           MODULE : RKB OPERASIONAL EDIT</strong><br>					
+</div>
+<br>
+<br>
+<div class="box_bothall" style="overflow:scroll;">			
+<form name="frmEntry" method="post" action="rkb_operasional_edit.asp">
+	<input type="hidden" name="jumldata" id="jumldata" value="<%=NoOfRows%>" />
+	<input type="hidden" name="jumldataitem" id="jumldataitem" value="<%=NoOfRowsitem%>" />
+	<input type="hidden" name="jumlvh" id="jumlvh" value="<%=NoOfRowsvh%>" />
+	<input type="hidden" name="jumldatawip" id="jumldatawip" value="<%=NoOfRowswip%>" />
+	<table class="data posisikiri" border="0" width="90%">			
+		<tr>
+			<td align="left" >RKB NO</td>
+			<td align="left">
+				<input type="text" name="bkmno" readonly id="bkmno" size="30" value="<%=bkmnohdr%>" title="BKM No">
+			</td>
+
+
+			<td align="left" >Section</td>
+			<td align="left">
+				<input type="text" name="sectionname" readonly id="sectionname" size="20" value="<%=SECTIONNAME%>">
+				
+			</td>
+			
+		</tr>
+		<tr>
+			<td align="left" >Period</td>
+			<td align="left">
+			    <select name="tahun" id="tahun" style="width:100px">
+				<%
+					dim sqltahun7,rstahun7
+					sqltahun7 = "select distinct to_number(accountingyear) tahun from accountingyear order by tahun "  
+					Set rstahun7 = Server.CreateObject("ADODB.Recordset")
+					rstahun7.CursorType = 3
+					rstahun7.CursorLocation = 3
+					rstahun7.Open sqltahun7, connstr
+					While Not rstahun7.EOF 
+						if cint(period_year)=cint(rstahun7("tahun")) then %>
+						<option value="<%=rstahun7("tahun")%>" Selected ><%=rstahun7("tahun")%></option>
+						<%else%>
+						<option value="<%=rstahun7("tahun")%>"><%=rstahun7("tahun")%></option>
+						<%end if%>					
+					<%rstahun7.movenext
+					wend 
+					rstahun7.close 
+					
+
+				%>	
+				</select>
+				<select name="bulan" id="bulan" style="width:120px">
+				<%
+					dim sqlbulan7,rsbulan7
+					sqlbulan7 = "select distinct to_number(accountingperiod) bulan,description from accountingperiod order by bulan " 
+					Set rsbulan7 = Server.CreateObject("ADODB.Recordset")
+					rsbulan7.CursorType = 3
+					rsbulan7.CursorLocation = 3
+					rsbulan7.Open sqlbulan7, connstr
+					While Not rsbulan7.EOF 
+						if cint(period_month)=cint(rsbulan7("bulan")) then %>
+						<option value="<%=rsbulan7("bulan")%>" Selected><%=rsbulan7("description")%></option>
+						<%else%>
+						<option value="<%=rsbulan7("bulan")%>"><%=rsbulan7("description")%></option>
+						<%end if%>
+					<%rsbulan7.movenext
+					wend 
+					rsbulan7.close 
+					
+
+				%>	
+				</select>
+				
+				
+			</td>
+			<td align="left" >Rowstate</td>
+			<td align="left">
+				<% if RowState = "Planned" then %>
+							
+							<a href="" onClick="return confirm('Are you sure to confirm this data :  ?');"> Confirmed </a>  
+						
+				<% Elseif RowState = "Confirmed" then %> 
+						
+							<a href="" onClick="return confirm('Are you sure to Approved this data :  ?');">Approved</a>  
+						
+							
+			
+				<% end if%> 
+			</td>
+			
+		</tr>
+		<tr>
+			<td align="left" >Type</td>
+			<td align="left">
+				
+				<select name="clasification" id="clasification" class="lebarsection">
+					<OPTION value="<%=Clasification%>"><%=Clasificationname%></OPTION>
+				</select>
+			</td>
+			
+
+		</tr>
+	</table>
+	
+	<br>
+		
+	<table align=center border="0" class='data posisikiri' width='900' id='tableall'>
+		<tr>
+			<td>
+			    <% IF Clasification= "501" Then %>
+				<!--#include file="FormRKB_Perawatan_edit.html"-->
+				<% END IF %>
+				
+				<% IF Clasification= "503" Then %>
+				<!--#include file="FormRKB_Panen_edit.html"-->
+				<% END IF %>
+				
+								
+			
+				
+			</td>
+		</tr>
+		<tr class="ratatengah">
+			<td  colspan="11"><input type=Submit name="btnsave" value="SAVE">&nbsp;&nbsp;<input type=Submit name="btncancel" value="CANCEL"></td>
+			
+		</tr>
+	</table>
+
+</form>
+</div>
+</body>
+<!--#include file="bottom.jsp"-->
+</html>
+<link href="/js/select2/select2.min.css" rel="stylesheet" type="text/css"/>
+<script src="/js/select2/select2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	new Spry.Widget.TabbedPanels("tp1", {
+		defaultTab: 0
+	});
+
+$(function() {	
+	$("#tglbkm").datepicker();
+	showSupervisi1();
+	showSupervisi2();
+	showSupervisi3();
+	showSupervisi4();
+	//showSection();
+	showClasification();
+	getLoad();
+	getLoaditem();
+	getLoadVH();
+	getLoadWIP();
+
+	
+	//alert('tes');
+});
+
+function numformat(val) {
+	var nStr = val.toString();
+	nStr = nStr.replace(/\,/g, "");
+	var x = nStr.split('.');
+	var x1 = x[0];
+	var x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + '.' + '$2');
+	}
+	return x1 + x2;
+}
+
+//get lokasi upah
+function showFCBA(selid) {
+	var fcba = 'fcba';
+	$('#lokasi').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getabsen.asp?viewdata=' + fcba,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+//get lokasi vehicle
+function showFCBAVH(selid) {
+	var fcba = 'fcba';
+	$('#lokasivh').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getabsen.asp?viewdata=' + fcba,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get section
+function showSection() {
+
+	$('#sectionname').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsection.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get GANGCODE 
+function showGang() {
+	var sectionname = $("#sectionname").val();
+	$('#gangcode').empty();
+	$('#gangcode').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_gangcode.asp?sectionname=' + sectionname,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get clasification 
+function showClasification() {
+	//$('#clasification').empty();
+	$('#clasification').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_clasification.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get supervisi 1
+function showSupervisi1() {
+	
+	$('#supervisi1').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsupervisi.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get supervisi 2
+function showSupervisi2() {
+	
+	$('#supervisi2').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsupervisi.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get supervisi 3
+function showSupervisi3() {
+	
+	$('#supervisi3').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsupervisi.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get supervisi 1
+function showSupervisi4() {
+	
+	$('#supervisi4').select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getsupervisi.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get absen
+function showAbsen(selid) {
+	
+	$('#absen').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getabsen.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get activity
+function showActivity(selid) {
+	
+	$('#activity').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getactivity.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//get tc
+function showTC(selid) {
+	
+	$('#tcupah').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getblok.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get allowedcode
+function showAllowed(selid) {
+	
+	$('#allowedcode').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getallowed.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get employee
+function showEmployee(selid) {
+	var gangcode = $("#gangcode").val();
+	$('#fccode').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : "bkm_employee_edit.asp?gangcode=" + gangcode,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//getLoadUpah
+function getLoad() {
+		
+	var bkmno = $("#bkmno").val();
+	var upahedit = 2;
+	$.post("bkm_employee_load.asp?upahedit=" + upahedit +"&bkmno=" + bkmno, function(data) {
+		
+		var json  = JSON.parse(data);
+		var jumlview  = json.results.length;
+		for (var i = 0; i < jumlview; i++) {
+
+			showEmployee("fccode" + i);
+			showFCBA("lokasi" + i);
+			showAbsen("absen" + i);
+			showActivity("activity" + i);
+			showTC("tcupah" + i);
+			showAllowed("allowedcode" + i);
+			
+		}
+	});
+	
+	
+}
+
+
+var jumlinv = $('#jumldata').val();
+var StartIteration =  jumlinv + 1	
+function addrowUpah(trid) {
+	 
+	var lastrow = this.StartIteration++;
+	if (lastrow < 2) {
+		var row = $("#trheader2").after("<tr id='tru" + lastrow + "'></tr>");
+		var kurangbutton = "&nbsp;";
+	} else {
+		var row = $('#tru' + trid).after("<tr id='tru" + lastrow + "'></tr>");
+		var kurangbutton = "<img src='css/login/images/del.png' onclick='deleterowUpah(" + lastrow + ")' />";
+	}
+
+	var fccode = "<select name='fccode" + lastrow + "' id='fccode" + lastrow + "' class='lebaractivity'></select>";
+	$('#tru' + lastrow).append("<td>" + fccode + "</td>");
+
+	var lokasi = "<select name='lokasi" + lastrow + "" + lastrow + "' id='lokasi" + lastrow + "' class='ratakiri lebarlokasi'></select>";
+	$('#tru' + lastrow).append("<td class='ratakiri lebarlokasi'>" + lokasi + "</td>");
+
+
+	var absen = "<select name='absen" + lastrow + "' id='absen" + lastrow + "' class='lebarabsen' onchange='getDisable(" + lastrow + ");'></select>";
+	$('#tru' + lastrow).append("<td class='ratakiri lebarabsen'>" + absen + "</td>");
+
+	var activity = "<select name='activity" + lastrow + "' id='activity" + lastrow + "' class='lebaractivity' onchange='getTC(" + lastrow + ");getDisable2(" + lastrow + ")'></select>";
+	$('#tru' + lastrow).append("<td>" + activity + "</td>");
+
+	var tc = "<select name='tcupah" + lastrow + "' id='tcupah" + lastrow + "' class='lebartc ratatengah'></select>";
+	$('#tru' + lastrow).append("<td>" + tc + "</td>");
+
+	var hk = "<input type='text' name='hk" + lastrow + "' id='hk" + lastrow + "' value='0' class='lebarabsen ratatengah'>";
+	$('#tru' + lastrow).append("<td>" + hk + "</td>");
+
+	var bunch = "<input type='text' name='bunch" + lastrow + "' id='bunch" + lastrow + "' onkeyup='hanyaAngka(this)' value='0' class='ratatengah lebarabsen'>";
+	$('#tru' + lastrow).append("<td class='ratatengah'>" + bunch + "</td>");
+
+	var abw = "<input type='text' name='abw" + lastrow + "' id='abw" + lastrow + "' onkeyup='hanyaAngka(this)' value='0' class='ratatengah lebarabsen'>";
+	$('#tru' + lastrow).append("<td class='ratatengah'>" + abw + "</td>");
+
+	var kgbrondolan = "<input type='text' name='kgbrondolan" + lastrow + "' id='kgbrondolan" + lastrow + "' onkeyup='hanyaAngka(this)' value='0' class='ratatengah lebarabsen'>";
+	$('#tru' + lastrow).append("<td class='ratatengah'>" + kgbrondolan + "</td>");
+
+
+	var unit = "<input type='text' name='unit" + lastrow + "' id='unit" + lastrow + "' value='0' class='lebarabsen ratatengah'>";
+	$('#tru' + lastrow).append("<td>" + unit + "</td>");
+
+	var output = "<input type='text' name='output" + lastrow + "' id='output" + lastrow + "' value='0' class='lebarabsen ratatengah'>";
+	$('#tru' + lastrow).append("<td>" + output + "</td>");
+
+	var ratekb = "<input type='text' name='ratekb" + lastrow + "' id='ratekb" + lastrow + "' onkeyup='hanyaAngka(this)' value='0' class='ratatengah lebarrate'>";
+	$('#tru' + lastrow).append("<td class='ratatengah'>" + ratekb + "</td>");
+
+
+	var allowedcode = "<select name='allowedcode" + lastrow + "' id='allowedcode" + lastrow + "' class='lebarallow'></select>";
+	$('#tru' + lastrow).append("<td>" + allowedcode + "</td>");
+
+
+	var amount = "<input type='text' name='amount" + lastrow + "' id='amount" + lastrow + "' value='0' class='lebarupah ratakanan'>";
+	$('#tru' + lastrow).append("<td>" + amount + "</td>");
+
+	
+	var tambahbutton = "<img src='css/login/images/add.jpg' onclick='addrowUpah(" + lastrow + ")' />";
+	$('#tru' + lastrow).append("<td>" + tambahbutton + "</td>");
+
+	$('#tru' + lastrow).append("<td>" + kurangbutton + "</td>");
+
+	showEmployee("fccode" + lastrow);
+	showFCBA("lokasi" + lastrow);
+	showAbsen("absen" + lastrow);
+	showActivity("activity" + lastrow);
+	showTC("tc" + lastrow);
+	showAllowed("allowedcode" + lastrow);
+	getjmlRow();
+}
+
+
+function deleterowUpah(i) {
+	Spry.Widget.Utils.destroyWidgets('fccode' + i);
+	Spry.Widget.Utils.destroyWidgets('lokasi' + i);
+	Spry.Widget.Utils.destroyWidgets('absen' + i);
+	Spry.Widget.Utils.destroyWidgets('activity' + i);
+	Spry.Widget.Utils.destroyWidgets('tcupah' + i);
+	Spry.Widget.Utils.destroyWidgets('hk' + i);
+	Spry.Widget.Utils.destroyWidgets('bunch' + i);
+	Spry.Widget.Utils.destroyWidgets('abw' + i);
+	Spry.Widget.Utils.destroyWidgets('kgbrondolan' + i);
+	Spry.Widget.Utils.destroyWidgets('unit' + i);
+	Spry.Widget.Utils.destroyWidgets('output' + i);
+	Spry.Widget.Utils.destroyWidgets('ratekb' + i);
+	Spry.Widget.Utils.destroyWidgets('allowedcode' + i);
+		
+	 $('#tru' + i).remove();
+	 getjmlRow();
+}
+
+//hitung jumlah row pada tabel upah
+function getjmlRow()
+{
+	
+	var oRows = document.getElementById('table2').getElementsByTagName('tr');
+	var iRowCount = oRows.length;
+	$('#jumldata').val(iRowCount);
+	
+}
+
+//hitung jumlah row pada tabel bahan
+function getjmlRowbhn()
+{
+	
+	var oRows = document.getElementById('table1').getElementsByTagName('tr');
+	var iRowCount = oRows.length;
+	$('#jumldataitem').val(iRowCount);
+	
+}
+
+//hitung jumlah row pada tabel kendaraan
+function getjmlRowvh()
+{
+	
+	var oRows = document.getElementById('table3').getElementsByTagName('tr');
+	var iRowCount = oRows.length;
+	$('#jumlvh').val(iRowCount);
+	
+}
+
+//hitung jumlah row pada tabel wip
+function getjmlRowwip()
+{
+	
+	var oRows = document.getElementById('table4').getElementsByTagName('tr');
+	var iRowCount = oRows.length;
+	$('#jumldatawip').val(iRowCount);
+	
+}
+
+
+
+//getLoaditem
+function getLoaditem() {
+	
+	var bkmno = $("#bkmno").val();
+	var jmlitem = 1;
+	$.post("bkm_show_item.asp?jmlitem=" + jmlitem +"&bkmno=" + bkmno, function(data) {
+		var json  = JSON.parse(data);
+		var jumlview  = json.results.length;
+		
+		for (var i = 0; i < jumlview; i++) {
+
+			//showTC("tc" + i);
+			showItem("ITEMCODE" + i);
+			showActivityitem("activityitem" + i);
+			
+		}
+	});
+	
+	
+}
+
+
+//get item
+function showItem(selid) {
+	$('#ITEMCODE').empty();
+	var jmlitem = 0;
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : "bkm_show_item.asp?jmlitem=" + jmlitem,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get activity item
+function showActivityitem(selid) {
+	
+	$('#activityitem').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getactivity.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+var jumlitem = $('#jumldataitem').val();
+var StartIterationitem =  jumlitem + 1	
+function addrowBahan(trid)
+{
+
+	var lstitem = this.StartIterationitem++;
+	if (lstitem < 2) {
+		var row = $("#trheader2").after("<tr id='trb" + lstitem + "'></tr>");
+		var kurangbutton = "&nbsp;";
+	} else {
+		var row = $('#trb' + trid).after("<tr id='trb" + lstitem + "'></tr>");
+		var kurangbutton = "<img src='css/login/images/del.png' onclick='deleterowBahan(" + lstitem + ")' />";
+	}
+
+	var ITEMCODE = "<select name='ITEMCODE' id='ITEMCODE" + lstitem + "' class='lebaritembarang'></select>";
+	$('#trb' + lstitem).append("<td class='ratakiri'>" + ITEMCODE + "</td>");
+
+	var uom = "<input type='text' name='uom' id='uom" + lstitem + "' value='' class='lebarabsen ratatengah'>";
+	$('#trb' + lstitem).append("<td class='ratakiri'>" + uom + "</td>");
+
+	var activityitem = "<select name='activityitem' id='activityitem" + lstitem + "' class='lebaractbarang'></select>";
+	$('#trb' + lstitem).append("<td class='ratakiri'>" + activityitem + "</td>");
+
+	var tcitem = "<select name='tcitem' id='tcitem" + lstitem + "' class='lebarabsen ratatengah'></select>";
+	$('#trb' + lstitem).append("<td class='ratakiri'>" + tcitem + "</td>");
+
+	var qtyitem = "<input type='text' name='qtyitem' id='qtyitem" + lstitem + "' value='0' class='lebarabsen ratatengah'>";
+	$('#trb' + lstitem).append("<td class='ratakiri'>" + qtyitem + "</td>");
+
+	var tambahbutton = "<img src='css/login/images/add.jpg' onclick='addrowBahan(" + lstitem + ")' />";
+	$('#trb' + lstitem).append("<td>" + tambahbutton + "</td>");
+
+	$('#trb' + lstitem).append("<td>" + kurangbutton + "</td>");
+
+	showItem("ITEMCODE" + lstitem);
+	showActivityitem("activityitem" + lstitem);
+
+	
+}
+
+
+function deleterowBahan(i) {
+	Spry.Widget.Utils.destroyWidgets('ITEMCODE' + i);
+	Spry.Widget.Utils.destroyWidgets('uom' + i);
+	Spry.Widget.Utils.destroyWidgets('activityitem' + i);
+	Spry.Widget.Utils.destroyWidgets('tcitem' + i);
+	Spry.Widget.Utils.destroyWidgets('qtyitem' + i);
+	 $('#trb' + i).remove();
+}
+
+
+var jumlvh = $('#jumlvh').val();
+var StartIterationvh =  jumlvh + 1	
+function addrowVH(trid)
+{
+
+	var lstvh = this.StartIterationvh++;
+	if (lstvh < 2) {
+		var row = $("#trheader3").after("<tr id='trv" + lstvh + "'></tr>");
+		var kurangbutton = "&nbsp;";
+	} else {
+		var row = $('#trv' + trid).after("<tr id='trv" + lstvh + "'></tr>");
+		var kurangbutton = "<img src='css/login/images/del.png' onclick='deleterowVH(" + lstvh + ")' />";
+	}
+
+	var employeecode = "<select name='employeecode" + lstvh + "' id='employeecode" + lstvh + "' class='lebarvehicle'></select>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + employeecode + "</td>");
+
+	var lokasivh = "<select name='lokasivh" + lstvh + "' id='lokasivh" + lstvh + "' class='ratakiri lebarabsen'></select>";
+	$('#trv' + lstvh).append("<td class='ratakiri lebarabsen'>" + lokasivh + "</td>");
+
+
+	var vehiclecode = "<select name='vehiclecode' id='vehiclecode" + lstvh + "' class='lebarvehicle'></select>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + vehiclecode + "</td>");
+
+	var timestart = "<input type='text' name='timestart' id='timestart" + lstvh + "' value='' class='lebartime ratatengah'>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + timestart + "</td>");
+
+	var activityivh = "<select name='activityivh' id='activityivh" + lstvh + "' class='lebaractivity'></select>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + activityivh + "</td>");
+
+	var tcvh = "<select name='tcvh' id='tcvh" + lstvh + "' class='lebarabsen ratatengah'></select>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + tcvh + "</td>");
+
+	var kattransport = "<select name='kattransport' id='kattransport" + lstvh + "' class='lebaractivity'></select>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + kattransport + "</td>");
+
+	var trip = "<input type='text' name='trip" + lstvh + "' id='trip" + lstvh + "' value='0' onkeyup='hanyaAngka(this)' class='lebarabsen ratatengah'>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + trip + "</td>");
+
+
+	var jamkerja = "<input type='text' name='jamkerja' id='jamkerja" + lstvh + "' value='0' class='lebarabsen ratatengah'>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + jamkerja + "</td>");
+
+	var kmhm = "<input type='text' name='kmhm' id='kmhm" + lstvh + "' value='0' class='lebarabsen ratatengah'>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + kmhm + "</td>");
+
+	var output = "<input type='text' name='output' id='output" + lstvh + "' value='0' class='lebarabsen ratatengah'>";
+	$('#trv' + lstvh).append("<td class='ratakiri'>" + output + "</td>");
+
+	var tambahbutton = "<img src='css/login/images/add.jpg' onclick='addrowVH(" + lstvh + ")' />";
+	$('#trv' + lstvh).append("<td>" + tambahbutton + "</td>");
+
+	$('#trv' + lstvh).append("<td>" + kurangbutton + "</td>");
+
+	showEmployeeVH("employeecode" + lstvh);
+	showFCBAVH("lokasivh" + lstvh);
+	showVH("vehiclecode" + lstvh);
+	showActivityVH("activityivh" + lstvh);
+	showtcVH("tcvh" + lstvh);
+	showkategoriTR("kattransport" + lstvh);
+	getjmlRowvh();
+
+	
+}
+
+function deleterowVH(i) {
+	Spry.Widget.Utils.destroyWidgets('employeecode' + i);
+	Spry.Widget.Utils.destroyWidgets('lokasi' + i);
+	Spry.Widget.Utils.destroyWidgets('vehiclecode' + i);
+	Spry.Widget.Utils.destroyWidgets('timestart' + i);
+	Spry.Widget.Utils.destroyWidgets('activityivh' + i);
+	Spry.Widget.Utils.destroyWidgets('tcvh' + i);
+	Spry.Widget.Utils.destroyWidgets('kattransport' + i);
+	Spry.Widget.Utils.destroyWidgets('trip' + i);
+	Spry.Widget.Utils.destroyWidgets('jamkerja' + i);
+	Spry.Widget.Utils.destroyWidgets('kmhm' + i);
+	Spry.Widget.Utils.destroyWidgets('outputvh' + i);
+	 $('#trv' + i).remove();
+	 getjmlRowvh();
+}
+
+
+//get kendaraan
+function showVH(selid) {
+	$('#vehiclecode').empty();
+	var jmlitem = 2;
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : "bkm_show_item.asp?jmlitem=" + jmlitem,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get activity kendaraan
+function showActivityVH(selid) {
+	
+	$('#activityivh').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getactivity.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get tcvh
+function showtcVH(selid) {
+	
+	$('#tcvh').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getblok.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get kategori transport
+function showkategoriTR(selid) {
+	
+	$('#kattransport').empty();
+	var jmlitem = 4;
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_show_item.asp?jmlitem=' + jmlitem,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+//getLoadvh
+function getLoadVH() {
+	
+	var bkmno = $("#bkmno").val();
+	var jmlitem = 3;
+	$.post("bkm_show_item.asp?jmlitem=" + jmlitem +"&bkmno=" + bkmno, function(data) {
+		var json  = JSON.parse(data);
+		var jumlview  = json.results.length;
+		
+		for (var i = 0; i < jumlview; i++) {
+			showVH("vehiclecode" + i);
+			showActivityVH("activityivh" + i);
+			showtcVH("tcvh" + i);
+			showkategoriTR("kattransport" + i);
+		}
+	});
+	
+	
+}
+
+
+
+var jumlwip = $('#jumldatawip').val();
+var StartIterationwip =  jumlwip + 1	
+function addrowWIP(trid)
+{
+
+	var lstwip = this.StartIterationwip++;
+	if (lstwip < 2) {
+		var row = $("#trheader4").after("<tr id='trw" + lstwip + "'></tr>");
+		var kurangbutton = "&nbsp;";
+	} else {
+		var row = $('#trw' + trid).after("<tr id='trw" + lstwip + "'></tr>");
+		var kurangbutton = "<img src='css/login/images/del.png' onclick='deleterowWIP(" + lstwip + ")' />";
+	}
+
+	var spkno = "<select name='spkno' id='spkno" + lstwip + "' class='lebarspkno'></select>";
+	$('#trw' + lstwip).append("<td class='ratakiri'>" + spkno + "</td>");
+
+	var contractorcode = "<select name='contractorcode' id='contractorcode" + lstwip + "' class='lebaractivity'></select>";
+	$('#trw' + lstwip).append("<td class='ratakiri'>" + contractorcode + "</td>");
+
+	var activityiwip = "<select name='activityiwip' id='activityiwip" + lstwip + "' class='lebaractivity'></select>";
+	$('#trw' + lstwip).append("<td class='ratakiri'>" + activityiwip + "</td>");
+
+	var tcwip = "<select name='tcwip' id='tcwip" + lstwip + "' class='lebarabsen ratatengah'></select>";
+	$('#trw' + lstwip).append("<td class='ratakiri'>" + tcwip + "</td>");
+
+	var qtywip = "<input type='text' name='qtywip' id='qtywip" + lstwip + "' value='0' class='lebarabsen ratatengah'>";
+	$('#trw' + lstwip).append("<td class='ratakiri'>" + qtywip + "</td>");
+
+	var unitwip = "<input type='text' name='unitwip' id='unitwip" + lstwip + "' value='0' class='lebarabsen ratatengah'>";
+	$('#trw' + lstwip).append("<td class='ratakiri'>" + unitwip + "</td>");
+
+	var outputwip = "<input type='text' name='outputwip' id='outputwip" + lstwip + "' value='0' class='lebarabsen ratatengah'>";
+	$('#trw' + lstwip).append("<td class='ratakiri'>" + outputwip + "</td>");
+
+	var tambahbutton = "<img src='css/login/images/add.jpg' onclick='addrowWIP(" + lstwip + ")' />";
+	$('#trw' + lstwip).append("<td>" + tambahbutton + "</td>");
+
+	$('#trw' + lstwip).append("<td>" + kurangbutton + "</td>");
+
+	showSPK("spkno" + lstwip);
+	showContractor("contractorcode" + lstwip);
+	showActivitySPK("activityiwip" + lstwip);
+	showtcWIP("tcwip" + lstwip);
+	getjmlRowwip();
+	
+}
+
+// DELETE ROW WIP
+function deleterowWIP(i) {
+	Spry.Widget.Utils.destroyWidgets('spkno' + i);
+	Spry.Widget.Utils.destroyWidgets('contractorcode' + i);
+	Spry.Widget.Utils.destroyWidgets('activityiwip' + i);
+	Spry.Widget.Utils.destroyWidgets('tcwip' + i);
+	Spry.Widget.Utils.destroyWidgets('qtywip' + i);
+	Spry.Widget.Utils.destroyWidgets('unitwip' + i);
+	Spry.Widget.Utils.destroyWidgets('outputwip' + i);
+	$('#trw' + i).remove();
+	getjmlRowwip();
+}
+
+
+//get WIP
+function showSPK(selid) {
+	$('#spkno').empty();
+	var jmlitem = 5;
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : "bkm_show_item.asp?jmlitem=" + jmlitem,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get contractor
+function showContractor(selid) {
+	$('#contractorcode').empty();
+	var jmlitem = 7;
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : "bkm_show_item.asp?jmlitem=" + jmlitem,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get activity WIP
+function showActivitySPK(selid) {
+	
+	$('#activityiwip').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getactivity.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//get TC WIP
+function showtcWIP(selid) {
+	
+	$('#tcwip').empty();
+	$('#' + selid).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getblok.asp',
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+}
+
+
+//getLoadwip
+function getLoadWIP() {
+	
+	var bkmno = $("#bkmno").val();
+	var jmlitem = 6;
+	$.post("bkm_show_item.asp?jmlitem=" + jmlitem +"&bkmno=" + bkmno, function(data) {
+		var json  = JSON.parse(data);
+		var jumlview  = json.results.length;
+		
+		for (var i = 0; i < jumlview; i++) {
+
+			showSPK("spkno" + i);
+			showContractor("contractorcode" + i);
+			showActivitySPK("activityiwip" + i);
+			showtcWIP("tcwip" + i);
+		}
+	});
+	
+	
+}
+
+
+//get tc
+function getTC(i)
+{
+	var activity = $('#activity' + i).val();
+	var lokasi   = $('#lokasi' + i).val();
+
+	$('#tcupah' + i).empty();
+	$('#tcupah' + i).select2({
+		ajax: {
+			delay: 1000,
+			url : 'bkm_getblok.asp?activity=' + activity +'&lokasi=' + lokasi,
+			dataType: 'json',
+			type: "POST",
+			allowClear: true,
+			data: function (params) {
+					var query = {
+									keyword: params.term
+								}
+					return query;
+			}
+		}
+	});
+
+}
+
+
+//function disabled input()
+function getDisable(i)
+{
+	var absen = $('#absen' + i).val();
+	if (absen=="KB"){
+		//disbale
+		$( '#hk' + i ).prop( "disabled", true );
+		$( '#bunch' + i ).prop( "disabled", true );
+		$( '#abw' + i ).prop( "disabled", true );
+		$( '#kgbrondolan' + i ).prop( "disabled", true );
+		$( '#allowedcode' + i ).prop( "disabled", true );
+		
+		//enable
+		
+		
+	}else{
+		$( '#hk' + i ).prop( "disabled", false );
+		$( '#bunch' + i ).prop( "disabled", false );
+		$( '#abw' + i ).prop( "disabled", false );
+		$( '#kgbrondolan' + i ).prop( "disabled", false );
+		$( '#unit' + i ).prop( "disabled", false );
+		$( '#output' + i ).prop( "disabled", false );
+		$( '#ratekb' + i ).prop( "disabled", false );
+		$( '#allowedcode' + i ).prop( "disabled", false );
+		
+	}
+	
+}
+
+function getDisable2(i)
+{
+	var activity = $('#activity' + i).val();
+	if(activity=="6502101"){
+		$( '#bunch' + i ).prop( "disabled", false );
+		$( '#abw' + i ).prop( "disabled", false );
+		$( '#kgbrondolan' + i ).prop( "disabled", false );
+	}else{
+		$( '#bunch' + i ).prop( "disabled", true );
+		$( '#abw' + i ).prop( "disabled", true );
+		$( '#kgbrondolan' + i ).prop( "disabled", true );
+	}
+}
+
+</script>

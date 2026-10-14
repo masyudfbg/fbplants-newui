@@ -1,0 +1,234 @@
+</tr>
+  <center>
+  <tr align="Left" valign="middle" >
+  <td valign="middle" align="center"><form name="form1" method="post">
+      <label><font size="2"  color="#0000FF" ></font>
+        <select name="vYear">
+          <option value="2009">2009</option>
+		  <option value="2010">2010</option>
+          <option value="2011">2011</option>
+		  <option value="2012">2012</option>
+          <option value="2013">2013</option>
+		  <option value="2014">2014</option>
+        </select>
+        </label>
+      <label><font size="2" color="#0000FF" ></font>
+        <select name="vMonth">
+		  <%if request.Form("vMonth")="1" then%>
+             <option value="1" selected="selected">January</option>
+		  <%else%>
+             <option value="1">January</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="2" then%>
+             <option value="2" selected="selected">February</option>
+		  <%else%>
+             <option value="2">February</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="3" then%>
+             <option value="3" selected="selected">March</option>
+		  <%else%>
+             <option value="3">March</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="4" then%>
+             <option value="4" selected="selected">April</option>
+		  <%else%>
+             <option value="4">April</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="5" then%>
+             <option value="5" selected="selected">May</option>
+		  <%else%>
+             <option value="5">May</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="6" then%>
+             <option value="6" selected="selected">June</option>
+		  <%else%>
+             <option value="6">June</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="7" then%>
+             <option value="7" selected="selected">July</option>
+		  <%else%>
+             <option value="7">July</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="8" then%>
+             <option value="8" selected="selected">August</option>
+		  <%else%>
+             <option value="8">August</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="9" then%>
+             <option value="9" selected="selected">September</option>
+		  <%else%>
+             <option value="9">September</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="10" then%>
+             <option value="10" selected="selected">October</option>
+		  <%else%>
+             <option value="10">October</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="11" then%>
+             <option value="11" selected="selected">November</option>
+		  <%else%>
+             <option value="11">November</option>
+		  <%End if%>
+		  <%if request.Form("vMonth")="12" then%>
+             <option value="12" selected="selected">December</option>
+		  <%else%>
+             <option value="12">December</option>
+		  <%End if%>
+		     <option value="ALL">::ALL::</option>
+        </select>
+        </label>		
+
+      <label><font size="2" color="#0000FF" ></font>
+        <select name="vOrganization">
+	     <%IF request.Form("vOrganization")="ALL" THEN%>
+			<option value="REG-1">Regional-1</option>
+			<option value="REG-2">Regional-2</option>
+			<option value="ALL"  selected>::ALL::</option>
+	     <%elseif request.Form("vOrganization")="REG-1" THEN%>
+			<option value="REG-1" selected>Regional-1</option>
+			<option value="REG-2">Regional-2</option>
+			<option value="ALL">::ALL::</option>
+	     <%elseif request.Form("vOrganization")="REG-2" THEN%>
+			<option value="REG-1">Regional-1</option>
+			<option value="REG-2" selected>Regional-2</option>
+			<option value="ALL">::ALL::</option>
+              <%ELSE%>
+			<option value="ALL" selected>::ALL::</option>
+			<option value="REG-1">Regional-1</option>
+			<option value="REG-2" >Regional-2</option>
+		 <%END IF%>
+		 </select>
+        </label>		
+
+
+      <label><font size="2" color="#0000FF" ></font>
+        <select name="vBa">
+<%if request.Form("vBa")="ALL" then%>
+			<option value="ALL" selected>::ALL::</option>
+			<%Else%>
+			<option value="ALL">::ALL::</option>
+			<%End if%>
+			<%
+			'reDim rsBa
+			Set rsBa = Server.CreateObject("ADODB.Recordset")
+			rsBa.CursorLocation = adUseClient
+			strsql =  " SELECT DISTINCT(ba) as ba FROM SAC_ACCOUNTREPORT_TM_TBM"
+			rsBa.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+			if not rsBa.eof then
+			DO while not rsBa.eof
+			if request.Form("vBa")=rsBa("ba") then%>
+			   <option value="<%=rsBa("ba")%>" selected><%=rsBa("ba")%></option>
+			<%else%>
+			   <option value="<%=rsBa("ba")%>"><%=rsBa("ba")%></option>
+			<%End if%>
+			<%rsBa.movenext
+			loop
+			End if%>
+        </select>
+        </label>
+      <label><font size="2"  color="#0000FF" ></font>
+        <select name="vStatus">
+		 <%if request.Form("vStatus")="TBM" Then%>
+          <option value="TM">Mature</option>
+          <option value="TBM" Selected>im-Mature</option>
+		  <%else%>
+          <option value="TM" Selected>Mature</option>
+          <option value="TBM">im-Mature</option>
+		  <%End if%>
+        </select>
+        </label>
+				
+      <label><font size="2"  color="#0000FF" ></font>
+
+        <select name="vOwnership">
+		<%if request.Form("vOwnership") ="INTI" or request.Form("vOwnership") ="" Then%>
+          <option value="INTI" selected>Inti</option>
+          <option value="PLASMA">Plasma</option>
+		<%elseif request.Form("vOwnership") ="PLASMA" Then%>
+          <option value="INTI">Inti</option>
+          <option value="PLASMA" selected>Plasma</option>
+		<%End if%>
+        </select>
+        </label>
+      <label><font size="2"  color="#0000FF" ></font>
+        <select name="vCROPTYPE">
+		<%if Request.Form("vCROPTYPE")="OP" or Request.Form("vCROPTYPE")="" Then%>
+          <option value="OP" selected>Sawit (Oil Palm)</option>
+          <option value="2">Karet (Rubber)</option>
+          <option value="3">Coklat (COCOA)</option>
+		 <%elseif Request.Form("vCROPTYPE")="2" Then%>
+          <option value="OP">Sawit (Oil Palm)</option>
+          <option value="2" selected="selected">Karet (Rubber)</option>
+          <option value="3">Coklat (COCOA)</option>
+		 <%Elseif Request.Form("vCROPTYPE")="3" then%> 
+          <option value="OP">Sawit (Oil Palm)</option>
+          <option value="2">Karet (Rubber)</option>
+          <option value="3" selected="selected">Coklat (COCOA)</option>
+		 <%End if%> 
+        </select>
+        </label>
+		<select name="vDivision">	
+			<%if request.Form("vPlantingDate")="ALL" then%>
+			<option value="ALL" selected>::ALL::</option>
+			<%Else%>
+			<option value="ALL">::ALL::</option>
+			<%End if%>
+			<%
+			'reDim rsPlantingDate
+			Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+			rsPlantingDate.CursorLocation = adUseClient
+			strsql =  " SELECT DISTINCT(division) as division FROM SAC_ACCOUNTREPORT_TM_TBM"
+			rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+			if not rsPlantingDate.eof then
+			DO while not rsPlantingDate.eof
+			if request.Form("vDivision")=rsPlantingDate("division") then%>
+			   <option value="<%=rsPlantingDate("division")%>" selected><%=rsPlantingDate("division")%></option>
+			<%else%>
+			   <option value="<%=rsPlantingDate("division")%>"><%=rsPlantingDate("division")%></option>
+			<%End if%>
+			<%rsPlantingDate.movenext
+			loop
+			End if%>
+		</select>
+		<select name="vPlantingDate">	
+			<%if request.Form("vPlantingDate")="ALL" then%>
+			<option value="ALL" selected>::ALL::</option>
+			<%Else%>
+			<option value="ALL">::ALL::</option>
+			<%End if%>
+		
+			<%
+			Dim rsPlantingDate
+			Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+			rsPlantingDate.CursorLocation = adUseClient
+			strsql =  " SELECT DISTINCT(PLANTINGDATE) as PlantingDate FROM SAC_ACCOUNTREPORT_TM_TBM"
+			rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+			if not rsPlantingDate.eof then
+			DO while not rsPlantingDate.eof
+			   if request.Form("vPlantingDate")=rsPlantingDate("PlantingDate") then%>
+			      <option value="<%=rsPlantingDate("PlantingDate")%>" selected><%=rsPlantingDate("PlantingDate")%></option>
+			   <%else%>
+			      <option value="<%=rsPlantingDate("PlantingDate")%>"><%=rsPlantingDate("PlantingDate")%></option>
+			   <%End if%>	  
+			<%rsPlantingDate.movenext
+			loop
+			End if
+			rsPlantingDate.Close
+			set rsPlantingDate = nothing%>
+		</select>
+      <label><font size="2"  color="#0000FF" ></font>
+        <select name="vJenisReport">
+		 <%if request.Form("vJenisReport")="Group" Then%>
+          <option value="Group"  Selected>Per-Group Pekerjaan</option>
+          <option value="Job">Per-Pekerjaan</option
+		 <%else%>
+          <option value="Group"  selected>Per-Group Pekerjaan</option>
+          <option value="Job">Per-Pekerjaan</option>
+		  <%End if%>
+        </select>
+        </label>
+		<input type="submit" value="View" >
+    </form>
+    </td>
+  </tr>
+  </table>

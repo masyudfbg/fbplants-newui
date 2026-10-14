@@ -1,0 +1,209 @@
+				<%
+
+					if not rsSisaTBS.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						while not rsSisaTBS.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsSisaTBS("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "SISA TBS"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'SISA_TBS' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsSisaTBS("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""		
+										tempRounding = 0							
+									end if		
+									tempUOM = rsSisaTBS("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYFFBRemainMill.html"-->
+								
+
+												
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>												
+												
+								<td align="center" ><%=no%></td>					
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>">SALDO AKHIR (KEMARIN)</a></td>
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+
+									tempDataBudget_HI = 0
+									tempDataBudget_SHI = 0
+									tempDataBudget_SBI = 0	
+
+									if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = cdbl(rsSisaTBS("hi"))/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = cdbl(rsSisaTBS("shi"))/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = cdbl(rsSisaTBS("sbi"))/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>					
+								
+								
+								<%  
+									if rsSisaTBS("HI") <> "" then 
+										tempHI = cdbl(rsSisaTBS("HI")) 
+									else
+										tempHI = 0
+									end if
+								
+									if rsSisaTBS("SHI") <> "" then 
+										tempSHI = cdbl(rsSisaTBS("SHI")) 						
+									else
+										tempSHI = 0
+									end if
+
+									if rsSisaTBS("SBI") <> "" then 
+										tempSBI = cdbl(rsSisaTBS("SBI")) 									
+									else
+										tempSBI = 0
+									end if
+								%>
+								
+								<%
+									if rsSisaTBS("CodeDesc") = "FFB01" then 
+									   tempOpeningStock = tempHI
+									end if
+								%>
+
+
+								<td align="center" ><%=FormatNumber(tempHI,tempRounding)%></td>
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>					
+
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>					
+								
+								<%
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+									
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+									
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+									
+								%>
+								
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>
+								<td class="grey" align="right" ></td>
+								
+							</tr>
+							
+							
+				<%
+
+							rsSisaTBS.MoveNext
+						Wend
+					end if
+					rsSisaTBS.Close
+					set rsSisaTBS = Nothing
+				%>	
+				
+	
+
+				
+				
+				
+				
+				
+				
+				

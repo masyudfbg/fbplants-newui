@@ -1,0 +1,208 @@
+				<%
+
+					if not rsTerimaTBS.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						while not rsTerimaTBS.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							
+							if rsTerimaTBS("CodeDesc") = "FFB02" or rsTerimaTBS("CodeDesc") = "FFB03" or rsTerimaTBS("CodeDesc") = "FFB031" or rsTerimaTBS("CodeDesc") = "FFB04" then 
+								no = no + 1
+							else
+								no = no 
+							end if
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsTerimaTBS("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "PENERIMAAN TBS"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_3 rounding, param_6 reference  " & _
+												  " from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'TERIMA_TBS' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsTerimaTBS("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempReference = rsCodeDesc ("reference")
+										tempRounding = cdbl(rsCodeDesc ("rounding"))
+										
+									else
+										tempCodeDescription = ""					
+										tempReference = ""
+										tempRounding = 0
+									end if		
+									tempUOM = rsTerimaTBS("UnitOfMeasurement")			
+
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+													
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYFFBReceived.html"-->
+								
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>
+								
+												
+								<%
+								if rsTerimaTBS("CodeDesc") = "FFB02" or rsTerimaTBS("CodeDesc") = "FFB03" or rsTerimaTBS("CodeDesc") = "FFB031" or rsTerimaTBS("CodeDesc") = "FFB04" then 
+								%>
+								    <td align="center" ><%=no%></td>				
+								<%
+								else
+								%>
+									<td align="center" ></td>					
+								<%
+								end if
+								%>
+							
+							
+								<% if rsTerimaTBS("CodeDesc") = "FFB02" or rsTerimaTBS("CodeDesc") = "FFB03" or rsTerimaTBS("CodeDesc") = "FFB04" or rsTerimaTBS("CodeDesc") = "FFB031" then
+								%>
+									 <td class="boldfont" align="left" ><a href="<%=tempReference%>"><%=rsTerimaTBS("GROUPNAME")%></a></td>  
+								<% else %>
+									 <td align="left" >&nbsp;&nbsp;&nbsp;&nbsp;<a href="<%=tempReference%>"><%=rsTerimaTBS("GROUPNAME")%></a></td>  
+								<% END IF %>
+								
+								<td align="center" ><%=tempUOM%></td>				
+								
+								<% ' Start Compare to Budget 
+
+									tempDataBudget_HI = cdbl(rsTerimaTBS("budget_hi"))
+									tempDataBudget_SHI = cdbl(rsTerimaTBS("budget_shi"))
+									tempDataBudget_SBI = cdbl(rsTerimaTBS("budget_sbi"))
+
+									if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = cdbl(rsTerimaTBS("hi"))/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = cdbl(rsTerimaTBS("shi"))/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = cdbl(rsTerimaTBS("sbi"))/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>					
+								
+								<%  if rsTerimaTBS("hi") <>  "" then 
+										tempData = cdbl(rsTerimaTBS("hi"))
+									else
+										tempData = 0
+									end if
+								%>
+								<%
+									if rsTerimaTBS("CodeDesc") = "FFB02" then 
+									   tempReceived = tempData
+									end if
+								%>
+								
+								<%  if rsTerimaTBS("shi") <>  "" then 
+										tempData = cdbl(rsTerimaTBS("shi"))
+									else
+										tempData = 0
+									end if
+								%>
+								<td align="center" ><%=FormatNumber(tempData,tempRounding)%></td>
+								<%  if rsTerimaTBS("sbi") <>  "" then 
+										tempData = cdbl(rsTerimaTBS("sbi"))
+									else
+										tempData = 0
+									end if
+								%>
+								<td align="center" ><%=FormatNumber(tempData,tempRounding)%></td>
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+
+								<%
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+									
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+									
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+									
+								%>
+								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,tempRounding)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,tempRounding)%></td>
+								
+							</tr>
+				<%
+
+							rsTerimaTBS.MoveNext
+						Wend
+					end if
+					rsTerimaTBS.Close
+					set rsTerimaTBS = Nothing
+				%>

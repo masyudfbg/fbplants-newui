@@ -1,0 +1,176 @@
+<table id="form-table" class="centered-margin">
+<tr>
+<th>TAHUN</th>
+<th>BULAN</th>
+<th>REGIONAL</th>
+<th>BUSINESS UNIT</th>
+<th>STATUS</th>
+<th>OWNERSHIP</th>
+<th>CROPTYPE</th>
+<th>DIVISION</th>
+<th>TAHUN TANAM</th>
+<th>SOURCE</th>
+<th>&nbsp;</th>
+</tr>
+<tr>
+		<form name="frmAR" method="post" action="<%=ScriptName%>">
+			<td>
+				<font size="2"  color="#0000FF" ></font>
+<% 
+    MM=Request.Form("vMonth")
+    yyyy=Request.Form("vYear")
+
+    mon = Month(Session("v_Costbook"))
+    If len(MM)=0 then MM=mon
+
+    Yr = Year(Session("v_Costbook"))
+    MinYr = Yr - 2
+    MaxYr = Yr  + 2
+    If len(yyyy)= 0 then yyyy = Yr
+%>
+				<select name="vYear">
+<%
+    For i = MinYr to MaxYr
+%>
+        <Option Value="<%=i%>" <%If cint(i) = cint(yyyy) then%> Selected <%End If%>><%=i%></option>
+<%
+    Next
+%>
+				</select>
+			</td>
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="vMonth">
+<%
+    For i = 1 to 12
+%>
+        <Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+<%
+    Next
+%>
+					</select>
+			</td>		
+
+			<td>
+				<font size="2" color="#0000FF" ></font>
+				<select name="vOrganization">
+					<option value="ALL" <%IF request.Form("vOrganization")="ALL" THEN%> selected <%END IF%>>::ALL::</option>
+					<option value="REG-1" <%if request.Form("vOrganization")="REG-1" THEN%> selected <%END IF%>>Regional-1</option>
+					<option value="REG-2" <%if request.Form("vOrganization")="REG-2" THEN%> selected <%END IF%>>Regional-2</option>
+				</select>
+			</td>		
+
+			<td>
+				<font size="2" color="#0000FF" ></font>
+				<select name="vBa">
+				<option value="ALL" <%if request.Form("vBa")="ALL" then%> selected <%End if%>>::ALL::</option>
+				<%
+				'reDim rsBa
+				Set rsBa = Server.CreateObject("ADODB.Recordset")
+				rsBa.CursorLocation = adUseClient
+				strsql =  " SELECT FCCODE ba, FCNAME FROM BUSINESSUNIT WHERE fccode = '" & session("fcba") & "' and FCTYPE = 'E'"
+				rsBa.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+				if not rsBa.eof then
+				DO while not rsBa.eof
+				%>			
+				<option value="<%=rsBa("ba")%>" <%if request.Form("vBa")= rsBa("ba") then%> selected <%End If%>><%=rsBa("FCNAME")%></option>
+				<%rsBa.movenext
+				loop
+				End if
+				rsBa.Close
+				set rsBa = Nothing
+				%>
+				</select>
+			</td>
+
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vStatus">
+				<option value="TM" <%if request.Form("vStatus")="TM" Then%> Selected <%End if%>>TM</option>
+				<option value="TBM" <%if request.Form("vStatus")="TBM" Then%> Selected <%End if%>>TBM</option>
+			</select>
+			</td>
+
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vOwnership">
+				
+				<option value="ALL" <%if request.Form("vOwnership")="ALL" then%> selected <%End if%>>::ALL::</option>
+				<%
+				'reDim rsPlantingDate
+				Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+				rsPlantingDate.CursorLocation = adUseClient
+				strsql =  " SELECT distinct  t.ownership FROM sac_accountreport_tm_tbm t order by  t.ownership"
+				rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+				if not rsPlantingDate.eof then
+				DO while not rsPlantingDate.eof
+				%>
+				<option value="<%=rsPlantingDate("ownership")%>" <%if request.Form("vOwnership")=rsPlantingDate("ownership") then%> selected <%End if%>><%=rsPlantingDate("ownership")%></option>
+				<%rsPlantingDate.movenext
+				loop
+				End if%>
+			</select>			
+			</td>
+			
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vCROPTYPE">
+				<option value="OP" <%if Request.Form("vCROPTYPE")="OP" then%> selected <%End if%>>Sawit (Oil Palm)</option>
+				<option value="RB"<%if Request.Form("vCROPTYPE")="RB" then%> selected <%End if%>>Karet (Rubber)</option>
+				<option value="CO" <%if Request.Form("vCROPTYPE")="CO" then%> selected <%End if%>>Coklat (COCOA)</option>
+			</select>
+			</td>
+			
+			<td>
+				<select name="vDivision">	
+				<option value="ALL" <%if request.Form("vDivision")="ALL" then%> selected <%End if%>>::ALL::</option>
+				<%
+				'reDim rsPlantingDate
+				Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+				rsPlantingDate.CursorLocation = adUseClient
+				strsql =  " SELECT DIVISION FROM FIELD GROUP BY DIVISION ORDER BY DIVISION ASC"
+				rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+				if not rsPlantingDate.eof then
+				DO while not rsPlantingDate.eof
+				%>
+				<option value="<%=rsPlantingDate("division")%>" <%if request.Form("vDivision")=rsPlantingDate("division") then%> selected <%End if%>><%=rsPlantingDate("division")%></option>
+				<%rsPlantingDate.movenext
+				loop
+				End if%>
+				</select>
+			</td>
+
+			<td>
+				<select name="vPlantingDate">	
+				<option value="0" <%if request.Form("vPlantingDate")="ALL" then%> selected <%End if%>>::ALL::</option>
+				<%
+				Dim rsPlantingDate
+				Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+				rsPlantingDate.CursorLocation = adUseClient
+				strsql =  " select distinct to_char(t.plantingdate,'YYYY') plantingdate from FIELD t order by to_char(t.plantingdate,'YYYY')"
+				rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+				if not rsPlantingDate.eof then
+				DO while not rsPlantingDate.eof
+				%>
+				<option value="<%=rsPlantingDate("PlantingDate")%>" <%if Cint(request.Form("vPlantingDate"))=Cint(rsPlantingDate("PlantingDate")) then %> selected <%End if%>><%=Cint(rsPlantingDate("PlantingDate"))%></option>
+				<%rsPlantingDate.movenext
+				loop
+				End if
+				rsPlantingDate.Close
+				set rsPlantingDate = nothing%>
+				</select>
+			</td>
+
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vJenisReport">
+			<option value="Group" <%if request.Form("vJenisReport")="Group" Then%> Selected <%End if%>>Per-Group Pekerjaan</option>
+			<option value="Job" <%if request.Form("vJenisReport")="Job" Then%> Selected <%End if%>>Per-Pekerjaan</option>
+			</select>
+			</td>
+
+<td><input type="submit" value="View" /></td>
+</form>
+</tr>
+</table>

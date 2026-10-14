@@ -1,0 +1,1206 @@
+<%@Language=VBScript%>
+<% Option Explicit %>
+<% ValidateSession %>
+<!--#include virtual="/connDb1.Inc"-->
+<!--#include virtual="/txtFunction.inc"-->
+<!--#include virtual="/adovbs.inc"-->
+
+<%
+dim businessunit,fcbaname,CompanyName,q,sqltotdata,bkmno,tglbkm,tglsplit,bulansplit,thnsplit,postingflg,pmonth,pyear,store 
+bkmno= trim(request("stockcode"))
+tglbkm= trim(request("dt"))
+pmonth = request("month")
+pyear = request("year")
+businessunit= trim(request("fcba"))
+store = trim(request("storecode"))
+
+tglsplit    = left(tglbkm,2)
+bulansplit  = mid(tglbkm,4,2)
+thnsplit    = right(tglbkm,4)
+
+
+q = "Select fccode,fccompanycode, FCNAME,FCCOMPANYNAME,FCMANAGER,FCKTU,FCCROP,FCTYPE from BusinessUnit where fcCode='" & businessunit & "' "
+	' response.write q
+set rsCat = connStr.Execute(q)
+if not rsCat.eof then
+   fcbaname = rsCat("fcName")
+   CompanyName=rsCat("FCCOMPANYNAME")
+ 
+end if
+
+' get data header  to_date('" & IssueDate & "','mm/dd/yyyy')
+dim sqlheader,rsHeader,stockcode,stockname 
+sqlheader = "select fccode, fcname from stock where fccode='" & bkmno & "' AND fcba='" & businessunit & "' "
+set rsHeader = connStr.Execute(sqlheader)
+response.write sqlheader
+if not rsHeader.eof then 
+	stockcode = rsHeader("fccode")
+	stockname = rsHeader("fcname")
+	
+end if
+
+
+'count detailupah
+'Dim SQL_Rows, NoOfRows,RSCount
+
+'SQL_Rows = "SELECT Count (*) from bkmjournaldtl where docno='" & jurnalno & "'"
+'set RSCount = connStr.Execute(SQL_Rows)
+'if not RSCount.eof then 
+	'NoOfRows = RSCount(0).value
+'end if
+'RSCount.close
+
+
+'get value button
+'Dim sqlbuton,rsbuton,POSTINGFLG
+'sqlbuton = "SELECT POSTINGFLG FROM GLEDGERDTL WHERE JOURNALNO='" & jurnalno & "' AND FCBA='" & businessunit & "' "
+'set rsbuton = connStr.Execute(sqlbuton)
+'if not rsbuton.eof then 
+'	POSTINGFLG = rsbuton("POSTINGFLG")
+'else 
+'	POSTINGFLG = 0
+'end if
+'rsbuton.close
+
+%>
+
+<html>
+	<head>
+		<title>FBPlants - STORE VIEW</title>
+		<link href="/js/tabbedpanels/SpryTabbedPanels.css" rel="stylesheet" type="text/css"/>
+		<script src="/js/tabbedpanels/SpryTabbedPanels.js" type="text/javascript"></script>
+		<script src="/js/jquery-1.9.1.js"></script>
+		<script src="/js/jquery-ui.js"></script>
+		<link rel="stylesheet" href="css/jquery-ui.css" />
+		<link rel="StyleSheet" href="style-content.css" type="text/css" />
+		<link href="/js/spry/widgets/textfieldvalidation/SpryValidationTextField.css" rel="stylesheet" type="text/css"/>
+		<script src="/js/spry/widgets/textfieldvalidation/SpryValidationTextField.js" type="text/javascript"></script>
+	</head>
+<style>
+	.posisikirijudul{
+		position: relative;
+		left: 0px;
+	}
+	.posisikiri{
+		position: relative;
+		left: 20px;
+	}
+	.posisiheader{
+		position: relative;
+		left: 100px;
+	}
+	.lebarsection{
+		width: 160px;
+	}
+	.lebargangcode{
+		width: 200px;
+	}
+	.lebarabsen{
+		width: 60px;
+	}
+	.lebaremployee{
+		width: 230px;
+	}
+	.lebaractivity{
+		width: 250px;
+	}
+	.lebaracllowedcode{
+		width: 210px;
+	}
+	.lebarupah{
+		width: 120px;
+	}
+	.warnagaris{
+		border-color: #FFA800;
+	}
+	.tebal{
+		font-weight: bold;
+	}
+	.ratakiri{
+		text-align: left;
+	}
+	.ratakanan{
+		text-align: right;
+	}
+	.ratatengah{
+		text-align: center;
+	}
+
+	
+</style>
+
+<script>
+
+</script>
+
+<body>
+<!--#include file="top.jsp"-->
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div id="head_judul" style="float:left;font-size:10px; text-align:left;">
+		<strong class="posisikiri">&nbsp;&nbsp;PT. <%=CompanyName%> - &nbsp;<%=FcbaName%>   -           MODULE : STORE</strong><br>					
+</div>
+<br>
+<br>
+<div class="box_bothall" style="overflow:scroll;">			
+<form name="frmEntry" >
+	<table class="data posisiheader" border="0" width="50%">			
+		
+		<tr>
+			<td align="left" >STOCK CODE</td>
+			<td align="left">
+				<input type="text" name="stockcode" readonly id="stockcode" size="20" value="<%=stockcode%>" >
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left" >STOCK NAME</td>
+			<td align="left" colspan="">
+				<input type="text" name="stockname" readonly id="stockname" size="50" value="<%=stockname%>" >				
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left" >STORE</td>
+			<td align="left" colspan="">
+				<input type="text" name="storecode" readonly id="storecode" size="50" value="<%=store%>" >				
+			</td>
+		</tr>
+		
+	</table>
+	
+	<br>
+		
+	<table align=center border="0" class='data posisikiri' width='1100' id='table1'>
+		<tr>
+			<td>
+				<div class="TabbedPanels" id="tp1" align='center'>
+					<ul class="TabbedPanelsTabGroup">
+						<li class="TabbedPanelsTab">Purchase Request</li>
+						<li class="TabbedPanelsTab">Purchase Order</li>
+						<li class="TabbedPanelsTab">Receive Note</li>
+						<li class="TabbedPanelsTab">Transfer Task</li>
+						<li class="TabbedPanelsTab">Receive Task</li>
+						<li class="TabbedPanelsTab">Transfer Divisi</li>
+						<li class="TabbedPanelsTab">Receive Divisi</li>
+						<li class="TabbedPanelsTab">Issue</li>
+						<li class="TabbedPanelsTab">Adjusment</li>
+						<li class="TabbedPanelsTab">Average Price</li>
+					</ul>
+
+					<div class="TabbedPanelsContentGroup">
+<!-- Purchase Request -->
+						<div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.PR</th>
+									<th>Date.PR</th>
+									<th>Type</th>
+									<th>Request.Qty</th>
+									<th>Approved.Qty</th>
+									<th>Ordered.Qty</th>
+									<th>Description</th>
+									<th>Status</th>	
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = "SELECT a.prcode,a.prdate,document_classification,classification_api.get_fcname(document_classification) class, " & _ 
+											" requestedqty,approvedqty,orderedqty,b.description,b.rowstateid " & _
+											" FROM purchaserequest a INNER JOIN purchaserequestdetails b  ON (a.prcode=b.prcode AND a.fcba=b.fcba) " & _
+											" where a.fcba='" & businessunit & "' AND b.itemcode='" & bkmno& "' " & _ 
+											" AND to_char(a.prdate,'YYYY')=" & pyear & " AND to_char(a.prdate,'MM')=" & pmonth & " "& _ 
+											" ORDER BY prdate DESC "
+
+                           	set rsdtlupah = connStr.Execute(sqldtlupah)
+							
+																
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF %>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("prcode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("prdate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("class")%>
+									</td>
+									
+									<td>
+										<%=formatnumber(rsdtlupah("requestedqty"),2)%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("approvedqty"),2)%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("orderedqty"),2)%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("description")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("rowstateid")%>
+									</td>
+								
+									<td>
+									<a href="PurchaseRequestDetails.Asp?PRCODE=<%=rsdtlupah("prcode")%>&fcba=<%=businessunit%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("prcode")%>" border="0"></a>
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("approvedqty"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="4" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+								</tr>
+							</table>
+						</div>
+<!-- Purchase Order -->
+						<div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.PO</th>
+									<th>Date.PO</th>
+									<th>No.PR</th>
+									<th>Date.PR</th>
+									<th>Type</th>
+									<th>Ordered.Qty</th>
+									<th>Received.Qty</th>
+									<th>Supplier</th>
+									<th>Status</th>	
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = " SELECT a.pocode,a.podate,c.prcode,c.prdate, " & _ 
+											 " classification_api.get_fcname(a.document_classification) class, " & _
+											 " b.quantity,b.received,a.suppliercode,b.rowstateid,supplier_api.get_supp_name(a.suppliercode, a.fcba) suppliername" & _
+											 " FROM purchaseorder a " & _
+											 " INNER JOIN purchaseorderdetails b ON (a.pocode=b.pocode AND a.fcba=b.fcba) " & _
+											 " INNER JOIN purchaserequest c ON (b.prcode=c.prcode AND a.fcba=c.fcba) " & _
+											 " where a.fcba='" & businessunit & "' AND b.itemcode='" & bkmno& "' " & _ 
+											 " AND to_char(a.podate,'YYYY')=" & pyear & " AND to_char(a.podate,'MM')=" & pmonth & " " & _
+											 " ORDER BY a.podate DESC " 
+
+
+                           	
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+							
+																
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF 
+								%>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("pocode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("podate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("prcode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("prdate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("class")%>
+									</td>
+																		
+									<td>
+										<%=formatnumber(rsdtlupah("quantity"),2)%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("received"),2)%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("suppliername")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("rowstateid")%>
+									</td>
+								
+									<td>
+									<a href="PurchaseOrderDetails.Asp?fcCode=<%=rsdtlupah("pocode")%>&fcba=<%=businessunit%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("pocode")%>" border="0"></a>
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("quantity"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="5" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+								</tr>
+							</table>
+						</div>
+<!-- Receive NOte -->
+						<div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.GRN</th>
+									<th>Date.GRN</th>
+									<th>Supplier</th>
+									<th>No.PO</th>
+									<th>Date.PO</th>
+									<th>No.PR</th>
+									<th>Date.PR</th>
+									<th>PR.Qty</th>
+									<th>PO.Qty</th>
+									<th>GRN.Qty</th>
+									<th>Posting</th>
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = "  SELECT a.receivenotecode,a.rndate, " & _
+											 "	c2.pocode,c2.podate, " & _
+											 "	d2.prcode,d2.prdate, " & _
+											 "	d.approvedqty prqty, c.quantity poqty, b.quantity grnqty, " & _
+											 "	supplier_api.get_supp_name(a.suppliercode, a.fcba) suppliername,nvl(a.postingflg,'0') postingflg " & _
+											 "	FROM receivenote a " & _
+											 "	INNER JOIN receivenotedetail b ON (a.receivenotecode=b.receivenotecode AND a.fcba=b.fcba) " & _
+											 "	INNER JOIN purchaseorderdetails c ON (a.pocode=c.pocode AND b.purchaselinenokey=c.linenokey AND a.fcba=c.fcba) " & _
+											 "	INNER JOIN purchaseorder c2 ON (c.pocode=c2.pocode AND c.fcba=c2.fcba) " & _
+											 "	INNER JOIN purchaserequestdetails d ON (c.prcode=d.prcode AND c.prlineid=d.lineid AND a.fcba=d.fcba) " & _
+											 "	INNER JOIN purchaserequest d2 ON (d.prcode=d2.prcode AND  d.fcba=d2.fcba) " & _
+											 "	where a.fcba='" & businessunit & "' AND b.purchaseitemcode='" & bkmno& "' " & _
+											 "	AND to_char(a.rndate,'YYYY')=" & pyear & " AND to_char(a.rndate,'MM')=" & pmonth & " " & _
+											 "  AND a.storecode='" & store & "'" & _
+											 "	ORDER BY rndate DESC "
+
+
+
+                           	
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+							
+																
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF 
+								postingflg = rsdtlupah("postingflg")
+									if postingflg = "0" then 
+										postingflg="Tidak"
+									else 
+										postingflg="Ya"
+									end if
+								%>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("receivenotecode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("rndate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("suppliername")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("pocode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("podate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("prcode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("prdate")%>
+									</td>	
+										
+									<td>
+										<%=formatnumber(rsdtlupah("prqty"),2)%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("poqty"),2)%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("grnqty"),2)%>
+									</td>
+									
+									<td class="ratakiri">
+										<%=postingflg%>
+									</td>							
+									<td>
+									<a href="ReceiveNote.Asp?fcCode=<%=rsdtlupah("receivenotecode")%>&fcba=<%=businessunit%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("receivenotecode")%>" border="0"></a>
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("grnqty"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="8" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+								</tr>
+							</table>
+						</div>
+<!-- Transport Task -->
+                        <div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.TST</th>
+									<th>Date.TST</th>
+									<th>From B.Unit</th>
+									<th>To B.Unit</th>
+									<th>Qty</th>
+									<th>Description</th>
+									<th>Status</th>
+									<th>Posting</th>
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = " SELECT a.orderno,a.orderdate,a.fcba,b.fcbadistination,b.quantitytransfered,b.remarks,rowstateid,nvl(a.postingflg,'0') postingflg " & _
+											 " FROM  transporttask_tab a " & _
+											 " INNER JOIN transporttaskdtl_tab b ON a.orderno=b.orderno AND a.fcba=b.fcba " & _
+											 " WHERE a.fcba='" & businessunit & "' AND b.stockcode='" & bkmno& "' " & _
+											 " AND to_char(a.orderdate,'YYYY')=" & pyear & " AND to_char(a.orderdate,'MM')=" & pmonth & " " & _
+											 " AND b.storecode='" & store & "'" & _
+											 " ORDER BY orderdate DESC "
+
+
+
+
+                           	
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+							
+																
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF 
+								postingflg = rsdtlupah("postingflg")
+									if postingflg = "0" then 
+										postingflg="Tidak"
+									else 
+										postingflg="Ya"
+									end if
+								%>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("orderno")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("orderdate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("fcba")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("fcbadistination")%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("quantitytransfered"),2)%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("remarks")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("rowstateid")%>
+									</td>
+									<td class="ratakiri">
+										<%=postingflg%>
+									</td>							
+									<td>
+									<a href="TransportTask.Asp?OrderNo=<%=rsdtlupah("orderno")%>&OrderDate=<%=rsdtlupah("orderdate")%>&fcba=<%=rsdtlupah("fcba")%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("orderno")%>" border="0"></a>
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("quantitytransfered"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="4" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+								</tr>
+							</table>
+						</div>
+						
+<!-- Receive Task -->
+                        <div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.RCT</th>
+									<th>Date.RCT</th>
+									<th>From B.Unit</th>
+									<th>To B.Unit</th>
+									<th>No.TST</th>
+									<th>Qty.TST</th>
+									<th>Qty.RCT</th>
+									<th>Description</th>
+									<th>Status</th>
+									<th>Posting</th>
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = 	" SELECT a.orderno,a.orderdate,b.fcbasource,a.fcba,b.ordersource, "& _
+												" b.quantityreceived,b.quantitysource, "& _
+												" b.remarks,nvl(a.postingflg,'0') postingflg "& _
+												" FROM  receivedtask_tab a "& _
+												" INNER JOIN receivedtaskdtl_tab b ON a.orderno=b.orderno AND a.fcba=b.fcba "& _
+												" WHERE a.fcba='" & businessunit & "' AND b.stockcode='" & bkmno& "' " & _
+												" AND to_char(a.orderdate,'YYYY')=" & pyear & " AND to_char(a.orderdate,'MM')=" & pmonth & " " & _
+												" AND b.locationcode='" & store & "'" & _
+												" ORDER BY orderdate DESC "
+
+                           	
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF 
+								postingflg = rsdtlupah("postingflg")
+									if postingflg = "0" then 
+										postingflg="Tidak"
+									else 
+										postingflg="Ya"
+									end if
+							    %>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("orderno")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("orderdate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("fcbasource")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("fcba")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("ordersource")%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("quantitysource"),2)%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("quantityreceived"),2)%>
+									</td>
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("remarks")%>
+									</td>
+									
+									<td class="ratakiri">
+										<%=postingflg%>
+									</td>
+																
+									<td>
+									<a href="ReceivedTask.Asp?OrderNo=<%=rsdtlupah("orderno")%>&fcba=<%=businessunit%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("orderno")%>" border="0"></a>
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("quantityreceived"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="6" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+								</tr>
+							</table>
+						</div>						
+
+<!-- Transport Task DIVISI-->
+                        <div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.TSD</th>
+									<th>Date.TSD</th>
+									<th>Requestor</th>
+									<th>From </th>
+									<th>To </th>
+									<th>Description</th>
+									<th>Qty</th>
+									<th>Posting</th>
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = " SELECT a.orderno,a.orderdate,a.requestorby,b.storecodefrom,b.storecodeto,b.quantitytransfered,b.remarks,nvl(a.postingflg,'0') postingflg " & _
+											 " FROM  transporttaskdiv_tab a " & _
+											 " INNER JOIN transporttaskdivdtl_tab b ON a.orderno=b.orderno AND a.fcba=b.fcba " & _
+											 " WHERE a.fcba='" & businessunit & "' AND b.stockcode='" & bkmno& "' " & _
+											 " AND to_char(a.orderdate,'YYYY')=" & pyear & " AND to_char(a.orderdate,'MM')=" & pmonth & " " & _
+											 " AND b.storecodefrom='" & store & "' " & _
+											 " ORDER BY orderdate DESC "
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+							
+																
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF 
+								postingflg = rsdtlupah("postingflg")
+									if postingflg = "0" then 
+										postingflg="Tidak"
+									else 
+										postingflg="Ya"
+									end if
+									%>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("orderno")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("orderdate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("requestorby")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("storecodefrom")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("storecodeto")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("remarks")%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("quantitytransfered"),2)%>
+									</td>
+									
+									<td class="ratakiri">
+										<%=postingflg%>
+									</td>
+									
+									<td>
+									<a href="TransportTaskDiv.Asp?OrderNo=<%=rsdtlupah("orderno")%>&fcba=<%=businessunit%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("orderno")%>" border="0"></a>
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("quantitytransfered"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="6" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+								</tr>
+							</table>
+						</div>
+						
+<!-- Receive Task DIVISI-->
+                        <div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.TSD</th>
+									<th>Date.TSD</th>
+									<th>Requestor</th>
+									<th>From </th>
+									<th>To </th>
+									<th>Description</th>
+									<th>Qty</th>
+									<th>Posting</th>
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = " SELECT a.orderno,a.orderdate,a.requestorby,b.storecodefrom,b.storecodeto,b.quantitytransfered,b.remarks,nvl(a.postingflg,'0') postingflg " & _
+											 " FROM  transporttaskdiv_tab a " & _
+											 " INNER JOIN transporttaskdivdtl_tab b ON a.orderno=b.orderno AND a.fcba=b.fcba " & _
+											 " WHERE a.fcba='" & businessunit & "' AND b.stockcode='" & bkmno& "' " & _
+											 " AND to_char(a.orderdate,'YYYY')=" & pyear & " AND to_char(a.orderdate,'MM')=" & pmonth & " " & _
+											 " AND b.storecodeto='" & store & "' " & _
+											 " ORDER BY orderdate DESC "
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+							
+																
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF 
+								postingflg = rsdtlupah("postingflg")
+									if postingflg = "0" then 
+										postingflg="Tidak"
+									else 
+										postingflg="Ya"
+									end if
+									%>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("orderno")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("orderdate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("requestorby")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("storecodefrom")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("storecodeto")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("remarks")%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("quantitytransfered"),2)%>
+									</td>
+									
+									<td class="ratakiri">
+										<%=postingflg%>
+									</td>
+									
+									<td>
+									<a href="TransportTaskDiv.Asp?OrderNo=<%=rsdtlupah("orderno")%>&fcba=<%=businessunit%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("orderno")%>" border="0"></a>
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("quantitytransfered"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="6" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+								</tr>
+							</table>
+						</div>						
+						
+<!-- ISSUE -->
+                        <div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.SIV</th>
+									<th>Date.SIV</th>
+									<th>Store</th>
+									<th>Activity</th>
+									<th>TC</th>
+									<th>Description</th>
+									<th>Qty</th>
+									<th>Posting</th>
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = " SELECT a.sivcode,a.sivdate,a.storecode,b.jobcode,job_api.get_jobcode_name(jobcode,a.fcba) jobname, " & _ 
+								             " b.locationcode,b.quantity,b.reference,b.remarks ,nvl(a.postingflg,'0') postingflg" & _
+											 " FROM  issue a INNER JOIN issuedetails b ON a.sivcode=b.sivcode AND a.fcba=b.fcba " & _
+											 " WHERE a.fcba='" & businessunit & "' AND b.stockcode='" & bkmno& "' " & _
+											 " AND to_char(a.sivdate,'YYYY')=" & pyear & " AND to_char(a.sivdate,'MM')=" & pmonth & " " & _
+											 " AND a.storecode = '" & store & "'" & _
+											 " ORDER BY a.sivdate DESC,a.sivcode ASC " 
+
+
+
+                           	
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF 
+								postingflg = rsdtlupah("postingflg")
+									if postingflg = "0" then 
+										postingflg="Tidak"
+									else 
+										postingflg="Ya"
+									end if
+								%>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("sivcode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("sivdate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("storecode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("jobname")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("locationcode")%>
+									</td>
+									
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("remarks")%>
+									</td>
+									<td>
+										<%=formatnumber(rsdtlupah("quantity"),2)%>
+									</td>
+									
+									<td class="ratakiri">
+										<%=postingflg%>
+									</td>
+																
+									<td>
+									<a href="IssueDetails.Asp?fccOde=<%=rsdtlupah("sivcode")%>&fcba=<%=businessunit%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("sivcode")%>" border="0"></a>								
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("quantity"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="6" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+									</tr>
+
+							</table>
+						</div>	
+<!-- WRITEOFF -->
+                        <div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>No.WO</th>
+									<th>Date.WO</th>
+									<th>Store</th>
+									<th>Description</th>
+									<th>Qty</th>
+									<th>Posting</th>
+									<th>Action</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = "  SELECT a.writeoffcode,a.wodate,a.storecode,b.quantity,b.reference,b.remarks,nvl(a.postingflg,'0') postingflg" & _
+											 "	FROM  writeoff a " & _
+											 "	INNER JOIN writeoffdetails b ON a.writeoffcode=b.writeoffcode AND a.fcba=b.fcba " & _
+											 "	WHERE a.fcba='" & businessunit & "' AND b.stockcode='" & bkmno& "' " & _
+											 "	AND to_char(a.wodate,'YYYY')=" & pyear & " AND to_char(a.wodate,'MM')=" & pmonth & " " & _
+											 "  AND a.storecode='" & store & "'" & _
+											 "	ORDER BY a.wodate DESC "
+
+
+
+
+                           	
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+								no = 0
+								totalamount = 0
+								While Not rsdtlupah.EOF 
+								postingflg = rsdtlupah("postingflg")
+									if postingflg = "0" then 
+										postingflg="Tidak"
+									else 
+										postingflg="Ya"
+									end if
+								%>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("writeoffcode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("wodate")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("storecode")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("remarks")%>
+									</td>
+									
+									<td>
+										<%=formatnumber(rsdtlupah("quantity"),2)%>
+									</td>
+									
+									<td class="ratakiri">
+										<%=postingflg%>
+									</td>
+									
+									
+																
+									<td>
+									<a href="WriteOff.Asp?fccOde=<%=rsdtlupah("writeoffcode")%>&fcba=<%=businessunit%>&txtJenis=Edit"> <img src="IMAGES/edit.gif" alt="Edit Data : <%=rsdtlupah("writeoffcode")%>" border="0"></a>								
+									</td>
+									
+								</tr>
+								<%
+
+									no = no +1
+									totalamount = cdbl(totalamount) + cdbl(rsdtlupah("quantity"))
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								<tr class="ratakanan">
+										<td colspan="4" class="tebal">Total</td>
+										<td class="tebal"><input class="ratakanan lebarupah" type="text" readonly  style="background-color:#eee;" name="amount" id="amount<%=no%>" value="<%=FormatNumber(totalamount,2)%>"/></td>
+								</tr>
+
+
+							</table>
+						</div>		
+
+<!-- AVERAGE COST -->
+                        <div class="TabbedPanelsContent">
+							<table align=center border="0" width="900" class='data' id='table2'>
+								<tr id="trheader2">									
+									<th>Item Code</th>
+									<th>Item Name</th>
+									<th>Store</th>
+									<th>TransDate</th>
+									<th>Docno</th>
+									<th>Keterangan</th>
+									<th>Qty</th>
+									<th>Amount</th>
+									<th>Average Price</th>	
+									
+								</tr>
+
+								<% 
+								
+								
+								'get data detail upah
+								'dim sqldtlupah,rsdtlupah,no,totalamount
+								sqldtlupah = "  Select S.IDX, S.KODE_STOCK,ST.FCNAME, S.KODE_STORE, S.MONTH, S.YEAR, " & _
+								" S.TANGGAL, S.QTY, S.AMOUNT, S.HARGA_RATARATA, S.ID, " & _
+								" S.KETERANGAN, S.DOCNO, S.FCBA " & _
+								" From   STOCK_AVERAGE_LOG S " & _
+								" INNER JOIN STOCK ST ON S.KODE_STOCK=ST.FCCODE AND S.FCBA=ST.FCBA " & _
+								" WHERE S.KODE_STOCK='" & bkmno & "'  AND S.MONTH='" & pmonth & "' AND S.YEAR='" & pyear & "' AND S.FCBA='" & businessunit & "' " & _
+								" ORDER BY S.TANGGAL,S.DOCNO "
+
+
+								'Response.Write sqldtlupah
+
+                           	
+								set rsdtlupah = connStr.Execute(sqldtlupah)
+								no = 0
+								
+								While Not rsdtlupah.EOF 
+							
+								%>
+								<tr id="tru<%=no%>">
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("KODE_STOCK")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("FCNAME")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("KODE_STORE")%>
+									</td>
+									<td class="ratakiri">
+										<%=rsdtlupah("TANGGAL")%>
+									</td>
+									
+									<td>
+										<%=rsdtlupah("DOCNO")%>
+									</td>
+									
+									<td class="ratakiri">
+										<%=rsdtlupah("KETERANGAN")%>
+									</td>
+									<td class="ratakanan">
+										<%=rsdtlupah("QTY")%>
+									</td>
+									<td class="ratakanan">
+										<%=rsdtlupah("AMOUNT")%>
+									</td>
+									<td class="ratakanan">
+										<%=formatnumber(rsdtlupah("HARGA_RATARATA"))%>
+									</td>
+								
+									
+								</tr>
+								<%
+
+									no = no +1
+									rsdtlupah.MoveNext
+									Wend
+								%>
+								
+							</table>
+						</div>						
+
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr class="ratatengah">
+			
+			<!--<td  colspan="5">
+			 <input type=Submit name="btnsave" id="btnsave" value="POSTING">&nbsp;&nbsp;<input type=Submit name="btncancel" value="CANCEL">&nbsp;&nbsp;<input type=Submit name="btnunposting" id="btnunposting" value="UNPOSTING">
+			 </td> -->
+			 
+			
+		</tr>
+	</table>
+
+</form>
+</div>
+</body>
+<!--#include file="bottom.jsp"-->
+</html>
+<link href="/js/select2/select2.min.css" rel="stylesheet" type="text/css"/>
+<script src="/js/select2/select2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" LANGUAGE="VBScript">
+	new Spry.Widget.TabbedPanels("tp1", {
+		defaultTab: 0
+	});
+
+$(function() {	
+	$("#jurnaldate").datepicker();
+	var postingflg =  $("#POSTINGFLG").val();
+	if(postingflg==0){
+		$("#btnsave").show();
+		$("#btnunposting").hide();
+	}else {
+		$("#btnunposting").show();
+		$("#btnsave").hide();
+	}
+	
+		
+});
+
+
+function numformat(val) {
+	var nStr = val.toString();
+	nStr = nStr.replace(/\,/g, "");
+	var x = nStr.split('.');
+	var x1 = x[0];
+	var x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + '.' + '$2');
+	}
+	return x1 + x2;
+}
+
+
+function actionBtn()
+	{
+		var bkmfrom = $("#bkmfrom").val();
+		var bkmto 	= $("#bkmto").val();
+		var jumlinv = parseInt($('#jumldata').val());
+		
+		if (bkmfrom != "") { 
+				$('#loadingjudul').show();
+				$('#loading').show();
+				$.post("bkm_viewdata.asp?bkmfrom=" + bkmfrom + "&bkmto=" + bkmto,function(data) {
+				$('#bodytable').empty();
+				var json  = JSON.parse(data);
+				var jumlview  = json.results.length;
+				var no = 1;
+				for (var i = 0; i < jumlview; i++) {
+					var x = json.results[i].fccode
+					//alert(x);
+					var docketlist = '';
+						docketlist += '<tr id="tru'+i+'">';
+						docketlist += '<td align="left">' + json.results[i].bkmno + '</td>';
+						docketlist += '<td align="left">' + json.results[i].createdate + '</td>';
+						docketlist += '<td align="right">' + numformat(json.results[i].totalbkmupah) + '</td>';
+						docketlist += '<td align="right">' + json.results[i].totalbkmmaterial + '</td>';				
+						docketlist += '<td align="right">' + json.results[i].totalbkmvehicle + '</td>';
+						docketlist += '<td align="right">' + json.results[i].totalbkmwip + '</td>';
+						docketlist += '<td align="center"><a target=_blank href="bkm_operasional_edit.Asp?bkmno='+ json.results[i].bkmno + '"><img src="IMAGES/edit.gif" alt="Edit Data border="0"></a></td>';
+						docketlist += '<td align="center"><a target=_blank href="bkm_jurnal_input.Asp?tglbkm='+ json.results[i].createdate + '"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
+						docketlist += '</tr>';
+						$('#bodytable').append(docketlist);
+					no++;
+					$("#jumldata").val(jumlview);
+					
+				}
+				$('#loadingjudul').hide();
+				$('#loading').hide();
+				
+			});
+		 
+		} else {
+			$('#bodytable').empty();
+		}
+	}
+
+
+
+</script>

@@ -1,0 +1,2311 @@
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ePlaS - General_Charges Closing</title>
+</head>
+<body>
+<%
+Const adOpenForwardOnly = 0
+Const adLockReadOnly = 1
+Const adCmdTableDirect = &H0200
+Const adUseClient = 3
+Dim TimeAwal,TimeAkhir,Hitung,Lama
+TimeAwal=Time()
+
+Dim rsVehicle, qVehicle, nxPositive, nxNegative, nCostTotal
+Dim nTotalAlokasi, rsCostVehicle, qCostVehicle, nBasis, rsBasis, qBasis, qInsertCR
+Dim rsVHActivity, qVHActivity, nWSAlokasi, qInsertDB, LT, LC, FDDATE, FCJOB, nSelisih
+Dim qABC, q, qLineMax, rsqLineMax, tempMaxLine
+Dim strClosingLog, strLenghtime, rsLenghtime, upClosingLog, txtLastDay, txtNextMonth
+Dim maxLineNoVehicleCB, tempProcessCode, tempProcessNameCode, tempRefCodePVDetail, qReference
+Dim rsReferencePVDetail, donePVDetail, qNormalisasiDetail, qVoucher, rsVoucher, qCost_Activity,qjournal
+Dim qVoucherDetail, rsVoucherDetail, maxLineNoDetail
+Dim txtRefStringSeparator_PVDetail, txtRefStringValues_PVDetail, nQuantity, nOutput
+Dim txtRefNumberKeys_PVDetail, txtRefStringKeys_PVDetail, qCost_ActivityHistory, maxLineNoContractorCB
+Dim rsContract, qContract, rsAggrement, qCostContract, nRate, maxLineNoBuildingCB, rsCostActivityMax, qCostActivityMax
+Dim rsBuilding, qBuilding, rsCostBuilding, qCostBuilding, rsFieldAlokasi, qFieldAlokasi
+Dim nTMorTBM, nFFAlokasi, maxLineNo, maxLineNoGcCB
+Dim temp_DebetCredit
+
+Dim arrRS, arrRSX, arrRSP, objRSArray, ExecuteSQL, qDebetAlokasi, qCreditAlokasi, i, jobcodeNoBasis, qDebetAlokasiPlasma
+Dim qSelisih, objectSQL, objectRS, FirstRecord, UpdateAmoutSelisih
+Dim Cost_In, Alloc_Db, Alloc_Cr
+
+Dim qnon_upr, val_hasil, qborongan
+Dim temp_jobcode
+
+Function GetRSArray(strSQL)
+	
+	'response.write strSQL
+	set objRSArray = connStr.Execute(strSQL)	
+	If Not objRSArray.EOF Then
+		arrRS = objRSArray.GetRows()
+		GetRSArray = arrRS
+	Else
+		Response.Write("There are currently no records returned.<br/>")
+		Exit Function
+	End If
+	objRSArray.Close()
+	Set objRSArray = Nothing
+End Function
+
+Function GetRSArray_dtl(strSQL)
+	set objRSArray = connStr.Execute(strSQL)
+	If Not objRSArray.EOF Then
+		arrRS_dtl = objRSArray.GetRows()
+		GetRSArray_dtl = arrRS_dtl
+	Else
+		Response.Write("There are currently no records returned.<br/>")
+		Exit Function
+	End If
+	objRSArray.Close()
+	Set objRSArray = Nothing
+End Function
+
+Function GetRSArray_dtl_plasma(strSQL)
+	set objRSArray = connStr.Execute(strSQL)
+	If Not objRSArray.EOF Then
+		arrRS_dtl_plasma = objRSArray.GetRows()
+		GetRSArray_dtl_plasma = arrRS_dtl_plasma
+	Else
+		Response.Write("There are currently no records returned.<br/>")
+		Exit Function
+	End If
+	objRSArray.Close()
+	Set objRSArray = Nothing
+End Function
+
+'--Added by Ukie at 25-Oct-2012--	
+Dim Startingtime, Endingtime
+Startingtime = FormatDateTime(CDate(Now))
+'--End Added--	
+%>
+<div id="status_running"><img src="ICON/working.gif"></div><br>
+<font face="Verdana" size="1">
+General Charges Last Period Close <%=FormatDateTime(Session("cls_General_Charges"),1)%> <br> 
+General Charges Current Period is <%=FormatDateTime(Session("v_General_Charges"),1)%> <br><br>
+Please Wait...<br><br>
+<%
+ Response.Write "Start ..." & Time() & "<br><br>" 
+
+dim rsEmpAllDed,rsPO,qReceive,qPO,qControlJob,nPurchaseControl,rsControlJob,txtControlJob,qAllowance,nQtyReceived,qNormalisasi,nPresentRate,nDays,nAmount
+dim v_AllowanceCode
+
+' XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+' Add by NAF to select lastperiodposted
+Dim qPeriodControl, rsPeriodControl, temp_datePeriodControl
+
+' Water Flow Check, By NAF
+' 2 December 2013
+
+Dim qWaterFlowCheck, rsWaterFlowCheck, CheckWaterFlow, tempErrorWaterFlow
+
+qWaterFlowCheck = " select PERIODCONTROL_API.getStatusPrevClosing('General_Charges','" & Session("fcBA")  & "') waterFlowCheck from dual "
+
+Set rsWaterFlowCheck = Server.CreateObject("ADODB.Recordset")
+rsWaterFlowCheck.CursorType = 3
+rsWaterFlowCheck.CursorLocation = 3
+rsWaterFlowCheck.Open qWaterFlowCheck, connstr
+
+if not rsWaterFlowCheck.eof then
+    CheckWaterFlow = rsWaterFlowCheck("waterFlowCheck")
+else
+    Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No WATER FLOW CHECK for General_Charges " & "<br>"
+end if
+rsWaterFlowCheck.close
+set rsWaterFlowCheck = Nothing
+
+
+if CheckWaterFlow = "TRUE" then 
+
+	qPeriodControl=" select  add_months(LASTPERIODPOSTED,1) LastPeriodPosted from PERIODCONTROL  " & _
+	  " where SYSTEM='General_Charges' and fcba='" & Session("fcBA") & "'"
+
+	Set rsPeriodControl = Server.CreateObject("ADODB.Recordset")
+	rsPeriodControl.CursorType = 3
+	rsPeriodControl.CursorLocation = 3
+	rsPeriodControl.Open qPeriodControl, connstr
+
+	if not rsPeriodControl.eof then
+		temp_datePeriodControl = rsPeriodControl("LASTPERIODPOSTED")
+	else
+		Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No PERIODCONTROL for General_Charges " & "<br>"
+	end if
+	' End Added
+	'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+	' Remarked by NAF, as per New Concept, 7 May 2013
+	' For Workshop Closing, for 2nd Book in Accounting
+
+	tempProcessCode = "GENERAL_CHARGES_CLOSING"
+	tempProcessNameCode = "p_General_Charges_Closing.asp"
+	tempRefCodePVDetail = "GCCB"
+
+	' Take the Reference of Cost Activity, as per New Concept, by using this reference, we can directly refer to Original Table
+	' by NAF, 12 May 2013
+	' Take the Original Table of PAYMENTVOUCHERDETAIL.
+	qReference = "select REF_NUMBERKEYS, REF_STRINGSEPARATOR, REF_STRINGKEYS " & _
+				  " from process_tableref_tab " & _
+				  " where " & _
+				  " processcode = '" & tempProcessCode & "' and " & _
+				  " upper(processnamecode) =  upper('" & tempProcessNameCode & "') and " & _
+				  " fccode =  '" & tempRefCodePVDetail & "'"
+
+	Set rsReferencePVDetail = Server.CreateObject("ADODB.Recordset")
+	rsReferencePVDetail.CursorType = 3
+	rsReferencePVDetail.CursorLocation = 3
+	rsReferencePVDetail.Open qReference, connstr
+
+	donePVDetail = 1
+	if not rsReferencePVDetail.eof then
+		txtRefNumberKeys_PVDetail = rsReferencePVDetail("REF_NUMBERKEYS")
+		txtRefStringSeparator_PVDetail = rsReferencePVDetail("REF_STRINGSEPARATOR")
+		txtRefStringKeys_PVDetail = rsReferencePVDetail("REF_STRINGKEYS")
+		donePVDetail = 1
+	else
+		donePVDetail = 0
+	end if
+	rsReferencePVDetail.close
+	set rsReferencePVDetail = Nothing
+
+	' Get the Max LineNo of Cost Activity
+	Set rsCostActivityMax = Server.CreateObject("ADODB.Recordset")
+	rsCostActivityMax.CursorType = 3
+	rsCostActivityMax.CursorLocation = 3
+	
+	qCostActivityMax =  " select nvl(max(nvl(lineno,0)),0) maxLineNo from gccb " & _
+						" where fcba = '" &  Session("fcBA") & "' " 
+	rsCostActivityMax.Open qCostActivityMax, connstr
+	
+	If Not rsCostActivityMax.EOF Then
+		maxLineNoGcCB = cdbl(rsCostActivityMax("maxLineNo"))
+	Else
+		maxLineNoGcCB = 0
+	End If
+
+	rsCostActivityMax.close
+	set rsCostActivityMax = Nothing
+	' End of Get the Max LineNo of Cost Activity
+		
+	' Get the Allocation Depreciation Type
+	Set rsAllocationDepre = Server.CreateObject("ADODB.Recordset")
+	rsAllocationDepre.CursorType = 3
+	rsAllocationDepre.CursorLocation = 3
+
+	qAllocationDepre =  " select fccode from parameter where parcode = 'ALLOCATION_DEPRECIATION' " & _
+						" and fcba = '" &  Session("fcBA") & "' "
+						
+	rsAllocationDepre.Open qAllocationDepre, connstr
+	
+	If Not rsAllocationDepre.EOF Then
+		VAllocationDepre = rsAllocationDepre("fccode")
+	Else
+		VAllocationDepre = 0
+	End If
+
+	rsAllocationDepre.close
+	set rsAllocationDepre = Nothing
+	' End Get the Allocation Depreciation Type
+	
+	'---- Control Job
+	qControlJob="select ControlJob from Module where NAME='General_Charges'"
+	Set rsControlJob = Server.CreateObject("ADODB.Recordset")
+	rsControlJob.CursorType = 3
+	rsControlJob.CursorLocation = 3
+	rsControlJob.Open qControlJob, connstr
+	if not rsControlJob.eof then
+	   txtControlJob=rsControlJob("ControlJob")
+	else
+	   Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error SAC200367 Control Job For General Charges is Empty"
+	   txtControlJob=""
+	end if
+	rsControlJob.close
+	set rsControlJob = Nothing
+
+	response.Flush()
+
+	if txtControlJob<>"" then
+		'---- Normalisasi
+		Response.Write " Normalisasi General Charges Base Costing" & "<br>"
+		Response.Flush()
+		
+		connstr.BeginTrans
+		qNormalisasi = " delete" & _
+		               " from gccb" & _
+		               " where fcba = '" & Session("fcBA") & "'" & _
+		               "       and to_number(to_char(transdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+                       "       and to_number(to_char(transdate,'mm')) = " & Month(Session("v_General_Charges")) & ""
+		connstr.execute(qNormalisasi)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&qNormalisasi&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		'---- Normalisasi
+
+		' qNormalisasiDetail = " delete from cost_activity_hist_tab " & _
+						 ' " where " & _
+						 ' " lineheaderno || fcba in (select lineno||fcba from cost_activity " & _
+								' " where  to_number(to_Char(TDATE,'mm'))=" & Month(Session("v_General_Charges")) &  _
+								' " and to_number(to_Char(TDATE,'yyyy'))=" & Year(Session("v_General_Charges")) & " and fcBA='" & Session("fcBA") & "' and SOURCETYPE='GC')"
+						 
+		' connstr.execute(qNormalisasiDetail)			
+		' connStr.execute("Commit")
+		
+		
+		' qNormalisasi=" Delete From COST_ACTIVITY where  to_number(to_Char(TDATE,'mm'))=" & Month(Session("v_General_Charges")) &  _
+					 ' " and to_number(to_Char(TDATE,'yyyy'))=" & Year(Session("v_General_Charges")) & " and fcBA='" & Session("fcBA") & "'" & _
+					 ' " and SOURCETYPE = 'GC'"
+		' connstr.execute(qNormalisasi)	
+		' connStr.execute("Commit")
+		
+		connstr.BeginTrans
+		qNormalisasiDetail = " update cost_activity_hist_tab set deleteflag = 'REMOVE'" & _
+							 " where " & _
+							 " lineheaderno || fcba in (select lineno||fcba from cost_activity " & _
+							 " where  to_number(to_Char(TDATE,'mm'))=" & Month(Session("v_General_Charges")) &  _
+							 " and to_number(to_Char(TDATE,'yyyy'))=" & Year(Session("v_General_Charges")) & " and fcBA='" & Session("fcBA") & "' and SOURCETYPE='GC')"
+						 
+		connstr.execute(qNormalisasiDetail)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&qNormalisasiDetail&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		qNormalisasiDetail = " delete from cost_activity_hist_tab where deleteflag = 'REMOVE' and fcba =  '" & Session("fcBA") & "'"
+
+		connstr.execute(qNormalisasiDetail)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&qNormalisasiDetail&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		qNormalisasiDetail=	 " update Cost_Activity set deleteflag = 'REMOVE' where  to_number(to_Char(TDATE,'mm'))=" & Month(Session("v_General_Charges")) &  _
+							 " and to_number(to_Char(TDATE,'yyyy'))=" & Year(Session("v_General_Charges")) & " and fcBA='" & Session("fcBA") & "'" & _
+							 " and SOURCETYPE = 'GC'"
+		connstr.execute(qNormalisasiDetail)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&qNormalisasiDetail&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		sqldeletedata = " update cost_activity set deleteflag = 'REMOVE'" & _
+						" where fcba = '" & Session("fcBA") & "'" & _
+						"       and to_number(to_char(tdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						"       and to_number(to_char(tdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+						"       and instr(referenceno, 'v2') <> 0"
+
+		'response.Write(sqldeletedata)			  
+		connStr.execute(sqldeletedata)
+
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+			Response.Flush
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&sqldeletedata&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		qNormalisasiDetail = " delete cost_activity where deleteflag = 'REMOVE' and to_number(to_Char(TDATE,'mm'))=" & Month(Session("v_General_Charges")) &  _
+							 " and to_number(to_Char(TDATE,'yyyy'))=" & Year(Session("v_General_Charges")) & " and fcBA='" & Session("fcBA") & "'" & _
+							 " and SOURCETYPE = 'GC'"
+
+		connstr.execute(qNormalisasiDetail)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&qNormalisasiDetail&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+        Response.write("<font face=Verdana size=1 color=Green>Normalisasi General Charges Base Costing, Success!.<br/><br/></font>")
+        Response.Flush
+		
+		Response.Write "Generating Data..." & "<br/>"
+		Response.Flush
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from costtotal_pertarget" & _
+		             " where fcba = '" & Session("fcBA") & "'" & _
+					 "       and year = " & Year(Session("v_General_Charges")) & "" & _
+					 "       and month = " & Month(Session("v_General_Charges")) & "" & _
+					 "       and targettype = 'GC'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from btl_allocation" & _
+		             " where fcba = '" & Session("fcBA") & "'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		if Session("Estate_Mill") = "E" then
+			connstr.BeginTrans
+			
+			if VAllocationDepre = "TM" then 
+			'Ambil Semua Biaya berdasarkan target (INTI) (TM)
+				ExecuteSQL = " insert into costtotal_pertarget" & _
+							 " (FCBA, YEAR, MONTH, TARGETTYPE, TARGETCODE, COSTTOTAL, BASIS, OWNERSHIP)" & _
+							 " SELECT fcba," & _
+							 " year," & _
+							 " month," & _
+							 " targettype," & _
+							 " targetcode," & _
+							 " costtotal," & _
+							 " (SELECT NVL (SUM (field_api.getvalid_ha (fccode,fcba,to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd'))),0) AS basis" & _
+							 " FROM field" & _
+							 " WHERE     " & _
+							 " fcba = '" & Session("fcBA") & "'" & _
+							 " AND NVL (field_api.getvalid_activation (fccode,fcba,to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')),'N') = 'Y'" & _
+							 " AND field_api.getvalid_status (fccode,fcba,to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) IS NOT NULL AND ownership = 'INTI') basis," & _
+							 " 'INTI'" & _
+							 " FROM (  SELECT fcba," & _
+							 " TO_NUMBER (TO_CHAR (tdate, 'yyyy')) year," & _
+							 " TO_NUMBER (TO_CHAR (tdate, 'mm')) month," & _
+							 " targettype," & _
+							 " targetcode," & _
+							 " NVL (SUM (amount), 0) AS costtotal" & _
+							 " FROM cost_activity a " & _
+							 " WHERE     " & _
+							 " fcba = '" & Session("fcBA") & "'" & _
+							 " AND JobCode in (SELECT FCCODE FROM JOB b WHERE job_category='GC' AND a.fcba=b.fcba) " & _
+							 " AND TO_NUMBER (TO_CHAR (tdate, 'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+							 " AND TO_NUMBER (TO_CHAR (tdate, 'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+							 " AND targetcode NOT IN ('98', '99')" & _
+							 " AND targettype = 'GC'" & _
+							 " GROUP BY fcba, TO_NUMBER (TO_CHAR (tdate, 'yyyy')), TO_NUMBER (TO_CHAR (tdate, 'mm')), targettype, targetcode)" & _
+							 " union all" & _
+							 " SELECT fcba," & _
+							 " year," & _
+							 " month," & _
+							 " targettype," & _
+							 " targetcode," & _
+							 " costtotal," & _
+							 " (SELECT NVL (SUM (field_api.getvalid_ha (fccode,fcba,to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd'))),0) AS basis" & _
+							 " FROM field" & _
+							 " WHERE     " & _
+							 " fcba = '" & Session("fcBA") & "'" & _
+							 " AND NVL (field_api.getvalid_activation (fccode,fcba,to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')),'N') = 'Y'" & _
+							 " AND field_api.getvalid_status (fccode,fcba,to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) = 'TM' AND ownership = 'INTI') basis," & _
+							 " 'INTI'" & _
+							 " FROM (  SELECT fcba," & _
+							 " TO_NUMBER (TO_CHAR (tdate, 'yyyy')) year," & _
+							 " TO_NUMBER (TO_CHAR (tdate, 'mm')) month," & _
+							 " targettype," & _
+							 " targetcode," & _
+							 " NVL (SUM (amount), 0) AS costtotal" & _
+							 " FROM cost_activity a" & _
+							 " WHERE     " & _
+							 " fcba = '" & Session("fcBA") & "'" & _
+							 " AND JobCode in (SELECT FCCODE FROM JOB b WHERE job_category='GC' AND a.fcba=b.fcba) " & _
+							 " AND TO_NUMBER (TO_CHAR (tdate, 'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+							 " AND TO_NUMBER (TO_CHAR (tdate, 'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+							 " AND targetcode = '99'" & _
+							 " AND targettype = 'GC'" & _
+							 " GROUP BY fcba, TO_NUMBER (TO_CHAR (tdate, 'yyyy')), TO_NUMBER (TO_CHAR (tdate, 'mm')), targettype, targetcode)"
+			Else
+				'Ambil Semua Biaya berdasarkan target (INTI) (TM, TBM)
+				ExecuteSQL = " insert into costtotal_pertarget" & _
+							 " (FCBA, YEAR, MONTH, TARGETTYPE, TARGETCODE, COSTTOTAL, BASIS, OWNERSHIP)" & _
+							 " select fcba" & _
+							 "        , year" & _
+							 "        , month" & _
+							 "        , targettype" & _
+							 "        , targetcode" & _
+							 "        , costtotal" & _
+							 "		  , (select nvl(sum(field_api.getvalid_ha(fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd'))),0) as basis" & _
+							 "          from field" & _
+							 "          where fcba = '" & Session("fcBA") & "'" & _
+							 "                and nvl(field_api.getvalid_activation (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')),'N') = 'Y'" & _
+							 "                and field_api.getvalid_status(fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) is not null" & _
+							 "                and ownership ='INTI') basis" & _
+							 "        , 'INTI' " & _
+							 " from ( " & _
+							 "     select fcba" & _
+							 "            , to_number(to_char(tdate,'yyyy')) year" & _
+							 "            , to_number(to_char(tdate,'mm')) month" & _
+							 "            , targettype" & _
+							 "            , targetcode" & _
+							 "            , nvl(sum(amount),0) as costtotal" & _
+							 "     from cost_activity a" & _
+							 "     where fcba = '" & Session("fcBA") & "'" & _
+							 "           AND JobCode in (SELECT FCCODE FROM JOB b WHERE job_category='GC' AND a.fcba=b.fcba) " & _
+							 "           and to_number(to_char(tdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+							 "           and to_number(to_char(tdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+							 "			 and targetcode !='98'" & _
+							 "           and targettype = 'GC'" & _
+							 "     group by fcba" & _
+							 "              , to_number(to_char(tdate,'yyyy'))" & _
+							 "              , to_number(to_char(tdate,'mm'))" & _
+							 "              , targettype" & _
+							 "              , targetcode" & _
+							 " )"
+			End If
+			'Response.write ExecuteSQL &"</br>"
+			connstr.execute(ExecuteSQL)
+			
+			If Err.Number = 0 Then
+				connstr.CommitTrans
+				
+			Else
+				connstr.RollbackTrans
+				Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+				Response.Flush
+			End If
+			
+			'End Ambil Semua Biaya berdasarkan target (INTI)
+			
+			'Ambil Semua Biaya berdasarkan target (PLASMA)
+			connstr.BeginTrans
+			ExecuteSQLPL = " insert into costtotal_pertarget" & _
+						 " (FCBA, YEAR, MONTH, TARGETTYPE, TARGETCODE, COSTTOTAL, BASIS, OWNERSHIP)" & _
+						 " select fcba" & _
+						 "        , year" & _
+						 "        , month" & _
+						 "        , targettype" & _
+						 "        , targetcode" & _
+						 "        , costtotal" & _
+						 "		  , (select nvl(sum(field_api.getvalid_ha(fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd'))),0) as basis" & _
+						 "          from field" & _
+						 "          where fcba = '" & Session("fcBA") & "'" & _
+						 "                and nvl(field_api.getvalid_activation (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')),'N') = 'Y'" & _
+						 "                and field_api.getvalid_status(fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) is not null" & _
+						 "                and ownership ='PLASMA') basis" & _
+						 "        , 'PLASMA' " & _
+						 " from ( " & _
+						 "     select fcba" & _
+						 "            , to_number(to_char(tdate,'yyyy')) year" & _
+						 "            , to_number(to_char(tdate,'mm')) month" & _
+						 "            , targettype" & _
+						 "            , targetcode" & _
+						 "            , nvl(sum(amount),0) as costtotal" & _
+						 "     from cost_activity a" & _
+						 "     where fcba = '" & Session("fcBA") & "'" & _
+						 "           AND JobCode in (SELECT FCCODE FROM JOB b WHERE job_category='GC' AND a.fcba=b.fcba) " & _
+						 "           and to_number(to_char(tdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						 "           and to_number(to_char(tdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+						 "			 and targetcode ='98'" & _
+						 "           and targettype = 'GC'" & _
+						 "     group by fcba" & _
+						 "              , to_number(to_char(tdate,'yyyy'))" & _
+						 "              , to_number(to_char(tdate,'mm'))" & _
+						 "              , targettype" & _
+						 "              , targetcode" & _
+						 " )"
+
+			connstr.execute(ExecuteSQLPL)
+			
+			If Err.Number = 0 Then
+				connstr.CommitTrans
+				'Response.write ExecuteSQLPL &"</br>"
+			Else
+				connstr.RollbackTrans
+				Response.write("Error Save ["&ExecuteSQLPL&"] ("&Err.Description&")")
+				Response.Flush
+			End If
+		Else 
+			'Response.write " INSERT COST_TOTAL </br>"
+			'Ambil Semua Biaya Pabrik
+			connstr.BeginTrans
+			ExecuteSQLPL = " insert into costtotal_pertarget" & _
+						 " (FCBA, YEAR, MONTH, TARGETTYPE, TARGETCODE, COSTTOTAL, BASIS, OWNERSHIP)" & _
+						 " select fcba" & _
+						 "        , year" & _
+						 "        , month" & _
+						 "        , targettype" & _
+						 "        , targetcode" & _
+						 "        , costtotal" & _
+						 "		  , 0 basis" & _
+						 "        , 'INTI' " & _
+						 " from ( " & _
+						 "     select fcba" & _
+						 "            , to_number(to_char(tdate,'yyyy')) year" & _
+						 "            , to_number(to_char(tdate,'mm')) month" & _
+						 "            , targettype" & _
+						 "            , targetcode" & _
+						 "            , nvl(sum(amount),0) as costtotal" & _
+						 "     from cost_activity a" & _
+						 "     where fcba = '" & Session("fcBA") & "'" & _
+						 "           AND JobCode in (SELECT FCCODE FROM JOB b WHERE job_category='GC' AND a.fcba=b.fcba) " & _
+						 "           and to_number(to_char(tdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						 "           and to_number(to_char(tdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+						 "           and targettype IN('GC','BM')" & _
+						 "     group by fcba" & _
+						 "              , to_number(to_char(tdate,'yyyy'))" & _
+						 "              , to_number(to_char(tdate,'mm'))" & _
+						 "              , targettype" & _
+						 "              , targetcode" & _
+						 " )"
+			
+			'Response.write ExecuteSQLPL
+			
+			connstr.execute(ExecuteSQLPL)
+			
+			If Err.Number = 0 Then
+				connstr.CommitTrans
+				'Response.write ExecuteSQLPL &"</br>"
+			Else
+				connstr.RollbackTrans
+				Response.write("Error Save ["&ExecuteSQLPL&"] ("&Err.Description&")")
+				Response.Flush
+			End If
+		End If
+		'End Ambil Semua Biaya berdasarkan target (PLASMA)
+		
+		if Session("Estate_Mill") = "E" then
+			
+			'Menentukan Jobcode sesuai status dan ownership			
+			if VAllocationDepre = "TM" then 
+			ExecuteSQL = " insert into btl_allocation" & _
+                         " (fcba, jobcode, targettype, targetcode, unit, nfactor, basis,ownership)" & _
+                         " select fcba" & _
+                         "        , decode(status, 'TM', decode(ownership,'INTI','6510101','6510103'), 'TBM', decode(ownership,'INTI','1322109','1322309'), '1150901') jobcode " &_
+                         "        , 'FF' targettype" & _
+                         "        , targetcode" & _
+                         "        , unit" & _
+						 "        , 1 nfactor" & _
+						 "        , 0 basis, ownership" & _
+                         " from (" & _
+                         "     select fcba, ownership" & _
+                         "            , fccode targetcode" & _
+                         "            , field_api.getvalid_status (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) status" & _
+                         "            , nvl(field_api.getvalid_ha (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')), 0) unit" & _
+                         "     from field" & _
+                         "     where fcba = '" & Session("fcBA") & "'" & _
+                         "           and nvl(field_api.getvalid_activation (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')),'N') = 'Y'" & _
+                         "           and field_api.getvalid_status (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) IS NOT NULL " & _
+                         " )" & _
+                         " where unit <> 0"
+			Else
+			ExecuteSQL = " insert into btl_allocation" & _
+                         " (fcba, jobcode, targettype, targetcode, unit, nfactor, basis,ownership)" & _
+                         " select fcba" & _
+                         "        , decode(status, 'TM', decode(ownership,'INTI','6510101','6510103'), 'TBM', decode(ownership,'INTI','1322109','1322309'), '1150901') jobcode " &_
+                         "        , 'FF' targettype" & _
+                         "        , targetcode" & _
+                         "        , unit" & _
+						 "        , 1 nfactor" & _
+						 "        , 0 basis, ownership" & _
+                         " from (" & _
+                         "     select fcba, ownership" & _
+                         "            , fccode targetcode" & _
+                         "            , field_api.getvalid_status (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) status" & _
+                         "            , nvl(field_api.getvalid_ha (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')), 0) unit" & _
+                         "     from field" & _
+                         "     where fcba = '" & Session("fcBA") & "'" & _
+                         "           and nvl(field_api.getvalid_activation (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')),'N') = 'Y'" & _
+                         "           and field_api.getvalid_status (fccode, fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) is not null" & _
+                         " )" & _
+                         " where unit <> 0"
+			End if
+		'Response.write ExecuteSQL  &"</br>"
+			
+		Elseif (Session("Estate_Mill") = "M" Or Session("Estate_Mill") = "P") then
+			ExecuteSQL = " insert into btl_allocation" & _
+                         " (fcba, jobcode, targettype, targetcode, unit, nfactor, basis)" & _
+                         " select fcba" & _
+                         "        , '6620101' jobcode" & _
+                         "        , 'MA' targettype" & _
+                         "        , targetcode" & _
+                         "        , unit" & _
+						 "        , 1 nfactor" & _
+						 "        , 0 basis" & _
+                         " from (" & _
+                         "     select fcba" & _
+                         "            , fccode targetcode" & _
+                         "            , 1 unit" & _
+                         "     from machine" & _
+                         "     where fcba = '" & Session("fcBA") & "'" & _
+                         "           and nvl(activation, 'N') = 'Y'" & _
+                         " )" & _
+                         " where unit <> 0"
+		Elseif Session("Estate_Mill") = "W" then
+			ExecuteSQL = " insert into btl_allocation" & _
+                         " (fcba, jobcode, targettype, targetcode, unit, nfactor, basis)" & _
+                         " select fcba" & _
+						 "        , jobcode" & _
+						 "        , targettype" & _
+						 "        , targetcode" & _
+						 "        , unit" & _
+						 "        , nfactor" & _
+						 "        , basis" & _
+						 " from (" & _
+						 "     select aa.fcba" & _
+						 "          , aa.fccode jobcode" & _
+						 "          , 'CB' targettype" & _
+						 "          , 'BS' targetcode" & _
+						 "          , decode(businessunit_api.get_fctype(aa.codefcba)" & _
+						 "                   , 'M', nvl(aa.millcapacity, 0)" & _
+						 "                   , 'E', nvl(field_api.GetValid_HaEstate(aa.codefcba,to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','YYYYMMDD')), 0)" & _
+						 "                   , 0" & _
+						 "                 ) unit" & _
+						 "          , nfactor" & _
+						 "          , nvl(totalbasis, 0) basis" & _
+						 "     from jobcodeintraco aa" & _
+						 "     left join ( Select fcba, fctype, Sum(basis) totalbasis" & _
+						 "                 from ( select fcba" & _
+						 "                               , 'E' fctype" & _
+						 "                               , nvl(field_api.GetValid_HaEstate(a.codefcba,to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','YYYYMMDD')),0) basis" & _
+						 "                        from jobcodeintraco a " & _
+						 "                        where fcba = '" & Session("fcBA") & "'" & _
+						 "                        union all" & _
+						 "                        select fcba" & _
+						 "                               , 'M' fctype" & _
+						 "                               , nvl(a.millcapacity,0) basis" & _
+						 "                        from jobcodeintraco a" & _
+						 "                        where fcba = '" & Session("fcBA") & "'" & _
+						 "                      )" & _
+						 "                 group by fcba, fctype" & _
+						 "               ) bb" & _
+						 "     on (aa.fcba = bb.fcba and businessunit_api.get_fctype(aa.codefcba) = bb.fctype)" & _
+						 " ) where unit <> 0"
+
+		End If
+
+		connstr.BeginTrans
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+        Response.write("<font face=Verdana size=1 color=Green>Generating Data, Success!.<br/><br/></font>")
+        Response.Flush
+		
+		Response.Write "Generate Credit Allocation" & "<br/>"
+		Response.Flush
+		
+		if Session("Estate_Mill") = "E" then
+			jobcodeNoBasis = "1321401"
+		Else
+			jobcodeNoBasis = "1150901"
+		End If
+		
+		qCreditAlokasi = " select fcba" & _
+                         "        , targettype" & _
+                         "        , targetcode" & _
+                         "        , costtotal" & _
+						 "        , basis" & _
+                         " from costtotal_pertarget" & _
+                         " where fcba = '" & Session("fcBA") & "'" & _
+                         "       and year = " & Year(Session("v_General_Charges")) & "" & _
+                         "       and month = " & Month(Session("v_General_Charges")) & "" & _
+                         "       and targettype = 'GC'"
+		
+		arrRS = GetRSArray(qCreditAlokasi)
+		
+		'Response.Write qCreditAlokasi
+		
+		If IsArray(arrRS) Then
+			For i = LBound(arrRS, 2) To UBound(arrRS, 2)			
+				If Cdbl(arrRS(4, i)) = 0 Then
+					If Session("Estate_Mill") = "M" Then
+						If arrRS(2, i) <> "99" Then
+							connstr.BeginTrans
+							maxLineNoGcCB = maxLineNoGcCB + 1
+							qInsertCR = " insert into gccb (fieldcode" & _
+										"                   , targettype" & _
+										"                   , targetcode" & _
+										"                   , jobcode" & _
+										"                   , quantity" & _
+										"                   , amount" & _
+										"                   , transdate" & _
+										"                   , referenceno" & _
+										"                   , fcentry" & _
+										"                   , fcedit" & _
+										"                   , fcip" & _
+										"                   , fcba" & _
+										"                   , lastupdate" & _
+										"                   , lasttime" & _
+										"                   , lineno)" & _
+										" values ('" & arrRS(2, i) & "'" & _
+										"         , 'CB'" & _
+										"         , 'BS'" & _
+										"         , '6419998'" & _
+										"         , '0'" & _
+										"         , " & cdbl(arrRS(3, i)) * -1 & "" & _
+										"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+										"         , '" & arrRS(2, i) & "-Cr" & "'" & _
+										"         , '" & Session("CodeName") & "'" & _
+										"         , '" & Session("CodeName") & "'" & _
+										"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+										"         , '" & Session("fcBA") & "'" & _
+										"         , sysdate" & _
+										"         , to_char(sysdate, 'HH24:MI')" & _
+										"         , " & maxLineNoGcCB & ")"
+							
+							 'response.Write(qInsertCR)			  
+							connStr.execute(qInsertCR)
+
+							If Err.Number = 0 Then
+								connstr.CommitTrans
+								Response.Flush
+							Else
+								connstr.RollbackTrans
+								Response.write("Error Save ["&qInsertCR&"] ("&Err.Description&")")
+								Response.Flush
+							End If
+						End If
+						
+						If arrRS(2, i) = "99" Then
+							connstr.BeginTrans
+							maxLineNoGcCB = maxLineNoGcCB + 1
+							qInsertCR = " insert into gccb (fieldcode" & _
+										"                   , targettype" & _
+										"                   , targetcode" & _
+										"                   , jobcode" & _
+										"                   , quantity" & _
+										"                   , amount" & _
+										"                   , transdate" & _
+										"                   , referenceno" & _
+										"                   , fcentry" & _
+										"                   , fcedit" & _
+										"                   , fcip" & _
+										"                   , fcba" & _
+										"                   , lastupdate" & _
+										"                   , lasttime" & _
+										"                   , lineno)" & _
+										" values ('" & arrRS(2, i) & "'" & _
+										"         , 'CB'" & _
+										"         , 'BS'" & _
+										"         , '6429998'" & _
+										"         , '0'" & _
+										"         , " & cdbl(arrRS(3, i)) * -1 & "" & _
+										"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+										"         , '" & arrRS(2, i) & "-Cr" & "'" & _
+										"         , '" & Session("CodeName") & "'" & _
+										"         , '" & Session("CodeName") & "'" & _
+										"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+										"         , '" & Session("fcBA") & "'" & _
+										"         , sysdate" & _
+										"         , to_char(sysdate, 'HH24:MI')" & _
+										"         , " & maxLineNoGcCB & ")"
+							
+							 'response.Write(qInsertCR)			  
+							connStr.execute(qInsertCR)
+
+							If Err.Number = 0 Then
+								connstr.CommitTrans
+								Response.Flush
+							Else
+								connstr.RollbackTrans
+								Response.write("Error Save ["&qInsertCR&"] ("&Err.Description&")")
+								Response.Flush
+							End If
+						End If
+					End If
+					
+					If Session("Estate_Mill") = "HO" Then		
+						'response.Write "masuk credit HO bro </br>" 
+							connstr.BeginTrans
+							maxLineNoGcCB = maxLineNoGcCB + 1
+							qInsertCR = " insert into gccb (fieldcode" & _
+										"                   , targettype" & _
+										"                   , targetcode" & _
+										"                   , jobcode" & _
+										"                   , quantity" & _
+										"                   , amount" & _
+										"                   , transdate" & _
+										"                   , referenceno" & _
+										"                   , fcentry" & _
+										"                   , fcedit" & _
+										"                   , fcip" & _
+										"                   , fcba" & _
+										"                   , lastupdate" & _
+										"                   , lasttime" & _
+										"                   , lineno)" & _
+										" values ('" & arrRS(2, i) & "'" & _
+										"         , 'CB'" & _
+										"         , 'BS'" & _
+										"         , '8199999'" & _
+										"         , '0'" & _
+										"         , " & cdbl(arrRS(3, i)) * -1 & "" & _
+										"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+										"         , '" & arrRS(2, i) & "-Cr" & "'" & _
+										"         , '" & Session("CodeName") & "'" & _
+										"         , '" & Session("CodeName") & "'" & _
+										"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+										"         , '" & Session("fcBA") & "'" & _
+										"         , sysdate" & _
+										"         , to_char(sysdate, 'HH24:MI')" & _
+										"         , " & maxLineNoGcCB & ")"
+							
+							'response.Write qInsertCR &" </br>"
+							connStr.execute(qInsertCR)
+
+							If Err.Number = 0 Then
+								connstr.CommitTrans
+								Response.Flush
+							Else
+								connstr.RollbackTrans
+								Response.write("Error Save ["&qInsertCR&"] ("&Err.Description&")")
+								Response.Flush
+							End If						
+					End If
+					
+					If Session("Estate_Mill") = "E" Then					
+						connstr.BeginTrans
+						maxLineNoGcCB = maxLineNoGcCB + 1
+						qInsertCR = " insert into gccb (fieldcode" & _
+									"                   , targettype" & _
+									"                   , targetcode" & _
+									"                   , jobcode" & _
+									"                   , quantity" & _
+									"                   , amount" & _
+									"                   , transdate" & _
+									"                   , referenceno" & _
+									"                   , fcentry" & _
+									"                   , fcedit" & _
+									"                   , fcip" & _
+									"                   , fcba" & _
+									"                   , lastupdate" & _
+									"                   , lasttime" & _
+									"                   , lineno)" & _
+									" values ('" & arrRS(2, i) & "'" & _
+									"         , 'CB'" & _
+									"         , 'BS'" & _
+									"         , '" & txtControlJob & "'" & _
+									"         , '0'" & _
+									"         , " & cdbl(arrRS(3, i)) * -1 & "" & _
+									"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+									"         , '" & arrRS(2, i) & "-Cr-No Basis" & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+									"         , '" & Session("fcBA") & "'" & _
+									"         , sysdate" & _
+									"         , to_char(sysdate, 'HH24:MI')" & _
+									"         , " & maxLineNoGcCB & ")"
+						response.Write(qInsertCR)			  
+						connStr.execute(qInsertCR)
+						
+						maxLineNoGcCB = maxLineNoGcCB + 1
+						qInsertDB = " insert into gccb (fieldcode" & _
+									"                   , targettype" & _
+									"                   , targetcode" & _
+									"                   , jobcode" & _
+									"                   , quantity" & _
+									"                   , amount" & _
+									"                   , transdate" & _
+									"                   , referenceno" & _
+									"                   , fcentry" & _
+									"                   , fcedit" & _
+									"                   , fcip" & _
+									"                   , fcba" & _
+									"                   , lastupdate" & _
+									"                   , lasttime" & _
+									"                   , lineno)" & _
+									" values ('" & arrRS(2, i) & "'" & _
+									"         , 'CB'" & _
+									"         , 'BS'" & _
+									"         , '" & jobcodeNoBasis & "'" & _
+									"         , '0'" & _
+									"         , " & cdbl(arrRS(3, i)) & "" & _
+									"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+									"         , '" & arrRS(2, i) & "-Db-No Basis" & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+									"         , '" & Session("fcBA") & "'" & _
+									"         , sysdate" & _
+									"         , to_char(sysdate, 'HH24:MI')" & _
+									"         , " & maxLineNoGcCB & ")"
+						response.Write(qInsertDB)
+						connStr.execute(qInsertDB)
+
+						If Err.Number = 0 Then
+							connstr.CommitTrans
+							Response.Flush
+						Else
+							connstr.RollbackTrans
+							Response.write("Error Save ["&qInsertCR&"] - ["&qInsertDB&"] ("&Err.Description&")")
+							Response.Flush
+						End If
+					End If					
+				Else
+					'buat for untuk 3 kondisi (6419998)
+					If arrRS(2, i) = "99" Then
+						connstr.BeginTrans
+						maxLineNoGcCB = maxLineNoGcCB + 1
+						qInsertCR = " insert into gccb (fieldcode" & _
+									"                   , targettype" & _
+									"                   , targetcode" & _
+									"                   , jobcode" & _
+									"                   , quantity" & _
+									"                   , amount" & _
+									"                   , transdate" & _
+									"                   , referenceno" & _
+									"                   , fcentry" & _
+									"                   , fcedit" & _
+									"                   , fcip" & _
+									"                   , fcba" & _
+									"                   , lastupdate" & _
+									"                   , lasttime" & _
+									"                   , lineno)" & _
+									" values ('" & arrRS(2, i) & "'" & _
+									"         , 'CB'" & _
+									"         , 'BS'" & _
+									"         , '6429998'" & _
+									"         , '0'" & _
+									"         , " & cdbl(arrRS(3, i)) * -1 & "" & _
+									"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+									"         , '" & arrRS(2, i) & "-Cr" & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+									"         , '" & Session("fcBA") & "'" & _
+									"         , sysdate" & _
+									"         , to_char(sysdate, 'HH24:MI')" & _
+									"         , " & maxLineNoGcCB & ")"
+						
+						 'response.Write(qInsertCR)			  
+						connStr.execute(qInsertCR)
+
+						If Err.Number = 0 Then
+							connstr.CommitTrans
+							Response.Flush
+						Else
+							connstr.RollbackTrans
+							Response.write("Error Save ["&qInsertCR&"] ("&Err.Description&")")
+							Response.Flush
+						End If
+					
+					End If
+					
+					'6419999		
+					If arrRS(2, i) = "98" Then
+						connstr.BeginTrans
+						maxLineNoGcCB = maxLineNoGcCB + 1
+						qInsertCR = " insert into gccb (fieldcode" & _
+									"                   , targettype" & _
+									"                   , targetcode" & _
+									"                   , jobcode" & _
+									"                   , quantity" & _
+									"                   , amount" & _
+									"                   , transdate" & _
+									"                   , referenceno" & _
+									"                   , fcentry" & _
+									"                   , fcedit" & _
+									"                   , fcip" & _
+									"                   , fcba" & _
+									"                   , lastupdate" & _
+									"                   , lasttime" & _
+									"                   , lineno)" & _
+									" values ('" & arrRS(2, i) & "'" & _
+									"         , 'CB'" & _
+									"         , 'BS'" & _
+									"         , '6419999'" & _
+									"         , '0'" & _
+									"         , " & cdbl(arrRS(3, i)) * -1 & "" & _
+									"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+									"         , '" & arrRS(2, i) & "-Cr" & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+									"         , '" & Session("fcBA") & "'" & _
+									"         , sysdate" & _
+									"         , to_char(sysdate, 'HH24:MI')" & _
+									"         , " & maxLineNoGcCB & ")"
+						
+						 'response.Write(qInsertCR)			  
+						connStr.execute(qInsertCR)
+						Response.write cdbl(arrRS(3, i)) * -1 & "</br>"
+						If Err.Number = 0 Then
+							connstr.CommitTrans
+							Response.Flush
+						Else
+							connstr.RollbackTrans
+							Response.write("Error Save ["&qInsertCR&"] ("&Err.Description&")")
+							Response.Flush
+						End If
+					End If
+					
+					'6429998
+					If arrRS(2, i) <> "98" And arrRS(2, i) <> "99" Then
+						connstr.BeginTrans
+						maxLineNoGcCB = maxLineNoGcCB + 1
+						qInsertCR = " insert into gccb (fieldcode" & _
+									"                   , targettype" & _
+									"                   , targetcode" & _
+									"                   , jobcode" & _
+									"                   , quantity" & _
+									"                   , amount" & _
+									"                   , transdate" & _
+									"                   , referenceno" & _
+									"                   , fcentry" & _
+									"                   , fcedit" & _
+									"                   , fcip" & _
+									"                   , fcba" & _
+									"                   , lastupdate" & _
+									"                   , lasttime" & _
+									"                   , lineno)" & _
+									" values ('" & arrRS(2, i) & "'" & _
+									"         , 'CB'" & _
+									"         , 'BS'" & _
+									"         , '6419998'" & _
+									"         , '0'" & _
+									"         , " & Round(cdbl(arrRS(3, i)) * -1) & "" & _
+									"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+									"         , '" & arrRS(2, i) & "-Cr" & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Session("CodeName") & "'" & _
+									"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+									"         , '" & Session("fcBA") & "'" & _
+									"         , sysdate" & _
+									"         , to_char(sysdate, 'HH24:MI')" & _
+									"         , " & maxLineNoGcCB & ")"
+						
+						 'response.Write(qInsertCR)			  
+						connStr.execute(qInsertCR)
+
+						If Err.Number = 0 Then
+							connstr.CommitTrans
+							Response.Flush
+						Else
+							connstr.RollbackTrans
+							Response.write("Error Save ["&qInsertCR&"] ("&Err.Description&")")
+							Response.Flush
+						End If
+					End If
+				
+				End If
+			Next
+			Erase arrRS
+		End If
+		
+		Response.write("<font face=Verdana size=1 color=Green> Generate Credit Allocation, Success!.<br/><br/></font>")
+		Response.Flush
+		
+		Response.Write "Generate Debet Allocation" & "<br/>"
+		Response.Flush
+
+		if Session("Estate_Mill") = "E" then
+			
+			qDebetAlokasi = " select ca.fcba" & _
+							" 	     , ca.year" & _
+							" 	     , ca.month" & _
+							" 	     , ca.targettype sourcetype" & _
+							" 	     , ca.targetcode sourcecode" & _
+							" 	     , ca.costtotal" & _
+							" 	     , ca.basis" & _
+							" 	     , btl.targetcode as targetcode_1" & _
+							" 	     , btl.nfactor" & _
+							" 	     , btl.unit" & _
+                            "        , btl.jobcode jobcode" & _
+							"        , btl.targettype" & _
+							"        , btl.targetcode" & _
+							" 		 , Round(Decode(ca.basis,0,0,btl.unit / ca.basis * ca.costtotal * 1),0) amount " & _							
+							" from costtotal_pertarget ca, btl_allocation btl" & _
+							" where ca.fcba = btl.fcba" & _
+							"		and ca.ownership = btl.ownership" & _
+							"       and ca.fcba = '" & Session("fcBA") & "'" & _
+							"       and ca.year = " & Year(Session("v_General_Charges")) & "" & _
+							"       and ca.month = " & Month(Session("v_General_Charges")) & "" & _
+							"       and ca.targettype = 'GC'" & _
+							"		and ca.targetcode NOT IN('98','99')" & _
+							"		and field_api.getvalid_status (btl.targetcode, ca.fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) IS NOT NULL" & _
+							"       and btl.ownership = 'INTI'" & _
+							"       UNION ALL " & _
+							" select ca.fcba" & _
+							" 	     , ca.year" & _
+							" 	     , ca.month" & _
+							" 	     , ca.targettype sourcetype" & _
+							" 	     , ca.targetcode sourcecode" & _
+							" 	     , ca.costtotal" & _
+							" 	     , ca.basis" & _
+							" 	     , btl.targetcode as targetcode_1" & _
+							" 	     , btl.nfactor" & _
+							" 	     , btl.unit" & _
+                            "        , btl.jobcode jobcode" & _
+							"        , btl.targettype" & _
+							"        , btl.targetcode" & _
+							" 		 , Round(Decode(ca.basis,0,0,btl.unit / ca.basis * ca.costtotal * 1),0) amount " & _							
+							" from costtotal_pertarget ca, btl_allocation btl" & _
+							" where ca.fcba = btl.fcba" & _
+							"		and ca.ownership = btl.ownership" & _
+							"       and ca.fcba = '" & Session("fcBA") & "'" & _
+							"       and ca.year = " & Year(Session("v_General_Charges")) & "" & _
+							"       and ca.month = " & Month(Session("v_General_Charges")) & "" & _
+							"       and ca.targettype = 'GC'" & _
+							"		and ca.targetcode = '99'" & _
+							"		and field_api.getvalid_status (btl.targetcode, ca.fcba, to_date(" & Year(Session("v_General_Charges")) & "||lpad(" & Month(Session("v_General_Charges")) & ",2,'0')||'01','yyyymmdd')) ='TM' " & _
+							"       and btl.ownership = 'INTI'"
+							
+			qDebetAlokasiPlasma = " select ca.fcba" & _
+							" 	     , ca.year" & _
+							" 	     , ca.month" & _
+							" 	     , ca.targettype sourcetype" & _
+							" 	     , ca.targetcode sourcecode" & _
+							" 	     , ca.costtotal" & _
+							" 	     , ca.basis" & _
+							" 	     , btl.targetcode as targetcode_1" & _
+							" 	     , btl.nfactor" & _
+							" 	     , btl.unit" & _
+                            "        , btl.jobcode jobcode" & _
+							"        , btl.targettype" & _
+							"        , btl.targetcode" & _
+							" 		 , decode(ca.basis,0,0,btl.unit / ca.basis  * ca.costtotal * 1) amount " & _
+							" from costtotal_pertarget ca, btl_allocation btl" & _
+							" where ca.fcba = btl.fcba" & _
+							"		and ca.ownership = btl.ownership" & _
+							"       and ca.fcba = '" & Session("fcBA") & "'" & _
+							"       and ca.year = " & Year(Session("v_General_Charges")) & "" & _
+							"       and ca.month = " & Month(Session("v_General_Charges")) & "" & _
+							"       and ca.targettype = 'GC'" & _
+							"		and ca.targetcode = '98'" & _
+							"       and btl.ownership = 'PLASMA'"
+				
+			arrRSX = GetRSArray(qDebetAlokasi)
+			arrRSP = GetRSArray(qDebetAlokasiPlasma)
+		ElseIf Session("Estate_Mill") = "HO" then
+			qDebetAlokasi = " select ca.fcba" & _
+							"        , ca.year" & _
+							"        , ca.month" & _
+							"        , ca.targettype sourcetype" & _
+							"        , ca.targetcode sourcecode" & _
+							"        , ca.costtotal" & _
+							"        , ca.basis" & _
+							"        , '' jobcode" & _
+							"        , 0 nfactor" & _
+							"        , 0 unit" & _
+							"        , '' jobcode" & _
+							"        , 'CB' targettype" & _
+							"        , 'BS' targetcode" & _
+							" from costtotal_pertarget ca" & _
+							" where ca.fcba = '" & Session("fcBA") & "'" & _
+							"       and ca.year = " & Year(Session("v_General_Charges")) & "" & _
+							"       and ca.month = " & Month(Session("v_General_Charges")) & "" & _
+							"       and ca.targettype IN('GC','BM')"
+			arrRSX = GetRSArray(qDebetAlokasi)
+		ElseIf (Session("Estate_Mill") = "M" Or Session("Estate_Mill") = "P") then
+			qDebetAlokasi = " select ca.fcba" & _
+							" 	     , ca.year" & _
+							" 	     , ca.month" & _
+							" 	     , ca.targettype sourcetype" & _
+							" 	     , ca.targetcode sourcecode" & _
+							" 	     , ca.costtotal" & _
+							" 	     , ca.basis" & _
+							" 	     , btl.targetcode as targetcode_1" & _
+							" 	     , btl.nfactor" & _
+							" 	     , btl.unit" & _
+							"        , btl.jobcode" & _
+							"        , btl.targettype" & _
+							"        , btl.targetcode" & _
+							" from costtotal_pertarget ca, btl_allocation btl" & _
+							" where ca.fcba = btl.fcba" & _
+							"       and ca.fcba = '" & Session("fcBA") & "'" & _
+							"       and ca.year = " & Year(Session("v_General_Charges")) & "" & _
+							"       and ca.month = " & Month(Session("v_General_Charges")) & "" & _
+							"       and ca.targettype = 'GC'"
+			arrRSX = GetRSArray(qDebetAlokasi)
+		Else
+			qDebetAlokasi = " "
+		End If
+		
+		'Response.Write qDebetAlokasi & "</br>"
+		
+		'Generate Debet Inti
+		If IsArray(arrRSX) Then
+			For i = LBound(arrRSX, 2) To UBound(arrRSX, 2)			
+				If Session("Estate_Mill") = "E" then
+					If Cdbl(arrRSX(6, i)) <> 0 Then
+						nFFAlokasi = Round(Cdbl(arrRSX(9, i))/Cdbl(arrRSX(6, i))*Cdbl(arrRSX(5, i))*Cdbl(arrRSX(8, i)), 2)						
+							If Cdbl(nFFAlokasi) <> 0 Then							
+								temp_jobcode = arrRSX(10, i)
+									If  arrRSX(4, i) = "99" And (temp_jobcode = "6510101" Or temp_jobcode = "1322109") Then
+										
+										'ganti jobcode ke depresiasi
+										If temp_jobcode = "6510101" THEN
+											temp_jobcode = "6510102"
+										Else
+											temp_jobcode = "1322209"
+										End If
+										
+										connstr.BeginTrans
+										maxLineNoGcCB = maxLineNoGcCB + 1
+										qInsertDB = " insert into gccb (fieldcode" & _
+													"                   , targettype" & _
+													"                   , targetcode" & _
+													"                   , jobcode" & _
+													"                   , quantity" & _
+													"                   , amount" & _
+													"                   , transdate" & _
+													"                   , referenceno" & _
+													"                   , fcentry" & _
+													"                   , fcedit" & _
+													"                   , fcip" & _
+													"                   , fcba" & _
+													"                   , lastupdate" & _
+													"                   , lasttime" & _
+													"                   , lineno)" & _
+													" values ('" & arrRSX(4, i) & "'" & _
+													"         , '" & arrRSX(11, i) & "'" & _
+													"         , '" & arrRSX(12, i) & "'" & _
+													"         , '" & temp_jobcode & "'" & _
+													"         , " & cdbl(arrRSX(9, i)) & "" & _
+													"         , " & nFFAlokasi & "" & _
+													"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+													"         , '" & arrRSX(4, i) & "-Db" & "'" & _
+													"         , '" & Session("CodeName") & "'" & _
+													"         , '" & Session("CodeName") & "'" & _
+													"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+													"         , '" & Session("fcBA") & "'" & _
+													"         , sysdate" & _
+													"         , to_char(sysdate, 'HH24:MI')" & _
+													"         , " & maxLineNoGcCB & ")"
+										 'response.Write(qInsertDB)			  
+										connStr.execute(qInsertDB)
+
+										If Err.Number = 0 Then
+											connstr.CommitTrans
+											Response.Flush
+										Else
+											connstr.RollbackTrans
+											Response.write("Error Save ["&qInsertDB&"] ("&Err.Description&")")
+											Response.Flush
+										End If
+									End If
+									
+									If arrRSX(4, i) <> "99" And temp_jobcode <> "6510102" And temp_jobcode <> "1322209" Then 
+											
+											connstr.BeginTrans
+											maxLineNoGcCB = maxLineNoGcCB + 1
+											qInsertDB = " insert into gccb (fieldcode" & _
+														"                   , targettype" & _
+														"                   , targetcode" & _
+														"                   , jobcode" & _
+														"                   , quantity" & _
+														"                   , amount" & _
+														"                   , transdate" & _
+														"                   , referenceno" & _
+														"                   , fcentry" & _
+														"                   , fcedit" & _
+														"                   , fcip" & _
+														"                   , fcba" & _
+														"                   , lastupdate" & _
+														"                   , lasttime" & _
+														"                   , lineno)" & _
+														" values ('" & arrRSX(4, i) & "'" & _
+														"         , '" & arrRSX(11, i) & "'" & _
+														"         , '" & arrRSX(12, i) & "'" & _
+														"         , '" & temp_jobcode & "'" & _
+														"         , " & cdbl(arrRSX(9, i)) & "" & _
+														"         , " & Cdbl(arrRSX(13, i)) & "" & _
+														"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+														"         , '" & arrRSX(4, i) & "-Db" & "'" & _
+														"         , '" & Session("CodeName") & "'" & _
+														"         , '" & Session("CodeName") & "'" & _
+														"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+														"         , '" & Session("fcBA") & "'" & _
+														"         , sysdate" & _
+														"         , to_char(sysdate, 'HH24:MI')" & _
+														"         , " & maxLineNoGcCB & ")"
+											 'response.Write(qInsertDB)			  
+											connStr.execute(qInsertDB)
+
+											If Err.Number = 0 Then
+												connstr.CommitTrans
+												Response.Flush
+											Else
+												connstr.RollbackTrans
+												Response.write("Error Save ["&qInsertDB&"] ("&Err.Description&")")
+												Response.Flush
+											End If
+									End If				
+							End If					
+					End If
+				ElseIf Session("Estate_Mill") = "M" Then 						
+					'---- Get Sum NFactor
+					qNFactor="select sum(btl.nfactor ) nfactor" & _
+							 " from costtotal_pertarget ca, btl_allocation btl " & _
+							 " where ca.fcba = btl.fcba " & _
+							 "      and ca.fcba = '" & Session("fcBA") & "'" & _
+							 "      and ca.year = " & Year(Session("v_General_Charges")) & "" & _
+							 "      and ca.month = " & Month(Session("v_General_Charges")) & "" & _
+							 "      and ca.targettype='GC' " & _
+							 "      and ca.targetcode='" & arrRSX(4, i) & "' " & _
+							 "      group by ca.targettype, ca.targetcode"
+					
+					'response.write qNFactor
+					
+					Set rsNFactor = Server.CreateObject("ADODB.Recordset")
+					rsNFactor.CursorType = 3
+					rsNFactor.CursorLocation = 3
+					rsNFactor.Open qNFactor, connstr
+					if not rsNFactor.eof then
+					   txtNFactor=rsNFactor("nfactor")
+					else
+					   txtNFactor=0
+					end if
+					rsNFactor.close
+					set rsNFactor = Nothing
+					'End Get Sum NFactor 
+					
+					If Cdbl(txtNFactor) <> 0 Then										
+							nFFAlokasi = Round(Cdbl(arrRSX(5, i))/Cdbl(txtNFactor)*Cdbl(arrRSX(9, i)), 2)
+					End If
+					
+					If Cdbl(nFFAlokasi) <> 0 Then	
+						'response.write "masuk mill debet insert gccb ==> " & arrRSX(4, i) & "</br>"
+								connstr.BeginTrans
+								maxLineNoGcCB = maxLineNoGcCB + 1
+								qInsertDB = " insert into gccb (fieldcode" & _
+											"                   , targettype" & _
+											"                   , targetcode" & _
+											"                   , jobcode" & _
+											"                   , quantity" & _
+											"                   , amount" & _
+											"                   , transdate" & _
+											"                   , referenceno" & _
+											"                   , fcentry" & _
+											"                   , fcedit" & _
+											"                   , fcip" & _
+											"                   , fcba" & _
+											"                   , lastupdate" & _
+											"                   , lasttime" & _
+											"                   , lineno)" & _
+											" values ('" & arrRSX(4, i) & "'" & _
+											"         , '" & arrRSX(11, i) & "'" & _
+											"         , '" & arrRSX(12, i) & "'" & _
+											"         , '6620101'" & _
+											"         , " & cdbl(arrRSX(9, i)) & "" & _
+											"         , " & nFFAlokasi & "" & _
+											"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+											"         , '" & arrRSX(4, i) & "-Db" & "'" & _
+											"         , '" & Session("CodeName") & "'" & _
+											"         , '" & Session("CodeName") & "'" & _
+											"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+											"         , '" & Session("fcBA") & "'" & _
+											"         , sysdate" & _
+											"         , to_char(sysdate, 'HH24:MI')" & _
+											"         , " & maxLineNoGcCB & ")"
+								'response.Write(qInsertDB)			  
+								connStr.execute(qInsertDB)
+
+								If Err.Number = 0 Then
+									connstr.CommitTrans
+									Response.Flush
+								Else
+									connstr.RollbackTrans
+									Response.write("Error Save ["&qInsertDB&"] ("&Err.Description&")")
+									Response.Flush
+								End If
+					End If
+				ElseIf Session("Estate_Mill") = "HO" Then 						
+					
+					'response.write "masuk HO debet  " & arrRSX(5, i) & "-"& arrRSX(9, i) & "</br>"
+					
+					If Cdbl(arrRSX(5, i)) <> 0 Then	
+						'response.write "masuk HO debet insert gccb ==> " & arrRSX(4, i) & "</br>"
+								connstr.BeginTrans
+								maxLineNoGcCB = maxLineNoGcCB + 1
+								qInsertDB = " insert into gccb (fieldcode" & _
+											"                   , targettype" & _
+											"                   , targetcode" & _
+											"                   , jobcode" & _
+											"                   , quantity" & _
+											"                   , amount" & _
+											"                   , transdate" & _
+											"                   , referenceno" & _
+											"                   , fcentry" & _
+											"                   , fcedit" & _
+											"                   , fcip" & _
+											"                   , fcba" & _
+											"                   , lastupdate" & _
+											"                   , lasttime" & _
+											"                   , lineno)" & _
+											" values ('" & arrRSX(4, i) & "'" & _
+											"         , '" & arrRSX(11, i) & "'" & _
+											"         , '" & arrRSX(12, i) & "'" & _
+											"         , '3210101'" & _
+											"         , " & cdbl(arrRSX(9, i)) & "" & _
+											"         , " & cdbl(arrRSX(5, i)) & "" & _
+											"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+											"         , '" & arrRSX(4, i) & "-Db" & "'" & _
+											"         , '" & Session("CodeName") & "'" & _
+											"         , '" & Session("CodeName") & "'" & _
+											"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+											"         , '" & Session("fcBA") & "'" & _
+											"         , sysdate" & _
+											"         , to_char(sysdate, 'HH24:MI')" & _
+											"         , " & maxLineNoGcCB & ")"
+								response.Write(qInsertDB)			  
+								connStr.execute(qInsertDB)
+
+								If Err.Number = 0 Then
+									connstr.CommitTrans
+									Response.Flush
+								Else
+									connstr.RollbackTrans
+									Response.write("Error Save ["&qInsertDB&"] ("&Err.Description&")")
+									Response.Flush
+								End If
+					End If
+				End If
+			Next
+			Erase arrRSX
+		End If
+		
+		' End Generate Debet Inti 
+		
+		if Session("Estate_Mill") = "E" then
+			'Generate Debet Plasma
+			If IsArray(arrRSP) Then
+				For i = LBound(arrRSP, 2) To UBound(arrRSP, 2)
+					If Cdbl(arrRSP(6, i)) <> 0 Then
+						nFFAlokasi = Round(Cdbl(arrRSP(9, i))/Cdbl(arrRSP(6, i))*Cdbl(arrRSP(5, i))*Cdbl(arrRSP(8, i)), 2)
+						If Cdbl(nFFAlokasi) <> 0 Then					
+							temp_jobcode = arrRSP(10, i)
+							
+							If  arrRSP(4, i) = "98" And (temp_jobcode = "6510103" Or temp_jobcode = "1322309") Then
+								connstr.BeginTrans
+								maxLineNoGcCB = maxLineNoGcCB + 1
+								qInsertDB = " insert into gccb (fieldcode" & _
+											"                   , targettype" & _
+											"                   , targetcode" & _
+											"                   , jobcode" & _
+											"                   , quantity" & _
+											"                   , amount" & _
+											"                   , transdate" & _
+											"                   , referenceno" & _
+											"                   , fcentry" & _
+											"                   , fcedit" & _
+											"                   , fcip" & _
+											"                   , fcba" & _
+											"                   , lastupdate" & _
+											"                   , lasttime" & _
+											"                   , lineno)" & _
+											" values ('" & arrRSP(4, i) & "'" & _
+											"         , '" & arrRSP(11, i) & "'" & _
+											"         , '" & arrRSP(12, i) & "'" & _
+											"         , '" & temp_jobcode & "'" & _
+											"         , " & cdbl(arrRSP(9, i)) & "" & _
+											"         , " & nFFAlokasi & "" & _
+											"         , " & " to_date('" & Session("v_General_Charges") & "','mm/dd/yyyy')" & _
+											"         , '" & arrRSP(4, i) & "-Db" & "'" & _
+											"         , '" & Session("CodeName") & "'" & _
+											"         , '" & Session("CodeName") & "'" & _
+											"         , '" & Request.ServerVariables("REMOTE_ADDR") &"'" & _
+											"         , '" & Session("fcBA") & "'" & _
+											"         , sysdate" & _
+											"         , to_char(sysdate, 'HH24:MI')" & _
+											"         , " & maxLineNoGcCB & ")"
+								 'response.Write(qInsertDB)			  
+								connStr.execute(qInsertDB)
+
+								If Err.Number = 0 Then
+									connstr.CommitTrans
+									Response.Flush
+								Else
+									connstr.RollbackTrans
+									Response.write("Error Save ["&qInsertDB&"] ("&Err.Description&")")
+									Response.Flush
+								End If
+							End If
+						End If
+					End If
+				Next
+				Erase arrRSP
+			End If
+		End If
+		' End Generate Debet Plasma 
+		
+		Response.write("<font face=Verdana size=1 color=Green> Generate Debet Allocation, Success!.<br/><br/></font>")
+		Response.Flush
+		
+		Response.Write "Normalisasi Rounding" & "<br/>"
+		Response.Flush
+		
+		if Session("Estate_Mill") = "E" then
+			qSelisih = " select fcba" & _
+					   "        , fieldcode" & _
+					   "        , transdate" & _
+					   "        , amount" & _
+					   " from (" & _
+					   "     select fcba" & _
+					   "            , fieldcode" & _
+					   "            , transdate" & _
+					   "            , sum(amount) amount" & _
+					   "     from gccb" & _
+					   "     where fcba = '" & Session("fcBA") & "'" & _
+					   "           and to_number(to_char(transdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+					   "           and to_number(to_char(transdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+					   "     group by fcba" & _
+					   "              , fieldcode" & _
+					   "              , transdate" & _
+					   " )" & _
+					   " where amount <> 0"
+			arrRS = GetRSArray(qSelisih)
+		
+			If IsArray(arrRS) Then
+				For i = LBound(arrRS, 2) To UBound(arrRS, 2)
+					Set objectRS = Server.CreateObject("ADODB.Recordset")
+						objectSQL = " select min (lineno) minlineno" & _
+									" from gccb" & _
+									" where fcba = '" & Session("fcBA") & "'" & _
+									"       and transdate = to_date('" & arrRS(2, i) & "', 'mm/dd/yyyy')" & _
+									"       and fieldcode = '" & arrRS(1, i) & "'" & _
+									"       and jobcode <> '6419998' and jobcode <> '6419999' and jobcode <> '6429998'"
+					'response.write objectSQL & "</br>"
+					
+					objectRS.Open objectSQL, connstr
+					If Not objectRS.EOF Then
+						FirstRecord = Cdbl(objectRS("minlineno"))
+					Else
+						FirstRecord = 0.0000001
+					End If
+					objectRS.close
+					set objectRS = Nothing
+					'Response.Write arrRS(1, i) & "-" & cdbl(arrRS(3, i)) & "-" & FirstRecord & "</br>"
+					UpdateAmoutSelisih = " update gccb" & _
+										 " set amount = amount - " & cdbl(arrRS(3, i)) & "" & _
+										 " where lineno = '" & FirstRecord & "'" & _
+										 "       and fcba = '" & Session("fcBA") & "'"
+					'response.write UpdateAmoutSelisih & "</br>"
+					connStr.execute(UpdateAmoutSelisih)
+				Next
+				Erase arrRS
+			End If
+		Else
+			qSelisih = " select fcba" & _
+					   "        , fieldcode" & _
+					   "        , transdate" & _
+					   "        , amount " & _					   
+					   " from (" & _
+					   "     select fcba" & _
+					   "            , fieldcode" & _
+					   "            , transdate" & _
+					   "            , sum(amount) amount" & _
+					   "     from gccb" & _
+					   "     where fcba = '" & Session("fcBA") & "'" & _
+					   "           and to_number(to_char(transdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+					   "           and to_number(to_char(transdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+					   "     group by fcba" & _
+					   "              , fieldcode" & _
+					   "              , transdate" & _
+					   " )" & _
+					   " where amount <> 0"
+				
+				arrRS = GetRSArray(qSelisih)
+				
+				If IsArray(arrRS) Then
+					For i = LBound(arrRS, 2) To UBound(arrRS, 2)
+						Set objectRS = Server.CreateObject("ADODB.Recordset")
+							objectSQL = " select min (lineno) minlineno" & _
+										" from gccb" & _
+										" where fcba = '" & Session("fcBA") & "'" & _
+										"       and transdate = to_date('" & arrRS(2, i) & "', 'mm/dd/yyyy')" & _
+										"       and fieldcode = '" & arrRS(1, i) & "'"&_
+										"       and jobcode <> '6419998' and jobcode <> '6419999' and jobcode <> '6429998'"
+						'response.write objectSQL & "</br>"
+						
+						objectRS.Open objectSQL, connstr
+						If Not objectRS.EOF Then
+							FirstRecord = Cdbl(objectRS("minlineno"))
+						Else
+							FirstRecord = 0.0000001
+						End If
+						objectRS.close
+						set objectRS = Nothing
+						Response.Write arrRS(1, i) & "-" & cdbl(arrRS(3, i)) & "-" & FirstRecord & "</br>"
+						UpdateAmoutSelisih = " update gccb" & _
+											 " set amount = amount - " & cdbl(arrRS(3, i)) & "" & _
+											 " where lineno = '" & FirstRecord & "'" & _
+											 "       and fcba = '" & Session("fcBA") & "'"
+						
+						'response.write UpdateAmoutSelisih & "</br>"
+						connStr.execute(UpdateAmoutSelisih)
+					Next
+					Erase arrRS
+				End If
+		End If
+		
+		Response.write("<font face=Verdana size=1 color=Green> Normalisasi Rounding, Success!.<br/><br/></font>")
+		Response.Flush
+		
+		Set objectRS = Server.CreateObject("ADODB.Recordset")
+		if Session("Estate_Mill") = "E" then
+			objectSQL = " select nvl(sum(costtotal), 0) costtotal" & _
+						"        , nvl(sum(alloc_db), 0) alloc_db" & _
+						"        , nvl(sum(alloc_cr), 0)*-1 alloc_cr" & _
+						" from (" & _
+						"     select sum(costtotal) costtotal, 0 alloc_db , 0 alloc_cr" & _
+						"     from costtotal_pertarget" & _
+						"     where fcba = '" & Session("fcBA") & "'" & _
+						"           and year = " & Year(Session("v_General_Charges")) & "" & _
+						"           and month = " & Month(Session("v_General_Charges")) & "" & _
+						"           and targettype = 'GC'" & _
+						"     union all" & _
+						"     select 0 costtotal, sum(amount) alloc_db , 0 alloc_cr" & _
+						"     from gccb" & _
+						"     where fcba = '" & Session("fcBA") & "'" & _
+						"           and to_number(to_char(transdate, 'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						"           and to_number(to_char(transdate, 'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+						"           and jobcode <> '6419998' and jobcode <> '6419999' and jobcode <> '6429998'" & _
+						"     union all" & _
+						"     select 0 costtotal,0 alloc_db ,  sum(amount) alloc_cr" & _
+						"     from gccb" & _
+						"     where fcba = '" & Session("fcBA") & "'" & _
+						"           and to_number(to_char(transdate, 'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						"           and to_number(to_char(transdate, 'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+						"           and jobcode in ('6419998', '6419999', '6429998')" & _
+						" )"
+			Else
+					objectSQL = " select nvl(sum(costtotal), 0) costtotal" & _
+						"        , nvl(sum(alloc_db), 0) alloc_db" & _
+						"        , nvl(sum(alloc_cr), 0)*-1 alloc_cr" & _
+						" from (" & _
+						"     select sum(costtotal) costtotal, 0 alloc_db , 0 alloc_cr" & _
+						"     from costtotal_pertarget" & _
+						"     where fcba = '" & Session("fcBA") & "'" & _
+						"           and year = " & Year(Session("v_General_Charges")) & "" & _
+						"           and month = " & Month(Session("v_General_Charges")) & "" & _
+						"           and targettype IN('GC','BM')" & _
+						"     union all" & _
+						"     select 0 costtotal, sum(amount) alloc_db , 0 alloc_cr" & _
+						"     from gccb" & _
+						"     where fcba = '" & Session("fcBA") & "' and amount < 0" & _
+						"           and to_number(to_char(transdate, 'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						"           and to_number(to_char(transdate, 'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+						"     union all" & _
+						"     select 0 costtotal,0 alloc_db ,  sum(amount) alloc_cr" & _
+						"     from gccb" & _
+						"     where fcba = '" & Session("fcBA") & "' and amount >=0" & _
+						"           and to_number(to_char(transdate, 'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						"           and to_number(to_char(transdate, 'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+						" )"
+
+			End If
+			objectRS.Open objectSQL, connstr
+			If Not objectRS.EOF Then
+				Cost_In = Cdbl(objectRS("costtotal"))
+				Alloc_Db = Cdbl(objectRS("alloc_db"))
+				Alloc_Cr = Cdbl(objectRS("alloc_cr"))
+			Else
+			End If
+			objectRS.close
+			set objectRS = Nothing
+			
+			'response.write Cost_In & "-" & Alloc_Db & "-" & Alloc_Cr & "</br>"
+			
+			'If Cost_In <> Alloc_Db Then
+			'	err.number = 1001
+			'	err.description = "Alokasi sisi debet tidak sesuai dengan Biaya yang Masuk! Cek Kembali Biaya yang masuk ke target GC"
+			'ElseIf Cost_In <> Alloc_Cr Then
+			'	err.number = 1001
+			'	err.description = "Alokasi sisi credit tidak sesuai dengan Biaya yang Masuk! Cek Kembali Biaya yang masuk ke target GC"
+			'ElseIf (Cost_In = Alloc_Db) And (Cost_In = Alloc_Cr) Then
+				'----- Tranfer to Activity Costing
+				response.Write "Transfer to Activity Based Costing..." & "<br>"
+				Response.Flush
+
+				' Get the Max LineNo of Cost Activity
+				Set rsCostActivityMax = Server.CreateObject("ADODB.Recordset")
+				rsCostActivityMax.CursorType = 3
+				rsCostActivityMax.CursorLocation = 3
+												
+				qCostActivityMax =  " select nvl(max(lineno), 0) maxLineNo from cost_activity " & _
+									" where fcba = '" &  Session("fcBA") & "' " 
+				rsCostActivityMax.Open qCostActivityMax, connstr
+				
+				If Not rsCostActivityMax.EOF Then
+					maxLineNo = cdbl(rsCostActivityMax("maxLineNo"))
+				Else
+					maxLineNo = 0
+				End If
+
+				rsCostActivityMax.close
+				set rsCostActivityMax = Nothing
+				' End of Get the Max LineNo of Cost Activity
+
+if Session("Estate_Mill") <> "HO" then				
+				qVoucher = " select transdate tdate" & _
+						   "        , jobcode" & _
+						   "        , 'GC' source" & _
+						   "        , 'GC' sourcetype" & _
+						   "        , fieldcode sourcecode" & _
+						   "        , '' sourcecode_status" & _
+						   "        , targettype" & _
+						   "        , targetcode" & _
+						   "        , '' targetcode_status" & _
+						   "        , referenceno" & _
+						   "        , sum(quantity) quantity" & _
+						   "        , 0 output" & _
+						   "        , sum(amount) amount" & _
+						   "        , fcba" & _
+						   "        , to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') closing_date" & _
+						   " from gccb" & _
+						   " where fcba = '" & Session("fcBA") & "'" & _
+						   "       and to_number(to_char(transdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						   "       and to_number(to_char(transdate,'mm')) = " & Month(Session("v_General_Charges")) & "" & _
+						   " group by transdate" & _
+						   "          , jobcode" & _
+						   "          , 'GC'" & _
+						   "          , 'GC'" & _
+						   "          , fieldcode" & _
+						   "          , ''" & _
+						   "          , targettype" & _
+						   "          , targetcode" & _
+						   "          , ''" & _
+						   "          , referenceno" & _
+						   "          , fcba"
+Else
+	if Month(Session("v_General_Charges"))="12" then
+				qVoucher = " select transdate tdate" & _
+						   "        , jobcode" & _
+						   "        , 'GC' source" & _
+						   "        , 'GC' sourcetype" & _
+						   "        , fieldcode sourcecode" & _
+						   "        , '' sourcecode_status" & _
+						   "        , targettype" & _
+						   "        , targetcode" & _
+						   "        , '' targetcode_status" & _
+						   "        , referenceno" & _
+						   "        , sum(quantity) quantity" & _
+						   "        , 0 output" & _
+						   "        , sum(amount) amount" & _
+						   "        , fcba" & _
+						   "        , to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') closing_date" & _
+						   " from gccb" & _
+						   " where fcba = '" & Session("fcBA") & "'" & _
+						   "       and to_number(to_char(transdate,'yyyy')) = " & Year(Session("v_General_Charges")) & "" & _
+						   "      /* and to_number(to_char(transdate,'mm')) = " & Month(Session("v_General_Charges")) & "*/" & _
+						   " group by transdate" & _
+						   "          , jobcode" & _
+						   "          , 'GC'" & _
+						   "          , 'GC'" & _
+						   "          , fieldcode" & _
+						   "          , ''" & _
+						   "          , targettype" & _
+						   "          , targetcode" & _
+						   "          , ''" & _
+						   "          , referenceno" & _
+						   "          , fcba"
+
+    end if
+End If
+'--- Temp Remarks, Nda kepakai...
+	
+'response.write qVoucher	
+				IF qVoucher<>"" THEN
+				arrRS = GetRSArray(qVoucher)
+	
+				If IsArray(arrRS) Then
+					For i = LBound(arrRS, 2) To UBound(arrRS, 2)						
+						if cdbl(arrRS(12, i)) >= 0 then 
+							temp_DebetCredit = "Dr"
+						else
+							temp_DebetCredit = "Cr"
+						end if
+						
+						connstr.BeginTrans
+						maxLineNo = maxLineNo + 1
+						qCost_Activity="Insert into Cost_Activity " & _
+											" ( TDATE, JOBCODE, SOURCE, SOURCETYPE, SOURCECODE, SOURCECODE_STATUS, " & _
+											"   TARGETTYPE, TARGETCODE, TARGETCODE_STATUS, REFERENCENO, " & _
+											"   QUANTITY, OUTPUT, AMOUNT, FCBA, CLOSING_DATE, PROCESS_DATE," & _
+											" TITLE_REFERENCE_01, AUTO_REFERENCE_01, " & _
+											" TITLE_REFERENCE_02, AUTO_REFERENCE_02, " & _
+											" TITLE_REFERENCE_03, AUTO_REFERENCE_03, " & _
+											" TITLE_REFERENCE_04, AUTO_REFERENCE_04, " & _
+											" TITLE_REFERENCE_05, AUTO_REFERENCE_05, DEBETCREDIT, " & _	
+											" ACCOUNTINGPERIOD, ACCOUNTINGYEAR, " & _
+											" LASTUPDATE, LASTTIME, LINENO ,journalprefix) " & _
+											" values ( to_date('" & arrRS(0, i) & "','mm/dd/yyyy') " & ",'" & arrRS(1, i)  & _ 
+											"','" & arrRS(2, i) & "','" & arrRS(3, i) & "','" & arrRS(4, i) & "'" & _
+											",'" & arrRS(5, i) & "','" & arrRS(6, i) & "','" & arrRS(7, i) & "'" & _
+											",'" & arrRS(8, i) & "','" & arrRS(9, i) & "'," & _
+											cdbl(arrRS(10, i)) & "," & _
+											cdbl(arrRS(11, i)) & "," & _
+											cdbl(arrRS(12, i)) & ",'" & _
+											Session("fcBA") & "'," & _
+											" to_date('" & arrRS(14, i) & "','mm/dd/yyyy') , sysdate, " & _
+											" Cost_Activity_Info_Api.Get_Title_Reference_01 ('" & arrRS(3, i) & "','" & arrRS(6, i) & "','" & temp_DebetCredit & "'), '" & arrRS(7, i) & "', " & _
+											" Cost_Activity_Info_Api.Get_Title_Reference_02 ('" & arrRS(3, i) & "','" & arrRS(6, i) & "','" & temp_DebetCredit & "'), '" & arrRS(7, i) & "', " & _
+											" '','', " & _
+											" '','', " & _
+											" '','','" & temp_DebetCredit & "', " & _
+											Month(Session("v_General_Charges")) & ", " & _
+											Year(Session("v_General_Charges")) & ", " & _
+											" sysdate, to_char(sysdate,'HH24:MI'), " & maxLineNo & " ,'GNC') "
+						'response.write 	qCost_Activity				
+						connstr.execute(qCost_Activity)
+						
+						If Err.Number = 0 Then
+							connstr.CommitTrans
+							Response.Flush
+						Else
+							connstr.RollbackTrans
+							Response.write("Error Save ["&qCost_Activity&"] ("&Err.Description&")")
+							Response.Flush
+						End If
+					Next
+					Erase arrRS
+				End If
+				
+				qjournal=	" MERGE INTO cost_activity x " & _
+					" USING " & _
+					" ( " & _
+					"  SELECT fcba,accountingyear,accountingperiod,referenceno,journalprefix,idx||LPAD(ROWNUM,4,0) seq from " & _
+					"  ( " & _
+					"  SELECT DISTINCT fcba,accountingyear,accountingperiod,sourcecode AS referenceno,journalprefix,company_api.get_companyno(businessunit_api.get_companycode(fcba))||'/'||fcba||'/'||journalprefix||'/'||LPad(accountingperiod,2,0)||'/'||accountingyear||'/' as idx  " & _
+					"  FROM cost_activity WHERE fcba='" & Session("FCBA") & "' AND accountingperiod="& Month(Session("v_General_Charges")) & " AND accountingyear=" & Year(Session("v_General_Charges")) & " AND journalprefix='GNC' " & _
+					"  Order BY sourcecode " & _
+					"  ) " & _
+					" )y ON (x.fcba=y.fcba and x.sourcecode =  y.referenceno and x.journalprefix=y.journalprefix AND x.accountingyear=y.accountingyear AND x.accountingperiod=y.accountingperiod) " & _
+					" WHEN MATCHED THEN " & _
+					" UPDATE SET x.journalno = y.seq " 
+					
+					'response.write 	qjournal
+					connstr.execute(qjournal)
+					
+				Response.write("<font face=Verdana size=1 color=Green>Transfer to Activity Based Costing..., Success!.<br/><br/></font>")
+				Response.Flush
+			End If
+		
+	End If
+    
+	%>
+		
+
+	<%if err.number <> 0 then%>
+		<br><img src="images/error.gif">
+		<%
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from costtotal_pertarget" & _
+		             " where fcba = '" & Session("fcBA") & "'" & _
+					 "       and year = " & Year(Session("v_General_Charges")) & "" & _
+					 "       and month = " & Month(Session("v_General_Charges")) & "" & _
+					 "       and targettype IN ('GC','BM')"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from btl_allocation" & _
+		             " where fcba = '" & Session("fcBA") & "'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from costtotal_pertarget" & _
+		             " where fcba = '" & Session("fcBA") & "'" & _
+					 "       and year = " & Year(Session("v_General_Charges")) & "" & _
+					 "       and month = " & Month(Session("v_General_Charges")) & "" & _
+					 "       and targettype = 'LOC'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from loc_allocation" & _
+					 " where fcba = '" & Session("fcBA") & "'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from attendance_gad_closing" & _
+					 " where fcba = '" & Session("fcBA") & "'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & err.description & "</font>"
+		%>
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>	
+	<%Else	
+		connstr.BeginTrans
+		ExecuteSQL = " delete from costtotal_pertarget" & _
+		             " where fcba = '" & Session("fcBA") & "'" & _
+					 "       and year = " & Year(Session("v_General_Charges")) & "" & _
+					 "       and month = " & Month(Session("v_General_Charges")) & "" & _
+					 "       and targettype IN ('GC','BM')"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from btl_allocation" & _
+		             " where fcba = '" & Session("fcBA") & "'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from costtotal_pertarget" & _
+		             " where fcba = '" & Session("fcBA") & "'" & _
+					 "       and year = " & Year(Session("v_General_Charges")) & "" & _
+					 "       and month = " & Month(Session("v_General_Charges")) & "" & _
+					 "       and targettype in ('LOC', 'SOC')"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from loc_allocation" & _
+					 " where fcba = '" & Session("fcBA") & "'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+		connstr.BeginTrans
+		ExecuteSQL = " delete from attendance_gad_closing" & _
+					 " where fcba = '" & Session("fcBA") & "'"
+					 
+		'Response.Write ExecuteSQL
+		'Response.Flush
+		connstr.execute(ExecuteSQL)
+		
+		If Err.Number = 0 Then
+			connstr.CommitTrans
+		Else
+			connstr.RollbackTrans
+			Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+			Response.Flush
+		End If
+		
+			' Add By Akbar 18 Desemeber 2015
+		
+			Dim QAccountPeriod,rsAccountPeriod,temp_NextCloseAccountingPeriod, temp_NextCloseAccountingYear, temp_NextCurrentAccountingPeriod, temp_NextCurrentAccountingYear, temp_EndingAccountingPeriod
+				
+			QAccountPeriod	=	" select periodcontrol_api.GetNextCloseAccountingPeriod(system,fcba) NextCloseAccountingPeriod ,  " & _ 
+								" periodcontrol_api.GetNextCloseAccountingYear(system,fcba) NextCloseAccountingYear ,  " & _ 
+								" periodcontrol_api.GetNextCurrentAccountingPeriod(system,fcba) NextCurrentAccountingPeriod ,  " & _ 
+								" periodcontrol_api.GetNextCurrentAccountingYear(system,fcba) NextCurrentAccountingYear,  " & _ 
+								" periodcontrol_api.GetEndingAccountingPeriodTY(system,fcba)  EndingAccountingPeriod " & _ 
+								" from periodcontrol p  " & _ 
+								" where UPPER(system) ='GENERAL_CHARGES' and fcba='" & Session("fcBA") & "'"
+			Set rsAccountPeriod = Server.CreateObject("ADODB.Recordset")
+				rsAccountPeriod.CursorType = 3
+				rsAccountPeriod.CursorLocation = 3
+				rsAccountPeriod.Open QAccountPeriod, connstr
+				if not rsAccountPeriod.eof then
+					temp_NextCloseAccountingPeriod =  Cint(rsAccountPeriod("NextCloseAccountingPeriod"))
+					temp_NextCloseAccountingYear   =  Cint(rsAccountPeriod("NextCloseAccountingYear"))
+					temp_NextCurrentAccountingPeriod = Cint(rsAccountPeriod("NextCurrentAccountingPeriod"))
+					temp_NextCurrentAccountingYear = Cint(rsAccountPeriod("NextCurrentAccountingYear"))
+					temp_EndingAccountingPeriod = Cint(rsAccountPeriod("EndingAccountingPeriod"))
+				else
+					Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No PERIODCONTROL for GENERAL_CHARGES " & "<br>"
+				end if
+			rsAccountPeriod.close
+			set rsAccountPeriod = Nothing		
+	
+		
+		if Session("Estate_Mill")="E" then
+		            
+					IF temp_NextCurrentAccountingPeriod < 12   THEN
+			
+						q= " Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)),CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+						   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+						   " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+						   " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+						   " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _    
+						   " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+						   " where UPPER(system) IN ('GENERAL_CHARGES','WEIGHBRIDGE','MILL_PRODUCTION','DELIVERY') and fcba='" & Session("fcBA") & "'"
+					ELSE
+						IF temp_NextCloseAccountingPeriod < 12 THEN
+							q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) ,CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+							  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+							  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+							  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+							  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _
+							  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+							  " where UPPER(system) IN ('GENERAL_CHARGES','WEIGHBRIDGE','MILL_PRODUCTION','DELIVERY') and fcba='" & Session("fcBA") & "'"
+						ELSE
+							 q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) " & _ 
+							   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+						  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+						  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+						  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _     
+							  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+							  " where  UPPER(system) IN ('GENERAL_CHARGES','WEIGHBRIDGE','MILL_PRODUCTION','DELIVERY')  and fcba='" & Session("fcBA") & "'"
+						END IF
+					END IF
+					
+					IF temp_NextCloseAccountingPeriod = temp_EndingAccountingPeriod AND temp_NextCurrentAccountingPeriod = 1  THEN
+					
+						q=" Update PeriodControl Set CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+						  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+						  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+						  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+						  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _  
+						  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+						  " where UPPER(system) IN ('GENERAL_CHARGES','WEIGHBRIDGE','MILL_PRODUCTION','DELIVERY')  and and fcba='" & Session("fcBA") & "'"
+					END IF	
+		
+		
+		Else
+			
+					IF temp_NextCurrentAccountingPeriod < 12   THEN
+			
+						q= " Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)),CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+						   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+						   " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+						   " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+						   " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _    
+						   " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+						   " where UPPER(system) IN ('GENERAL_CHARGES','HARVESTING')  and fcba='" & Session("fcBA") & "'"
+					ELSE
+						IF temp_NextCloseAccountingPeriod < 12 THEN
+							q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) ,CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+							  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+							  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+							  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+							  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _
+							  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+							  " where UPPER(system) IN ('GENERAL_CHARGES','HARVESTING') and fcba='" & Session("fcBA") & "'"
+						ELSE
+							 q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) " & _ 
+							   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+						  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+						  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+						  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _     
+							  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+							  " where  UPPER(system) IN ('GENERAL_CHARGES','HARVESTING')   and fcba='" & Session("fcBA") & "'"
+						END IF
+					END IF
+					
+					IF temp_NextCloseAccountingPeriod = temp_EndingAccountingPeriod AND temp_NextCurrentAccountingPeriod = 1  THEN
+					
+						q=" Update PeriodControl Set CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+						  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+						  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+						  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+						  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _  
+						  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+						  " where UPPER(system) IN ('GENERAL_CHARGES','HARVESTING')  and and fcba='" & Session("fcBA") & "'"
+					END IF	
+					
+				
+	
+		End if
+		
+		connStr.execute(q)
+		TimeAkhir = Time()
+		Lama = TimeAkhir - TimeAwal
+		Response.Write "<br>" & "Finish ... " & time() & "<br><br>"
+		Response.Write " Time Elapsed " & Hour(Lama) & " Hours " & Minute(Lama) & " Minutes " &  Second(Lama) & " Seconds."	
+		
+		'--Added by Ukie at 25-Oct-2012--	
+		Endingtime = FormatDateTime(CDate(Now))
+
+		qLineMax = "select nvl(max(lineno),0) tempMaxLine from CLOSINGLOG where fcba = '" & session("fcBA") & "' AND SYSTEM = 'General_Charges'" 
+									
+			set rsqLineMax = Server.CreateObject("ADODB.Recordset")
+			rsqLineMax.Open qLineMax, connstr
+			if not rsqLineMax.eof then
+				tempMaxLine = cdbl(rsqLineMax("tempMaxLine"))
+			else
+				tempMaxLine = 0
+			end if 
+
+			tempMaxLine = tempMaxLine + 1
+
+		strClosingLog = " INSERT INTO CLOSINGLOG(SYSTEM, FCBA, STARTINGTIME, ENDINGTIME, LINENO, lastupdate, lasttime, fcentry) VALUES (" & _
+						" 'General_Charges', " & _
+						" '" & Session("fcBA") & "'," & _
+						" TO_DATE('" & Startingtime & "', 'mm/dd/yyyy hh:mi:ssam')," & _
+						" TO_DATE('" & Endingtime & "', 'mm/dd/yyyy hh:mi:ssam')," & _
+						" " & tempMaxLine & "" & _
+						" , sysdate" & _
+						" , to_char(sysdate, 'hh24:mi')" & _
+						" ,'" & Session("CodeName") & "'" & _ 
+						" )"
+		connStr.execute(strClosingLog)
+
+		strLenghtime = 	" SELECT" & _
+						" FCBA," & _
+						" LINENO," & _
+						" SYSTEM," & _
+						" TO_CHAR(STARTINGTIME, 'DD.MM.YYYY:HH24:MI:SS') STARTINGTIME," & _
+						" TO_CHAR(ENDINGTIME, 'DD.MM.YYYY:HH24:MI:SS') ENDINGTIME," & _
+						" TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24) DAYS," & _
+						" TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)-24*(TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24)) HRS," & _
+						" TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)-60*(TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)) MIN," & _
+						" TRUNC(86400*(ENDINGTIME-STARTINGTIME))-60*(TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)) SEC" & _
+						" FROM CLOSINGLOG" & _
+						" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'General_Charges'"
+					
+		Set rsLenghtime = Server.CreateObject("ADODB.Recordset")
+		rsLenghtime.CursorType = 3
+		rsLenghtime.CursorLocation = 3
+		rsLenghtime.Open strLenghtime, connstr
+
+		upClosingLog = " UPDATE CLOSINGLOG SET" & _
+						" LENGTHTIME = '" & rsLenghtime(5) & " Days " & rsLenghtime(6) & " Hours " & rsLenghtime(7) & " Minutes " & rsLenghtime(8) & " Seconds " & "'" & _
+						" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'General_Charges'"		
+		connStr.execute(upClosingLog)
+		'--End Added--
+		
+		%>
+		<br>
+		<img src="images/ok.gif"><font color=Blue pointsize=9 face=Verdana>General Charges Closing is succesfully...
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+		
+		<%
+		
+			txtLastDay  =cmdFindPeriod("General_Charges")
+			txtNextMonth=cmdPeriodClose("General_Charges")		
+			
+			Session("v_General_Charges")=txtLastDay
+			Session("cls_General_Charges")= txtNextMonth	
+		%>
+	<%End if%>
+<%
+else 
+%>
+	<script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>
+	<br><br><img src="images/error.gif">General Charges Closing is NOT completed...
+	<%
+    tempErrorWaterFlow = "Please Check Previous Closing Process, its still not DONE yet"
+    response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & tempErrorWaterFlow & "</font>" %>
+	<script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>	
+	<img src="images/error.gif" />
+<%
+end if
+%> 
+</body>
+</html>

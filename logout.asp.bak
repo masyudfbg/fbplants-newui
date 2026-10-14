@@ -1,0 +1,415 @@
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+<!--#include virtual="/md5.asp"-->
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="/IMAGES/icons.png" type="image/png"/>
+		<title>FB-PlantS</title>
+		<link href="css/login/login.min.css" rel="stylesheet" type="text/css">
+		<link href="css/login/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+
+  <%
+  '--ATAS ISI--
+  Dim txtUser,txtBA,txtPassword,q,sesCompany, tempStringUsers, tempStringFcba, rsFcba,firstAddress_,txtBU,rsCompany,txtCompany
+  txtUser=Request("txtUser")
+  txtPassword=Request("txtPassword")
+  txtBU=Request("businessunit")
+  txtCompany=Request("company")
+
+	Session("fcBa")= ""
+	Session("Crop")=""
+	Session("BA") = ""
+	Session("COMPANY")=""
+	Session("FCMANAGER") = ""
+	Session("KTU") = ""
+	Session("Estate_Mill") = ""
+	Session("v_Bank")=""
+	Session("v_Purchase")=""
+	Session("v_Stores")=""
+	Session("v_Employee")=""
+	Session("v_Workshop")=""
+	Session("v_Vehicle")=""
+	Session("v_Contract")=""
+	Session("v_Asset")=""
+	Session("v_Nursery")=""
+	Session("v_Project")=""
+	Session("v_Building")=""
+	Session("v_General_Charges")=""
+	Session("v_Reversed")=""
+	Session("v_Costbook")=""
+	Session("v_Harvesting")=""
+	Session("v_ERPReport")=""
+	Session("v_WeighBridge")=""
+	Session("v_Mill_Production")=""
+	Session("v_Delivery")=""
+	Session("v_Sales")=""
+    Session("USERNAME") = ""
+	Session("CodeName") = ""
+
+	Session("cls_Bank")= ""
+	Session("cls_Purchase")= ""
+	Session("cls_Stores")= ""
+	Session("cls_Employee")= ""
+	Session("cls_Workshop")= ""
+	Session("cls_Vehicle")= ""
+	Session("cls_Contract")= ""
+	Session("cls_Asset")=""
+	Session("cls_Nursery")= ""
+	Session("cls_Project")= ""
+	Session("cls_Building")= ""
+	Session("cls_General_Charges")= ""
+	Session("cls_Reversed")= ""	
+	Session("cls_Costbook")= ""
+	Session("cls_ERPReport")= ""	
+	Session("cls_Harvesting")= ""
+	Session("cls_WeighBridge")= ""
+	Session("cls_Mill_Production")= ""
+	Session("cls_Delivery")= ""
+	Session("cls_Sales")= ""
+	
+	Session("NextMonth") =""
+	
+	
+	
+	' Add By Akbar  28 Desember 2015
+	
+	Session("CurP_Bank")=""
+	Session("CurP_Purchase")=""
+	Session("CurP_Stores")=""
+	Session("CurP_Employee")=""
+	Session("CurP_Workshop")=""
+	Session("CurP_Vehicle")=""
+	Session("CurP_Contract")=""
+	Session("CurP_Asset")=""
+	Session("CurP_Nursery")=""
+	Session("CurP_Project")=""
+	Session("CurP_Building")=""
+	Session("CurP_General_Charges")=""
+	Session("CurP_Reversed")=""
+	Session("CurP_Costbook")=""
+	Session("CurP_Harvesting")=""
+	Session("CurP_ERPReport")=""
+	Session("CurP_WeighBridge")=""
+	Session("CurP_Mill_Production")=""
+	Session("CurP_Delivery")=""
+	Session("CurP_Sales")=""
+  
+
+	Session("ClsP_Bank")= ""
+	Session("ClsP_Purchase")= ""
+	Session("ClsP_Stores")= ""
+	Session("ClsP_Employee")= ""
+	Session("ClsP_Workshop")= ""
+	Session("ClsP_Vehicle")= ""
+	Session("ClsP_Contract")= ""
+	Session("ClsP_Asset")= ""
+	Session("ClsP_Nursery")= ""
+	Session("ClsP_Project")= ""
+	Session("ClsP_Building")= ""
+	Session("ClsP_General_Charges")= ""
+	Session("ClsP_Reversed")= ""	
+	Session("ClsP_Costbook")= ""
+	Session("ClsP_ERPReport")= ""	
+	Session("ClsP_Harvesting")= ""
+	Session("ClsP_WeighBridge")= ""
+	Session("ClsP_Mill_Production")= ""
+	Session("ClsP_Delivery")= ""
+	Session("ClsP_Sales")= ""
+	
+	 
+ IF Request("cmdok")="cmdok" and txtuser<>"" and txtpassword<>"" then
+
+  ' The Query has been modify as per NEW Concept, By NAF, 1 May 2013  
+  tempStringUsers = "Select fccode, fullname,firstAddress from users_tab where fccode='" & txtUser & "' and " & _
+                    "fcpassword = '" & md5(txtPassword) & "' and isActive = 'TRUE' and sysdate between Valid_from and Valid_Until "
+  
+  rs=Server.CreateObject("ADODB.Recordset")
+  Set rs = connStr.Execute(tempStringUsers)
+  if not rs.eof then
+    Session("USERNAME") = RS("FCCODE")
+	Session("CodeName") = RS("fccode")
+	session("FULLNAME") = RS("fullname")
+	'add by akbar 24 feb 2014
+	
+	firstAddress_ = RS("firstAddress")
+	
+	tempStringFcba = "select fcba from user_fcba_tab " & _
+						" where " & _
+						" fcusercode = '" & RS("FCCODE") & "' and " & _
+						" fcba = '" & txtBU & "' "
+						
+	rsFcba =Server.CreateObject("ADODB.Recordset") 					
+	Set rsFcba = connStr.Execute(tempStringFcba)
+	
+	if not rsFcba.eof then
+		txtBA = rsFcba("fcba")
+    else
+	    txtBA = ""
+		Response.write "<font face=Verdana size=1 color=red>" & "Access denied for business unit '" & txtBU & "' ..., Please check it with your Administrator" & "</font>"
+	end if
+	rsFcba.Close
+	set rsFcba = Nothing
+	
+	' Pick the Default of FCBA and Pick the Default of Company, by NAF, 1 May 2013
+	tempStringFcba = "UPDATE user_fcba_tab SET isdefault = 'FALSE' " & _
+				     " where " & _
+					 " fcusercode = '" & RS("FCCODE") & "' " 
+						
+	connStr.execute(tempStringFcba)
+	
+	tempStringFcba = "UPDATE user_fcba_tab SET isdefault = 'TRUE' " & _
+				     " where " & _
+					 " fcusercode = '" & RS("FCCODE") & "' and "  & _
+					 " fcba = '" & txtBU & "' "
+						
+	connStr.execute(tempStringFcba)
+	
+	
+	'Set rsFcba = connStr.Execute(tempStringFcba)
+	
+	'if not rsFcba.eof then
+'		txtBA = rsFcba("fcba")
+'    else
+'	    txtBA = ""
+		'Response.write "You must have at least one Default Business Unit..., Please check it with your Administrator"
+	'end if
+	
+	q = "Select fccode,fccompanycode, FCNAME,FCCOMPANYNAME,FCMANAGER,FCKTU,FCCROP,FCTYPE,companyno  from BusinessUnit a INNER JOIN COMPANY b ON a.fccompanycode = b.companycode WHERE fcCode='" & txtBA & "'"
+    set rsCat = connStr.Execute(q)
+	if not rsCat.eof then
+	
+	   Session("fcBa")= rsCat("fcCode")
+	   Session("BA") = rsCat("fcName")
+	   Session("COMPANYCODE")=rsCat("fccompanycode")
+	   Session("COMPANY")=rsCat("FCCOMPANYNAME")
+	   Session("FCMANAGER") = rsCat("FCMANAGER")
+	   Session("KTU") = rsCat("FCKTU")
+	   Session("Crop")=rsCat("FCCROP")
+	   Session("Estate_Mill")=rsCat("fcType")
+	   Session("COMPANYNO")=rsCat("companyno")
+	   
+	   
+	   Session("v_Bank")=cmdFindPeriod("Bank")
+	   Session("v_Purchase")=cmdFindPeriod("Purchase")
+	   Session("v_Stores")=cmdFindPeriod("Stores")
+	   Session("v_Employee")=cmdFindPeriod("Employee")
+	   Session("v_Workshop")=cmdFindPeriod("Workshop")
+	   Session("v_Vehicle")=cmdFindPeriod("Vehicle")
+	   Session("v_Contract")=cmdFindPeriod("Contract")
+	   Session("v_Asset")=cmdFindPeriod("Asset")
+	   Session("v_Nursery")=cmdFindPeriod("Nursery")
+	   Session("v_Project")=cmdFindPeriod("Project")
+	   Session("v_Building")=cmdFindPeriod("Building")
+	   Session("v_General_Charges")=cmdFindPeriod("General_Charges")
+	   Session("v_Reversed")=cmdFindPeriod("Reversed")
+	   Session("v_Costbook")=cmdFindPeriod("Costbook")
+	   Session("v_Harvesting")=cmdFindPeriod("Harvesting")
+	   Session("v_WeighBridge")=cmdFindPeriod("WeighBridge") 
+	   Session("v_Mill_Production")=cmdFindPeriod("Mill_Production") 
+	   Session("v_Delivery")=cmdFindPeriod("Delivery") 
+	   Session("v_ERPReport")=cmdFindPeriod("ERPReport")
+
+	   Session("cls_Bank")=cmdPeriodClose("Bank")
+	   Session("cls_Purchase")=cmdPeriodClose("Purchase")
+	   Session("cls_Stores")=cmdPeriodClose("Stores")
+	   Session("cls_Employee")=cmdPeriodClose("Employee")
+	   Session("cls_Workshop")=cmdPeriodClose("Workshop")
+	   Session("cls_Vehicle")=cmdPeriodClose("Vehicle")
+	   Session("cls_Contract")=cmdPeriodClose("Contract")
+	   Session("cls_Asset")=cmdPeriodClose("Asset")
+	   Session("cls_Nursery")=cmdPeriodClose("Nursery")
+	   Session("cls_Project")=cmdPeriodClose("Project")
+	   Session("cls_Building")=cmdPeriodClose("Building")
+	   Session("cls_General_Charges")=cmdPeriodClose("General_Charges")
+	   Session("cls_Reversed")=cmdPeriodClose("Reversed")
+	   Session("cls_Costbook")=cmdPeriodClose("Costbook")
+	   Session("cls_Harvesting")=cmdPeriodClose("Harvesting")
+	   Session("cls_WeighBridge")=cmdPeriodClose("WeighBridge") 
+	   Session("cls_Mill_Production")=cmdPeriodClose("Mill_Production") 
+	   Session("cls_Delivery")=cmdPeriodClose("Delivery") 
+	   Session("cls_ERPReport")=cmdPeriodClose("ERPReport")
+	   
+       Session("NextMonth") = cmdPeriodClose("Financial")
+	   
+	 ' Add by Ali Akbar  28 Desember 2015
+	 
+	   Session("CurP_Bank")=cmdFindAccountPeriod("Bank")
+	   Session("CurP_Purchase")=cmdFindAccountPeriod("Purchase")
+	   Session("CurP_Stores")=cmdFindAccountPeriod("Stores")
+	   Session("CurP_Employee")=cmdFindAccountPeriod("Employee")
+	   Session("CurP_Workshop")=cmdFindAccountPeriod("Workshop")
+	   Session("CurP_Vehicle")=cmdFindAccountPeriod("Vehicle")
+	   Session("CurP_Contract")=cmdFindAccountPeriod("Contract")
+	   Session("CurP_Asset")=cmdFindAccountPeriod("Asset")
+	   Session("CurP_Nursery")=cmdFindAccountPeriod("Nursery")
+	   Session("CurP_Project")=cmdFindAccountPeriod("Project")
+	   Session("CurP_Building")=cmdFindAccountPeriod("Building")
+	   Session("CurP_General_Charges")=cmdFindAccountPeriod("General_Charges")
+	   Session("CurP_Reversed")=cmdFindAccountPeriod("Reversed")
+	   Session("CurP_Costbook")=cmdFindAccountPeriod("Costbook")
+	   Session("CurP_Harvesting")=cmdFindAccountPeriod("Harvesting")
+	   Session("CurP_WeighBridge")=cmdFindAccountPeriod("WeighBridge") 
+	   Session("CurP_Mill_Production")=cmdFindAccountPeriod("Mill_Production") 
+	   Session("CurP_Delivery")=cmdFindAccountPeriod("Delivery") 
+	   Session("CurP_ERPReport")=cmdFindAccountPeriod("ERPReport")
+
+	   Session("ClsP_Bank")=cmdAccountPeriodClose("Bank")
+	   Session("ClsP_Purchase")=cmdAccountPeriodClose("Purchase")
+	   Session("ClsP_Stores")=cmdAccountPeriodClose("Stores")
+	   Session("ClsP_Employee")=cmdAccountPeriodClose("Employee")
+	   Session("ClsP_Workshop")=cmdAccountPeriodClose("Workshop")
+	   Session("ClsP_Vehicle")=cmdAccountPeriodClose("Vehicle")
+	   Session("ClsP_Contract")=cmdAccountPeriodClose("Contract")
+	   Session("ClsP_Asset")=cmdAccountPeriodClose("Asset")
+	   Session("ClsP_Nursery")=cmdAccountPeriodClose("Nursery")
+	   Session("ClsP_Project")=cmdAccountPeriodClose("Project")
+	   Session("ClsP_Building")=cmdAccountPeriodClose("Building")
+	   Session("ClsP_General_Charges")=cmdAccountPeriodClose("General_Charges")
+	   Session("ClsP_Reversed")=cmdAccountPeriodClose("Reversed")
+	   Session("ClsP_Costbook")=cmdAccountPeriodClose("Costbook")
+	   Session("ClsP_Harvesting")=cmdAccountPeriodClose("Harvesting")
+	   Session("ClsP_WeighBridge")=cmdAccountPeriodClose("WeighBridge") 
+	   Session("ClsP_Mill_Production")=cmdAccountPeriodClose("Mill_Production") 
+	   Session("ClsP_Delivery")=cmdAccountPeriodClose("Delivery") 
+	   Session("ClsP_ERPReport")=cmdAccountPeriodClose("ERPReport")
+	   
+	   
+	   
+	   if request("persistent") = "y" Then
+		  response.Cookies("myCookies")("txtUser") = trim(request("txtUser"))
+		  response.Cookies("myCookies")("txtBA") = trim(request("txtBA"))
+		  response.Cookies("myCookies")("txtBA") = trim(request("txtBA"))
+		  response.Cookies("myCookies")("txtPassword") = trim(request("txtPassword"))
+		  response.Cookies("myCookies").Expires = Now() + 365
+	   End if
+	   q="Insert into HISTORICAL_USER_TAB " & _
+	        "( USERNAME, IP_ADDRESS, BU, DATE_ACT,DATE_ACT_FORM, TIME_ACT, LASTUPDATE, LASTTIME ) " & _
+	       	"values ('" & Session("CodeName") & "','" & _
+				Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "','"& FormatDateTime(Date, 1) &"',sysdate,to_char(sysdate,'HH24:MI'), sysdate," & _
+				    "to_char(sysdate,'HH24:MI'))"
+					
+	  response.write " PJG " & len(trim(firstAddress_))				
+	  connStr.execute(q)
+	    If len(trim(firstAddress_))	 > 1 then
+	       Response.Redirect(firstAddress_)
+	    Else
+		  Response.Redirect("login.asp")	  
+   	    End If
+	end if
+  End if
+  rs.close()
+  rs=null  
+  End if
+
+  txtBA=Request.Cookies("myCookies")("txtBA")
+  txtUser = Request.Cookies("myCookies")("txtUser")
+  txtPassword = Request.Cookies("myCookies")("txtPassword")
+  %>
+<body>
+		<div class="container">
+			<div id="login_content">
+				<div class="logoc">
+					<p id="logo"><img src="css/login/images/logofbg.jpeg" height="60px"/></p>
+					<div id="euname"><p>First Borneo - Plantation System</p></div>
+					
+				</div>
+				<div class="odm-form" id="form_login">
+					<p id="welcome">Welcome</p>
+					<p id="login_cred">Username and Password is case-sensitive</p>
+					<form action="logout.asp" method="post" name="frmLogin">
+						<div class="odm-input"><i class="fa fa-user"> User name</i><input type="text" name="txtUser" maxlength="30" value="<%=txtUser%>" id="usn"  autocomplete="off"></div>
+						<div class="odm-input"><i class="fa fa-lock"> Password</i><input type="password" name="txtPassword" maxlength="30" value="<%=txtPassword%>" id="pwd"  autocomplete="off"></div>
+						<div class="odm-input"><i class="fa fa-building-o"> Company</i>
+						<select name="company" id="company" onchange="getFCBA()">
+						<option value=""></option> 
+						<% 	q = " SELECT companycode, companyname " & _
+							 	" FROM company a inner join user_company_tab b on a.companycode=b.fccompanycode where b.fcusercode='" & txtUser & "'" & _
+							    " order by companyname"
+							 response.write q 'rsCompany,txtCompany
+							Set rsCompany = Server.CreateObject("ADODB.Recordset")
+							rsCompany.CursorType = 3
+							rsCompany.CursorLocation = 3
+							rsCompany.Open q, connstr
+							if not rsCompany.eof then%>
+							<%
+							Do While Not rsCompany.eof
+							%>
+								<option value="<%=rsCompany("companycode")%>" 
+									<%if cstr(""&company)=cstr(""&rsCompany("companycode")) then %> selected 
+									<%End If%>><%=rsCompany("companycode")%>
+								</option> 
+							<%rsCompany.movenext
+							loop
+							End if
+							rsCompany.Close
+							set rsCompany = Nothing
+							q=""
+						%>
+						</select>
+						</div>
+						<div class="odm-input"><i class="fa fa-briefcase"> Business unit</i>
+						<select name="businessunit" id="businessunit" style=width:100px >
+						</select>
+						</div>
+						<p class="msg-container"><span id="login_msg" class="login-msg">&nbsp;</span><i id="loading" class="fod"></i></p>
+						<button type="submit" id="btn_signin">SIGN IN</button>
+						<input type="hidden" value="cmdok" name="cmdok">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="logoc">
+					<p id="logo" style="padding-left: 300px;">
+					<img src="css/login/images/logoarj.jpeg" height="30px"/>&nbsp;
+					<img src="css/login/images/logobrs.jpg" height="30px"/>&nbsp;
+					<img src="css/login/images/logobia.jpeg" height="30px"/>&nbsp;
+					<img src="css/login/images/logokaa.jpg" height="30px"/>&nbsp;
+					<img src="css/login/images/logocpp.png" height="30px"/>&nbsp;
+					<img src="css/login/images/logogas.jpeg" height="30px"/>
+					</p>
+				</div>
+</body>
+</html>
+<script src="/js/jquery-1.9.1.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<link href="plugins/chosen/chosen.min.css" rel="stylesheet" />
+<script src="/js/jquery.inputmask.bundle.min.js"></script>
+<script src="/js/inputmask.binding.js"></script>
+<script src="plugins/chosen/chosen.jquery.min.js"></script>
+<link href="/js/select2/select2.min.css" rel="stylesheet" type="text/css"/>
+<script src="/js/select2/select2.min.js" type="text/javascript"></script>
+<script>
+	
+
+	function getFCBA()
+	{
+		var company = $("#company").val();
+		showFCBA(company);
+
+	}
+
+	function showFCBA(company) {
+				$('#businessunit').empty();
+				$('#businessunit').select2({
+					ajax: {
+						delay: 1000,
+						url : 'getlistfcbaajax.asp?fccompanycode=' + company,
+						dataType: 'json',
+						type: "POST",
+						allowClear: true,
+						data: function (params) {
+								var query = {
+												keyword: params.term
+											}
+								return query;
+						}
+					}
+				});
+	}
+
+</script>

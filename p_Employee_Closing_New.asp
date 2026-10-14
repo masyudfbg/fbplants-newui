@@ -1,0 +1,1185 @@
+<%@Language=VBScript%>
+<%Response.Buffer=true%>
+<%Response.Clear%>
+<%validatesession%>
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>iPlaS - Employee Closing</title>
+	<style>
+		*{font-family:Verdana;font-size:10px;}
+	</style>
+	</head>
+	<body>
+		<%
+			'Declare All Variabel
+			Dim qWaterFlowCheck, rsWaterFlowCheck, CheckWaterFlow, tempErrorWaterFlow
+			Dim qCheckStatus, rsCheckStatus, txtClosingStatus
+			Dim qPeriodControl, rsPeriodControl, temp_datePeriodControl
+			Dim qNormalisasi
+			Dim Startingtime, Endingtime
+			Dim qMaxLineNo, rsqMaxLineNo, maxLineNoEmployeeCB
+			Dim qAllowdedBrondolan, rsqAllowdedBrondolan, tempData
+			Dim qBorongan, rsBorongan
+			Dim qNoActivity, rsNoActivity
+			Dim TimeAwal, TimeAkhir, Lama
+			Dim nAlokasi
+			Dim qLembur, rsLembur
+			Dim qDaily, rsDaily
+			Dim qMonthly, rsMonthly
+			Dim sqlunittype, rsunittype, tempunittype
+
+			TimeAwal=Time()
+			Startingtime = FormatDateTime(CDate(Now))
+		%>
+		<div id="status_running">
+			<img src="ICON/working.gif" />
+		</div>
+		<br/>
+		Employee Last Period Close <%=FormatDateTime(Session("cls_Employee"),1)%> <br> 
+		Employee Current Period is <%=FormatDateTime(Session("v_Employee"),1)%> <br><br>
+		Please Wait...
+		<br/>
+		<br/>
+		<%
+		Response.Write "Start ..." & Time() & "<br><br>"
+		Response.Flush
+		
+		%>
+		<%
+		
+		Function GetRSArray(strSQL)
+			set objRSArray = connStr.Execute(strSQL)
+			If Not objRSArray.EOF Then
+				arrRS = objRSArray.GetRows()
+				GetRSArray = arrRS
+			Else
+				Response.Write("There are currently no records returned.<br/>")
+                Exit Function
+			End If
+			objRSArray.Close()
+			Set objRSArray = Nothing
+		End Function
+		' Water Flow Check, By NAF
+		' 2 December 2013
+		qWaterFlowCheck = " select PERIODCONTROL_API.getStatusPrevClosing('Employee','" & Session("fcBA")  & "') waterFlowCheck from dual "
+
+		Set rsWaterFlowCheck = Server.CreateObject("ADODB.Recordset")
+		rsWaterFlowCheck.CursorType = 3
+		rsWaterFlowCheck.CursorLocation = 3
+		rsWaterFlowCheck.Open qWaterFlowCheck, connstr
+
+		if not rsWaterFlowCheck.eof then
+			CheckWaterFlow = rsWaterFlowCheck("waterFlowCheck")
+		else
+			Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No WATER FLOW CHECK for Employee " & "<br>"
+		end if
+		rsWaterFlowCheck.close
+		set rsWaterFlowCheck = Nothing
+		
+		'-- Check for Empallded PreProcess
+		qCheckStatus = "select EMPALLDEDSTATUS_API.GetCheckPreEmployeeClosing (" & Year(Session("v_Employee")) & "," & _
+																				Month(Session("v_Employee")) & ",'" & _
+																				Session("fcBA") & "') closingStatus from dual "
+
+		Set rsCheckStatus = Server.CreateObject("ADODB.Recordset")
+		rsCheckStatus.CursorType = 3
+		rsCheckStatus.CursorLocation = 3
+		rsCheckStatus.Open qCheckStatus, connstr
+		if not rsCheckStatus.eof then
+		   txtClosingStatus = rsCheckStatus("closingStatus")
+		else
+		   Response.Write  "<font face=Verdana size=1 color=red>" & "EmpalldedStatus are not defined "
+		   txtClosingStatus="FALSE"
+		end if
+		rsCheckStatus.close
+		set rsCheckStatus = Nothing
+		
+if CheckWaterFlow = "TRUE" and txtClosingStatus = "TRUE" then
+		
+			qPeriodControl=" select  to_char(add_months(LASTPERIODPOSTED,1), 'MM/DD/YYYY')  LastPeriodPosted from PERIODCONTROL  " & _
+			  " where SYSTEM='Employee' and fcba='" & Session("fcBA") & "'"
+
+			Set rsPeriodControl = Server.CreateObject("ADODB.Recordset")
+			rsPeriodControl.CursorType = 3
+			rsPeriodControl.CursorLocation = 3
+			rsPeriodControl.Open qPeriodControl, connstr
+
+			if not rsPeriodControl.eof then
+				temp_datePeriodControl = rsPeriodControl("LASTPERIODPOSTED")
+			else
+				Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No PERIODCONTROL for Employee " & "<br>"
+			end if
+			rsPeriodControl.close
+			set rsPeriodControl = Nothing
+			
+			 dim QSession
+			     QSession = " insert into ActiveSession(Sid,Audsid,Fcba,Modul,User_Iplas,Datestart)  select sid,Audsid,'" & Session("fcBA")  & "','EMPLOYEE' Modul,'" & Session("CodeName") & "',sysdate  from V$SESSION " & _
+                             " where audsid in (select sys_context('userenv','sessionid') Session_ID from dual)" 
+	             ' Response.write QSession
+				  connstr.execute(QSession)
+				  connStr.execute("Commit")
+			
+			
+				Response.Write "Deleting Data Process" & "<br/>"
+				Response.Flush
+			    
+				connstr.BeginTrans
+				ExecuteSQL = " delete" & _
+                             " from employee_transit_tab" & _
+                             " where fcBA = '" & Session("fcBA") & "'"
+
+				connstr.execute(ExecuteSQL)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Normalisasi employee_transit_tab, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+				connstr.BeginTrans
+				ExecuteSQL = " delete" & _
+                             " from employee_alokasi_tab" & _
+                             " where fcBA = '" & Session("fcBA") & "'"
+							 
+				connstr.execute(ExecuteSQL)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Normalisasi employee_alokasi_tab, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteSQL&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+				connstr.BeginTrans
+				qNormalisasi = " delete from employeecb" & _
+				               " where to_number(to_Char(transdate,'mm')) = " & Month(Session("v_Employee")) & "" & _
+							   "       and to_number(to_Char(transdate,'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+							   "       and fcBA = '" & Session("fcBA") & "'"
+				connstr.execute(qNormalisasi)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Normalisasi EmployeeCB, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qNormalisasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+				
+				connstr.BeginTrans
+					qNormalisasi = " delete from COST_ACTIVITY " & _
+				               "     where to_number(to_Char(TDATE,'mm')) = " & Month(Session("v_Employee")) & "" & _
+					           "       and to_number(to_Char(TDATE,'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+							   "       and fcBA = '" & Session("fcBA") & "'" & _
+					           "       and SOURCETYPE in ('EM','ES')" & _
+							   "       and JOURNALPREFIX = 'PRL'" & _
+							   "       /*and SOURCE IS NULL*/  " 
+					connstr.execute(qNormalisasi)
+
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Normalisasi Cost_Activity, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qNormalisasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+				connstr.BeginTrans
+					qNormalisasi = " delete COST_ACTIVITY " & _
+				               "     where to_number(to_Char(TDATE,'mm')) = " & Month(Session("v_Employee")) & "" & _
+					           "       and to_number(to_Char(TDATE,'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+							   "       and SOURCETYPE in ('EM','ES')" & _
+							   "       and CHARGEUNIT = '" & Session("fcBA") & "'" & _
+							   "       and JOURNALPREFIX = 'PRI'" 
+							   
+					connstr.execute(qNormalisasi)
+
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Normalisasi Cost_Activity Intraco, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qNormalisasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+				Response.write("<font face=Verdana size=1 color=Green>Deleting Data Process, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+				Response.Flush
+
+
+				
+				' To Pick max Line No in Cost_Activity
+				qMaxLineNo = " select nvl(max(nvl(lineno,0)),0) maxLineNo " & _
+								" from employeecb " & _
+								" where " & _
+								" fcba = '" & Session("fcBA") & "' "
+								
+				Set rsqMaxLineNo = Server.CreateObject("ADODB.Recordset")
+				rsqMaxLineNo.CursorType = 3
+				rsqMaxLineNo.CursorLocation = 3
+				rsqMaxLineNo.Open qMaxLineNo, connstr
+
+				if not rsqMaxLineNo.eof then
+					maxLineNoEmployeeCB = cdbl(rsqMaxLineNo("maxLineNo"))
+				else
+					maxLineNoEmployeeCB = 0
+				end if
+				rsqMaxLineNo.close
+				set rsqMaxLineNo = Nothing	
+				' End of Pick Max Line No.
+
+				
+				
+				Response.Write "Generating Data..." & "<br/>"
+				Response.Flush
+				
+				
+				'Penampung Transit 
+				strJobHutang = " select param_1 as JobHutang from parameter " & _
+											" where " & _
+											" parcode = 'ALLOC_SALARY' and " & _
+											" fcba = '" & Session("fcBA") & "'  and " & _
+											" fccode = 'SALARYACCPAY' " 
+											
+											
+				Set rsstrJobHutang = Server.CreateObject("ADODB.Recordset")					
+				rsstrJobHutang.Open strJobHutang, connstr
+				if Not rsstrJobHutang.eof then 
+				   tempJobHutang = rsstrJobHutang("JobHutang")
+				end if   
+				rsstrJobHutang.close
+				set rsstrJobHutang = Nothing
+				
+				'---- Control Job
+				qControlJob = " SELECT parameterdetail_api.get_param_1 ('" & Session("FCBA") & "', 'HARDCODE', 'CONTROLJOB_MODULE', 'EMPLOYEE') ControlJob FROM DUAL"
+				Set rsControlJob = Server.CreateObject("ADODB.Recordset")
+				rsControlJob.CursorType = 3
+				rsControlJob.CursorLocation = 3
+				rsControlJob.Open qControlJob, connstr
+				if not rsControlJob.eof then
+				   txtControlJob=rsControlJob("ControlJob")
+				else
+				   Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error SAC20025 Control Job For EMPLOYEE is Empty"
+				   txtControlJob=  "6119999"
+				end if
+				rsControlJob.close
+				set rsControlJob = Nothing
+				response.Flush()
+				
+				connstr.BeginTrans
+				ExecuteTransit = " insert into employee_transit_tab(fcba,transdate,allowdedcode,employeecode,section,gangcode,grade,amount,sourcetype,jobcode,targettype,targetcode)" & _
+				 "     select fcba" & _
+				 "            , transdate" & _
+				 "            , allowdedcode" & _
+				 "            , employeecode" & _
+				 "            , employee_hist_api.get_sectionname (" & Year(Session("v_Employee")) & "," & Month(Session("v_Employee")) & ",fcba,employeecode) section"& _
+				 "            , gangcode "& _
+				 "            , grade" & _
+				 "            , amount" & _
+				 "            , sourcetype" & _
+				 "            , alokasi_jobcode" & _
+				 "            , alokasi_tt" & _
+				 "            , alokasi_tc" & _
+				 "     FROM " & _
+				 " ( " & _
+				 "     select b.fcba" & _
+				 "            , last_day(adhocdate)transdate" & _
+				 "            , allowdedcode" & _
+				 "            , empcode employeecode" & _
+				 "            , sectionname section"& _
+				 "            , gangcode "& _
+				 "            , presentgrade grade" & _
+				 "            , sum(amount) amount" & _
+				 "            , 'EM' sourcetype" & _
+				 "            , allowded_api.get_control_job_transit(allowdedcode, b.fcba) alokasi_jobcode" & _
+				 "            , new_employee_closing_api.get_detailalokasi(allowdedcode, 2, b.fcba, sectionname, presentgrade, 'EM') alokasi_tt" & _
+				 "            , new_employee_closing_api.get_detailalokasi(allowdedcode, 3, b.fcba, sectionname, presentgrade, 'EM') alokasi_tc" & _
+				 "     from empallded a inner join employee b on (a.empcode=b.fccode and a.fcba=b.fcba) " & _
+				 "     where b.fcba = '" & Session("fcBA") & "'" & _
+				 "           and to_number(to_char(adhocdate, 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				 "           and to_number(to_char(adhocdate, 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				 " 			 and (b.dateterminate is NULL " & _ 
+				 "                or to_char(b.dateterminate,'MM/DD/YYYY') <= to_char(to_Date('" & Session("v_Employee") & "', 'MM/DD/YYYY'),'MM/DD/YYYY')) " & _
+				 "           and a.empcode not in (SELECT fccode FROM view_payrolldetail where fcba = '" & session("fcBA") & "'  AND yearmonth= to_char(to_Date('" & Session("v_Employee") & "', 'MM/DD/YYYY'),'YYYYMM') AND (base_salary+ overtime+borongan+premi) <= 0)" & _
+				 "     group by b.fcba, last_day(adhocdate), allowdedcode, empcode,gangcode ,sectionname,presentgrade" & _
+				 "     union all " & _
+				 "     select b.fcba" & _
+				 "            , last_day(adhocdate)transdate" & _
+				 "            , 'XXX' allowdedcode" & _
+				 "            , empcode employeecode" & _
+				 "            , sectionname section"& _
+				 "            , gangcode "& _
+				 "            , presentgrade grade" & _
+				 "            , sum(amount*-1) amount" & _
+				 "            , 'EM' sourcetype" & _
+				 "            , '" & tempJobHutang & "' alokasi_jobcode" & _
+				 "            , 'CB' alokasi_tt" & _
+				 "            , 'BS' alokasi_tc" & _
+				 "     from empallded a inner join employee b on (a.empcode=b.fccode and a.fcba=b.fcba) " & _
+				 "     where b.fcba = '" & Session("fcBA") & "'" & _
+				 "           and to_number(to_char(adhocdate, 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				 "           and to_number(to_char(adhocdate, 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				 " 			 and (b.dateterminate is NULL " & _ 
+				 "                or to_char(b.dateterminate,'MM/DD/YYYY') <= to_char(to_Date('" & Session("v_Employee") & "', 'MM/DD/YYYY'),'MM/DD/YYYY')) " & _
+				 "           and a.empcode not in (SELECT fccode FROM view_payrolldetail where fcba = '" & session("fcBA") & "'  AND yearmonth= to_char(to_Date('" & Session("v_Employee") & "', 'MM/DD/YYYY'),'YYYYMM') AND (base_salary+ overtime+borongan+premi) <= 0)" & _
+				 "     group by b.fcba, last_day(adhocdate), empcode,gangcode,sectionname,presentgrade" & _
+				 " )x " & _
+				 " order by x.SECTION,x.grade,x.employeecode,x.allowdedcode " 
+			 
+			     
+				
+				connstr.execute(ExecuteTransit)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Generating employee_transit_tab, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteTransit&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+				'DELETE yang gajinya minus
+				qjournal = " DELETE FROM  employee_transit_tab " & _
+						   " WHERE fcba='" & Session("fcBA") & "' AND employeecode IN (SELECT employeecode FROM employee_transit_tab WHERE fcba='" & Session("fcBA") & "' AND allowdedcode <> 'XXX' GROUP BY employeecode HAVING Sum(amount) < 0)" 
+				connstr.execute(qjournal)
+			
+				'Penampung ALOKASI
+				'HK	
+				connstr.BeginTrans
+				ExecuteAlokasi = " insert into employee_alokasi_tab(fcba,transdate,allowdedcode,employeecode,section,gangcode,grade,sourcetype,jobcode,targettype,targetcode,chargejob,chargecode,chargetype,qty,totqty,amount,totamount,chargeunit,lineno )" & _ 
+				"SELECT b.fcba,b.transdate,b.allowdedcode,a.employeecode ,b.section,b.gangcode,b.grade,a.sourcetype,a.jobcode, a.locationtype,a.locationcode_ori,a.chargejob,a.chargetype,a.chargecode,a.mandays,0,0,b.amount,chargeunit,rownum  " & _
+				"FROM " & _
+				"  ( " & _
+				"	SELECT " & _
+				"	fcba, transdate, sourcetype,employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode ,Sum(mandays)  AS mandays " & _
+				"	FROM " & _
+				"	( " & _
+				"	SELECT fcba,last_day(fddate) transdate,'EM' sourcetype,employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode,Sum(mandays)  AS mandays " & _
+				"	FROM VIEW_Attendance_all_hk_cls " & _
+				"	WHERE rowstate='Approved' " & _
+				"   AND to_number(to_char(last_day(fddate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"   AND to_number(to_char(last_day(fddate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"	AND fcba='" & Session("fcBA") & "' " & _
+				"	GROUP BY  fcba,last_day(fddate),employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"	HAVING Sum(mandays) > 0 " & _
+				"	UNION ALL " & _
+				"		  SELECT fcba, transdate,sourcetype,employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode,Count(DISTINCT employeecode) AS mandays  " & _
+				"		  FROM " & _
+				"		  ( " & _
+				"		  SELECT fcba,last_day(fddate) transdate,'ES' sourcetype,supervision_1 employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"		  FROM VIEW_Attendance_all_hk_cls " & _
+				"		  WHERE rowstate='Approved' " & _
+				"		  AND supervision_1 is not null " & _
+				"         AND to_number(to_char(last_day(fddate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"         AND to_number(to_char(last_day(fddate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"		  AND fcba='" & Session("fcBA") & "' " & _
+				"         GROUP BY  fcba,last_day(fddate),supervision_1 ,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _ 
+				"		  UNION ALL " & _
+				"		  SELECT fcba,last_day(fddate) transdate,'ES' sourcetype,supervision_2 employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"		  FROM VIEW_Attendance_all_hk_cls " & _
+				"		  WHERE rowstate='Approved' " & _
+				"		  AND supervision_2 is not null " & _
+				"         AND to_number(to_char(last_day(fddate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"         AND to_number(to_char(last_day(fddate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"		  AND fcba='" & Session("fcBA") & "' " & _
+				"         GROUP BY  fcba,last_day(fddate),supervision_2 ,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _ 
+				"		  UNION ALL " & _
+				"		  SELECT fcba,last_day(fddate) transdate,'ES' sourcetype,supervision_3 employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"		  FROM VIEW_Attendance_all_hk_cls " & _
+				"		  WHERE rowstate='Approved' " & _
+				"		  AND supervision_3 is not null " & _
+				"         AND to_number(to_char(last_day(fddate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"         AND to_number(to_char(last_day(fddate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"		  AND fcba='" & Session("fcBA") & "' " & _
+				"         GROUP BY  fcba,last_day(fddate),supervision_3 ,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _ 
+				"		  UNION ALL " & _
+				"		  SELECT fcba,last_day(fddate) transdate,'ES' sourcetype,supervision_4 employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"		  FROM VIEW_Attendance_all_hk_cls " & _
+				"		  WHERE rowstate='Approved' " & _
+				"		  AND supervision_4 is not null " & _
+				"         AND to_number(to_char(last_day(fddate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"         AND to_number(to_char(last_day(fddate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"		  AND fcba='" & Session("fcBA") & "' " & _
+				"         GROUP BY  fcba,last_day(fddate),supervision_4 ,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _ 
+				"		  )x " & _
+				"		  GROUP BY fcba, transdate,sourcetype,employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"	)Z " & _
+				"	GROUP BY fcba, transdate,sourcetype,employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				" )a " & _
+				"  INNER JOIN EMPLOYEE_TRANSIT_TAB b ON  a.fcba=b.fcba AND a.transdate=b.transdate AND a.employeecode=b.employeecode  " & _
+				"  WHERE b.allowdedcode NOT IN ('A18','A45', 'A99','XXX','D02','D24','D03') " & _
+				"ORDER BY b.employeecode, b.allowdedcode " 
+				
+				connstr.execute(ExecuteAlokasi)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Generating employee_alokasi_tab HK, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteAlokasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+					
+				'UPDATE Tot.HK
+                
+				qjournal = "MERGE INTO employee_alokasi_tab a" & _
+								" USING " & _
+								" ( " & _
+								"	SELECT fcba,transdate,allowdedcode,employeecode,sum(qty) totqty FROM employee_alokasi_tab WHERE allowdedcode NOT IN ('A18','A45', 'A99','XXX')" & _
+								"	GROUP BY fcba,transdate,allowdedcode,employeecode " & _
+								" )b ON (a.fcba=b.fcba AND a.transdate=b.transdate AND a.allowdedcode=b.allowdedcode AND a.employeecode=b.employeecode) " & _
+								" WHEN MATCHED THEN " & _
+								" UPDATE SET a.totqty = b.totqty " 
+				connstr.execute(qjournal)
+				
+				'UPDATE Tot.Amount
+				qjournal = "UPDATE employee_alokasi_tab " & _
+								" SET " & _
+								"	AMOUNT = ROUND(DECODE(NVL(totqty,0),0,0,NVL(Qty,0)/NVL(totqty,0) * NVL(TotAmount,0)),0) " & _
+							" WHERE allowdedcode NOT IN ('A18','A45', 'A99','XXX') " 
+				connstr.execute(qjournal)
+				
+				'LEMBUR
+                connstr.BeginTrans
+				ExecuteAlokasi = " insert into employee_alokasi_tab(  fcba,transdate,allowdedcode,employeecode,section,gangcode,grade,sourcetype,jobcode,targettype,targetcode,chargeunit,chargejob,chargecode,chargetype,qty,totqty,amount,totamount,lineno )" & _
+				"SELECT b.fcba,b.transdate,b.allowdedcode,a.employeecode ,b.section,b.gangcode,b.grade,a.sourcetype,a.jobcode, a.locationtype,a.locationcode_ori,a.chargeunit,a.chargejob,a.chargetype,a.chargecode,a.mandays,0,a.amount,b.amount,rownum " & _
+				"FROM  " & _
+				"  ( " & _
+				"	SELECT fcba,last_day(fddate) transdate,'EM' sourcetype,employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode,Sum(mandays) AS mandays,SUM(rpovertime) Amount " & _
+				"	FROM view_attendance_all_ot_cls " & _
+				"	WHERE rowstate='Approved' " & _
+				"   AND to_number(to_char(last_day(fddate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"   AND to_number(to_char(last_day(fddate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"	AND fcba='" & Session("fcBA") & "' " & _
+				"	GROUP BY  fcba,last_day(fddate),employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"  )a " & _
+				"  INNER JOIN EMPLOYEE_TRANSIT_TAB b ON  a.fcba=b.fcba AND a.transdate=b.transdate AND a.employeecode=b.employeecode " & _
+				"  WHERE b.allowdedcode IN ('A18') " & _
+				"ORDER BY b.employeecode, b.allowdedcode " 
+
+				
+				connstr.execute(ExecuteAlokasi)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Generating employee_alokasi_tab LEMBUR, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteAlokasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If				
+					
+				'Borongan
+                connstr.BeginTrans
+				ExecuteAlokasi = " insert into employee_alokasi_tab(  fcba,transdate,allowdedcode,employeecode,section,gangcode,grade,sourcetype,jobcode,targettype,targetcode,chargeunit,chargejob,chargecode,chargetype,qty,totqty,amount,totamount,lineno )" & _
+				"SELECT b.fcba,b.transdate,b.allowdedcode,a.employeecode ,b.section,b.gangcode,b.grade,a.sourcetype,a.jobcode, a.locationtype,a.locationcode_ori,a.chargeunit,a.chargejob,a.chargetype,a.chargecode,a.mandays,0,a.amount,b.amount,rownum " & _
+				"FROM  " & _
+				"  ( " & _
+				"	SELECT fcba,last_day(fddate) transdate,'EM' sourcetype,employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode,Sum(unit) AS mandays,SUM(presentrate * unit) Amount " & _
+				"	FROM VIEW_Attendance_all_kb_cls " & _
+				"	WHERE rowstate='Approved' " & _
+				"   AND to_number(to_char(last_day(fddate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"   AND to_number(to_char(last_day(fddate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"	AND fcba='" & Session("fcBA") & "' " & _
+				"	GROUP BY  fcba,last_day(fddate),employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"  )a " & _
+				"  INNER JOIN EMPLOYEE_TRANSIT_TAB b ON  a.fcba=b.fcba AND a.transdate=b.transdate AND a.employeecode=b.employeecode " & _
+				"  WHERE b.allowdedcode IN ('A45') " & _
+				"ORDER BY b.employeecode, b.allowdedcode " 
+
+				
+				connstr.execute(ExecuteAlokasi)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Generating employee_alokasi_tab BORONGAN, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteAlokasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If				
+				
+				'Premi Lain
+                connstr.BeginTrans
+				ExecuteAlokasi = " insert into employee_alokasi_tab(  fcba,transdate,allowdedcode,employeecode,section,gangcode,grade,sourcetype,jobcode,targettype,targetcode,chargeunit,chargejob,chargecode,chargetype,qty,totqty,amount,totamount,lineno )" & _
+				"SELECT b.fcba,b.transdate,b.allowdedcode,a.employeecode ,b.section,b.gangcode,b.grade,a.sourcetype,a.jobcode, a.locationtype,a.locationcode_ori,a.chargeunit,a.chargejob,a.chargetype,a.chargecode,a.mandays,0,a.amount,b.amount,rownum " & _
+				"FROM  " & _
+				"  ( " & _
+				"	SELECT fcba,last_day(fddate) transdate,'EM' sourcetype,employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode,Sum(mandays) AS mandays,SUM(premirate) Amount " & _
+				"	FROM VIEW_Attendance_all_plain_cls " & _
+				"	WHERE rowstate='Approved' " & _
+				"   AND to_number(to_char(last_day(fddate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"   AND to_number(to_char(last_day(fddate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"	AND fcba='" & Session("fcBA") & "' " & _
+				"	GROUP BY  fcba,last_day(fddate),employeecode,jobcode,locationtype,locationcode_ori,chargeunit,chargejob,chargetype,chargecode " & _
+				"  )a " & _
+				"  INNER JOIN EMPLOYEE_TRANSIT_TAB b ON  a.fcba=b.fcba AND a.transdate=b.transdate AND a.employeecode=b.employeecode " & _
+				"  WHERE b.allowdedcode IN ('A99') " & _
+				"ORDER BY b.employeecode, b.allowdedcode " 
+
+				
+				connstr.execute(ExecuteAlokasi)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Generating employee_alokasi_tab PREMI LAIN, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteAlokasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If				
+				
+				'Non Activity
+				connstr.BeginTrans
+				ExecuteAlokasi = " insert into employee_alokasi_tab(fcba,transdate,allowdedcode,employeecode,section,gangcode,grade,sourcetype,jobcode,targettype,targetcode,qty,totqty,amount,totamount,lineno )" & _
+				"SELECT a.fcba,a.transdate,a.allowdedcode,a.employeecode,a.SECTION,a.gangcode,a.grade " & _
+				",'EM' sourcetype " & _
+				", new_employee_closing_api.get_InfoParameterNoActivity(a.allowdedcode, 1, a.fcba) alokasi_jobcode " & _
+				", new_employee_closing_api.get_InfoParameterNoActivity(a.allowdedcode, 2, a.fcba) alokasi_tt " & _
+				", new_employee_closing_api.get_InfoParameterNoActivity(a.allowdedcode, 3, a.fcba) alokasi_tc " & _
+				",1,1,a.amount,a.amount,rownum " & _
+				"FROM EMPLOYEE_TRANSIT_TAB a " & _
+				"LEFT JOIN EMPLOYEE_ALOKASI_TAB b ON a.employeecode=b.employeecode " & _
+				"WHERE b.employeecode IS NULL " & _
+				"AND a.allowdedcode NOT IN ('A18','A45', 'A99','XXX','D02','D24','D03') "
+
+
+				
+				connstr.execute(ExecuteAlokasi)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Generating employee_alokasi_tab No Activity, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteAlokasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If				
+				
+				
+				'UPDATE SELISIH
+				qjournal =  " MERGE INTO  employee_alokasi_tab a " & _
+							" USING " & _
+							" ( " & _
+							" SELECT fcba,transdate,employeecode,allowdedcode,totamount,Min(lineno) mlineno ,Sum(amount)tmpamount,totamount-Sum(amount)selisih " & _
+							" FROM employee_alokasi_tab " & _
+							" GROUP BY   fcba,transdate,employeecode,allowdedcode,totamount " & _
+							" HAVING totamount-Sum(amount) <> 0 " & _
+							" ) b ON ( a.fcba=b.fcba AND a.transdate=b.transdate AND a.employeecode=b.employeecode AND a.allowdedcode=b.allowdedcode AND a.totamount=b.totamount AND a.lineno=b.mlineno) " & _
+							" WHEN MATCHED THEN " & _
+							" UPDATE SET  a.amount = a.amount + b.selisih " 
+				connstr.execute(qjournal)
+				
+				
+				'Alokasi Cr
+                connstr.BeginTrans
+				ExecuteAlokasi = " insert into employee_alokasi_tab(  fcba,transdate,allowdedcode,employeecode,section,gangcode,grade,sourcetype,jobcode,targettype,targetcode,chargeunit,chargejob,chargecode,chargetype,qty,totqty,amount,totamount )" & _
+				"	SELECT fcba,transdate,'XXX' allowdedcode,employeecode,section,gangcode,grade,'EM','" & txtControlJob & "' jobcode,'LOC' targettype,'11' targetcode,'' chargeunit,'' chargejob,''chargecode,'' chargetype " & _
+				"   ,0,0,sum(amount*-1),sum(amount*-1) " & _
+				"	FROM employee_alokasi_tab " & _
+				"	WHERE " & _
+				"   to_number(to_char(last_day(transdate), 'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+				"   AND to_number(to_char(last_day(transdate), 'mm')) = " & Month(Session("v_Employee")) & "" & _
+				"	AND fcba='" & Session("fcBA") & "' " & _
+				"	GROUP BY  fcba,transdate,employeecode,section,gangcode,grade" & _
+				"	ORDER BY employeecode " 
+
+
+				
+				connstr.execute(ExecuteAlokasi)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Generating employee_alokasi_tab ALOKASI, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&ExecuteAlokasi&"] ("&Err.Description&")")
+					Response.Flush
+				End If				
+
+				Response.write("<font face=Verdana size=1 color=Green>Generating Data, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+				Response.Flush
+				
+				
+				
+				Response.Write "Transfer to employeecb" & "<br/>"
+				Response.Flush
+				
+				connstr.BeginTrans
+				qInsertCR = " insert into employeecb (empcode" & _
+						"                         , sourcetype" & _
+						"                         , targettype" & _
+						"                         , targetcode" & _
+						"                         , jobcode" & _
+						"                         , amount" & _
+						"                         , transdate" & _
+						"                         , referenceno" & _
+						"                         , fcentry" & _
+						"                         , fcedit" & _
+						"                         , fcip" & _
+						"                         , fcba" & _
+						"                         , lastupdate" & _
+						"                         , lasttime" & _
+						"                         , lineno,uprtype,allowdedcode,section,grade,chargeunit)" & _
+				        " SELECT employeecode,sourcetype,targettype,targetcode,jobcode,amount,transdate,referenceno,'" & Session("CodeName") & "','" & Session("CodeName") & "'" & _
+						" ,'" & Request.ServerVariables("REMOTE_ADDR") & "','" &Session("fcBA") & "',sysdate,to_char(sysdate, 'HH24:MI'),rownum + " & maxLineNoEmployeeCB & " lineno,uprtype,allowdedcode,section,grade,chargeunit " & _
+						" FROM " & _ 
+						" ( " & _ 
+						" SELECT employeecode,sourcetype,Nvl(targettype,'FF') targettype,nvl(targetcode,'11') targetcode,jobcode,amount,transdate,section||'/'||grade||'/'||'02' as referenceno,'02' uprtype,allowdedcode,section,grade,'' chargeunit " & _
+						" FROM employee_transit_tab where fcba='" & Session("fcBA") & "'" & _
+						" UNION ALL " & _
+						" SELECT employeecode,sourcetype,targettype,nvl(targetcode,'11') targetcode,jobcode,amount,transdate,section||'/'||grade||'/'||'01' as referenceno,'01' as uprtype,allowdedcode,section,grade,chargeunit " & _
+						" FROM employee_alokasi_tab where fcba='" & Session("fcBA") & "'" & _
+						" )x ORDER BY referenceno "
+				
+				connstr.execute(qInsertCR)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Transfer to employeecb, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qInsertCR&"] ("&Err.Description&")")
+					Response.Flush
+				End If			
+						
+				
+'-- <JOURNAL>				
+				Response.Write "Transfer to Cost_Activity" & "<br/>"
+				Response.Flush
+				
+				' Get the Max LineNo of Cost Activity
+
+				Set rsCostActivityMax = Server.CreateObject("ADODB.Recordset")
+				rsCostActivityMax.CursorType = 3
+				rsCostActivityMax.CursorLocation = 3
+												
+				qCostActivityMax =  " select nvl(max(nvl(lineno,0)),0) maxLineNo from cost_activity " & _
+									" where fcba = '" &  Session("fcBA") & "' " 
+				rsCostActivityMax.Open qCostActivityMax, connstr
+				maxLineNo = cdbl(rsCostActivityMax("maxLineNo"))
+
+				rsCostActivityMax.close
+				set rsCostActivityMax = Nothing
+				' End of Get the Max LineNo of Cost Activity
+				
+				connStr.BeginTrans
+				qABC = " insert into cost_activity (tdate" & _
+					   "                            , jobcode" & _
+					   "                            , source" & _
+					   "                            , sourcetype" & _
+					   "                            , sourcecode" & _
+					   "                            , sourcecode_status" & _
+					   "                            , targettype" & _
+					   "                            , targetcode" & _
+					   "                            , targetcode_status" & _
+					   "                            , referenceno" & _
+					   "                            , quantity" & _
+					   "                            , output" & _
+					   "                            , amount" & _
+					   "                            , fcba" & _
+					   "                            , closing_date" & _
+					   "                            , process_date" & _
+					   "                            , title_reference_01" & _
+					   "                            , auto_reference_01" & _
+					   "                            , title_reference_02" & _
+					   "                            , auto_reference_02" & _
+					   "                            , title_reference_03" & _
+					   "                            , auto_reference_03" & _
+					   "                            , title_reference_04" & _
+					   "                            , auto_reference_04" & _
+					   "                            , title_reference_05" & _
+					   "                            , auto_reference_05" & _
+					   "                            , debetcredit" & _
+					   "                            , lastupdate" & _
+					   "                            , lasttime" & _
+					   "                            , lineno" & _
+					   "                            , accountingperiod" & _
+                       "                            , accountingyear,journalprefix,chargeunit)" & _
+					   " select tdate" & _
+					   "        , jobcode" & _
+					   "        , source" & _
+					   "        , sourcetype" & _
+					   "        , sourcecode" & _
+					   "        , sourcecode_status" & _
+					   "        , targettype" & _
+					   "        , targetcode" & _
+					   "        , targetcode_status" & _
+					   "        , referenceno" & _
+					   "        , quantity" & _
+					   "        , output" & _
+					   "        , amount" & _
+					   "        , fcba" & _
+					   "        , closing_date" & _
+					   "        , sysdate process_date" & _
+					   "        , cost_activity_info_api.get_title_reference_01 (sourcetype,targettype,'Dr')" & _
+					   "        , targetcode" & _
+					   "        , cost_activity_info_api.get_title_reference_02 (sourcetype,targettype,'Dr')" & _
+					   "        , referenceno" & _
+					   "        , decode(substr(uprtype,0,2),'02','JOURNAL TRANSIT'||'JOURNAL ALOKASI')" & _
+					   "        , ' DIVISI:'||sectionname||' TYPE:'||sourcecode||' ALLOWDED:'||allowdedcode" & _
+					   "        , 'Section'" & _
+					   "        , sectionname" & _
+					   "        , 'uprtype'" & _
+					   "        , uprtype" & _
+					   "        , decode ( greaterorequalthan ( amount, 0), 'TRUE','Dr','Cr')" & _
+					   "        , sysdate lastupdate" & _
+					   "        , to_char(sysdate,'hh24:mi') lasttime" & _
+					   "        , rownum + " & maxLineNo & " lineno " & _
+					   "        , " & Month(Session("v_Employee")) & " accountingperiod " & _
+					   "        , " & Year(Session("v_Employee")) & " accountingyear ,'PRL',chargeunit" & _
+					   " from (select transdate tdate" & _
+					   "              , jobcode " & _
+					   "              ,  'EM' source" & _
+					   "              , sourcetype " & _
+					   "              , grade sourcecode" & _
+					   "              , '' sourcecode_status" & _
+					   "              , targettype " & _
+					   "              , targetcode " & _
+					   "              , '' targetcode_status" & _
+					   "              , referenceno " & _
+					   "              , 0 quantity" & _
+					   "              , 0 output" & _
+					   "              , sum(amount) amount" & _
+					   "              , fcba" & _
+					   "              , transdate closing_date  " & _
+					   "              , uprtype " & _
+					   "              , section sectionname,allowdedcode,chargeunit " & _
+					   "       from employeecb" & _
+					   "       where fcba = '" & Session("fcBA") & "'" & _
+					   "             and to_number(to_char(transdate,'yyyy')) = " & Year(Session("v_Employee")) & "" & _
+					   "             and to_number(to_char(transdate,'mm')) = " & Month(Session("v_Employee")) & "" & _
+					   "       group by transdate,jobcode,sourcetype, grade,targettype , targetcode,referenceno ,fcba ," & _
+                       "                uprtype, section ,allowdedcode,chargeunit" & _
+					   "       )x ORDER BY x.referenceno"
+					   
+'response.write (qABC)				   
+				connstr.execute(qABC)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Transfer to Cost_Activity, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qABC&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+					qjournal=	" MERGE INTO cost_activity x " & _
+					" USING " & _
+					" ( " & _
+					"  SELECT fcba,accountingyear,accountingperiod,referenceno,journalprefix,idx||LPAD(ROWNUM,4,0) seq from " & _
+					"  ( " & _
+					"  SELECT DISTINCT fcba,accountingyear,accountingperiod,auto_reference_05||auto_reference_04 referenceno,journalprefix,company_api.get_companyno(businessunit_api.get_companycode(fcba))||'/'||fcba||'/'||journalprefix||'/'||LPad(accountingperiod,2,0)||'/'||accountingyear||'/' as idx  " & _
+					"  FROM cost_activity WHERE fcba='" & Session("FCBA") & "' AND accountingperiod="& Month(Session("v_Employee")) & " AND accountingyear=" & Year(Session("v_Employee")) & " AND journalprefix='PRL' " & _
+					"  Order BY auto_reference_05||auto_reference_04  " & _
+					"  ) " & _
+					" )y ON (x.fcba=y.fcba and  x.auto_reference_05||auto_reference_04 =  y.referenceno AND  x.accountingyear=y.accountingyear AND x.accountingperiod=y.accountingperiod AND x.journalprefix=y.journalprefix) " & _
+					" WHEN MATCHED THEN " & _
+					" UPDATE SET x.journalno = y.seq " 
+					connstr.execute(qjournal)
+								   
+
+'-- <JOURNAL INTRACO>				
+				Response.Write "Transfer to Intraco - Cost_Activity" & "<br/>"
+				Response.Flush
+				
+				connStr.BeginTrans
+				qABC = " insert into cost_activity (tdate" & _
+					   "                            , jobcode" & _
+					   "                            , source" & _
+					   "                            , sourcetype" & _
+					   "                            , sourcecode" & _
+					   "                            , sourcecode_status" & _
+					   "                            , targettype" & _
+					   "                            , targetcode" & _
+					   "                            , targetcode_status" & _
+					   "                            , referenceno" & _
+					   "                            , quantity" & _
+					   "                            , output" & _
+					   "                            , amount" & _
+					   "                            , fcba" & _
+					   "                            , closing_date" & _
+					   "                            , process_date" & _
+					   "                            , title_reference_01" & _
+					   "                            , auto_reference_01" & _
+					   "                            , title_reference_02" & _
+					   "                            , auto_reference_02" & _
+					   "                            , title_reference_03" & _
+					   "                            , auto_reference_03" & _
+					   "                            , title_reference_04" & _
+					   "                            , auto_reference_04" & _
+					   "                            , title_reference_05" & _
+					   "                            , auto_reference_05" & _
+					   "                            , debetcredit" & _
+					   "                            , lastupdate" & _
+					   "                            , lasttime" & _
+					   "                            , lineno" & _
+					   "                            , accountingperiod" & _
+                       "                            , accountingyear,journalprefix,chargeunit)" & _
+					   "SELECT " & _
+						"								tdate " & _
+						"							   ,jobcode " & _
+						"							   , source " & _
+						"							   , sourcetype " & _
+						"							   , sourcecode " & _
+						"							   , sourcecode_status " & _
+						"							   , targettype " & _
+						"							   , targetcode " & _
+						"							   , targetcode_status " & _
+						"							   , referenceno " & _
+						"							   , quantity " & _
+						"							   , output " & _
+						"							   , amount " & _
+						"							   , fcba " & _
+						"							   , tdate closing_date " & _
+						"							   , sysdate process_date " & _
+						"							   , title_reference_01 " & _
+						"							   , auto_reference_01 " & _
+						"							   , title_reference_02 " & _
+						"							   , auto_reference_02 " & _
+						"							   , title_reference_03 " & _
+						"							   , auto_reference_03 " & _
+						"							   , title_reference_04 " & _
+						"							   , auto_reference_04 " & _
+						"							   , title_reference_05 " & _
+						"							   , auto_reference_05 " & _
+						"							   , debetcredit " & _
+						"							   , sysdate lastupdate " & _
+						"							   , to_char(sysdate,'hh24:mi') lasttime " & _
+						"							   , rownum + (SELECT Max(lineno)+1 FROM cost_activity WHERE fcba=x.fcba) lineno " & _
+						"							   , " & Month(Session("v_Employee")) & " accountingperiod " & _
+						"							   , " & Year(Session("v_Employee")) & " accountingyear ,'PRI' journalprefix,chargeunit " & _
+						"FROM " & _
+						"( " & _
+						"				select a.transdate tdate " & _
+						"							   , a.chargejob jobcode " & _
+						"							   , 'EM' source " & _
+						"							   , 'EM' sourcetype " & _
+						"							   , a.grade sourcecode " & _
+						"							   , '' sourcecode_status " & _
+						"							   , a.chargecode  targettype " & _
+						"							   , a.chargetype targetcode " & _
+						"							   , '' targetcode_status " & _
+						"							   ,  a.fcba||'/'||a.SECTION||'/'||a.Grade referenceno " & _
+						"							   , 0 quantity " & _
+						"							   , 0 output " & _
+						"							   , Sum(amount) amount " & _
+						"							   , b.fccode fcba " & _
+						"							   , '' title_reference_01 " & _
+						"							   , '' auto_reference_01 " & _
+						"							   , '' title_reference_02 " & _
+						"							   , '' auto_reference_02 " & _
+						"							   , 'JOURNAL INTRACO PAYROLL'  title_reference_03 " & _
+						"							   , ' FCBA:'||a.fcba||' DIVISI:'||a.SECTION||' TYPE:'||a.grade auto_reference_03 " & _
+						"							   , ''  title_reference_04 " & _
+						"							   , ''  auto_reference_04 " & _
+						"							   , ''  title_reference_05 " & _
+						"							   , ''  auto_reference_05 " & _
+						"							   , 'Dr' debetcredit,a.fcba chargeunit " & _					           
+						"FROM employee_alokasi_tab a " & _
+						"INNER JOIN businessunit b ON a.jobcode=b.jobintraco and a.chargeunit=b.fccode " & _
+						"WHERE a.fcba='" & Session("FCBA") & "' " & _
+						"AND to_number(to_char(last_day(transdate), 'yyyy')) = " & Year(Session("v_Employee")) & " " & _
+						"AND to_number(to_char(last_day(transdate), 'mm')) = " & Month(Session("v_Employee")) & " " & _
+						"GROUP BY  a.transdate,a.chargejob,a.chargetype,a.chargecode,a.grade,a.fcba,b.fccode,a.SECTION " & _
+						"UNION ALL " & _
+						"				select a.transdate tdate " & _
+						"							   , a.jobcode jobcode " & _
+						"							   , 'EM' source " & _
+						"							   , 'EM' sourcetype " & _
+						"							   , a.grade  sourcecode " & _
+						"							   , '' sourcecode_status " & _
+						"							   , 'CB' targettype " & _
+						"							   , 'BS' targetcode " & _
+						"							   , '' targetcode_status " & _
+						"							   , a.fcba||'/'||a.SECTION||'/'||a.Grade referenceno " & _
+						"							   , 0 quantity " & _
+						"							   , 0 output " & _
+						"							   , Sum(amount)*-1 amount " & _
+						"							   , b.fccode fcba  " & _
+						"							   , '' title_reference_01 " & _
+						"							   , '' auto_reference_01 " & _
+						"							   , '' title_reference_02 " & _
+						"							   , '' auto_reference_02 " & _
+						"							   , 'JOURNAL INTRACO PAYROLL'  title_reference_03 " & _
+						"							   , ' FCBA:'||a.fcba||' DIVISI:'||a.SECTION||' TYPE:'||a.grade auto_reference_03 " & _
+						"							   , ''  title_reference_04 " & _
+						"							   , ''  auto_reference_04 " & _
+						"							   , ''  title_reference_05 " & _
+						"							   , ''  auto_reference_05 " & _
+						"							   , 'Cr' debetcredit,a.fcba chargeunit " & _
+						"FROM employee_alokasi_tab   a " & _
+						"INNER JOIN businessunit b ON a.jobcode=b.jobintraco and a.chargeunit=b.fccode " & _
+						"WHERE a.fcba='" & Session("FCBA") & "' " & _
+						"AND to_number(to_char(last_day(transdate), 'yyyy')) = " & Year(Session("v_Employee")) & " " & _
+						"AND to_number(to_char(last_day(transdate), 'mm')) = " & Month(Session("v_Employee")) & " " & _
+						"GROUP BY  a.transdate,a.jobcode,a.grade,a.fcba,b.fccode,a.SECTION " & _
+						") X " & _
+						"ORDER BY referenceno " 
+						
+					
+				connstr.execute(qABC)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Transfer to INTRACO Cost_Activity, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qABC&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+					qjournal=	" MERGE INTO cost_activity x " & _
+					" USING " & _
+					" ( " & _
+					"  SELECT fcba,accountingyear,accountingperiod,referenceno,journalprefix,idx||LPAD(ROWNUM,4,0) seq from " & _
+					"  ( " & _
+					"  SELECT DISTINCT fcba,accountingyear,accountingperiod,auto_reference_05||auto_reference_04 referenceno,journalprefix,businessunit_api.get_companycode(fcba)||'/'||fcba||'/'||journalprefix||'/'||LPad(accountingperiod,2,0)||'/'||accountingyear||'/' as idx  " & _
+					"  FROM cost_activity WHERE fcba='" & Session("FCBA") & "' AND accountingperiod="& Month(Session("v_Employee")) & " AND accountingyear=" & Year(Session("v_Employee")) & " AND journalprefix='PRI' " & _
+					"  Order BY auto_reference_05||auto_reference_04  " & _
+					"  ) " & _
+					" )y ON (x.fcba=y.fcba and x.auto_reference_05||auto_reference_04 =  y.referenceno  AND x.accountingyear=y.accountingyear AND x.accountingperiod=y.accountingperiod AND x.journalprefix=y.journalprefix) " & _
+					" WHEN MATCHED THEN " & _
+					" UPDATE SET x.journalno = y.seq " 
+					connstr.execute(qjournal)
+				
+				
+				
+				
+				Response.Write "Update EmpalldedStatus" & "<br/>"
+				Response.Flush
+				connstr.BeginTrans
+				'Add by NAF to handle Payroll Empallded Status
+				qProcessPayroll = "BEGIN EMPALLDEDSTATUS_API.EmployeeClosing (" & Year(Session("v_Employee")) & "," & _
+																				Month(Session("v_Employee")) & ",'" & _
+																				Session("fcBA") & "','" & _
+																				Session("CodeName") & "','" & _
+																				Session("CodeName") & "','" & _
+																				Request.ServerVariables("REMOTE_ADDR")  & "'); END;"
+				
+				connstr.execute(qProcessPayroll)
+				' End of modification.
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Update EmpalldedStatus, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qProcessPayroll&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+				Response.Write "Update PeriodControl" & "<br/>"
+				Response.Flush
+				connstr.BeginTrans
+				' Add By Akbar 18 Desemeber 2015
+		
+			Dim QAccountPeriod,rsAccountPeriod,temp_NextCloseAccountingPeriod, temp_NextCloseAccountingYear, temp_NextCurrentAccountingPeriod, temp_NextCurrentAccountingYear
+				
+			QAccountPeriod	=	" select periodcontrol_api.GetNextCloseAccountingPeriod(system,fcba) NextCloseAccountingPeriod ,  " & _ 
+								" periodcontrol_api.GetNextCloseAccountingYear(system,fcba) NextCloseAccountingYear ,  " & _ 
+								" periodcontrol_api.GetNextCurrentAccountingPeriod(system,fcba) NextCurrentAccountingPeriod ,  " & _ 
+								" periodcontrol_api.GetNextCurrentAccountingYear(system,fcba) NextCurrentAccountingYear  " & _ 
+								" from periodcontrol p  " & _ 
+								" where UPPER(system) ='EMPLOYEE' and fcba='" & Session("fcBA") & "'"
+			Set rsAccountPeriod = Server.CreateObject("ADODB.Recordset")
+				rsAccountPeriod.CursorType = 3
+				rsAccountPeriod.CursorLocation = 3
+				rsAccountPeriod.Open QAccountPeriod, connstr
+				if not rsAccountPeriod.eof then
+					temp_NextCloseAccountingPeriod =  Cint(rsAccountPeriod("NextCloseAccountingPeriod"))
+					temp_NextCloseAccountingYear   =  Cint(rsAccountPeriod("NextCloseAccountingYear"))
+					temp_NextCurrentAccountingPeriod = Cint(rsAccountPeriod("NextCurrentAccountingPeriod"))
+					temp_NextCurrentAccountingYear = Cint(rsAccountPeriod("NextCurrentAccountingYear"))
+				else
+					Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No PERIODCONTROL for EMPLOYEE " & "<br>"
+				end if
+			rsAccountPeriod.close
+			set rsAccountPeriod = Nothing		
+			
+			IF temp_NextCurrentAccountingPeriod < 12   THEN
+			
+				q= " Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)),CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+				   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				   " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				   " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				   " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _    
+				   " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+				   " where UPPER(system) ='EMPLOYEE' and fcba='" & Session("fcBA") & "'"
+			ELSE
+			    IF temp_NextCloseAccountingPeriod < 12 THEN
+				    q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) ,CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+					  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+					  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+					  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+					  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _  
+					  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+					  " where UPPER(system) ='EMPLOYEE' and fcba='" & Session("fcBA") & "'"
+				ELSE
+				     q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) " & _ 
+					   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _     
+					  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+					  " where  UPPER(system) ='EMPLOYEE' and fcba='" & Session("fcBA") & "'"
+			    END IF
+			END IF
+			
+			IF temp_NextCloseAccountingPeriod = 13 AND temp_NextCurrentAccountingPeriod = 1  THEN
+			
+				q=" Update PeriodControl Set CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+				  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _  
+				  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+				  " where UPPER(system) ='EMPLOYEE' and and fcba='" & Session("fcBA") & "'"
+			END IF
+		
+				connStr.execute(q)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Update PeriodControl, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qUpdatePeriod&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+				
+				txtLastDay  =cmdFindPeriod("Employee")
+				txtNextMonth=cmdPeriodClose("Employee")		
+			
+				Session("v_Employee")=txtLastDay
+				Session("cls_Employee")= txtNextMonth	
+				
+				Response.Write "Update Closing Log" & "<br/>"
+				Response.Flush
+				connstr.BeginTrans
+				
+				'--Added by Ukie at 25-Oct-2012--	
+				Endingtime = FormatDateTime(CDate(Now))
+				
+				qLineMax = "select nvl(max(lineno),0) tempMaxLine from CLOSINGLOG where fcba = '" & session("fcBA") & "' AND SYSTEM = 'Employee'" 
+										
+				set rsqLineMax = Server.CreateObject("ADODB.Recordset")
+				rsqLineMax.Open qLineMax, connstr
+				if not rsqLineMax.eof then
+					tempMaxLine = cdbl(rsqLineMax("tempMaxLine"))
+				else
+					tempMaxLine = 0
+				end if 
+
+				tempMaxLine = tempMaxLine + 1
+
+				strClosingLog = " INSERT INTO CLOSINGLOG(SYSTEM, FCBA, STARTINGTIME, ENDINGTIME, LINENO, LASTUPDATE, LASTTIME, fcentry) VALUES (" & _
+								" 'Employee', " & _
+								" '" & Session("fcBA") & "'," & _
+								" TO_DATE('" & Startingtime & "', 'mm/dd/yyyy hh:mi:ssam')," & _
+								" TO_DATE('" & Endingtime & "', 'mm/dd/yyyy hh:mi:ssam')," & _
+								" " & tempMaxLine & "" & _
+								" , sysdate" & _
+								" , to_char(sysdate, 'hh24:mi')" & _
+								" ,'" & Session("CodeName") & "'" & _ 
+								" )"
+				'response.write strClosingLog
+				connStr.execute(strClosingLog)
+
+				strLenghtime = 	" SELECT" & _
+								" FCBA," & _
+								" LINENO," & _
+								" SYSTEM," & _
+								" TO_CHAR(STARTINGTIME, 'DD.MM.YYYY:HH24:MI:SS') STARTINGTIME," & _
+								" TO_CHAR(ENDINGTIME, 'DD.MM.YYYY:HH24:MI:SS') ENDINGTIME," & _
+								" TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24) DAYS," & _
+								" TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)-24*(TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24)) HRS," & _
+								" TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)-60*(TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)) MIN," & _
+								" TRUNC(86400*(ENDINGTIME-STARTINGTIME))-60*(TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)) SEC" & _
+								" FROM CLOSINGLOG" & _
+								" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'Employee'"
+						
+				Set rsLenghtime = Server.CreateObject("ADODB.Recordset")
+				rsLenghtime.CursorType = 3
+				rsLenghtime.CursorLocation = 3
+				rsLenghtime.Open strLenghtime, connstr
+
+				upClosingLog = " UPDATE CLOSINGLOG SET" & _
+								" LENGTHTIME = '" & rsLenghtime(5) & " Days " & rsLenghtime(6) & " Hours " & rsLenghtime(7) & " Minutes " & rsLenghtime(8) & " Seconds " & "'" & _
+								" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'Employee'"		
+				connStr.execute(upClosingLog)
+				'--End Added--
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Update Closing Log, Success! " & " Time: " & time() & " ..<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&strClosingLog&"] - ["&upClosingLog&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+
+				
+		TimeAkhir = Time()
+		Lama = TimeAkhir - TimeAwal
+		Response.Write "<br/>" & "Finish ... " & time() & "<br/><br/>"
+		Response.Write " Time Elapsed " & Hour(Lama) & " Hours " & Minute(Lama) & " Minutes " &  Second(Lama) & " Seconds."	
+%>
+			<script language="JavaScript" type="text/javascript" >
+				document.getElementById('status_running').style.visibility = 'hidden';
+			</script>
+			<br/><br/>
+			<img src="images/ok.gif" /><b>Employee Closing is Completed and Success</b>
+<%
+		else 
+%>
+			<script language="JavaScript" type="text/javascript" >
+				document.getElementById('status_running').style.visibility = 'hidden';
+			</script>
+			<br/><br/>
+			<img src="images/error.gif" /><b>Employee Closing is Not Completed</b>
+			<br/>
+			Cause:
+			<%
+			tempErrorWaterFlow = "Please Check Previous Closing Process or Re-Process your Payroll, its still not DONE yet !!!"
+			response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & tempErrorWaterFlow & "</font>"
+	
+		End If
+		
+		Dim oQuery
+		oQuery	= 	" BEGIN activesession_api.DeleteSession('EMPLOYEE','" & Session("fcBA")  & "'); END; "
+		connStr.execute(oQuery)	
+		%>
+	</body>
+</html>

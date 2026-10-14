@@ -1,0 +1,129 @@
+<table id="form-table" class="centered-margin">
+
+<% 
+  Dim v_txtGroupPlantation, v_txtPlantation, v_txtGroupRegion, v_txtRegion, v_txtCompany, v_txtFcba
+  Dim txtGroupPlantation, txtPlantation, txtGroupRegion, txtRegion, txtCompany, txtFcba
+  Dim strsql 
+  
+  Dim rsCount,visibleGP,visibleP,visibleGR,visibleR,visibleC,visibleS
+  Set rsCount = Server.CreateObject("ADODB.Recordset")
+	  rsCount.CursorLocation = adUseClient
+  
+   strsql =  " SELECT count(*) ncount from ( select fccode fcba from businessunit " & _
+			 " where " & _
+			 " USER_COMPANY_API.GETCOMPANYCODE('" & Session("CodeName") & "',fccode) IS NOT NULL    ) " 
+  rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+  if not rsCount.eof then
+     visibleS = rsCount("ncount")
+	 rsCount.Close
+	 if cint(visibleS) = 1 then 
+		 strsql = " SELECT fccode FROM businessunit" & _
+		          " WHERE USER_COMPANY_API.GetCompanyCode('" & Session("CodeName") & "', fccode) is not null" & _
+				  "       AND fctype = 'E'"
+		 'response.write strsql
+		 rsCount.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly
+		 txtFcba = rsCount("fccode")
+		 rsCount.Close
+	 end if	 
+  else
+     visibleS = 0
+	  rsCount.Close
+  end if  
+  
+ ' response.write visibleS
+ ' response.write  "GP " & v_txtGroupPlantation & "  P " & v_txtPlantation & "  GR " & v_txtGroupRegion & " R " & v_txtRegion & " C " & v_txtcompany & " S " & v_txtfcba   
+
+  
+%>
+
+<%
+			Dim strTitle, rsTitle
+			Dim titleGroupPlantation, titlePlantation, titleGroupRegion, titleRegion, titleCompany, titleSite
+			
+	        strTitle = " select PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','GROUPPLANTATION') titleGP, " & _
+							    " PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','PLANTATION') titleP , " & _
+								" PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','GROUPREGION') titleGR, " & _
+								" PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','REGION') titleR, " & _
+								" PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','COMPANY') titleC, " & _
+								" PARAMETERSYSDETAIL_API.GETPARAM1 ('REPORTGROUP','SITE') titleS from dual"
+								
+			Set rsTitle = Server.CreateObject("ADODB.Recordset")
+			'response.write rsTitle
+			rsTitle.Open strTitle, connstr, 3,3	
+
+			if not rsTitle.EOF then
+				no = 0
+				titleGroupPlantation = rsTitle ("titleGP")			
+				titlePlantation = rsTitle ("titleP")
+				titleGroupRegion = rsTitle ("titleGR")
+				titleRegion = rsTitle ("titleR")
+				titleCompany = rsTitle ("titleC")
+				titleSite = rsTitle ("titleS")
+			else
+				titleGroupPlantation = "Group Plantation"			
+				titlePlantation = "Plantation"
+				titleGroupRegion = "Group Region"
+				titleRegion = "Region"
+				titleCompany = "Company"
+				titleSite = "Site"
+			end if
+			rsTitle.Close
+			set rsTitle = Nothing
+			
+%>
+
+
+
+
+<tr>
+			 <% if cint(VisibleS) > 1 then  %> 
+					<td>
+						<font face="verdana" size="1"><%=TitleSite %></font>
+					</td>
+					<td>
+						<select name="txtFcba">
+								<%
+								Dim rsFcba
+								Set rsFcba = Server.CreateObject("ADODB.Recordset")
+								rsFcba.CursorLocation = adUseClient
+								strsql = " SELECT fccode fcba FROM BUSINESSUNIT " & _
+											" WHERE USER_COMPANY_API.GETCOMPANYCODE('" & Session("CodeName") & "', fccode) IS NOT NULL" & _
+											"       AND fctype = 'E'" & _
+											" ORDER BY orderdata" 
+
+								rsFcba.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+								if not rsFcba.eof then
+									DO while not rsFcba.eof
+										if v_txtFcba = rsFcba("fcba") then
+										%>			
+											<option value="<%=rsFcba("fcba")%>" Selected><%=rsFcba("fcba")%></option>
+										<% Else %>	
+											<option value="<%=rsFcba("fcba")%>"><%=rsFcba("fcba")%></option>
+										<% End If
+										
+										rsFcba.movenext
+									loop
+								End if
+								rsFcba.Close
+								set rsFcba = Nothing
+								%>
+						</select>
+					</td>	
+			 <% Else %>	
+                   	<td>
+						<font face="verdana" size="1"><%=TitleSite %></font>
+					</td>
+					<td>
+						<select name="txtFcba">
+								<option value="<%=txtFCBA%>" selected ><%=txtFCBA%></option>
+						</select>
+					</td>	
+			<% end if %>
+			<td>&nbsp;</td>
+		</tr>
+		
+
+
+
+
+</table>

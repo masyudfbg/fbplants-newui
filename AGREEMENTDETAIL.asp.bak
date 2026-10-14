@@ -1,0 +1,272 @@
+<%response.buffer=True%>
+<%validatesession%>
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+<html>
+<head>
+<title>SAC Plant</title>
+<script type="text/javascript" language="JavaScript1.2" src="stlib.js"></script>
+<script language="JavaScript" src="date-picker.js"></script> 
+<script language="JavaScript"> 
+var newwin;
+function launchwin(winurl,winname,winfeatures)
+{
+	//This launches a new window and then
+	//focuses it if window.focus() is supported.
+	newwin = window.open(winurl,winname,winfeatures);
+
+}
+</script> 
+</head>
+<body>
+<!--#include file="top.jsp"-->
+<table width="100%">
+<tr>
+ <td width="22%" valign="top">
+ <!--#include file="menu.asp"-->
+ </td>
+ <td width="78%" valign="top">
+ <%
+ '-------------awal-----------------------
+ Dim FCCODE,RETENTION,QTY,RATE,LINEno,DUEDATE
+ Dim FDDATE,PeriodDate, JOB
+ Dim LOCATIONTYPE
+ Dim LOCATIONCode,UNIT, OUTPUT, REMARKS, FCENTRY, FCEDIT, FCIP, FCBA
+ Dim cmdView
+
+		
+ if Request("txtJenis")="New" or Request("txtJenis")= "Delete" or Request("txtJenis")="Edit" Then
+	dueDate =request("fdDate")
+	PeriodDate =request("PeriodDate")
+	fcCode =request("fcCode")
+	CONTRACTORCODE=request("CONTRACTORCODE")
+	CONTRACTORDESC=request("CONTRACTORDESC")
+	RETENTION=request("RETENTION")
+	LOCATIONTYPE=request("LOCATIONTYPE")
+	LOCATIONCode=request("LOCATIONCODE")
+	JOB=request("JOB")
+	QTY=request("QTY")
+	RATE=request("RATE")
+	LINENO=request("LINENO")
+	DUEDATE=REQUEST("DUEDATE")
+	REMARKS=request("REMARKS")
+	if Request("txtJenis")= "Delete" then
+       q="Delete from AgreementDetail  where  AGREEMENTCODE='" & FCCODE & "' And LINENO='" & LINENO & "' and JOB='" & JOB & "'" & _
+		 "  and LOCATIONTYPE='" & LOCATIONTYPE & "' and LOCATIONCODE='" & LOCATIONCODE & "' and fcBA='" & Session("fcBA") & "'"
+   	   ConnStr.execute(q)
+       cmdView	= "True"
+	elseif Request("txtJenis")="New" then
+	  q="Insert into AgreementDetail (AGREEMENTCODE, CONTRACTORCODE,CONTRACTORDESC,LINENO, JOB, LOCATIONTYPE, LOCATIONCODE, " & _
+	    "DUEDATE, RETENTION, QTY, RATE, FCENTRY, FCEDIT, FCIP, FCBA) " & _
+		"values ('" & FCCODE & "','" & CONTRACTORCODE & "','" & CONTRACTORDESC & "','" & LINENO & "','" & JOB & "','" & LOCATIONTYPE & "','" & LOCATIONCODE &  "', to_date('" & dueDate & "','mm/dd/yyyy') " & _
+		"," & RETENTION  & ","  &  QTY & "," &  RATE & "," & _
+		"'" & Session("CodeName") & "','" & Session("CodeName") & "','" & _
+		Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "')"
+	    connStr.execute(q)
+        cmdView	= "True"
+	elseif Request("txtJenis")="Edit" and Request("Add")="Update" then
+       q="Update AgreementDetail set DUEDATE " & "= to_date('" & dueDate & "','mm/dd/yyyy') " & _
+		",RETENTION='" & RETENTION  & "'" & _
+		",QTY='" & QTY  & "'" & _
+		",RATE='" & RATE  & "'" & _
+        " where  AGREEMENTCODE='" & FCCODE & "' And LINENO='" & LINENO & "' and JOB='" & JOB & "'" & _
+		 "  and LOCATIONTYPE='" & LOCATIONTYPE & "' and LOCATIONCODE='" & LOCATIONCODE & "' and fcBA='" & Session("fcBA") & "'"
+		connStr.execute(q)
+		connStr.execute("commit")
+		'RESPONSE.Write "SQL : " & Q
+        cmdView	= "True"
+    else
+        cmdView	= "True"
+	end if								 
+	'Response.Write "sql " & q
+else
+    cmdView	= request("cmdView")
+End if
+Dim txtModule,txtTable,txtSearch,txtField,i,q,nCountofField,NO,txtJenis
+if Request("fddate")<>"" then
+   fddate   =Request("fddate")
+else
+   fddate   =textDate(date)
+end if
+if Request("PeriodDate")<>"" then
+   PeriodDate   =Request("PeriodDate")
+else
+   PeriodDate   =textDate(date)
+end if
+
+txtTable =Request("txtTable")
+txtModule=Request("txtModule")
+txtSearch=Request("txtSearch")
+txtField =Request("txtField")
+fcCode=request("fcCode")
+ContractorCODE=request("ContractorCODE")
+ContractorDesc=request("ContractorDesc")
+txtJenis = request("txtJenis")
+
+if err.number <> 0 then
+   response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & "Error Number : " & err.number & " because : " & err.description & "</font>"
+End if
+ '-------------ISI Payment Form%>
+ <form name="frmEntry" method="post" action="AgreementDetail.asp">
+	<table class="data" width="100%">
+		<tr><td align="left" width="20%">Periode</td>
+		<td align="left"><input type="text" maxlength="10" name="PeriodDate" size="10" value="<%=PeriodDate%>">
+		<a href="javascript:show_calendar('frmEntry.PeriodDate');" onMouseOver="window.status='Date Picker';return true;" 
+		onmouseout="window.status='';return true;">
+		<img src="Images/show-calendar.gif" width=24 height=22 border=0 align=top></a>
+		</td></tr>	
+		<tr><td  align="left">Agreement Code</td>
+		<td align="left"><input type="text" maxlength="50" name="fcCODE" size="15" value="<%=fcCODE%>"></td>
+		</tr>
+		<tr><td  align="left">Contractor Code</td>
+		<td align="left"> <select name= "CONTRACTORCODE" >
+		<%cmdCallCombo "CONTRACTOR",request("CONTRACTORCODE"),"",""%>
+		</select></td>
+		</tr>
+		<tr><td  align="left">Contractor Desc</td>
+		<td align="left"><input type="text" maxlength="15" name="ContractorDesc" size="50" value="<%=ContractorDesc%>"></td>
+		</tr>
+		<tr><td colspan="2"  align="left">
+		<input Type="Hidden" Value="True" Name="cmdView">
+		<input Type="Hidden" Value="<%=request("txtTable")%>" Name="txtTable">
+		<input Type="Hidden" Value="<%=request("txtModule")%>" Name="txtModule">
+		<input Type="Submit" style="background-color: #298CF7; color: #F7C610;
+		font-weight: bold; font-size: 8pt; font-family:Verdana" name="Add" value="Select">&nbsp;&nbsp;
+		<a href="PrintAgreementDetail.Asp?txtTable=<%=request("txtTable")%>&txtModule=<%=request("txtModule")%>&fdDate=<%=PeriodDate%>&fcCode=<%=fcCode%>" 
+		title="Print Data" target="_blank"><img src="IMAGES/Print.gif" border="0"></a>
+		</td>
+		</tr>
+    </table>  
+ </form>
+<%if cmdView = "True" Then
+   Dim rsWC,intRecordsPerPage,cColor
+   set rsWC = server.CreateObject("Adodb.recordset")
+   'Field Numeric Jangan di Sum karena ditampilkan mesti level detail
+   'Field Date Mesti to_char(DUEDATE,'mm/dd/yyyy') as DUEDATE
+   if fcCode <> "" and  PeriodDate <> "" then
+   q="select AGREEMENTCODE, LINENO, JOB, LOCATIONTYPE, LOCATIONCODE, to_char(DUEDATE,'mm/dd/yyyy') as DUEDATE, " & _
+     "RETENTION, QTY, RATE, FCENTRY, FCEDIT, FCIP, FCBA from Agreementdetail  where " & _
+	 " AGREEMENTCODE ='" & fcCode & "'" & _
+     " and to_char(DUEDATE,'mm/yyyy')=to_char(to_date('" & PeriodDate & "','" & "MM/DD/YYYY" & "'),'mm/yyyy') " & _	 
+	 " and fcBA='" & session("fcBA") & "'"
+
+   elseif fcCode="" and PeriodDate<> "" then
+   q="select AGREEMENTCODE, LINENO, JOB, LOCATIONTYPE, LOCATIONCODE, to_char(DUEDATE,'mm/dd/yyyy') as DUEDATE, " & _
+     "RETENTION, QTY, RATE, FCENTRY, FCEDIT, FCIP, FCBA from Agreementdetail  where " & _
+	 " to_char(DUEDATE,'mm/yyyy')=to_char(to_date('" & PeriodDate & "','" & "MM/DD/YYYY" & "'),'mm/yyyy') " & _
+	 " and fcBA='" & session("fcBA") & "'"
+
+   elseif fcCode<>"" and  PeriodDate="" then
+   q="select AGREEMENTCODE, LINENO, JOB, LOCATIONTYPE, LOCATIONCODE, to_char(DUEDATE,'mm/dd/yyyy') as DUEDATE, " & _
+     "RETENTION, QTY, RATE, FCENTRY, FCEDIT, FCIP, FCBA from Agreementdetail  where " & _
+	 " AGREEMENTCODE ='" & fcCode & "'" & _
+	 " and fcBA='" & session("fcBA") & "'"
+   end if
+   'response.Write q	
+   Set rsWC = Server.CreateObject("ADODB.Recordset")
+   rsWC.CursorType = 3
+   rsWC.CursorLocation = 3
+   rsWC.Open q, connstr%>
+   <form action="AgreementDetail.Asp" method="post" name="eForm">
+   <table class="data" cellpadding="0" cellspacing="0" width="100%">
+		<%'Yang tidak bisa di edit adalah PK Table%>
+		<%IF txtJenis="Edit" Then%>
+			 <tr><td align="left">LINE</td><td align="left"><input type="text" size="15" name="LINENO" value="<%=LINENO%>"  readonly="True" style="background:#999999"><font color="#FF0000"> *</font></td></tr>
+			 <tr><td align="left">JOBCODE</td><td align="left"><input type="text" size="15" name="JOB" value="<%=JOB%>"  readonly="True" style="background:#999999"><a href="javascript:launchwin('PrintData.Asp?txtModule=Data Master&txtTable=Job&txtSearch=<%=txtSearch%>&txtField=<%=txtField%>&Mode=Print','newwindow','width='+(700)+',height='+(505)+',screenX=0,screenY=0,directories=0,fullscreen=0,location=0,menubar=0,scrollbars=1,status=0,toolbar=1')"><font face="Verdana" size="1">J o b</font></a><font color="#FF0000"> *</font></td></tr>
+		     <tr><td align="left">TT</td><td align="left"><input type="text" size="15" name="LOCATIONTYPE" value="<%=LOCATIONTYPE%>" readonly="True" style="background:#999999"><font color="#FF0000"> *</font></td></tr>
+		     <tr><td align="left">TC</td><td align="left"><input type="text" size="15" name="LOCATIONCODE" value="<%=LOCATIONCODE%>" readonly="True" style="background:#999999"><font color="#FF0000"> *</font></td></tr>
+		<%else%>
+			 <tr><td align="left">LINE</td><td align="left"><input type="text" size="15" name="LINENO" value="<%=LINENO%>"><font color="#FF0000"> *</font></td></tr>
+ 		     <tr><td align="left">JOBCODE</td><td align="left"><input type="text" size="15" name="JOB" value="<%=JOB%>"><a href="javascript:launchwin('PrintData.Asp?txtModule=Data Master&txtTable=Job&txtSearch=<%=txtSearch%>&txtField=<%=txtField%>&Mode=Print','newwindow','width='+(700)+',height='+(505)+',screenX=0,screenY=0,directories=0,fullscreen=0,location=0,menubar=0,scrollbars=1,status=0,toolbar=1')"><font face="Verdana" size="1">Activity</font></a><font color="#FF0000"> *</font></td></tr>
+		     <tr><td align="left">TT</td><td align="left"><input type="text" size="15" name="LOCATIONTYPE" value="<%=LOCATIONTYPE%>"><a href="javascript:launchwin('PrintData.Asp?txtModule=Data Master&txtTable=LocationType&txtSearch=<%=txtSearch%>&txtField=<%=txtField%>&Mode=Print','newwindow','width='+(700)+',height='+(505)+',screenX=0,screenY=0,directories=0,fullscreen=0,location=0,menubar=0,scrollbars=1,status=0,toolbar=1')"><font face="Verdana"   size="1">Location Type</font></a><font color="#FF0000"> *</font></td></tr>
+		     <tr><td align="left">TC</td><td align="left"><input type="text" size="15" name="LOCATIONCODE" value="<%=LOCATIONCODE%>"><font color="#FF0000"> *</font></td></tr>
+		<%End if%>
+		<tr><td align="left">DUEDATE</td><td align="left"><input type="text" size="15" name="DUEDATE" value="<%=DUEDATE%>">
+		<a href="javascript:show_calendar('eForm.DUEDATE');" onMouseOver="window.status='Date Picker';return true;" 
+		onmouseout="window.status='';return true;">
+		<img src="Images/show-calendar.gif" width=24 height=22 border=0 align=top></a>
+		</td></tr>
+		<tr><td align="left">RETENTION</td><td align="left"><input type="text" size="15" name="RETENTION" value="<%=RETENTION%>"><font color="#FF0000"> *</font></td></tr>
+		<tr><td align="left">QUANTIIY</td><td align="left"><input type="text" size="15" name="QTY" value="<%=QTY%>"><font color="#FF0000"> *</font></td></tr>
+		<tr><td align="left">RATE</td><td align="left"><input type="text" size="15" name="RATE" value="<%=RATE%>"><font color="#FF0000"> *</font></td></tr>
+	    <TR><td colspan="2" align="left">
+	      <input type="hidden" name="fcCode" value="<%=fcCode%>">
+	      <input type="hidden" name="ContractorCODE" value="<%=ContractorCODE%>">
+	      <input type="hidden" name="ContractorDesc" value="<%=ContractorDesc%>">
+		  <input type="hidden" name="PeriodDate" value="<%=PeriodDate%>">
+		  <input Type="Hidden" Value="<%=request("txtTable")%>" Name="txtTable">
+		  <input Type="Hidden" Value="<%=request("txtModule")%>" Name="txtModule">
+		  <%IF Request("txtJenis")="Edit" then%>
+		       <input type="hidden" name="txtJenis" value="Edit">
+		       <input Type="Submit" style="background-color: #298CF7; color: #F7C610; font-weight: 
+		       bold; font-size: 8pt; font-family:Verdana" name="Add" value="Update">
+		  <%Else%>
+		       <input type="hidden" name="txtJenis" value="New">
+		       <input Type="Submit" style="background-color: #298CF7; color: #F7C610; font-weight: 
+		       bold; font-size: 8pt; font-family:Verdana" name="Add" value="Add">
+		  <%End if%>
+		  <input Type="Reset" style="background-color: #298CF7; color: #F7C610; font-weight:
+		  bold; font-size: 8pt; font-family:Verdana" name="Reset" value="Reset">
+		  <input Type="Button" style="background-color: #298CF7; color: #F7C610; font-weight: 
+		  bold; font-size: 8pt; font-family:Verdana" value="Back" name="B2" OnClick="javascript:history.back(1)"></td>
+	  </tr>
+   </table>
+
+    <table class="data">
+	<BR>
+	<tr bgcolor="#6666FF" >
+	<TD align="left">NO</TD>
+	<TD colspan="2">&nbsp;</TD>
+	<TD align="left">AGREEMENT CODE</TD>	
+	<TD align="left">LINE NO</TD>	
+	<TD align="left">JOBCODE</TD>	
+	<TD align="left">TT</TD>	
+	<TD align="left">TC</TD>	
+	<TD align="left">DUE DATE</TD>	
+	<TD align="left">RETENTION</TD>	
+	<TD align="left">QUANTITY</TD>	
+	<TD align="left">RATE</TD>	
+	</tr>   
+   <%
+   if Not rsWC.eof then
+      nCountofField=rsWC.fields.count-1
+	  no=1
+	  While Not rsWC.EOF
+		  if no  mod 2 = 1 then
+             cColor = "#EEEEEE"
+		  else
+		     cColor = "#E5E5E5"
+		  end if%>
+		  <tr bgcolor="<%=cColor%>">
+		  <td align="left" valign="top"><%=NO%></td>
+			<td valign="middle" width="30">
+			<a href="AgreementDetail.Asp?fcCode=<%=rsWC("AGREEMENTCODE")%>&LINENO=<%=rsWC("LINENO")%>&JOB=<%=rsWC("JOB")%>&LOCATIONTYPE=<%=rsWC("LOCATIONTYPE")%>&LOCATIONCODE=<%=rsWC("LOCATIONCODE")%>&DUEDATE=<%=rsWC("DUEDATE")%>&RETENTION=<%=rsWC("RETENTION")%>&QTY=<%=rsWC("QTY")%>&RATE=<%=rsWC("RATE")%>&PeriodDate=<%=PeriodDate%>&txtJenis=Edit"><img src="IMAGES/edit.gif" alt="Edit Data : <%=rsWC(1)%>" border="0"></a></TD><TD>
+			<a href="AgreementDetail.Asp?fcCode=<%=rsWC("AGREEMENTCODE")%>&LINENO=<%=rsWC("LINENO")%>&JOB=<%=rsWC("JOB")%>&LOCATIONTYPE=<%=rsWC("LOCATIONTYPE")%>&LOCATIONCODE=<%=rsWC("LOCATIONCODE")%>&PeriodDate=<%=PeriodDate%>&txtJenis=Delete"><img src="IMAGES/delete.gif" alt="Delete Data : <%=rsWC(1)%>" border="0"  onClick="return confirm('Are you sure to delete');"></a>
+			</td>
+		    <%for i = 0 to nCountofField-4%>
+			    <td align="left" title="<%=rsWC(i).Name%>" valign="top"><%=rsWC(i)%></td>
+		    <%next%>
+		  </tr>
+		  <%
+		  rsWC.MoveNext
+		  intRecordsPerPage = intRecordsPerPage - 1
+		  no=no+1
+	  Wend
+   end if 
+   rsWC.Close
+   set rsWC = Nothing%>
+   </TABLE>
+   </form>
+<%End if%>  
+ 
+  <%'-------------akhir----------------------%>
+ </td>
+</tr>
+<tr>
+  <td colspan="2">
+  <!--#include file="bottom.jsp"-->
+  </td>
+</tr>
+</table>
+</body>
+</html>

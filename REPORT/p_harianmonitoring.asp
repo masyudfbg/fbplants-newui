@@ -1,0 +1,1148 @@
+<%@Language=VBScript%>
+<% Option Explicit %>
+<% ValidateSession %>
+<!--#include virtual="/connDb1.inc"-->
+<!--#include virtual="/txtFunction.inc"-->
+<!--#include virtual="/adovbs.inc"-->
+<!--#include virtual="/REPORT/functions.inc"-->
+<%
+	Dim v_txtYear, v_txtMonth,v_txtDay, v_FirstDate, v_LastDate,v_txtDate
+	Dim ScriptName
+	Dim rsMonitoring, strMonitoring
+	Dim val_loop, ColorID
+	Dim CurrModule, PrevModule, CurrSubModule, PrevSubModule
+	Dim CountallField,Day_x,val_null,between_day
+	Dim dayx,n,strMonitoringx
+	Dim str	
+	Dim val_Title : val_Title = "Laporan Monitoring Data Entry"
+	
+	ScriptName	=	Request.ServerVariables("SCRIPT_NAME")
+
+	v_txtYear		=	year(Request("txtDate"))
+	v_txtMonth		=	month(Request("txtDate"))
+	v_txtDate		=	Request("txtDate")
+
+	'If Len(Trim(v_txtYear)) = 0 Then
+	'	v_txtYear = Year(Session("v_Costbook"))
+	'End If
+
+	'If Len(Trim(v_txtMonth)) = 0 Then
+	'	v_txtMonth = Month(Session("v_Costbook"))
+	'End If
+	
+	If Len(Trim(v_txtYear)) = 0 Then
+		v_txtYear = Year(DATE)
+	End If
+
+	If Len(Trim(v_txtMonth)) = 0 Then
+		v_txtMonth = Month(DATE)
+	End If
+	
+	if len(trim(v_txtDate)) > 0 then 
+		v_FirstDate = Lpad(month(v_txtDate), "0", "2") & "/01/" & year(v_txtDate)
+		v_LastDate = v_txtDate
+		Day_x = day(v_LastDate)
+	else
+		v_FirstDate = Lpad(month(date), "0", "2") & "/01/" & year(date)
+		'v_LastDate = Lpad(month(date), "0", "2") & "/" & Lpad(GetLastDay(month(date), year(date)), "0", "2") & "/" & year(date)
+		v_LastDate = Lpad(month(date), "0", "2") & "/" & Lpad(day(date), "0", "2") & "/" & year(date)
+		Day_x = DAY(v_LastDate)
+	end if
+	
+	'response.write(v_LastDate)	
+
+	for n=2 to Day_x
+		str = str + ", SUM (DECODE (TO_NUMBER (TO_CHAR (tanggal, 'dd')), "&n&", hitung, 0)) day_"&n&""
+	next
+
+	strMonitoring		=	"   SELECT Fcba," & _
+							"          OrderData," & _
+							"          Module," & _
+							"          SubModule," & _
+							"          detail," & _										
+							" 		   SUM (DECODE (TO_NUMBER (TO_CHAR (tanggal, 'dd')), 1, hitung, 0)) day_1" &_
+							str & _
+							"     FROM (  SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    1 OrderData," & _
+							"                    'Bank' Module," & _
+							"                    'Payment Voucher' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT pvd.fcba, datecreated tanggal, 1 Hitung" & _
+							"                       FROM    paymentvoucher pv" & _
+							"                            INNER JOIN" & _
+							"                               paymentvoucherdetail pvd" & _
+							"                            ON (pv.fcba = pvd.fcba" & _
+							"                                AND pv.vouchercode = pvd.vouchercode)" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT  fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _
+                            "						WHERE module='Bank' and submodule='Payment Voucher' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    2 OrderData," & _
+							"                    'Purchase' Module," & _
+							"                    'Purchase Request' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT prd.fcba, prdate tanggal, 1 Hitung" & _
+							"                       FROM    purchaserequest pr" & _
+							"                            INNER JOIN" & _
+							"                               purchaserequestdetails prd" & _
+							"                            ON (pr.fcba = prd.fcba AND pr.prcode = prd.prcode)" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT  fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _
+                            "						WHERE module='Purchase' and submodule='Purchase Request' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    3 OrderData," & _
+							"                    'Purchase' Module," & _
+							"                    'Purchase Order' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT pod.fcba, podate tanggal, 1 Hitung" & _
+							"                       FROM    purchaseorder po" & _
+							"                            INNER JOIN" & _
+							"                               purchaseorderdetails pod" & _
+							"                            ON (po.fcba = pod.fcba AND po.pocode = pod.pocode)" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT  fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Purchase' and submodule='Purchase Order' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    4 OrderData," & _
+							"                    'Purchase' Module," & _
+							"                    'Receive Note' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT rnd.fcba, rndate tanggal, 1 Hitung" & _
+							"                       FROM    receivenote rn" & _
+							"                            INNER JOIN" & _
+							"                               receivenotedetail rnd" & _
+							"                            ON (rn.fcba = rnd.fcba" & _
+							"                                AND rn.receivenotecode = rnd.receivenotecode)" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Purchase' and submodule='Receive Note' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    5 OrderData," & _
+							"                    'Purchase' Module," & _
+							"                    'Invoice' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT invd.fcba, invoicedate tanggal, 1 Hitung" & _
+							"                       FROM    invoice inv" & _
+							"                            INNER JOIN" & _
+							"                               invoicedetail invd" & _
+							"                            ON (inv.fcba = invd.fcba" & _
+							"                                AND inv.invoicecode = invd.invoicecode)" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Purchase' and submodule='Invoice' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    6 OrderData," & _
+							"                    'Stores' Module," & _
+							"                    'Stock Issue' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT issd.fcba, sivdate tanggal, 1 Hitung" & _
+							"                       FROM    issue iss" & _
+							"                            INNER JOIN" & _
+							"                               issuedetails issd" & _
+							"                            ON (iss.fcba = issd.fcba" & _
+							"                                AND iss.sivcode = issd.sivcode)" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Stores' and submodule='Stock Issue' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    7 OrderData," & _
+							"                    'Stores' Module," & _
+							"                    'Write Off' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT wod.fcba, wodate tanggal, 1 Hitung" & _
+							"                       FROM    writeoff wo" & _
+							"                            INNER JOIN" & _
+							"                               writeoffdetails wod" & _
+							"                            ON (wo.fcba = wod.fcba" & _
+							"                                AND wo.writeoffcode = wod.writeoffcode)" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT  fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Stores' and submodule='Write Off' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    8 OrderData," & _
+							"                    'Employee' Module," & _
+							"                    'Attendance and Activity' SubModule," & _
+							"                    gangcode detail" & _
+							"               FROM (SELECT bu.FCCODE FCBA," & _
+							"                            TANGGAL," & _
+							"                            gg.fccode gangcode," & _
+							"                            0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT bu," & _
+							"                            gang gg" & _
+							"                      WHERE gg.fcba = bu.fccode" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba,tanggal,gangcode,hitung FROM " & _
+							"                     (SELECT DISTINCT ag.fcba," & _
+							"                                     ag.fddate tanggal," & _
+							"                                     ag.gangcode," & _
+							"                                     1 Hitung" & _
+							"                       FROM attendance_gad ag " & _
+							"                       UNION ALL " & _
+							"                      SELECT DISTINCT fcba," & _
+							"                                      bkmdate tanggal," & _
+							"                                      gangcode," & _
+							"                                      1 Hitung" & _
+							"                       FROM bkmhdr " & _
+							"                     ) ag " & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, detail gangcode, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Employee' and submodule='Attendance and Activity' )" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"                    AND gang_api.get_activation(gangcode, fcba) = 'Y'" & _
+							"           GROUP BY fcba, tanggal, gangcode" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    9 OrderData," & _
+							"                    'Employee' Module," & _
+							"                    'Harvesting Quality' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT hvq.fcba, fddate tanggal, 1 Hitung" & _
+							"                       FROM harvestingquality hvq" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT  fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Employee' and submodule='Harvesting Quality'and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    10 OrderData," & _
+							"                    'Workshop' Module," & _
+							"                    'Workshop Activity' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, tanggal, Hitung FROM" & _
+							"                     (SELECT DISTINCT wa.fcba, workshopdate tanggal, 1 Hitung" & _
+							"                       FROM workshopactivity wa" & _
+							"                     UNION ALL " & _
+							"                     SELECT DISTINCT b.fcba, b.bkmdate tanggal, 1 Hitung" & _
+							"                       FROM bkmvehicledtl a inner join bkmhdr b on (a.bkmno=b.bkmno and a.fcba=b.fcba) where b.vehiclecode='WS1') wa" & _							
+							"                     UNION ALL" & _
+							"                     SELECT  fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Workshop' and submodule='Workshop Activity' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    11 OrderData," & _
+							"                    'Vehicle' Module," & _
+							"                    'Vehicle Activity' SubModule," & _
+							"                    vehiclecode detail" & _
+							"               FROM (SELECT bu.FCCODE FCBA," & _
+							"                            TANGGAL," & _
+							"                            vh.fccode vehiclecode," & _
+							"                            0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT bu," & _
+							"                            vehicle vh" & _
+							"                      WHERE vh.fcba = bu.fccode" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba,tanggal,vehiclecode,Hitung FROM " & _
+							"                     (SELECT DISTINCT va.fcba," & _
+							"                                     va.vehicledate tanggal," & _
+							"                                     va.vehiclecode," & _
+							"                                     1 Hitung" & _
+							"                       FROM vehicleactivity va" & _
+							"                     UNION ALL " & _
+							"                     SELECT DISTINCT b.fcba," & _
+							"                                     b.bkmdate tanggal," & _
+							"                                     b.vehiclecode," & _
+							"                                     1 Hitung" & _
+							"                      FROM bkmvehicledtl a inner join bkmhdr b on (a.bkmno=b.bkmno and a.fcba=b.fcba)" & _
+							"                     )va " & _ 							
+							"                     UNION ALL" & _
+							"                     SELECT  fcba, fddate tanggal, detail vehiclecode, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Vehicle' and submodule='Vehicle Activity')" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"                    AND vehicle_api.get_activation(vehiclecode, fcba) = 'Y'" & _
+							"           GROUP BY fcba, tanggal, vehiclecode" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    12 OrderData," & _
+							"                    'Contract' Module," & _
+							"                    'Work in Progress' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT wip.fcba, wipdate tanggal, 1 Hitung" & _
+							"                       FROM workinprogress wip" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT  fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Contract' and submodule='Work in Progress' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    13 OrderData," & _
+							"                    'Nursery' Module," & _
+							"                    'Culling' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT nc.fcba, cullingdate tanggal, 1 Hitung" & _
+							"                       FROM nurserycullhdr nc, nurseryculldtl ncd" & _
+							"                       WHERE nc.fcba = ncd.fcba" & _
+							"                             and nc.documentno = ncd.documentno" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Nursery' and submodule='Culling' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    13.5 OrderData," & _
+							"                    'Nursery' Module," & _
+							"                    'Adjustment' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT na.fcba, adjustmentdate tanggal, 1 Hitung" & _
+							"                       FROM nurseryadjhdr na, nurseryadjdtl nad" & _
+							"                       WHERE na.fcba = nad.fcba" & _
+							"                             and na.documentno = nad.documentno" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Nursery' and submodule='Adjustment' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    14 OrderData," & _
+							"                    'Nursery' Module," & _
+							"                    'Issue' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT ni.fcba, issuedate tanggal, 1 Hitung" & _
+							"                       FROM nurseryissuehdr ni, nurseryissuedtl nid" & _
+							"                       WHERE ni.fcba = nid.fcba" & _
+							"                             and ni.documentno = nid.documentno" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Nursery' and submodule='Issue' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    15 OrderData," & _
+							"                    'Harvesting' Module," & _
+							"                    'Harvesting Receptions' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT hrv.fcba, receptiondate tanggal, 1 Hitung" & _
+							"                       FROM harvesting hrv" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Harvesting' and submodule='Harvesting Receptions' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    16 OrderData," & _
+							"                    'Harvesting' Module," & _
+							"                    'Harvesting Rounds' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT" & _
+							"                            hrvr.fcba," & _
+							"                            TO_DATE (" & _
+							"                               LPAD (hrndmonth, 2, '0') || '/01/' || hrndyear," & _
+							"                               'mm/dd/yyyy')" & _
+							"                               tanggal," & _
+							"                            1 Hitung" & _
+							"                       FROM harvestinground hrvr" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Harvesting' and submodule='Harvesting Rounds' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    17 OrderData," & _
+							"                    'Harvesting' Module," & _
+							"                    'Weather Information' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT we.fcba, we.widate tanggal, 1 Hitung" & _
+							"                       FROM weather we" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Harvesting' and submodule='Weather Information' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    18 OrderData," & _
+							"                    'Weighbridge' Module," & _
+							"                    'Weighbridge Ticket' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT wbt.fcba, wbt.postingdate tanggal, 1 Hitung" & _
+							"                       FROM weighbridgeticket wbt" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Weighbridge' and submodule='Weighbridge Ticket' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    19 OrderData," & _
+							"                    'Weighbridge' Module," & _
+							"                    'Grading Record' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT gr.fcba, gr.postingdate tanggal, 1 Hitung" & _
+							"                       FROM gradingrecord gr" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM   DailyInputModul "& _ 
+                            "						WHERE module='Weighbridge' and submodule='Grading Record' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    20 OrderData," & _
+							"                    'Mill Production' Module," & _
+							"                    'Shift Report' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT sr.fcba, sr.productiondate tanggal, 1 Hitung" & _
+							"                       FROM shiftreport sr" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Mill Production' and submodule='Shift Report' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    21 OrderData," & _
+							"                    'Mill Production' Module," & _
+							"                    'Storage Reading' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT psr.fcba, psr.readingdate tanggal, 1 Hitung" & _
+							"                       FROM productstoragereading psr" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Mill Production' and submodule='Storage Reading' and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal" & _
+							"           UNION ALL" & _
+							"             SELECT fcba," & _
+							"                    tanggal," & _
+							"                    SUM (hitung) hitung," & _
+							"                    22 OrderData," & _
+							"                    'Mill Production' Module," & _
+							"                    'Delivery Note' SubModule," & _
+							"                    'NULL' detail" & _
+							"               FROM (SELECT FCCODE FCBA, TANGGAL, 0 Hitung" & _
+							"                       FROM (SELECT   TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                    + ROWNUM" & _
+							" -1" & _
+							"                                       TANGGAL" & _
+							"                               FROM ALL_OBJECTS" & _
+							"                              WHERE ROWNUM <=" & _
+							"                                         TO_DATE ('" & v_LastDate & "', 'MM/DD/YYYY')" & _
+							"                                       - TO_DATE ('" & v_FirstDate & "', 'MM/DD/YYYY')" & _
+							"                                       + 1)," & _
+							"                            BUSINESSUNIT" & _
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT dn.fcba, dn.dnote_date tanggal, 1 Hitung" & _
+							"                       FROM deliverynote dn" & _
+							
+							"                     UNION ALL" & _
+							"                     SELECT DISTINCT fcba, fddate tanggal, 2 Hitung" & _
+							"                       FROM    DailyInputModul "& _ 
+                            "						WHERE module='Mill Production' and submodule='Delivery Note'  and  detail='NULL' and to_number(to_char(fddate,'MMYYYY'))=" & v_txtMonth  & v_txtYear & ")" & _
+							
+							"              WHERE     fcba = '" & Session("FCBA") & "'" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'yyyy')) = " & v_txtYear & "" & _
+							"                    AND TO_NUMBER (TO_CHAR (tanggal, 'mm')) = " & v_txtMonth & "" & _
+							"           GROUP BY fcba, tanggal)" & _
+							" GROUP BY Fcba," & _
+							"          OrderData," & _
+							"          Module," & _
+							"          SubModule," & _
+							"          detail" & _
+							" ORDER BY Fcba," & _
+							"          OrderData," & _
+							"          Module," & _
+							"          SubModule," & _
+							"          detail"
+
+
+	'Response.Write strMonitoring
+	
+	Set rsMonitoring = Server.CreateObject("ADODB.Recordset")
+	rsMonitoring.Open strMonitoring, connstr, adOpenStatic 
+
+	
+%>
+<html>
+
+<head>
+<title>ePlaS Reporting - <%=PCase(val_Title)%></title>
+<link rel="stylesheet" href="/css/stylereport2.css" type="text/css" />
+<link rel="stylesheet" href="/css/jquery-ui.css" />
+<script src="/js/jquery-1.9.1.js"></script>
+<link rel="stylesheet" href="../css/font/font-awesome.css" />
+<script src="/js/jquery-ui.js"></script>
+<script language="JavaScript" src='/js/x.js'></script>
+<script language="JavaScript" src='/js/xtableheaderfixed.js'></script>
+<script language="JavaScript">
+xAddEventListener(window, 'load',
+  function() {
+    new xTableHeaderFixed('xthf-site', window);
+    new xTableHeaderFixed('xthf-green', window);
+    new xTableHeaderFixed('xthf-blue', window);
+  }, false
+);
+</script>
+ <script>
+ $(function() {
+	$( ".datepicker" ).datepicker({
+		changeMonth: true,
+		changeYear: true
+	});
+});
+</script>
+<!--<script language="JavaScript" src="/js/date-picker.js"></script> 
+<script language="JavaScript">
+
+var newwin;
+function launchwin(winurl,winname,winfeatures)
+{
+	//This launches a new window and then
+	//focuses it if window.focus() is supported.
+	newwin = window.open(winurl,winname,winfeatures);
+
+}
+</script>-->
+
+<style type="text/css">
+@media print
+{
+.printhide{display:none;}
+}
+
+col:nth-child(2n+3) {background: #FAFFDB}
+</style>
+</head>
+
+<body>
+	<div id="wrapper">
+
+		
+		<!--#include file="../print_excel.asp"-->
+		<div id="header-wrapper">
+		
+			<div class="printhide">
+				<!--#include file="menutop.asp"-->
+			</div>
+            	<form action="<%=ScriptName%>" method="post" name="frmEntry">
+			<div class="printhide">
+				<table id="form-table" class="centered-margin">
+					<tr>
+						<!--<td>
+							<font face="verdana" size="1">TAHUN</font>
+						</td>
+						<% 
+							Dim mon, Yr, MinYr, MaxYr, i, MM
+							mon = Month(Session("v_Costbook"))
+							If len(v_txtMonth)=0 then v_txtMonth=mon
+						
+							Yr = Year(Session("v_Costbook"))
+							MinYr = Yr - 2
+							MaxYr = Yr  + 2
+							If len(v_txtYear)= 0 then v_txtYear = Yr
+						%>
+						<td width="4">
+							<select id="year" name="txtYear">
+							<%For i = MinYr to MaxYr%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(v_txtYear) then%> Selected <%End If%>><%=i%></option>
+							<%Next%>
+							</select>
+						</td>
+						<td>
+							<font face="verdana" size="1">BULAN</font>
+						</td>
+						<td width="2">
+							<select id="month" name="txtMonth">
+							<%For i = 1 to 12%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(v_txtMonth) then%> Selected <%End If%>><%=Bulan(i)%></option>
+							<%Next%>
+							</select>
+						</td>-->
+						<td>
+							<font face="verdana" size="1">Date</font>
+						</td>
+						<td width="2">
+						<input class="datepicker" type="text" name="txtDate" value="<%=v_txtDate%>" />
+
+						</td>
+						<td>
+							<input type="submit" value="View" />
+						</td>
+					</tr>
+				</table>
+			</div>
+			</form>
+			
+</div>
+<table border="0" width="100%" id="product-table" class="xthf-site">
+<%For val_loop = 1 To 31%>
+	<col>
+<%Next%> 
+<thead>
+
+	<tr>
+		<th colspan="32" style="background-color:#FFFFFF; border:none;">  
+			<div id="header-wrapper" style="float:left; text-align:left;">
+				<div id="head_judul" style="float:left; text-align:left;">
+					<h4>PT. <%=Session("COMPANY")%></h4>
+					<h5><%=Session("BA")%></h5>
+				</div>
+			</div>
+		    <div id="subheader" class="centered" style="width:100%; margin:auto;">
+					<h2><%=Ucase(val_Title)%></h2>
+					<br/>
+					<% if Day_x = "1" then
+						  between_day = "1"
+						  else
+						  between_day = "1 - " & Day_x
+						end if
+
+					%>
+					<h4>PERIODE&nbsp;:&nbsp;<%=between_day & " " &textMonth(month(v_LastDate))%>&nbsp;<%=year(v_LastDate)%></h4>
+			</div>
+		</th>
+	</tr>
+	<tr>
+		<th rowspan="2" style="background-color:#00A300;color:#fff;">SUB MODULE</th>
+		<th colspan="31" style="background-color:#00A300;color:#fff;">TANGGAL</th>
+	</tr>
+	
+	<tr>
+			<%For val_loop = 1 To 31%>
+				<th style="background-color:#00A300;color:#fff;"><%=val_loop%></th>
+			<%Next%>
+	</tr>
+</thead>
+<tbody> 
+  
+<%If rsMonitoring.BOF and rsMonitoring.EOF then%>
+		<tr>
+			<td colspan="32" align="left">NO DATA AVAILABLE</td>
+		</tr>
+<%Else%>
+
+	<%CountallField = rsMonitoring.fields.count-1%>
+	<%while not rsMonitoring.eof%>
+		<%CurrModule = rsMonitoring("MODULE") : CurrSubModule = rsMonitoring("SUBMODULE")%>
+		<%If CurrModule <> PrevModule Then%>
+	
+			<tr>
+				<td colspan="32" align="left" style="padding-left:10px;" bgcolor="#F4F4A0"><%=CurrModule%></td>
+			</tr>
+			<%If rsMonitoring("DETAIL") = "NULL" Then%>
+				<tr>
+					<td align="left" style="padding-left:20px;"><%=rsMonitoring("SUBMODULE")%></td>
+					
+					<%For val_loop = 5 to CountallField%>
+						<%If Cdbl(rsMonitoring(val_loop)) = 1 or Cdbl(rsMonitoring(val_loop)) = 3 Then
+							ColorID = "<img alt="""" src=""/images/check.gif""/>"
+						Elseif Cdbl(rsMonitoring(val_loop)) = 2 Then
+							ColorID = "<img alt="""" src=""/images/nodata.png""/>"
+						Else	
+							ColorID = "&nbsp;"
+						End If%>
+						<td align="right"><%=ColorID%></td>
+					<%Next%>
+					<%for val_null = 1 to (31 - Day_x) %>
+					<td></td>
+					<%Next%>
+				</tr>
+			<%Else%>
+				<tr>
+					<td align="left" colspan="32" style="padding-left:20px;"><%=rsMonitoring("SUBMODULE")%></td>
+				</tr>
+				<tr>
+					<td align="left" style="padding-left:30px;"><%=rsMonitoring("DETAIL")%></td>
+					<%For val_loop = 5 to CountallField%>
+						<%If Cdbl(rsMonitoring(val_loop)) = 1 or Cdbl(rsMonitoring(val_loop)) = 3 Then
+							ColorID = "<img alt="""" src=""/images/check.gif""/>"
+						Elseif Cdbl(rsMonitoring(val_loop)) = 2 Then
+							ColorID = "<img alt="""" src=""/images/nodata.png""/>"
+						Else	
+							ColorID = "&nbsp;"
+						End If%>
+						<td align="right"><%=ColorID%></td>
+					<%Next%>
+					<%for val_null = 1 to (31 - Day_x) %>
+					<td></td>
+					<%Next%>
+				</tr>
+			<%End If%>
+		<%Else%>
+			<%If rsMonitoring("DETAIL") = "NULL" Then%>
+				<tr>
+					<td align="left" style="padding-left:20px;"><%=rsMonitoring("SUBMODULE")%></td>
+					
+					<%For val_loop = 5 to CountallField%>
+						<%If Cdbl(rsMonitoring(val_loop)) = 1 or Cdbl(rsMonitoring(val_loop)) = 3 Then
+							ColorID = "<img alt="""" src=""/images/check.gif""/>"
+						Elseif Cdbl(rsMonitoring(val_loop)) = 2 Then
+							ColorID = "<img alt="""" src=""/images/nodata.png""/>"
+						Else	
+							ColorID = "&nbsp;"
+						End If%>
+						<td align="right"><%=ColorID%></td>
+					<%Next%>
+					<%for val_null = 1 to (31 - Day_x) %>
+					<td></td>
+					<%Next%>
+				</tr>
+			<%Else%>
+				<tr>
+					<td align="left" style="padding-left:30px;"><%=rsMonitoring("DETAIL")%></td>
+					<%For val_loop = 5 to CountallField%>
+						<%If Cdbl(rsMonitoring(val_loop)) = 1 or Cdbl(rsMonitoring(val_loop)) = 3 Then
+							ColorID = "<img alt="""" src=""/images/check.gif""/>"
+						Elseif Cdbl(rsMonitoring(val_loop)) = 2 Then
+							ColorID = "<img alt="""" src=""/images/nodata.png""/>"
+						Else	
+							ColorID = "&nbsp;"
+						End If%>
+						<td align="right"><%=ColorID%></td>
+					<%Next%>
+					<%for val_null = 1 to (31 - Day_x) %>
+					<td></td>
+					<%Next%>
+				</tr>
+			<%End If%>
+		<%End If%>
+<%
+			PrevModule = CurrModule
+			PrevSubModule = CurrSubModule
+			rsMonitoring.MoveNext
+		Wend
+End If
+strMonitoring = ""
+rsMonitoring.Close
+set rsMonitoring = Nothing
+%>
+
+	</tbody>
+</table>
+
+<!--#include file="../Bottom_Report.asp"-->

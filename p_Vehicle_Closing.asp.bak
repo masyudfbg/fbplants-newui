@@ -1,0 +1,813 @@
+<%@Language=VBScript%>
+<%Response.Buffer=true%>
+<%Response.Clear%>
+<%validatesession%>
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ePlaS - Vehicle Closing</title>
+</head>
+<body>
+<%
+Session("v_Vehicle") = cmdFindPeriod("Vehicle")
+Session("cls_Vehicle") = cmdPeriodClose("Vehicle")
+
+Session("CurP_Vehicle") = cmdFindAccountPeriod("Vehicle")
+Session("ClsP_Vehicle") = cmdAccountPeriodClose("Vehicle")
+
+Dim TimeAwal,TimeAkhir,Hitung,Lama
+TimeAwal=Time()
+
+Dim rsVehicle, qVehicle, nxActivity, nxGaji, nCostTotal, qSelisih, objectRS, objectSQL,nTotalUnit,nProporsi,nTotalProporsi
+Dim nTotalAlokasi, rsCostVehicle, qCostVehicle, nBasis, rsBasis, qBasis, qInsertCR
+Dim rsVHActivity, qVHActivity, nWSAlokasi, qInsertDB, TD, TD1, RF, RFG, nSelisih, nSub, nSubs
+Dim qABC, q, qLineMax, rsqLineMax, tempMaxLine
+Dim strClosingLog, strLenghtime, rsLenghtime, upClosingLog, txtLastDay, txtNextMonth
+Dim maxLineNoVehicleCB, tempProcessCode, tempProcessNameCode, tempRefCodePVDetail, qReference
+Dim rsReferencePVDetail, donePVDetail, qNormalisasiDetail, qVoucher, rsVoucher, qCost_Activity
+Dim qVoucherDetail, rsVoucherDetail, maxLineNoDetail
+Dim txtRefStringSeparator_PVDetail, txtRefStringValues_PVDetail, nQuantity, nOutput
+Dim txtRefNumberKeys_PVDetail, txtRefStringKeys_PVDetail, qCost_ActivityHistory
+Dim temp_DebetCredit
+'--Added by Ukie at 25-Oct-2012--	
+Dim Startingtime, Endingtime
+Startingtime = FormatDateTime(CDate(Now))
+'--End Added--	
+%>
+<div id="status_running"><img src="ICON/working.gif"></div><br>
+<font face="Verdana" size="1">
+Vehicle Last Period Close <%=FormatDateTime(Session("cls_Vehicle"),1)%> <br> 
+Vehicle Current Period is <%=FormatDateTime(Session("v_Vehicle"),1)%> <br><br>
+Please Wait...<br><br>
+<%
+ Response.Write "Start ..." & Time() & "<br><br>" 
+
+dim rsEmpAllDed,rsPO,qReceive,qPO,qControlJob,nPurchaseControl,rsControlJob,txtControlJob,qAllowance,nQtyReceived,qNormalisasi,nPresentRate,nDays,nAmount
+dim v_AllowanceCode
+
+' XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+' Add by NAF to select lastperiodposted
+Dim qPeriodControl, rsPeriodControl, temp_datePeriodControl
+Dim qCostActivityMax, rsCostActivityMax, maxLineNo
+
+
+Function GetRSArray(strSQL)
+			set objRSArray = connStr.Execute(strSQL)
+			If Not objRSArray.EOF Then
+				arrRS = objRSArray.GetRows()
+				GetRSArray = arrRS
+			Else
+				Response.Write("There are currently no records returned.<br/>")
+                Exit Function
+			End If
+			objRSArray.Close()
+			Set objRSArray = Nothing
+		End Function
+		
+		Function GetSSArray(strSQL)
+			set objSSArray = connStr.Execute(strSQL)
+			If Not objSSArray.EOF Then
+				arrSS = objSSArray.GetRows()
+				GetSSArray = arrSS
+			Else
+				Response.Write("There are currently no records returned.<br/>")
+                Exit Function
+			End If
+			objSSArray.Close()
+			Set objSSArray = Nothing
+		End Function
+		
+' Water Flow Check, By NAF
+' 2 December 2013
+
+Dim qWaterFlowCheck, rsWaterFlowCheck, CheckWaterFlow, tempErrorWaterFlow
+
+qWaterFlowCheck = " select PERIODCONTROL_API.getStatusPrevClosing('Vehicle','" & Session("fcBA")  & "') waterFlowCheck from dual "
+
+Set rsWaterFlowCheck = Server.CreateObject("ADODB.Recordset")
+rsWaterFlowCheck.CursorType = 3
+rsWaterFlowCheck.CursorLocation = 3
+rsWaterFlowCheck.Open qWaterFlowCheck, connstr
+
+if not rsWaterFlowCheck.eof then
+    CheckWaterFlow = rsWaterFlowCheck("waterFlowCheck")
+else
+    Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No WATER FLOW CHECK for Vehicle " & "<br>"
+end if
+rsWaterFlowCheck.close
+set rsWaterFlowCheck = Nothing
+
+
+if CheckWaterFlow = "TRUE" then 
+
+
+	qPeriodControl=" select  add_months(LASTPERIODPOSTED,1) LastPeriodPosted from PERIODCONTROL  " & _
+	  " where SYSTEM='Vehicle' and fcba='" & Session("fcBA") & "'"
+
+	Set rsPeriodControl = Server.CreateObject("ADODB.Recordset")
+	rsPeriodControl.CursorType = 3
+	rsPeriodControl.CursorLocation = 3
+	rsPeriodControl.Open qPeriodControl, connstr
+
+	if not rsPeriodControl.eof then
+		temp_datePeriodControl = rsPeriodControl("LASTPERIODPOSTED")
+	else
+		Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No PERIODCONTROL for Vehicle " & "<br>"
+	end if
+	' End Added
+	'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+	' Remarked by NAF, as per New Concept, 7 May 2013
+	' For Workshop Closing, for 2nd Book in Accounting
+
+	tempProcessCode = "VEHICLE_CLOSING"
+	tempProcessNameCode = "p_Vehicle_Closing.asp"
+	tempRefCodePVDetail = "VEHICLECB"
+
+	' Take the Reference of Cost Activity, as per New Concept, by using this reference, we can directly refer to Original Table
+	' by NAF, 12 May 2013
+	' Take the Original Table of PAYMENTVOUCHERDETAIL.
+	qReference = "select REF_NUMBERKEYS, REF_STRINGSEPARATOR, REF_STRINGKEYS " & _
+				  " from process_tableref_tab " & _
+				  " where " & _
+				  " processcode = '" & tempProcessCode & "' and " & _
+				  " upper(processnamecode) =  upper('" & tempProcessNameCode & "') and " & _
+				  " fccode =  '" & tempRefCodePVDetail & "'"
+
+	Set rsReferencePVDetail = Server.CreateObject("ADODB.Recordset")
+	rsReferencePVDetail.CursorType = 3
+	rsReferencePVDetail.CursorLocation = 3
+	rsReferencePVDetail.Open qReference, connstr
+
+	donePVDetail = 1
+	if not rsReferencePVDetail.eof then
+		txtRefNumberKeys_PVDetail = rsReferencePVDetail("REF_NUMBERKEYS")
+		txtRefStringSeparator_PVDetail = rsReferencePVDetail("REF_STRINGSEPARATOR")
+		txtRefStringKeys_PVDetail = rsReferencePVDetail("REF_STRINGKEYS")
+		donePVDetail = 1
+	else
+		donePVDetail = 0
+	end if
+	rsReferencePVDetail.close
+	set rsReferencePVDetail = Nothing
+
+
+
+	' Get the Max LineNo of Cost Activity
+	Set rsCostActivityMax = Server.CreateObject("ADODB.Recordset")
+	rsCostActivityMax.CursorType = 3
+	rsCostActivityMax.CursorLocation = 3
+									
+	qCostActivityMax =  " select nvl(max(lineno),0) maxLineNo from vehiclecb " & _
+						" where fcba = '" &  Session("fcBA") & "' " 
+	rsCostActivityMax.Open qCostActivityMax, connstr
+	maxLineNoVehicleCB = cdbl(rsCostActivityMax("maxLineNo"))
+
+	rsCostActivityMax.close
+	set rsCostActivityMax = Nothing
+	' End of Get the Max LineNo of Cost Activity
+
+
+
+
+
+	'---- Control Job
+	qControlJob = " SELECT parameterdetail_api.get_param_1 ('" & Session("FCBA") & "', 'HARDCODE', 'CONTROLJOB_MODULE', 'VEHICLE') ControlJob FROM DUAL"
+	Set rsControlJob = Server.CreateObject("ADODB.Recordset")
+	rsControlJob.CursorType = 3
+	rsControlJob.CursorLocation = 3
+	rsControlJob.Open qControlJob, connstr
+	if not rsControlJob.eof then
+	   txtControlJob=rsControlJob("ControlJob")
+	else
+	   Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error SAC20025 Control Job For Vehicle is Empty"
+	   txtControlJob=""
+	end if
+	rsControlJob.close
+	set rsControlJob = Nothing
+	response.Flush()
+	
+	'---- No Activity
+	qControlJob=" SELECT fccode FROM parameterdetail WHERE parcode = 'HARDCODE' AND fcba = '" & Session("FCBA") & "' AND parheadcode = 'JOBCODE_NOACTIVITY'"
+	Set rsControlJob = Server.CreateObject("ADODB.Recordset")
+	rsControlJob.Open qControlJob, connstr
+	if not rsControlJob.eof then
+	   job_noactivity = rsControlJob("fccode")
+	else
+	   Response.Write  "<font face=Verdana size=1 color=red>" & "No Job For No Activity of Vehicle !"
+	   job_noactivity = "2140403"
+	end if
+	rsControlJob.close
+	set rsControlJob = Nothing
+	response.Flush()
+
+	if txtControlJob<>"" then
+	
+		'---- Normalisasi
+		Response.Write " Normalisasi Vehicle Base Costing" & "<br>"
+		Response.Flush()
+		
+		arr_data_eof = true
+		querystring = " SELECT lineno FROM vehiclecb" & _
+		              " WHERE TO_NUMBER(TO_CHAR(transdate,'mm')) = " & Month(Session("v_Vehicle")) & "" & _
+		              "       AND TO_NUMBER(TO_CHAR(transdate,'yyyy')) =" & Year(Session("v_Vehicle")) & "" & _
+					  "       AND fcba = '" & Session("fcBA") & "'"
+		Set RS = connstr.execute(querystring)
+		
+		if not RS.eof then
+			arr_data = RS.getrows()
+			arr_data_eof = false
+		end if
+		RS.Close
+		Set RS = nothing
+		
+		if not arr_data_eof then
+			for xx=0 to UBound(arr_data,2)
+				qNormalisasi = " DELETE FROM vehiclecb" & _
+                               " WHERE lineno = " & arr_data(0, xx) & "" & _
+                               "       AND fcba = '" & Session("fcBA") & "'"
+				connstr.execute(qNormalisasi)
+			next
+		end if
+		
+		Response.write("<font face=Verdana size=1 color=Green>Normalisasi VehicleCB, Success!.<br/><br/></font>")
+		Response.Flush
+		
+		'---- Normalisasi
+
+		Response.Write "Normalisasi Cost Activity"&"<br/>"
+		
+		arr_data_eof = true
+		querystring = " SELECT lineno FROM cost_activity" & _
+		              " WHERE TO_NUMBER(TO_CHAR(tdate,'mm')) = " & Month(Session("v_Vehicle")) & "" & _
+		              "       AND TO_NUMBER(TO_CHAR(tdate,'yyyy')) =" & Year(Session("v_Vehicle")) & "" & _
+					  "       AND fcba = '" & Session("fcBA") & "'" & _
+					  "       AND sourcetype = 'VH'"
+		Set RS = connstr.execute(querystring)
+		
+		if not RS.eof then
+			arr_data = RS.getrows()
+			arr_data_eof = false
+		end if
+		RS.Close
+		Set RS = nothing
+		
+		if not arr_data_eof then
+			for xx=0 to UBound(arr_data,2)
+				qNormalisasi = " DELETE FROM cost_activity" & _
+                               " WHERE lineno = " & arr_data(0, xx) & "" & _
+                               "       AND fcba = '" & Session("fcBA") & "'"
+				connstr.execute(qNormalisasi)
+			next
+		end if
+		
+		Response.write("<font face=Verdana size=1 color=Green>Normalisasi Cost Activity, Success!.<br/><br/></font>")
+		Response.Flush
+		
+		arrRS_eof = true
+		qVehicle = " SELECT data.fccode" & _
+                   "        , vh.fcname" & _
+                   "        , vh.vehiclegroupcode" & _
+                   " FROM ( SELECT distinct fcba, targetcode fccode" & _
+                   "        FROM cost_activity" & _
+                   "        WHERE TO_NUMBER(TO_CHAR(tdate, 'mm')) = " & Month(Session("v_Vehicle")) & "" & _
+                   "              AND TO_NUMBER(TO_CHAR(tdate, 'yyyy')) = " & Year(Session("v_Vehicle")) & "" & _
+                   "              AND fcba = '" & Session("fcBA") & "'" & _
+				   "              AND targettype = 'VH'" & _
+                   " ) data" & _
+				   " LEFT JOIN vehicle vh ON (vh.fcba = data.fcba AND vh.fccode = data.fccode)"
+				   
+		Set RS = connstr.execute(qVehicle)
+		
+		if not RS.eof then
+			arrRS = RS.getrows()
+			arrRS_eof = false
+		end if
+		RS.Close
+		Set RS = nothing
+		
+		arrCOST_eof = true
+		qCostVehicle = " SELECT targetcode, NVL(SUM(amount),0) AS costtotal" & _
+		               " FROM cost_activity" & _
+					   " WHERE TO_NUMBER(TO_CHAR(tdate,'mm')) = " & Month(Session("v_Vehicle")) &  _
+                       "       AND TO_NUMBER(TO_CHAR(tdate,'yyyy')) = " & Year(Session("v_Vehicle")) & _ 
+					   "       AND fcBA = '" & Session("fcBA") & "'" & _
+                       "       AND TargetType = 'VH'" & _                       
+					   " GROUP BY targetcode"
+				   
+		Set RS = connstr.execute(qCostVehicle)
+		
+		if not RS.eof then
+			arrCOST = RS.getrows()
+			arrCOST_eof = false
+		end if
+		RS.Close
+		Set RS = nothing
+		
+		arrBASIS_eof = true
+		qCostVehicle = " SELECT vehiclecode, NVL(SUM(unit),0) AS basis FROM vehicleactivity" & _
+					   " WHERE (unit <> 0 OR unit IS NOT NULL)" & _
+					   "       AND TO_NUMBER(TO_CHAR(vehicledate,'mm'))=" & Month(Session("v_Vehicle")) &  _
+					   "       AND TO_NUMBER(TO_CHAR(vehicledate,'yyyy'))=" & Year(Session("v_Vehicle")) & _ 
+					   "       AND fcba = '" & Session("fcBA") & "'" & _
+					   " GROUP BY vehiclecode"
+				   
+		Set RS = connstr.execute(qCostVehicle)
+		
+		if not RS.eof then
+			arrBASIS = RS.getrows()
+			arrBASIS_eof = false
+		end if
+		RS.Close
+		Set RS = nothing
+		
+		If not arrRS_eof Then
+			For i = LBound(arrRS, 2) To UBound(arrRS, 2)
+				Response.Write "Posting " & arrRS(0,i) & " - " & arrRS(1,i) & "<br>"
+				Response.Flush()
+			  
+			  
+			  
+			  
+				nxActivity =  1
+				nxGaji = -1
+				nCostTotal = 0
+				nProporsi = 0
+				nTotalAlokasi = 0
+				nTotalProporsi = 0
+			  
+				If not arrCOST_eof Then
+					For ix = 0 To UBound(arrCOST, 2)
+						if arrRS(0,i) = arrCOST(0,ix) then
+							nCostTotal = Cdbl(To_Nol(arrCOST(1,ix)))
+						end if
+					next
+				end if
+			  
+			  
+			  
+				nBasis = 0
+				
+				If not arrBASIS_eof Then
+					For ix = 0 To UBound(arrBASIS, 2)
+						if arrRS(0,i) = arrBASIS(0,ix) then
+							nBasis = Cdbl(To_Nol(arrBASIS(1,ix)))
+						end if
+					next
+				end if
+			  
+				if  nCostTotal<>0 and nBasis<>0 then
+				'Response.Write "<br/>" & nCostTotal &"<>0 "& nBasis &"<>0" & "<br/>"
+				  maxLineNoVehicleCB = maxLineNoVehicleCB + 1
+				  qInsertCR=  " Insert into VehicleCB (VehicleCODE, TARGETTYPE, TARGETCODE, JOBCODE, " & _
+							  " QUANTITY, AMOUNT, TRANSDATE, REFERENCENO, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME, LINENO)" & _
+							" values ('" & arrRS(0,i) & "','" & "CB" & "','" & _
+							"BS" & "','" & txtControlJob & "'," & 0 & "," &  nxGaji*nCostTotal & "," & _
+							" to_date('" & Session("v_Vehicle") & "','mm/dd/yyyy'),'" & arrRS(0,i)+"-Cr" & "','" & _
+							Session("CodeName") & "','" & Session("CodeName") & "','" & _
+							Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "', sysdate, to_char(sysdate, 'HH24:MI')," & maxLineNoVehicleCB & ")"
+							
+				  'response.Write(qInsertCR)
+				  response.Flush()			  
+				  connStr.execute(qInsertCR)	
+				  
+				'Response.Write "vehicle code =   "&arrRS(0,i)&"  <br/>"
+				'Response.Write nxGaji*nCostTotal &" <br/>"
+				  '--------------------- Find Vehicle Activity
+				arrSS_eof = true
+				qVHActivity = " SELECT vehiclecode" & _
+				              "        , vehicledate" & _
+				              "        , jobcode" & _
+				              "        , locationtype" & _
+				              "        , locationcode" & _
+				              "        , NVL(unit,0) AS unit" & _
+				              "        , fcba" & _
+				              "        , time" & _
+				              "        , pid" & _
+				              " FROM vehicleactivity" & _
+							  " WHERE (unit <> 0 OR unit IS NOT NULL)" & _
+							  "       AND TO_NUMBER(TO_CHAR(vehicledate,'mm')) = " & Month(Session("v_Vehicle")) & _
+							  "       AND TO_NUMBER(TO_CHAR(vehicledate,'yyyy')) = " & Year(Session("v_Vehicle")) & _ 
+							  "       AND vehiclecode = '" & arrRS(0,i) & "'" & _
+							  "       AND fcba = '" & Session("fcBA") & "'"
+				Set RS = connstr.execute(qVHActivity)
+
+				if not RS.eof then
+					arrSS = RS.getrows()
+					arrSS_eof = false
+				end if
+				RS.Close
+				Set RS = nothing
+				  
+				  
+				  If not arrSS_eof Then
+					For ni = LBound(arrSS, 2) To UBound(arrSS, 2)	
+						nWSAlokasi = Round(cdbl(arrSS(5,ni))/nBasis*nCostTotal,0)*nxActivity
+						
+						maxLineNoVehicleCB = maxLineNoVehicleCB + 1
+						qInsertDB=  " Insert into VehicleCB (VehicleCODE, TARGETTYPE, TARGETCODE, JOBCODE, " & _
+									" QUANTITY, AMOUNT, TRANSDATE, REFERENCENO, FCENTRY, FCEDIT, FCIP, FCBA, lastupdate, lasttime, LINENO, pid)" & _
+						" values ('" & arrRS(0,i) & "','" & arrSS(3,ni) & "','" & _
+						arrSS(4,ni) & "','" & arrSS(2,ni) & "'," & arrSS(5,ni) & "," &  nWSAlokasi & "," & _
+						" to_date('" & arrSS(1,ni) & "','mm/dd/yyyy'),'" & arrRS(0,i)+"-Db" & "','" & _
+						Session("CodeName") & "','" & Session("CodeName") & "','" & _
+						Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "', sysdate, to_char(sysdate, 'HH24:MI'), " & maxLineNoVehicleCB & ", '" & arrSS(8,ni) & "')"
+						
+						
+						Response.Write " qInsertDB   " & qInsertDB & "<br>"
+						Response.Flush()
+						connStr.execute(qInsertDB)
+						'Response.Write nWSAlokasi & " <br/>"
+				
+						
+						qUpdateAmountONTable = " UPDATE vehicleactivity SET amount = '" & nWSAlokasi & "'" & _
+						                       " WHERE fcba = '" & Session("fcBA") & "'" & _
+											   "       AND pid = '" & arrSS(8,ni) & "'"
+						connstr.execute(qUpdateAmountONTable)
+						
+						nTotalAlokasi=nTotalAlokasi+nWSAlokasi
+						
+						if ni = 0 then
+							Fvehiclecode = arrRS(0,i)
+							Fvehicledate = arrSS(1,ni)
+							Fjobcode = arrSS(2,ni)
+							Flocationtype = arrSS(3,ni)
+							Flocationcode = arrSS(4,ni)
+							Ftime = arrSS(7,ni)
+							FPID = arrSS(8,ni)
+						end if
+						
+						
+					Next
+							
+					 
+					if nTotalAlokasi<>nCostTotal  then
+					
+						nSelisih = nCostTotal-nTotalAlokasi
+					
+						qVHActivity = " UPDATE vehicleactivity SET amount = amount + '" & nSelisih & "'" & _
+								      " WHERE fcba = '" & Session("fcBA") & "'" & _
+								      "       AND pid = '" & FPID & "'"
+						
+						connstr.execute(qVHActivity)
+						
+						qVHActivity = " UPDATE vehiclecb SET amount = amount + '" & nSelisih & "'" & _
+								      " WHERE fcba = '" & Session("fcBA") & "'" & _
+								      "       AND pid = '" & FPID & "'"
+						
+						connstr.execute(qVHActivity)
+
+						'Response.Write " UpdateAmoutSelisih =   " & UpdateAmoutSelisih & "<br>"
+						Response.Flush()
+						nSelisih=0
+						'Response.Write "vehicle code =   "&arrRS(0,i)&"  <br/>"
+						'Response.Write nSelisih & " <br/>"
+					 End if				 
+					 
+				  End if   
+			  Elseif nCostTotal<>0 and nBasis=0 Then
+				  'Jika tidak ada activity sama sekali
+				  'namun Biaya ada dicharge ke Accrued Others
+				 ' Response.Write "nCostTotal =   "&  nCostTotal &" <>0 and"&nBasis&"=0 <br/>"
+				  
+				  maxLineNoVehicleCB = maxLineNoVehicleCB + 1
+				  qInsertCR=  " Insert into VehicleCB (VehicleCODE, TARGETTYPE, TARGETCODE, JOBCODE, " & _
+							  " QUANTITY, AMOUNT, TRANSDATE, REFERENCENO, FCENTRY, FCEDIT, FCIP, FCBA, lastupdate, lasttime, LineNo)" & _
+							" values ('" & arrRS(0,i) & "','" & "CB" & "','" & _
+							"BS" & "','" & txtControlJob & "'," & 0 & "," &  nxGaji*nCostTotal & "," & _
+							" to_date('" & Session("v_Vehicle") & "','mm/dd/yyyy'),'" & arrRS(0,i)+"-Cr" & "','" & _
+							Session("CodeName") & "','" & Session("CodeName") & "','" & _
+							Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "', sysdate, to_char(sysdate, 'HH:MI'), " & maxLineNoVehicleCB & ")"
+					
+				  'response.Write(qInsertCR)
+				  response.Flush()			  
+				  connStr.execute(qInsertCR)	
+				  
+				 ' Response.Write "vehicle code =   "&arrRS(0,i)&"  <br/>"
+							'Response.Write "nxGaji*nCostTotal =   "& nxGaji*nCostTotal & " <br/>"
+							
+				  maxLineNoVehicleCB = maxLineNoVehicleCB + 1
+				  qInsertDB=" Insert into VehicleCB (VehicleCODE, TARGETTYPE, TARGETCODE, JOBCODE, " & _
+							" QUANTITY, AMOUNT, TRANSDATE, REFERENCENO, FCENTRY, FCEDIT, FCIP, FCBA, lastupdate, lasttime, LineNo )" & _
+						  " values ('" & arrRS(0,i) & "','" & "CB" & "','" & _
+						  "BS"& "','" & job_noactivity & "'," & 0 & "," &  nxActivity*nCostTotal & "," & _
+						  " to_date('" & Session("v_Vehicle") & "','mm/dd/yyyy'),'" & arrRS(0,i)+"-Db No Act." & "','" & _
+						  Session("CodeName") & "','" & Session("CodeName") & "','" & _
+						  Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "', sysdate, to_char(sysdate, 'HH24:MI'), " & maxLineNoVehicleCB & " )"
+				  'response.Write(qInsertDB)
+				  response.Flush()			  
+				  connStr.execute(qInsertDB)
+				  'Response.Write "vehicle code =   "&arrRS(0,i)&"  <br/>"
+							'Response.Write "nxActivity*nCostTotal =   "& nxActivity*nCostTotal & " <br/>"
+				  
+			  End if ' End if Basis <> 0 and CostTotal <> 0
+			  
+			  Next
+		end if
+		
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		%>
+	<%end if
+
+				
+				
+	'----- Tranfer to Activity Costing
+	response.Write "Transfer to Activity Based Costing..." & "<br>"
+	Response.Flush()
+
+	' Get the Max LineNo of Cost Activity
+	Set rsCostActivityMax = Server.CreateObject("ADODB.Recordset")
+				rsCostActivityMax.CursorType = 3
+				rsCostActivityMax.CursorLocation = 3
+												
+				qCostActivityMax =  " select nvl(max(nvl(lineno,0)),0) maxLineNo from cost_activity " & _
+									" where fcba = '" &  Session("fcBA") & "' " 
+				rsCostActivityMax.Open qCostActivityMax, connstr
+				maxLineNo = cdbl(rsCostActivityMax("maxLineNo"))
+
+				rsCostActivityMax.close
+				set rsCostActivityMax = Nothing
+				' End of Get the Max LineNo of Cost Activity
+				
+				connStr.BeginTrans
+				qABC = " insert into cost_activity (tdate" & _
+					   "                            , jobcode" & _
+					   "                            , source" & _
+					   "                            , sourcetype" & _
+					   "                            , sourcecode" & _
+					   "                            , sourcecode_status" & _
+					   "                            , targettype" & _
+					   "                            , targetcode" & _
+					   "                            , targetcode_status" & _
+					   "                            , referenceno" & _
+					   "                            , quantity" & _
+					   "                            , output" & _
+					   "                            , amount" & _
+					   "                            , fcba" & _
+					   "                            , closing_date" & _
+					   "                            , process_date" & _
+					   "                            , title_reference_01" & _
+					   "                            , auto_reference_01" & _
+					   "                            , title_reference_02" & _
+					   "                            , auto_reference_02" & _
+					   "                            , title_reference_03" & _
+					   "                            , auto_reference_03" & _
+					   "                            , title_reference_04" & _
+					   "                            , auto_reference_04" & _
+					   "                            , title_reference_05" & _
+					   "                            , auto_reference_05" & _
+					   "                            , debetcredit" & _
+					   " 							, ACCOUNTINGPERIOD, ACCOUNTINGYEAR " & _
+					   "                            , lastupdate" & _
+					   "                            , lasttime" & _
+					   "                            , lineno,journalprefix" & _
+					   "                            )        " & _
+					   " select tdate" & _
+					   "        , jobcode" & _
+					   "        , source" & _
+					   "        , sourcetype" & _
+					   "        , sourcecode" & _
+					   "        , sourcecode_status" & _
+					   "        , targettype" & _
+					   "        , targetcode" & _
+					   "        , targetcode_status" & _
+					   "        , referenceno" & _
+					   "        , quantity" & _
+					   "        , output" & _
+					   "        , amount" & _
+					   "        , fcba" & _
+					   "        , closing_date" & _
+					   "        , sysdate process_date" & _
+					   "        , cost_activity_info_api.get_title_reference_01 (sourcetype,targettype,'Dr')" & _
+					   "        , targetcode" & _
+					   "        , cost_activity_info_api.get_title_reference_02 (sourcetype,targettype,'Dr')" & _
+					   "        , referenceno" & _
+					   "        , ''" & _
+					   "        , ''" & _
+					   "        , ''" & _
+					   "        , ''" & _
+					   "        , ''" & _
+					   "        , ''" & _
+					   "        , decode ( greaterorequalthan ( amount, 0), 'TRUE','Dr','Cr')" & _
+					   "        ," &  Month(Session("v_Vehicle")) & " " & _
+					   "        ," &  Year(Session("v_Vehicle")) & " " & _
+					   "        , sysdate lastupdate" & _
+					   "        , to_char(sysdate,'hh24:mi') lasttime" & _
+					   "        , rownum + " & maxLineNo & " lineno ,'VRA'" & _
+					   " from (select transdate tdate" & _
+					   "              , jobcode jobcode" & _
+					   "              ,  'VH' source" & _
+					   "              , 'VH' sourcetype" & _
+					   "              , VehicleCODE as sourcecode" & _
+					   "              , '' sourcecode_status" & _
+					   "              , targettype targettype" & _
+					   "              , targetcode targetcode" & _
+					   "              , '' targetcode_status" & _
+					   "              , referenceno referenceno" & _
+					   "              , sum(quantity) quantity" & _
+					   "              , 0 output" & _
+					   "              , sum(amount) amount" & _
+					   "              , fcba" & _
+					   "              , to_date('" & temp_datePeriodControl & "','mm/dd/yyyy') closing_date  " & _
+					   "       from VEHICLECB" & _
+					   "       where fcba = '" & Session("fcBA") & "'" & _
+					   "             and to_number(to_char(transdate,'yyyy')) = " & Year(Session("v_Vehicle")) & "" & _
+					   "             and to_number(to_char(transdate,'mm')) = " & Month(Session("v_Vehicle")) & "" & _
+					   "       group by transdate" & _
+					   "                , jobcode" & _
+					   "                , 'VH' " & _
+					   "                , 'VH' " & _
+					   "                , VehicleCODE" & _
+					   "                , ''" & _
+					   "                , targettype" & _
+					   "                , targetcode" & _
+					   "                , ''" & _
+					   "                , referenceno" & _
+					   "                , fcba" & _
+					   "       )"
+					   
+					   
+				'response.write 	 qABC
+				
+				connstr.execute(qABC)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+					Response.write("<font face=Verdana size=1 color=Green>Transfer to Cost_Activity, Success!.<br/><br/></font>")
+					Response.Flush
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Save ["&qABC&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+
+			qjournal=	" MERGE INTO cost_activity x " & _
+						" USING " & _
+						" ( " & _
+						"  SELECT fcba,accountingyear,accountingperiod,referenceno,journalprefix,idx||LPAD(ROWNUM,4,0) seq from " & _
+						"  ( " & _
+						"  SELECT DISTINCT fcba,accountingyear,accountingperiod,sourcecode referenceno,journalprefix,company_api.get_companyno(businessunit_api.get_companycode(fcba))||'/'||fcba||'/'||journalprefix||'/'||LPad(accountingperiod,2,0)||'/'||accountingyear||'/' as idx  " & _
+						"  FROM cost_activity WHERE fcba='" & Session("FCBA") & "' AND accountingperiod="& Month(Session("v_Vehicle")) & " AND accountingyear=" & Year(Session("v_Vehicle")) & " AND journalprefix='VRA' " & _
+						"  Order BY referenceno " & _
+						"  ) " & _
+						" )y ON (x.fcba=y.fcba and  x.sourcecode =  y.referenceno AND  x.accountingyear=y.accountingyear AND x.accountingperiod=y.accountingperiod AND x.journalprefix=y.journalprefix) " & _
+						" WHEN MATCHED THEN " & _
+						" UPDATE SET x.journalno = y.seq " 
+		connstr.execute(qjournal)
+		
+		
+		' Add By Akbar 18 Desemeber 2015
+		
+			Dim temp_NextCloseAccountingPeriod, temp_NextCloseAccountingYear, temp_NextCurrentAccountingPeriod, temp_NextCurrentAccountingYear
+				
+			QAccountPeriod	=	" select periodcontrol_api.GetNextCloseAccountingPeriod(system,fcba) NextCloseAccountingPeriod ,  " & _ 
+								" periodcontrol_api.GetNextCloseAccountingYear(system,fcba) NextCloseAccountingYear ,  " & _ 
+								" periodcontrol_api.GetNextCurrentAccountingPeriod(system,fcba) NextCurrentAccountingPeriod ,  " & _ 
+								" periodcontrol_api.GetNextCurrentAccountingYear(system,fcba) NextCurrentAccountingYear  " & _ 
+								" from periodcontrol p  " & _ 
+								" where UPPER(system) ='VEHICLE' and fcba='" & Session("fcBA") & "'"
+			Set rsAccountPeriod = Server.CreateObject("ADODB.Recordset")
+				rsAccountPeriod.CursorType = 3
+				rsAccountPeriod.CursorLocation = 3
+				rsAccountPeriod.Open QAccountPeriod, connstr
+				if not rsAccountPeriod.eof then
+					temp_NextCloseAccountingPeriod =  Cint(rsAccountPeriod("NextCloseAccountingPeriod"))
+					temp_NextCloseAccountingYear   =  Cint(rsAccountPeriod("NextCloseAccountingYear"))
+					temp_NextCurrentAccountingPeriod = Cint(rsAccountPeriod("NextCurrentAccountingPeriod"))
+					temp_NextCurrentAccountingYear = Cint(rsAccountPeriod("NextCurrentAccountingYear"))
+				else
+					Response.Write  "<font face=Verdana size=1 color=red>" & "SAC Plant Error, No PERIODCONTROL for VEHICLE " & "<br>"
+				end if
+			rsAccountPeriod.close
+			set rsAccountPeriod = Nothing		
+			
+			IF temp_NextCurrentAccountingPeriod < 12   THEN
+			
+				q= " Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)),CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+				   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				   " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				   " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				   " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _    
+				   " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+				   " where UPPER(system) ='VEHICLE' and fcba='" & Session("fcBA") & "'"
+			ELSE
+			    IF temp_NextCloseAccountingPeriod < 12 THEN
+				    q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) ,CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+					  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+					  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+					  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+					  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " "  & _  
+					  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+					  " where UPPER(system) ='VEHICLE' and fcba='" & Session("fcBA") & "'"
+				ELSE
+				     q=" Update PeriodControl Set LASTPERIODPOSTED=last_day(add_months(LASTPERIODPOSTED,1)) " & _ 
+					   " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _     
+					  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+					  " where  UPPER(system) ='VEHICLE' and fcba='" & Session("fcBA") & "'"
+			    END IF
+			END IF
+			
+			IF temp_NextCloseAccountingPeriod = 13 AND temp_NextCurrentAccountingPeriod = 1  THEN
+			
+				q=" Update PeriodControl Set CURRENTDATE=add_months(CURRENTDATE,1) " & _ 
+				  " ,CloseAccountingPeriod = " & temp_NextCloseAccountingPeriod & " " & _  
+				  " ,CloseAccountingYear = " & temp_NextCloseAccountingYear & " " & _  
+				  " ,CurrentAccountingPeriod = " & temp_NextCurrentAccountingPeriod & " " & _  
+				  " ,CurrentAccountingYear = " & temp_NextCurrentAccountingYear & " " & _  
+				  " ,lastupdate = sysdate, lasttime = to_char(sysdate, 'hh24:mi') " & _
+				  " where UPPER(system) ='VEHICLE' and and fcba='" & Session("fcBA") & "'"
+			END IF
+			
+		connStr.execute(q)
+		
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<br>" & "Finish ... " & time() & "<br><br>"
+		Response.Write " Time Elapsed " & Hour(Lama) & " Hours " & Minute(Lama) & " Minutes " &  Second(Lama) & " Seconds."	
+
+		'--Added by Ukie at 25-Oct-2012--	
+		Endingtime = FormatDateTime(CDate(Now))
+
+		qLineMax = "select nvl(max(lineno),0) tempMaxLine from CLOSINGLOG where fcba = '" & session("fcBA") & "' AND SYSTEM = 'Vehicle'" 
+								
+		set rsqLineMax = Server.CreateObject("ADODB.Recordset")
+		rsqLineMax.Open qLineMax, connstr
+		if not rsqLineMax.eof then
+			tempMaxLine = cdbl(rsqLineMax("tempMaxLine"))
+		else
+			tempMaxLine = 0
+		end if 
+
+		tempMaxLine = tempMaxLine + 1
+		strClosingLog = " INSERT INTO CLOSINGLOG(SYSTEM, FCBA, STARTINGTIME, ENDINGTIME, LINENO, LASTUPDATE, LASTTIME) VALUES (" & _
+						" 'Vehicle', " & _
+						" '" & Session("fcBA") & "'," & _
+						" TO_DATE('" & Startingtime & "', 'mm/dd/yyyy hh:mi:ssam')," & _
+						" TO_DATE('" & Endingtime & "', 'mm/dd/yyyy hh:mi:ssam')," & _
+						" " & tempMaxLine & "" & _
+						" , sysdate, to_char(sysdate, 'HH:MI'))"
+		connStr.execute(strClosingLog)
+		
+		strLenghtime = 	" SELECT" & _
+						" FCBA," & _
+						" LINENO," & _
+						" SYSTEM," & _
+						" TO_CHAR(STARTINGTIME, 'DD.MM.YYYY:HH24:MI:SS') STARTINGTIME," & _
+						" TO_CHAR(ENDINGTIME, 'DD.MM.YYYY:HH24:MI:SS') ENDINGTIME," & _
+						" TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24) DAYS," & _
+						" TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)-24*(TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24)) HRS," & _
+						" TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)-60*(TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)) MIN," & _
+						" TRUNC(86400*(ENDINGTIME-STARTINGTIME))-60*(TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)) SEC" & _
+						" FROM CLOSINGLOG" & _
+						" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'Vehicle'"
+					
+		Set rsLenghtime = Server.CreateObject("ADODB.Recordset")
+		rsLenghtime.CursorType = 3
+		rsLenghtime.CursorLocation = 3
+		rsLenghtime.Open strLenghtime, connstr
+		
+		upClosingLog = " UPDATE CLOSINGLOG SET" & _
+						" LENGTHTIME = '" & rsLenghtime(5) & " Days " & rsLenghtime(6) & " Hours " & rsLenghtime(7) & " Minutes " & rsLenghtime(8) & " Seconds " & "'" & _
+						" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'Vehicle'"		
+		connStr.execute(upClosingLog)
+		'--End Added--
+			
+		%>
+		<br>
+		<img src="images/ok.gif"><font color=Blue pointsize=9 face=Verdana>Vehicle Closing is succesfully...
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+		<%
+		txtLastDay  =cmdFindPeriod("Vehicle")
+		txtNextMonth=cmdPeriodClose("Vehicle")			
+		
+		Session("v_Vehicle")=txtLastDay
+		Session("cls_Vehicle")= txtNextMonth	
+		%>
+<%
+else 
+%>
+	<script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>
+	<br><br><img src="images/error.gif">Vehicle Closing is NOT completed...
+	<%
+    tempErrorWaterFlow = "Please Check Previous Closing Process, its still not DONE yet"
+    response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & tempErrorWaterFlow & "</font>" %>
+	<script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>	
+	<img src="images/error.gif" />
+<%
+end if
+%> 
+</body>
+</html>

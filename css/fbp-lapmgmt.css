@@ -1,0 +1,211 @@
+/* =====================================================================
+   Laporan Management Bulanan (p_lapmanagement_monthly.asp) - tampilan saja.
+   Dipakai bersama js/fbp-lapmgmt.js. Semua aturan dibatasi body.lapmgmt.
+   Baris judul lama di #product-table tetap ada (ikut Export Excel), hanya
+   disembunyikan di layar dan diganti kartu judul.
+   ===================================================================== */
+body.lapmgmt { background: #f3f6f5; }
+body.lapmgmt #wrapper { max-width: 100%; padding: 18px 22px 28px; box-sizing: border-box; }
+body.lapmgmt #head_judul:empty, body.lapmgmt > #head_judul { display: none; }
+body.lapmgmt > br { display: none; }
+
+/* Kartu judul */
+.lm-hero {
+	display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px;
+	margin: 0 0 16px; padding: 18px 22px;
+	background: linear-gradient(135deg, #12584a 0%, #1B7863 60%, #2a8f77 100%);
+	border-radius: 14px; color: #fff; box-shadow: 0 6px 18px rgba(18, 88, 74, .18);
+}
+.lm-hero-main { flex: 1 1 360px; min-width: 0; }
+.lm-hero-kicker { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; opacity: .8; }
+.lm-hero h1 { margin: 2px 0 8px; font-size: 22px; font-weight: 700; letter-spacing: .3px; color: #fff; }
+.lm-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lm-chip {
+	display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px;
+	font-size: 12px; line-height: 1.4; background: rgba(255, 255, 255, .14);
+	border: 1px solid rgba(255, 255, 255, .22); border-radius: 999px; white-space: nowrap;
+}
+.lm-chip b { font-weight: 600; opacity: .75; }
+.lm-hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+body.lapmgmt .lm-hero-actions input.tableToExcel,
+body.lapmgmt .lm-hero-actions button {
+	position: static !important; min-height: 38px; margin: 0; padding: 0 16px 0 16px !important;
+	font: 600 13px/36px inherit; color: #12584a !important; background: #fff !important; background-image: none !important;
+	border: 1px solid #fff !important; border-radius: 10px !important; box-shadow: none !important; cursor: pointer;
+}
+body.lapmgmt .lm-hero-actions input.tableToExcel:hover,
+body.lapmgmt .lm-hero-actions button:hover { background: #e6f3ef !important; }
+
+/* Kerangka luar: baris judul lama disembunyikan di layar */
+body.lapmgmt #product-table { width: 100%; table-layout: fixed; border: 0; background: transparent; }
+body.lapmgmt #product-table > tbody > tr.lm-oldtitle,
+body.lapmgmt #product-table > thead > tr.lm-oldtitle { display: none; }
+body.lapmgmt #product-table > tbody > tr > td.lm-host { padding: 0; border: 0; background: transparent; box-shadow: none !important; }
+body.lapmgmt #product-table > tbody > tr:hover > td.lm-host { box-shadow: none !important; }
+
+/* Tab */
+body.lapmgmt .TabbedPanels { width: 100%; text-align: left; }
+body.lapmgmt .TabbedPanelsTabGroup {
+	display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 5px;
+	background: #fff; border: 1px solid #e1e7e5; border-radius: 12px 12px 0 0; border-bottom: 0;
+}
+body.lapmgmt .TabbedPanelsTab {
+	float: none; position: static; top: 0; margin: 0; padding: 8px 16px;
+	font-size: 13px; font-weight: 600; color: #5d6d69; background: transparent;
+	border: 0; border-radius: 8px; cursor: pointer; user-select: none; transition: background .15s, color .15s;
+}
+body.lapmgmt .TabbedPanelsTabHover { color: #12584a; background: #eef6f3; }
+body.lapmgmt .TabbedPanelsTabSelected,
+body.lapmgmt .TabbedPanelsTabSelected.TabbedPanelsTabHover { color: #fff; background: #1B7863; border: 0; }
+body.lapmgmt .TabbedPanelsTab:focus { outline: 2px solid rgba(27, 120, 99, .35); outline-offset: 1px; }
+body.lapmgmt .TabbedPanelsContentGroup {
+	clear: none; padding: 0; background: #fff;
+	border: 1px solid #e1e7e5; border-radius: 0 0 12px 12px; box-shadow: 0 2px 10px rgba(23, 38, 42, .04);
+}
+body.lapmgmt .TabbedPanelsContent { padding: 18px 20px 20px; overflow-x: auto; }
+body.lapmgmt .TabbedPanelsContent > br { display: none; }
+
+/* Tabel tab Neraca, Laba Rugi, Arus Kas, Catatan, Produksi */
+body.lapmgmt #product-table table.data { width: 100%; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; }
+body.lapmgmt #product-table table.data td { padding: 7px 12px; font-size: 13px; color: #17262a; border: 0; border-bottom: 1px solid #edf1f0; }
+body.lapmgmt #product-table table.data tr.lm-dochead > td { padding: 2px 4px; border: 0 !important; background: transparent !important; font-size: 12.5px; color: #5d6d69; }
+body.lapmgmt #product-table table.data tr.lm-dochead > td strong { color: #12584a; font-size: 14px; }
+body.lapmgmt #product-table table.data tr.lm-dochead:first-child > td strong { color: #17262a; font-size: 15px; }
+body.lapmgmt #product-table table.data tr.lm-colhead > td {
+	padding: 10px 12px; font-size: 11.5px; font-weight: 600; letter-spacing: .3px; text-transform: uppercase;
+	color: #5d6d69; background: #f6f9f8; border-top: 1px solid #e1e7e5; border-bottom: 1px solid #d5dfdc;
+}
+body.lapmgmt #product-table table.data tr.lm-colhead + tr > td { border-top: 0; }
+body.lapmgmt #product-table table.data tr.lm-grp > td { font-weight: 600; background: #f3f8f6; }
+/* Accordion baris grup (js/fbp-lapmgmt.js) */
+body.lapmgmt #product-table table.data tr.lm-acc { cursor: pointer; }
+body.lapmgmt #product-table table.data tr.lm-acc-hide { display: none; }
+body.lapmgmt .lm-acc-btn {
+	display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; min-height: 0; margin: 0 6px 0 0; padding: 0;
+	vertical-align: -4px; color: #12584a; background: #e2f0eb; border: 0; border-radius: 6px; cursor: pointer;
+}
+body.lapmgmt .lm-acc-btn::before {
+	content: ""; width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+	transform: translateY(-1px) rotate(45deg); transition: transform .15s;
+}
+body.lapmgmt tr.lm-closed .lm-acc-btn::before { transform: translateX(-1px) rotate(-45deg); }
+body.lapmgmt .lm-acc-btn:hover { background: #cfe7de; }
+body.lapmgmt .lm-acc-btn:focus-visible { outline: 2px solid #1B7863; outline-offset: 1px; }
+.lm-acc-bar { display: flex; justify-content: flex-end; gap: 6px; margin: 0 0 8px; }
+.lm-acc-bar button { min-height: 30px; padding: 0 12px; font: 600 12px inherit; color: #12584a; background: #fff; border: 1px solid #cfe0da; border-radius: 8px; cursor: pointer; }
+.lm-acc-bar button:hover { background: #eef6f3; }
+body.lapmgmt #product-table table.data tr:not(.lm-dochead):not(.lm-colhead):hover > td { background: #eaf4f0; }
+body.lapmgmt #product-table table.data td.ratakanan, body.lapmgmt #product-table table.data td[align="right"] { white-space: nowrap; }
+body.lapmgmt #product-table table.data td.lm-zero { color: #a9b6b2; }
+body.lapmgmt #product-table table.data td.lm-neg { color: #b3412f; }
+
+/* =====================================================================
+   Tab Realisasi Budget
+   ===================================================================== */
+.rb-bar {
+	display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin: 0 0 12px;
+}
+.rb-title { flex: 1 1 260px; min-width: 0; }
+.rb-title h2 { margin: 0; font-size: 17px; font-weight: 700; color: #17262a; }
+.rb-title p { margin: 2px 0 0; font-size: 12.5px; color: #5d6d69; }
+.rb-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.rb-seg { display: inline-flex; padding: 3px; background: #eef2f1; border-radius: 10px; }
+.rb-seg button {
+	min-height: 30px; padding: 0 12px; font: 600 12.5px inherit; color: #5d6d69;
+	background: transparent; border: 0; border-radius: 8px; cursor: pointer;
+}
+.rb-seg button[aria-pressed="true"] { color: #12584a; background: #fff; box-shadow: 0 1px 3px rgba(23, 38, 42, .12); }
+.rb-seg button:focus-visible { outline: 2px solid #1B7863; outline-offset: 1px; }
+.rb-seg button i { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 2px; vertical-align: 0; }
+.rb-check { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: #3d4d49; cursor: pointer; white-space: nowrap; }
+.rb-check input { width: 15px; height: 15px; min-height: 0; margin: 0; accent-color: #1B7863; }
+.rb-search { position: relative; }
+.rb-search input {
+	width: 240px; max-width: 100%; height: 34px; min-height: 34px; padding: 4px 12px 4px 32px !important;
+	font-size: 13px; border: 1px solid #d5dfdc; border-radius: 9px; box-sizing: border-box;
+	background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%235d6d69' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-4-4'/%3E%3C/svg%3E") no-repeat 11px 50%;
+}
+.rb-info { margin: 10px 2px 0; font-size: 12.5px; color: #5d6d69; }
+
+/* Wadah gulir: judul kolom & kolom Deskripsi tetap terlihat */
+.rb-scroll {
+	position: relative; max-height: calc(100vh - 260px); min-height: 260px; overflow: auto;
+	border: 1px solid #e1e7e5; border-radius: 10px; background: #fff;
+}
+body.lapmgmt #product-table table.rb-table { width: max-content; min-width: 100%; margin: 0; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; }
+body.lapmgmt #product-table table.rb-table tr.rb-oldtitle { display: none; }
+body.lapmgmt #product-table table.rb-table thead th {
+	position: sticky; z-index: 2; padding: 7px 10px; font-size: 11.5px; font-weight: 600; letter-spacing: .3px;
+	color: #fff; background: #1B7863 !important; border: 0; border-right: 1px solid rgba(255, 255, 255, .16);
+	border-bottom: 1px solid rgba(255, 255, 255, .16); white-space: nowrap; text-align: center;
+}
+body.lapmgmt #product-table table.rb-table thead th.g0 { background: #4f6f68 !important; }
+body.lapmgmt #product-table table.rb-table thead th.g1 { background: #1B7863 !important; }
+body.lapmgmt #product-table table.rb-table thead th.g2 { background: #12584a !important; }
+body.lapmgmt #product-table table.rb-table thead tr.rb-leaf th { font-size: 11px; font-weight: 500; text-transform: none; opacity: 1; }
+body.lapmgmt #product-table table.rb-table thead th.rb-desc {
+	left: 0; z-index: 4; min-width: 280px; text-align: left; padding-left: 14px; font-size: 12px;
+	text-transform: uppercase; background: #17463d !important; box-shadow: 1px 0 0 #0f3a32;
+}
+body.lapmgmt #product-table table.rb-table tbody td {
+	padding: 7px 10px; font-size: 12.5px; color: #17262a; border: 0; border-bottom: 1px solid #edf1f0;
+	background: #fff; white-space: nowrap; text-align: right;
+}
+body.lapmgmt #product-table table.rb-table tbody td:first-child {
+	position: sticky; left: 0; z-index: 1; min-width: 280px; max-width: 380px; padding-left: 14px;
+	white-space: normal !important; text-align: left; box-shadow: 1px 0 0 #dfe6e4;
+}
+body.lapmgmt #product-table table.rb-table :is(td, th).gs { border-left: 2px solid #c9d8d3; }
+body.lapmgmt #product-table table.rb-table thead th.gs { border-left: 2px solid rgba(255, 255, 255, .45); }
+body.lapmgmt #product-table table.rb-table tbody td.ck { background: #fbfcfc; }
+body.lapmgmt #product-table table.rb-table tbody td.cv { font-weight: 600; background: #f4f8f7; }
+body.lapmgmt #product-table table.rb-table tbody tr.rb-item td:first-child { padding-left: 26px; color: #2b3a37; }
+body.lapmgmt #product-table table.rb-table tbody tr.rb-item td:first-child .rb-code {
+	display: inline-block; margin-right: 6px; padding: 0 6px; font-size: 11px; font-weight: 600; color: #12584a;
+	background: #e7f3ef; border-radius: 5px; font-variant-numeric: tabular-nums;
+}
+body.lapmgmt #product-table table.rb-table tbody tr.rb-grp td { font-weight: 700; background: #f1f7f5; border-bottom-color: #dfe9e5; }
+body.lapmgmt #product-table table.rb-table tbody tr.rb-grp td:first-child { color: #12584a; letter-spacing: .2px; }
+body.lapmgmt #product-table table.rb-table tbody tr.rb-grp td.ck, body.lapmgmt #product-table table.rb-table tbody tr.rb-grp td.cv { background: #eaf3f0; }
+body.lapmgmt #product-table table.rb-table tbody tr:not(.rb-total):hover td { background: #e3f1ec; }
+body.lapmgmt #product-table table.rb-table tbody td.lm-zero { color: #b5c1bd; font-weight: 400; }
+body.lapmgmt #product-table table.rb-table tbody tr.rb-total td {
+	position: sticky; bottom: 0; z-index: 1; padding-top: 10px; padding-bottom: 10px; font-weight: 700;
+	background: #e8f3ef; border-top: 2px solid #1B7863; border-bottom: 0;
+}
+body.lapmgmt #product-table table.rb-table tbody tr.rb-total td:first-child { z-index: 3; color: #12584a; letter-spacing: .4px; }
+body.lapmgmt #product-table table.rb-table tr.rb-filtered { display: none; }
+body.lapmgmt #product-table table.rb-table.rb-hide-0 .g0,
+body.lapmgmt #product-table table.rb-table.rb-hide-1 .g1,
+body.lapmgmt #product-table table.rb-table.rb-hide-2 .g2 { display: none; }
+.rb-empty td { padding: 26px 10px !important; text-align: center !important; color: #5d6d69; }
+
+/* Layar sempit */
+@media (max-width: 760px) {
+	body.lapmgmt #wrapper { padding: 12px 10px 20px; }
+	.lm-hero { padding: 14px 16px; border-radius: 12px; }
+	.lm-hero h1 { font-size: 18px; }
+	body.lapmgmt .TabbedPanelsTabGroup { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+	body.lapmgmt .TabbedPanelsTab { white-space: nowrap; padding: 8px 12px; }
+	body.lapmgmt .TabbedPanelsContent { padding: 12px 10px 14px; }
+	.rb-tools, .rb-search, .rb-search input { width: 100%; }
+	.rb-seg { width: 100%; overflow-x: auto; }
+	.rb-seg button { flex: 1 0 auto; }
+	.rb-scroll { max-height: 70vh; }
+	body.lapmgmt #product-table table.rb-table thead th.rb-desc,
+	body.lapmgmt #product-table table.rb-table tbody td:first-child { min-width: 170px; max-width: 200px; }
+}
+
+/* Cetak: semua kolom & baris, tanpa wadah gulir */
+@media print {
+	body.lapmgmt #product-table table.data tr.lm-acc-hide { display: table-row; }
+	.lm-acc-bar, .lm-acc-btn { display: none !important; }
+	body.lapmgmt { background: #fff; }
+	.lm-hero-actions, .rb-tools, .rb-info, body.lapmgmt .TabbedPanelsTabGroup { display: none !important; }
+	.lm-hero { color: #17262a; background: none; box-shadow: none; border: 1px solid #ccc; }
+	.lm-chip { border-color: #ccc; }
+	.rb-scroll { max-height: none; overflow: visible; border: 0; }
+	body.lapmgmt #product-table table.rb-table thead th, body.lapmgmt #product-table table.rb-table tbody td { position: static !important; }
+	body.lapmgmt #product-table table.rb-table tr.rb-filtered { display: table-row; }
+	body.lapmgmt #product-table table.rb-table.rb-hide-0 .g0, body.lapmgmt #product-table table.rb-table.rb-hide-1 .g1, body.lapmgmt #product-table table.rb-table.rb-hide-2 .g2 { display: table-cell; }
+}

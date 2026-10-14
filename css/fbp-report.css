@@ -1,0 +1,362 @@
+/* =====================================================================
+   fbp-report.css - tampilan modern untuk Report/Dashboard.asp
+   (katalog laporan). Hanya aktif bila <body class="rpt">.
+   Markup, link laporan, dan query di halaman tidak diubah.
+   ===================================================================== */
+body.rpt {
+	--brand: #1B7863;
+	--brand-dark: #12584a;
+	--brand-tint: #e8f3f0;
+	--accent: #F7BD28;
+	--ink: #17262a;
+	--muted: #5d6d69;
+	--line: #e1e7e5;
+	--bg: #f3f6f5;
+	margin: 0;
+	padding-top: 64px;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+}
+body.rpt > br { display: none; }   /* jarak lama untuk header fixed */
+body.rpt a { color: var(--brand); text-decoration: none; }
+
+/* ---------- Header ---------- */
+body.rpt #siteInfo {
+	top: 0; left: 0; right: 0;
+	height: 64px;
+	background: #fff !important;
+	border: 0 !important;
+	border-bottom: 1px solid var(--line) !important;
+	box-shadow: 0 4px 16px rgba(23, 38, 42, .04);
+	z-index: 50 !important;
+}
+body.rpt #siteInfo::after {
+	content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+	background: linear-gradient(90deg, var(--brand) 0%, #1F9E8E 60%, var(--accent) 100%);
+}
+body.rpt #siteInfo .head {
+	box-sizing: border-box;
+	width: auto !important;
+	height: 64px;
+	margin: 0;
+	padding: 0 20px !important;
+	display: flex; align-items: center; gap: 16px;
+}
+body.rpt #siteInfo .head h1 {
+	display: flex; align-items: center; gap: 12px;
+	margin: 0 !important;
+	font-family: inherit;
+	font-size: 17px; font-weight: 700; line-height: 1;
+	letter-spacing: .5px;
+	color: var(--ink);
+	white-space: nowrap;
+}
+body.rpt #siteInfo .head h1::before {
+	content: "";
+	width: 36px; height: 36px;
+	border-radius: 9px;
+	background: #f7f7f7 url("login/images/logofbg.jpeg") center / 30px no-repeat;
+}
+body.rpt #siteInfo .head h1 font { color: var(--brand) !important; font-weight: 700 !important; }
+/* Baris identitas user (inline color:#fff) */
+body.rpt #siteInfo .head > div:not(#globalNav):not(.rpt-search) {
+	padding-left: 16px;
+	border-left: 1px solid var(--line);
+	color: var(--muted) !important;
+	font-size: 12px !important;
+	white-space: nowrap;
+	overflow: hidden; text-overflow: ellipsis;
+}
+body.rpt #siteInfo .head > div:not(#globalNav):not(.rpt-search) b { color: var(--ink); font-weight: 600; }
+body.rpt #siteInfo .head > div:not(#globalNav):not(.rpt-search) font { color: #c7d2cf !important; font-size: 12px; }
+body.rpt #globalNav {
+	position: static !important;
+	margin-left: auto;
+	width: auto !important;
+	padding: 0 !important;
+	display: flex; flex-direction: row-reverse; align-items: center; gap: 6px;
+}
+body.rpt #globalNav a.mn_top {
+	float: none;
+	display: inline-flex; align-items: center; gap: 7px;
+	margin: 0;
+	padding: 8px 12px;
+	font-size: 13px; font-weight: 500; line-height: 1;
+	color: var(--muted);
+	background: transparent;
+	border-radius: 8px;
+}
+body.rpt #globalNav a.mn_top:hover { background: var(--brand-tint); color: var(--brand-dark); line-height: 1; }
+body.rpt #globalNav a span { font-weight: 500; }
+body.rpt #globalNav a i { display: none; }
+body.rpt #globalNav a::before { font-family: FontAwesome; font-size: 14px; }
+body.rpt #globalNav a[href$="login.Asp"]::before, body.rpt #globalNav a[href$="login.asp"]::before { content: "\f015"; }
+body.rpt #globalNav a[href$="logout.asp"] { color: #b42318; border: 1px solid #f3c7c3; }
+body.rpt #globalNav a[href$="logout.asp"]:hover { background: #fef3f2; color: #912018; }
+body.rpt #globalNav a[href$="logout.asp"]::before { content: "\f011"; }
+
+/* Kolom cari laporan (js/fbp-report.js) */
+body.rpt .rpt-search { position: relative; width: min(360px, 30vw); flex: none; }
+/* Ikon cari jadi latar input (dulu <i class="fa"> absolut, bisa tampil di luar kolom) */
+body.rpt .rpt-search .fa { display: none; }
+body.rpt .rpt-search input {
+	box-sizing: border-box;
+	width: 100%; height: 38px;
+	padding: 0 12px 0 36px;
+	font: inherit; font-size: 14px;
+	color: var(--ink);
+	background: #f3f6f5 url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2715%27 height=%2715%27 fill=%27none%27 stroke=%27%238a9a96%27 stroke-width=%272.2%27 stroke-linecap=%27round%27 viewBox=%270 0 24 24%27%3E%3Ccircle cx=%2711%27 cy=%2711%27 r=%277%27/%3E%3Cpath d=%27m20 20-4-4%27/%3E%3C/svg%3E") no-repeat 12px 50%;
+	border: 1px solid transparent; border-radius: 10px;
+	outline: none;
+}
+body.rpt .rpt-search input:focus { background-color: #fff; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(27, 120, 99, .18); }
+
+/* ---------- Layout ---------- */
+body.rpt #container2 {
+	box-sizing: border-box;
+	width: auto;
+	max-width: 1320px;
+	margin: 0 auto;
+	padding: 24px 24px 48px;
+	background: none;
+	border: 0;
+}
+body.rpt #container2 .line { display: none; }
+body.rpt #container2 > .colR {
+	float: right;
+	width: 250px;
+	height: auto !important;
+	padding: 0;
+	word-break: normal;
+}
+body.rpt #container2 > .colL {
+	width: auto;
+	margin-right: 274px;
+	padding: 0;
+}
+body.rpt .rpt-title { margin: 0 0 6px; }
+body.rpt .rpt-title h2 { margin: 0; font-family: inherit; font-size: 22px; font-weight: 700; color: var(--ink); }
+body.rpt .rpt-title p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+
+/* Daftar lompat kategori (kanan) */
+body.rpt #logo-scroll {
+	position: sticky !important;
+	top: 88px !important;
+	display: block !important;
+	max-height: calc(100vh - 112px);
+	overflow-y: auto;
+	padding: 14px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 14px;
+}
+body.rpt #logo-scroll::before {
+	content: "Kategori laporan";
+	display: block;
+	margin: 0 0 8px 4px;
+	font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+	color: var(--muted);
+}
+body.rpt #logo-scroll ul { margin: 0; padding: 0; list-style: none; }
+body.rpt #logo-scroll li { margin: 0 0 2px; }
+body.rpt #logo-scroll li a {
+	display: block;
+	padding: 7px 10px;
+	font-size: 13px; font-weight: 500;
+	color: var(--ink);
+	border-radius: 8px;
+}
+body.rpt #logo-scroll li a:hover { background: var(--brand-tint); color: var(--brand-dark); }
+body.rpt #logo-scroll br { display: none; }
+
+/* Kategori */
+body.rpt #container2 .entry-header {
+	margin: 26px 0 12px;
+	padding: 0;
+	background: none !important;
+	filter: none;
+	border: 0;
+	scroll-margin-top: 84px;
+}
+body.rpt #container2 .entry-header h4 {
+	display: flex; align-items: center; gap: 10px;
+	margin: 0;
+	font-family: inherit; font-size: 16px; font-weight: 700;
+	color: var(--ink);
+}
+body.rpt #container2 .entry-header h4::before {
+	content: ""; width: 4px; height: 18px; border-radius: 2px; background: var(--brand);
+}
+body.rpt #container2 .entry-body {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 14px;
+	margin-bottom: 14px;
+}
+body.rpt #container2 .entry-body > .clear,
+body.rpt #container2 .entry-body > br { display: none; }
+
+/* Kartu sub-kategori (.navlist) & lanjutan daftar (.navlist2) */
+body.rpt .navlist, body.rpt .navlist2 {
+	float: none;
+	width: auto;
+	min-height: 0;
+	margin: 0;
+	padding: 14px 14px 10px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	font-size: 13px;
+}
+body.rpt .navlist2 .guide { display: none; }
+body.rpt .navlist h4, body.rpt .navlist2 h4 {
+	width: auto;
+	margin: 0 0 8px;
+	padding: 0 0 8px;
+	font-family: inherit; font-size: 13px; font-weight: 700;
+	color: var(--brand-dark);
+	background: none;
+	border: 0;
+	border-bottom: 1px solid var(--line);
+}
+body.rpt .navlist ul, body.rpt .navlist2 ul { margin: 0; padding: 0; list-style: none; }
+body.rpt .navlist a, body.rpt .navlist2 a,
+body.rpt .navlist a:link, body.rpt .navlist2 a:link,
+body.rpt .navlist a:visited, body.rpt .navlist2 a:visited {
+	display: flex; align-items: flex-start; gap: 8px;
+	padding: 6px 8px;
+	font-size: 13px;
+	color: var(--ink);
+	border: 0;
+	border-radius: 6px;
+	background: none;
+}
+body.rpt .navlist a::before, body.rpt .navlist2 a::before {
+	content: "\f0f6";
+	font-family: FontAwesome;
+	margin-top: 1px;
+	color: var(--brand);
+	opacity: .75;
+}
+body.rpt .navlist a:hover, body.rpt .navlist2 a:hover { background: var(--brand-tint); color: var(--brand-dark); text-decoration: none; }
+body.rpt .navlist mark, body.rpt .navlist2 mark { background: #fdeeb8; color: inherit; border-radius: 2px; padding: 0 1px; }
+
+/* Hasil pencarian */
+body.rpt .rpt-hidden { display: none !important; }
+body.rpt .rpt-empty {
+	margin: 24px 0;
+	padding: 32px 16px;
+	text-align: center;
+	color: var(--muted);
+	background: #fff;
+	border: 1px dashed var(--line);
+	border-radius: 12px;
+}
+
+@media (max-width: 1000px) {
+	body.rpt #siteInfo .head > div:not(#globalNav):not(.rpt-search) { display: none; }
+	/* Kategori: dari kolom kanan menjadi deretan chip yang bisa digeser, di atas daftar laporan */
+	body.rpt #container2 > .colR { float: none; width: auto; margin: 0 0 6px; }
+	body.rpt #container2 > .colL { margin-right: 0; }
+	body.rpt #logo-scroll {
+		position: static !important; max-height: none;
+		overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
+		padding: 8px; border-radius: 12px;
+	}
+	body.rpt #logo-scroll::before { display: none; }
+	body.rpt #logo-scroll ul { display: flex; gap: 6px; }
+	body.rpt #logo-scroll li { margin: 0; flex: none; }
+	body.rpt #logo-scroll li a { white-space: nowrap; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; }
+}
+@media (max-width: 700px) {
+	/* Header dua baris: judul + tombol, lalu kolom cari selebar layar */
+	body.rpt { padding-top: 116px; }
+	body.rpt #siteInfo, body.rpt #siteInfo .head { height: auto; }
+	body.rpt #siteInfo .head { flex-wrap: wrap; gap: 8px; padding: 10px 14px 12px !important; }
+	body.rpt #siteInfo .head h1 { font-size: 15px; gap: 8px; }
+	body.rpt #siteInfo .head h1::before { width: 30px; height: 30px; background-size: 24px; }
+	body.rpt #globalNav a.mn_top { padding: 8px 10px; }
+	body.rpt #globalNav a.mn_top span { display: none; }   /* ikon saja; teks jadi tooltip */
+	body.rpt .rpt-search { display: block; order: 3; width: 100%; flex: 1 1 100%; }
+	body.rpt #container2 { padding: 14px 14px 32px; }
+	body.rpt .rpt-title h2 { font-size: 19px; }
+	body.rpt #container2 .entry-header { scroll-margin-top: 128px; margin-top: 20px; }
+	body.rpt #container2 .entry-body { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+	body.rpt .navlist a, body.rpt .navlist2 a { padding: 8px; }   /* target sentuh lebih besar */
+}
+
+/* =====================================================================
+   Halaman form filter laporan: REPORT/d_DashFormShow.asp (body.rpt-form)
+   ===================================================================== */
+body.rpt-form #container2 {
+	max-width: 1040px;
+	min-height: 0 !important;
+	border: 0 !important;
+}
+body.rpt-form #container2 > .colR { float: none; width: auto; margin: 0 0 14px; }
+body.rpt-form #container2 > .colL { margin-right: 0; }
+body.rpt-form #container2 > .colL > br { display: none; }
+/* Tombol kembali ke Menu Laporan */
+body.rpt-form #logo-scroll {
+	position: static !important;
+	max-height: none;
+	padding: 0;
+	background: none;
+	border: 0;
+}
+body.rpt-form #logo-scroll::before { content: none; }
+body.rpt-form #logo-scroll br { display: none; }
+body.rpt-form #logo-scroll a.breadcrumb {
+	display: inline-flex !important; align-items: center; gap: 6px;
+	padding: 7px 12px;
+	font-size: 13px; font-weight: 600;
+	color: var(--brand);
+	background: #fff;
+	border: 1px solid #b9d9d0;
+	border-radius: 8px;
+	text-shadow: none;
+}
+body.rpt-form #logo-scroll a.breadcrumb:hover { background: var(--brand-tint); color: var(--brand-dark); }
+/* Kartu form (div dengan border & shadow inline) */
+body.rpt-form #container2 > .colL > div[style*="border"] {
+	margin: 0 !important;
+	padding: 20px 24px 24px !important;
+	background: #fff;
+	border: 1px solid var(--line) !important;
+	border-radius: 14px;
+	box-shadow: none !important;
+}
+/* Bilah judul "Select Data Here :" (latar hijau inline) */
+body.rpt-form #container2 > .colL > div[style*="border"] > div[style*="185C0A" i] {
+	margin: 0 0 16px !important;
+	padding: 0 0 12px !important;
+	background: none !important;
+	color: var(--ink) !important;
+	border-bottom: 1px solid var(--line);
+}
+body.rpt-form #container2 > .colL > div[style*="border"] > div[style*="185C0A" i] font {
+	font-size: 15px; font-weight: 700; color: var(--ink);
+}
+/* Isi form */
+body.rpt-form .colL font[face] { font-family: inherit; }
+body.rpt-form .colL font[size="1"] { font-size: 13px; }
+body.rpt-form table.showform { border-collapse: collapse; }
+body.rpt-form table.showform td { padding: 6px 14px 6px 0; vertical-align: middle; }
+body.rpt-form table.showform td:first-child { font-weight: 600; white-space: nowrap; }
+body.rpt-form .colL form { margin: 0; }
+body.rpt-form .colL input[type="text"], body.rpt-form .colL select { min-height: 36px; vertical-align: middle; }
+body.rpt-form .colL input[type="submit"], body.rpt-form .colL input[type="button"] { min-height: 36px; vertical-align: middle; }
+body.rpt-form .colL input.datepicker {
+	padding-right: 32px;
+	background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2' fill='none' stroke='%235d6d69' stroke-width='1.6'/%3E%3Cpath d='M3.5 9.5h17M8 3v4M16 3v4' stroke='%235d6d69' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 9px center;
+}
+/* Label & field berdekatan walau tabel diberi width:100% inline */
+body.rpt-form table.showform { width: auto !important; }
+body.rpt-form table.showform td:first-child { min-width: 140px; }
+body.rpt-form .colL select { min-width: 200px; }
+/* Kategori kosong (mis. belum login) tidak ditampilkan; jarak atas HP menyesuaikan ada/tidaknya kolom cari */
+body.rpt #container2 > .colR:not(:has(#logo-scroll li)) { display: none; }
+@media (max-width: 700px) { body.rpt:not(:has(.rpt-search)) { padding-top: 64px; } }

@@ -1,0 +1,396 @@
+<%
+'Option Explicit
+%>
+<%
+'On Error Resume Next
+%>
+<%response.buffer=True%>
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+<%
+Const adOpenForwardOnly = 0
+Const adLockReadOnly = 1
+Const adCmdTableDirect = &H0200
+Const adUseClient = 3
+Dim TimeAwal,TimeAkhir,Hitung,Lama, qMaxLineNo
+Dim tglnow , insertdaily
+tglnow = Request("INDAY")
+Session("tglnow")= tglnow
+
+'tglnow = Session("tglnow")
+'Response.Write tglnow
+
+TimeAwal=Time()
+%>
+<div id="status_running"><img src="ICON/working.gif"></div><br>
+<font face="Verdana" size="1">
+Process UNIT <%=Session("fcba")%><br>  
+Process Current Period is <%=tglnow%> <br><br>
+Please Wait...<br>
+<%
+ Response.Write "Start ..." & Time() & "<br>" 
+ if err.number <> 0 then
+	connStr.RollbackTrans
+	response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & "Error Number : " & err.number & " because : " & err.description & "</font>"
+	cmdView	= "True"%>
+    <script language="JavaScript" type="text/javascript" >
+	document.getElementById('status_running').style.visibility = 'hidden';
+	</script>
+	<img src="images/error.gif"><%
+ End if
+
+dim rsEmpAllDed,rsPO,qReceive,qPO,qControlJob,nPurchaseControl,rsControlJob,txtControlJob,qAllowance,nQtyReceived,qNormalisasi,nPresentRate,nDays,nAmount
+dim v_AllowanceCode, maxLineNo
+
+Dim KAPTHLM  'KAPTHLM  = Kode Allowded Premi Tandan Hari Libur Mandor
+Dim KAPTHL   'KAPTHL   = Kode Allowded Premi Tandan Hari Libur Anak Buah
+Dim KAPPTHLM 'KAPPTHLM = Kode Allowded Potongan Premi Tandan Hari Libur Mandor
+
+Dim nRateBagi 
+Dim nFaktorKali 
+Dim nPremiTandanHariLibur  
+
+
+'-- Check for Empallded PreProcess
+qCheckStatus = "select EMPALLDEDSTATUS_API.GetCheckPreProcess (" & Year(Session("v_Employee")) & "," & _
+		                                                                Month(Session("v_Employee")) & ",'" & _
+																		Session("fcBA") & "') closingStatus from dual "
+
+Set rsCheckStatus = Server.CreateObject("ADODB.Recordset")
+rsCheckStatus.CursorType = 3
+rsCheckStatus.CursorLocation = 3
+'response.write qCheckStatus
+rsCheckStatus.Open qCheckStatus, connstr
+if not rsCheckStatus.eof then
+   txtClosingStatus = rsCheckStatus("closingStatus")
+else
+   Response.Write  "<font face=Verdana size=1 color=red>" & "EmpalldedStatus are not defined "
+   txtClosingStatus="FALSE"
+end if
+rsCheckStatus.close
+set rsCheckStatus = Nothing
+
+
+
+Dim sqlNormalisasiEmployeeHist
+
+IF txtClosingStatus = "TRUE" THEN  
+
+	'---- Control Job
+	qControlJob = " SELECT parameterdetail_api.get_param_1 ('" & Session("FCBA") & "', 'HARDCODE', 'CONTROLJOB_MODULE', 'EMPLOYEE') ControlJob FROM DUAL"
+	Set rsControlJob = Server.CreateObject("ADODB.Recordset")
+	rsControlJob.Open qControlJob, connstr
+	if not rsControlJob.eof then
+	   txtControlJob=rsControlJob("ControlJob")
+	else
+	   txtControlJob=""
+	end if
+
+	if len(trim(""&txtControlJob)) <> 0 then
+
+		
+
+		' To Pick max Line No in Cost_Activity
+		qMaxLineNo = " select nvl(max(nvl(lineno, 0)), 0) maxLineNo " & _
+						" from empallded " & _
+						" where " & _
+						" fcba = '" & Session("fcBA") & "' "
+						
+		Set rsqMaxLineNo = Server.CreateObject("ADODB.Recordset")
+		rsqMaxLineNo.CursorType = 3
+		rsqMaxLineNo.CursorLocation = 3
+		rsqMaxLineNo.Open qMaxLineNo, connstr
+        
+		if not rsqMaxLineNo.eof then
+			maxLineNo = cdbl(rsqMaxLineNo("maxLineNo"))
+		else
+			maxLineNo = 0
+		end if
+		rsqMaxLineNo.close
+		set rsqMaxLineNo = Nothing		
+		
+		
+		'---- Normalisasi
+		
+		' Remark by ukie 3 Juni 2016, for tuning
+
+		' qNormalisasiDetail ="Delete From EMPALLDED_HIST_TAB where " & _
+					 ' " lineheaderno||fcba in (select lineno||fcba from empallded where	to_number(to_Char(ADHOCDATE,'mm'))=" & Month(Session("v_Employee")) &  _
+					 ' " and to_number(to_Char(ADHOCDATE,'yyyy'))=" & Year(Session("v_Employee")) & _
+					 ' " and ALLOWDEDCODE in (select FCCODE from ALLOWDED where MAN_AUTO='A' and fcBA='" & Session("fcBA") & "') " & _
+					 ' " and fcBA='" & Session("fcBA") & "')"
+		' connstr.execute(qNormalisasiDetail)
+		
+		' Add by ukie 3 Juni 2016, for tuning
+		
+		arr_delete_data_eof = true
+		sql_delete_data = " SELECT EHT.FCBA, EHT.LINEHEADERNO" & _
+		                  " FROM EMPALLDED_HIST_TAB EHT" & _
+		                  " LEFT JOIN EMPALLDED ED ON (ED.FCBA = EHT.FCBA AND ED.LINENO = EHT.LINEHEADERNO)" & _
+		                  " LEFT JOIN ALLOWDED AD ON (ED.FCBA = AD.FCBA AND ED.ALLOWDEDCODE = AD.FCCODE)" & _
+		                  " WHERE EHT.FCBA = '" & Session("fcBA") & "'" & _
+		                  "       AND ED.ADHOCDATE= TO_DATE('" & tglnow & "','mm/dd/yyyy') " & _
+		                  "       AND AD.MAN_AUTO = 'A'"
+
+						
+		Set rs_delete_data = Server.CreateObject("ADODB.Recordset")
+		rs_delete_data.Open sql_delete_data, connstr
+
+		if not rs_delete_data.eof then
+			arr_delete_data = rs_delete_data.getrows()
+			arr_delete_data_eof = false
+		end if
+		rs_delete_data.close
+		set rs_delete_data = Nothing
+		
+		if not arr_delete_data_eof then
+			For arr_delete_data_record = LBound(arr_delete_data, 2) To UBound(arr_delete_data, 2)
+				connstr.BeginTrans
+				qNormalisasiDetail = " DELETE FROM empallded_hist_tab" & _
+		                     " WHERE fcba = '" & Session("fcBA") & "'" & _
+							 "       AND lineheaderno = '" & arr_delete_data(1, arr_delete_data_record)  & "'"
+				
+				'response.write qNormalisasiDetail & "<br/>"
+				connstr.execute(qNormalisasiDetail)
+				
+				If Err.Number = 0 Then
+					connstr.CommitTrans
+				Else
+					connstr.RollbackTrans
+					Response.write("Error Delete ["&qNormalisasiDetail&"] ("&Err.Description&")")
+					Response.Flush
+				End If
+			Next
+		End if
+		
+		qNormalisasiDetail = " delete from empallded_hist_tab" & _
+		                     " where fcba = '" & Session("fcBA") & "'" & _
+							 "       and lineheaderno > " & maxLineNo & ""
+		connstr.execute(qNormalisasiDetail)
+
+
+		qNormalisasi="Delete From EMPALLDED where ADHOCDATE= TO_DATE('" & tglnow & "','mm/dd/yyyy') " & _
+					 " and ALLOWDEDCODE in (select FCCODE from ALLOWDED where MAN_AUTO='A' and fcBA='" & Session("fcBA") & "') " & _
+					 " and fcBA='" & Session("fcBA") & "'"
+		connstr.execute(qNormalisasi)
+		
+
+		qNormalisasi="Delete From TAXALLDED where  ADHOCDATE= TO_DATE('" & tglnow & "','mm/dd/yyyy') " &  _
+					 " and ALLOWDEDCODE in (select FCCODE from ALLOWDED where MAN_AUTO='A' and fcBA='" & Session("fcBA") & "') " & _
+					 " and fcBA='" & Session("fcBA") & "'"
+		'connstr.execute(qNormalisasi)
+
+		qNormalisasi="Delete From TAXALLDEDLEDGER where  DATEENTRY= TO_DATE('" & tglnow & "','mm/dd/yyyy') " &  _
+					 " and fcBA='" & Session("fcBA") & "'"
+		'connstr.execute(qNormalisasi)
+		
+		
+		
+		' sqlNormalisasiEmployeeHist = " delete from employee_hist_tab" & _
+        '                             " where DATEENTRY= TO_DATE('" & tglnow "','mm/dd/yyyy') " & _
+        '                             "       and fcba = '" & Session("fcBA") & "'"
+		
+		' connstr.execute(sqlNormalisasiEmployeeHist)
+		
+		' sqlNormalisasiEmployeeHist = " insert into employee_hist_tab" & _
+		'                             " select " & Year(Session("v_Employee")) & " year" & _
+		'                             "        , " & Month(Session("v_Employee")) & " month" & _
+		'                             "        , fccode" & _
+		'                             "        , fcname" & _
+		'                             "        , sectionname" & _
+		'                             "        , gangcode" & _
+		'                             "        , dateofbirth" & _
+		'                             "        , religion" & _
+		'                             "        , race" & _
+		'                             "        , identitycard" & _
+		'                             "        , highesteducation" & _
+		'                             "        , yearofgraduation" & _
+		'                             "        , dateofjoin" & _
+		'                             "        , dateofdesignation" & _
+		'                             "        , presentgrade" & _
+		'                             "        , presentgrade_detail" & _
+		'                             "        , presentrate" & _
+		'                            "        , previousgrade" & _
+		'                             "        , previousgrade_detail" & _
+		'                             "        , previousrate" & _
+		'                             "        , maritalstatus" & _
+		'                             "        , spouse" & _
+		'                             "        , dependentchild" & _
+		'                             "        , jamsostekno" & _
+		'                             "        , jamsostekcategory" & _
+		'                             "        , position" & _
+		'                             "        , dateterminate" & _
+		'                            "        , nationality" & _
+		'                            "        , npwp" & _
+		'                           "        , naturetype" & _
+		'                          "        , includedtaxcalculation" & _
+		'                             "        , taxstatus" & _
+		'                             "        , paymenttype" & _
+		'                             "        , bankname" & _
+		'                             "        , accountno" & _
+		'                             "        , ownershipofaccount" & _
+		'                             "        , gender" & _
+		'                             "        , taxpaidbycompany" & _
+		'                             "        , address" & _
+		'                             "        , bpjskes_category" & _
+		'                             "        , bpjskes_no" & _
+		'                             "        , '" & Session("CodeName") & "' fcentry" & _
+		'                             "        , '" & Session("CodeName") & "' fcedit" & _
+		'                             "        , '" & Request.ServerVariables("REMOTE_ADDR") & "' fcip" & _
+		'                             "        , fcba" & _
+		'                             "        , sysdate lastupdate" & _
+		'                             "        , to_char(sysdate, 'hh24:mi') lasttime" & _
+		'                             "        , presentgrade2" & _
+		'                             "        , presentgrade_detail2" & _
+		'                             "        , subgrade" & _
+		'                             "        , company_nik" & _
+		'							 "		  , DATEENTRY= TO_DATE('" & tglnow "','mm/dd/yyyy')" & _
+		'							 " from employee" & _
+        '                             " where fcba = '" & Session("fcBA") & "'" & _
+        '                             "       and dateterminate is null"
+
+		'connstr.execute(sqlNormalisasiEmployeeHist)
+		
+		' To Pick max Line No in Cost_Activity
+		qMaxLineNo = " select nvl(max(nvl(lineno, 0)), 0) maxLineNo " & _
+						" from empallded " & _
+						" where " & _
+						" fcba = '" & Session("fcBA") & "' "
+						
+		Set rsqMaxLineNo = Server.CreateObject("ADODB.Recordset")
+		rsqMaxLineNo.CursorType = 3
+		rsqMaxLineNo.CursorLocation = 3
+		rsqMaxLineNo.Open qMaxLineNo, connstr
+
+		if not rsqMaxLineNo.eof then
+			maxLineNo = cdbl(rsqMaxLineNo("maxLineNo"))
+		else
+			maxLineNo = 0
+		end if
+		rsqMaxLineNo.close
+		set rsqMaxLineNo = Nothing	
+		 
+		%>
+		<!--#include virtual="Payroll_Tandan_Fixed_Daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Premi / Potongan Panen is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+
+		<!--#include virtual="Payroll_Gaji_Daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Basic Salary is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+		
+		<!--#include virtual="Payroll_Borongan_Daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Gaji Borongan is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+	
+		<!--#include virtual="Payroll_Jamsostek_Daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Jamsostek is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+		
+		<!--#include virtual="payroll_bpjs_kesehatan_daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate BPJS Kesehatan is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+		
+		
+		<!--#include virtual="Payroll_Lembur_Daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Over Time / Lembur is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+
+		<!--#include virtual="Payroll_Mandore_2_Daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Premi Mandor is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+
+
+		<!--#include virtual="Payroll_Kerani_Buah_Daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Premi Kerani Buah is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+		
+		<!--#include virtual="Payroll_Mandore1_Daily.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Premi Mandor 1 is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+
+		<!--#include virtual="Payroll_Attendance_Allowance.Asp"-->
+		<%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<font face=Verdana size=1 color=blue>" & "Calculate Allowances From Activities is successfully...." & Hour(Lama) & ":" & Minute(Lama) & ":" & Second(Lama) & " <br><br></font>"%>
+		
+		
+		
+		<%	
+		'qNormalisasi="Update EMPALLDED set Amount=amount*-1, lastupdate = sysdate, lasttime = to_char(sysdate,'HH24:MI') where ADHOCDATE=TO_DATE('" & tglnow & "','mm/dd/yyyy') " &  _
+		''			 " and ALLOWDEDCODE in (select FCCODE from ALLOWDED where ALLDED<>'A' and amount > 0 and fcBA='" & Session("fcBA") & "') " & _
+		''			 " and fcBA='" & Session("fcBA") & "'"
+		'Response.Write(qNormalisasi)
+		'connstr.execute(qNormalisasi)%>
+		
+		
+		<%
+		'DELETE TOT SALARY = 0
+		'qNormalisasi=" DELETE FROM EmpAllDED " &  _
+		''             " WHERE fcBA='" & Session("fcBA") & "' " & _
+		''			 " AND ADHOCDATE=TO_DATE('" & tglnow & "','mm/dd/yyyy') " 
+		'Response.Write(qNormalisasi)			 
+		'connstr.execute(qNormalisasi)
+		%>
+		
+		<%
+	'	qProcessPayroll = "BEGIN EMPALLDEDSTATUS_API.FinishProcessPayroll (" & Year(Session("v_Employee")) & "," & _
+	'	                                                                Month(Session("v_Employee")) & ",'" & _
+	'																	Session("fcBA") & "','" & _
+	'																	Session("CodeName") & "','" & _
+	'																	Session("CodeName") & "','" & _
+	'																	Request.ServerVariables("REMOTE_ADDR") & "'); END;"
+	'	
+	'	connstr.execute(qProcessPayroll)
+
+		insertdaily = " insert into DAILYCLOSINGACTIVITY_PAYROLL(FCBA, FDDATE, ISDAILYCLOSING, FCENTRY, FCEDIT, FCIP, LASTUPDATE, LASTTIME) " & _ 
+		" values('" & Session("fcBA") & "',TO_DATE('" & tglnow & "','mm/dd/yyyy'),'TRUE','" & Session("CodeName") & "','" & Session("CodeName") & "', " & _ 
+		" '" & Request.ServerVariables("REMOTE_ADDR") & "',sysdate,to_char(sysdate, 'hh24:mi')) "
+		connstr.execute(insertdaily)
+		
+		%>
+		
+		
+			
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+		<img src="images/ok.gif"><%
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "Finish ... " & time() & "<br><br>"
+		Response.Write " Time Elapsed " & Hour(Lama) & " Hours " & Minute(Lama) & " Minutes " &  Second(Lama) & " Seconds."%>
+	<%else%>
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+	<%
+		TimeAkhir=Time()
+		Lama = TimeAkhir-TimeAwal
+		Response.Write "Finish ... " & time() & "<br><br>"
+		Response.Write "<br/><img src='images/error.gif'/><font face=Verdana size=1 color=red>" & "SAC Plant Error SAC20025 Control Job For Employee is Empty"
+		response.Flush()
+	%>
+	<%end if%>
+<% else %>
+	<%Response.Write  "<font face=Verdana size=1 color=red>" & "System are UNABLE to continue calculate the Payroll, Please Un-Close Financial Process "%>
+<% end if %>

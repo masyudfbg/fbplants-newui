@@ -1,0 +1,203 @@
+<table id="form-table" class="centered-margin">
+<tr>
+<th>TAHUN</th>
+<th>DARI BULAN</th>
+<th>S/D BULAN</th>
+<th>STATUS</th>
+<th>JOBGROUP</th>
+<th>KODE</th>
+<th>TAHUN TANAM</th>
+<th>BLOCK</th>
+<th>&nbsp;</th>
+</tr>
+<tr>
+
+			<td>
+				<font size="2"  color="#0000FF" ></font>
+				<% 
+					MM=v_txtMonthto
+					yyyy=v_txtYear
+
+					mon = Month(Session("v_Costbook"))
+					If len(MM)=0 then MM=mon
+
+					Yr = Year(Session("v_Costbook"))
+					MinYr = Yr - 2
+					MaxYr = Yr  + 2
+					If len(yyyy)= 0 then yyyy = Yr
+				%>
+				<select name="txtYear">
+						<%
+							For i = MinYr to MaxYr
+						%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(yyyy) then%> Selected <%End If%>><%=i%></option>
+						<%
+							Next
+						%>
+				</select>
+			</td>
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="txtMonthfrom">
+						<%
+							For i = 1 to 12
+						%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+						<%
+							Next
+						%>
+					</select>
+			</td>		
+
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="txtMonthto">
+						<%
+							For i = 1 to 12
+						%>
+								<Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+						<%
+							Next
+						%>
+					</select>
+			</td>		
+
+			<td>
+			<font size="2"  color="#0000FF" ></font>
+			<select name="vStatus">
+				<option value="TM" <%if request.Form("vStatus")="TM" Then%> Selected <%End if%>>TM</option>
+				<option value="TBM" <%if request.Form("vStatus")="TBM" Then%> Selected <%End if%>>TBM</option>
+			</select>
+			</td>
+
+			<td>
+				<select name="txtJobgroup">
+					<option value="--ALL--" <%if request("v_txtJob")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+					<%
+					
+					Set rsJob = Server.CreateObject("ADODB.Recordset")
+					rsJob.CursorLocation = adUseClient
+					strsql =   " select distinct a.jobgroupcode fccode, jobgroup_api.get_jobgroup_name(a.jobgroupcode,a.fcba) fcname from job a where a.JOB_FORFIELDSTATUS in ('TM', 'TBM') and a.fccode not in '1329901' order by a.jobgroupcode "
+					rsJob.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsJob.eof then
+					DO while not rsJob.eof
+					  if v_txtJob= rsJob("FCCODE") then
+						%>			
+						<option value="<%=rsJob("FCCODE")%>" Selected><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% Else %>	
+						<option value="<%=rsJob("FCCODE")%>"><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% End If
+					  rsJob.movenext
+					loop
+					End if
+					rsJob.Close
+					set rsJob = Nothing
+					%>
+					
+				</select>
+			</td>
+			
+			
+			<td>
+				<select name="txtJob">
+					<option value="--ALL--" <%if request("v_txtJob")="--ALL--" then%> selected <%End if%>>--ALL--</option>
+					<%
+					
+					Set rsJob = Server.CreateObject("ADODB.Recordset")
+					rsJob.CursorLocation = adUseClient
+					strsql =  " select distinct  a.fccode,a.fcname from job a where a.JOB_FORFIELDSTATUS in ('TM', 'TBM') and a.fccode not in '1329901' order by a.fccode"
+					rsJob.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsJob.eof then
+					DO while not rsJob.eof
+					  if v_txtJob= rsJob("FCCODE") then
+						%>		
+						<option value="<%=rsJob("FCCODE")%>" Selected><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% Else %>	
+						<option value="<%=rsJob("FCCODE")%>"><%=rsJob("FCCODE")%> - <%=rsJob("fcname")%></option>
+				   <% End If
+					  rsJob.movenext
+					loop
+					End if
+					rsJob.Close
+					set rsJob = Nothing
+					%>
+					
+				</select>
+			</td>
+			
+
+		<td align="center">
+			<select name="txtPlantingDate">	
+					<option value="--SUMMARY--">--SUMMARY--</option>
+					<%
+						Dim rsPlantingDate
+						Set rsPlantingDate = Server.CreateObject("ADODB.Recordset")
+						rsPlantingDate.CursorLocation = adUseClient
+						
+				
+				
+						if len(trim(v_txtPlantingDate)) > 0 then 
+							strsql =  " SELECT '--ALL--' as PlantingDate from DUAL UNION SELECT DISTINCT to_char(PLANTINGDATE, 'yyyy') as PlantingDate FROM FIELDDETAIL WHERE FCBA = '" & v_txtFcba & "'"
+						else
+							strsql =  " SELECT '--ALL--' as PlantingDate from DUAL UNION SELECT DISTINCT to_char(PLANTINGDATE, 'yyyy') as PlantingDate FROM FIELDDETAIL WHERE FCBA = '" & Session("fcBA") & "'"
+						end if
+						
+						
+						rsPlantingDate.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+						if not rsPlantingDate.eof then
+							DO while not rsPlantingDate.eof
+							if v_txtPlantingDate = rsPlantingDate("PlantingDate") then
+					%>			<option value="<%=rsPlantingDate("PlantingDate")%>" Selected><%=rsPlantingDate("PlantingDate")%></option>
+							<%else%>
+								<option value="<%=rsPlantingDate("PlantingDate")%>"><%=rsPlantingDate("PlantingDate")%></option>
+							<%end if%>
+					<%			rsPlantingDate.movenext
+							loop
+						End if
+						rsPlantingDate.Close
+						set rsPlantingDate = nothing
+					%>
+			</select>		
+		</td>
+
+			<td align="center">
+			<select name="txtBlok">	
+				<option value="--SUMMARY--">--SUMMARY--</option>
+				<%
+					Dim rsBlok
+					Set rsBlok = Server.CreateObject("ADODB.Recordset")
+					rsBlok.CursorLocation = adUseClient
+
+			
+					if len(trim(v_txtBlok)) > 0 then 
+						strsql =  " SELECT '--ALL--' as Blok from DUAL UNION SELECT DISTINCT fccode as Blok FROM FIELDDETAIL WHERE FCBA = '" & v_txtFcba & "'"
+					else
+						strsql =  " SELECT '--ALL--' as Blok from DUAL UNION SELECT DISTINCT fccode as Blok FROM FIELDDETAIL WHERE FCBA = '" & Session("fcBA") & "'"
+					end if
+					
+					rsBlok.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+					if not rsBlok.eof then
+						DO while not rsBlok.eof
+						if v_txtBlok = rsBlok("Blok") then
+				%>			<option value="<%=rsBlok("Blok")%>" Selected><%=rsBlok("Blok")%></option>
+						<%else%>
+							<option value="<%=rsBlok("Blok")%>"><%=rsBlok("Blok")%></option>
+						<%end if%>
+				<%			rsBlok.movenext
+						loop
+					End if
+					rsBlok.Close
+					set rsBlok = nothing
+				%>
+			</select>		
+		</td>
+     
+		
+		
+
+<td><input type="submit" value="View" /></td>
+
+</tr>
+</table>

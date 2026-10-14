@@ -1,0 +1,7 @@
+table td {
+    /* border:solid; */
+}
+
+td#para1:nth-of-type(2) {
+  display: none;
+}

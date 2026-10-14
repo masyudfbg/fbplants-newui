@@ -1,0 +1,87 @@
+<table id="form-table" class="centered-margin">
+<tr>
+
+
+
+
+<th>&nbsp;</th>
+<th>&nbsp;</th>
+<th>&nbsp;</th>
+<th>TAHUN</th>
+<th>BULAN</th>
+<th>KODE KENDARAAN</th>
+<th>&nbsp;</th>
+</tr>
+<tr>
+		<form name="frmAR" method="post" action="<%=ScriptName%>">
+		<th>&nbsp;</th> 
+        <th>&nbsp;</th>	
+        <th>&nbsp;</th>		
+			<td>
+				<font size="2"  color="#0000FF" ></font>
+				<% 
+					MM=Request.Form("vMonth")
+					yyyy=Request.Form("vYear")
+
+					mon = Month(Session("v_Costbook"))
+					If len(MM)=0 then MM=mon
+
+					Yr = Year(Session("v_Costbook"))
+					MinYr = Yr - 2
+					MaxYr = Yr  + 2
+					If len(yyyy)= 0 then yyyy = Yr
+				%>
+				<select name="vYear">
+					<%
+						For i = MinYr to MaxYr
+					%>
+							<Option Value="<%=i%>" <%If cint(i) = cint(yyyy) then%> Selected <%End If%>><%=i%></option>
+					<%
+						Next
+					%>
+				</select>
+			</td>
+			
+			<td>
+				<font size="2" color="#0000FF" ></font>
+					<select name="vMonth">
+						<%
+							For i = 1 to 12
+						%>
+							<Option Value="<%=i%>" <%If cint(i) = cint(MM) then%> Selected <%End If%>><%=MonthName(i)%></option>
+						<%
+							Next
+						%>
+					</select>
+			</td>		
+
+			<td align="center">
+			<select name="txtVH">	
+				<option value="--ALL--">--ALL--</option>
+			<%
+				Dim rsVH1
+				Set rsVH1 = Server.CreateObject("ADODB.Recordset")
+				rsVH1.CursorLocation = adUseClient
+				strsql =  " SELECT DISTINCT FCCODE, FCNAME FROM Vehicle WHERE user_company_api.IsAuthorizedFcba('" & Session("CodeName") & "',fcba) is not null ORDER BY FCNAME ASC"
+
+				rsVH1.Open strsql, connStr, adOpenForwardOnly, adLockReadOnly	
+				if not rsVH1.eof then
+					DO while not rsVH1.eof
+					if v_txtVH = rsVH1("fccode") then
+			%>			<option value="<%=rsVH1("fccode")%>" Selected><%=rsVH1("fccode")%> - <%=rsVH1("FCNAME")%></option>
+					<%else%>
+						<option value="<%=rsVH1("fccode")%>"><%=rsVH1("fccode")%> - <%=rsVH1("FCNAME")%></option>
+					<%end if%>
+			<%			rsVH1.movenext
+					loop
+				End if
+				rsVH1.Close
+				set rsVH1 = nothing
+			%>
+			</select>		
+		</td>
+
+<td><input type="submit" value="View" /></td>
+</form>
+</tr>
+</table>

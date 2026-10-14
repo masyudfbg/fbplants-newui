@@ -1,0 +1,223 @@
+				<%
+
+					if not rsCPO_MoistureQuality.EOF then
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsCPO_MoistureQuality.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsCPO_MoistureQuality("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = ""
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'KAPASITAS_OLAH' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsCPO_MoistureQuality("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = "Quality"					
+										tempRowSpan = 1
+										tempReference = ""	
+										tempRounding = 2
+									end if		
+									tempUOM = rsCPO_MoistureQuality("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYCPO_MoistureQuality.html"-->
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>				
+									<td class="boldfont" rowspan="<%= tempRowSpan %>" align="center" ><%= tempCodeHeadDescription %></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% else %>
+									<td class="boldfont" rowspan="<%= tempRowSpan %>" align="center" ></td>
+								<% end if %>
+												
+								<!--td align="left"  ><%= no %></td-->					
+								<td align="center" ><%=no%></td>		
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"</a> Moisture  </td>
+								<td align="center" >%</td>				
+								
+				
+								
+								
+								<%  
+									if rsCPO_MoistureQuality("hi") <> ""  then
+										if  cdbl(rsCPO_MoistureQuality("hi")) <> 0 then 						
+											tempHI = cdbl(rsCPO_MoistureQuality("hi")) 
+										else
+											tempHI = 0
+										end if
+									else
+										tempHI = 0
+									end if
+									
+									if rsCPO_MoistureQuality("shi") <> ""  then
+										if  cdbl(rsCPO_MoistureQuality("shi")) <> 0 then 						
+											tempSHI = cdbl(rsCPO_MoistureQuality("shi")) 
+										else
+											tempSHI = 0
+										end if
+									else
+										tempSHI = 0
+									end if
+
+									if rsCPO_MoistureQuality("sbi") <> ""  then
+										if  cdbl(rsCPO_MoistureQuality("sbi")) <> 0 then 						
+											tempSBI = cdbl(rsCPO_MoistureQuality("sbi")) 
+										else
+											tempSBI = 0
+										end if
+									else
+										tempSBI = 0
+									end if									
+									
+									
+								
+								%>
+
+								
+								<% ' Start Compare to Budget 
+									if cdbl(rsCPO_MoistureQuality("budget_hi")) <> 0 then 
+										tempDataBudget_HI = cdbl(rsCPO_MoistureQuality("budget_hi")) 
+									else
+										tempDataBudget_HI = 0 
+									end if
+									
+									if cdbl(rsCPO_MoistureQuality("budget_shi")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsCPO_MoistureQuality("budget_shi")) 
+									else
+										tempDataBudget_SHI = 0
+									end if
+									
+									if cdbl(rsCPO_MoistureQuality("budget_sbi")) <> 0 then 
+										tempDataBudget_SBI = cdbl(rsCPO_MoistureQuality("budget_sbi"))
+									else
+										tempDataBudget_SBI = 0 
+									end if
+									
+									if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = temp_HI/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = temp_SHI/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = temp_SBI/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>									
+								
+
+								<td align="center" ><%=FormatNumber(tempHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI,tempRounding)%></td>
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_HI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+
+								<%
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+									
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+									
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+									
+								%>
+								
+								<td class="<%=cClassAssigned_HI%>" align="center" ><%=FormatNumber(tempCompare_HI,tempRounding)%></td>
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,tempRounding)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,tempRounding)%></td>
+								
+							</tr>
+				<%
+
+							rsCPO_MoistureQuality.MoveNext
+						Wend
+					end if
+					rsCPO_MoistureQuality.Close
+					set rsCPO_MoistureQuality = Nothing
+				%>	

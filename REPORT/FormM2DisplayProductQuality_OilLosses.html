@@ -1,0 +1,281 @@
+				<%
+
+					if not rsCpo_OilLosses.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsCpo_OilLosses.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsCpo_OilLosses("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "Product Quality Losses"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'KAPASITAS_OLAH' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsCpo_OilLosses("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = "Quality"
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = "Quality"					
+										tempRowSpan = 1
+										tempReference = ""	
+										tempRounding = 2
+									end if		
+									tempUOM = rsCpo_OilLosses("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								
+								<!--#include file="FormDisplaySUMMARYProductQuality_OilLosses.html"-->
+								
+
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>								
+												
+								<!--td align="left"  >1</td-->					
+								<td align="center" ><%=no%></td>	
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"</a> Oil Losses  </td>
+								<td align="center" >%</td>				
+								
+				
+								
+								
+								<%  
+									if rsCpo_OilLosses("hi") <> ""  then
+										if  cdbl(rsCpo_OilLosses("hi")) <> 0 then 						
+											tempHI = cdbl(rsCpo_OilLosses("hi")) 
+										else
+											tempHI = 0
+										end if
+									else
+										tempHI = 0
+									end if
+									
+									if rsCpo_OilLosses("shi") <> ""  then
+										if  cdbl(rsCpo_OilLosses("shi")) <> 0 then 						
+											tempSHI = cdbl(rsCpo_OilLosses("shi")) 
+										else
+											tempSHI = 0
+										end if
+									else
+										tempSHI = 0
+									end if
+
+									if rsCpo_OilLosses("sbi") <> ""  then
+										if  cdbl(rsCpo_OilLosses("sbi")) <> 0 then 						
+											tempSBI = cdbl(rsCpo_OilLosses("sbi")) 
+										else
+											tempSBI = 0
+										end if
+									else
+										tempSBI = 0
+									end if									
+									
+									
+								
+								%>
+
+								
+								<% ' Start Compare to Budget 
+									if cdbl(rsCpo_OilLosses("budget_hi")) <> 0 then 
+										tempDataBudget_HI = cdbl(rsCpo_OilLosses("budget_hi")) 
+									else
+										tempDataBudget_HI = 0 
+									end if
+									
+									if cdbl(rsCpo_OilLosses("budget_shi")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsCpo_OilLosses("budget_shi")) 
+									else
+										tempDataBudget_SHI = 0
+									end if
+									
+									if cdbl(rsCpo_OilLosses("budget_sbi")) <> 0 then 
+										tempDataBudget_SBI = cdbl(rsCpo_OilLosses("budget_sbi"))
+									else
+										tempDataBudget_SBI = 0 
+									end if
+									
+									if tempDataBudget_HI <> 0 then 
+										tempCompare_HI = temp_HI/tempDataBudget_HI * 100
+									else
+										tempCompare_HI = 0
+									end if
+									
+									if tempDataBudget_SHI <> 0 then 
+										tempCompare_SHI = temp_SHI/tempDataBudget_SHI * 100
+									else
+										tempCompare_SHI = 0
+									end if
+
+									if tempDataBudget_SBI <> 0 then 
+										tempCompare_SBI = temp_SBI/tempDataBudget_SBI * 100
+									else
+										tempCompare_SBI = 0
+									end if
+									
+								%>									
+								
+
+								<td align="center" ><%=FormatNumber(tempSHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempSBI,tempRounding)%></td>
+								
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+
+								<% ' Start Compare to Budget 
+								' Later, This Temporary Variable must be picked from Master Budget Table.
+
+
+								' End of Modification
+
+								if tempDataBudget_HI <> 0 then 
+									tempCompare_HI = tempHI /tempDataBudget_HI * 100
+								else
+									tempCompare_HI = 0
+								end if
+
+								if tempDataBudget_SHI <> 0 then 
+									tempCompare_SHI = tempSHI/tempDataBudget_SHI * 100
+								else
+									tempCompare_SHI = 0
+								end if
+
+								if tempDataBudget_SBI <> 0 then 
+									tempCompare_SBI = tempSBI/tempDataBudget_SBI * 100
+								else
+									tempCompare_SBI = 0
+								end if
+								
+								tempBudgetType = "EXPENSES"
+
+								%>
+
+
+								<%
+								if tempBudgetType = "QUANTITY" then  
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+								else
+									if tempCompare_HI > 105 then
+										cClassAssigned_HI = "red"
+									else
+										if tempCompare_HI > 95 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "green"
+										end if
+									end if
+
+									if tempCompare_SHI > 105 then
+										cClassAssigned_SHI = "red"
+									else
+										if tempCompare_SHI > 95 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "green"
+										end if
+									end if
+
+									if tempCompare_SBI > 105 then
+										cClassAssigned_SBI = "red"
+									else
+										if tempCompare_SBI > 95 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "green"
+										end if
+									end if
+								end if					
+								%>								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+								
+							</tr>
+				<%
+
+							rsCpo_OilLosses.MoveNext
+						Wend
+					end if
+					rsCpo_OilLosses.Close
+					set rsCpo_OilLosses = Nothing
+				%>	

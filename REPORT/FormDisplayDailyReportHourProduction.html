@@ -1,0 +1,429 @@
+				<%
+
+					if not rsHourProduction.EOF then
+						no = 0
+						sPrevPlantation = ""
+						sPrevGroupRegion = ""
+						sPrevRegion = ""
+						sPrevCompany = ""
+						sPrevFcba = ""
+						
+						while not rsHourProduction.EOF
+							if no  mod 2 = 1 then
+								cClass = "odd"
+							else
+								cClass = "default"
+							end if
+							no = no + 1
+
+				%>				
+
+
+							<tr class="<%=cClass%>">
+							
+								<%
+									strCodeDescHead = " select fcname from parameter " & _
+													" where " & _
+													" parcode = 'SR005' and " & _
+													" fccode = '" & rsHourProduction("HEADGROUP") & "' and " & _
+													" fcba = '" & v_txtFcba & "'"
+													
+									Set rsCodeDescHead = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDescHead.Open strCodeDescHead, connstr, adOpenStatic 		
+
+									if not rsCodeDescHead.EOF then
+										tempCodeHeadDescription = rsCodeDescHead ("fcname")
+									else
+										tempCodeHeadDescription = "JAM & KAPASITAS OLAH"
+									end if		
+									rsCodeDescHead.Close
+									set rsCodeDescHead = Nothing
+								
+								
+									strCodeDesc = " select fcname codeDescription, rate_2 theRowSpan, rate_3 rounding, param_6 reference from parameterdetail " & _
+												  "	where " & _
+													" parcode = 'SR005'  and " & _
+													" parheadcode = 'KAPASITAS_OLAH' and " & _
+													" param_2 = 'DEFAULT' and " & _
+													" fccode = '" & rsHourProduction("CodeDesc") & "'" 
+								
+								
+								
+									Set rsCodeDesc = Server.CreateObject("ADODB.Recordset")	
+									rsCodeDesc.Open strCodeDesc, connstr, adOpenStatic 		
+
+									if not rsCodeDesc.EOF then
+										tempCodeDescription = rsCodeDesc ("CodeDescription")
+										tempRowSpan = cdbl(rsCodeDesc ("theRowSpan"))
+										tempReference = rsCodeDesc ("reference")	
+										tempRounding = rsCodeDesc ("rounding")
+									else
+										tempCodeDescription = ""					
+										tempRowSpan = 1
+										tempReference = ""	
+										tempRounding = 0
+									end if		
+									tempUOM = rsHourProduction("UnitOfMeasurement")			
+									rsCodeDesc.Close
+									set rsCodeDesc = Nothing
+									
+													
+								%>
+								
+								<!--#include file="FormDisplaySUMMARYHourProduction.html"-->
+								
+
+								
+								<% if sPrevDesc <> tempCodeHeadDescription then %>		
+									<td class="boldfont" align="center" rowspan="<%=finalRowSpan%>" ><%=tempCodeHeadDescription%></td>
+									<% sPrevDesc = tempCodeHeadDescription %>
+								<% end if %>
+												
+								<td align="center"  ><%= no %></td>					
+		
+								
+							
+							
+								
+								
+								<td align="left" ><a href="<%=tempReference%>"</a> Jam Olah </td>
+								<td align="center" >Jam</td>				
+								
+				
+								<%  
+									tempH_01 = cdbl(rsHourProduction("h_01")) 
+									tempH_02 = cdbl(rsHourProduction("h_02")) 
+									tempH_03 = cdbl(rsHourProduction("h_03")) 
+									tempH_04 = cdbl(rsHourProduction("h_04")) 
+									tempH_05 = cdbl(rsHourProduction("h_05")) 
+									tempH_06 = cdbl(rsHourProduction("h_06")) 
+									tempH_07 = cdbl(rsHourProduction("h_07")) 
+									tempH_08 = cdbl(rsHourProduction("h_08")) 
+									tempH_09 = cdbl(rsHourProduction("h_09")) 
+									tempH_10 = cdbl(rsHourProduction("h_10")) 
+									tempH_11 = cdbl(rsHourProduction("h_11")) 
+									tempH_12 = cdbl(rsHourProduction("h_12")) 
+									tempH_13 = cdbl(rsHourProduction("h_13")) 
+									tempH_14 = cdbl(rsHourProduction("h_14")) 
+									tempH_15 = cdbl(rsHourProduction("h_15")) 
+									tempH_16 = cdbl(rsHourProduction("h_16")) 
+									tempH_17 = cdbl(rsHourProduction("h_17")) 
+									tempH_18 = cdbl(rsHourProduction("h_18")) 
+									tempH_19 = cdbl(rsHourProduction("h_19")) 
+									tempH_20 = cdbl(rsHourProduction("h_20")) 
+									tempH_21 = cdbl(rsHourProduction("h_21")) 
+									tempH_22 = cdbl(rsHourProduction("h_22")) 
+									tempH_23 = cdbl(rsHourProduction("h_23")) 
+									tempH_24 = cdbl(rsHourProduction("h_24")) 
+									tempH_25 = cdbl(rsHourProduction("h_25")) 
+									tempH_26 = cdbl(rsHourProduction("h_26")) 
+									tempH_27 = cdbl(rsHourProduction("h_27")) 
+									tempH_28 = cdbl(rsHourProduction("h_28")) 
+									tempH_29 = cdbl(rsHourProduction("h_29")) 
+									tempH_30 = cdbl(rsHourProduction("h_30")) 
+									tempH_31 = cdbl(rsHourProduction("h_31")) 
+									tempData_SHI = cdbl(rsHourProduction("shi")) 
+									tempData_SBI = cdbl(rsHourProduction("sbi")) 
+									
+
+									
+								%>
+
+								<% ' Start Compare to Budget 
+
+									
+									if cdbl(rsHourProduction("budget_shi")) <> 0 then 
+										tempDataBudget_SHI = cdbl(rsHourProduction("budget_shi")) 
+									else
+										tempDataBudget_SHI = 0
+									end if
+									
+									if cdbl(rsHourProduction("budget_sbi")) <> 0 then 
+										tempDataBudget_SBI = cdbl(rsHourProduction("budget_sbi"))
+									else
+										tempDataBudget_SBI = 0
+									end if
+									
+									
+								%>									
+								
+								<% if txtDay >= 1 then %>								
+									<td align="center" ><%=FormatNumber(tempH_01,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 2 then %>								
+									<td align="center" ><%=FormatNumber(tempH_02,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 3 then %>								
+									<td align="center" ><%=FormatNumber(tempH_03,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 4 then %>								
+									<td align="center" ><%=FormatNumber(tempH_04,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 5 then %>								
+									<td align="center" ><%=FormatNumber(tempH_05,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 6 then %>								
+									<td align="center" ><%=FormatNumber(tempH_06,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 7 then %>								
+									<td align="center" ><%=FormatNumber(tempH_07,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 8 then %>								
+									<td align="center" ><%=FormatNumber(tempH_08,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 9 then %>								
+									<td align="center" ><%=FormatNumber(tempH_09,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 10 then %>								
+									<td align="center" ><%=FormatNumber(tempH_10,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 11 then %>								
+									<td align="center" ><%=FormatNumber(tempH_11,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 12 then %>								
+									<td align="center" ><%=FormatNumber(tempH_12,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 13 then %>								
+									<td align="center" ><%=FormatNumber(tempH_13,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 14 then %>								
+									<td align="center" ><%=FormatNumber(tempH_14,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 15 then %>								
+									<td align="center" ><%=FormatNumber(tempH_15,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 16 then %>								
+									<td align="center" ><%=FormatNumber(tempH_16,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 17 then %>								
+									<td align="center" ><%=FormatNumber(tempH_17,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 18 then %>								
+									<td align="center" ><%=FormatNumber(tempH_18,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 19 then %>								
+									<td align="center" ><%=FormatNumber(tempH_19,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 20 then %>								
+									<td align="center" ><%=FormatNumber(tempH_20,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 21 then %>								
+									<td align="center" ><%=FormatNumber(tempH_21,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 22 then %>								
+								<td align="center" ><%=FormatNumber(tempH_22,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 23 then %>								
+									<td align="center" ><%=FormatNumber(tempH_23,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 24 then %>								
+									<td align="center" ><%=FormatNumber(tempH_24,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 25 then %>								
+									<td align="center" ><%=FormatNumber(tempH_25,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 26 then %>								
+									<td align="center" ><%=FormatNumber(tempH_26,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 27 then %>								
+									<td align="center" ><%=FormatNumber(tempH_27,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+								<% if txtDay >= 28 then %>								
+									<td align="center" ><%=FormatNumber(tempH_28,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+									
+
+								<% if txtDay >= 29 then %>																
+									<td align="center" ><%=FormatNumber(tempH_29,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+								
+
+								<% if txtDay >= 30 then %>								
+									<td align="center" ><%=FormatNumber(tempH_30,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+												
+								
+								<% if txtDay >= 31 then %>								
+									<td align="center" ><%=FormatNumber(tempH_31,tempRounding)%></td>
+								<% else %>
+									<td align="center" ></td>
+								<% end if %>
+												
+								
+								<td align="center" ><%=FormatNumber(tempData_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempData_SBI,tempRounding)%></td>
+
+
+								<td align="center" ><%=FormatNumber(tempDataBudget_SHI,tempRounding)%></td>
+								<td align="center" ><%=FormatNumber(tempDataBudget_SBI,tempRounding)%></td>
+								
+								<%
+								    ' Start to compare budget
+									tempCompare_SHI = (tempData_SHI)/(tempDataBudget_SHI) * 100
+									tempCompare_SBI = (tempData_SBI)/(tempDataBudget_SBI) * 100
+									tempBudgetType = "QUANTITY"
+
+								%>	
+								
+								<%
+								if tempBudgetType = "QUANTITY" then  
+									if tempCompare_HI > 95 then
+										cClassAssigned_HI = "green"
+									else
+										if tempCompare_HI > 85 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "red"
+										end if
+									end if
+
+									if tempCompare_SHI > 95 then
+										cClassAssigned_SHI = "green"
+									else
+										if tempCompare_SHI > 85 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "red"
+										end if
+									end if
+
+									if tempCompare_SBI > 95 then
+										cClassAssigned_SBI = "green"
+									else
+										if tempCompare_SBI > 85 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "red"
+										end if
+									end if
+								else
+									if tempCompare_HI > 105 then
+										cClassAssigned_HI = "red"
+									else
+										if tempCompare_HI > 95 then 
+											 cClassAssigned_HI = "yellow"
+										else
+											 cClassAssigned_HI = "green"
+										end if
+									end if
+
+									if tempCompare_SHI > 105 then
+										cClassAssigned_SHI = "red"
+									else
+										if tempCompare_SHI > 95 then 
+											 cClassAssigned_SHI = "yellow"
+										else
+											 cClassAssigned_SHI = "green"
+										end if
+									end if
+
+									if tempCompare_SBI > 105 then
+										cClassAssigned_SBI = "red"
+									else
+										if tempCompare_SBI > 95 then 
+											 cClassAssigned_SBI = "yellow"
+										else
+											 cClassAssigned_SBI = "green"
+										end if
+									end if
+								end if					
+								%>				
+								
+								<td class="<%=cClassAssigned_SHI%>" align="center" ><%=FormatNumber(tempCompare_SHI,0)%></td>
+								<td class="<%=cClassAssigned_SBI%>" align="center" ><%=FormatNumber(tempCompare_SBI,0)%></td>								
+							</tr>
+				<%
+
+							rsHourProduction.MoveNext
+						Wend
+					end if
+					rsHourProduction.Close
+					set rsHourProduction = Nothing
+				%>	

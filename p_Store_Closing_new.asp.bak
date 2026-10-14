@@ -1,0 +1,708 @@
+<!--#include file="connDb1.Inc"-->
+<!--#include file="txtFunction.inc"-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ePlaS - Store Closing</title>
+</head>
+<body>
+<%
+			'Declare All Variabel
+			
+
+			Dim Startingtime, Endingtime
+			Dim TimeAwal, TimeAkhir, Lama
+			Dim nAlokasi
+			Dim BulanBfr, TahunBfr
+			Dim v_tahun : v_tahun = Request("txtYear")
+			Dim v_Bulan : v_Bulan = Request("txtMonth")
+			
+			TimeAwal=Time()
+			Startingtime = FormatDateTime(CDate(Now))
+			
+			
+				if v_Bulan   = 1 then
+					TahunBfr = v_tahun - 1
+					BulanBfr = 12
+				else
+					TahunBfr = v_tahun
+					BulanBfr = v_Bulan - 1
+				end if
+		%>
+<div id="status_running"><img src="ICON/working.gif"></div><br>
+<font face="Verdana" size="1">
+<br/>
+		Unit Process : <% response.write Session("fcBA")%> <br> 
+		Inventory Process Period is <% response.write v_Bulan & "/" & v_tahun%>    <br><br>
+		Please Wait...
+		<br/>
+		<br/>
+		<%
+		Response.Write "Start ..." & Time() & "<br><br>"
+		Response.Flush
+		
+		%>
+<%
+
+'--Added by Ukie at 25-Oct-2012--	
+
+Dim fine_result_01, fine_result_02, fine_result_03
+
+Dim TDATE, STORAGE_CODE, QUANTITY_IN, QUANTITY_OUT, REFERENCES, REMARKS
+DIM MSQL, rsReceive,rsWrite,rsIssue
+DIM TGL,q,rsCARIW,rsCARII
+Dim strCursorSivCode, rsCursorSivCode
+Dim strCursorCredit, rsCursorCredit, strInsertCredit
+Dim tempTotalAmountCredit, tempSIVCODE, qInsertCredit, strCursorCount, rsCursorCount, totalRecord, totalRowInserted, tempSelisih
+Dim temp_Db_Job, temp_Db_TargetType, temp_Db_TargetCode
+Dim temp_Cr_Job, temp_Cr_TargetType, temp_Cr_TargetCode
+Dim queryWriteOffDetail, qCost_ActivityCr
+Dim rsRealPrice,realprice,realAmount
+dim AllQty, AllAmount
+
+Dim txdate
+
+'***** Added By Ukie at 25 feb 2014 *****'
+Dim oQuery : oQuery = 0
+Dim oRS : oRS = 0
+Dim SaldoOnStockLedger : SaldoOnStockLedger = 0
+Dim objectQuery : objectQuery = 0
+Dim objectRS : objectRS = 0
+Dim tempLineNokey : tempLineNokey = 0
+Dim SaldoOnIssue : SaldoOnIssue = 0
+'***** End Added By Ukie at 25 feb 2014 *****'
+
+'0.*** OPENINGBALANCE ***'
+   MSQL =  "MERGE INTO STOCKLEDGER x " &_
+			"USING ( " &_ 
+			"			 SELECT STORECODE,ITEMCODE,FCBA,(OPENINGBALANCEQTY+QTYRECEIVED+QTYRECEIVEDTASK+QTYWRITEOFF-QTYISSUED-QTYTRANSPORTTASK) QUANTITY, " & _ 
+			"            (OPENINGBALANCEAMT+AMTRECEIVED+AMTRECEIVEDTASK+ AMTWRITEOFF - AMTISSUED-AMTTRANSPORTTASK) AMOUNT,       "& _
+			"            '" & v_tahun & "' AS YEAR, '" & v_Bulan & "' AS MONTH " &  _
+			"            FROM STOCKLEDGER WHERE MONTH=" & BulanBfr &  _
+			" 			 and YEAR=" & TahunBfr & " and fcBA='" & Session("fcBA") & "'" &  _
+			") y " & _
+			"ON (x.STORECODE=y.STORECODE and x.ITEMCODE  = y.ITEMCODE and x.FCBA=y.FCBA and x.Month=y.Month and x.YEAR=y.YEAR ) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.OPENINGBALANCEQTY = y.QUANTITY, " &_
+			"			   x.OPENINGBALANCEAMT = y.AMOUNT " &_
+			"	WHERE x.OPENINGBALANCEQTY  <> y.QUANTITY OR " &_
+			"		  x.OPENINGBALANCEAMT <> y.AMOUNT " &_
+			"WHEN NOT MATCHED THEN " &_
+			"	Insert (STORECODE, ITEMCODE, YEAR, MONTH, OPENINGBALANCEQTY, OPENINGBALANCEAMT, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) " &_
+			"	VALUES(y.STORECODE, y.ITEMCODE, y.YEAR,y.MONTH,  y.QUANTITY, y.AMOUNT ,'SYSTEM','SYSTEM','1:::',y.fcba,SYSDATE,to_char(sysdate, 'HH24:MI'))"            
+	
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+Response.Write "<br><font color=Blue>" & "Set Opening Balance is completed..." & "</font>"  
+
+'1.*** RECEIVENOTE ***'
+    MSQL =  "MERGE INTO RECEIVENOTEDETAIL x " &_
+			"USING ( " &_ 
+			"			 SELECT RN.FCBA,RN.RECEIVENOTECODE ,RD.LOCATIONCODE,RD.PURCHASEITEMCODE, " & _
+			"            round(NVL((pod.quantity /rd.quantity) * pod.otherchargestock ,0),2) Othercharge " & _
+			"			 FROM RECEIVENOTE RN  " & _ 
+			"            INNER JOIN RECEIVENOTEDETAIL RD ON ( RN.RECEIVENOTECODE=RD.RECEIVENOTECODE AND RN.FCBA=RD.FCBA ) " & _
+			" 			 LEFT JOIN purchaseorder po ON (po.pocode = RN.pocode AND po.fcba = RN.fcba)" & _
+		    "            LEFT JOIN purchaseorderdetails pod ON (pod.pocode = po.pocode AND pod.fcba = po.fcba AND pod.linenokey = RD.purchaselinenokey)" & _
+			"			 WHERE " & _
+			"			 to_number(to_Char(RN.RNDATE,'mm'))= " & v_Bulan & _
+			"			 and to_number(to_Char(RN.RNDATE,'yyyy'))= " & v_tahun & _
+			"			 and rd.LOCATIONTYPE='" & "ST" & "'" & _
+			"			 and RN.fcBA='" & Session("fcBA") & "'" & _
+			"            AND pod.otherchargestock <> 0 " & _
+			"		) y " & _
+			"ON (x.RECEIVENOTECODE=y.RECEIVENOTECODE and x.LOCATIONCODE=y.LOCATIONCODE and x.PURCHASEITEMCODE  = y.PURCHASEITEMCODE and x.FCBA=y.FCBA ) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.othercharge = y.Othercharge " 
+			
+	
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+
+
+    MSQL =  "MERGE INTO STOCKLEDGER x " &_
+			"USING ( " &_ 
+			"        SELECT STORECODE,ITEMCODE,NYEAR,NMONTH,FCBA,SUM(QUANTITY) QUANTITY ,SUM(TotAmountReceived) AMOUNT FROM " & _ 
+			"          ( " & _ 
+			"			 SELECT RD.LOCATIONCODE AS STORECODE,RD.PURCHASEITEMCODE AS ITEMCODE,TO_CHAR(RN.RNDATE,'YYYY') AS NYEAR, " & _
+			"			 TO_CHAR(RN.RNDATE,'MM') AS NMONTH, " & _
+			"			 RN.FCBA, " & _
+			"            nvl(RD.QUANTITY,0) AS QUANTITY, " & _
+			"            nvl(RD.AMOUNTRECEIVED,0) + nvl(RD.othercharge,0) As TotAmountReceived " & _
+			"			 FROM RECEIVENOTE RN  " & _ 
+			"            INNER JOIN RECEIVENOTEDETAIL RD ON ( RN.RECEIVENOTECODE=RD.RECEIVENOTECODE AND RN.FCBA=RD.FCBA ) " & _
+			"			 WHERE " & _
+			"			 to_number(to_Char(RN.RNDATE,'mm'))= " & v_Bulan & _
+			"			 and to_number(to_Char(RN.RNDATE,'yyyy'))= " & v_tahun & _
+			"			 and rd.LOCATIONTYPE='" & "ST" & "'" & _
+			"			 and RN.fcBA='" & Session("fcBA") & "'" & _
+			"			) " & _
+			"			GROUP BY STORECODE,ITEMCODE,NYEAR,NMONTH,FCBA " & _ 
+			"		) y " & _
+			"ON (x.STORECODE=y.STORECODE and x.ITEMCODE  = y.ITEMCODE and x.FCBA=y.FCBA and x.Year=to_number(y.NYEAR) and x.Month=to_number(y.NMONTH)) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.QTYRECEIVED = y.QUANTITY, " &_
+			"			   x.AMTRECEIVED = y.AMOUNT " &_
+			"	WHERE x.QTYRECEIVED  <> y.QUANTITY OR " &_
+			"		   x.AMTRECEIVED <> y.AMOUNT " &_
+			"WHEN NOT MATCHED THEN " &_
+			"	Insert (STORECODE, ITEMCODE, YEAR, MONTH, QTYRECEIVED, AMTRECEIVED, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) " &_
+			"	VALUES(y.STORECODE, y.ITEMCODE, to_number(y.NYEAR), to_number(y.NMONTH),  y.QUANTITY, y.AMOUNT ,'SYSTEM','SYSTEM','1:::',y.fcba,SYSDATE,to_char(sysdate, 'HH24:MI'))"            
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+	
+	Response.Write "<br><font color=Blue>" & "Closing Recieve Note is completed..." & "</font>"
+	
+	
+'2.*** RECEIVEDTASK ***'	
+    MSQL =  "MERGE INTO STOCKLEDGER x " &_
+			"USING ( " & _ 
+			" SELECT RD.LOCATIONCODE AS STORECODE,RD.STOCKCODE AS ITEMCODE,TO_CHAR(RN.ORDERDATE,'YYYY') AS NYEAR," & _
+			" TO_CHAR(RN.ORDERDATE,'MM') AS NMONTH,nvl(SUM(RD.QUANTITYRECEIVED),0) AS QUANTITY,nvl(SUM(RD.AMOUNTRECEIVED),0) AS AMOUNT, RN.FCBA" & _
+			" FROM receivedtask_tab RN INNER JOIN receivedtaskdtl_tab RD ON (RN.orderno=RD.orderno AND RN.FCBA=RD.FCBA) " & _
+			" WHERE " & _
+			" to_number(to_Char(RN.ORDERDATE,'mm'))=" & v_Bulan &  _
+			" and to_number(to_Char(RN.ORDERDATE,'yyyy'))=" & v_tahun & _
+			" and rd.LOCATIONTYPE='ST'" & _
+			" and RN.fcBA='" & Session("fcBA") & "'" & _
+			" GROUP BY RD.LOCATIONCODE,RD.STOCKCODE,TO_CHAR(RN.ORDERDATE,'YYYY'),TO_CHAR(RN.ORDERDATE,'MM'),RN.FCBA" &  _	
+			" ) y " & _
+			"ON (x.STORECODE=y.STORECODE and x.ITEMCODE  = y.ITEMCODE and x.fcba=y.fcba and x.Year=to_number(y.NYEAR) and x.Month=to_number(y.NMONTH)) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.QTYRECEIVEDTASK = y.QUANTITY, " &_
+			"			   x.AMTRECEIVEDTASK = y.AMOUNT " &_
+			"	WHERE x.QTYRECEIVEDTASK  <> y.QUANTITY OR " &_
+			"		   x.AMTRECEIVEDTASK <> y.AMOUNT " &_
+			"WHEN NOT MATCHED THEN " &_
+			"	Insert (STORECODE, ITEMCODE, YEAR, MONTH, QTYRECEIVEDTASK, AMTRECEIVEDTASK, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) " &_
+			"	VALUES(y.STORECODE, y.ITEMCODE, to_number(y.NYEAR), to_number(y.NMONTH),  y.QUANTITY, y.AMOUNT ,'SYSTEM','SYSTEM','1:::',y.fcba,SYSDATE,to_char(sysdate, 'HH24:MI'))"            
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+	
+	Response.Write "<br><font color=Blue>" & "Closing Recieve Task is completed..." & "</font>"
+	
+	
+	' Add by Akbar 17 Sept 2016 to Update Transport Task
+'3.*** TRANSPORTTASK_TAB ***'	 
+    MSQL =  "MERGE INTO STOCKLEDGER x " &_
+			"USING ( " & _ 
+			"  SELECT TTD.STORECODE," & _
+			"          TTD.STOCKCODE AS ITEMCODE," & _
+			"          TO_CHAR (TRANSPORTTASK_API.GET_RCVDATE (TTD.FCBA, TTD.ORDERNO),  'YYYY') AS NYEAR," & _
+			"          TO_CHAR (TRANSPORTTASK_API.GET_RCVDATE (TTD.FCBA, TTD.ORDERNO), 'MM') AS NMONTH," & _
+			"          NVL (SUM (TTD.QUANTITYTRANSFERED), 0) AS QUANTITY," & _
+			"          NVL (ROUND(SUM (TTD.AMOUNT),2), 0) AS AMOUNT," & _
+			"          TT.FCBA " & _ 
+			"     FROM TRANSPORTTASKDTL_TAB TTD" & _
+			"     INNER JOIN TRANSPORTTASK_TAB TT ON (TT.ORDERNO = TTD.ORDERNO AND TT.FCBA = TTD.FCBA)" & _
+			"    WHERE    " & _
+			"          to_number(TO_CHAR (TRANSPORTTASK_API.GET_RCVDATE (TTD.FCBA, TTD.ORDERNO), 'MM'))=" & v_Bulan &  _
+			"          AND to_number(TO_CHAR (TRANSPORTTASK_API.GET_RCVDATE (TTD.FCBA, TTD.ORDERNO), 'YYYY'))=" & v_tahun & _
+			"          AND TTD.FCBA = '"& Session("fcBA") &"'" & _
+			"          AND TT.ROWSTATEID = 'Approved'" & _
+			" GROUP BY TTD.STORECODE," & _
+			"          TTD.STOCKCODE," & _
+			"          TO_CHAR (TRANSPORTTASK_API.GET_RCVDATE (TTD.FCBA, TTD.ORDERNO), 'YYYY')," & _
+			"          TO_CHAR (TRANSPORTTASK_API.GET_RCVDATE (TTD.FCBA, TTD.ORDERNO), 'MM'), TT.FCBA " &  _	
+			" ) y " & _
+			"ON (x.STORECODE=y.STORECODE and x.ITEMCODE  = y.ITEMCODE and x.fcba=y.fcba and x.Year=to_number(y.NYEAR) and x.Month=to_number(y.NMONTH)) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.QTYTRANSPORTTASK = y.QUANTITY, " &_
+			"			   x.AMTTRANSPORTTASK = y.AMOUNT " &_
+			"	WHERE x.QTYTRANSPORTTASK  <> y.QUANTITY OR " &_
+			"		   x.AMTTRANSPORTTASK <> y.AMOUNT " &_
+			"WHEN NOT MATCHED THEN " &_
+			"	Insert (STORECODE, ITEMCODE, YEAR, MONTH, QTYTRANSPORTTASK, AMTTRANSPORTTASK, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) " &_
+			"	VALUES(y.STORECODE, y.ITEMCODE, to_number(y.NYEAR), to_number(y.NMONTH),  y.QUANTITY, y.AMOUNT ,'SYSTEM','SYSTEM','1:::',y.fcba,SYSDATE,to_char(sysdate, 'HH24:MI'))"            
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+	
+	Response.Write "<br><font color=Blue>" & "Closing Transport Task is completed..." & "</font>"
+	
+'4.*** ISSUE ***'	
+
+    MSQL =  "MERGE INTO STOCKLEDGER x " &_
+			"USING ( " & _ 
+			"	SELECT ISU.STORECODE AS STORECODE,ID.STOCKCODE AS ITEMCODE,TO_CHAR(ISU.SIVDATE,'YYYY') AS NYEAR," & _
+			" 	TO_CHAR(ISU.SIVDATE,'MM') AS NMONTH,nvl(SUM(ID.QUANTITY),0) AS QUANTITY,nvl(SUM(ID.AMOUNT),0) AS AMOUNT,ISU.fcBA" & _
+			" 	FROM ISSUE ISU INNER JOIN ISSUEDETAILS ID ON (ISU.SIVCODE=ID.SIVCODE AND ISU.FCBA=ID.FCBA)  " & _
+			" 	WHERE " & _
+			" 	to_number(to_Char(ISU.SIVDATE,'mm'))=" & v_Bulan &  _
+			" 	and to_number(to_Char(ISU.SIVDATE,'yyyy'))=" & v_tahun & _ 
+			"   and ISU.fcBA='" & Session("fcBA") & "'" & _
+			" 	GROUP BY ISU.STORECODE,ID.STOCKCODE,TO_CHAR(ISU.SIVDATE,'YYYY'),TO_CHAR(ISU.SIVDATE,'MM'),ISU.fcBA " &  _
+			" ) y " & _
+			"ON (x.STORECODE=y.STORECODE and x.ITEMCODE  = y.ITEMCODE and x.fcba=y.fcba and x.Year=to_number(y.NYEAR) and x.Month=to_number(y.NMONTH)) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.QTYISSUED = y.QUANTITY, " &_
+			"			   x.AMTISSUED = y.AMOUNT " &_
+			"	WHERE x.QTYISSUED  <> y.QUANTITY OR " &_
+			"		   x.AMTISSUED <> y.AMOUNT " &_
+			"WHEN NOT MATCHED THEN " &_
+			"	Insert (STORECODE, ITEMCODE, YEAR, MONTH, QTYISSUED, AMTISSUED, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) " &_
+			"	VALUES(y.STORECODE, y.ITEMCODE, to_number(y.NYEAR), to_number(y.NMONTH),  y.QUANTITY, y.AMOUNT ,'SYSTEM','SYSTEM','1:::',y.fcba,SYSDATE,to_char(sysdate, 'HH24:MI'))"            
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+	
+	Response.Write "<br><font color=Blue>" & "Closing Issue is completed..." & "</font>"
+
+
+'5.*** WRITEOFF ***'
+	MSQL =  "MERGE INTO STOCKLEDGER x " &_
+			"USING ( " & _ 
+			" 	SELECT WF.STORECODE AS STORECODE,WD.STOCKCODE AS ITEMCODE,TO_CHAR(WF.WODATE,'YYYY') AS NYEAR," & _
+			" 	TO_CHAR(WF.WODATE,'MM') AS NMONTH,nvl(SUM(WD.QUANTITY),0) AS QUANTITY,nvl(SUM(WD.AMOUNT),0) AS AMOUNT, WF.fcBA " & _
+			" 	FROM WRITEOFF WF INNER JOIN WRITEOFFDETAILS WD ON (WF.WRITEOFFCODE=WD.WRITEOFFCODE AND WF.FCBA=WD.FCBA)   " & _
+			" 	WHERE " & _
+			" 	to_number(to_Char(WF.WODATE,'mm'))=" & v_Bulan &  _
+			" 	and to_number(to_Char(WF.WODATE,'yyyy'))=" & v_tahun & _ 
+			" 	and WF.fcBA='" & Session("fcBA") & "'" & _
+			" 	GROUP BY WF.STORECODE,WD.STOCKCODE,TO_CHAR(WF.WODATE,'YYYY'),TO_CHAR(WF.WODATE,'MM'), WF.fcBA" &  _
+			" ) y " & _
+			"ON (x.STORECODE=y.STORECODE and x.ITEMCODE  = y.ITEMCODE and x.fcba=y.fcba and x.Year=to_number(y.NYEAR) and x.Month=to_number(y.NMONTH)) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.QTYWRITEOFF = y.QUANTITY, " &_
+			"			   x.AMTWRITEOFF = y.AMOUNT " &_
+			"	WHERE x.QTYWRITEOFF  <> y.QUANTITY OR " &_
+			"		   x.AMTWRITEOFF <> y.AMOUNT " &_
+			"WHEN NOT MATCHED THEN " &_
+			"	Insert (STORECODE, ITEMCODE, YEAR, MONTH, QTYWRITEOFF, AMTWRITEOFF, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) " &_
+			"	VALUES(y.STORECODE, y.ITEMCODE, to_number(y.NYEAR), to_number(y.NMONTH),  y.QUANTITY, y.AMOUNT ,'SYSTEM','SYSTEM','1:::',y.fcba,SYSDATE,to_char(sysdate, 'HH24:MI'))"            
+	
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+	Response.Write "<br><font color=Blue>" & "Closing Write Off is completed..." & "</font>"
+
+
+	'Update Amt Issue di Tabel Stock Ledger
+	MSQL =  "MERGE INTO STOCKLEDGER x " &_
+			"USING ( " & _ 
+			"	SELECT STORECODE, ITEMCODE, YEAR, MONTH,FCBA, " & _ 
+			"	(OPENINGBALANCEAMT+AMTRECEIVED+AMTWRITEOFF+AMTRECEIVEDTASK-AMTTRANSPORTTASK) AS nRp, " & _ 
+			"	(OPENINGBALANCEQTY+QTYRECEIVED+QTYWRITEOFF+QTYRECEIVEDTASK-QTYTRANSPORTTASK) AS nQty, QTYISSUED ," & _ 
+			"	DECODE((OPENINGBALANCEQTY+QTYRECEIVED+QTYWRITEOFF+QTYRECEIVEDTASK-QTYTRANSPORTTASK),0,(OPENINGBALANCEAMT+AMTRECEIVED+AMTWRITEOFF+AMTRECEIVEDTASK-AMTTRANSPORTTASK),round((OPENINGBALANCEAMT+AMTRECEIVED+AMTWRITEOFF+AMTRECEIVEDTASK-AMTTRANSPORTTASK) / (OPENINGBALANCEQTY+QTYRECEIVED+QTYWRITEOFF+QTYRECEIVEDTASK-QTYTRANSPORTTASK),2)) AS nPrice " & _ 
+			"	FROM STOCKLEDGER WHERE MONTH=" & v_Bulan &  _
+			" 	and YEAR=" & v_tahun & " and fcBA='" & Session("fcBA") & "'" &  _
+			" ) y " & _
+			"ON (x.STORECODE=y.STORECODE and x.ITEMCODE  = y.ITEMCODE and x.fcba=y.fcba and x.Year=y.year and x.Month=y.month) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.AMTISSUED = y.QTYISSUED * y.nPrice, " &_
+			"			   x.AMTPERUNIT = y.nPrice " 
+			
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+	'Update Amt Issue di Tabel Stock Issue
+	MSQL =  "MERGE INTO ISSUEDETAILS x " &_
+			"USING ( " & _ 
+			"	SELECT STORECODE, ITEMCODE, YEAR, MONTH,FCBA, " & _ 
+			"	nvl(AMTPERUNIT,0) as AMTPERUNIT " & _ 
+			"	FROM STOCKLEDGER WHERE MONTH=" & v_Bulan &  _
+			" 	and YEAR=" & v_tahun & " and fcBA='" & Session("fcBA") & "'" &  _
+			" ) y " & _
+			"ON (x.STOCKCODE  = y.ITEMCODE and x.fcba=y.fcba and " & _
+			"    x.SIVCODE in (SELECT SIVCODE FROM ISSUE WHERE fcba='" & Session("fcBA") & "'" &  _
+			"        AND to_number(to_Char(SIVDATE,'mm')) = " & v_Bulan & _
+			"        and to_number(to_Char(SIVDATE,'yyyy')) = " & v_tahun & _
+			"    )) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.AMOUNT = x.QUANTITY * y.AMTPERUNIT " 
+			
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+		'Update Nilai Amount di IssueDetails
+		' MSQL =	" SELECT id.LineNoKey" & _
+		        ' "        , isu.SIVCODE" & _
+		        ' "        , ISU.STORECODE AS STORECODE" & _
+		        ' "        , ID.STOCKCODE AS ITEMCODE" & _
+		        ' "        , ID.JOBCODE" & _
+		        ' "        , LOCATIONCODE" & _
+		        ' "        , LOCATIONTYPE" & _
+		        ' "        , ISU.SIVDATE" & _
+		        ' "        , TO_NUMBER(TO_CHAR(ISU.SIVDATE,'YYYY')) AS NYEAR" & _
+		        ' "        , TO_NUMBER(TO_CHAR(ISU.SIVDATE,'MM')) AS NMONTH" & _
+		        ' "        , nvl(SUM(ID.QUANTITY),0) AS QUANTITY" & _
+				' " FROM ISSUE ISU" & _
+		        ' "      , ISSUEDETAILS ID" & _
+		        ' " WHERE (ISU.SIVCODE = ID.SIVCODE AND ISU.FCBA = ID.FCBA)" & _
+		        ' "        AND to_number(to_Char(ISU.SIVDATE,'mm')) = " & v_Bulan & _
+				' "        and to_number(to_Char(ISU.SIVDATE,'yyyy')) = " & v_tahun & _
+				' "        and ISU.fcBA = '" & Session("fcBA") & "'" & _
+				' " GROUP BY id.LineNoKey" & _
+		        ' "          , isu.SIVCODE" & _
+		        ' "          , ISU.STORECODE" & _
+		        ' "          , ID.STOCKCODE" & _
+		        ' "          , ID.JOBCODE" & _
+		        ' "          , LOCATIONCODE" & _
+		        ' "          , LOCATIONTYPE" & _
+		        ' "          , ISU.SIVDATE" & _
+		        ' "          , TO_CHAR(ISU.SIVDATE,'YYYY')" & _
+		        ' "          , TO_CHAR(ISU.SIVDATE,'MM')"
+		' 'RESPONSE.Write(MSQL)
+		' 'RESPONSE.Flush()
+		' Set rsIssue = Server.CreateObject("ADODB.Recordset")
+		' rsIssue.CursorType = 3
+		' rsIssue.CursorLocation = 3
+		' rsIssue.Open MSQL, connstr
+		' 'JIKA DATA BELUM ADA		
+		' if not rsIssue.eof then
+			' Do While Not rsIssue.eof
+				' 'RESPONSE.Write("A")
+				' q="SELECT nvl(sum(AMTPERUNIT),0) as AMTPERUNIT  FROM STOCKLEDGER WHERE STORECODE='"  &  rsIssue("STORECODE") & "' AND ITEMCODE='"  &  rsIssue("ITEMCODE") & "' AND YEAR="  &  _
+				  ' rsIssue("NYEAR") & " AND MONTH="  &  rsIssue("NMONTH") & " AND FCBA= '" & Session("fcBA") & "'"
+				' 'response.Write(q)		
+				' 'response.Flush()
+				' Set rsCARII = Server.CreateObject("ADODB.Recordset")
+				' rsCARII.CursorType = 3
+				' rsCARII.CursorLocation = 3
+				' rsCARII.Open q, connstr	 
+				' nAmountIssue=0
+				' if Not rsCARII.eof Then
+					' nAmountIssue = Round(cdbl(rsCARII("AMTPERUNIT"))*cdbl(rsIssue("QUANTITY")), 2)
+					' q	=	" Update ISSUEDETAILS" & _
+							' " set AMOUNT = " & nAmountIssue & _
+							' "     , LASTUPDATE = sysdate" & _
+							' "     , LASTTIME = to_char(SYSDATE,'HH24:MI')" & _
+							' " where LINENOKEY = " & rsIssue("LINENOKEY") & "" & _
+							' "       and SIVCODE = '" & rsIssue("SIVCODE") & "'" & _
+							' "       and STOCKCODE = '"  &  rsIssue("ITEMCODE") & "'" & _
+							' "       AND LOCATIONTYPE = '"  &  rsIssue("LOCATIONTYPE") & "'" & _
+							' "       AND JOBCODE = '"& rsIssue("JOBCODE") & "'" & _
+							' "       AND LOCATIONCODE = '"&  rsISsue("LOCATIONCODE") & "'" & _
+							' "       and fcba = '" & Session("fcBA") & "'" & _
+							' "       and SIVCODE in (Select SIVCODE FROM ISSUE WHERE SIVDATE = to_date('" & rsIssue("SIVDATE") & "','mm/dd/yyyy')" & _
+							' "           and SIVCODE = '" & rsIssue("SIVCODE") & "' and STORECODE = '" & rsIssue("STORECODE") & "')"
+					' 'response.Write(q)
+					' 'response.Flush()
+					' connStr.execute(q)
+					' connStr.execute("commit")
+				' End if
+				' rsCARII.Close
+				' set rsCARII=nothing
+				' rsIssue.MOVENEXT
+			' loop
+			' rsIssue.close
+			' set rsIssue=Nothing
+		' End if
+		
+		
+		'***** Added By Ukie at 25 feb 2014 *****'
+		' oQuery = 	" select storecode" & _
+					' "        , itemcode" & _
+					' "        , year" & _
+					' "        , month" & _
+					' "        , nvl(sum(openingbalanceqty), 0) openingbalanceqty" & _
+					' "        , nvl(sum(qtyreceived), 0) qtyreceived" & _
+					' "        , nvl(sum(qtywriteoff), 0) qtywriteoff" & _
+					' "        , nvl(sum(qtyissued)*-1, 0) qtyissued" & _
+					' "        , nvl(sum(openingbalanceqty), 0) + nvl(sum(qtyreceivedtask), 0)  + nvl(sum(qtyreceived), 0) + nvl(sum(qtywriteoff), 0) + nvl(sum(qtytransporttask)*-1, 0) + nvl(sum(qtyissued)*-1, 0) qtysaldo" & _
+					' "        , nvl(sum(amtissued), 0) amtissue" & _
+					' "        , nvl(sum(openingbalanceamt), 0) + nvl(sum(amtreceivedtask), 0) + nvl(sum(amtreceived), 0) + nvl(sum(amtwriteoff), 0) + nvl(sum(amttransporttask)*-1, 0) + nvl(sum(amtissued)*-1, 0) amtsaldo" & _
+					' " from stockledger" & _
+					' " where fcba = '" & Session("fcBA") & "'" & _
+					' "       and year = " & v_tahun & "" & _
+					' "       and month = " & v_Bulan & "" & _
+					' " group by storecode" & _
+					' "          , itemcode" & _
+					' "          , year" & _
+					' "          , month" & _
+					' " "
+					
+		' Set oRS = Server.CreateObject("ADODB.Recordset")
+		' oRS.Open oQuery, connstr
+		
+		' If Not oRS.EOF Then
+			' Do While Not oRS.EOF
+				' SaldoOnStockLedger = Cdbl(oRS("amtissue"))
+				' objectQuery =	" select nvl(max(linenokey), 0.000000001) linenokey, nvl(sum(amount), 0) amtissue" & _
+								' " from issue iss" & _
+								' "      , issuedetails isd" & _
+								' " where iss.fcba = isd.fcba" & _
+								' "       and iss.sivcode = isd.sivcode" & _
+								' "       and isd.fcba = '" & Session("fcBA") & "'" & _
+								' "       and to_number(to_char(sivdate, 'yyyy')) = " & Cdbl(oRS("year")) & "" & _
+								' "       and to_number(to_char(sivdate, 'mm')) = " & Cdbl(oRS("month")) & "" & _
+								' "       and stockcode = '" & oRS("itemcode") & "'" & _
+								' "       and storecode = '" & oRS("storecode") & "'"
+								
+				' Set objectRS = Server.CreateObject("ADODB.Recordset")
+				' objectRS.Open objectQuery, connstr
+				
+				' 'response.write objectQuery
+				
+				' If Not objectRS.EOF Then
+					' tempLineNokey = Cdbl(objectRS("linenokey"))
+					' SaldoOnIssue = Cdbl(objectRS("amtissue"))
+				' Else
+					' tempLineNokey = 0.000000001
+					' SaldoOnIssue = 0
+				' End If
+				' objectRS.Close
+				' set objectRS = nothing
+				
+				' If (SaldoOnStockLedger - SaldoOnIssue) <> 0 Then
+					' objectQuery =	" select id.linenokey" & _
+									' "        , isu.sivcode" & _
+									' "        , isu.storecode as storecode" & _
+									' "        , id.stockcode as itemcode" & _
+									' "        , id.jobcode" & _
+									' "        , locationcode" & _
+									' "        , locationtype" & _
+									' "        , isu.sivdate" & _
+									' "        , to_number(to_char(isu.sivdate,'yyyy')) as nyear" & _
+									' "        , to_number(to_char(isu.sivdate,'mm')) as nmonth" & _
+									' "        , nvl(sum(id.quantity),0) as quantity" & _
+									' " from issue isu" & _
+									' "      , issuedetails id" & _
+									' " where (isu.sivcode = id.sivcode and isu.fcba = id.fcba)" & _
+									' "        and to_number(to_char(isu.sivdate,'mm')) = " & v_Bulan & _
+									' "        and to_number(to_char(isu.sivdate,'yyyy')) = " & v_tahun & _
+									' "        and isu.fcba = '" & Session("fcBA") & "'" & _
+									' "        and id.linenokey = " & tempLineNokey & "" & _
+									' " group by id.linenokey" & _
+									' "          , isu.sivcode" & _
+									' "          , isu.storecode" & _
+									' "          , id.stockcode" & _
+									' "          , id.jobcode" & _
+									' "          , locationcode" & _
+									' "          , locationtype" & _
+									' "          , isu.sivdate" & _
+									' "          , to_char(isu.sivdate,'yyyy')" & _
+									' "          , to_char(isu.sivdate,'mm')"
+									
+					' Set objectRS = Server.CreateObject("ADODB.Recordset")
+					' objectRS.Open objectQuery, connstr
+					
+					' If Not objectRS.EOF Then
+						' Do While Not objectRS.EOF						
+							' q	=	" update issuedetails" & _
+									' " set amount = amount + " & SaldoOnStockLedger - SaldoOnIssue & _
+									' "     , lastupdate = sysdate" & _
+									' "     , lasttime = to_char(sysdate,'hh24:mi')" & _
+									' " where linenokey = " & objectrs("linenokey") & "" & _
+									' "       and sivcode = '" & objectrs("sivcode") & "'" & _
+									' "       and stockcode = '"  &  objectrs("itemcode") & "'" & _
+									' "       and locationtype = '"  &  objectrs("locationtype") & "'" & _
+									' "       and jobcode = '"& objectrs("jobcode") & "'" & _
+									' "       and locationcode = '"&  objectrs("locationcode") & "'" & _
+									' "       and fcba = '" & session("fcBA") & "'" & _
+									' "       and sivcode in (select sivcode from issue where sivdate = to_date('" & objectrs("sivdate") & "','mm/dd/yyyy')" & _
+									' "           and sivcode = '" & objectrs("sivcode") & "' and storecode = '" & objectrs("storecode") & "')"
+
+							' connStr.execute(q)
+						' objectRS.MoveNext
+						' Loop
+					' End If
+					' objectRS.Close
+					' set objectRS = nothing
+				' End If		
+				' oRS.MoveNext
+			' Loop
+		' End If
+		' oRS.Close
+		' set oRS = nothing
+		'***** End Added By Ukie at 25 feb 2014 *****'
+		
+		
+		Response.Write "<br><font color=Blue>" & "Update Amount at Issue Details is completed..." & "</font>"
+		
+	'Update Amt transport task, Issue di Tabel Stock Ledger
+	MSQL =  "MERGE INTO TRANSPORTTASKDTL_TAB x " &_
+			"USING ( " & _ 
+			"	SELECT STORECODE, ITEMCODE, YEAR, MONTH,FCBA, AMTPERUNIT " & _ 
+			"	FROM STOCKLEDGER WHERE MONTH=" & v_Bulan &  _
+			" 	and YEAR=" & v_tahun & " and fcBA='" & Session("fcBA") & "'"  & _ 
+			" ) y " & _
+			"ON (x.STORECODE=y.STORECODE and x.STOCKCODE  = y.ITEMCODE and x.fcba=y.fcba " & _ 
+			" AND to_number(TO_CHAR (TRANSPORTTASK_API.GET_RCVDATE (x.FCBA, x.ORDERNO), 'MM'))= y.MONTH " &  _
+			" AND to_number(TO_CHAR (TRANSPORTTASK_API.GET_RCVDATE (x.FCBA, x.ORDERNO), 'YYYY'))= y.year ) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.AMOUNT = x.QUANTITYRECEIVED * y.AMTPERUNIT, " &_
+			"			   x.PRICE  = y.AMTPERUNIT " 
+			
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+	
+	Response.Write "<br><font color=Blue>" & "Update Amount at Transport Task Details is completed..." & "</font>"
+		
+	'Update Amt receivedtaskdtl 
+	MSQL =  "MERGE INTO receivedtaskdtl_tab x " &_
+			"USING ( " & _ 
+			"	SELECT STORECODE, ITEMCODE, YEAR, MONTH,FCBA, AMTPERUNIT " & _ 
+			"	FROM STOCKLEDGER WHERE MONTH=" & v_Bulan &  _
+			" 	and YEAR=" & v_tahun & " and fcBA='" & Session("fcBA") & "'"  & _ 
+			" ) y " & _
+			"ON (x.LOCATIONCODE=y.STORECODE and x.STOCKCODE= y.ITEMCODE and x.fcba=y.fcba " & _ 
+			" AND to_number(TO_CHAR (RECEIVEDTASK_API.GET_RCVDATE (x.FCBA, x.ORDERNO), 'MM'))= y.MONTH " &  _
+			" AND to_number(TO_CHAR (RECEIVEDTASK_API.GET_RCVDATE (x.FCBA, x.ORDERNO), 'YYYY'))= y.year ) " & _
+			"WHEN MATCHED THEN " &_
+			"	UPDATE SET x.AMOUNTRECEIVED = x.QUANTITYRECEIVED * y.AMTPERUNIT, " &_
+			"			   x.PRICERECEIVED  = y.AMTPERUNIT " 
+			
+	connStr.execute(MSQL)
+	connStr.execute("commit")
+	
+	
+		Response.Write "<br><font color=Blue>" & "Update Amount at Transport Task Details is completed..." & "</font>"
+		
+		' 'Insert Saldo Awal Bulan Depan
+			' Dim rsSaldoawal,QtySaldoawal,Bulan,Tahun,RpSaldoawal,rsCARISaldo
+			' q= " SELECT STORECODE, ITEMCODE, YEAR, MONTH, OPENINGBALANCEQTY, OPENINGBALANCEAMT, QTYRECEIVED, AMTRECEIVED, QTYRETURNED, AMTRETURNED, " & _
+			   ' " QTYWRITEOFF, AMTWRITEOFF, QTYTRANSFERED, AMTTRANSFERED, QTYISSUED, AMTISSUED,QTYRECEIVEDTASK, AMTRECEIVEDTASK, QTYTRANSPORTTASK, AMTTRANSPORTTASK   " & _ 
+			   ' " FROM STOCKLEDGER Where MONTH=" & v_Bulan &  _
+			   ' " AND YEAR=" & v_tahun & " AND FCBA='" & Session("fcBA") & "'"
+				' Set rsSaldoawal = Server.CreateObject("ADODB.Recordset")
+				' rsSaldoawal.CursorType = 3
+				' rsSaldoawal.CursorLocation = 3
+				' rsSaldoawal.Open q, connstr
+
+			' Do While Not rsSaldoawal.eof 
+				' Bulan =v_Bulan
+				' Tahun =v_tahun
+
+				' if bulan = 12 then
+					' tahun=tahun + 1
+					' bulan= 1
+				' else
+					' tahun=tahun
+					' bulan= bulan + 1
+				' end if
+
+				' ' Remarked by NAF to handle the Amount Write OFF as it is., 
+				' ' RpSaldoawal=cdbl(rsSaldoawal("OPENINGBALANCEAMT"))+cdbl(rsSaldoawal("AMTRECEIVED"))-cdbl(rsSaldoawal("AMTISSUED"))-cdbl(rsSaldoawal("AMTWRITEOFF"))
+				' ' QtySaldoawal=cdbl(rsSaldoawal("OPENINGBALANCEQTY"))+cdbl(rsSaldoawal("QTYRECEIVED"))-cdbl(rsSaldoawal("QTYISSUED"))-cdbl(rsSaldoawal("QTYWRITEOFF"))
+				' ' if user input negative then it will be negative, and if user input positif then it will be positif
+				' ' by NAF, 23 January 2014
+				
+
+				' RpSaldoawal= (cdbl(rsSaldoawal("OPENINGBALANCEAMT"))+cdbl(rsSaldoawal("AMTRECEIVED"))+cdbl(rsSaldoawal("AMTRECEIVEDTASK"))+cdbl(rsSaldoawal("AMTWRITEOFF"))) - (cdbl(rsSaldoawal("AMTISSUED"))+cdbl(rsSaldoawal("AMTTRANSPORTTASK")))
+				' QtySaldoawal=(cdbl(rsSaldoawal("OPENINGBALANCEQTY"))+cdbl(rsSaldoawal("QTYRECEIVED"))+ cdbl(rsSaldoawal("QTYRECEIVEDTASK"))+cdbl(rsSaldoawal("QTYWRITEOFF")))- (cdbl(rsSaldoawal("QTYISSUED"))+cdbl(rsSaldoawal("QTYTRANSPORTTASK")))
+
+
+				' q="SELECT STORECODE FROM STOCKLEDGER WHERE STORECODE='"  &  rsSaldoawal("STORECODE") & "' AND ITEMCODE='"  &  rsSaldoawal("ITEMCODE") & _
+				  ' "' AND YEAR="  &  tahun & " AND MONTH="  &  bulan & " AND FCBA= '" & Session("fcBA") & "'"
+				' Set rsCARISaldo = Server.CreateObject("ADODB.Recordset")
+				' rsCARISaldo.CursorType = 3
+				' rsCARISaldo.CursorLocation = 3
+				' rsCARISaldo.Open q, connstr	 
+				' if rsCARISaldo.eof Then			
+					' q="Insert into STOCKLEDGER (STORECODE, ITEMCODE, YEAR, MONTH, OPENINGBALANCEQTY, OPENINGBALANCEAMT, FCENTRY, FCEDIT, FCIP, FCBA, LASTUPDATE, LASTTIME) " & _
+					' "values ('"  &  rsSaldoawal("STORECODE") & "','"  &  rsSaldoawal("ITEMCODE") & "',"  & tahun & _
+					' ","  &  bulan & ","  &  QtySaldoawal & ","  &  RpSaldoawal & _
+					' ",'" & Session("CodeName") & "','" & Session("CodeName") & "','" & _
+					' Request.ServerVariables("REMOTE_ADDR") &"','" & Session("fcBA") & "', sysdate, to_char(sysdate, 'HH24:MI'))"
+					' connStr.execute(q)
+				' else
+				   ' q="Update STOCKLEDGER set OPENINGBALANCEQTY =" & QtySaldoawal & ",OPENINGBALANCEAMT=" & RpSaldoawal & "" & _
+					 ' ", LASTUPDATE = sysdate, LASTTIME = to_char(SYSDATE,'HH24:MI') " & _					   
+					' " where  STORECODE='"  &  rsSaldoawal("STORECODE") & "' AND ITEMCODE='"  &  rsSaldoawal("ITEMCODE") & "' AND YEAR="  &  _
+					' tahun & " AND MONTH="  &  bulan & " AND FCBA= '" & Session("fcBA") & "'"
+					' connStr.execute(q)
+					' connStr.execute("commit")
+				' End if
+				' rsSaldoawal.MOVENEXT
+			' loop
+			' ' rsCARISaldo.close
+			' ' set rsCARISaldo	=nothing
+			' rsSaldoawal.Close
+			' set rsSaldoawal=nothing
+		
+			'----- Tranfer to Activity Costing
+			Response.Flush()
+			
+			
+	
+
+	TimeAkhir=Time()
+	Lama =TimeAkhir-TimeAwal	
+	%>
+
+	<%if err.number <> 0 then%>
+		<br><img src="images/error.gif"><%
+		'connStr.RollbackTrans
+		response.Write  "<font color=#FF0000 pointsize=9 face=Arial, Helvetica, sans-serif>" & err.description & "</font>"
+		cmdView	= "True"%>
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>	
+	<%Else
+	   ' connStr.CommitTrans
+		response.Clear()
+		TimeAkhir=Time()
+		Lama =TimeAkhir-TimeAwal
+		Response.Write "<br><br>" & "Finish ... " & time() & "<br><br>"
+		Response.Write " Time Elapsed " & Hour(Lama) & " Hours " & Minute(Lama) & " Minutes " &  Second(Lama) & " Seconds."
+
+		'--Added by Ukie at 25-Oct-2012--	
+		Endingtime = FormatDateTime(CDate(Now))
+
+		'qLineMax = "select nvl(max(lineno),0) tempMaxLine from CLOSINGLOG where fcba = '" & session("fcBA") & "' AND SYSTEM = 'Store'" 
+								
+		'set rsqLineMax = Server.CreateObject("ADODB.Recordset")
+		'rsqLineMax.Open qLineMax, connstr
+		'if not rsqLineMax.eof then
+		'	tempMaxLine = cdbl(rsqLineMax("tempMaxLine"))
+		'else
+		'	tempMaxLine = 0
+		'end if 
+
+		'tempMaxLine = tempMaxLine + 1
+
+		'strClosingLog = " INSERT INTO CLOSINGLOG(SYSTEM, FCBA, STARTINGTIME, ENDINGTIME, LINENO, LASTUPDATE, LASTTIME) VALUES (" & _
+		'				" 'Store', " & _
+		'				" '" & Session("fcBA") & "'," & _
+		'				" TO_DATE('" & Startingtime & "', 'mm/dd/yyyy hh:mi:ssam')," & _
+		'				" TO_DATE('" & Endingtime & "', 'mm/dd/yyyy hh:mi:ssam')," & _
+		'				" " & tempMaxLine & _
+		'				" , SYSDATE, to_char(SYSDATE,'HH24:MI') " & _
+		'				" )"
+		'connStr.execute(strClosingLog)
+
+		'strLenghtime = 	" SELECT" & _
+		'				" FCBA," & _
+		'				" LINENO," & _
+		'				" SYSTEM," & _
+		'				" TO_CHAR(STARTINGTIME, 'DD.MM.YYYY:HH24:MI:SS') STARTINGTIME," & _
+		'				" TO_CHAR(ENDINGTIME, 'DD.MM.YYYY:HH24:MI:SS') ENDINGTIME," & _
+		'				" TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24) DAYS," & _
+		'				" TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)-24*(TRUNC((((86400*(ENDINGTIME-STARTINGTIME))/60)/60)/24)) HRS," & _
+		'				" TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)-60*(TRUNC(((86400*(ENDINGTIME-STARTINGTIME))/60)/60)) MIN," & _
+		'				" TRUNC(86400*(ENDINGTIME-STARTINGTIME))-60*(TRUNC((86400*(ENDINGTIME-STARTINGTIME))/60)) SEC" & _
+		'				" FROM CLOSINGLOG" & _
+		'				" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'Store'"
+				
+		'Set rsLenghtime = Server.CreateObject("ADODB.Recordset")
+		'rsLenghtime.CursorType = 3
+		'rsLenghtime.CursorLocation = 3
+		'rsLenghtime.Open strLenghtime, connstr
+
+		'upClosingLog = " UPDATE CLOSINGLOG SET" & _
+		'				" LENGTHTIME = '" & rsLenghtime(5) & " Days " & rsLenghtime(6) & " Hours " & rsLenghtime(7) & " Minutes " & rsLenghtime(8) & " Seconds " & "'" & _
+		'				", LASTUPDATE = Sysdate, LastTime = To_Char(Sysdate, 'HH24:MI') " & _
+		'				" WHERE FCBA = '" & Session("fcBA") & "' AND LINENO = " & tempMaxLine & " AND SYSTEM = 'Store'"		
+		'connStr.execute(upClosingLog)
+		'--End Added--
+		
+		%>
+		<br>
+		<img src="images/ok.gif"><font color=Blue pointsize=9 face=Verdana>Process Inventory is succesfully...
+		<script language="JavaScript" type="text/javascript" >
+		document.getElementById('status_running').style.visibility = 'hidden';
+		</script>
+		
+				
+		
+		
+	<%End if%>
+
+
+</body>
+</html>

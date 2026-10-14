@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pengembangan Sistem ERP Baru</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --earth-dark: #2f3e34;
+        --earth-primary: #4a6b57;
+        --earth-light: #f4f1ec;
+        --earth-muted: #6a7a6f;
+      }
+
+      body {
+        background-color: var(--earth-light);
+        color: var(--earth-dark);
+      }
+
+      .page-wrapper {
+        max-width: 900px;
+      }
+
+      .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      .profile-img {
+        width: 96px;
+        height: 96px;
+        /*object-fit: cover;*/
+        /*border-radius: 50%;*/
+        /*border: 3px solid var(--earth-muted);*/
+      }
+
+      .btn-earth {
+        background-color: var(--earth-primary);
+        color: #fff;
+      }
+
+      .btn-earth:hover {
+        background-color: #3e5c4b;
+        color: #fff;
+      }
+
+      .qr-box {
+        border: 2px dashed var(--earth-muted);
+        border-radius: 12px;
+        padding: 24px;
+        background: #fff;
+      }
+
+      .qr-box img {
+        max-width: 180px;
+      }
+
+      .muted-text {
+        color: var(--earth-muted);
+      }
+
+      .back-link {
+        text-decoration: none;
+        color: var(--earth-primary);
+        font-weight: 500;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-5 page-wrapper">
+      <!-- Back button -->
+      <div class="mb-4">
+        <a href="http://firstborneo.com/login.asp" class="back-link"> ← Kembali ke ePlaS/FB-Plants </a>
+      </div>
+      <!-- Heading -->
+      <h1 class="mb-3">Pengembangan Sistem ERP Baru</h1>
+      <!-- Description -->
+      <div class="row g-4">
+        <div class="mb-5">
+          <img src="./login.png?v=2" class="img-fluid rounded" alt="Login page of new ERP system">
+          <p class="muted-text text-end">
+            <em>
+              <small>*Fitur dan desain dapat berubah.</small>
+            </em>
+          </p>
+        </div>
+      </div>
+      <p class="mb-5 muted-text"> Saat ini <strong>First Borneo Group</strong> sedang melakukan pengembangan sistem ERP baru secara bertahap. Sistem ini dirancang untuk meningkatkan keandalan, konsistensi data, serta kemudahan penggunaan dalam mendukung proses kerja sehari-hari. <br>
+        <br> Halaman ini disediakan sebagai sarana komunikasi antara tim pengembang dan pengguna. Masukan, saran, maupun kendala yang Anda alami sangat membantu kami dalam menyempurnakan sistem ERP yang sedang dan akan dikembangkan.
+      </p>
+      <div class="row g-4">
+        <!-- QR Survey Box -->
+        <div class="col-md-6">
+          <div class="qr-box text-center h-100 d-flex flex-column justify-content-center">
+            <p class="mb-3"> Mohon isi survey mengenai <strong>ePlaS/FB-Plants</strong> melalui link di bawah ini. <br>
+              <br> Partisipasi Anda sangat penting sebagai bahan evaluasi dan perbaikan pada sistem ERP yang baru.
+            </p>
+            <img src="./qr-survey-fb-plants.jpg" alt="QR Code Survei ERP" class="mx-auto mb-3" />
+            <a href="https://forms.gle/WADRMNiekUJeWGK58" target="_blank" class="text-decoration-none fw-semibold" style="color: var(--earth-primary);">Buka Survei ePlaS/FB-Plants</a>
+          </div>
+        </div>
+        <!-- Contact Card -->
+        <div class="col-md-6">
+          <div class="card p-4 h-100">
+            <div class="d-flex align-items-center mb-3">
+              <img src="./logo.jpg" alt="Kontak Tim Pengembang" class="profile-img me-3" />
+              <div>
+                <h5 class="mb-1">Digital Transformation (DX) Task Force</h5>
+                <small class="muted-text">Pengembangan Sistem ERP</small>
+              </div>
+            </div>
+            <p class="mb-3"> Apabila Anda memiliki pertanyaan atau masukan, silakan menghubungi tim kami melalui WhatsApp. </p>
+            <a href="https://wa.me/628131678690?text=Halo%20Tim%20DX,%20saya%20ingin%20menyampaikan%20masukan%20terkait%20sistem%20ERP." class="btn btn-earth w-100" target="_blank"> Hubungi Tim melalui WhatsApp </a>
+          </div>
+        </div>
+      </div>
+      <section class="mt-5">
+        <h4 class="mb-4">Anggota DX Task Force</h4>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Yoseph Daryana</h6>
+              <small class="muted-text d-block mb-2">Head of DX Task Force</small>
+              <a href="https://wa.me/08111960288" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 811-1960-288 </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Ade K. Athar</h6>
+              <small class="muted-text d-block mb-2">Dept. Head CIA</small>
+              <a href="https://wa.me/6285895702031" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 858-9570-2031 </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Bento P. Hermanto (Beben)</h6>
+              <small class="muted-text d-block mb-2">Senior Front-end Engineer</small>
+              <a href="https://wa.me/6283199742374" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 831-9974-2374 </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Faqih Beni</h6>
+              <small class="muted-text d-block mb-2">Dept. Head of BQC</small>
+              <a href="https://wa.me/6281381819909" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 813-8181-9909 </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Fina R. Pratiwi</h6>
+              <small class="muted-text d-block mb-2">Senior QA Engineer</small>
+              <a href="https://wa.me/628131678690" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 813-1678-690 </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Nurul Huda</h6>
+              <small class="muted-text d-block mb-2">Div. Head of SysPro</small>
+              <a href="https://wa.me/6281368154434" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 813-6815-4434 </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Riky Santoso</h6>
+              <small class="muted-text d-block mb-2">Dept. Head of Accounting & Tax</small>
+              <a href="https://wa.me/6285212951747" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 852-1295-1747 </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Sulthan Alam</h6>
+              <small class="muted-text d-block mb-2">Senior Back-end Engineer</small>
+              <a href="https://wa.me/6281280844822" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 812-8084-4822 </a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-3 h-100">
+              <h6 class="mb-1">Tommy Bandang M.</h6>
+              <small class="muted-text d-block mb-2">Senior UI/UX Designer</small>
+              <a href="https://wa.me/6282114393677" target="_blank" class="text-decoration-none" style="color: var(--earth-primary);"> +62 821-1439-3677 </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Back button -->
+      <div class="mt-4">
+        <a href="http://firstborneo.com/login.asp" class="back-link"> ← Kembali ke ePlaS/FB-Plants </a>
+      </div>
+    </div>
+    <footer class="mt-5 pt-4 pb-3" style="border-top: 1px solid #d6dcd6;">
+      <div class="container page-wrapper">
+        <div class="row align-items-center">
+          <!-- Left: Copyright -->
+          <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+            <small class="text-muted"> © 2026 First Borneo Group </small>
+          </div>
+          <!-- Right: Context / Status -->
+          <div class="col-md-6 text-center text-md-end">
+            <small class="text-muted"> Digital Transformation Task Force </small>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
