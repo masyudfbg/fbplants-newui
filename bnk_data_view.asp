@@ -47,11 +47,11 @@ Function BvNum(v)
 	If n <> Int(n) Then BvNum = FormatNumber(n, 2) Else BvNum = FormatNumber(n, 0)
 End Function
 
-' sel teks panjang: tampil maks 2 baris (klik untuk buka), teks lengkap di tooltip
+' sel teks panjang: teks lengkap, boleh terbungkus
 Function BvT(v)
 	Dim t
 	t = BvH(v)
-	If t = "" Then BvT = "<td class=""t""></td>" Else BvT = "<td class=""t""><div class=""clip"" title=""" & t & """>" & t & "</div></td>"
+	BvT = "<td class=""t"">" & t & "</td>"
 End Function
 
 Function BvState(s)
@@ -107,22 +107,21 @@ If bvErr = "" Then
 		If bvRs("postingflg") & "" = "0" Then bvPost = "Tidak" Else bvPost = "YA"
 		If bvRs("rowstateid") = "Confirmed" Or bvRs("rowstateid") = "Planned" Then bvPrint = "printvoucherfin" Else bvPrint = "printvoucherfinapprove"
 		bvPayRows = bvPayRows & "<tr>" & _
-			"<td class=""n"">" & bvNo & "</td>" & _
 			"<td class=""code"">" & BvH(bvRs("vouchercode")) & "</td>" & _
 			"<td class=""nw"">" & BvH(bvRs("datecreated")) & "</td>" & _
-			BvT(bvRs("remarksheader")) & _
-			"<td class=""num"">" & BvNum(bvRs("totalamount")) & "</td>" & _
-			"<td><span class=""bv-badge " & BvState(bvRs("rowstateid")) & """>" & BvH(bvRs("rowstateid")) & "</span></td>" & _
-			"<td class=""c"">" & BvActions(bvRs, bvPrint, bvRs("VoucherCode")) & "</td>" & _
-			BvT(bvRs("remarks")) & _
-			BvT(bvRs("referenceno")) & _
 			"<td class=""nw"">" & BvH(bvRs("accountingperiod")) & "-" & BvH(bvRs("accountingyear")) & "</td>" & _
+			BvT(bvRs("referenceno")) & _
 			"<td>" & BvH(bvRs("cekno")) & "</td>" & _
 			BvT(bvRs("class")) & _
-			"<td class=""nw"">" & BvH(bvRs("Akun")) & "</td>" & _
+			BvT(bvRs("remarksheader")) & _
+			BvT(bvRs("remarks")) & _
+			"<td class=""u"">" & BvH(bvRs("Akun")) & "</td>" & _
+			"<td class=""num"">" & BvNum(bvRs("totalamount")) & "</td>" & _
+			"<td><span class=""bv-badge " & BvState(bvRs("rowstateid")) & """>" & BvH(bvRs("rowstateid")) & "</span></td>" & _
 			"<td class=""c"">" & bvPost & "</td>" & _
-			"<td>" & BvH(bvRs("fcentry")) & "</td>" & _
-			"<td>" & BvH(bvRs("fcedit")) & "</td>" & _
+			"<td class=""u"">" & BvH(bvRs("fcentry")) & "</td>" & _
+			"<td class=""u"">" & BvH(bvRs("fcedit")) & "</td>" & _
+			"<td class=""c"">" & BvActions(bvRs, bvPrint, bvRs("VoucherCode")) & "</td>" & _
 			"</tr>"
 		bvTotPay = bvTotPay + CDbl(bvRs("totalamount"))
 		bvRs.MoveNext
@@ -159,21 +158,20 @@ If bvErr = "" Then
 		If bvRs("postingflg") & "" = "0" Then bvPost = "Tidak" Else bvPost = "YA"
 		If bvRs("rowstateid") = "Confirmed" Or bvRs("rowstateid") = "Planned" Then bvPrint = "printvoucherfin" Else bvPrint = "printvoucherinfinapprove"
 		bvRcvRows = bvRcvRows & "<tr>" & _
-			"<td class=""n"">" & bvNo & "</td>" & _
 			"<td class=""code"">" & BvH(bvRs("vouchercode")) & "</td>" & _
 			"<td class=""nw"">" & BvH(bvRs("datecreated")) & "</td>" & _
-			BvT(bvRs("remarksheader")) & _
-			"<td class=""num"">" & BvNum(bvRs("totalamount")) & "</td>" & _
-			"<td><span class=""bv-badge " & BvState(bvRs("rowstateid")) & """>" & BvH(bvRs("rowstateid")) & "</span></td>" & _
-			"<td class=""c"">" & BvActions(bvRs, bvPrint, bvRs("docno")) & "</td>" & _
-			BvT(bvRs("remarks")) & _
-			BvT(bvRs("referenceno")) & _
 			"<td class=""nw"">" & BvH(bvRs("accountingperiod")) & "-" & BvH(bvRs("accountingyear")) & "</td>" & _
+			BvT(bvRs("referenceno")) & _
 			"<td>" & BvH(bvRs("cekno")) & "</td>" & _
 			BvT(bvRs("class")) & _
+			BvT(bvRs("remarksheader")) & _
+			BvT(bvRs("remarks")) & _
+			"<td class=""num"">" & BvNum(bvRs("totalamount")) & "</td>" & _
+			"<td><span class=""bv-badge " & BvState(bvRs("rowstateid")) & """>" & BvH(bvRs("rowstateid")) & "</span></td>" & _
 			"<td class=""c"">" & bvPost & "</td>" & _
-			"<td>" & BvH(bvRs("fcentry")) & "</td>" & _
-			"<td>" & BvH(bvRs("fcedit")) & "</td>" & _
+			"<td class=""u"">" & BvH(bvRs("fcentry")) & "</td>" & _
+			"<td class=""u"">" & BvH(bvRs("fcedit")) & "</td>" & _
+			"<td class=""c"">" & BvActions(bvRs, bvPrint, bvRs("docno")) & "</td>" & _
 			"</tr>"
 		bvTotRcv = bvTotRcv + CDbl(bvRs("totalamount"))
 		bvRs.MoveNext
@@ -237,15 +235,14 @@ If bvErr = "" Then
 		bvDebet = bvDebet + CDbl(to_nol(bvRs("debet")))
 		bvCredit = bvCredit + CDbl(to_nol(bvRs("credit")))
 		bvCfRows = bvCfRows & "<tr>" & _
-			"<td class=""n"">" & bvNo & "</td>" & _
 			"<td class=""nw"">" & BvH(bvRs("tgl")) & "</td>" & _
 			"<td class=""code"">" & BvH(bvRs("vouchercode")) & "</td>" & _
-			"<td class=""num"">" & BvNum(bvRs("debet")) & "</td>" & _
-			"<td class=""num"">" & BvNum(bvRs("credit")) & "</td>" & _
-			"<td class=""num b"">" & BvNum(bvSaldo) & "</td>" & _
 			BvT(bvRs("orang")) & _
 			BvT(bvRs("Reference")) & _
 			BvT(bvRs("Remarks")) & _
+			"<td class=""num"">" & BvNum(bvRs("debet")) & "</td>" & _
+			"<td class=""num"">" & BvNum(bvRs("credit")) & "</td>" & _
+			"<td class=""num b"">" & BvNum(bvSaldo) & "</td>" & _
 			"</tr>"
 		bvRs.MoveNext
 	Loop
@@ -270,6 +267,9 @@ End If
 <link rel="StyleSheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-forms.css?v=20261009e" type="text/css" />
 <script type="text/javascript" src="/js/fbp-shell.js?v=20261014b"></script>
+<link rel="stylesheet" href="/css/fbp-table.css?v=20261010c" type="text/css" />
+<script type="text/javascript" src="/js/fbp-table.js?v=20261009c"></script>
+<script type="text/javascript" src="/js/fbp-table-auto.js?v=20261014b"></script>
 <style>
 	.bv { --brand: #1B7863; --brand-dark: #12584a; --tint: #eef6f3; --line: #e1e7e5; --muted: #5d6d69; --ink: #17262a; padding: 4px 2px 10px; color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
 	.bv-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 14px 20px; margin-bottom: 16px; }
@@ -298,14 +298,26 @@ End If
 	.bv-panel { padding: 14px 16px 16px; }
 	.bv-panel[hidden] { display: none; }
 	.bv-note { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+	.bv-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+	.bv-scroll.tall { max-height: max(360px, calc(100vh - 260px)); overflow: auto; }
+	.bv-scroll > table.data { width: 100% !important; margin: 0 !important; border: 0 !important; }
+	/* rapat agar semua kolom tabel lama muat tanpa digeser di layar lebar */
+	.bv .bv-scroll > table.data > thead > tr > th { padding: 10px 6px !important; font-size: 10.5px; white-space: normal !important; vertical-align: middle; }
+	.bv .bv-scroll > table.data > tbody > tr > td.u { max-width: 100px; overflow-wrap: anywhere; }
+	.bv .bv-scroll > table.data > tbody > tr > td { padding: 9px 6px !important; font-size: 12px; vertical-align: top !important; }
+	.bv-scroll > table.data .bv-act { gap: 3px; } .bv-scroll > table.data .bv-ic { width: 28px; height: 28px; }
+	.bv-scroll.tall > table.data > thead > tr > th { position: sticky; top: 0; z-index: 2; }
+	.bv table.data > tbody > tr.bv-bal > td { font-weight: 700; background: #f6f9f8; }
+	.bv .fbt-dash-tools { position: static; margin: 0 0 10px; }
+	.bv .fbt-foot { margin-top: 10px; }
 	.bv-note b { color: var(--ink); font-variant-numeric: tabular-nums; }
 	.bv-empty { padding: 34px 12px; text-align: center; color: var(--muted); font-size: 13.5px; }
 	.bv-err { max-width: 640px; margin: 30px auto; padding: 22px 24px; background: #fff; border: 1px solid #f3c2bc; border-radius: 12px; color: #8a2a20; }
 	.bv-err b { display: block; margin-bottom: 4px; font-size: 15px; }
 	/* tabel: jarak sel lega (permintaan user), angka rata kanan */
 	.bv table.data { width: 100%; }
-	.bv table.data > thead > tr:last-child > th { padding: 11px 14px !important; font-size: 11.5px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; text-align: left; color: var(--muted) !important; background: #f6f9f8 !important; white-space: nowrap; }
-	.bv table.data > tbody > tr > td { padding: 11px 14px !important; font-size: 13px; line-height: 1.45; vertical-align: top; text-align: left; border-bottom: 1px solid #edf1f0; }
+	.bv table.data > thead > tr:last-child > th { padding: 11px 10px !important; font-size: 11.5px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; text-align: left; color: var(--muted) !important; background: #f6f9f8 !important; white-space: nowrap; }
+	.bv table.data > tbody > tr > td { padding: 11px 10px !important; font-size: 13px; line-height: 1.45; vertical-align: top; text-align: left; border-bottom: 1px solid #edf1f0; }
 	.bv table.data > tbody > tr:hover > td { background: #f6faf8; }
 	.bv table.data > tfoot > tr > td { padding: 12px 14px !important; font-size: 13px; font-weight: 700; background: #f6f9f8; border-top: 2px solid #d5dfdc; }
 	.bv table.data th.num, .bv table.data td.num { text-align: right !important; white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -314,10 +326,7 @@ End If
 	.bv table.data .nw { white-space: nowrap; }
 	.bv table.data .b { font-weight: 700; }
 	/* kolom teks panjang boleh terbungkus agar kolom lain tidak ikut disembunyikan (fbp-table: td nowrap) */
-	.bv table.data > tbody > tr > td.t { white-space: normal !important; min-width: 150px; max-width: 260px; overflow-wrap: anywhere; }
-	.bv .clip { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; cursor: pointer; }
-	.bv .clip.open { display: block; -webkit-line-clamp: unset; line-clamp: unset; }
-	.bv .fbt-rd .clip { display: block; -webkit-line-clamp: unset; line-clamp: unset; cursor: default; }
+	.bv table.data > tbody > tr > td.t { white-space: normal !important; min-width: 110px; max-width: 155px; overflow-wrap: anywhere; }
 	.bv table.data > thead > tr:last-child > th { white-space: nowrap !important; }
 	.bv table.data > tbody > tr > td { vertical-align: middle !important; }
 	.bv table.data .code { font: 600 12px ui-monospace, Consolas, monospace; color: var(--brand-dark); white-space: nowrap; }
@@ -381,14 +390,14 @@ End If
 			<div class="bv-empty">Tidak ada payment di periode ini.</div>
 <% Else %>
 			<p class="bv-note">Total payment: <b><%=BvNum(bvTotPay)%></b> dari <%=bvPayCnt%> baris detail.</p>
-			<table class="data" id="tblPay" data-fbt-list>
+			<div class="bv-scroll tall"><table class="data" id="tblPay" data-fbt-auto="off">
 				<thead><tr>
-					<th>No</th><th>No. Voucher</th><th>Date</th><th>Paid To</th><th class="num">Amount</th><th>Status</th><th data-nosort>Aksi</th><th>Keterangan</th><th>Remark Header</th><th>Period</th><th>Cek No</th><th>Classification</th><th>Akun</th><th>Posting</th><th>Input By</th><th>Edit By</th>
+					<th>No.Voucher</th><th>Date</th><th>Period</th><th>Remark Header</th><th>Cek No</th><th>Classification</th><th>Paid To</th><th>Keterangan</th><th>Akun</th><th class="num">Amount</th><th>Status</th><th>Posting</th><th>FCENTRY</th><th>FCEDIT</th><th data-nosort>Action</th>
 				</tr></thead>
 				<tbody>
 <%=bvPayRows%>
 				</tbody>
-			</table>
+			</table></div>
 <% End If %>
 		</section>
 
@@ -398,35 +407,33 @@ End If
 			<div class="bv-empty">Tidak ada receive di periode ini.</div>
 <% Else %>
 			<p class="bv-note">Total receive: <b><%=BvNum(bvTotRcv)%></b> dari <%=bvRcvCnt%> baris detail.</p>
-			<table class="data" id="tblRcv" data-fbt-list>
+			<div class="bv-scroll tall"><table class="data" id="tblRcv" data-fbt-auto="off">
 				<thead><tr>
-					<th>No</th><th>No. Voucher</th><th>Date</th><th>Receive By</th><th class="num">Amount</th><th>Status</th><th data-nosort>Aksi</th>
-					<th>Keterangan</th><th>Remark Header</th><th>Period</th><th>Cek No</th><th>Classification</th><th>Posting</th><th>Input By</th><th>Edit By</th>
+					<th>No.Voucher</th><th>Date</th><th>Period</th><th>Remark Header</th><th>Cek No</th><th>Classification</th><th>Receive By</th><th>Keterangan</th><th class="num">Amount</th><th>Status</th><th>Posting</th><th>FCENTRY</th><th>FCEDIT</th><th data-nosort>Action</th>
 				</tr></thead>
 				<tbody>
 <%=bvRcvRows%>
 				</tbody>
-			</table>
+			</table></div>
 <% End If %>
 		</section>
 
 		<!-- Cash Flow -->
 		<section class="bv-panel" role="tabpanel" id="p-cf" aria-labelledby="t-cf" hidden>
-			<p class="bv-note">Saldo awal (opening balance): <b><%=BvNum(bvOpening)%></b>. Kolom Saldo adalah saldo berjalan sesuai urutan tanggal.</p>
-			<table class="data" id="tblCf" data-fbt-list>
+			<div class="bv-scroll tall"><table class="data" id="tblCf" data-fbt-auto="off">
 				<thead><tr>
-					<th>No</th><th>Date</th><th>No. Voucher</th><th class="num">Debet</th><th class="num">Credit</th><th class="num">Saldo</th>
-					<th>Paid For / Receive From</th><th>Reference</th><th>Remark</th>
+					<th>Date</th><th>No.Voucher</th><th>Paid For / Receive From</th><th>Reference</th><th>Remark</th><th class="num">Debet</th><th class="num">Credit</th><th class="num">Saldo</th>
 				</tr></thead>
 				<tbody>
+					<tr class="bv-bal"><td colspan="7">Opening Balance</td><td class="num"><%=BvNum(bvOpening)%></td></tr>
 <% If bvCfRows = "" Then %>
-					<tr><td colspan="9" class="bv-empty">Tidak ada mutasi di periode ini.</td></tr>
+					<tr><td colspan="8" class="bv-empty">Tidak ada mutasi di periode ini.</td></tr>
 <% Else %>
 <%=bvCfRows%>
 <% End If %>
-					<tr><td colspan="3">Ending Balance</td><td class="num"><%=BvNum(bvDebet)%></td><td class="num"><%=BvNum(bvCredit)%></td><td class="num"><%=BvNum(bvSaldo)%></td><td colspan="3"></td></tr>
+					<tr class="bv-bal"><td colspan="5">Ending Balance</td><td class="num"><%=BvNum(bvDebet)%></td><td class="num"><%=BvNum(bvCredit)%></td><td class="num"><%=BvNum(bvSaldo)%></td></tr>
 				</tbody>
-			</table>
+			</table></div>
 		</section>
 	</div>
 <% End If %>
@@ -440,8 +447,6 @@ End If
 	'use strict';
 	var BANK = <%="""" & Replace(Replace(bvBank, "\", "\\"), """", "\""") & """"%>;
 	var BANKNM = <%="""" & Replace(Replace(bvBankName & "", "\", "\\"), """", "\""") & """"%>;
-	// klik teks yang terpotong untuk membuka / menutup isinya
-	document.addEventListener('click', function (e) { var c = e.target.closest && e.target.closest('.bv td.t .clip'); if (c) c.classList.toggle('open'); });
 	var tabs = Array.prototype.slice.call(document.querySelectorAll('.bv-tab'));
 	function show(tab, focus) {
 		tabs.forEach(function (t) {
@@ -468,6 +473,19 @@ End If
 			window.open('paymentvoucherdetail.Asp?txtModule=Finance%20and%20Accounting&txtTable=' + (rcv ? '01-receivevoucher&transtype=01-receive' : '02-paymentvoucher&transtype=02-payment') +
 				'&banktype=0&bankcodeurl=' + encodeURIComponent(BANK), '_blank');
 		});
+	});
+
+	// Payment & Receive: cari + jumlah baris + pagination (semua kolom tetap tampil)
+	['tblPay', 'tblRcv'].forEach(function (id) {
+		var t = document.getElementById(id);
+		if (!t || !window.FbpTable) return;
+		var box = t.parentNode;
+		box.parentNode.insertBefore(t, box);          // init di luar kotak gulir agar footer pagination di bawah kotak
+		FbpTable.init(t, { pageSize: 20, dateFormat: 'dmy' });
+		box.parentNode.insertBefore(box, t);
+		box.appendChild(t);
+		var row = t.querySelector('tr.fbt-toolbar-row'), tools = row && row.querySelector('.fbt-tools');
+		if (tools) { var w = document.createElement('div'); w.className = 'fbt-dash-tools'; w.appendChild(tools); box.parentNode.insertBefore(w, box); row.parentNode.removeChild(row); }
 	});
 
 	// Export XLS: tabel Cash Flow, semua baris (tanpa toolbar / pagination / baris detail responsif)

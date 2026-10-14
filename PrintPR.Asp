@@ -377,7 +377,17 @@ cmdstyleLeft="font-size:10px; border-right: 1 solid #0000FF; border-bottom: 1 so
 			}
 		</style>
 		 
-		<table border="0" width="100%" id="product-table" style="border-bottom:1px #000000 solid;">
+		<style>
+			/* Garis tabel item (dulu border inline "1 solid" tanpa px sehingga tidak tampil) */
+			table.pr-items { border-collapse: collapse; }
+			#product-table.pr-items > thead > tr > th, #product-table.pr-items > tbody > tr > td { border: 1px solid #000 !important; }   /* menang atas stylereport2.css (#product-table td[style*=solid]) */
+			table.pr-items > thead > tr > th { padding: 4px 6px; vertical-align: middle; }
+			table.pr-items > tbody > tr > td { padding: 4px 6px !important; vertical-align: middle; }
+			table.pr-items > tbody > tr.pr-sp { display: none; }
+			table.pr-items .line { margin: 2px auto; }
+			@media print { table.pr-items { -webkit-print-color-adjust: exact; print-color-adjust: exact; } table.pr-items > tbody > tr { page-break-inside: avoid; } }
+		</style>
+		<table border="0" width="100%" id="product-table" class="pr-items" style="border-bottom:1px #000000 solid;">
 			<thead>
 				<tr>
 					<th class="small" style="font-size:10px" style="border-bottom:1px #000000 solid;">
@@ -405,7 +415,7 @@ cmdstyleLeft="font-size:10px; border-right: 1 solid #0000FF; border-bottom: 1 so
 				  no=0
 				  nQty=0
 				  nAmount=0 %>
-				  <tr>
+				  <tr class="pr-sp">
 					  <td style="height:5px;"></td>
 					  <td></td>
 					  <td></td>
@@ -446,7 +456,7 @@ cmdstyleLeft="font-size:10px; border-right: 1 solid #0000FF; border-bottom: 1 so
 					  intRecordsPerPage = intRecordsPerPage - 1
 					  no=no+1
 				  Wend  %>
-					<tr>
+					<tr class="pr-sp">
 					  <td style="height:5px;"></td>
 					  <td></td>
 					  <td></td>
@@ -513,7 +523,7 @@ cmdstyleLeft="font-size:10px; border-right: 1 solid #0000FF; border-bottom: 1 so
    End if
    rsPurchaseOrders.close
    set rsPurchaseOrders = Nothing %>
-   <table border="0" width="100%" id="product-table" style="border-bottom:1px #000000 solid;">
+   <table border="0" width="100%" id="product-table" class="pr-items" style="border-bottom:1px #000000 solid;">
 			<thead>
 				<tr>
 					<th style="font-size:10px">Authorizer</th>
@@ -529,7 +539,7 @@ cmdstyleLeft="font-size:10px; border-right: 1 solid #0000FF; border-bottom: 1 so
 				if Not rsPurchaseOrders.eof then	
 				nCountofField=rsPurchaseOrders.fields.count-1
 			%>
-				  <tr>
+				  <tr class="pr-sp">
 					  <td></td>
 					  <td></td>
 					  <td></td>
@@ -549,7 +559,7 @@ cmdstyleLeft="font-size:10px; border-right: 1 solid #0000FF; border-bottom: 1 so
 					  rsPurchaseOrders.MoveNext
 					  intRecordsPerPage = intRecordsPerPage - 1
 				  Wend  %>
-					<tr>
+					<tr class="pr-sp">
 					  <td></td>
 					  <td></td>
 					  <td></td>
