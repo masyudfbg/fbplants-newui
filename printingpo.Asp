@@ -318,45 +318,45 @@ if podate_dd & "" <> "" then tglPO = podate_dd & " " & bulan(podate_mm) & " " & 
 
 			/* Tampilan HP */
 			@media screen and (max-width: 820px) {
-				body.A4 { background: #fff; }
-				body.A4 .sheet.po { width: auto; min-height: 0; margin: 0; padding: 14px 16px 24px; box-shadow: none; }
-				.po { font-size: 12.5px; line-height: 1.45; }
-				.po-company, .po-title { font-size: 14px; }
-				.po-toolbar { position: sticky; top: 0; z-index: 5; margin: -14px -16px 12px; padding: 10px 16px; background: #fff; border-bottom: 1px solid #e1e7e5; }
-				.po-top { min-height: 0; margin-bottom: 12px; }
-				.po-logo img { height: 46px; max-width: 60vw; }
-				.po-qr, .po-qr-svg { width: 72px; }
-				.po-qr-svg { height: 72px; }
-				.po-qr small { font-size: 10px; }
-				.po-row { grid-template-columns: 1fr; }
-				.po-row > .po-right { order: -1; margin-bottom: 10px; padding: 10px 12px; background: #f3f6f5; border-radius: 8px; }
-				.po-kv, .po-kv.left { grid-template-columns: 96px 1fr; padding-right: 0; row-gap: 3px; }
-				.po-info .po-left { margin-top: 0; }
-				.po-addr { padding-right: 0; }
-				.po-scroll { margin-top: 14px; }
+				body.A4:not(.po-fit) { background: #fff; }
+				body.A4:not(.po-fit) .sheet.po { width: auto; min-height: 0; margin: 0; padding: 14px 16px 24px; box-shadow: none; }
+				body:not(.po-fit) .po { font-size: 12.5px; line-height: 1.45; }
+				body:not(.po-fit) .po-company, body:not(.po-fit) .po-title { font-size: 14px; }
+				body:not(.po-fit) .po-toolbar { position: sticky; top: 0; z-index: 5; margin: -14px -16px 12px; padding: 10px 16px; background: #fff; border-bottom: 1px solid #e1e7e5; }
+				body:not(.po-fit) .po-top { min-height: 0; margin-bottom: 12px; }
+				body:not(.po-fit) .po-logo img { height: 46px; max-width: 60vw; }
+				body:not(.po-fit) .po-qr, body:not(.po-fit) .po-qr-svg { width: 72px; }
+				body:not(.po-fit) .po-qr-svg { height: 72px; }
+				body:not(.po-fit) .po-qr small { font-size: 10px; }
+				body:not(.po-fit) .po-row { grid-template-columns: 1fr; }
+				body:not(.po-fit) .po-row > .po-right { order: -1; margin-bottom: 10px; padding: 10px 12px; background: #f3f6f5; border-radius: 8px; }
+				body:not(.po-fit) .po-kv, body:not(.po-fit) .po-kv.left { grid-template-columns: 96px 1fr; padding-right: 0; row-gap: 3px; }
+				body:not(.po-fit) .po-info .po-left { margin-top: 0; }
+				body:not(.po-fit) .po-addr { padding-right: 0; }
+				body:not(.po-fit) .po-scroll { margin-top: 14px; }
 				/* Item jadi kartu per baris: deskripsi di atas, qty/uom/harga & total di bawah */
-				.po-items, .po-items tbody, .po-items tfoot { display: block; width: 100%; font-size: 12.5px; }
-				.po-items thead { display: none; }
-				.po-items tbody { border-top: 2px solid #17262a; }
-				.po-items tbody tr { display: grid; grid-template-columns: 24px 60px 40px 1fr auto; column-gap: 6px; row-gap: 2px; padding: 9px 0; border-bottom: 1px solid #dfe6e4; }
-				.po-items tbody td, .po-items tbody tr:last-child td { display: block; width: auto !important; padding: 0; border: 0; text-align: left; white-space: nowrap; }
-				.po-items tbody td.c-desc { white-space: normal; }
-				.po-items tbody tr:last-child { border-bottom: 2px solid #17262a; }
-				.po-items td.c-no, .po-items tbody tr:last-child td.c-no { grid-row: 1 / span 2; color: #5d6d69; text-align: left; }
-				.po-items td.c-desc { grid-column: 2 / -1; font-weight: 600; }
-				.po-items td.c-desc span + span { font-weight: 400; color: #5d6d69; }
-				.po .po-items tbody td.c-qty, .po .po-items tbody td.c-uom, .po .po-items tbody td.c-price { grid-row: 2; color: #5d6d69; text-align: left; }
-				.po-items td.c-price::before { content: "\00d7  "; }
-				.po-items td.c-amt { grid-row: 2; grid-column: 5; font-weight: 700; text-align: right; }
-				.po-items tfoot { margin-top: 6px; }
-				.po-items tfoot tr { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
-				.po-items tfoot td, .po-sum.first td { display: block; padding: 0; border: 0 !important; }
-				.po-items tfoot .po-sum-label { text-align: left; color: #5d6d69; }
-				.po-items tfoot tr:last-child { margin-top: 4px; padding-top: 7px; border-top: 1px solid #17262a; font-size: 14px; font-weight: 700; }
-				.po-items tfoot tr:last-child .po-sum-label { color: #17262a; }
-				.po-block h4 { font-size: 13px; }
-				.po-sign { grid-template-columns: 1fr 1fr; row-gap: 22px; }
-				.po-sign .name { margin-top: 44px; }
+				body:not(.po-fit) .po-items, body:not(.po-fit) .po-items tbody, body:not(.po-fit) .po-items tfoot { display: block; width: 100%; font-size: 12.5px; }
+				body:not(.po-fit) .po-items thead { display: none; }
+				body:not(.po-fit) .po-items tbody { border-top: 2px solid #17262a; }
+				body:not(.po-fit) .po-items tbody tr { display: grid; grid-template-columns: 24px 60px 40px 1fr auto; column-gap: 6px; row-gap: 2px; padding: 9px 0; border-bottom: 1px solid #dfe6e4; }
+				body:not(.po-fit) .po-items tbody td, body:not(.po-fit) .po-items tbody tr:last-child td { display: block; width: auto !important; padding: 0; border: 0; text-align: left; white-space: nowrap; }
+				body:not(.po-fit) .po-items tbody td.c-desc { white-space: normal; }
+				body:not(.po-fit) .po-items tbody tr:last-child { border-bottom: 2px solid #17262a; }
+				body:not(.po-fit) .po-items td.c-no, body:not(.po-fit) .po-items tbody tr:last-child td.c-no { grid-row: 1 / span 2; color: #5d6d69; text-align: left; }
+				body:not(.po-fit) .po-items td.c-desc { grid-column: 2 / -1; font-weight: 600; }
+				body:not(.po-fit) .po-items td.c-desc span + span { font-weight: 400; color: #5d6d69; }
+				body:not(.po-fit) .po .po-items tbody td.c-qty, body:not(.po-fit) .po .po-items tbody td.c-uom, body:not(.po-fit) .po .po-items tbody td.c-price { grid-row: 2; color: #5d6d69; text-align: left; }
+				body:not(.po-fit) .po-items td.c-price::before { content: "\00d7  "; }
+				body:not(.po-fit) .po-items td.c-amt { grid-row: 2; grid-column: 5; font-weight: 700; text-align: right; }
+				body:not(.po-fit) .po-items tfoot { margin-top: 6px; }
+				body:not(.po-fit) .po-items tfoot tr { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
+				body:not(.po-fit) .po-items tfoot td, body:not(.po-fit) .po-sum.first td { display: block; padding: 0; border: 0 !important; }
+				body:not(.po-fit) .po-items tfoot .po-sum-label { text-align: left; color: #5d6d69; }
+				body:not(.po-fit) .po-items tfoot tr:last-child { margin-top: 4px; padding-top: 7px; border-top: 1px solid #17262a; font-size: 14px; font-weight: 700; }
+				body:not(.po-fit) .po-items tfoot tr:last-child .po-sum-label { color: #17262a; }
+				body:not(.po-fit) .po-block h4 { font-size: 13px; }
+				body:not(.po-fit) .po-sign { grid-template-columns: 1fr 1fr; row-gap: 22px; }
+				body:not(.po-fit) .po-sign .name { margin-top: 44px; }
 			}
 		</style>
 	</head>
@@ -478,5 +478,32 @@ if podate_dd & "" <> "" then tglPO = podate_dd & " " & bulan(podate_mm) & " " & 
 <%end if%>
 		</article>
 		</section>
+		<script>
+		// Cetak satu halaman A4: bila isi lebih tinggi dari lembar, isi diperkecil secukupnya
+		// (lebar tetap penuh). Tampilan layar tidak berubah. Batas perkecil 55% agar tetap terbaca;
+		// PO yang sangat panjang tetap lanjut ke halaman berikutnya.
+		(function () {
+			var art = document.getElementById('product-table');
+			if (!art) return;
+			var MM = 96 / 25.4, PAGE_H = 297, PAD_V = 19, BODY_W = 190, MIN_Z = 0.55;
+			function reset() { art.style.zoom = ''; art.style.width = ''; document.body.classList.remove('po-fit'); }
+			function fit() {
+				reset();
+				document.body.classList.add('po-fit'); // ukur dengan tata letak A4 walau jendela sempit (tata letak HP dimatikan)
+				var need = art.getBoundingClientRect().height / MM + PAD_V, avail = PAGE_H - PAD_V - 2;
+				if (need - PAD_V <= avail) return;
+				var z = Math.max(MIN_Z, avail / (need - PAD_V));
+				art.style.width = (BODY_W / z) + 'mm';
+				art.style.zoom = z;
+			}
+			window.addEventListener('beforeprint', fit);
+			window.addEventListener('afterprint', reset);
+			if (window.matchMedia) {
+				var mq = window.matchMedia('print');
+				var h = function (e) { if (e.matches) fit(); else reset(); };
+				if (mq.addEventListener) mq.addEventListener('change', h); else if (mq.addListener) mq.addListener(h);
+			}
+		})();
+		</script>
 	</body>
 </html>

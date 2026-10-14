@@ -7,11 +7,11 @@
    	// dropdown dengan kolom cari (js/fbp-shell.js) bila halaman belum memuatnya sendiri
    	if (!document.querySelector('[src*="fbp-shell.js"]')) {
    		__h += '<link rel="stylesheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />' +
-   			'<' + __s + ' type="text/javascript" src="/js/fbp-shell.js?v=20261014a"></' + __s + '>';
+   			'<' + __s + ' type="text/javascript" src="/js/fbp-shell.js?v=20261014b"></' + __s + '>';
    	}
    	document.write(__h + '<link rel="stylesheet" href="/css/fbp-table.css?v=20261010c" type="text/css" />' +
    		'<' + __s + ' type="text/javascript" src="/js/fbp-table.js?v=20261009c"></' + __s + '>' +
-   		'<' + __s + ' type="text/javascript" src="/js/fbp-table-auto.js?v=20261013a"></' + __s + '>');
+   		'<' + __s + ' type="text/javascript" src="/js/fbp-table-auto.js?v=20261014b"></' + __s + '>');
    }
    </script>
    <!-- Verifikasi Manager & Ktu -->

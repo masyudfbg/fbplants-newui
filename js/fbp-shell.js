@@ -437,7 +437,7 @@
 		css.rel = 'stylesheet';
 		css.href = '/css/fbp-table.css?v=20261010c';
 		document.head.appendChild(css);
-		['/js/fbp-table.js?v=20261009c', '/js/fbp-table-auto.js?v=20261013a'].forEach(function (src) {
+		['/js/fbp-table.js?v=20261009c', '/js/fbp-table-auto.js?v=20261014b'].forEach(function (src) {
 			var s = document.createElement('script');
 			s.src = src;
 			s.async = false;   // urutan: fbp-table.js dulu

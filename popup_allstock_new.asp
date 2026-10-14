@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="css/jquery-ui.css" />
 <link rel="stylesheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="stylesheet" href="/css/fbp-table.css?v=20261010c" type="text/css" />
-<script type="text/javascript" src="/js/fbp-shell.js?v=20261014a"></script>
+<script type="text/javascript" src="/js/fbp-shell.js?v=20261014b"></script>
 <script type="text/javascript" src="/js/fbp-table.js?v=20261009c"></script>
 </head>
 <style type="text/css">

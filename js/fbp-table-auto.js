@@ -643,7 +643,8 @@
 		var body = rows.slice(h + 1).filter(function (r) { return cells(r) > 0 || (r.textContent || '').trim(); });
 		var isData = body.map(function (r) { return (cells(r) === n || cells(r) === nSpan) && spanOf(r) === nSpan; });
 		var first = isData.indexOf(true), last = isData.lastIndexOf(true);
-		if (first !== 0 || last < 1) return false;                              // minimal 2 baris data
+		// minimal 2 baris data (tabel layout 1 baris dilewati); data-fbt-list = tabel daftar asli, 1 baris pun diproses
+		if (first !== 0 || last < (table.hasAttribute('data-fbt-list') ? 0 : 1)) return false;
 		for (var b = first; b <= last; b++) { if (!isData[b]) return false; }
 		var dataRows = body.slice(0, last + 1);
 		if (dataRows.some(function (r) { return r.querySelector('input[type="text"], input:not([type]), select, textarea'); })) return false;

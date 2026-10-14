@@ -117,25 +117,129 @@ If Request.Form("action") = "toggle" Then
 	Response.End
 End If
 
+' ---------- AJAX: tambah / ubah menu ----------
+Sub MmFail(status, msg)
+	Response.Status = status
+	Response.Write "{""ok"":false,""error"":" & MmJson(msg) & "}"
+	Response.End
+End Sub
+
+Function MmCount(sql, params)
+	Dim r
+	Set r = DbQuery(sql, params)
+	MmCount = CLng(r(0))
+	r.Close
+End Function
+
+' satu baris menu dalam format array JSON yang sama dengan data tabel
+Function MmRowJson(r)
+	MmRowJson = "[" & MmJson(r("fccode")) & "," & MmJson(r("fcname")) & "," & MmJson(r("menuparentcode")) & "," & _
+		MmJson(r("formlink")) & "," & MmJson(r("modname")) & "," & LCase(CStr(UCase(Trim(r("isactive") & "")) = "TRUE")) & "," & _
+		MmJson(r("sequence")) & "," & MmJson(r("menutypecode")) & "," & MmJson(r("fcedit")) & "," & MmJson(r("lastupd")) & "," & _
+		MmJson(r("helpdescription")) & "," & MmJson(r("remarks")) & "," & MmJson(r("module")) & "]"
+End Function
+
+Const MM_SELECT = "select m.fccode, m.fcname, m.menuparentcode, m.formlink, nvl(b.name, '') modname, m.isactive, m.sequence, m.menutypecode, m.fcedit, to_char(m.lastupdate, 'DD/MM/YYYY') lastupd, m.helpdescription, m.remarks, m.module from menu_tab m left join module b on m.module = b.code"
+
+If Request.Form("action") = "save" Then
+	Response.ContentType = "application/json"
+	Response.CacheControl = "no-cache"
+	Dim fMode, fCode, fName, fParent, fLink, fModule, fType, fSeq, fActive, fHelp, fRemarks, fRe, fP, fGuard, fRs, fUser, fIp
+	If Not mmAllowed Then MmFail "403 Forbidden", "Anda tidak punya akses ke Master Menu."
+	If Request.Form("tok") <> Session("mm_tok") Then MmFail "403 Forbidden", "Token tidak valid, muat ulang halaman."
+	fMode = Request.Form("mode")
+	fCode = Trim(Request.Form("code") & "")
+	fName = Trim(Request.Form("name") & "")
+	fParent = Trim(Request.Form("parent") & "")
+	fLink = Trim(Request.Form("link") & "")
+	fModule = Trim(Request.Form("module") & "")
+	fType = Trim(Request.Form("type") & "")
+	fSeq = Trim(Request.Form("seq") & "")
+	fActive = UCase(Trim(Request.Form("active") & ""))
+	fHelp = Trim(Request.Form("help") & "")
+	fRemarks = Trim(Request.Form("remarks") & "")
+
+	If fMode <> "insert" And fMode <> "update" Then MmFail "400 Bad Request", "Permintaan tidak valid."
+	Set fRe = New RegExp
+	fRe.Pattern = "^[A-Za-z0-9_.\-]{1,30}$"
+	If Not fRe.Test(fCode) Then MmFail "400 Bad Request", "Kode menu wajib diisi (maks. 30 karakter: huruf, angka, titik, garis bawah, atau tanda minus)."
+	If fName = "" Or Len(fName) > 100 Then MmFail "400 Bad Request", "Nama menu wajib diisi (maks. 100 karakter)."
+	If Len(fLink) > 100 Then MmFail "400 Bad Request", "Link maksimal 100 karakter."
+	If Len(fHelp) > 100 Then MmFail "400 Bad Request", "Keterangan bantuan maksimal 100 karakter."
+	If Len(fRemarks) > 1000 Then MmFail "400 Bad Request", "Catatan maksimal 1000 karakter."
+	If fActive <> "TRUE" And fActive <> "FALSE" Then MmFail "400 Bad Request", "Status tidak valid."
+	If fSeq <> "" Then
+		If Not IsNumeric(fSeq) Then MmFail "400 Bad Request", "Urutan harus berupa angka."
+	End If
+	If Not IsNumeric(fModule) Then MmFail "400 Bad Request", "Pilih modul."
+	If MmCount("select count(*) from module where code = to_number(?)", Array(fModule)) = 0 Then MmFail "400 Bad Request", "Modul tidak ditemukan."
+	If MmCount("select count(*) from menu_type_tab where fccode = ?", Array(fType)) = 0 Then MmFail "400 Bad Request", "Pilih tipe menu."
+
+	' induk: "0" = menu utama; selain itu harus ada, bukan dirinya sendiri, dan bukan turunannya (cegah putaran)
+	If fParent = "" Then MmFail "400 Bad Request", "Pilih menu induk (atau 0 untuk menu utama)."
+	If fParent <> "0" Then
+		If fParent = fCode Then MmFail "400 Bad Request", "Menu induk tidak boleh menu itu sendiri."
+		If MmCount("select count(*) from menu_tab where fccode = ?", Array(fParent)) = 0 Then MmFail "400 Bad Request", "Menu induk " & fParent & " tidak ditemukan."
+		fP = fParent : fGuard = 0
+		Do While fP <> "" And fP <> "0" And fGuard < 20
+			Set fRs = DbQuery("select menuparentcode from menu_tab where fccode = ?", Array(fP))
+			If fRs.EOF Then fP = "" Else fP = Trim(fRs("menuparentcode") & "")
+			fRs.Close
+			If fP = fCode Then MmFail "400 Bad Request", "Menu induk tidak boleh salah satu submenu dari menu ini."
+			fGuard = fGuard + 1
+		Loop
+	End If
+
+	fUser = Left(Session("CodeName") & "", 30)
+	fIp = Left(Request.ServerVariables("REMOTE_ADDR") & "", 30)
+	If fMode = "insert" Then
+		If MmCount("select count(*) from menu_tab where fccode = ?", Array(fCode)) > 0 Then MmFail "409 Conflict", "Kode menu " & fCode & " sudah dipakai."
+		DbExec "insert into menu_tab (fccode, fcname, menuparentcode, formlink, module, isactive, helpdescription, sequence, remarks, " & _
+		       "fcentry, fcedit, fcip, lastupdate, lasttime, menutypecode) values (?, ?, ?, ?, to_number(?), ?, ?, to_number(?), ?, ?, ?, ?, sysdate, to_char(sysdate, 'HH24:MI'), ?)", _
+		       Array(fCode, fName, fParent, fLink, fModule, fActive, fHelp, fSeq, fRemarks, fUser, fUser, fIp, fType)
+	Else
+		If MmCount("select count(*) from menu_tab where fccode = ?", Array(fCode)) = 0 Then MmFail "404 Not Found", "Menu tidak ditemukan."
+		If fActive = "FALSE" And MmLockedCodes().Exists(fCode) Then MmFail "400 Bad Request", "Menu ini tidak bisa dinonaktifkan agar Master Menu tetap bisa dibuka."
+		DbExec "update menu_tab set fcname = ?, menuparentcode = ?, formlink = ?, module = to_number(?), isactive = ?, helpdescription = ?, " & _
+		       "sequence = to_number(?), remarks = ?, menutypecode = ?, fcedit = ?, fcip = ?, lastupdate = sysdate, lasttime = to_char(sysdate, 'HH24:MI') where fccode = ?", _
+		       Array(fName, fParent, fLink, fModule, fActive, fHelp, fSeq, fRemarks, fType, fUser, fIp, fCode)
+	End If
+	connStr.Execute "commit"
+	Set fRs = DbQuery(MM_SELECT & " where m.fccode = ?", Array(fCode))
+	Response.Write "{""ok"":true,""row"":" & MmRowJson(fRs) & "}"
+	fRs.Close
+	Response.End
+End If
+
 ' ---------- data untuk halaman ----------
-Dim mmRows, mmRs, mmFirst, mmLockList, mmK
-mmRows = ""
+Dim mmRows, mmRs, mmFirst, mmLockList, mmK, mmModules, mmTypes
+mmRows = "" : mmModules = "" : mmTypes = ""
 If mmAllowed Then
-	Set mmRs = DbQuery("select m.fccode, m.fcname, m.menuparentcode, m.formlink, nvl(b.name, '') modname, m.isactive, m.sequence, m.menutypecode, m.fcedit, " & _
-	                   " to_char(m.lastupdate, 'DD/MM/YYYY') lastupd " & _
-	                   " from menu_tab m left join module b on m.module = b.code " & _
-	                   " order by m.menutypecode, m.menuparentcode, m.sequence, m.fccode", Array())
+	Set mmRs = DbQuery(MM_SELECT & " order by m.menutypecode, m.menuparentcode, m.sequence, m.fccode", Array())
 	mmFirst = True
 	Do While Not mmRs.EOF
 		If Not mmFirst Then mmRows = mmRows & ","
 		mmFirst = False
-		mmRows = mmRows & "[" & MmJson(mmRs("fccode")) & "," & MmJson(mmRs("fcname")) & "," & MmJson(mmRs("menuparentcode")) & "," & _
-		         MmJson(mmRs("formlink")) & "," & MmJson(mmRs("modname")) & "," & LCase(CStr(UCase(Trim(mmRs("isactive") & "")) = "TRUE")) & "," & _
-		         MmJson(mmRs("sequence")) & "," & MmJson(mmRs("menutypecode")) & "," & MmJson(mmRs("fcedit")) & "," & MmJson(mmRs("lastupd")) & "]"
+		mmRows = mmRows & MmRowJson(mmRs)
 		mmRs.MoveNext
 	Loop
 	mmRs.Close
 	Set mmLockList = MmLockedCodes()
+	' pilihan modul & tipe untuk form tambah/ubah
+	Set mmRs = DbQuery("select code, name from module order by name", Array())
+	Do While Not mmRs.EOF
+		If mmModules <> "" Then mmModules = mmModules & ","
+		mmModules = mmModules & "[" & MmJson(mmRs("code")) & "," & MmJson(mmRs("name")) & "]"
+		mmRs.MoveNext
+	Loop
+	mmRs.Close
+	Set mmRs = DbQuery("select fccode, fcname from menu_type_tab order by fccode", Array())
+	Do While Not mmRs.EOF
+		If mmTypes <> "" Then mmTypes = mmTypes & ","
+		mmTypes = mmTypes & "[" & MmJson(mmRs("fccode")) & "," & MmJson(mmRs("fcname")) & "]"
+		mmRs.MoveNext
+	Loop
+	mmRs.Close
 End If
 %>
 <html>
@@ -153,7 +257,7 @@ End If
 <link rel="StyleSheet" href="css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014a"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
 <style>
 	.mm { --brand: #1B7863; --brand-dark: #12584a; --tint: #eef6f3; --line: #e1e7e5; --muted: #5d6d69; --ink: #17262a; color: var(--ink); }
 	.mm-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 20px; margin: 0 0 14px; }
@@ -224,6 +328,44 @@ End If
 	body .mm .mm-size select { min-width: 70px; }
 	.mm-toast { position: fixed; right: 20px; bottom: 20px; z-index: 50; max-width: 380px; padding: 11px 16px; color: #fff; background: #17262a; border-radius: 10px; font-size: 13px; box-shadow: 0 10px 30px rgba(0,0,0,.2); display: none; }
 	.mm-toast.err { background: #a1342a; }
+	/* nomor urut & aksi */
+	.mm thead th.no, .mm tbody td.no { width: 1%; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+	.mm thead th.act, .mm tbody td.act { width: 1%; text-align: center; white-space: nowrap; }
+	.mm-add { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; height: 38px; padding: 0 14px; font: 600 13px inherit; color: #fff; background: var(--brand); border: 0; border-radius: 9px; cursor: pointer; }
+	.mm-add:hover { background: var(--brand-dark); }
+	.mm-edit { display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px; font: 600 12px inherit; color: var(--brand-dark); background: var(--tint); border: 1px solid #cfe3dc; border-radius: 8px; cursor: pointer; }
+	.mm-edit:hover { background: #dff0ea; }
+	body .mm .mm-add { height: 38px !important; min-height: 38px !important; padding: 0 14px !important; color: #fff !important; background: var(--brand) !important; border: 0 !important; border-radius: 9px !important; box-shadow: none !important; width: auto !important; }
+	body .mm .mm-edit { height: 30px !important; min-height: 30px !important; padding: 0 10px !important; color: var(--brand-dark) !important; background: var(--tint) !important; border: 1px solid #cfe3dc !important; border-radius: 8px !important; box-shadow: none !important; width: auto !important; }
+	/* form tambah/ubah */
+	.mm-modal { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-start; justify-content: center; padding: 6vh 16px 16px; background: rgba(23,38,42,.45); overflow: auto; font-family: "Plus Jakarta Sans", system-ui, sans-serif; color: #17262a; }
+	.mm-modal[hidden] { display: none; }
+	.mm-dlg { width: 100%; max-width: 640px; background: #fff; border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
+	.mm-dlg-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #e1e7e5; }
+	.mm-dlg-head h3 { margin: 0; font-size: 17px; font-weight: 700; }
+	.mm-x { width: 34px; height: 34px; font-size: 22px; line-height: 1; color: #5d6d69; background: transparent; border: 0; border-radius: 8px; cursor: pointer; }
+	.mm-x:hover { background: #eef2f1; }
+	.mm-dlg-body { padding: 16px 20px 4px; }
+	.mm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+	.mm-grid .mm-wide { grid-column: 1 / -1; }
+	.mm-grid .f { display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; font-weight: 600; color: #3d4d49; }
+	.mm-grid .f em { display: inline; color: #a1342a; font-style: normal; }
+	.mm-grid input[type=text], .mm-grid input[type=number], .mm-grid select, .mm-grid textarea { width: 100%; box-sizing: border-box; height: 38px; padding: 0 11px; font: 400 13px "Plus Jakarta Sans", system-ui, sans-serif; color: #17262a; background: #fff; border: 1px solid #d5dfdc; border-radius: 9px; outline: none; }
+	.mm-grid textarea { height: auto; min-height: 60px; padding: 8px 11px; resize: vertical; }
+	.mm-grid input:focus, .mm-grid select:focus, .mm-grid textarea:focus { border-color: #1B7863; box-shadow: 0 0 0 3px rgba(27,120,99,.18); }
+	.mm-grid input[readonly] { color: #5d6d69; background: #f2f5f4; }
+	.mm-grid .bad { border-color: #c2483b !important; }
+	.mm-grid small { font-size: 11.5px; font-weight: 400; color: #5d6d69; }
+	.mm-grid small.warn { color: #a1342a; }
+	.mm-err { margin-bottom: 12px; padding: 10px 12px; font-size: 13px; color: #8a2a20; background: #fdecea; border: 1px solid #f3c2bc; border-radius: 9px; }
+	.mm-note { margin: 14px 0 12px; font-size: 12px; color: #5d6d69; }
+	.mm-dlg-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid #e1e7e5; }
+	.mm-btn { height: 38px; padding: 0 18px; font: 600 13px "Plus Jakarta Sans", system-ui, sans-serif; color: #fff; background: #1B7863; border: 1px solid #1B7863; border-radius: 9px; cursor: pointer; }
+	.mm-btn:hover { background: #12584a; }
+	.mm-btn.ghost { color: #3d4d49; background: #fff; border-color: #d5dfdc; }
+	.mm-btn.ghost:hover { background: #f2f5f4; }
+	.mm-btn:disabled { opacity: .6; cursor: default; }
+	@media (max-width: 560px) { .mm-grid { grid-template-columns: 1fr; } .mm-add { margin-left: 0; } }
 </style>
 </head>
 <body class="dash page-show page-legacy">
@@ -261,10 +403,12 @@ End If
 				</div>
 				<select id="mmType" aria-label="Filter tipe menu"><option value="">Semua tipe</option></select>
 				<select id="mmMod" aria-label="Filter modul"><option value="">Semua modul</option></select>
+				<button type="button" class="mm-add" id="mmAdd"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Menu</button>
 			</div>
 			<div class="mm-scroll">
 				<table>
 					<thead><tr>
+						<th class="ns no">No</th>
 						<th data-k="0">Kode<span class="ar">&#8597;</span></th>
 						<th data-k="1">Nama Menu<span class="ar">&#8597;</span></th>
 						<th data-k="4">Modul<span class="ar">&#8597;</span></th>
@@ -273,6 +417,7 @@ End If
 						<th data-k="6">Urutan<span class="ar">&#8597;</span></th>
 						<th data-k="9">Diubah<span class="ar">&#8597;</span></th>
 						<th data-k="5">Status<span class="ar">&#8597;</span></th>
+						<th class="ns act">Aksi</th>
 					</tr></thead>
 					<tbody id="mmBody"></tbody>
 				</table>
@@ -289,13 +434,69 @@ End If
 </div>
 <div class="mm-toast" id="mmToast" role="status"></div>
 <% If mmAllowed Then %>
+<div class="mm-modal" id="mmModal" hidden>
+	<div class="mm-dlg" role="dialog" aria-modal="true" aria-labelledby="mmFTitle">
+		<form id="mmForm" novalidate autocomplete="off">
+			<div class="mm-dlg-head">
+				<h3 id="mmFTitle">Tambah Menu</h3>
+				<button type="button" class="mm-x" data-close aria-label="Tutup">&times;</button>
+			</div>
+			<div class="mm-dlg-body">
+				<div class="mm-err" id="mmFErr" role="alert" hidden></div>
+				<div class="mm-grid">
+					<label class="f"><span class="t">Kode Menu <em>*</em></span>
+						<input type="text" name="code" maxlength="30" required>
+						<small id="mmCodeHint">Huruf, angka, titik, garis bawah atau minus. Tidak bisa diubah setelah disimpan.</small>
+					</label>
+					<label class="f"><span class="t">Nama Menu <em>*</em></span>
+						<input type="text" name="name" maxlength="100" required>
+					</label>
+					<label class="f mm-wide"><span class="t">Menu Induk <em>*</em></span>
+						<input type="text" name="parent" list="mmParents" maxlength="30" required placeholder="Ketik kode atau nama induk, 0 untuk menu utama">
+						<small id="mmParentName">&nbsp;</small>
+					</label>
+					<label class="f"><span class="t">Link (formlink)</span>
+						<input type="text" name="link" maxlength="100" placeholder="mis. MasterMenu atau p_laporan.asp">
+						<small>Kosongkan untuk menu grup.</small>
+					</label>
+					<label class="f"><span class="t">Urutan</span>
+						<input type="number" name="seq" step="any">
+					</label>
+					<label class="f"><span class="t">Modul <em>*</em></span>
+						<select name="module" required><option value="">Pilih modul</option></select>
+					</label>
+					<label class="f"><span class="t">Tipe <em>*</em></span>
+						<select name="type" required><option value="">Pilih tipe</option></select>
+					</label>
+					<label class="f mm-wide"><span class="t">Keterangan Bantuan</span>
+						<input type="text" name="help" maxlength="100">
+					</label>
+					<label class="f mm-wide"><span class="t">Catatan</span>
+						<textarea name="remarks" maxlength="1000" rows="2"></textarea>
+					</label>
+					<div class="f mm-wide">
+						<label class="sw"><input type="checkbox" name="active" checked><span class="track"></span><span class="lbl on">Aktif</span></label>
+						<small id="mmLockHint" hidden>Menu ini dibutuhkan untuk membuka Master Menu, jadi tidak bisa dinonaktifkan.</small>
+					</div>
+				</div>
+				<p class="mm-note" id="mmRoleNote">Menu baru belum muncul di sidebar sebelum ditambahkan ke role pengguna di <i>Combination Roles And Menu</i>.</p>
+			</div>
+			<div class="mm-dlg-foot">
+				<button type="button" class="mm-btn ghost" data-close>Batal</button>
+				<button type="submit" class="mm-btn" id="mmSave">Simpan</button>
+			</div>
+		</form>
+	</div>
+</div>
+<datalist id="mmParents"></datalist>
 <script>
 (function () {
 	'use strict';
-	// [kode, nama, induk, link, modul, aktif, urutan, tipe, diubah_oleh, tgl_ubah]
+	// [kode, nama, induk, link, modul, aktif, urutan, tipe, diubah_oleh, tgl_ubah, keterangan, catatan, kode_modul]
 	var ROWS = [<%=mmRows%>];
 	var LOCKED = {<% For Each mmK In mmLockList.Keys %><%=MmJson(mmK)%>:1,<% Next %>"":0};
 	var TOK = <%=MmJson(Session("mm_tok"))%>;
+	var MODULES = [<%=mmModules%>], TYPES = [<%=mmTypes%>];
 	var byCode = {}, kids = {};
 	ROWS.forEach(function (r) { byCode[r[0]] = r; (kids[r[2]] = kids[r[2]] || []).push(r); });
 	var st = { q: '', status: 'all', type: '', mod: '', sort: 0, dir: 1, page: 1, len: 25 };
@@ -308,7 +509,12 @@ End If
 		while (p && guard++ < 8) { out.unshift(p[1]); p = byCode[p[2]]; }
 		return out.join(' \u203a ');
 	}
-	ROWS.forEach(function (r) { r.path = path(r); r.hay = (r[0] + ' ' + r[1] + ' ' + r.path + ' ' + r[3] + ' ' + r[4]).toLowerCase(); });
+	function reindex() {
+		byCode = {}; kids = {};
+		ROWS.forEach(function (r) { byCode[r[0]] = r; (kids[r[2]] = kids[r[2]] || []).push(r); });
+		ROWS.forEach(function (r) { r.path = path(r); r.hay = (r[0] + ' ' + r[1] + ' ' + r.path + ' ' + r[3] + ' ' + r[4]).toLowerCase(); });
+	}
+	reindex();
 	function mark(s) {
 		var t = esc(s), words = st.q.trim().split(/\s+/).filter(Boolean);
 		if (!words.length) return t;
@@ -356,9 +562,10 @@ End If
 		var list = filtered(), pages = Math.max(1, Math.ceil(list.length / st.len));
 		st.page = Math.min(st.page, pages);
 		var start = (st.page - 1) * st.len, part = list.slice(start, start + st.len);
-		$('mmBody').innerHTML = part.length ? part.map(function (r) {
+		$('mmBody').innerHTML = part.length ? part.map(function (r, i) {
 			var locked = !!LOCKED[r[0]], child = (kids[r[0]] || []).filter(function (c) { return c[5]; }).length;
 			return '<tr class="' + (r[5] ? '' : 'off') + '">' +
+				'<td class="no">' + fmt(start + i + 1) + '</td>' +
 				'<td><span class="code">' + mark(r[0]) + '</span></td>' +
 				'<td>' + mark(r[1]) + (r.path ? '<span class="path">' + mark(r.path) + '</span>' : '') + '</td>' +
 				'<td>' + (r[4] ? mark(r[4]) : '<span class="muted">-</span>') + '</td>' +
@@ -369,8 +576,9 @@ End If
 				'<td><label class="sw" title="' + (locked ? 'Menu ini tidak bisa dinonaktifkan (dibutuhkan untuk membuka Master Menu)' : (child ? child + ' submenu aktif di bawahnya' : 'Aktif / nonaktifkan menu')) + '">' +
 				'<input type="checkbox" data-code="' + esc(r[0]) + '"' + (r[5] ? ' checked' : '') + (locked && r[5] ? ' disabled' : '') + ' aria-label="Status menu ' + esc(r[1]) + '">' +
 				'<span class="track"></span><span class="lbl ' + (r[5] ? 'on' : 'off') + '">' + (r[5] ? 'Aktif' : 'Nonaktif') + '</span></label></td>' +
+				'<td class="act"><button type="button" class="mm-edit" data-edit="' + esc(r[0]) + '" aria-label="Edit menu ' + esc(r[1]) + '"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button></td>' +
 				'</tr>';
-		}).join('') : '<tr><td colspan="8" class="mm-empty">Tidak ada menu yang cocok dengan filter.</td></tr>';
+		}).join('') : '<tr><td colspan="10" class="mm-empty">Tidak ada menu yang cocok dengan filter.</td></tr>';
 		$('mmInfo').innerHTML = list.length
 			? 'Menampilkan <b>' + fmt(start + 1) + '&ndash;' + fmt(start + part.length) + '</b> dari <b>' + fmt(list.length) + '</b> menu' + (list.length !== ROWS.length ? ' (difilter dari ' + fmt(ROWS.length) + ')' : '')
 			: '0 menu';
@@ -427,6 +635,110 @@ End If
 		x.onerror = function () { input.checked = !want; sw.classList.remove('busy'); input.disabled = false; toast('Koneksi gagal, perubahan tidak tersimpan.', true); };
 		x.send('action=toggle&code=' + encodeURIComponent(code) + '&active=' + (want ? 'TRUE' : 'FALSE') + '&tok=' + encodeURIComponent(TOK));
 	}
+
+	// ---- form tambah / ubah ----
+	var modal = $('mmModal'), form = $('mmForm'), F = form.elements, editing = null, lastFocus = null;
+	MODULES.forEach(function (m) { var o = document.createElement('option'); o.value = m[0]; o.textContent = m[1] + ' (' + m[0] + ')'; F.module.appendChild(o); });
+	TYPES.forEach(function (t) { var o = document.createElement('option'); o.value = t[0]; o.textContent = t[0]; F.type.appendChild(o); });
+	function fillParents() {
+		var dl = $('mmParents'), h = '<option value="0">0 - Menu utama</option>';
+		ROWS.slice().sort(function (a, b) { return a[0] < b[0] ? -1 : 1; }).forEach(function (r) { if (!r[3]) h += '<option value="' + esc(r[0]) + '">' + esc(r[0] + ' - ' + r[1]) + '</option>'; });
+		ROWS.forEach(function (r) { if (r[3]) h += '<option value="' + esc(r[0]) + '">' + esc(r[0] + ' - ' + r[1]) + '</option>'; });
+		dl.innerHTML = h;
+	}
+	function parentInfo() {
+		var v = F.parent.value.trim(), el = $('mmParentName'), p = byCode[v];
+		el.className = '';
+		if (!v) el.innerHTML = '&nbsp;';
+		else if (v === '0') el.textContent = 'Menu utama (paling atas)';
+		else if (p) el.textContent = (p.path ? p.path + ' \u203a ' : '') + p[1];
+		else { el.textContent = 'Kode induk tidak ditemukan'; el.className = 'warn'; }
+	}
+	function setActiveLbl() { var l = form.querySelector('.sw .lbl'); l.textContent = F.active.checked ? 'Aktif' : 'Nonaktif'; l.className = 'lbl ' + (F.active.checked ? 'on' : 'off'); }
+	function showErr(m) { var e = $('mmFErr'); e.textContent = m || ''; e.hidden = !m; }
+	function openForm(r) {
+		editing = r || null;
+		form.reset(); showErr('');
+		Array.prototype.forEach.call(form.querySelectorAll('.bad'), function (x) { x.classList.remove('bad'); });
+		fillParents();
+		$('mmFTitle').textContent = r ? 'Edit Menu ' + r[0] : 'Tambah Menu';
+		F.code.readOnly = !!r;
+		$('mmCodeHint').hidden = !!r;
+		$('mmRoleNote').hidden = !!r;
+		if (r) {
+			F.code.value = r[0]; F.name.value = r[1]; F.parent.value = r[2]; F.link.value = r[3];
+			F.seq.value = r[6]; F.module.value = r[12]; F.type.value = r[7];
+			F.help.value = r[10] || ''; F.remarks.value = r[11] || ''; F.active.checked = !!r[5];
+		} else {
+			F.active.checked = true;
+			if (st.type) F.type.value = st.type;
+		}
+		var locked = !!(r && LOCKED[r[0]]);
+		F.active.disabled = locked && F.active.checked;
+		$('mmLockHint').hidden = !locked;
+		setActiveLbl(); parentInfo();
+		lastFocus = document.activeElement;
+		modal.hidden = false;
+		(r ? F.name : F.code).focus();
+	}
+	function closeForm() { modal.hidden = true; editing = null; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+	// saran urutan: urutan terbesar di bawah induk yang sama + 1
+	F.parent.addEventListener('change', function () {
+		parentInfo();
+		if (!editing && !F.seq.value) {
+			var mx = 0; (kids[F.parent.value.trim()] || []).forEach(function (c) { mx = Math.max(mx, parseFloat(c[6]) || 0); });
+			if (mx) F.seq.value = mx + 1;
+		}
+	});
+	F.parent.addEventListener('input', parentInfo);
+	F.active.addEventListener('change', setActiveLbl);
+	modal.addEventListener('click', function (e) { if (e.target === modal || e.target.closest('[data-close]')) closeForm(); });
+	modal.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeForm(); });
+	form.addEventListener('submit', function (e) {
+		e.preventDefault();
+		var bad = [], v = function (n) { return F[n].value.trim(); };
+		Array.prototype.forEach.call(form.querySelectorAll('.bad'), function (x) { x.classList.remove('bad'); });
+		if (!/^[A-Za-z0-9_.\-]{1,30}$/.test(v('code'))) bad.push(['code', 'Kode menu wajib diisi (huruf, angka, titik, garis bawah atau minus).']);
+		else if (!editing && byCode[v('code')]) bad.push(['code', 'Kode menu ' + v('code') + ' sudah dipakai.']);
+		if (!v('name')) bad.push(['name', 'Nama menu wajib diisi.']);
+		if (!v('parent')) bad.push(['parent', 'Pilih menu induk (0 untuk menu utama).']);
+		else if (v('parent') !== '0' && !byCode[v('parent')]) bad.push(['parent', 'Menu induk ' + v('parent') + ' tidak ditemukan.']);
+		else if (v('parent') === v('code')) bad.push(['parent', 'Menu induk tidak boleh menu itu sendiri.']);
+		if (!v('module')) bad.push(['module', 'Pilih modul.']);
+		if (!v('type')) bad.push(['type', 'Pilih tipe menu.']);
+		if (bad.length) {
+			bad.forEach(function (b) { F[b[0]].classList.add('bad'); });
+			showErr(bad.map(function (b) { return b[1]; }).join(' '));
+			F[bad[0][0]].focus();
+			return;
+		}
+		showErr('');
+		var btn = $('mmSave'); btn.disabled = true; btn.textContent = 'Menyimpan...';
+		var body = ['action=save', 'mode=' + (editing ? 'update' : 'insert'), 'tok=' + encodeURIComponent(TOK), 'active=' + (F.active.checked ? 'TRUE' : 'FALSE')];
+		['code', 'name', 'parent', 'link', 'seq', 'module', 'type', 'help', 'remarks'].forEach(function (n) { body.push(n + '=' + encodeURIComponent(v(n))); });
+		var x = new XMLHttpRequest();
+		x.open('POST', 'MasterMenu.asp', true);
+		x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		x.onload = function () {
+			var d = null; try { d = JSON.parse(x.responseText); } catch (er) { /* bukan JSON */ }
+			btn.disabled = false; btn.textContent = 'Simpan';
+			if (d && d.ok) {
+				var row = d.row, idx = -1;
+				ROWS.forEach(function (r, i) { if (r[0] === row[0]) idx = i; });
+				if (idx >= 0) ROWS[idx] = row; else ROWS.push(row);
+				var isNew = idx < 0;
+				reindex(); kpis(); render(); closeForm();
+				toast('Menu "' + row[1] + '" ' + (isNew ? 'ditambahkan. Tambahkan ke role di Combination Roles And Menu agar tampil di sidebar.' : 'disimpan. Sidebar berubah setelah halaman dimuat ulang.'));
+			} else {
+				showErr(d && d.error ? d.error : 'Gagal menyimpan menu (HTTP ' + x.status + ').');
+			}
+		};
+		x.onerror = function () { btn.disabled = false; btn.textContent = 'Simpan'; showErr('Koneksi gagal, data tidak tersimpan.'); };
+		x.send(body.join('&'));
+	});
+	$('mmAdd').addEventListener('click', function () { openForm(null); });
+	$('mmBody').addEventListener('click', function (e) { var b = e.target.closest('button[data-edit]'); if (b) openForm(byCode[b.getAttribute('data-edit')]); });
 
 	// ---- event ----
 	var deb;

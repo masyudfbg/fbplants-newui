@@ -440,7 +440,7 @@ function launchwin(winurl,winname,winfeatures)
 <link rel="StyleSheet" href="css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014a"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
 <% end if %>
 </head>
 
@@ -455,6 +455,16 @@ function launchwin(winurl,winname,winfeatures)
 	.ltinggi{
 		padding-top:-50px;
 	}
+	/* Kolom label header & detail dibuat sama lebar (dulu detail auto-lebar sehingga input jauh dari label
+	   dan tabel melebar sampai muncul scroll horizontal) */
+	form[name="frmEntry"] > table.data,
+	form[name="eForm"] > table.data { table-layout: fixed; width: 100% !important; }
+	form[name="frmEntry"] > table.data > tbody > tr > td:first-child,
+	form[name="eForm"] > table.data > tbody > tr > td:first-child { width: 230px !important; }
+	form[name="frmEntry"] > table.data > tbody > tr > td[colspan],
+	form[name="eForm"] > table.data > tbody > tr > td[colspan] { width: auto !important; }
+	form[name="eForm"] { display: block !important; width: 100%; }
+	form[name="eForm"] .select2-container { max-width: 100%; }
 </style>
 
 
@@ -471,7 +481,7 @@ function launchwin(winurl,winname,winfeatures)
  	<div class="judul">
 	  Module : <%=request("txtModule")%> / <%=request("txtTable")%>
 	</div>
- <div class="box_both" style="overflow:scroll;">   
+ <div class="box_both">   
     <!-----------------ATAS ISI!----------------->
 
 <%
@@ -3112,16 +3122,14 @@ rsPaymentVoucher.Open q, connstr
 	</td>
 </tr>
 </table>
-<table class="data xthf-site">
-<br>
+<table class="data xthf-site" data-fbt-list>
 <thead>
 <tr bgcolor="#0C5B24" style="color:#FFFFFF;" style="color:#FFFFFF;">
 	<th align="left">
 		NO
 	</th>
-	<th colspan="2">&nbsp;
-		
-	</th>
+	<th data-nosort>&nbsp;</th>
+	<th data-nosort>&nbsp;</th>
 	<th align="left">
 		CODE
 	</th>
@@ -3205,7 +3213,7 @@ end if%>
 					</a>
 				</td>
 			<%Else%>
-				<td colspan="2"><img src="icon/IconClose.JPG" alt="Data is Close" border="0" width="16" height="18"></td>
+				<td><img src="icon/IconClose.JPG" alt="Data is Close" border="0" width="16" height="18"></td><td></td>
 			<%End if%>
 	<!-- End Period Control In Here -->
 		<%for i = 0 to nCountofField%>

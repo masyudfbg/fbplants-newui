@@ -1815,6 +1815,66 @@
 			</div>
 			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
 		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Purchasing">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Cetak PO (printingpo.asp) terpotong menjadi 2 halaman</h3>
+				<p>PO dengan banyak item atau catatan panjang tidak muat di satu lembar A4, sehingga blok tanda tangan (Dibuat/Disetujui Oleh) terlempar sendirian ke halaman 2. Contoh: CAE/TNE/PO/26/0219 (18 item + catatan syarat pengiriman).</p>
+				<p class="fix">Saat dicetak (tombol Cetak maupun Ctrl+P), isi lembar otomatis diperkecil secukupnya agar muat satu A4; lebar tetap penuh dan tampilan layar tidak berubah. Pengukuran selalu memakai tata letak A4 walau jendela browser sempit. Batas perkecil 55% agar tetap terbaca; PO yang sangat panjang tetap lanjut ke halaman berikutnya. Diuji cetak ke PDF: contoh di atas jadi 1 halaman (skala ~87%) pada jendela lebar maupun sempit.</p>
+				<div class="loc">printingpo.asp (script cetak di akhir halaman, CSS tampilan HP)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-high" data-st="st-ok" data-module="Finance &amp; Accounting">
+			<div><span class="badge sev-high">Tinggi</span></div>
+			<div>
+				<h3>Bank View (bnk_data_view.Asp): parameter URL masuk mentah ke SQL dan PL/SQL, BA tanpa cek akses</h3>
+				<p>Nilai <code>tahun</code>, <code>month</code>, <code>fcba</code> dan <code>bankcode</code> dari URL disambung langsung ke semua query, termasuk blok <code>BEGIN fac_journal_fac_bnk_api.FAC_BNK_STATUSPOST(...); END;</code> yang dijalankan setiap halaman dibuka, sehingga bisa disisipi perintah SQL/PL/SQL. Selain itu <code>fcba</code> tidak dicek, sehingga mutasi bank BA mana pun bisa dibuka cukup dengan mengganti parameter.</p>
+				<p class="fix">Semua query (termasuk pemanggilan FAC_BNK_STATUSPOST) kini berparameter; bulan/tahun divalidasi angka (1-12, 2000-2100); BA harus BA aktif atau di-assign ke user di user_fcba_tab. Diuji: periode berisi teks/injeksi dan BA tanpa akses ditolak dengan pesan; angka total Payment, Receive, saldo awal dan Ending Balance sama persis dengan versi lama (B02 ARJ Okt 2026).</p>
+				<div class="loc">bnk_data_view.Asp</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Finance &amp; Accounting">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Bank View: Export XLS mengekspor tabel yang salah</h3>
+				<p>Halaman memakai <code>id="product-table"</code> untuk tiga tabel (form header, tabel tab, dan tabel Cash Flow). Tombol Export XLS memakai <code>getElementById("product-table")</code> sehingga yang terekspor adalah tabel header (kode/nama bank), bukan data Cash Flow seperti nama filenya.</p>
+				<p class="fix">Export XLS kini mengekspor tabel Cash Flow (semua baris, tanpa toolbar/pagination) dengan nama file sama (CashFlow_kode - nama bank.xlsx). Diuji: 200 baris + baris Ending Balance terekspor.</p>
+				<div class="loc">bnk_data_view.Asp (getExport)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Finance &amp; Accounting">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>Payment Voucher Detail: tabel rincian bergeser horizontal &amp; tidak memakai tampilan DataTables</h3>
+				<p>Wadah halaman memakai <code>overflow:scroll</code> dan judul kolom aksi ber-<code>colspan=2</code> sedangkan baris yang sudah terkunci hanya 1 sel ber-colspan, sehingga tabel rincian melebar (scroll horizontal) dan fitur responsif tidak bisa menyembunyikan kolom. Voucher dengan 1 baris detail juga dilewati auto-DataTables (minimal 2 baris). Kolom label form detail tidak punya lebar tetap sehingga input jauh dari label.</p>
+				<p class="fix">Kolom aksi dipecah jadi 2 sel biasa, tabel ditandai <code>data-fbt-list</code> (1 baris pun diproses), overflow:scroll dihapus, lebar kolom label form header &amp; detail diseragamkan 230px. Kolom yang tidak muat kini dibuka lewat tombol (+) per baris.</p>
+				<div class="loc">PaymentVoucherDetail.Asp, js/fbp-table-auto.js (enhanceDashList)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-med" data-st="st-open" data-module="Mill Production">
+			<div><span class="badge sev-med">Sedang</span></div>
+			<div>
+				<h3>LHP: kolom persen (FFA, Air, Kotoran, DOBI) tidak bisa diisi desimal</h3>
+				<p>Semua input angka di form Laporan Harian Produksi memakai <code>harusangka()</code> yang hanya menerima tombol 0-9, sehingga titik/koma ditolak. Kolom FFA/Air/Kotoran CPO, per tangki dan bulking silo (mis. FFA 3,45%) serta DOBI hanya bisa diisi bilangan bulat. Dulu kolom-kolom persen ini juga berlabel satuan KG.</p>
+				<p class="fix">Belum diubah karena perlu dicek apakah lhpinsertproses.asp dan kolom tabel tujuan menerima desimal (dan pemisah desimal yang dipakai). Label satuan sudah diperbaiki menjadi % pada tampilan baru.</p>
+				<div class="loc">lhp.asp (harusangka), lhpinsertproses.asp</div>
+			</div>
+			<div class="status"><span class="badge st-open">Belum diperbaiki</span></div>
+		</div>
+		<div class="bug" data-sev="sev-low" data-st="st-ok" data-module="Mill Production">
+			<div><span class="badge sev-low">Rendah</span></div>
+			<div>
+				<h3>LHP: Total isi tangki CPO jadi NaN bila salah satu kolom dikosongkan</h3>
+				<p><code>getTotal()</code> menjumlahkan <code>parseInt</code> isi tangki 1-3; bila satu kolom dihapus isinya, total menjadi NaN dan ikut tersimpan sebagai totalcpo.</p>
+				<p class="fix">Kolom kosong kini dihitung 0. Diuji: 1200 + (kosong) + 300 = 1500.</p>
+				<div class="loc">lhp.asp (getTotal)</div>
+			</div>
+			<div class="status"><span class="badge st-ok">Sudah diperbaiki</span></div>
+		</div>
 	</section>
 </div>
 
