@@ -377,33 +377,33 @@ End if
 	<input  type="hidden" value="<%=txtModule%>" name="txtModule">
 	</form>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">KERJA (KJ)</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_KJ,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_KJ,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">KERJA (WS)</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_WS,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_WS,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">KERJA (WH)</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_WH,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_WH,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">UN</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_UN,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_UN,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">ML</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_ML,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_ML,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">MK</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_MK,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_MK,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">P1</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_P1,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_P1,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">P2</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_P2,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_P2,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">P3</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_P3,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_P3,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">S1</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_S1,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_S1,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">S2</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_S2,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_S2,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">H1</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_H1,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_H1,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">H2</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_H2,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_H2,2)%>&nbsp;</TD></tr>
 	<tr><td align="RIGHT" style="<%=cmdstyleLeft%>" colspan=<%=KOLOM%>><font face="Verdana" size="1">CT</td>
-	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_CT,0)%>&nbsp;</TD></tr>
+	<TD style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(v_CT,2)%>&nbsp;</TD></tr>
 <%end if%>
 </table>
 <!--#include file="Bottom_Report.asp"-->

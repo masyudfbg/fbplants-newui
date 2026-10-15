@@ -180,16 +180,16 @@ TGLAKHIR	= trim(REQUEST("tglakhir"))
 		<td align="left" Rowspan="" class="lebarket"><%=rsdata("GROUPMST")%></td> 
 		<td align="left"><%=rsdata("ITEM")%></td>
 		<td align="center"><%=rsdata("SATUAN")%></td>
-		<td align="right"><%=FormatNumber(TTLSEMUA,0)%></td>
-		<td align="right"><%=FormatNumber(TTLARJ,0)%></td>
-		<td align="right"><%=FormatNumber(TTLBRS,0)%></td>
-		<td align="right"><%=FormatNumber(TTLBIA,0)%></td>
-		<td align="right"><%=FormatNumber(TTLKAA,0)%></td>
-		<td align="right"><%=FormatNumber(TTLGAS,0)%></td>
-		<td align="right"><%=FormatNumber(TTLKSR,0)%></td>
-		<td align="right"><%=FormatNumber(TTLBRP,0)%></td>
-		<td align="right"><%=FormatNumber(TTLCAE,0)%></td>
-		<td align="right"><%=FormatNumber(TTLESR,0)%></td>
+		<td align="right"><%=FormatNumber(TTLSEMUA,2)%></td>
+		<td align="right"><%=FormatNumber(TTLARJ,2)%></td>
+		<td align="right"><%=FormatNumber(TTLBRS,2)%></td>
+		<td align="right"><%=FormatNumber(TTLBIA,2)%></td>
+		<td align="right"><%=FormatNumber(TTLKAA,2)%></td>
+		<td align="right"><%=FormatNumber(TTLGAS,2)%></td>
+		<td align="right"><%=FormatNumber(TTLKSR,2)%></td>
+		<td align="right"><%=FormatNumber(TTLBRP,2)%></td>
+		<td align="right"><%=FormatNumber(TTLCAE,2)%></td>
+		<td align="right"><%=FormatNumber(TTLESR,2)%></td>
 		
 	</tr>
 	

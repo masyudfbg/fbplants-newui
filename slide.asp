@@ -154,15 +154,15 @@ table.tableclass tbody tr td, table.tableclass thead tr th {
 							
 							docketlist += '<tr>';
 							docketlist += '<td align="left" class="lebarket">TBS Masuk - ' + json.dataviewtbs[i].areatypename + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasearmhi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasearmshi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasearmsbi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonaseramhi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonaseramshi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonaseramsbi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasebrehi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasebreshi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasebresbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasearmhi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasearmshi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasearmsbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonaseramhi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonaseramshi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonaseramsbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasebrehi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasebreshi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasebresbi) + '</td>';
 							docketlist += '</tr>';
 							$('#bodytable').append(docketlist);
 						}
@@ -185,9 +185,9 @@ table.tableclass tbody tr td, table.tableclass thead tr th {
 							var docketlist = '';
 							docketlist += '<tr>';
 							docketlist += '<td align="left" class="lebarket">CPO Keluar</td>';
-							docketlist += '<td align="right">' + numformat(totalberatcpo) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasecpoarmshi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasecpoarmsbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(totalberatcpo) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasecpoarmshi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasecpoarmsbi) + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
@@ -215,9 +215,9 @@ table.tableclass tbody tr td, table.tableclass thead tr th {
 							var docketlist = '';
 							docketlist += '<tr>';
 							docketlist += '<td align="left" class="lebarket">Kernel Keluar</td>';
-							docketlist += '<td align="right">' + numformat(tonasepkarmhi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasepkarmshi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonasepkarmsbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasepkarmhi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasepkarmshi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonasepkarmsbi) + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
@@ -245,9 +245,9 @@ table.tableclass tbody tr td, table.tableclass thead tr th {
 							var docketlist = '';
 							docketlist += '<tr>';
 							docketlist += '<td align="left" class="lebarket">Cangkang Keluar</td>';
-							docketlist += '<td align="right">' + numformat(tonaseckgarmhi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonaseckgarmshi) + '</td>';
-							docketlist += '<td align="right">' + numformat(tonaseckgarmsbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonaseckgarmhi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonaseckgarmshi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(tonaseckgarmsbi) + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
 							docketlist += '<td align="right">' + '0' + '</td>';
@@ -276,9 +276,9 @@ table.tableclass tbody tr td, table.tableclass thead tr th {
 							// var docketlist = '';
 							// docketlist += '<tr>';
 							// docketlist += '<td align="left" class="lebarket">Retail/Lain-Lain Keluar</td>';
-							// docketlist += '<td align="right">' + numformat(tonaselainarmhi) + '</td>';
-							// docketlist += '<td align="right">' + numformat(tonaselainarmshi) + '</td>';
-							// docketlist += '<td align="right">' + numformat(tonaselainarmsbi) + '</td>';
+							// docketlist += '<td align="right">' + numformat2(tonaselainarmhi) + '</td>';
+							// docketlist += '<td align="right">' + numformat2(tonaselainarmshi) + '</td>';
+							// docketlist += '<td align="right">' + numformat2(tonaselainarmsbi) + '</td>';
 							// docketlist += '<td align="right">' + '0' + '</td>';
 							// docketlist += '<td align="right">' + '0' + '</td>';
 							// docketlist += '<td align="right">' + '0' + '</td>';
@@ -357,6 +357,14 @@ table.tableclass tbody tr td, table.tableclass thead tr th {
 				});
 				
 			
+	}
+
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
 	}
 
 	function numformat(val) {

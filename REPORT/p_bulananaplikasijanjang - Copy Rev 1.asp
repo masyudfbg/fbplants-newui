@@ -797,7 +797,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="right"><%=FormatNumber(rsEPS("nov"),0)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("des"),0)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("total"),0)%></td>
-				<td align="right"><%=f_persen(cdbl(to_nol(rsEPS("total"))), 0)%></td>
+				<td align="right"><%=FbpNum2(f_persen(cdbl(to_nol(rsEPS("total"))), 0))%></td>
 			</tr>
 <%
 			NO = NO + 1			

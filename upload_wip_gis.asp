@@ -494,7 +494,7 @@ Dim oRecordSet, oSQLQuery
 					<td align="left" valign="top"><%=rsdata("actname")%></td>
 					<td align="left" valign="top"><%=rsdata("kontraktor")%></td>
 					<td align="left" valign="top"><%=rsdata("tanggal_wip")%></td>
-					<td align="right" valign="top"><%=rsdata("luas")%></td>
+					<td align="right" valign="top"><%=FbpNum2(rsdata("luas"))%></td>
 				<!-- End Period Control In Here -->
 				
 			    

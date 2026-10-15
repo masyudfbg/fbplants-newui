@@ -994,14 +994,14 @@ body{font-family:'Arial Narrow';font-size:12px;}
 					
 						<td></td>
 						<td style="border-right: double; width: 425px"><strong><i>FFB PRODUCTION (MT)</i></strong></td>
-						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity),0)%></i></strong></td>
-						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity),0)%></i></strong></td>
-						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(to_nol(VARIANCE_QUANTITY_THISMONTH)),0)%></i></strong></td>
-						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity2),0)%></i></strong></td>
-						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity2),0)%></i></strong></td>
-						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(to_nol(VARIANCE_QUANTITY_TODATE)),0)%></i></strong></td>
-						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity3),0)%></i></strong></td>
-						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity3),0)%></i></strong></td>
+						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity),2)%></i></strong></td>
+						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity),2)%></i></strong></td>
+						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(to_nol(VARIANCE_QUANTITY_THISMONTH)),2)%></i></strong></td>
+						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity2),2)%></i></strong></td>
+						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity2),2)%></i></strong></td>
+						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(to_nol(VARIANCE_QUANTITY_TODATE)),2)%></i></strong></td>
+						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity3),2)%></i></strong></td>
+						<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(quantity3),2)%></i></strong></td>
 						<td align="right" ><strong><i></i></strong></td>
 				</tr>
 		  <%
@@ -1020,14 +1020,14 @@ body{font-family:'Arial Narrow';font-size:12px;}
 		</form>
 		<tr>
 		<th align="Center" colspan="<%=var_colspan+1%>"> <font face="Verdana" size="1">T o t a l</th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_variance_QUANTITY_thismonth,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY2,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY2,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_variance_QUANTITY_todate,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY3,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY3,0)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_variance_QUANTITY_thismonth,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY2,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY2,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_variance_QUANTITY_todate,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY3,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_QUANTITY3,2)%></th>
 		</tr>
 	<tbody>
 </table>
@@ -1143,16 +1143,16 @@ Dim sprevFcba : sprevFcba = ""
 				<td align="right" ><strong><i> </i></strong></td>
 			<%else%>
 				<td colspan="2" style="border-right: double; width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"><strong><i><%=result%></i></strong></td>
-				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount,0) %></i></strong></td>
-				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount,0) %></i></strong></td>
-				<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount_THISMONTH,0) %></i></strong></td>
+				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount,2) %></i></strong></td>
+				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount,2) %></i></strong></td>
+				<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount_THISMONTH,2) %></i></strong></td>
 
-				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2,0) %></i></strong></td>
-				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2,0) %></i></strong></td>
-				<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2_TODATE,0) %></i></strong></td>
+				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2,2) %></i></strong></td>
+				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2,2) %></i></strong></td>
+				<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2_TODATE,2) %></i></strong></td>
 
-				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount3,0) %></i></strong></td>
-				<td align="right" style=" width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount3,0) %></i></strong></td>
+				<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount3,2) %></i></strong></td>
+				<td align="right" style=" width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount3,2) %></i></strong></td>
 			<%end if %>
 
 		</tr>
@@ -1162,16 +1162,16 @@ Dim sprevFcba : sprevFcba = ""
 					result  = "ESTATE PROFIT / (LOSS)" 
 			%>
 			<td colspan="2" style="border-right: double; width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"><strong><i><%=result%></i></strong></td>
-			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_thismonth,0) %></i></strong></td>
-			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_thismonth,0) %></i></strong></td>
-			<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount_THISMONTH,0) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_thismonth,2) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_thismonth,2) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount_THISMONTH,2) %></i></strong></td>
 
-			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_todate,0) %></i></strong></td>
-			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_todate,0) %></i></strong></td>
-			<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2_TODATE,0) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_todate,2) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_todate,2) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2_TODATE,2) %></i></strong></td>
 
-			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_lastyear,0) %></i></strong></td>
-			<td align="right" style=" width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_lastyear,0) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_lastyear,2) %></i></strong></td>
+			<td align="right" style=" width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(total_estate_lastyear,2) %></i></strong></td>
 			<%end if %> 
 		</tr>
 			<% 	 
@@ -1309,14 +1309,14 @@ Dim sprevFcba : sprevFcba = ""
 					<td align="right" style="width: 135px"><strong><i></i></strong></td>
 					<td align="right"><strong><i></i></strong></td>
 				<%else%>
-					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT"),0)%></i></strong></td>
-					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT"),0)%></i></strong></td>
-					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(to_nol(VARIANCE_THISMONTH)),0)%></i></strong></td>
-					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT2"),0)%></i></strong></td>
-					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT2"),0)%></i></strong></td>
-					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(to_nol(VARIANCE_TODATE)),0)%></i></strong></td>
-					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT3"),0)%></i></strong></td>
-					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT3"),0)%></i></strong></td>
+					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT"),2)%></i></strong></td>
+					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT"),2)%></i></strong></td>
+					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(to_nol(VARIANCE_THISMONTH)),2)%></i></strong></td>
+					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT2"),2)%></i></strong></td>
+					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT2"),2)%></i></strong></td>
+					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(cdbl(to_nol(VARIANCE_TODATE)),2)%></i></strong></td>
+					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT3"),2)%></i></strong></td>
+					<td align="right" style="width: 135px"><strong><i><%=FormatNumber(rsRevenue("AMOUNT3"),2)%></i></strong></td>
 					<td align="right" ><strong><i></i></strong></td>
 				<%End if%>
 		</tr>
@@ -1336,28 +1336,28 @@ Dim sprevFcba : sprevFcba = ""
 	</form>
 	<tr>
 		<td colspan="2" style="border-right: double; width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"><strong><i>TOTAL</i></strong></td>
-		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount,0) %></i></strong></td>
-		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount,0) %></i></strong></td>
-		<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount_THISMONTH,0) %></i></strong></td>
+		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount,2) %></i></strong></td>
+		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount,2) %></i></strong></td>
+		<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount_THISMONTH,2) %></i></strong></td>
 
-		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2,0) %></i></strong></td>
-		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2,0) %></i></strong></td>
-		<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2_TODATE,0) %></i></strong></td>
+		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2,2) %></i></strong></td>
+		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2,2) %></i></strong></td>
+		<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount2_TODATE,2) %></i></strong></td>
 
-		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount3,0) %></i></strong></td>
-		<td align="right" style=" width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount3,0) %></i></strong></td>
+		<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount3,2) %></i></strong></td>
+		<td align="right" style=" width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempAmount3,2) %></i></strong></td>
 	</tr>
 
 	<tr>
 		<th align="Center" colspan="<%=var_colspan+1%>"> <font face="Verdana" size="1">GRAND TOTAL</th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_variance_revenue_thismonth,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue2,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue2,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_variance_revenue_todate,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue3,0)%></th>
-		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue3,0)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_variance_revenue_thismonth,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue2,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue2,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_variance_revenue_todate,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue3,2)%></th>
+		<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_amountrevenue3,2)%></th>
 	</tr>
 <tbody>
 </table>

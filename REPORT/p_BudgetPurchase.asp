@@ -414,14 +414,14 @@ th.rotate-270 > div {
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=qORS("stockcode")%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=qORS("stockname")%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=qORS("unitofmeasurement")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("budget_qty"))),0)%></td> 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("pr_qty"))),0)%></td> 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("ending_balance_qty_pr"))),0)%></td> 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("po_qty"))),0)%></td> 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("po_amount"))),0)%></td> 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("ending_balance_qty_po"))),0)%></td> 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("budget_amount"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("ending_balance_amount_po"))),0)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("budget_qty"))),2)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("pr_qty"))),2)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("ending_balance_qty_pr"))),2)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("po_qty"))),2)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("po_amount"))),2)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("ending_balance_qty_po"))),2)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("budget_amount"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(qORS("ending_balance_amount_po"))),2)%></td> 
 		</tr>
 	<% 
 		v_budget_qty =  v_budget_qty +  cdbl(to_nol(qORS("budget_qty")))
@@ -445,14 +445,14 @@ th.rotate-270 > div {
 	<input  type="hidden" value="<%=txtModule%>" name="txtModule">
 		<tr bgcolor="#F4F4A0">
 			<td align="center" colspan="4"><strong>TOTAL</strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_budget_qty)),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_pr_qty)),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_ending_balance_qty_pr)),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_po_qty)),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_po_amount)),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_ending_balance_qty_po)),0)%></strong></td> 
-			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_budget_amount)),0)%></strong></td> 
-			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_ending_balance_amount_po)),0)%></strong></td> 
+			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_budget_qty)),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_pr_qty)),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_ending_balance_qty_pr)),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_po_qty)),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_po_amount)),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_ending_balance_qty_po)),2)%></strong></td> 
+			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_budget_amount)),2)%></strong></td> 
+			<td align="right"><strong><%=FormatNumber(cdbl(to_nol(v_ending_balance_amount_po)),2)%></strong></td> 
 		</tr>
 	</tbody>
 </table>

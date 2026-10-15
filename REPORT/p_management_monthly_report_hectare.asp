@@ -615,19 +615,19 @@ function launchwin(winurl,winname,winfeatures)
 						<td align="Left"></td>					
 					<% end if %>
 				<% end if %>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("MATURE"),0)%></td>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("bud_mature"),0)%></td>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("IMMATURE_01"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("IMMATURE_02"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("IMMATURE_03"),0)%></td>
-		<td align="right"><%=FormatNumber(TOTIMATURE,0)%></td>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("bud_immature"),0)%></td>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("NEWPLANTING_THISMONTH"),0)%></td>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("BUDGET_THISMONTH"),0)%></td>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("NEWPLANTING_TODATE"),0)%></td>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("BUDGET_TODATE"),0)%></td>
-		<td align="right"><%=FormatNumber(rsMonthlyPupuk("BUDGET_ANNUAL"),0)%></td>
-		<td align="right"><%=FormatNumber(TOTPLANTED,0)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("MATURE"),2)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("bud_mature"),2)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("IMMATURE_01"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("IMMATURE_02"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("IMMATURE_03"),2)%></td>
+		<td align="right"><%=FormatNumber(TOTIMATURE,2)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("bud_immature"),2)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("NEWPLANTING_THISMONTH"),2)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("BUDGET_THISMONTH"),2)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("NEWPLANTING_TODATE"),2)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("BUDGET_TODATE"),2)%></td>
+		<td align="right"><%=FormatNumber(rsMonthlyPupuk("BUDGET_ANNUAL"),2)%></td>
+		<td align="right"><%=FormatNumber(TOTPLANTED,2)%></td>
 	</tr>
 <%
 		Ttl_MATURE               	= Ttl_MATURE + Cdbl(rsMonthlyPupuk("MATURE"))
@@ -649,19 +649,19 @@ function launchwin(winurl,winname,winfeatures)
 		%>
 		<tr>
 			<td align="Center" style="background-color:#FFFF00;" colspan="<%=var_colspan%>"><b>Total</b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Ttl_MATURE,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUD_MATURE,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_IMMATURE_01,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_IMMATURE_02,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_IMMATURE_03,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_TOTIMATURE,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUD_IMMATURE,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_NEWPLANTING_THISMONTH,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUDGET_THISMONTH,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_NEWPLANTING_TODATE,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUDGET_TODATE,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUDGET_ANNUAL,0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_TOTPLANTED,0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Ttl_MATURE,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUD_MATURE,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_IMMATURE_01,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_IMMATURE_02,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_IMMATURE_03,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_TOTIMATURE,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUD_IMMATURE,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_NEWPLANTING_THISMONTH,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUDGET_THISMONTH,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_NEWPLANTING_TODATE,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUDGET_TODATE,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_BUDGET_ANNUAL,2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(TTL_TOTPLANTED,2)%></b></td>
 		</tr>
 		
 		<%
@@ -709,19 +709,19 @@ function launchwin(winurl,winname,winfeatures)
 			%>
 			<tr>
 				<td align="Center" style="background-color:#FFFF00;" colspan="<%=var_colspan%>"><b>Grand Total</b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTtl_MATURE,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUD_MATURE ,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_IMMATURE_01,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_IMMATURE_02,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_IMMATURE_03,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_TOTIMATURE,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUD_IMMATURE,0)%></b></td> 
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_NEWPLANTING_THISMONTH,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUDGET_THISMONTH,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_NEWPLANTING_TODATE,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUDGET_TODATE,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUDGET_ANNUAL,0)%></b></td>
-				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_TOTPLANTED,0)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTtl_MATURE,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUD_MATURE ,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_IMMATURE_01,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_IMMATURE_02,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_IMMATURE_03,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_TOTIMATURE,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUD_IMMATURE,2)%></b></td> 
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_NEWPLANTING_THISMONTH,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUDGET_THISMONTH,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_NEWPLANTING_TODATE,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUDGET_TODATE,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_BUDGET_ANNUAL,2)%></b></td>
+				<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(GTTL_TOTPLANTED,2)%></b></td>
 			</tr>
 			<%
 				GTtl_MATURE					= 0

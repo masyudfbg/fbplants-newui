@@ -334,38 +334,38 @@ if rsEmployee.eof and rsEmployee.eof then
 				<td align="center"><%=NO%></td>
 				<td align="left"><%=rsEmployee("BLOK")%></td>
 				<td align="left"><%=rsEmployee("JANJANG")%></td>
-				<td align="right"><%=rsEmployee("day_1")%></td>
-				<td align="right"><%=rsEmployee("day_2")%></td>
-				<td align="right"><%=rsEmployee("day_3")%></td>
-				<td align="right"><%=rsEmployee("day_4")%></td>
-				<td align="right"><%=rsEmployee("day_5")%></td>
-				<td align="right"><%=rsEmployee("day_6")%></td>
-				<td align="right"><%=rsEmployee("day_7")%></td>
-				<td align="right"><%=rsEmployee("day_8")%></td>
-				<td align="right"><%=rsEmployee("day_9")%></td>
-				<td align="right"><%=rsEmployee("day_10")%></td>
-				<td align="right"><%=rsEmployee("day_11")%></td>
-				<td align="right"><%=rsEmployee("day_12")%></td>
-				<td align="right"><%=rsEmployee("day_13")%></td>
-				<td align="right"><%=rsEmployee("day_14")%></td>
-				<td align="right"><%=rsEmployee("day_15")%></td>
-				<td align="right"><%=rsEmployee("day_16")%></td>
-				<td align="right"><%=rsEmployee("day_17")%></td>
-				<td align="right"><%=rsEmployee("day_18")%></td>
-				<td align="right"><%=rsEmployee("day_19")%></td>
-				<td align="right"><%=rsEmployee("day_20")%></td>
-				<td align="right"><%=rsEmployee("day_21")%></td>
-				<td align="right"><%=rsEmployee("day_22")%></td>
-				<td align="right"><%=rsEmployee("day_23")%></td>
-				<td align="right"><%=rsEmployee("day_24")%></td>
-				<td align="right"><%=rsEmployee("day_25")%></td>
-				<td align="right"><%=rsEmployee("day_26")%></td>
-				<td align="right"><%=rsEmployee("day_27")%></td>
-				<td align="right"><%=rsEmployee("day_28")%></td>
-				<td align="right"><%=rsEmployee("day_29")%></td>
-				<td align="right"><%=rsEmployee("day_30")%></td>
-				<td align="right"><%=rsEmployee("day_31")%></td>
-				<td align="right"><%=rsEmployee("TOTAL")%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_1"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_2"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_3"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_4"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_5"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_6"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_7"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_8"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_9"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_10"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_11"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_12"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_13"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_14"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_15"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_16"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_17"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_18"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_19"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_20"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_21"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_22"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_23"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_24"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_25"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_26"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_27"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_28"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_29"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_30"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("day_31"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("TOTAL"))%></td>
 <%
 			NO = NO + 1
 		

@@ -137,7 +137,7 @@ set rsview = connStr.Execute(sqlview)
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("HK")%> </td>
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("UNIT")%> </td>
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("FISIK")%> </td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsview("AMOUNT"),0)%></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsview("AMOUNT"),2)%></td>
 						</tr>
 						
 						</tbody>
@@ -150,10 +150,10 @@ set rsview = connStr.Execute(sqlview)
 						%>
 						<tr >
 							<td colspan=7><strong>Total</strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlhk)),0)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlhk)),2)%></strong></td>
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong></strong></td>
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamnt)),0)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamnt)),2)%></strong></td>
 						</tr>
 						</table>
 						<!--#include file="Bottom_Report.asp"-->

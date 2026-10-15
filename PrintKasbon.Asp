@@ -403,7 +403,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 				<tr>
 					<td class="jarakno ratakiri"><%=txtlineno%></td>
 					<td class="jarakjobname ratakiri"><%=txtremarks%></td>
-					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txtamount),0)%></td>
+					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txtamount),2)%></td>
 				</tr>
 				
 				
@@ -423,7 +423,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 				
 				<tr style="border-top:1px #000000 solid;">
 					<td colspan="2" class="ratakanan tebal">Total</td>
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),2)%></td>
 				</tr>
 				
 				

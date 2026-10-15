@@ -274,8 +274,8 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("pocode")%></td>  
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("lineno")%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("itemcode")%></td>
-			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("quantity"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("amountbeforevat"))),0)%></td> 
+			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("quantity"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("amountbeforevat"))),2)%></td> 
 		</tr>
 <% 			
 			v_Quantity= v_Quantity + Trim(cdbl(to_nol(rsGrnInv("quantity"))))

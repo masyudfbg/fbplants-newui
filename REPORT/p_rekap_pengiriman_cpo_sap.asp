@@ -594,7 +594,7 @@ set rsLHPP = Nothing
 		<%END IF%>
 					<tr>
 						<td align="left"><%=array_data(0, array_i)%></td>
-						<td align="right"><%=FormatNumber(array_data(1, array_i), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(1, array_i), 2)%></td>
 						<td align="left"><%=array_data(2, array_i)%></td>
 						<td align="left"><%=array_data(3, array_i)%></td>
 						<td align="left"><%=array_data(4, array_i)%></td>
@@ -606,12 +606,12 @@ set rsLHPP = Nothing
 						<td align="left"><%=array_data(9, array_i)%></td>
 						<td align="left"><%=array_data(10, array_i)%></td>
 						<td align="left"><%=array_data(12, array_i)%></td>
-						<td align="right"><%=FormatNumber(array_data(13, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(14, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(15, array_i), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(13, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(14, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(15, array_i), 2)%></td>
 						<!--
-						 <td align="right"><%=FormatNumber(Cdbl(row_todate), 0)%></td>
-						 <td align="right"><%=FormatNumber(Cdbl(bal_todate), 0)%></td>
+						 <td align="right"><%=FormatNumber(Cdbl(row_todate), 2)%></td>
+						 <td align="right"><%=FormatNumber(Cdbl(bal_todate), 2)%></td>
 						 -->
 						<td align="right">&nbsp;</td>
 						<td align="right">&nbsp;</td>

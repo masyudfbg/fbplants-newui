@@ -37,7 +37,8 @@
 		var m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2}))?/.exec(String(v).trim());
 		return m ? new Date(+m[3], +m[1] - 1, +m[2], +(m[4] || 0), +(m[5] || 0)).getTime() : NaN;
 	}
-	function fmt(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+	// format ribuan dengan 2 desimal (1,234,567.89)
+	function fmt(n) { if (Math.abs(n) < 0.005) n = 0; var p = n.toFixed(2).split('.'); return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1]; }
 
 	function init(table, opt) {
 		if (!table || table.getAttribute('data-fbt')) return null;

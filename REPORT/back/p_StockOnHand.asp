@@ -115,7 +115,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="left"><%=rsStockOnHand("STOCKCODE")%></td>
 				<td align="left"><%=rsStockOnHand("STOCKNAME")%></td>
 				<td align="left"><%=rsStockOnHand("UOM")%></td>
-				<td align="right"><%=rsStockOnHand("QUANTITY")%></td>
+				<td align="right"><%=FbpNum2(rsStockOnHand("QUANTITY"))%></td>
 				
 			</tr>
 <%
@@ -128,7 +128,7 @@ function launchwin(winurl,winname,winfeatures)
 %>
 			<tr bgcolor="#9CB770">
 				<td align="center" colspan="5">TOTAL</td>
-				<td align="right"><%=nTotal%></td>
+				<td align="right"><%=FbpNum2(nTotal)%></td>
 			</tr>
 </table>
 

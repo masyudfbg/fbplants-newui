@@ -167,10 +167,10 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="left"><%=rsCatuBeras("POSITION")%></td>
 				<td align="center"><%=rsCatuBeras("PRESENTGRADE")%></td>
 				<td align="center"><%=rsCatuBeras("MARITALSTATUS")%></td>
-				<td align="right" width="4%"><%=rsCatuBeras("PEKERJA")%></td>
-				<td align="right" width="4%"><%=rsCatuBeras("PASANGAN")%></td>
-				<td align="right" width="4%"><%=rsCatuBeras("TANGGUNGAN")%></td>
-				<td align="right" width="4%"><%=rsCatuBeras("TOTAL")%></td>
+				<td align="right" width="4%"><%=FbpNum2(rsCatuBeras("PEKERJA"))%></td>
+				<td align="right" width="4%"><%=FbpNum2(rsCatuBeras("PASANGAN"))%></td>
+				<td align="right" width="4%"><%=FbpNum2(rsCatuBeras("TANGGUNGAN"))%></td>
+				<td align="right" width="4%"><%=FbpNum2(rsCatuBeras("TOTAL"))%></td>
 			<%if no  mod 2 = 1 then%>
 				   <td align="left" width="100" bgcolor="#ccc"><font face="Verdana" size="1">&nbsp;</font></td>			
 				   <td align="left" width="100" bgcolor="#fff"><font face="Verdana" size="1">&nbsp;</font></td>			
@@ -193,10 +193,10 @@ function launchwin(winurl,winname,winfeatures)
 %>
 			<tr bgcolor="#9CB770">
 				<td align="center" colspan="6">TOTAL</td>
-				<td align="right"><%=nTotalPekerja%></td>
-				<td align="right"><%=nTotalPasangan%></td>
-				<td align="right"><%=nTotalTanggungan%></td>
-				<td align="right"><%=nSubTotal%></td>
+				<td align="right"><%=FbpNum2(nTotalPekerja)%></td>
+				<td align="right"><%=FbpNum2(nTotalPasangan)%></td>
+				<td align="right"><%=FbpNum2(nTotalTanggungan)%></td>
+				<td align="right"><%=FbpNum2(nSubTotal)%></td>
 				<td colspan="2">&nbsp;</td>
 			</tr>
 </table>

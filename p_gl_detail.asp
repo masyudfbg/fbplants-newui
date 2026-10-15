@@ -218,10 +218,10 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="Left" ><%=rscat("JOURNALNO")%></td>			
 			<td align="Left" ><%=rscat("coa")%></td>			
 			<td align="Left" ><%=rscat("COANAME")%></td>				
-			<td style="text-align: right;" ><%=formatnumber(rscat("opening_balance"),0)%></td>				
-			<td style="text-align: right;" ><%=formatnumber(rscat("debet"),0)%></td>				
-			<td style="text-align: right;" ><%=formatnumber(rscat("credit"),0)%></td>	
-			<td style="text-align: right;" ><%=formatnumber(rscat("ending_balance"),0)%></td>	
+			<td style="text-align: right;" ><%=formatnumber(rscat("opening_balance"),2)%></td>				
+			<td style="text-align: right;" ><%=formatnumber(rscat("debet"),2)%></td>				
+			<td style="text-align: right;" ><%=formatnumber(rscat("credit"),2)%></td>	
+			<td style="text-align: right;" ><%=formatnumber(rscat("ending_balance"),2)%></td>	
 							
 			
 		</tr>
@@ -239,10 +239,10 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 	rsCat=null%>
         <tr style="text-align: right; background-color:#f0f0f0;">
             <td align="Left" colspan="6">TOTAL</td>
-            <td style="text-align: right;"><%=formatnumber(totOpening,0)%></td>
-            <td style="text-align: right;"><%=formatnumber(totDebet,0)%></td>
-            <td style="text-align: right;"><%=formatnumber(totCredit,0)%></td>
-            <td style="text-align: right;"><%=formatnumber(totEnding,0)%></td>
+            <td style="text-align: right;"><%=formatnumber(totOpening,2)%></td>
+            <td style="text-align: right;"><%=formatnumber(totDebet,2)%></td>
+            <td style="text-align: right;"><%=formatnumber(totCredit,2)%></td>
+            <td style="text-align: right;"><%=formatnumber(totEnding,2)%></td>
         </tr>
 
 </tbody>

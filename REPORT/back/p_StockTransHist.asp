@@ -148,7 +148,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="left"><%=rsStockTransHist("STOCKNAME")%></td>
 				<td align="left"><%=rsStockTransHist("TRANSTYPE")%></td>
 				<td align="left"><%=rsStockTransHist("TRANSDATE")%></td>
-				<td align="right"><%=rsStockTransHist("QUANTITY")%></td>
+				<td align="right"><%=FbpNum2(rsStockTransHist("QUANTITY"))%></td>
 				<td align="right"><%=rsStockTransHist("LINENO")%></td>
 			</tr>
 <%

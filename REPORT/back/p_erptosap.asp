@@ -231,7 +231,7 @@ else
 		<td align="center"><%=rsErptoSap("GL_ACCOUNT")%></td>
 		<td align="center"></td>
 		<td align="center"></td>
-		<td align="right"><%=FormatNumber(rsErptoSap("DOCUMENT_CCY"),0)%></td>
+		<td align="right"><%=FormatNumber(rsErptoSap("DOCUMENT_CCY"),2)%></td>
 		<td align="center"></td>
 		<td align="center"></td>
 		<td align="center"></td>

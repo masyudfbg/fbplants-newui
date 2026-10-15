@@ -432,21 +432,21 @@ For r = 0 To totalRows - 1
                 <td align="left"><%=cur_fcname%></td>
                 <td align="left"><%=arrData(5, r)%></td>
                 <td align="right"><%=formatnumber(arrData(6, r),2)%></td>
-                <td align="right"><%=formatnumber(arrData(7, r),0)%></td>
+                <td align="right"><%=formatnumber(arrData(7, r),2)%></td>
                 <td align="left"><%=arrData(8, r)%></td>
                 <td align="right"><%=formatnumber(arrData(9, r),2)%></td>
-                <td align="right"><%=arrData(10, r)%></td>
-                <td align="right"><%=formatnumber(arrData(11, r),0)%></td>
-                <td align="right"><%=formatnumber(arrData(12, r),0)%></td>
+                <td align="right"><%=FbpNum2(arrData(10, r))%></td>
+                <td align="right"><%=formatnumber(arrData(11, r),2)%></td>
+                <td align="right"><%=formatnumber(arrData(12, r),2)%></td>
                 <td align="right"><%=formatnumber(arrData(13, r),2)%></td>
-                <td align="right"><%=formatnumber(hk,0)%></td>
-                <td align="right"><%=formatnumber(amounthkrp,0)%></td>
-                <td align="right"><%=formatnumber(arrData(15, r),0)%></td>
-                <td align="right"><%=formatnumber(arrData(16, r),0)%></td>
-                <td align="right"><%=formatnumber(arrData(17, r),0)%></td>
-                <td align="right"><%=formatnumber(totalpremibasis,0)%></td>
-                <td align="right"><%=formatnumber(totalsemua,0)%></td>
-                <td align="right"><%=formatnumber(rpperkg,0)%></td>
+                <td align="right"><%=formatnumber(hk,2)%></td>
+                <td align="right"><%=formatnumber(amounthkrp,2)%></td>
+                <td align="right"><%=formatnumber(arrData(15, r),2)%></td>
+                <td align="right"><%=formatnumber(arrData(16, r),2)%></td>
+                <td align="right"><%=formatnumber(arrData(17, r),2)%></td>
+                <td align="right"><%=formatnumber(totalpremibasis,2)%></td>
+                <td align="right"><%=formatnumber(totalsemua,2)%></td>
+                <td align="right"><%=formatnumber(rpperkg,2)%></td>
             </tr>
 <%
     ' Akumulasi subtotal

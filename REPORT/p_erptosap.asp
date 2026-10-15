@@ -351,7 +351,7 @@ else
 		<td align="center"><%=rsErptoSap("GL_ACCOUNT")%></td>
 		<td align="center"></td>
 		<td align="center"></td>
-		<td align="right"><%=FormatNumber(rsErptoSap("DOCUMENT_CCY"),0)%></td>
+		<td align="right"><%=FormatNumber(rsErptoSap("DOCUMENT_CCY"),2)%></td>
 		<%
 		 if rsErptoSap("POSTING_KEY")="40" then
 		    total40 = cdbl(total40) +   cdbl(rsErptoSap("DOCUMENT_CCY")) 
@@ -402,11 +402,11 @@ set rsErptoSap = Nothing
   
 <table width="90%" class="data">
     <tr>
-		<td align="right">Total Debet  (40) = <%=FormatNumber(total40,0)%></td>
+		<td align="right">Total Debet  (40) = <%=FormatNumber(total40,2)%></td>
 		<td>&nbsp;</td>
 	</tr>
 	 <tr> 
-		<td align="right">Total Kredit (50) = <%=FormatNumber(total50,0)%></td>
+		<td align="right">Total Kredit (50) = <%=FormatNumber(total50,2)%></td>
 		<td>&nbsp;</td>
 	</tr>
 	

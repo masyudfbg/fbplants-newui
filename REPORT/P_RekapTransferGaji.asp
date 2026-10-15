@@ -290,7 +290,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="left"><%=rsTransferGaji("BANKNAME")%></td>
 				<td align="center"><%=rsTransferGaji("ACCOUNTNO")%></td>
 				<td align="left"><%=rsTransferGaji("OWNERSHIPOFACCOUNT")%></td>
-				<td align="right"><%=formatnumber(rsTransferGaji("TotalAmount"),0)%></td>
+				<td align="right"><%=formatnumber(rsTransferGaji("TotalAmount"),2)%></td>
 			</tr>
 <%
 			NO = NO + 1
@@ -304,7 +304,7 @@ function launchwin(winurl,winname,winfeatures)
 			<tr bgcolor="#F4F4A0">
 				
 				      <td align="center" colspan="6"><strong>TOTAL</strong></td>
-				      <td align="right"><strong><%=formatnumber(nSubTotal,0)%></strong></td>
+				      <td align="right"><strong><%=formatnumber(nSubTotal,2)%></strong></td>
 					 
 		  
 				

@@ -504,15 +504,15 @@ if not array_eof then
 			<td align="left"><%=array_data(10, xx)%></td>
 			
 			<%If Cdbl(array_data(11, xx)) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
-				<td align="right"><%=FormatNumber(0, 0)%></td>				
+				<td align="right"><%=FormatNumber(0, 2)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>				
 			<%Else%>
 				<%If Cdbl(array_data(11, xx)) > 0 Then%>
-					<td align="right"><%=FormatNumber(array_data(11, xx), 0)%></td>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(array_data(11, xx), 2)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%ElseIf Cdbl(array_data(11, xx)) < 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
-					<td align="right"><%=FormatNumber(array_data(11, xx), 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
+					<td align="right"><%=FormatNumber(array_data(11, xx), 2)%></td>
 				<%End If%>
 			<%End If%>
 		</tr>
@@ -530,8 +530,8 @@ end if
 %>
 </tr>
 <td align="Left" colspan="11" >Total</td>
-<td align="right"><%=FormatNumber(sumdebit, 0)%></td>
-<td align="right"><%=FormatNumber(sumkredit, 0)%></td>
+<td align="right"><%=FormatNumber(sumdebit, 2)%></td>
+<td align="right"><%=FormatNumber(sumkredit, 2)%></td>
 </tbody>
 </table>
 </div>

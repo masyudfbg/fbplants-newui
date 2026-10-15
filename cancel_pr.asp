@@ -626,7 +626,7 @@ var showTransporterLine = function (oXML) {
 <link rel="StyleSheet" href="css/fbp-table.css?v=20261010c" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-approval.css?v=20261007b" type="text/css" />
 <script type="text/javascript" src="js/fbp-table.js?v=20261009c"></script>
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-doc page-approval"<% end if %>>

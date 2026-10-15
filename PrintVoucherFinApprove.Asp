@@ -407,7 +407,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					<td class="jarakjobname ratakiri"><%=txtchargename%></td>
 					<td class="jarakremark ratakiri"><%=txtremarks%></td>
 					
-					<td class="ratakanan" class="jarakamountdb ratakanan"><%=formatnumber(cdbl(txtamount),0)%></td>
+					<td class="ratakanan" class="jarakamountdb ratakanan"><%=formatnumber(cdbl(txtamount),2)%></td>
 				</tr>
 				
 				<%End if%>
@@ -420,11 +420,11 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					<td class="jarakjobname ratakiri"><%=txtchargename%></td>
 					<td class="jarakremark ratakiri"><%=txtremarks%></td>
 					<% if cdbl(txtamount) > 0 then %>
-						<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txtamount),0)%></td>
+						<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txtamount),2)%></td>
 						<td class="ratakanan" class="jarakamount ratakanan"></td>
 				    <% else %>
 						<td class="ratakanan" class="jarakamount ratakanan"></td>
-						<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(abs(cdbl(txtamount)),0)%></td>
+						<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(abs(cdbl(txtamount)),2)%></td>
 					<%end if%>
 					
 				</tr>
@@ -451,7 +451,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					<td class="jarakjobcode ratakiri"><%=txtcontroljob%></td>
 					<td class="jarakjobname ratakiri" colspan="3" ><%=txtbankcredit%></td>
 					<td class="jarakjobname ratakiri" colspan="2" ><%=txtnoref%></td>
-					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txt_totalamount),0)%></td>
+					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txt_totalamount),2)%></td>
 				</tr>
 				<tr style="border-top:1px #000000 solid;">
 					
@@ -464,7 +464,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					<td class="jarakjobcode ratakiri"><%=txtcontroljob%></td>
 					<td class="jarakjobname ratakiri" colspan="3"><%=txtbankcredit%></td>
 					<td class="jarakjobname ratakiri" colspan="2"><%=txtnoref%></td>
-					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txt_totalamount),0)%></td>
+					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txt_totalamount),2)%></td>
 				</tr>
 				<tr style="border-top:1px #000000 solid;">
 					

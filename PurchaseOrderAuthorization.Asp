@@ -771,7 +771,7 @@ if cmdView = "True" Then
 			<td align="left" title="<%=rsPurchaseRequest("podate").Name%>" valign="top"><%=rsPurchaseRequest("podate")%></td>
 			<td align="left" title="<%=rsPurchaseRequest("purchaseby").Name%>" valign="top"><%=rsPurchaseRequest("purchaseby")%></td>
 			<td align="left" title="<%=rsPurchaseRequest("remarks").Name%>" valign="top"><%=rsPurchaseRequest("remarks")%></td>
-			<td align="right" title="<%=rsPurchaseRequest("grandtotal").Name%>" valign="top"><%=FormatNumber(rsPurchaseRequest("grandtotal"),0)%></td>
+			<td align="right" title="<%=rsPurchaseRequest("grandtotal").Name%>" valign="top"><%=FormatNumber(rsPurchaseRequest("grandtotal"),2)%></td>
 			<td valign="middle" align="center">
 				<input type="checkbox" name="cb_<%=NO%>" id="cb_<%=NO%>" class='item' value= "" onclick='handleClick(this);' aria-label="Pilih PO <%=rsPurchaseRequest("pocode")%>">
 				<input type="hidden" name="fcba_<%=NO%>" value="<%=rsPurchaseRequest("fcba")%>">

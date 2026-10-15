@@ -1071,60 +1071,60 @@ Dim TotalTotal : TotalTotal = 0
 				<% if rsAnalisaAngkutTBS("OWN") = "OWN" then %>
 					<td align="center"><%=rsAnalisaAngkutTBS("OWN")%></td>
 					
-					<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("kg_bunch_own_direct"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("kg_bunch_own_direct"), 2)%></td>
 					<%If Temp_TotalownLangsung = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_direct"))/Temp_TotalownLangsung)*100, 0), 0)%></td>
+					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_direct"))/Temp_TotalownLangsung)*100, 0), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("kg_bunch_own_indirect"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("kg_bunch_own_indirect"), 2)%></td>
 					<%If Temp_TotalownTidakLangsung = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_indirect"))/Temp_TotalownTidakLangsung)*100, 0), 0)%></td>
+					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_indirect"))/Temp_TotalownTidakLangsung)*100, 0), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("TOTALOWN"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("TOTALOWN"), 2)%></td>
 					<%If Temp_TotalownTotal = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("TOTALOWN"))/Temp_TotalownTotal)*100, 0), 0)%></td>
+					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("TOTALOWN"))/Temp_TotalownTotal)*100, 0), 2)%></td>
 					<%End If%>
 					
 					<%If Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_direct")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_indirect"))/Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_direct"))*100, 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_indirect"))/Cdbl(rsAnalisaAngkutTBS("kg_bunch_own_direct"))*100, 2)%></td>
 					<%End If%>
 				<%else%>
 					<td align="center"><%=rsAnalisaAngkutTBS("OWN")%></td>
 				
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsAnalisaAngkutTBS("kg_bunch_contract_direct"))), 0)%></td>
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsAnalisaAngkutTBS("kg_bunch_contract_direct"))), 2)%></td>
 					<%If Temp_TotalcontractLangsung = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("kg_bunch_contract_direct"))/Temp_TotalcontractLangsung)*100, 0), 0)%></td>
+					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("kg_bunch_contract_direct"))/Temp_TotalcontractLangsung)*100, 0), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("kg_bunch_contract_indirect"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("kg_bunch_contract_indirect"), 2)%></td>
 					<%If Temp_TotalcontractTidakLangsung = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("kg_bunch_contract_indirect"))/Temp_TotalcontractTidakLangsung)*100, 0), 0)%></td>
+					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("kg_bunch_contract_indirect"))/Temp_TotalcontractTidakLangsung)*100, 0), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsAnalisaAngkutTBS("TOTALCONTRACT"))), 0)%></td>
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsAnalisaAngkutTBS("TOTALCONTRACT"))), 2)%></td>
 					<%If Temp_TotalcontractTotal = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("TOTALCONTRACT"))/Temp_TotalcontractTotal)*100, 0), 0)%></td>
+					<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("TOTALCONTRACT"))/Temp_TotalcontractTotal)*100, 0), 2)%></td>
 					<%End If%>
 					
 					<%If Cdbl(to_nol(rsAnalisaAngkutTBS("kg_bunch_contract_direct")) )= 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsAnalisaAngkutTBS("kg_bunch_contract_indirect"))/Cdbl(rsAnalisaAngkutTBS("kg_bunch_contract_direct"))*100, 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsAnalisaAngkutTBS("kg_bunch_contract_indirect"))/Cdbl(rsAnalisaAngkutTBS("kg_bunch_contract_direct"))*100, 2)%></td>
 					<%End If%>
 				<%end if%>
 				
@@ -1148,28 +1148,28 @@ Dim TotalTotal : TotalTotal = 0
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%=1+var_colspan%>"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=FormatNumber(v_TotalLangsung, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(v_TotalLangsung, 2)%></strong></td>
 				<%If v_TotalLangsung = 0 Then%>
-				<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%Else%>
-				<td align="right"><strong><%=FormatNumber(v_TotalLangsung/v_total*100, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(v_TotalLangsung/v_total*100, 2)%></strong></td>
 				<%End if%>
-				<td align="right"><strong><%=FormatNumber(v_TotaltidakLangsung, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(v_TotaltidakLangsung, 2)%></strong></td>
 				<%If v_TotaltidakLangsung = 0 Then%>
-				<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%Else%>
-				<td align="right"><strong><%=FormatNumber(v_TotaltidakLangsung/v_total*100, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(v_TotaltidakLangsung/v_total*100, 2)%></strong></td>
 				<%End if%>				
-				<td align="right"><strong><%=FormatNumber(v_total, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(v_total, 2)%></strong></td>
 				<%If v_total = 0 Then%>
-				<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%Else%>
-				<td align="right"><strong><%=FormatNumber(v_total/v_total*100, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(v_total/v_total*100, 2)%></strong></td>
 				<%End if%>
 				<%If v_TotalLangsung = 0 Then%>
-				<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%Else%>
-				<td align="right"><strong><%=FormatNumber(v_TotaltidakLangsung/v_TotalLangsung*100, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(v_TotaltidakLangsung/v_TotalLangsung*100, 2)%></strong></td>
 				<%End if%>				
 			</tr>
 <%End if%>

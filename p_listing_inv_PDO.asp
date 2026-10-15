@@ -212,8 +212,8 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("fcba")%></td>			
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("invoiceby")%></td>				
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("noinvoice")%></td>	
-						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("amount"),0)%></td>			
-						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("payment"),0)%></td>
+						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("amount"),2)%></td>			
+						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("payment"),2)%></td>
 						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1">
 							<%
 								getRKB = " select " & _
@@ -257,9 +257,9 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 					%>
 					<tr bgcolor="#F4F4A0">
 						<td align="Center" style="<%=cmdstyle%>" colspan= "4"><font face="Verdana" size="1"><strong>T o t a l</strong></td>
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlamountshi, 0)%></strong></td>		
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlpaymentshi, 0)%></strong></td>
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlRkb, 0)%></strong></td>
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlamountshi, 2)%></strong></td>		
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlpaymentshi, 2)%></strong></td>
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlRkb, 2)%></strong></td>
 						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong></strong></td>
 					</tr>
 				</tbody>

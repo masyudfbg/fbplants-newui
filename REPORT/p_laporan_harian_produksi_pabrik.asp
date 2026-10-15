@@ -521,78 +521,78 @@ else
 							<td align="center" colspan="2" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 						<%End If%>
 						<td align="Center"><strong><%=rsLHPP("REFERENCE")%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_INTI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_PLASMA"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_T_GILING"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_OUTSIDER"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_TOTAL"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUDGET"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_VAR_MT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_VAR_PERCENT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_PROCESS"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_UNPROCESS"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("THROUGHPUT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("CPO_ACT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("CPO_BUD"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("CPO_VAR_MT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("CPO_VAR_PERCENT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("OER_ACT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("OER_BUD"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("OER_VAR_PERCENT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_ACT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_BUD"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_VAR_PERCENT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KERNEL_ACT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KERNEL_BUD"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KERNEL_VAR_MT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KERNEL_VAR_PERCENT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_ACT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_BUD"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_VAR_PERCENT"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("QUALITY_MOIST"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("QUALITY_DIRT"), 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_INTI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_PLASMA"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_T_GILING"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_OUTSIDER"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_TOTAL"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUDGET"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_VAR_MT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_VAR_PERCENT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_PROCESS"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_UNPROCESS"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("THROUGHPUT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("CPO_ACT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("CPO_BUD"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("CPO_VAR_MT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("CPO_VAR_PERCENT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("OER_ACT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("OER_BUD"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("OER_VAR_PERCENT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_ACT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_BUD"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_VAR_PERCENT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KERNEL_ACT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KERNEL_BUD"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KERNEL_VAR_MT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KERNEL_VAR_PERCENT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_ACT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_BUD"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_VAR_PERCENT"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("QUALITY_MOIST"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("QUALITY_DIRT"), 2)%></strong></td>
 					</tr>
 					<%Else%>
 					<tr>
 						<%If currfcba <> prevfcba then%>
 							<td align="Center" style=" border-bottom:none;"><%=rsLHPP("FCBA")%></td>
 							<%prevfcba = currfcba%>
-							<td align="Center" style=" border-bottom:none;"><%=FormatNumber(rsLHPP("MILL_CAP"), 0)%></td>
+							<td align="Center" style=" border-bottom:none;"><%=FormatNumber(rsLHPP("MILL_CAP"), 2)%></td>
 						<%Else%>
 							<td align="center" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 							<td align="center" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 						<%End If%>
 						<td align="Center"><%=rsLHPP("REFERENCE")%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_INTI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_PLASMA"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_T_GILING"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_OUTSIDER"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_TOTAL"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_BUDGET"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_VAR_MT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_VAR_PERCENT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_PROCESS"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_UNPROCESS"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("THROUGHPUT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("CPO_ACT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("CPO_BUD"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("CPO_VAR_MT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("CPO_VAR_PERCENT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("OER_ACT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("OER_BUD"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("OER_VAR_PERCENT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFA_ACT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFA_BUD"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFA_VAR_PERCENT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KERNEL_ACT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KERNEL_BUD"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KERNEL_VAR_MT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KERNEL_VAR_PERCENT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KER_ACT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KER_BUD"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KER_VAR_PERCENT"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("QUALITY_MOIST"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("QUALITY_DIRT"), 0)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_INTI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_PLASMA"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_T_GILING"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_OUTSIDER"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_TOTAL"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_BUDGET"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_VAR_MT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_VAR_PERCENT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_PROCESS"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_UNPROCESS"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("THROUGHPUT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("CPO_ACT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("CPO_BUD"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("CPO_VAR_MT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("CPO_VAR_PERCENT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("OER_ACT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("OER_BUD"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("OER_VAR_PERCENT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFA_ACT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFA_BUD"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFA_VAR_PERCENT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KERNEL_ACT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KERNEL_BUD"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KERNEL_VAR_MT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KERNEL_VAR_PERCENT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KER_ACT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KER_BUD"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KER_VAR_PERCENT"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("QUALITY_MOIST"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("QUALITY_DIRT"), 2)%></td>
 					</tr>
 					<%End If%>
 

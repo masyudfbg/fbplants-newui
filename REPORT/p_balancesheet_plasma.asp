@@ -752,9 +752,9 @@ Dim sprevFcba : sprevFcba = ""
 		%>
 		<tr>
 			<td colspan="2" style="border-right: double; width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"><strong><i><%=result%></i></strong></td>
-			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempActiva,0) %></i></strong></td>
-			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempActiva2,0) %></i></strong></td>
-			<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempActiva3,0) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempActiva,2) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempActiva2,2) %></i></strong></td>
+			<td align="right" style="border-right: double; width: 250px; border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(tempActiva3,2) %></i></strong></td>
 		</tr>
 		<% 		
 				
@@ -885,9 +885,9 @@ Dim sprevFcba : sprevFcba = ""
 					<td align="right" style="border-right: double; width: 250px"><strong><i></i></strong></td>
 					<td align="right"><strong><i></i></strong></td>
 				<%else%>
-					<td align="right" style="border-right: double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA"),0)%></td>
-					<td align="right" style="border-right: double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA2"),0)%></td>
-					<td align="right" style="border-right: double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA3"),0)%></td>
+					<td align="right" style="border-right: double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA"),2)%></td>
+					<td align="right" style="border-right: double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA2"),2)%></td>
+					<td align="right" style="border-right: double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA3"),2)%></td>
 					<td align="right" ><strong><i></i></strong></td>
 				<%End if%>
 		</tr>
@@ -907,9 +907,9 @@ Dim sprevFcba : sprevFcba = ""
 	</form>
 	<tr>
 	<th align="Center" colspan="<%=var_colspan+1%>"> <font face="Verdana" size="1">T o t a l</th>
-	<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_AKTIVA,0)%></th>
-	<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_AKTIVA2,0)%></th>
-	<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_AKTIVA3,0)%></th>
+	<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_AKTIVA,2)%></th>
+	<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_AKTIVA2,2)%></th>
+	<th align="Right"> <font face="Verdana" size="1"><%=FormatNumber(v_AKTIVA3,2)%></th>
 	</tr>
 <tbody>
 </table>

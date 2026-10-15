@@ -3764,9 +3764,9 @@ function launchwin(winurl,winname,winfeatures)
 
 
 				
-				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
-				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
-				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td>
+				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td>
+				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td>
 				
 			</tr>
 <%
@@ -4110,15 +4110,15 @@ function launchwin(winurl,winname,winfeatures)
 				<% if rsProduction("codedesc") = "SR003_04"  then %>
 					<td class="grey" align="right" ></td>
 				<% else %>				
-					<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
+					<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td>
 				<% end if %>
 				
 				<% if rsProduction("codedesc") = "SR003_04" or rsProduction("codedesc") = "SR003_02" or rsProduction("codedesc") = "SR003_03"  then %>
 					<td class="grey" align="right" ></td>
 					<td class="grey" align="right" ></td>
 				<% else %>
-					<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
-					<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+					<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td>
+					<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td>
 				<% end if %>
 				
 				
@@ -4387,9 +4387,9 @@ function launchwin(winurl,winname,winfeatures)
 				%>				
 
 				
-				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
-				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
-				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td>
+				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td>
+				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td>
 			
 				
 			</tr>
@@ -4637,9 +4637,9 @@ function launchwin(winurl,winname,winfeatures)
 
 				
 				
-				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
-				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
-				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td>
+				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td>
+				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td>
 			
 				
 			</tr>
@@ -4903,9 +4903,9 @@ function launchwin(winurl,winname,winfeatures)
 
 		
 				
-				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
-				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
-				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td>
+				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td>
+				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td>
 				
 				
 			</tr>
@@ -5174,9 +5174,9 @@ function launchwin(winurl,winname,winfeatures)
 				
 
 				
-				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
-				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
-				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td>
+				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td>
+				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td>
 				
 			</tr>
 <%
@@ -5411,9 +5411,9 @@ function launchwin(winurl,winname,winfeatures)
 				%>					
 				
 				
-				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
-				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
-				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td>
+				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td>
+				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td>
 
 				
 			</tr>
@@ -5614,9 +5614,9 @@ function launchwin(winurl,winname,winfeatures)
 					
 				%>
 				
-				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,0)%></td>
-				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,0)%></td>
-				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,0)%></td>
+				<td class="<%=cClassAssigned_HI%>" align="right" ><%=FormatNumber(tempCompare_HI,2)%></td>
+				<td class="<%=cClassAssigned_SHI%>" align="right" ><%=FormatNumber(tempCompare_SHI,2)%></td>
+				<td class="<%=cClassAssigned_SBI%>" align="right" ><%=FormatNumber(tempCompare_SBI,2)%></td>
 				
 				
 			</tr>
@@ -5752,7 +5752,7 @@ function launchwin(winurl,winname,winfeatures)
 					    tempData = 0
 					end if
 				%>
-				<td align="right" ><%=FormatNumber(tempData,0)%></td>
+				<td align="right" ><%=FormatNumber(tempData,2)%></td>
 				<%  if rsEndingBalance("shi") <>  "" then 
 						tempData = cdbl(rsEndingBalance("shi"))
 				    else

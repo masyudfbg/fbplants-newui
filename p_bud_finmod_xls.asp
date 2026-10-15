@@ -227,14 +227,14 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 								<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("ownership")%> </td>
 								<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("jobgroupcode")%> </td>
 								<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("jobgroupname")%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("qtyunit"),0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("qty"),0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("price"),0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("amount"),0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("qtyact"),0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("priceact"),0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("amountact"),0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(varian,0)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("qtyunit"),2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("qty"),2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("price"),2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("amount"),2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("qtyact"),2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("priceact"),2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("amountact"),2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(varian,2)%> </td>
 								
 							</tr>
 							  <%
@@ -253,12 +253,12 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 							rsCat=null%>
 							<tr class="tebal" >
 								<td colspan="6" align="right" ><font face="Verdana" size="1">Total </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlqty,0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlprice,0)%></td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlamount,0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlqtyacct,0)%> </td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlpriceact,0)%></td>
-								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlamountact,0)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlqty,2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlprice,2)%></td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlamount,2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlqtyacct,2)%> </td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlpriceact,2)%></td>
+								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttlamountact,2)%> </td>
 								<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"></td>
 							</tr>
 							</form>

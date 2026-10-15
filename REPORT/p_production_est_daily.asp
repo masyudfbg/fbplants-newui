@@ -307,28 +307,28 @@ $( ".datepicker" ).datepicker();
 			<tr class="">
 				<!-- DIVISI -->
 				<td align="right"><%=NO%></td>
-				<td align="right"><%=(rsprod("DIVISION"))%></td>
+				<td align="right"><%=FbpNum2((rsprod("DIVISION")))%></td>
 				<td align="right"><%=(rsprod("FIELDCODE"))%></td>
 
 				<!-- PRODUKSI -->
-				<td align="right"><%=(rsprod("LUAS_GROSS"))%></td>
-				<td align="right"><%=(rsprod("PRODUCTIVESTAND"))%></td>
+				<td align="right"><%=FbpNum2((rsprod("LUAS_GROSS")))%></td>
+				<td align="right"><%=FbpNum2((rsprod("PRODUCTIVESTAND")))%></td>
 				
 				<!-- HA -->
-				<td align="right"><%=FormatNumber(rsprod("HAHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("HASHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("HASBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsprod("HAHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("HASHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("HASBI"),2)%></td>
 
 				<!-- HK -->
-				<td align="right"><%=FormatNumber(rsprod("HKHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("HKSHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("HKSBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsprod("HKHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("HKSHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("HKSBI"),2)%></td>
 
 
 				<!-- JJG -->
-				<td align="right"><%=FormatNumber(rsprod("JJGPANENHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("JJGPANENSHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("JJGPANENSBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsprod("JJGPANENHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("JJGPANENSHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("JJGPANENSBI"),2)%></td>
 						
 				<!-- BJR -->
 				<td align="right"><%=FormatNumber(rsprod("BJRHI"),2)%></td>
@@ -336,30 +336,30 @@ $( ".datepicker" ).datepicker();
 				<td align="right"><%=FormatNumber(rsprod("BJRSBI"),2)%></td>
 
 				<!-- Tonase KEBUN -->
-				<td align="right"><%=FormatNumber(cdbl(rsprod("TONASEESTHI")),0)%></td>
-				<td align="right"><%=FormatNumber(cdbl(rsprod("TONASEESTSHI")),0)%></td>
-				<td align="right"><%=FormatNumber(cdbl(rsprod("TONASEESTSBI")),0)%></td>
+				<td align="right"><%=FormatNumber(cdbl(rsprod("TONASEESTHI")),2)%></td>
+				<td align="right"><%=FormatNumber(cdbl(rsprod("TONASEESTSHI")),2)%></td>
+				<td align="right"><%=FormatNumber(cdbl(rsprod("TONASEESTSBI")),2)%></td>
 
 				<!-- JJG PKS-->
-				<td align="right"><%=FormatNumber(rsprod("JJGPKSHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("JJGPKSSHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("JJGPKSSBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsprod("JJGPKSHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("JJGPKSSHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("JJGPKSSBI"),2)%></td>
 				
 				<!-- TONASE PKS -->
 				
-				<td align="right"><%=FormatNumber(rsprod("TONASEPKSHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("TONASEPKSSHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("TONASEPKSSBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsprod("TONASEPKSHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("TONASEPKSSHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("TONASEPKSSBI"),2)%></td>
 			
 				<!-- ROTASI -->
-				<td align="right"><%=FormatNumber(rsprod("ROTASIHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("ROTASISHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("ROTASISBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsprod("ROTASIHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("ROTASISHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("ROTASISBI"),2)%></td>
 				
 				<!-- RESTAN -->
-				<td align="right"><%=FormatNumber(rsprod("RESTANJJGHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("RESTANJJGSHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsprod("RESTANJJGSBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsprod("RESTANJJGHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("RESTANJJGSHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsprod("RESTANJJGSBI"),2)%></td>
 								
 				
 			</tr>
@@ -405,35 +405,35 @@ $( ".datepicker" ).datepicker();
 			<tr bgcolor="#F4F4A0" style="font-weight:bold">
 			   
 				<td align="center" colspan="3">TOTAL</td>
-				<td align="right"><%=FormatNumber(nfieldha,0)%></td>
-				<td align="right"><%=FormatNumber(nfieldpokok,0)%></td>
-				<td align="right"><%=FormatNumber(nhaHI,0)%></td>
-				<td align="right"><%=FormatNumber(nhaSHI,0)%></td>
-				<td align="right"><%=FormatNumber(nhaSBI,0)%></td>
-				<td align="right"><%=FormatNumber(nhkHI,0)%></td>
-				<td align="right"><%=FormatNumber(nhkSHI,0)%></td>
-				<td align="right"><%=FormatNumber(nhkSBI,0)%></td>
-				<td align="right"><%=FormatNumber(njjgHI,0)%></td>
-				<td align="right"><%=FormatNumber(njjgSHI,0)%></td>
-				<td align="right"><%=FormatNumber(njjgSBI,0)%></td>
-				<td align="right"><%=FormatNumber(nbjrHI,0)%></td>
-				<td align="right"><%=FormatNumber(nbjrSHI,0)%></td>
-				<td align="right"><%=FormatNumber(nbjrSBI,0)%></td>
-				<td align="right"><%=FormatNumber(ntonaseHI,0)%></td>
-				<td align="right"><%=FormatNumber(ntonaseSHI,0)%></td>
-				<td align="right"><%=FormatNumber(ntonaseSBI,0)%></td>
-				<td align="right"><%=FormatNumber(njjgpksHI,0)%></td>
-				<td align="right"><%=FormatNumber(njjgpksSHI,0)%></td>
-				<td align="right"><%=FormatNumber(njjgpksSBI,0)%></td>
-				<td align="right"><%=FormatNumber(ntonasepksHI,0)%></td>
-				<td align="right"><%=FormatNumber(ntonasepksSHI,0)%></td>
-				<td align="right"><%=FormatNumber(ntonasepksSBI,0)%></td>
-				<td align="right"><%=FormatNumber(nrotasiHI,0)%></td>
-				<td align="right"><%=FormatNumber(nrotasiSHI,0)%></td>
-				<td align="right"><%=FormatNumber(nrotasiSBI,0)%></td>
-				<td align="right"><%=FormatNumber(nrestanHI,0)%></td>
-				<td align="right"><%=FormatNumber(nrestanSHI,0)%></td>
-				<td align="right"><%=FormatNumber(nrestanSBI,0)%></td>
+				<td align="right"><%=FormatNumber(nfieldha,2)%></td>
+				<td align="right"><%=FormatNumber(nfieldpokok,2)%></td>
+				<td align="right"><%=FormatNumber(nhaHI,2)%></td>
+				<td align="right"><%=FormatNumber(nhaSHI,2)%></td>
+				<td align="right"><%=FormatNumber(nhaSBI,2)%></td>
+				<td align="right"><%=FormatNumber(nhkHI,2)%></td>
+				<td align="right"><%=FormatNumber(nhkSHI,2)%></td>
+				<td align="right"><%=FormatNumber(nhkSBI,2)%></td>
+				<td align="right"><%=FormatNumber(njjgHI,2)%></td>
+				<td align="right"><%=FormatNumber(njjgSHI,2)%></td>
+				<td align="right"><%=FormatNumber(njjgSBI,2)%></td>
+				<td align="right"><%=FormatNumber(nbjrHI,2)%></td>
+				<td align="right"><%=FormatNumber(nbjrSHI,2)%></td>
+				<td align="right"><%=FormatNumber(nbjrSBI,2)%></td>
+				<td align="right"><%=FormatNumber(ntonaseHI,2)%></td>
+				<td align="right"><%=FormatNumber(ntonaseSHI,2)%></td>
+				<td align="right"><%=FormatNumber(ntonaseSBI,2)%></td>
+				<td align="right"><%=FormatNumber(njjgpksHI,2)%></td>
+				<td align="right"><%=FormatNumber(njjgpksSHI,2)%></td>
+				<td align="right"><%=FormatNumber(njjgpksSBI,2)%></td>
+				<td align="right"><%=FormatNumber(ntonasepksHI,2)%></td>
+				<td align="right"><%=FormatNumber(ntonasepksSHI,2)%></td>
+				<td align="right"><%=FormatNumber(ntonasepksSBI,2)%></td>
+				<td align="right"><%=FormatNumber(nrotasiHI,2)%></td>
+				<td align="right"><%=FormatNumber(nrotasiSHI,2)%></td>
+				<td align="right"><%=FormatNumber(nrotasiSBI,2)%></td>
+				<td align="right"><%=FormatNumber(nrestanHI,2)%></td>
+				<td align="right"><%=FormatNumber(nrestanSHI,2)%></td>
+				<td align="right"><%=FormatNumber(nrestanSBI,2)%></td>
 				
 			</tr>
 </tbody>

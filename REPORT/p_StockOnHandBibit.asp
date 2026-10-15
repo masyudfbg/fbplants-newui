@@ -142,7 +142,7 @@
 				<td align="left"><%=rsStockOnhandBibit("stockname")%></td>
 				<td align="left"><%=rsStockOnhandBibit("nurserycode")%></td>
 				<td align="left"><%=rsStockOnhandBibit("nurseryname")%></td>
-				<td align="right"><%=FormatNumber(rsStockOnhandBibit("QUANTITY"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsStockOnhandBibit("QUANTITY"), 2)%></td>
 				
 			</tr>
 <%
@@ -155,7 +155,7 @@
 %>
 			<tr style="background-color:#F4F4A0;">	
 				<td align="center" colspan="6"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=FormatNumber(nTotal, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nTotal, 2)%></strong></td>
 			</tr>
  </tbody>
 </table>

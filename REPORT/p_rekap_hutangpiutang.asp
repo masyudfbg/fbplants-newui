@@ -436,10 +436,10 @@ if not arr_data_eof then
 			<%end if%>
 			<td align="center"><%=arr_data(1, xi)%></td>
 			<td align="left"><%=arr_data(2, xi)%></td>
-			<td align="right"><%=FormatNumber(arr_data(3, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(4, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(5, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(6, xi), 0)%></td>			
+			<td align="right"><%=FormatNumber(arr_data(3, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(4, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(5, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(6, xi), 2)%></td>			
 		</tr>
 <%
 		st_opening = st_opening + cdbl(to_nol(arr_data(3, xi)))
@@ -456,10 +456,10 @@ if not arr_data_eof then
 		if span_fcba = max_span_fcba then
 			response.write "<tr style='background-color:#F4F4A0;'>"
 			response.write "	<td align='center' colspan='3'><b>Total "&arr_data(0, xi)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(st_opening,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(st_debet,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(st_credit,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(st_ending,0)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(st_opening,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(st_debet,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(st_credit,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(st_ending,2)&"</b></td>"
 			response.write "</tr>"
 		
 			st_opening = 0
@@ -474,10 +474,10 @@ if not arr_data_eof then
 	response.write "<tr><td colspan='7'></td></tr>"
 	response.write "<tr style='background-color:#FFFF00;'>"
 	response.write "	<td align='center' colspan='3'><b>Grand Total</b></td>"
-	response.write "	<td align='right'><b>"&FormatNumber(gt_opening,0)&"</b></td>"
-	response.write "	<td align='right'><b>"&FormatNumber(gt_debet,0)&"</b></td>"
-	response.write "	<td align='right'><b>"&FormatNumber(gt_credit,0)&"</b></td>"
-	response.write "	<td align='right'><b>"&FormatNumber(gt_ending,0)&"</b></td>"
+	response.write "	<td align='right'><b>"&FormatNumber(gt_opening,2)&"</b></td>"
+	response.write "	<td align='right'><b>"&FormatNumber(gt_debet,2)&"</b></td>"
+	response.write "	<td align='right'><b>"&FormatNumber(gt_credit,2)&"</b></td>"
+	response.write "	<td align='right'><b>"&FormatNumber(gt_ending,2)&"</b></td>"
 	response.write "</tr>"
 else
 	response.write "<tr><td colspan='7'>NO DATA AVAILABLE</td></tr>"

@@ -240,7 +240,7 @@ padding-top:30px;
 
 		<table border="0" width="100%" style="font-size:12px; line-height:18px;" class="fontcourir">
 			<tr>
-				<td colspan="6" align="right"><%=txtreference%></td>
+				<td colspan="6" align="right"><%=FbpNum2(txtreference)%></td>
 			</tr>
 			<tr>
 				<td>Diterima Dari</td>
@@ -310,7 +310,7 @@ padding-top:30px;
 				<tr class="fontcourir">
 					<td class="ratatengah fontcourir"><%=no%></td>
 					<td class="fontcourir"><%=txtremarks%></td>
-					<td class="ratakanan fontcourir"><%=formatnumber(cdbl(txtamount),0)%></td>
+					<td class="ratakanan fontcourir"><%=formatnumber(cdbl(txtamount),2)%></td>
 				</tr>
 				<%
 						no=no+1
@@ -324,7 +324,7 @@ padding-top:30px;
 					set rsdtl = Nothing%>
 				<tr class="fontcourir" style="border-top:1px #000000 solid;">
 					<td colspan="2" class="ratakanan tebal">Total</td>
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),2)%></td>
 				</tr>
 			<tr>
 				<td colspan="3" class="ratakiri" style="padding:0px;">

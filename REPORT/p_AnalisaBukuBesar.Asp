@@ -452,18 +452,18 @@ n_SaldoRow = n_SaldoRow + n_Opening
 		<tr bgcolor="#9CB770">
 			<td align="left" colspan="13" style="padding-left:10px;"><strong><%=PCase("Saldo Awal")%></strong></td>
 			<%If n_Opening = 0 Then%>
-			<td align="Right"><strong><%=FormatNumber(0, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(0, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(0, 2)%></strong></td>
 			<%Else%>
 				<%If n_Opening > 0 Then%>
-				<td align="Right"><strong><%=FormatNumber(n_Opening, 0)%></strong></td>
-				<td align="Right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="Right"><strong><%=FormatNumber(n_Opening, 2)%></strong></td>
+				<td align="Right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%ElseIf n_Opening < 0 Then%>
-				<td align="Right"><strong><%=FormatNumber(0, 0)%></strong></td>
-				<td align="Right"><strong><%=FormatNumber(n_Opening, 0)%></strong></td>
+				<td align="Right"><strong><%=FormatNumber(0, 2)%></strong></td>
+				<td align="Right"><strong><%=FormatNumber(n_Opening, 2)%></strong></td>
 				<%End If%>
 			<%End If%>
-			<td align="Right"><strong><%=FormatNumber(n_SaldoSub, 0)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(n_SaldoSub, 2)%></strong></td>
 		</tr>
 <%
 Dim rsAnalisaBukuBesar, strAnalisaBukuBesar, rowno
@@ -571,9 +571,9 @@ SubTotalNegative = 0
 <%Else%>
 		<tr bgcolor="#9CB770">
 			<td align="left" colspan="13" style="padding-left:10px;"><strong>Sub Total <%=PCase(Prevsourcetypedesc)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(SubTotalPositive, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(SubTotalNegative, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(n_SaldoSub, 0)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(SubTotalPositive, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(SubTotalNegative, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(n_SaldoSub, 2)%></strong></td>
 		</tr>
 		<tr>
 			<td colspan="14" align="left" style="padding-left:10px;" bgcolor="#F4F4A0"><strong><%=Currsourcetypedesc%></strong></td>
@@ -604,19 +604,19 @@ SubTotalNegative = 0
 			<td align="left"><%=rsAnalisaBukuBesar("Division")%></td>
 			<td align="left"><%=rsAnalisaBukuBesar("remarks")%></td>
 			<%If Cdbl(rsAnalisaBukuBesar("amount")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
-				<td align="right"><%=FormatNumber(0, 0)%></td>				
+				<td align="right"><%=FormatNumber(0, 2)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>				
 			<%Else%>
 				<%If Cdbl(rsAnalisaBukuBesar("amount")) > 0 Then%>
-					<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("amount"), 0)%></td>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("amount"), 2)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%ElseIf Cdbl(rsAnalisaBukuBesar("amount")) < 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
-					<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("amount"), 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
+					<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("amount"), 2)%></td>
 				<%End If%>
 			<%End If%>
 			<%n_SaldoRow = n_SaldoRow + Cdbl(rsAnalisaBukuBesar("amount"))%>
-			<td align="right"><%=FormatNumber(n_SaldoRow, 0)%></td>
+			<td align="right"><%=FormatNumber(n_SaldoRow, 2)%></td>
 		</tr>
 <%
 			If Cdbl(rsAnalisaBukuBesar("amount")) = 0 Then
@@ -654,19 +654,19 @@ SubTotalNegative = 0
 			<td align="left"><%=rsAnalisaBukuBesar("Division")%></td>
 			<td align="left"><%=rsAnalisaBukuBesar("remarks")%></td>
 			<%If Cdbl(rsAnalisaBukuBesar("amount")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 			<%Else%>
 				<%If Cdbl(rsAnalisaBukuBesar("amount")) > 0 Then%>
-					<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("amount"), 0)%></td>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("amount"), 2)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%ElseIf Cdbl(rsAnalisaBukuBesar("amount")) < 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
-					<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("amount"), 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
+					<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("amount"), 2)%></td>
 				<%End If%>
 			<%End If%>
 			<%n_SaldoRow = n_SaldoRow + Cdbl(rsAnalisaBukuBesar("amount"))%>
-			<td align="right"><%=FormatNumber(n_SaldoRow, 0)%></td>
+			<td align="right"><%=FormatNumber(n_SaldoRow, 2)%></td>
 		</tr>
 <%
 			If Cdbl(rsAnalisaBukuBesar("amount")) = 0 Then
@@ -701,15 +701,15 @@ n_SaldoGrand = n_SaldoGrand + GrandTotalPositive + GrandTotalNegative
 %>
 		<tr bgcolor="#9CB770">
 			<td align="left" colspan="13" style="padding-left:10px;"><strong>Sub Total <%=PCase(Prevsourcetypedesc)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(SubTotalPositive, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(SubTotalNegative, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(n_SaldoSub, 0)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(SubTotalPositive, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(SubTotalNegative, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(n_SaldoSub, 2)%></strong></td>
 		</tr>
 		<tr bgcolor="#9CB770">
 			<td align="left" colspan="13" style="padding-left:10px;"><strong>Grand Total</strong></td>
-			<td align="Right"><strong><%=FormatNumber(GrandTotalPositive, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(GrandTotalNegative, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(n_SaldoGrand, 0)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(GrandTotalPositive, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(GrandTotalNegative, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(n_SaldoGrand, 2)%></strong></td>
 		</tr>
 <%
 rsAnalisaBukuBesar.Close

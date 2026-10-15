@@ -909,13 +909,13 @@ Dim nTotal_2, nTotal_3,nTotal_6,nTotal_10
            <tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%= nSpanTotal %>">TOTAL</td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_2,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_2,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_6,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_6,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_10,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_10,2)%></td>
 				<td align="right"></td>
 			</tr>
 		</tbody> 	

@@ -345,14 +345,14 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center" height="30" width="3%"><%=NO%></td>
 				<td align="center"><%=rspph21("masa_pajak")%></td>
 				<td align="center"><%=rspph21("tahun_pajak")%></td>
-				<td align="right"><%=rspph21("pembetulan")%></td>
+				<td align="right"><%=FbpNum2(rspph21("pembetulan"))%></td>
 				<td align="left"><%=rspph21("npwp")%></td>
 				<td align="left"><%=rspph21("kode")%></td>
 				<td align="left"><%=rspph21("nama")%></td>
 				<td align="left"><%=rspph21("tanggungan")%></td>
 				<td align="center"><%=rspph21("kode_pajak")%></td>
-				<td align="right"><%=FormatNumber(rspph21("jumlah_bruto"), 0)%></td>
-				<td align="right"><%=FormatNumber(rspph21("jumlah_pph"), 0)%></td>
+				<td align="right"><%=FormatNumber(rspph21("jumlah_bruto"), 2)%></td>
+				<td align="right"><%=FormatNumber(rspph21("jumlah_pph"), 2)%></td>
 				<td align="center"><%=rspph21("kode_negara")%></td>
 			</tr>
 <%
@@ -368,8 +368,8 @@ function launchwin(winurl,winname,winfeatures)
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="9"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=FormatNumber(subtotal_jumlah_bruto, 0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(subtotal_jumlah_pph, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(subtotal_jumlah_bruto, 2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(subtotal_jumlah_pph, 2)%></strong></td>
 				<td align="center"><strong>&nbsp;</strong></td>
 			</tr>
             </tbody>

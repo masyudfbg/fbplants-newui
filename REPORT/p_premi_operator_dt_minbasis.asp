@@ -1634,15 +1634,15 @@ function launchwin(winurl,winname,winfeatures)
 			<%end if%>
 			<td align="center"><%=rsGrnInv("transdate")%></td>
 			<td align="center"><%=rsGrnInv("attendance")%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_tbs"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_brondolan"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_pupuk"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_lain_lain"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("total_kg"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("basis"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_premi_lebih_basis"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("total_premi"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("hk_efektif"))),0)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_tbs"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_brondolan"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_pupuk"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_lain_lain"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("total_kg"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("basis"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_premi_lebih_basis"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("total_premi"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("hk_efektif"))),2)%></td>
 		</tr>
 <%	if rows = temprows then
 			nkg_tbs = nkg_tbs + cdbl(to_nol(rsGrnInv("kg_tbs")))
@@ -1659,15 +1659,15 @@ function launchwin(winurl,winname,winfeatures)
 	%>
 		<tr bgcolor="#F4F4A0"> 
 			<td align="center" colspan="4"><font style="font-weight: bold;">TOTAL</font></td>				
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_tbs)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_brondolan)),0)%></font></td>  
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_pupuk)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_lain_lain)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(ntotal_kg)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nbasis)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_premi_lebih_basis)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(ntotal_premi)),0)%></font></td>  
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nhk_efektif)),0)%></font></td>   
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_tbs)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_brondolan)),2)%></font></td>  
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_pupuk)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_lain_lain)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(ntotal_kg)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nbasis)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_premi_lebih_basis)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(ntotal_premi)),2)%></font></td>  
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nhk_efektif)),2)%></font></td>   
 		</tr>
 		<tr>
 			<td align="center" colspan="<%= 13+ nSpanTotal %>" ></td>
@@ -1714,15 +1714,15 @@ function launchwin(winurl,winname,winfeatures)
 	%> 
 		<tr bgcolor="#FFFF00">	 
 			<td align="center" colspan="4"><b>GRAND TOTAL</b></td>
-			<td align="right"><b><%=formatnumber(gt_kg_tbs,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_kg_brondolan,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_kg_pupuk,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_kg_lain_lain,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_total_kg,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_basis,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_kg_premi_lebih_basis,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_total_premi,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_hk_efektif,0)%></td> 
+			<td align="right"><b><%=formatnumber(gt_kg_tbs,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_kg_brondolan,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_kg_pupuk,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_kg_lain_lain,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_total_kg,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_basis,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_kg_premi_lebih_basis,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_total_premi,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_hk_efektif,2)%></td> 
 			<!--<td align="right"></td>-->
 		</tr>
 	</tbody>

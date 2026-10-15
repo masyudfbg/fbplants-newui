@@ -124,7 +124,7 @@ RSCountdenda.close
 <link rel="StyleSheet" href="/css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="/js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="/js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 
@@ -811,9 +811,9 @@ RSCountdenda.close
 			<td class="ratatengah"><%=Replace(rsupah("OUTPUT"), ",", ".")%></td>
 			<td class="ratatengah"><%=Replace(rsupah("RATE"), ",", ".")%></td>
 			<td class="ratakiri"><%=rsupah("ALLOWDEDNAME")%></td>
-			<td class="ratakanan"><%=Replace(formatnumber(rateallow,0), ",", ".")%></td>
-			<td class="ratakanan"><%=Replace(formatnumber(rsupah("AMOUNT"),0), ",", ".")%></td>
-			<td class="ratakanan"><%=rsupah("remarks")%></td>
+			<td class="ratakanan"><%=Replace(formatnumber(rateallow,2), ",", ".")%></td>
+			<td class="ratakanan"><%=Replace(formatnumber(rsupah("AMOUNT"),2), ",", ".")%></td>
+			<td class="ratakanan"><%=FbpNum2(rsupah("remarks"))%></td>
 		</tr>
 		<%
 			totalamount = cdbl(totalamount) + cdbl(rsupah("AMOUNT"))
@@ -822,7 +822,7 @@ RSCountdenda.close
 		%>
 		<tr>
 			<td colspan="14" class="ratakanan tebal">Total</td>
-			<td class="ratakanan tebal"><%=formatnumber(totalamount,0)%></td>
+			<td class="ratakanan tebal"><%=formatnumber(totalamount,2)%></td>
 		</tr>
 	</table>
 

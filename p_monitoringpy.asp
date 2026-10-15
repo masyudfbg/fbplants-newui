@@ -213,10 +213,10 @@ response.Flush()
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("NOPY")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("INVOICEPODATE")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("INVOICEPOCODE")%> </td>
-								<td align="RIGHT" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("TOTALAMOUNT"),0)%> </td>
+								<td align="RIGHT" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("TOTALAMOUNT"),2)%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("ALLVOUCHERCODE")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("DATECREATED")%> </td>
-								<td align="RIGHT" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("AMOUNTVOUCHER"),0)%> </td>
+								<td align="RIGHT" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("AMOUNTVOUCHER"),2)%> </td>
 								
 							</tr>
 							  <%

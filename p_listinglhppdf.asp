@@ -188,16 +188,16 @@ Set rsCat = Nothing
 					<tr>			
 						<td align="Left" ><%=lhpno%></td>			
 						<td align="Left" ><%=tgl%></td>	
-						<td align="right"><%=FormatNumber(to_nol(tbsterima),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(tbsolah),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(tbssisahi),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(cpohi),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(cpokirim),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(adjcpo),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(cposisa),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(produksipkhi),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(kernelkirimhi),0)%></td>	
-						<td align="right"><%=FormatNumber(to_nol(pksisa),0)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(tbsterima),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(tbsolah),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(tbssisahi),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(cpohi),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(cpokirim),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(adjcpo),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(cposisa),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(produksipkhi),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(kernelkirimhi),2)%></td>	
+						<td align="right"><%=FormatNumber(to_nol(pksisa),2)%></td>	
 					</tr>
 					
 				
@@ -214,15 +214,15 @@ Set rsCat = Nothing
 
 <tr>
 						<td colspan=2 align="right"><strong>Total</strong></td>
-						<td align="right"><strong><%=formatnumber(ttltbsterima,0)%></strong></td>
-						<td align="right"><strong><%=formatnumber(ttltbsolah,0)%></strong></td>
+						<td align="right"><strong><%=formatnumber(ttltbsterima,2)%></strong></td>
+						<td align="right"><strong><%=formatnumber(ttltbsolah,2)%></strong></td>
 						<td align="right"></td>
-						<td align="right"><strong><%=formatnumber(ttlcpoproduksi,0)%></strong></td>
-						<td align="right"><strong><%=formatnumber(ttlcpokirim,0)%></strong></td>
-						<td align="right"><strong><%=formatnumber(ttladjusment,0)%></strong></td>
+						<td align="right"><strong><%=formatnumber(ttlcpoproduksi,2)%></strong></td>
+						<td align="right"><strong><%=formatnumber(ttlcpokirim,2)%></strong></td>
+						<td align="right"><strong><%=formatnumber(ttladjusment,2)%></strong></td>
 						<td align="right"></td>
-						<td align="right"><strong><%=formatnumber(ttlpkproduksi,0)%></strong></td>
-						<td align="right"><strong><%=formatnumber(ttlpkkirim,0)%></strong></td>
+						<td align="right"><strong><%=formatnumber(ttlpkproduksi,2)%></strong></td>
+						<td align="right"><strong><%=formatnumber(ttlpkkirim,2)%></strong></td>
 					</tr>
 </tbody>
 </table>

@@ -235,7 +235,7 @@ end if
 			<td align="left"><%=rsdetail("FCNAME")%></td>
 			<td align="center"><input style="text-align:center" type="text" id="qty<%=Noloop%>" onkeyup="getAmount('<%=Noloop%>',this)" name="qty<%=Noloop%>" size="5" value="<%=rsdetail("QUANTITY")%>"></td>
 			<td align="right"><input style="text-align:center" type="text" id="price<%=Noloop%>" onkeyup="getAmount('<%=Noloop%>',this)" name="price<%=Noloop%>" size="5" value="<%=rsdetail("PRICE")%>"></td>
-			<td align="right"><input style="text-align:center" type="hidden" id="amountdtl<%=Noloop%>" name="amountdtl<%=Noloop%>" size="5" value="<%=rsdetail("AMOUNT")%>"><span id="amountview<%=Noloop%>"><%=formatnumber(rsdetail("AMOUNT"),0)%></span></td>
+			<td align="right"><input style="text-align:center" type="hidden" id="amountdtl<%=Noloop%>" name="amountdtl<%=Noloop%>" size="5" value="<%=rsdetail("AMOUNT")%>"><span id="amountview<%=Noloop%>"><%=formatnumber(rsdetail("AMOUNT"),2)%></span></td>
 	   </tr>
 
 	   <%

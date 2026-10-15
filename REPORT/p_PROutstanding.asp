@@ -552,17 +552,17 @@ end if
 				<% end if %>
 			<td align="left"><%=rsPROut("prcode")%></td>
 			<td align="right"><%=rsPROut("lineid")%></td>
-			<td align="right"><%=rsPROut("prdate")%></td>
+			<td align="right"><%=FbpNum2(rsPROut("prdate"))%></td>
 			<td align="left"><%=rsPROut("itemcode")%></td>
 			<td align="left"><%=rsPROut("fcname")%></td>
-			<td align="right"><%=rsPROut("wanteddeliverydate")%></td>
+			<td align="right"><%=FbpNum2(rsPROut("wanteddeliverydate"))%></td>
 			<td align="left"><%=rsPROut("DESCRIPTION")%></td>
 			<td align="left"><%=rsPROut("data_fcname")%></td>
 			<td align="left"><%=rsPROut("rowstateid")%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPROut("requestedqty")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPROut("approvedqty")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPROut("orderedqty")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPROut("outstandingOrderedQty")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPROut("requestedqty")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPROut("approvedqty")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPROut("orderedqty")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPROut("outstandingOrderedQty")),2)%></td>
 		  </tr>	
 		      
 <%
@@ -576,10 +576,10 @@ end if
 %>
 		  <tr bgcolor="#F4F4A0">
 			<td align="center" colspan="<%=add_newspan+9%>"><strong>TOTAL</td>
-			<td align="right"><strong><%=FormatNumber(nrequestedqty,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(napprovedqty,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(norderedqty,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(noutstandingOrderedQty,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(nrequestedqty,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(napprovedqty,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(norderedqty,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(noutstandingOrderedQty,2)%></strong></td>
 		  </tr>	
 <%
 	end if

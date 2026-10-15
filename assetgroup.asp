@@ -171,7 +171,7 @@ function harusangka(evt) {
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-table.css?v=20261010c" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <script type="text/javascript" src="js/fbp-table.js?v=20261009c"></script>
 <style>
 /* assetgroup.asp: card & tabel selebar konten, judul kolom boleh turun baris */

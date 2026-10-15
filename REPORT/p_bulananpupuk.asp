@@ -1515,18 +1515,18 @@ else
 					    <td align="center"></td>					
 					<% end if %>							 
 				<% end if %>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_1"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_2"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_3"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_4"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_5"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_6"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_7"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_8"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_9"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_10"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_11"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_12"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_1"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_2"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_3"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_4"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_5"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_6"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_7"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_8"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_9"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_10"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_11"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("MONTH_12"), 2)%></td>
 <%
 					RowRealTotal	=	RowRealTotal + Cdbl(rsHarianPupuk("TOTAL"))
 					RowRekomTotal	=	RowRekomTotal + Cdbl(rsHarianPupuk("BUDGET"))
@@ -1536,9 +1536,9 @@ else
 						RowVarTotal	=	((RowRealTotal / RowRekomTotal)* 100)
 					End If
 %>
-					<td align="right"><%=FormatNumber(RowRealTotal, 0)%></td>
-					<td align="right"><%=FormatNumber(RowRekomTotal, 0)%></td>
-					<td align="right"><%=FormatNumber(RowVarTotal, 0)%></td>
+					<td align="right"><%=FormatNumber(RowRealTotal, 2)%></td>
+					<td align="right"><%=FormatNumber(RowRekomTotal, 2)%></td>
+					<td align="right"><%=FormatNumber(RowVarTotal, 2)%></td>
 					<td align="right">-</td>
 		</tr>
 <%
@@ -1587,22 +1587,22 @@ else
 %>
 	<tr bgcolor="#D1D0CE">
 			<td align="Center" colspan="<%=var_colspan%>"><b>TOTAL HK</b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_1,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_2,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_3,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_4,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_5,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_6,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_7,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_8,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_9,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_10,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_11,0)%></b></td>
-			<td align="Right" ><b><%=FormatNumber(MONTH_12,0)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_1,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_2,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_3,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_4,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_5,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_6,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_7,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_8,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_9,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_10,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_11,2)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(MONTH_12,2)%></b></td>
 			<td align="right">-</td>
 			<td align="right">-</td>
 			<td align="right">-</td>
-			<td align="Right" ><b><%=FormatNumber(TOTAL,0)%></b></td>
+			<td align="Right" ><b><%=FormatNumber(TOTAL,2)%></b></td>
 	</tr>
 <%
 			rsHKEx.Close
@@ -1643,21 +1643,21 @@ Set rsHarianPupuk = Nothing
 %>
 	<tr bgcolor="#F4F4A0">
 		<td colspan="<%=var_colspan%>" align="center"><strong>TOTAL PUPUK</strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_1, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_2, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_3, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_4, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_5, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_6, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_7, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_8, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_9, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_10, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_11, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_12, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandRowRealTotal, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandRowRekomTotal, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandRowVarTotal, 0 )%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_1, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_2, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_3, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_4, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_5, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_6, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_7, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_8, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_9, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_10, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_11, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalMonth_12, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandRowRealTotal, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandRowRekomTotal, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandRowVarTotal, 2)%></strong></td>
 		<td align="right">-</td>
 	</tr>
 <%End if%>

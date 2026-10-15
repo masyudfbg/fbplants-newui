@@ -1046,8 +1046,8 @@ If HeaderClose = "Y" Then
 					<td align="left" title="Supplier" valign="top"><%=rsGRN("receivenotecode")%></td>
 					<td align="left" title="Item Code" valign="top"><%=rsGRN("ITEMCODE")%></td>
 					<td align="left" title="Item Name" valign="top"><%=rsGRN("StockDesc")%></td>
-					<td align="right" title="Quantity" valign="top"><%=rsGRN("Quantity")%></td>
-					<td align="right" title="Amount" valign="top"><%=rsGRN("amount")%></td>
+					<td align="right" title="Quantity" valign="top"><%=FbpNum2(rsGRN("Quantity"))%></td>
+					<td align="right" title="Amount" valign="top"><%=FbpNum2(rsGRN("amount"))%></td>
 			 
 		  </tr>
 		  <% 
@@ -1289,7 +1289,7 @@ If HeaderClose = "Y" Then
 					<td align="center" title="Item Code" valign="top"><%=rsGRN("ITEMCODE")%></td>
 					<td align="left" title="Item Name" valign="top"><%=rsGRN("StockDesc")%></td>
 					<td align="center" title="Quantity" valign="top"><%=rsGRN("Quantity")%></td>
-					<td align="right" title="Amount" valign="top"><%=rsGRN("amount")%></td>
+					<td align="right" title="Amount" valign="top"><%=FbpNum2(rsGRN("amount"))%></td>
 			<%End if%>
 
 			<%if SudahClose<>"Y" Then%>
@@ -1300,7 +1300,7 @@ If HeaderClose = "Y" Then
 			        <td align="right" title="" valign="top">
 			        	<input style="text-align:right;background-color:#eee;" type="text" name="Quantity_<%=no%>" class="quantity" value = "<%=rsGRN("Quantity")%>" readonly>
 			        </td>
-                    <td align="right" title="" valign="top"><%=rsGRN("amountreceived")%></td>
+                    <td align="right" title="" valign="top"><%=FbpNum2(rsGRN("amountreceived"))%></td>
 		            <td align="center">
 						<input type="checkbox" id="cb_<%=no%>" name="cb_<%=no%>" class="item" value = "" onclick="handleClick(this);" onchange="CheckCheckboxes1(this)">
 					</td>

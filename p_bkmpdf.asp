@@ -148,7 +148,7 @@ set rsview = connStr.Execute(sqlview)
 							<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("TOTALBKMMATERIAL")%> </td>
 							<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("TOTALBKMVEHICLE")%> </td>
 							<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("TOTALBKMWIP")%> </td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsview("TOTAL"),0)%></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsview("TOTAL"),2)%></td>
 						</tr>
 						
 						</tbody>
@@ -166,11 +166,11 @@ set rsview = connStr.Execute(sqlview)
 						%>
 						<tr >
 							<td colspan=6><strong>Total</strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlupah)),0)%></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlmaterial)),0)%></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlveh)),0)%></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlwip)),0)%></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamount)),0)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlupah)),2)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlmaterial)),2)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlveh)),2)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlwip)),2)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamount)),2)%></strong></td>
 						</tr>
 						</table>
 						<!--#include file="Bottom_Report.asp"-->

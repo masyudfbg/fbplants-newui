@@ -210,17 +210,17 @@ If len(yyyy)= 0 then yyyy = Yr
 			<!--<td align="left"><%=rsPayroll("DESCRIPTION")%></td>-->
 			<td align="center"><%=rsPayroll("PRESENTGRADE")%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("GET_HK")),1)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("BASE_SALARY")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("OVERTIME")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("PREMI")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("TUNJANGAN")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("BORONGAN")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_JAMSOSTEK")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_MK_P1")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_PANEN")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_PPH21")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_LAIN")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("TOTAL")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("BASE_SALARY")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("OVERTIME")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("PREMI")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("TUNJANGAN")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("BORONGAN")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_JAMSOSTEK")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_MK_P1")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_PANEN")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_PPH21")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_LAIN")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("TOTAL")),2)%></td>
 		<%if noline  mod 2 = 1 then%>
 			<td align="left" style="background-color:#ccc;" width="50"><font face="Verdana" size="1">&nbsp;</td>			
 			<td align="left" style="background-color:#fff;" width="50"><font face="Verdana" size="1">&nbsp;</td>			
@@ -252,17 +252,17 @@ If len(yyyy)= 0 then yyyy = Yr
 	<tr style="background-color:#F4F4A0;">	 
 		<td align="center" colspan="4" ><strong>Total</strong></td>
 		<td align="right"><strong><%=formatnumber(nGet_Hk,1)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nBase_Salary,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nOvertime,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nPremi,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nTunjangan,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nBorongan,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nP_Jamsostek,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nP_Mk_P1,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nP_Panen,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nP_Pph21,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nP_Lain,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(nTotal,0)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nBase_Salary,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nOvertime,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nPremi,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nTunjangan,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nBorongan,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nP_Jamsostek,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nP_Mk_P1,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nP_Panen,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nP_Pph21,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nP_Lain,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(nTotal,2)%></strong></td>
 		<td align="right" colspan="2"><strong>&nbsp;</strong></td>
 	</tr>
 </table>

@@ -567,11 +567,11 @@ end if
 					  <td align="center" style="width:5%"><%=no+1%>&nbsp;</td>
 					  <td align="center" style="width:5%" title="productcode" valign="middle"><%=rsPurchaseOrder("productcode")%>&nbsp;</td>
 					  <td align="center" style="width:25%" title="productname" valign="middle"><%=rsPurchaseOrder("productname")%>&nbsp;</td>
-					  <td align="center"  style="width:50px;<%=cmdstyle%>" title="quantity" valign="middle"><%=formatnumber(cdbl(to_nol(rsPurchaseOrder("quantity"))),0)%>&nbsp;</td>
+					  <td align="center"  style="width:50px;<%=cmdstyle%>" title="quantity" valign="middle"><%=formatnumber(cdbl(to_nol(rsPurchaseOrder("quantity"))),2)%>&nbsp;</td>
 					  <td align="center"  style="width:50px;<%=cmdstyle%>" title="unit" valign="middle"><font face="Verdana"><%=rsPurchaseOrder("unitofmeasure")%></td>
 					  <td align="center"  style="width:50px;<%=cmdstyle%>" title="unit" valign="middle"><font face="Verdana"><%=rsPurchaseOrder("percentage_dp")%></td>
-					  <td align="right"  style="width:50px;<%=cmdstyle%> " title="harga satuan" valign="middle"><%=formatnumber(cdbl(to_nol(rsPurchaseOrder("unitprice"))),0)%></td>
-					  <td align="right"  style="width:50px;<%=cmdstyle%> " title="approvedqty" valign="middle"><%=formatnumber(cdbl(to_nol(rsPurchaseOrder("grandtotal"))),0)%>&nbsp;</td> 
+					  <td align="right"  style="width:50px;<%=cmdstyle%> " title="harga satuan" valign="middle"><%=formatnumber(cdbl(to_nol(rsPurchaseOrder("unitprice"))),2)%></td>
+					  <td align="right"  style="width:50px;<%=cmdstyle%> " title="approvedqty" valign="middle"><%=formatnumber(cdbl(to_nol(rsPurchaseOrder("grandtotal"))),2)%>&nbsp;</td> 
 				 </tr>
 				
 				  <%
@@ -581,11 +581,11 @@ end if
 				  Wend  %>
 				   <tr>
 					<th align="right" colspan="3">Sub Total</th>
-					<th align="center" ><%=formatnumber(cdbl(to_nol(nQty)),0)%></th>
+					<th align="center" ><%=formatnumber(cdbl(to_nol(nQty)),2)%></th>
 					<th align="right" ></th>
 					<th align="right" ></th>
 					<th align="right" ></th>
-					<th align="right" ><%=formatnumber(cdbl(to_nol(nAmount)),0)%></th>
+					<th align="right" ><%=formatnumber(cdbl(to_nol(nAmount)),2)%></th>
 				  </tr>
 					<tr>
 						<th colspan="6" rowspan="6" valign="top">
@@ -771,22 +771,22 @@ end if
 					</tr>
 					<tr>	
 						<th align="left">DP <%=percentage_dp%>% :</th>
-						<th align="right"><%=formatnumber(cdbl(to_nol(amount)),0)%></th>
+						<th align="right"><%=formatnumber(cdbl(to_nol(amount)),2)%></th>
 					</tr>					
 					<tr>	
 						<th align="left">DPP : </th>
-						<th align="right"><%=formatnumber(cdbl(to_nol(amount)),0)%></th>
+						<th align="right"><%=formatnumber(cdbl(to_nol(amount)),2)%></th>
 					</tr> 
 					<tr>	
 						<th align="left">PPn :</th>
-						<th align="right"><%=formatnumber(cdbl(to_nol(ppn)),0)%></th>
+						<th align="right"><%=formatnumber(cdbl(to_nol(ppn)),2)%></th>
 					</tr>
 					<tr>
 						 
 					</tr>   
 					<tr>	
 						<th align="left">Grand Total : </th>
-						<th align="right"><%=formatnumber(cdbl(to_nol(amount)) + (cdbl(to_nol(ppn))) ,0)%></th>
+						<th align="right"><%=formatnumber(cdbl(to_nol(amount)) + (cdbl(to_nol(ppn))) ,2)%></th>
 					</tr>
 					<tr>
 						<th valign="top" align="left" colspan="6">Bank Account :

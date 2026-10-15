@@ -349,7 +349,7 @@ var showamountinfo = function (oXML) {
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-docdetail.css?v=20261009b" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-doc"<% end if %>>
@@ -1308,10 +1308,10 @@ Set oRecordSet = Nothing
 					<td align="left" title="agreementdate" valign="top"><%=rsGRN("wipdate")%></td>
 					<td align="left" title="JobCode" valign="top"><%=rsGRN("JobCode")%></td>
 					<td align="left" title="JobName" valign="top"><%=rsGRN("JobName")%></td>
-					<td align="right" title="qty_final" valign="top"><%=rsGRN("qty_final")%></td>
-					<td align="right" title="rate" valign="top"><%=FormatNumber(rsGRN("rate"),0)%></td>				
-					<td align="right" title="Amount" valign="top"><%=FormatNumber(rsGRN("amount"),0)%></td>
-					<td align="right" title="amountretention" valign="top"><%=FormatNumber(rsGRN("amountretention"),0)%></td>
+					<td align="right" title="qty_final" valign="top"><%=FbpNum2(rsGRN("qty_final"))%></td>
+					<td align="right" title="rate" valign="top"><%=FormatNumber(rsGRN("rate"),2)%></td>				
+					<td align="right" title="Amount" valign="top"><%=FormatNumber(rsGRN("amount"),2)%></td>
+					<td align="right" title="amountretention" valign="top"><%=FormatNumber(rsGRN("amountretention"),2)%></td>
 				<%else%>
 					<td align="left" title="invoicecode" valign="top"><%=rsGRN("invoicecode")%></td>
 					<td align="left" title="bappno" valign="top"><%=rsGRN("bappno")%></td>
@@ -1322,7 +1322,7 @@ Set oRecordSet = Nothing
 					<td align="right" title="qty_final" valign="top">0</td>
 					<td align="right" title="rate" valign="top">0</td>
 					<td align="right" title="Amount" valign="top">0</td>
-					<td align="right" title="amountretention" valign="top"><%=FormatNumber(rsGRN("amountafter_retention"),0)%></td>
+					<td align="right" title="amountretention" valign="top"><%=FormatNumber(rsGRN("amountafter_retention"),2)%></td>
 				<%End if%>
 				<td align="center">
 					<input style="text-align:right;background-color:#eee;" type="text" name="amountafter_retention_<%=no%>" class="amount" value = "<%=FormatNumber(amountafter_retention,0)%>" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" readonly>
@@ -1336,10 +1336,10 @@ Set oRecordSet = Nothing
 					<td align="left" title="agreementdate" valign="top"><%=rsGRN("wipdate")%></td>
 					<td align="left" title="JobCode" valign="top"><%=rsGRN("JobCode")%></td>
 					<td align="left" title="JobName" valign="top"><%=rsGRN("JobName")%></td>
-					<td align="right" title="qty_final" valign="top"><%=rsGRN("qty_final")%></td>
-					<td align="right" title="rate" valign="top"><%=FormatNumber(rsGRN("rate"),0)%></td>				
-					<td align="right" title="Amount" valign="top"><%=FormatNumber(amount,0)%></td>
-					<td align="right" title="amountretention" valign="top"><%=FormatNumber(amountretention,0)%></td>
+					<td align="right" title="qty_final" valign="top"><%=FbpNum2(rsGRN("qty_final"))%></td>
+					<td align="right" title="rate" valign="top"><%=FormatNumber(rsGRN("rate"),2)%></td>				
+					<td align="right" title="Amount" valign="top"><%=FormatNumber(amount,2)%></td>
+					<td align="right" title="amountretention" valign="top"><%=FormatNumber(amountretention,2)%></td>
 					<td align="center">
 					<input style="text-align:right;background-color:#eee;" type="text" name="amountafter_retention_<%=no%>" class="amount" value = "<%=FormatNumber(amountafter_retention,0)%>" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" readonly>
 					</td>
@@ -1353,7 +1353,7 @@ Set oRecordSet = Nothing
 					<td align="right" title="qty_final" valign="top">0</td>
 					<td align="right" title="rate" valign="top">0</td>
 					<td align="right" title="Amount" valign="top">0</td>
-					<td align="right" title="amountretention" valign="top"><%=FormatNumber(rsGRN("amountretention"),0)%></td>
+					<td align="right" title="amountretention" valign="top"><%=FormatNumber(rsGRN("amountretention"),2)%></td>
 					<td align="center">
 					<input style="text-align:right;background-color:#eee;" type="text" name="amountafter_retention_<%=no%>" class="amount" value = "0" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" readonly>
 					</td>

@@ -257,7 +257,7 @@ End If
 <link rel="StyleSheet" href="css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <style>
 	.mm { --brand: #1B7863; --brand-dark: #12584a; --tint: #eef6f3; --line: #e1e7e5; --muted: #5d6d69; --ink: #17262a; color: var(--ink); }
 	.mm-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 20px; margin: 0 0 14px; }

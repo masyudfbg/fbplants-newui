@@ -1179,7 +1179,7 @@ if cmdView = "True" and len(trim(transno)) > 0  Then
 			    <td align="center" title="<%=rsVH("unitkerja").Name%>" valign="top"><%=rsVH("unitkerja")%></td>
 			    <td align="center" title="<%=rsVH("fieldcode").Name%>" valign="top"><%=rsVH("fieldcode")%></td>
 			    <td align="right" title="<%=rsVH("harvestingbased_abw_budget").Name%>" valign="top"><%=formatnumber(rsVH("harvestingbased_abw_budget"),2)%></td>
-			    <td align="right" title="<%=rsVH("kg_budget").Name%>" valign="top"><%=formatnumber(rsVH("kg_budget"),0)%></td>
+			    <td align="right" title="<%=rsVH("kg_budget").Name%>" valign="top"><%=formatnumber(rsVH("kg_budget"),2)%></td>
 			    <td align="right" title="<%=rsVH("percent_sb").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("percent_sb"))),2)%></td>
 			    <td align="right" title="<%=rsVH("percent_lb").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("percent_lb"))),2)%></td>
 		  </tr>

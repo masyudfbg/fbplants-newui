@@ -353,13 +353,13 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 				<tr>
 					<td><%=txtSupplier%></td>
 					<td><%=txtPeriodeSupp%></td>
-					<td class="ratakanan"><%=formatnumber(cdbl(txtNetto2),0)%></td>
-					<td class="ratakanan"><%=formatnumber(cdbl(kg_adj),0)%></td>
-					<td class="ratakanan"><%=formatnumber(cdbl(txtHarga),0)%></td>
-					<td class="ratakanan"><%=formatnumber(cdbl(txtTotalHarga),0)%></td>
+					<td class="ratakanan"><%=formatnumber(cdbl(txtNetto2),2)%></td>
+					<td class="ratakanan"><%=formatnumber(cdbl(kg_adj),2)%></td>
+					<td class="ratakanan"><%=formatnumber(cdbl(txtHarga),2)%></td>
+					<td class="ratakanan"><%=formatnumber(cdbl(txtTotalHarga),2)%></td>
 					
-					<td class="ratakanan"><%=formatnumber(cdbl(txtTotalHarga)*(0.25/100),0)%></td>
-					<td class="ratakanan"><%=formatnumber(cdbl(txtGrandtotal),0)%></td>
+					<td class="ratakanan"><%=formatnumber(cdbl(txtTotalHarga)*(0.25/100),2)%></td>
+					<td class="ratakanan"><%=formatnumber(cdbl(txtGrandtotal),2)%></td>
 				</tr>
 
 		</table>
@@ -434,14 +434,14 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 			<tr>
 				<td align="center" style="<%=cmdstyleLeft%>"><%=no%>&nbsp;</td>
 				<td align="center"><%=txtdtltgl%></td>
-				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlnet1),0)%>&nbsp;</td>
-				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlgrading),0)%>&nbsp;</td>
-				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlnet2),0)%>&nbsp;</td>
-				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlkgadj),0)%>&nbsp;</td>
-				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlharga),0)%>&nbsp;</td>
-				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtljumlah),0)%>&nbsp;</td>
-				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlpph),0)%>&nbsp;</td>
-				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtljumlahall),0)%>&nbsp;</td>
+				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlnet1),2)%>&nbsp;</td>
+				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlgrading),2)%>&nbsp;</td>
+				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlnet2),2)%>&nbsp;</td>
+				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlkgadj),2)%>&nbsp;</td>
+				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlharga),2)%>&nbsp;</td>
+				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtljumlah),2)%>&nbsp;</td>
+				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtlpph),2)%>&nbsp;</td>
+				<td align="center" class="ratakanan"><%=formatnumber(cdbl(txtdtljumlahall),2)%>&nbsp;</td>
 				
 			</tr>
 		<%
@@ -468,14 +468,14 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 
 		   <tr>
 		   	<td class="ratakanan tebal" colspan="2">Total</td>
-			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totnet1),0)%>&nbsp;</td>
-			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totgrading),0)%>&nbsp;</td>
-			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totnet2),0)%>&nbsp;</td>
-			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totadj),0)%>&nbsp;</td>
+			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totnet1),2)%>&nbsp;</td>
+			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totgrading),2)%>&nbsp;</td>
+			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totnet2),2)%>&nbsp;</td>
+			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totadj),2)%>&nbsp;</td>
 			<td></td>
-			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totsub),0)%>&nbsp;</td>
-			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totpph),0)%>&nbsp;</td>
-			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totjumlahall),0)%>&nbsp;</td>
+			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totsub),2)%>&nbsp;</td>
+			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totpph),2)%>&nbsp;</td>
+			<td class="ratakanan tebal" ><%=formatnumber(cdbl(totjumlahall),2)%>&nbsp;</td>
 		   </tr>
 		
 	</table><br>

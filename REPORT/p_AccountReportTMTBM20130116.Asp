@@ -192,9 +192,9 @@ end if
 	<tr>
 		<th colspan="4" align="right">LUAS Ha</th>
 
-		<th align="right" colspan="2"><%=luasHA %></th>
+		<th align="right" colspan="2"><%=FbpNum2(luasHA)%></th>
 		<th align="right" colspan="2">0</th>
-		<th align="right" colspan="2"><%=luasHA %></th>
+		<th align="right" colspan="2"><%=FbpNum2(luasHA)%></th>
 		<th align="right" colspan="2">0</th>
 		<th align="right" colspan="2">0</th>
 		
@@ -203,9 +203,9 @@ end if
 	<tr>
 		<th colspan="4" align="right">PRODUKSI - Ton</th>
 
-		<th align="right" colspan="2"><%=ProdTon %> </th>
+		<th align="right" colspan="2"><%=FbpNum2(ProdTon)%> </th>
 		<th align="right" colspan="2">0</th>
-		<th align="right" colspan="2"><%=ProdTon %></th>
+		<th align="right" colspan="2"><%=FbpNum2(ProdTon)%></th>
 		<th align="right" colspan="2">0</th>
 		<th align="right" colspan="2">0</th>
 		
@@ -325,20 +325,20 @@ end if
 				   <td><%=rsha("code")%></td>
 				   <td><%=rsha("jobheading")%></td>
 				   <td><%=rsha("job_name")%></td>
-				   <td align="right"><%=formatnumber(rsha("totalBI"),0)%></td>		
+				   <td align="right"><%=formatnumber(rsha("totalBI"),2)%></td>		
 				   <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and request("vStatus") = "TM" then  %>
-							<td align="right"><%= formatnumber( cdbl(rsha("totalBI")) / cdbl(prodkg ),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rsha("totalBI")) / cdbl(prodkg ),2) %></td>
 					<% else  %> 
-							<td align="right"><%= formatnumber( cdbl(rsha("totalBI")) / cint(luasHA),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rsha("totalBI")) / cint(luasHA),2) %></td>
 					<% end if %>	
 				   <td>&nbsp;</td>
 				   <td>&nbsp;</td>
 				   <td>&nbsp;</td>
-				   <td align="right"><%=formatnumber(rsha("totalSBI"),0)%></td>
+				   <td align="right"><%=formatnumber(rsha("totalSBI"),2)%></td>
                     <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and request("vStatus") = "TM" then  %>
-						      <td align="right"><%= formatnumber( cdbl(rsha("totalSBI")) / cdbl(prodkg ),0) %></td>
+						      <td align="right"><%= formatnumber( cdbl(rsha("totalSBI")) / cdbl(prodkg ),2) %></td>
 					<% else  %> 
-					   		  <td align="right"><%= formatnumber( cdbl(rsha("totalSBI")) / cint(luasHA),0) %></td>
+					   		  <td align="right"><%= formatnumber( cdbl(rsha("totalSBI")) / cint(luasHA),2) %></td>
 					<% end if %>				   
 					
 					<td>&nbsp;</td>
@@ -368,20 +368,20 @@ end if
 								%>
 								
 								<td colspan="4"><b> Total&nbsp;<%=grpDesc%> </td>	
-								<td align="right"><b><%=formatnumber(subAmtgrpBI,0)%></td>
+								<td align="right"><b><%=formatnumber(subAmtgrpBI,2)%></td>
 								 <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and request("vStatus") = "TM" then  %>
-									  <td align="right"><b><%= formatnumber( cdbl(subAmtgrpBI) / cdbl(prodkg ),0) %></td>
+									  <td align="right"><b><%= formatnumber( cdbl(subAmtgrpBI) / cdbl(prodkg ),2) %></td>
 								<% else  %> 
-									  <td align="right"><b><%= formatnumber( cdbl(subAmtgrpBI) / cint(luasHA),0) %></td>
+									  <td align="right"><b><%= formatnumber( cdbl(subAmtgrpBI) / cint(luasHA),2) %></td>
 								<% end if %>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
-								<td align="right"><b><%=formatnumber(subAmtgrpSBI,0)%></td>
+								<td align="right"><b><%=formatnumber(subAmtgrpSBI,2)%></td>
 								 <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and request("vStatus") = "TM" then  %>
-									  <td align="right"><b><%= formatnumber( cdbl(subAmtgrpSBI) / cdbl(prodkg ),0) %></td>
+									  <td align="right"><b><%= formatnumber( cdbl(subAmtgrpSBI) / cdbl(prodkg ),2) %></td>
 								<% else  %> 
-									  <td align="right"><b><%= formatnumber( cdbl(subAmtgrpSBI) / cint(luasHA),0) %></td>
+									  <td align="right"><b><%= formatnumber( cdbl(subAmtgrpSBI) / cint(luasHA),2) %></td>
 								<% end if %>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
@@ -419,20 +419,20 @@ end if
 						   <td><%=rsha("code")%></td>
 						   <td><%=rsha("jobheading")%></td>
 						   <td><%=rsha("job_name")%></td>
-						   <td align="right"><%=formatnumber(rsha("totalBI"),0)%></td> 
+						   <td align="right"><%=formatnumber(rsha("totalBI"),2)%></td> 
 						   <%  if  ( cdgrp = "PNN" or cdgrp = "GC" or  cdgrp = "PML") and request("vStatus") = "TM" then  %>
-								  <td align="right"><%= formatnumber( cdbl(rsha("totalBI")) / cdbl(prodkg ),0) %></td> 
+								  <td align="right"><%= formatnumber( cdbl(rsha("totalBI")) / cdbl(prodkg ),2) %></td> 
 						   <% else  %> 
-								  <td align="right"><%= formatnumber( cdbl(rsha("totalBI")) / cint(luasHA),0) %></td>
+								  <td align="right"><%= formatnumber( cdbl(rsha("totalBI")) / cint(luasHA),2) %></td>
 						   <% end if %>	
 						   <td>&nbsp;</td>
 						   <td>&nbsp;</td>
 						   <td>&nbsp;</td>
-						   <td align="right"><%=formatnumber(rsha("totalSBI"),0)%></td>
+						   <td align="right"><%=formatnumber(rsha("totalSBI"),2)%></td>
 							<%  if  ( cdgrp = "PNN" or cdgrp = "GC" or  cdgrp = "PML" ) and request("vStatus") = "TM" then  %>
-								  <td align="right" ><%= formatnumber( cdbl(rsha("totalSBI")) / cdbl(prodkg ),0) %></td>
+								  <td align="right" ><%= formatnumber( cdbl(rsha("totalSBI")) / cdbl(prodkg ),2) %></td>
 							<% else  %> 
-								  <td align="right"><%= formatnumber( cdbl(rsha("totalSBI")) / cint(luasHA),0) %></td>
+								  <td align="right"><%= formatnumber( cdbl(rsha("totalSBI")) / cint(luasHA),2) %></td>
 							<% end if %>				   
 						
 							<td>&nbsp;</td>
@@ -456,20 +456,20 @@ end if
 	
 	<tr>
 		<td colspan="4"> <b>Total General Charge (GC)</td>	
-		<td align="right"><b><%=formatnumber(subAmtgrpBI,0)%></td>
+		<td align="right"><b><%=formatnumber(subAmtgrpBI,2)%></td>
 		<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and request("vStatus") = "TM" then  %>
-				<td align="right"><b><%= formatnumber( cdbl(subAmtgrpBI) / cdbl(prodkg ),0) %></td>
+				<td align="right"><b><%= formatnumber( cdbl(subAmtgrpBI) / cdbl(prodkg ),2) %></td>
 		<% else  %> 
-			   <td align="right"><b><%= formatnumber( cdbl(subAmtgrpBI) / cint(luasHA),0) %></td>
+			   <td align="right"><b><%= formatnumber( cdbl(subAmtgrpBI) / cint(luasHA),2) %></td>
 		<% end if %>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
-		<td align="right"><b><%=formatnumber(subAmtgrpSBI,0)%></td>
+		<td align="right"><b><%=formatnumber(subAmtgrpSBI,2)%></td>
 		<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and request("vStatus") = "TM" then  %>
-				<td align="right"><b><%= formatnumber( cdbl(subAmtgrpSBI) / cdbl(prodkg ),0) %></td>
+				<td align="right"><b><%= formatnumber( cdbl(subAmtgrpSBI) / cdbl(prodkg ),2) %></td>
 		<% else  %> 
-			   <td align="right"><b><%= formatnumber( cdbl(subAmtgrpSBI) / cint(luasHA),0) %></td>
+			   <td align="right"><b><%= formatnumber( cdbl(subAmtgrpSBI) / cint(luasHA),2) %></td>
 		<% end if %>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
@@ -482,20 +482,20 @@ end if
 		    GRAmtgrpSBI = cdbl(GRAmtgrpSBI) + cdbl(subAmtgrpSBI) 
 		 %>
 		<td colspan="4"><b> Grand Total&nbsp;</td>	
-		<td align="right"><b><%=formatnumber(GRAmtgrpBI,0)%></td>
+		<td align="right"><b><%=formatnumber(GRAmtgrpBI,2)%></td>
 		<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and request("vStatus") = "TM" then  %>
-				<td align="right"><b><%= formatnumber( cdbl(GRAmtgrpBI) / cdbl(prodkg ),0) %></b></td>
+				<td align="right"><b><%= formatnumber( cdbl(GRAmtgrpBI) / cdbl(prodkg ),2) %></b></td>
 		<% else  %> 
-			   <td align="right"><b><%= formatnumber( cdbl(GRAmtgrpBI) / cint(luasHA),0) %></b></td>
+			   <td align="right"><b><%= formatnumber( cdbl(GRAmtgrpBI) / cint(luasHA),2) %></b></td>
 		<% end if %>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
-		<td align="right"><b><%=formatnumber(GRAmtgrpSBI,0)%></td>
+		<td align="right"><b><%=formatnumber(GRAmtgrpSBI,2)%></td>
 		<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and request("vStatus") = "TM" then  %>
-				<td align="right"><b><%= formatnumber( cdbl(GRAmtgrpSBI) / cdbl(prodkg ),0) %></b></td>
+				<td align="right"><b><%= formatnumber( cdbl(GRAmtgrpSBI) / cdbl(prodkg ),2) %></b></td>
 		<% else  %> 
-			   <td align="right"><b><%= formatnumber( cdbl(GRAmtgrpSBI) / cint(luasHA),0) %></b></td>
+			   <td align="right"><b><%= formatnumber( cdbl(GRAmtgrpSBI) / cint(luasHA),2) %></b></td>
 		<% end if %>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>

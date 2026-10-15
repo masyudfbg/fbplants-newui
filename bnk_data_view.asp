@@ -44,7 +44,7 @@ End Function
 Function BvNum(v)
 	Dim n
 	n = CDbl(to_nol(v))
-	If n <> Int(n) Then BvNum = FormatNumber(n, 2) Else BvNum = FormatNumber(n, 0)
+	BvNum = FormatNumber(n, 2)   ' ribuan + 2 desimal
 End Function
 
 ' sel teks panjang: teks lengkap, boleh terbungkus
@@ -266,10 +266,10 @@ End If
 <link rel="StyleSheet" href="/css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="/js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="/js/fbp-shell.js?v=20261015a"></script>
 <link rel="stylesheet" href="/css/fbp-table.css?v=20261010c" type="text/css" />
-<script type="text/javascript" src="/js/fbp-table.js?v=20261009c"></script>
-<script type="text/javascript" src="/js/fbp-table-auto.js?v=20261014b"></script>
+<script type="text/javascript" src="/js/fbp-table.js?v=20261015a"></script>
+<script type="text/javascript" src="/js/fbp-table-auto.js?v=20261015a"></script>
 <style>
 	.bv { --brand: #1B7863; --brand-dark: #12584a; --tint: #eef6f3; --line: #e1e7e5; --muted: #5d6d69; --ink: #17262a; padding: 4px 2px 10px; color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
 	.bv-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 14px 20px; margin-bottom: 16px; }
@@ -425,13 +425,13 @@ End If
 					<th>Date</th><th>No.Voucher</th><th>Paid For / Receive From</th><th>Reference</th><th>Remark</th><th class="num">Debet</th><th class="num">Credit</th><th class="num">Saldo</th>
 				</tr></thead>
 				<tbody>
-					<tr class="bv-bal"><td colspan="7">Opening Balance</td><td class="num"><%=BvNum(bvOpening)%></td></tr>
+					<tr class="bv-bal"><td colspan="7">Opening Balance</td><td class="num"><%=FbpNum2(BvNum(bvOpening))%></td></tr>
 <% If bvCfRows = "" Then %>
 					<tr><td colspan="8" class="bv-empty">Tidak ada mutasi di periode ini.</td></tr>
 <% Else %>
 <%=bvCfRows%>
 <% End If %>
-					<tr class="bv-bal"><td colspan="5">Ending Balance</td><td class="num"><%=BvNum(bvDebet)%></td><td class="num"><%=BvNum(bvCredit)%></td><td class="num"><%=BvNum(bvSaldo)%></td></tr>
+					<tr class="bv-bal"><td colspan="5">Ending Balance</td><td class="num"><%=FbpNum2(BvNum(bvDebet))%></td><td class="num"><%=FbpNum2(BvNum(bvCredit))%></td><td class="num"><%=FbpNum2(BvNum(bvSaldo))%></td></tr>
 				</tbody>
 			</table></div>
 		</section>

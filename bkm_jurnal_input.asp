@@ -96,7 +96,7 @@ rsbuton.close
 <link rel="StyleSheet" href="/css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="/js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="/js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <style>
@@ -591,6 +591,14 @@ $(function() {
 });
 
 
+// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+function numformat2(val) {
+	var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+	if (isNaN(n)) return val == null ? '' : val;
+	var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+	return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+}
+
 function numformat(val) {
 	var nStr = val.toString();
 	nStr = nStr.replace(/\,/g, "");
@@ -626,7 +634,7 @@ function actionBtn()
 						docketlist += '<tr id="tru'+i+'">';
 						docketlist += '<td align="left">' + json.results[i].bkmno + '</td>';
 						docketlist += '<td align="left">' + json.results[i].createdate + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totalbkmupah) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totalbkmupah) + '</td>';
 						docketlist += '<td align="right">' + json.results[i].totalbkmmaterial + '</td>';				
 						docketlist += '<td align="right">' + json.results[i].totalbkmvehicle + '</td>';
 						docketlist += '<td align="right">' + json.results[i].totalbkmwip + '</td>';

@@ -574,7 +574,7 @@ else
 							 for xi = 9 to rssqlweekly.fields.count -1
 									if len(trim(rssqlweekly(xi).value)) > 0 then%>
 									
-									   <td align="right"><%=FormatNumber(rssqlweekly(xi),0)%></td>
+									   <td align="right"><%=FormatNumber(rssqlweekly(xi),2)%></td>
 									   
 									<%
 									if xi = sbl then
@@ -644,17 +644,17 @@ else
 									   <td align="right" colspan="2">-</td>
 									<%end if%>
 							 <%next%>
-							<td align="right"><%=FormatNumber(totalsbl,0)%></td>
-							<td align="right"><%=FormatNumber(totalakt,0)%></td>
-							<td align="right"><%=FormatNumber(totalbgt,0)%></td>
-							<td align="right"><%=FormatNumber(totalacv,0)%></td>
+							<td align="right"><%=FormatNumber(totalsbl,2)%></td>
+							<td align="right"><%=FormatNumber(totalakt,2)%></td>
+							<td align="right"><%=FormatNumber(totalbgt,2)%></td>
+							<td align="right"><%=FormatNumber(totalacv,2)%></td>
 							
-							<td align="right"><%=FormatNumber(totalaktSD,0)%></td>
-							<td align="right"><%=FormatNumber(totalbgtSD,0)%></td>
-							<td align="right"><%=FormatNumber(totalacvSD,0)%></td>
+							<td align="right"><%=FormatNumber(totalaktSD,2)%></td>
+							<td align="right"><%=FormatNumber(totalbgtSD,2)%></td>
+							<td align="right"><%=FormatNumber(totalacvSD,2)%></td>
 							
-							<td align="right"><%=FormatNumber(totalaktSBI,0)%></td>
-							<td align="right" colspan="2"><%=FormatNumber(totalbgtSBI,0)%></td>
+							<td align="right"><%=FormatNumber(totalaktSBI,2)%></td>
+							<td align="right" colspan="2"><%=FormatNumber(totalbgtSBI,2)%></td>
 					</tr>
 <%		
 				rssqlweekly.MoveNext			

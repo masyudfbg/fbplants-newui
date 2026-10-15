@@ -303,7 +303,7 @@ function launchwin(winurl,winname,winfeatures)
 			<td align="left"><%=rsGrnInv("employeecode")%></td>
 			<td align="left"><%=rsGrnInv("employeename")%></td>
 			<td align="center"><%=rsGrnInv("Position")%></td>
-			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi"))),0)%></td>
+			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi"))),2)%></td>
 		</tr>
 <%			
 			v_premi = v_premi + cdbl(to_nol(rsGrnInv("premi"))) 
@@ -315,7 +315,7 @@ function launchwin(winurl,winname,winfeatures)
 %>
 		<tr bgcolor="#F4F4A0"> 
 			<td align="center" colspan="5"><font style="font-weight: bold;">TOTAL</font></td>				
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi)),0)%></font></td>  
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi)),2)%></font></td>  
 		</tr>
 	</tbody>
 </table>

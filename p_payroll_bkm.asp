@@ -537,18 +537,18 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 			<td align="center"><%=rsPayroll("DATEOFBIRTH")%></td>
 			<td align="center"><%=rsPayroll("DATEOFJOIN")%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("GET_HK")), 1)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("BASE_SALARY")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("OVERTIME")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("PREMI")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("BORONGAN")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("TOTALGAJI")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_JAMSOSTEK")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_BPJSKES")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_PPH21")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("PINJAMAN")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("DENDA")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("TOTALPOTONGAN")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("TOTAL")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("BASE_SALARY")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("OVERTIME")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("PREMI")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("BORONGAN")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("TOTALGAJI")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_JAMSOSTEK")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_BPJSKES")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("P_PPH21")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("PINJAMAN")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("DENDA")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("TOTALPOTONGAN")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("TOTAL")),2)%></td>
 			<%if noline  mod 2 = 1 then%>
 				<td align="left" style="background-color:#ccc;" width="500" colspan="3"><font face="Verdana" size="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>			
 				<td align="left" style="background-color:#fff;" width="500" colspan="3"><font face="Verdana" size="1"><%=NO%>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>			
@@ -579,18 +579,18 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 		<tr style="background-color:#F4F4A0;">	 
 			<td align="center" colspan="13" ><strong>Sub Total</strong></td>
 			<td align="right"><strong><%=formatnumber(nGet_Hk,1)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nBase_Salary,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nOvertime,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nPremi,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(nBorongan,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(nTotalgaji,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nP_Jamsostek,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nP_bpjskes,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nP_Pph21,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nPinjaman,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nDenda,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nTotalPotongan,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(ntotalsisaupah,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nBase_Salary,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nOvertime,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nPremi,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nBorongan,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nTotalgaji,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nP_Jamsostek,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nP_bpjskes,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nP_Pph21,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nPinjaman,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nDenda,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nTotalPotongan,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(ntotalsisaupah,2)%></strong></td>
 			<td colspan="6"></td>
 		</tr>
 		<tr>
@@ -662,18 +662,18 @@ end if  'end isposback
 	<tr style="background-color:#27AE60;">	 
 		<td align="center" colspan="13" ><strong>Grand Total</strong></td>
 		<td align="right"><strong><%=formatnumber(gt_GET_HK,1)%></strong></td>  
-		<td align="right"><strong><%=formatnumber(gt_BASE_SALARY,0)%></strong></td> 
-		<td align="right"><strong><%=formatnumber(gt_OVERTIME,0)%></strong></td> 
-		<td align="right"><strong><%=formatnumber(gt_PREMI,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_BORONGAN,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_TOTALGAJI,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_P_JAMSOSTEK,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_P_BPJSKES,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_P_PPH21,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_PINJAMAN,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_DENDA,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_totalpotongan,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_totalsisaupah,0)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_BASE_SALARY,2)%></strong></td> 
+		<td align="right"><strong><%=formatnumber(gt_OVERTIME,2)%></strong></td> 
+		<td align="right"><strong><%=formatnumber(gt_PREMI,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_BORONGAN,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_TOTALGAJI,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_P_JAMSOSTEK,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_P_BPJSKES,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_P_PPH21,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_PINJAMAN,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_DENDA,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_totalpotongan,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_totalsisaupah,2)%></strong></td>
 		<td colspan="6"></td>
 	</tr>
 	<tr>

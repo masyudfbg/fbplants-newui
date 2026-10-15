@@ -270,7 +270,7 @@ end if
 			
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("hkshi"),2)%></td>			
 			
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("rphkshi"),0)%></td>	
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("rphkshi"),2)%></td>	
 			
 		</tr>
 	  <%
@@ -302,16 +302,16 @@ end if
 		<tr bgcolor="#F4F4A0">
 			<td align="Center" style="<%=cmdstyle%>" colspan= "7"><font face="Verdana" size="1"><strong>T o t a l</strong></td>
 			
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlfisikshi, 0)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlfisikshi, 2)%></strong></td>
 			
 		
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlunitshi, 0)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlunitshi, 2)%></strong></td>
 		
 			
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlhkshi, 0)%></strong></td> 
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlhkshi, 2)%></strong></td> 
 		
 		
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlrphkshi, 0)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlrphkshi, 2)%></strong></td>
 			
 			
 		</tr>

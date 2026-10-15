@@ -531,10 +531,10 @@ if not array_eof then
 	   <td align="left"><strong><%=array_data(2, xx)%></strong></td>
 	   <td align="left"><strong><%=array_data(3, xx)%></strong></td>
 	   <td align="left" colspan="8" style="padding-left:10px;"></td>
-	   <td align="right"><strong><%=FormatNumber(array_data(12, xx),0)%></strong></td>
-	   <td align="right"><strong><%=FormatNumber(array_data(13, xx),0)%></strong></td>
-	   <td align="right"><strong><%=FormatNumber(array_data(14, xx),0)%></strong></td>
-	   <td align="right"><strong><%=FormatNumber(array_data(15, xx),0)%></strong></td>
+	   <td align="right"><strong><%=FormatNumber(array_data(12, xx),2)%></strong></td>
+	   <td align="right"><strong><%=FormatNumber(array_data(13, xx),2)%></strong></td>
+	   <td align="right"><strong><%=FormatNumber(array_data(14, xx),2)%></strong></td>
+	   <td align="right"><strong><%=FormatNumber(array_data(15, xx),2)%></strong></td>
 	   </tr>
 
 <% 
@@ -555,10 +555,10 @@ if not array_eof then
 			<td align="left"><%=array_data(9, xx)%></td>
 			<td align="left"><%=array_data(10, xx)%></td>
 			<td align="left"><%=array_data(11, xx)%></td>
-			<td align="right"><%=FormatNumber(0, 0)%></td>
-			<td align="right"><%=FormatNumber(array_data(13, xx), 0)%></td>
-			<td align="right"><%=FormatNumber(array_data(14, xx), 0)%></td>
-			<td align="right"><%=FormatNumber(0, 0)%></td>
+			<td align="right"><%=FormatNumber(0, 2)%></td>
+			<td align="right"><%=FormatNumber(array_data(13, xx), 2)%></td>
+			<td align="right"><%=FormatNumber(array_data(14, xx), 2)%></td>
+			<td align="right"><%=FormatNumber(0, 2)%></td>
 		</tr>
 <% end if %>
 
@@ -575,10 +575,10 @@ sumakhir = sumawal+sumdebit+sumkredit
 
 <tr bgcolor="#9CB770">
 <td align="Left" colspan="11" ><strong>Grand Total</strong></td>
-<td align="right"><strong><%=FormatNumber(sumawal, 0)%></strong></td>
-<td align="right"><strong><%=FormatNumber(sumdebit, 0)%></strong></td>
-<td align="right"><strong><%=FormatNumber(sumkredit, 0)%></strong></td>
-<td align="right"><strong><%=FormatNumber(sumakhir, 0)%></strong></td>
+<td align="right"><strong><%=FormatNumber(sumawal, 2)%></strong></td>
+<td align="right"><strong><%=FormatNumber(sumdebit, 2)%></strong></td>
+<td align="right"><strong><%=FormatNumber(sumkredit, 2)%></strong></td>
+<td align="right"><strong><%=FormatNumber(sumakhir, 2)%></strong></td>
 
 
 </tr>

@@ -291,7 +291,7 @@ if  LEN(TRIM(txtPRDATE_to)) > 0 then
 	
 	%>
 		<tr>
-		<td><%=NO%></td><td><%=rsUSER("USERNAME")%></td><td align="right"><%=rsUSER("AKTIFITAS")%></td>
+		<td><%=NO%></td><td><%=rsUSER("USERNAME")%></td><td align="right"><%=FbpNum2(rsUSER("AKTIFITAS"))%></td>
 		</tr>
 	<%
 	v_Saldo  =v_Saldo+trim(cdbl(rsUSER("AKTIFITAS")))

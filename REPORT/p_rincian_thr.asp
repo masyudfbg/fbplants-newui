@@ -319,7 +319,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center" width="4%"><%=rsrincian_bpjskes("EMPLOYEECODE")%></td>
 				<td align="left"><%=rsrincian_bpjskes("EMPLOYEENAME")%></td>
 				<td align="center"><%=rsrincian_bpjskes("PRESENTGRADE")%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsrincian_bpjskes("thr"), 0)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsrincian_bpjskes("thr"), 2)%></td>
 			</tr>
 <%
 			NO = NO + 1
@@ -333,7 +333,7 @@ function launchwin(winurl,winname,winfeatures)
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="4"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotalthr, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotalthr, 2)%></strong></td>
 			</tr>
             </tbody>
 </table>

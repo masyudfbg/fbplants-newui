@@ -99,10 +99,10 @@ Set rsCat = connStr.Execute(txtSQL)
 		<td align="Left"><font face="Verdana" size="1"><%=rscat("vehiclecode")%></td>
 		<td align="Left"><font face="Verdana" size="1"><%=rscat("vehiclename")%></td>
 		<td align="Left"><font face="Verdana" size="1"><%=rscat("vehiclestatusname")%></td>
-		<!--<td align="right"><font face="Verdana" size="1"><%=rscat("unit")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("fuel")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("harihujan")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("curahhujan")%></td>-->
+		<!--<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("unit"))%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("fuel"))%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("harihujan"))%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("curahhujan"))%></td>-->
 		<td align="Left"><font face="Verdana" size="1"><%=rscat("remarks")%></td>
 		</tr>
 	  <%

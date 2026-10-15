@@ -788,8 +788,8 @@ If cmdView = "True" and "" & settlementno <> "" Then
 						<td align="left" title="<%=rswipfinal("debetcredit").Name%>" valign="top"><%=rswipfinal("debetcredit")%></td>
 						<td align="left" title="<%=rswipfinal("jobcode").Name%>" valign="top"><%=rswipfinal("jobcode")%></td>
 						<td align="left" title="<%=rswipfinal("targettype").Name%>" valign="top"><%=rswipfinal("targettype")%></td>
-						<td align="right" title="<%=rswipfinal("created").Name%>" valign="top"><%=FormatNumber(rswipfinal("created"), 0)%></td>
-						<td align="right" title="<%=rswipfinal("accrued").Name%>" valign="top"><%=FormatNumber(rswipfinal("accrued"), 0)%></td>
+						<td align="right" title="<%=rswipfinal("created").Name%>" valign="top"><%=FormatNumber(rswipfinal("created"), 2)%></td>
+						<td align="right" title="<%=rswipfinal("accrued").Name%>" valign="top"><%=FormatNumber(rswipfinal("accrued"), 2)%></td>
 						<td align="left" width="2">
 							<input type="text" name="amount_edit" width="2" value="<%=rswipfinal("settlemented")%>" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" style="text-align: right;">
 						</td>
@@ -815,9 +815,9 @@ If cmdView = "True" and "" & settlementno <> "" Then
 						<td align="left" title="<%=rswipfinal("debetcredit").Name%>" valign="top"><%=rswipfinal("debetcredit")%></td>
 						<td align="left" title="<%=rswipfinal("jobcode").Name%>" valign="top"><%=rswipfinal("jobcode")%></td>
 						<td align="left" title="<%=rswipfinal("targettype").Name%>" valign="top"><%=rswipfinal("targettype")%></td>
-						<td align="right" title="<%=rswipfinal("created").Name%>" valign="top"><%=FormatNumber(Cdbl(To_Nol(rswipfinal("created"))), 0)%></td>
-						<td align="right" title="<%=rswipfinal("accrued").Name%>" valign="top"><%=FormatNumber(Cdbl(To_Nol(rswipfinal("accrued"))), 0)%></td>
-						<td align="right" title="<%=rswipfinal("settlemented").Name%>" valign="top"><%=FormatNumber(Cdbl(To_Nol(rswipfinal("settlemented"))), 0)%></td>
+						<td align="right" title="<%=rswipfinal("created").Name%>" valign="top"><%=FormatNumber(Cdbl(To_Nol(rswipfinal("created"))), 2)%></td>
+						<td align="right" title="<%=rswipfinal("accrued").Name%>" valign="top"><%=FormatNumber(Cdbl(To_Nol(rswipfinal("accrued"))), 2)%></td>
+						<td align="right" title="<%=rswipfinal("settlemented").Name%>" valign="top"><%=FormatNumber(Cdbl(To_Nol(rswipfinal("settlemented"))), 2)%></td>
 						
 						<%
 					      t_created = t_created +cdbl(To_Nol(rswipfinal("created")))
@@ -834,8 +834,8 @@ If cmdView = "True" and "" & settlementno <> "" Then
 					<td align="left" title="Debet Credit" valign="top"><%=rswipfinal("debetcredit")%></td>
 					<td align="left" title="Job Code" valign="top"><%=rswipfinal("jobcode")%></td>
 					<td align="left" title="Target Type" valign="top"><%=rswipfinal("targettype")%></td>
-					<td align="Right" title="Created" valign="top"><%=FormatNumber(rswipfinal("created"), 0)%></td>
-					<td align="Right" title="Accrued" valign="top"><%=FormatNumber(rswipfinal("accrued"), 0)%></td>
+					<td align="Right" title="Created" valign="top"><%=FormatNumber(rswipfinal("created"), 2)%></td>
+					<td align="Right" title="Accrued" valign="top"><%=FormatNumber(rswipfinal("accrued"), 2)%></td>
 					<td align="left" width="2">
 						<input type="text" name="amount_<%=no%>" width="2" value="<%=request("amount_"&TRIM(no))%>" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" style="text-align: right;">
 					</td>
@@ -857,9 +857,9 @@ If cmdView = "True" and "" & settlementno <> "" Then
 			if Request("txtJenis")<>"Edit" Then
 				response.write "<tr bgcolor='#F4F4A0'>"
 				response.write "	<td align='center' colspan='5'>Total</td>"
-				response.write "	<td align='right'>"&FormatNumber(t_created,0)&"</td>"
-				response.write "	<td align='right'>"&FormatNumber(t_accrued,0)&"</td>"
-				response.write "	<td align='right'>"&FormatNumber(t_settlemented,0)&"</td>"
+				response.write "	<td align='right'>"&FormatNumber(t_created,2)&"</td>"
+				response.write "	<td align='right'>"&FormatNumber(t_accrued,2)&"</td>"
+				response.write "	<td align='right'>"&FormatNumber(t_settlemented,2)&"</td>"
 				response.write "</tr>"
 			end if
 		end if

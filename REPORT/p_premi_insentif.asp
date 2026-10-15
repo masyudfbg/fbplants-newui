@@ -552,12 +552,12 @@ function launchwin(winurl,winname,winfeatures)
 		<tr class="<%=cClass%>">
 			<td align="center"><%=rsGrnInv("fccode")%></td>
 			<td align="Left"><%=rsGrnInv("employeename")%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("lebih_basis_1"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("lebih_basis_2"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("insentif_1_1"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("insentif_1_2"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("insentif_2_1"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(totalinsentif)),0)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("lebih_basis_1"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("lebih_basis_2"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("insentif_1_1"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("insentif_1_2"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("insentif_2_1"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(totalinsentif)),2)%></td>
 		</tr>
 <%			
 			v_lebih_basis_1 = v_lebih_basis_1 + cdbl(to_nol(rsGrnInv("lebih_basis_1"))) 
@@ -573,12 +573,12 @@ function launchwin(winurl,winname,winfeatures)
 %>
 		<tr bgcolor="#F4F4A0"> 
 			<td align="center" colspan="2"><font style="font-weight: bold;">TOTAL</font></td>				
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_lebih_basis_1)),0)%></font></td>
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_lebih_basis_2)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_insentif_1_1)),0)%></font></td>
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_insentif_1_2)),0)%></font></td>
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_insentif_2_1)),0)%></font></td>
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_totalinsentif)),0)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_lebih_basis_1)),2)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_lebih_basis_2)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_insentif_1_1)),2)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_insentif_1_2)),2)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_insentif_2_1)),2)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_totalinsentif)),2)%></font></td>
 		</tr>
 	</tbody>
 </table>

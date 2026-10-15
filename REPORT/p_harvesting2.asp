@@ -755,7 +755,7 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 				
 				
 				<td align="left"><%=rsEPS("field_info_01")%></td>
-				<td align="right"><%=FormatNumber(Cdbl(To_Nol(rsEPS("tonase"))),0)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(To_Nol(rsEPS("tonase"))),2)%></td>
 				
 			</tr>
 <%
@@ -771,7 +771,7 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%= 1+ nSpanTotal %>"><b>TOTAL</b></td>				
-				<td align="right"><b><%=FormatNumber(gt_tonase,0)%></b></td>
+				<td align="right"><b><%=FormatNumber(gt_tonase,2)%></b></td>
 			</tr>
 </tbody>
 </table>

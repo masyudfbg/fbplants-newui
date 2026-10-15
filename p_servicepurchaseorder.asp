@@ -199,9 +199,9 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("stockname")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("quantity")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("disc")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("unitprice"),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("othercharge"),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("amountcharge"),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("unitprice"),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("othercharge"),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("amountcharge"),2)%></td>
 		</tr>
 	  <%
 	   v_unitprice =v_unitprice+trim(cdbl(rsCat("unitprice")))

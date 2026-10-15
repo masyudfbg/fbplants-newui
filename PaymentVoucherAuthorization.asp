@@ -464,7 +464,7 @@ function harusangka(evt) {
 <link rel="StyleSheet" href="css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy"<% end if %>>
@@ -1151,7 +1151,7 @@ if cmdView = "True" Then
             <td align="center" title="<%=rsPurchaseRequest("datecreated").Name%>" valign="top"><%=rsPurchaseRequest("datecreated")%></td>
 			<td align="center" title="<%=rsPurchaseRequest("transtype").Name%>" valign="top"><%=rsPurchaseRequest("transtype")%></td>
 			<td align="left" title="<%=rsPurchaseRequest("remarks").Name%>" valign="top"><%=rsPurchaseRequest("remarks")%></td>
-			<td align="right" title="<%=rsPurchaseRequest("amount").Name%>" valign="top"><%=FormatNumber(rsPurchaseRequest("amount"),0)%></td>
+			<td align="right" title="<%=rsPurchaseRequest("amount").Name%>" valign="top"><%=FormatNumber(rsPurchaseRequest("amount"),2)%></td>
 			<td valign="middle" align="center">
 				<input type="checkbox" name="cb_<%=NO%>" id="cb_<%=NO%>" class='item' value= "" onclick='handleClick(this);'>
 				<input type="hidden" name="fcba_<%=NO%>" value="<%=rsPurchaseRequest("fcba")%>">

@@ -285,17 +285,17 @@ Dim sqlcpo,rscpo
 				dim netto1bre
 				netto1bre = cdbl(rsBeliTBSall("weightout"))-cdbl(rsBeliTBSall("weightin"))
 			%>
-				<td align="right"><%=FormatNumber(rsBeliTBSall("weightout"),0)%></td>
-				<td align="right"><%=FormatNumber(rsBeliTBSall("weightin"),0)%></td>
-				<td align="right"><%=FormatNumber(netto1bre,0)%></td>
+				<td align="right"><%=FormatNumber(rsBeliTBSall("weightout"),2)%></td>
+				<td align="right"><%=FormatNumber(rsBeliTBSall("weightin"),2)%></td>
+				<td align="right"><%=FormatNumber(netto1bre,2)%></td>
 				<td align="right">0</td>
-				<td align="right"><%=FormatNumber(netto1bre,0)%></td>
+				<td align="right"><%=FormatNumber(netto1bre,2)%></td>
 			<%else%>
-				<td align="right"><%=FormatNumber(rsBeliTBSall("weightin"),0)%></td>
-				<td align="right"><%=FormatNumber(rsBeliTBSall("weightout"),0)%></td>
-				<td align="right"><%=FormatNumber(rsBeliTBSall("netto1"),0)%></td>
-				<td align="right"><%=FormatNumber(rsBeliTBSall("sortasiwgt"),0)%></td>
-				<td align="right"><%=FormatNumber(rsBeliTBSall("ffbweight"),0)%></td>
+				<td align="right"><%=FormatNumber(rsBeliTBSall("weightin"),2)%></td>
+				<td align="right"><%=FormatNumber(rsBeliTBSall("weightout"),2)%></td>
+				<td align="right"><%=FormatNumber(rsBeliTBSall("netto1"),2)%></td>
+				<td align="right"><%=FormatNumber(rsBeliTBSall("sortasiwgt"),2)%></td>
+				<td align="right"><%=FormatNumber(rsBeliTBSall("ffbweight"),2)%></td>
 			<%end if%>
 			
 		
@@ -324,11 +324,11 @@ Dim sqlcpo,rscpo
 		%>
 		  <tr bgcolor="#F4F4A0">
 			<td align="center" colspan="<%=add_newspan+8%>"><strong>TOTAL</td>
-			<td align="right"><strong><%=FormatNumber(ttlkg,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlkg1,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlnetto1,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlgrading,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlgrand,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlkg,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlkg1,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlnetto1,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlgrading,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlgrand,2)%></strong></td>
 			
 		  </tr>	
 		<%
@@ -458,9 +458,9 @@ Dim sqlcpo,rscpo
 				<td  align="left"><%=rscpo("CustomerName")%></td>
 				<td  align="left"><%=rscpo("ContractorName")%></td>
 				<td  align="left"><%=rscpo("NOREG")%></td>
-				<td  align="right"><%=FormatNumber(rscpo("WEIGHTOUT"),0)%></td>
-				<td  align="right"><%=FormatNumber(rscpo("WEIGHTIN"),0)%></td>
-				<td  align="right"><%=FormatNumber(rscpo("Netto"),0)%></td>
+				<td  align="right"><%=FormatNumber(rscpo("WEIGHTOUT"),2)%></td>
+				<td  align="right"><%=FormatNumber(rscpo("WEIGHTIN"),2)%></td>
+				<td  align="right"><%=FormatNumber(rscpo("Netto"),2)%></td>
 				
 			</tr>
 		<%	
@@ -475,9 +475,9 @@ Dim sqlcpo,rscpo
 		%>
 		 <tr bgcolor="#F4F4A0">
 			<td align="center" colspan="<%=add_newspan+10%>"><strong>TOTAL</td>
-			<td align="right"><strong><%=FormatNumber(ttlbruto,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttltara,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlnetto,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlbruto,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttltara,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlnetto,2)%></strong></td>
 			
 		  </tr>	
 	

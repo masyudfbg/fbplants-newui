@@ -1669,9 +1669,9 @@ If cmdView = "True" and LEN(TRIM(fcCode)) > 4 and len(trim(xstoreCode)) > 0 Then
 							<td align="Right" title="LineNoKey" valign="top"><%=rsGRN("purchaselinenokey")%></td>
 							<td align="left" title="Item Code" valign="top"><%=rsGRN("itemcode")%></td>
 							<td align="left" title="Item Name"  style="width: 200px;" valign="top"><%=rsGRN("fcname")%></td>
-							<td align="Right" title="QuantityOrder" valign="top"><%=rsGRN("quantityorder")%></td>
-							<td align="Right" title="QuantityReceived"  style="width: 40px;" valign="top"><%=rsGRN("quantityreceived")%></td>
-							<td align="Right" title="sisa"  style="width: 40px;" valign="top"><%=rsGRN("sisa")%></td>
+							<td align="Right" title="QuantityOrder" valign="top"><%=FbpNum2(rsGRN("quantityorder"))%></td>
+							<td align="Right" title="QuantityReceived"  style="width: 40px;" valign="top"><%=FbpNum2(rsGRN("quantityreceived"))%></td>
+							<td align="Right" title="sisa"  style="width: 40px;" valign="top"><%=FbpNum2(rsGRN("sisa"))%></td>
 							<td align="left" width="2"><input type="text" style="width: 100px;" name="Jobcode_<%=no%>" width="2" value="<%=rsGRN("Jobcode")%>"></td>
 							<td align="left" width="2"><input type="text" style="width: 100px;" name="LT_<%=no%>" width="2" value="<%=rsGRN("LT")%>"></td>
 							<td align="left" width="10"><input type="text" style="width: 100px;" name="LC_<%=no%>" width="10" value="<%=rsGRN("LC")%>"></td>
@@ -1684,10 +1684,10 @@ If cmdView = "True" and LEN(TRIM(fcCode)) > 4 and len(trim(xstoreCode)) > 0 Then
 							<td align="Right" title="LineNoKey" valign="top"><%=rsGRN("purchaselinenokey")%></td>
 							<td align="left" title="Item Code" valign="top"><%=rsGRN("itemcode")%></td>
 							<td align="left" title="Item Name" style="width: 200px;" valign="top"><%=rsGRN("fcname")%></td>
-							<td align="Right" title="QuantityOrder" valign="top"><%=rsGRN("quantityorder")%></td>
-							<td align="Right" title="QuantityReceived" valign="top"><%=rsGRN("quantityreceived")%></td>
-							<td align="Right" title="QuantityReceived" valign="top"><%=rsGRN("doqty")%></td>
-							<td align="Right" title="QuantityReceived" style="width: 40px;" valign="top"><%=rsGRN("doreceiveqty")%></td>
+							<td align="Right" title="QuantityOrder" valign="top"><%=FbpNum2(rsGRN("quantityorder"))%></td>
+							<td align="Right" title="QuantityReceived" valign="top"><%=FbpNum2(rsGRN("quantityreceived"))%></td>
+							<td align="Right" title="QuantityReceived" valign="top"><%=FbpNum2(rsGRN("doqty"))%></td>
+							<td align="Right" title="QuantityReceived" style="width: 40px;" valign="top"><%=FbpNum2(rsGRN("doreceiveqty"))%></td>
 							<td align="left" width="2"><input type="text" style="width: 100px;" name="Jobcode_<%=no%>" width="2" value="<%=request("Jobcode_"&TRIM(no))%>"><a href="javascript:launchwin('PrintData.Asp?txtModule=Data Master&txtTable=Job&txtSearch=<%=txtSearch%>&txtField=<%=txtField%>&Mode=Print','newwindow','width='+(700)+',height='+(505)+',screenX=0,screenY=0,directories=0,fullscreen=0,location=0,menubar=0,scrollbars=1,status=0,toolbar=1')"><font face="Verdana"   size="1">Activity</font></a></td>
 							<td align="left" width="2"><input type="text" style="width: 100px;" name="LT_<%=no%>" width="2" value="<%=request("LT_"&TRIM(no))%>"<a href="javascript:launchwin('PrintData.Asp?txtModule=Data Master&txtTable=LocationType&txtSearch=<%=txtSearch%>&txtField=<%=txtField%>&Mode=Print','newwindow','width='+(700)+',height='+(505)+',screenX=0,screenY=0,directories=0,fullscreen=0,location=0,menubar=0,scrollbars=1,status=0,toolbar=1')"><font face="Verdana"   size="1">Target Type</font></a><font color="#FF0000">&nbsp;*</font></td>
 							<td align="left" width="10"><input type="text" style="width: 100px;" name="LC_<%=no%>" width="10" value="<%=request("LC_"&TRIM(no))%>"></td>

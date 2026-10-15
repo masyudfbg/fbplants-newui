@@ -331,9 +331,9 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="left"><%=rsJamsostek("EMPLOYEENAME")%></td>
 				<td align="center"><%=rsJamsostek("PRESENTGRADE")%></td>
 				<td align="left"><%=rsJamsostek("jamsostekno")%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsJamsostek("tunjangan_jamsostek"), 0)%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsJamsostek("beban_karyawan"), 0)%></td>
-				<td align="right" width="4%"><%=FormatNumber(totalbpjsdibayar, 0)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsJamsostek("tunjangan_jamsostek"), 2)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsJamsostek("beban_karyawan"), 2)%></td>
+				<td align="right" width="4%"><%=FormatNumber(totalbpjsdibayar, 2)%></td>
 				
 			</tr>
 <%
@@ -350,9 +350,9 @@ function launchwin(winurl,winname,winfeatures)
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="5"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotaltunjangan, 0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotalkaryawan, 0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotalpotongan, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotaltunjangan, 2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotalkaryawan, 2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotalpotongan, 2)%></strong></td>
 			</tr>
             </tbody>
 </table>

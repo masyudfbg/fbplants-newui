@@ -284,153 +284,153 @@ if rsSqlstr.bof and rsSqlstr.eof then
 %>
 	
 	<tr class="<%=cClass%>">
-		<td align="right"><%=rsSqlstr("TANGGAL")%></td>
+		<td align="right"><%=FbpNum2(rsSqlstr("TANGGAL"))%></td>
 		<!--STACKING -->		
-		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_AKTUAL_HI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_AKTUAL_SHI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_BUDGET_HI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_VarSHI_HA"),0)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_AKTUAL_HI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_AKTUAL_SHI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_BUDGET_HI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_VarSHI_HA"),2)%></td>
 		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_BI_VarSHI_PERCENT"),2)%></td>
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_SBI_AKTUAL"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_SBI_VarSBI_HA"),0)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_SBI_AKTUAL"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_SBI_VarSBI_HA"),2)%></td>
 		<td align="right"><%=FormatNumber(rsSqlstr("STACKING_SBI_VarSBI_PERCENT"),2)%></td>	
 		<!--TANAM BARU -->	
-		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_AKTUAL_HI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_AKTUAL_SHI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_BUDGET_HI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_BUDGET_SHI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_VarSHI_HA"),0)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_AKTUAL_HI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_AKTUAL_SHI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_BUDGET_HI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_BUDGET_SHI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_VarSHI_HA"),2)%></td>
 		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_BI_VarSHI_PERCENT"),2)%></td>
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_SBI_AKTUAL"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_SBI_BUDGET"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_SBI_VarSBI_HA"),0)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_SBI_AKTUAL"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_SBI_BUDGET"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_SBI_VarSBI_HA"),2)%></td>
 		<td align="right"><%=FormatNumber(rsSqlstr("TANAMBARU_SBI_VarSBI_PERCENT"),2)%></td>		
 		<!--KOMPLETING -->	
-		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_AKTUAL_HI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_AKTUAL_SHI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_BUDGET_HI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_BUDGET_SHI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_VarSHI_PKK"),0)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_AKTUAL_HI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_AKTUAL_SHI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_BUDGET_HI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_BUDGET_SHI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_VarSHI_PKK"),2)%></td>
 		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_BI_VarSHI_PERCENT"),2)%></td>
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_SBI_AKTUAL"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_SBI_BUDGET"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_SBI_VarSBI_HA"),0)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_SBI_AKTUAL"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_SBI_BUDGET"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_SBI_VarSBI_HA"),2)%></td>
 		<td align="right"><%=FormatNumber(rsSqlstr("KOMPLETING_SBI_VarSBI_PERCENT"),2)%></td>	
 		<!--TANAM SISIP TBM -->		
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_AKTUAL_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_AKTUAL_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_BUDGET_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_VarSHI_PKK"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_AKTUAL_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_AKTUAL_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_BUDGET_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_VarSHI_PKK"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_BI_VarSHI_PERCENT"),2)%></td>	
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_SBI_AKTUAL"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_SBI_VarSBI_PKK"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_SBI_AKTUAL"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_SBI_VarSBI_PKK"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TBM_SBI_VarSBI_PERCENT"),2)%></td>		
 		<!--TANAM SISIP TM -->
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_AKTUAL_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_AKTUAL_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_BUDGET_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_VarSHI_PKK"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_AKTUAL_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_AKTUAL_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_BUDGET_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_VarSHI_PKK"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_BI_VarSHI_PERCENT"),2)%></td>		
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_SBI_AKTUAL"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_SBI_VarSBI_PKK"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_SBI_AKTUAL"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_SBI_VarSBI_PKK"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("SISIP_TM_SBI_VarSBI_PERCENT"),2)%></td>	
 		<!--KASTRASI -->
-		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_AKTUAL_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_AKTUAL_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_BUDGET_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_VarSHI_PKK"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_AKTUAL_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_AKTUAL_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_BUDGET_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_VarSHI_PKK"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_BI_VarSHI_PERCENT"),2)%></td>
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_SBI_AKTUAL"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_SBI_VarSBI_PKK"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_SBI_AKTUAL"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_SBI_VarSBI_PKK"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("KASTRASI_SBI_VarSBI_PERCENT"),2)%></td>
 		<!--SANITASI -->
-		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_AKTUAL_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_AKTUAL_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_BUDGET_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_VarSHI_PKK"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_AKTUAL_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_AKTUAL_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_BUDGET_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_VarSHI_PKK"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_BI_VarSHI_PERCENT"),2)%></td>		
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_SBI_AKTUAL"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_SBI_VarSBI_PKK"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_SBI_AKTUAL"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_SBI_VarSBI_PKK"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("SANITASI_SBI_VarSBI_PERCENT"),2)%></td>
 		<!--PEMELIHARAAN  -->
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_TERSEDIA_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_TERSEDIA_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_TANAMBARU_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_TANAMBARU_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_SISIP_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_SISIP_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_KOMPLETING_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_KOMPLETING_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_PEMUPUKAN_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_PEMUPUKAN_SHI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_LAINNYA_HI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_LAINNYA_SHI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_PERCENT_HADIR_HI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_PERCENT_HADIR_SHI"),0)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_TERSEDIA_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_TERSEDIA_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_TANAMBARU_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_TANAMBARU_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_SISIP_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_SISIP_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_KOMPLETING_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_KOMPLETING_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_PEMUPUKAN_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_PEMUPUKAN_SHI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_LAINNYA_HI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_LAINNYA_SHI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_PERCENT_HADIR_HI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsSqlstr("PEMEL_AKTUAL_PERCENT_HADIR_SHI"),2)%></td>		
 		<!--TIMBUN JALAN MR -->
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_AKTUAL_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_AKTUAL_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_BUDGET_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_VarSHI_MTR"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_AKTUAL_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_AKTUAL_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_BUDGET_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_VarSHI_MTR"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_BI_VarSHI_PERCENT"),2)%></td>		
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_SBI_AKTUAL"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_SBI_VarSBI_MTR"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_SBI_AKTUAL"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_SBI_VarSBI_MTR"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_MR_SBI_VarSBI_PERCENT"),2)%></td>
 		<!--TIMBUN JALAN CR -->
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_AKTUAL_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_AKTUAL_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_BUDGET_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_VarSHI_MTR"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_AKTUAL_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_AKTUAL_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_BUDGET_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_VarSHI_MTR"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_BI_VarSHI_PERCENT"),2)%></td>		
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_SBI_AKTUAL"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_SBI_VarSBI_MTR"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_SBI_AKTUAL"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_SBI_VarSBI_MTR"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("TIM_JL_CR_SBI_VarSBI_PERCENT"),2)%></td>
 		<!--PENGERASAN JALAN MR -->
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_AKTUAL_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_AKTUAL_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_BUDGET_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_VarSHI_MTR"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_AKTUAL_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_AKTUAL_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_BUDGET_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_VarSHI_MTR"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_BI_VarSHI_PERCENT"),2)%></td>	
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_SBI_AKTUAL"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_SBI_VarSBI_MTR"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_SBI_AKTUAL"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_SBI_VarSBI_MTR"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_MR_SBI_VarSBI_PERCENT"),2)%></td>
 		<!--PENGERASAN JALAN CR -->
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_AKTUAL_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_AKTUAL_SHI"),0)%></td>			
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_BUDGET_HI"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_BUDGET_SHI"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_VarSHI_MTR"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_AKTUAL_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_AKTUAL_SHI"),2)%></td>			
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_BUDGET_HI"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_BUDGET_SHI"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_VarSHI_MTR"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_BI_VarSHI_PERCENT"),2)%></td>	
 		
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_SBI_AKTUAL"),0)%></td>	
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_SBI_BUDGET"),0)%></td>		
-		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_SBI_VarSBI_MTR"),0)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_SBI_AKTUAL"),2)%></td>	
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_SBI_BUDGET"),2)%></td>		
+		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_SBI_VarSBI_MTR"),2)%></td>	
 		<td align="right"><%=FormatNumber(rsSqlstr("KERAS_JL_CR_SBI_VarSBI_PERCENT"),2)%></td>
 		<!-- -->
 		
@@ -729,130 +729,130 @@ set rsSqlstr = Nothing
 	<tr>
 		<td colspan="1" align="center"><strong>TOTAL</strong></td>
 	
-		<td align="right"><%=Total_1 %></td>
-		<td align="right"><%=Total_2%></td>
-		<td align="right"><%=Total_3%></td>
-		<td align="right"><%=Total_4%></td>
-		<td align="right"><%=Total_5%></td>
-		<td align="right"><%=Total_6%></td>
-		<td align="right"><%=Total_7%></td>
-		<td align="right"><%=Total_8%></td>
-		<td align="right"><%=Total_9%></td>
-		<td align="right"><%=Total_10%></td>
-		<td align="right"><%=Total_11%></td>
-		<td align="right"><%=Total_12%></td>
-		<td align="right"><%=Total_13%></td>
-		<td align="right"><%=Total_14%></td>
-		<td align="right"><%=Total_15%></td>
-		<td align="right"><%=Total_16%></td>
-		<td align="right"><%=Total_17%></td>
-		<td align="right"><%=Total_18%></td>
-		<td align="right"><%=Total_19%></td>
-		<td align="right"><%=Total_20%></td>
-		<td align="right"><%=Total_21%></td>
-		<td align="right"><%=Total_22%></td>
-		<td align="right"><%=Total_23%></td>
-		<td align="right"><%=Total_24%></td>
-		<td align="right"><%=Total_25%></td>
-		<td align="right"><%=Total_26%></td>
-		<td align="right"><%=Total_27%></td>
-		<td align="right"><%=Total_28%></td>
-		<td align="right"><%=Total_29%></td>
-		<td align="right"><%=Total_30%></td>
-		<td align="right"><%=Total_31%></td>
-		<td align="right"><%=Total_32%></td>
-		<td align="right"><%=Total_33%></td>
-		<td align="right"><%=Total_34%></td>
-		<td align="right"><%=Total_35%></td>
-		<td align="right"><%=Total_36%></td>
-		<td align="right"><%=Total_37%></td>
-		<td align="right"><%=Total_38%></td>
-		<td align="right"><%=Total_39%></td>
-		<td align="right"><%=Total_40%></td>
-		<td align="right"><%=Total_41%></td>
-		<td align="right"><%=Total_42%></td>
-		<td align="right"><%=Total_43%></td>
-		<td align="right"><%=Total_44%></td>
-		<td align="right"><%=Total_45%></td>
-		<td align="right"><%=Total_46%></td>
-		<td align="right"><%=Total_47%></td>
-		<td align="right"><%=Total_48%></td>
-		<td align="right"><%=Total_49%></td>
-		<td align="right"><%=Total_50%></td>
-		<td align="right"><%=Total_51%></td>
-		<td align="right"><%=Total_52%></td>
-		<td align="right"><%=Total_53%></td>
-		<td align="right"><%=Total_54%></td>
-		<td align="right"><%=Total_55%></td>
-		<td align="right"><%=Total_56%></td>
-		<td align="right"><%=Total_57%></td>
-		<td align="right"><%=Total_58%></td>
-		<td align="right"><%=Total_59%></td>
-		<td align="right"><%=Total_60%></td>
-		<td align="right"><%=Total_61%></td>
-		<td align="right"><%=Total_62%></td>
-		<td align="right"><%=Total_63%></td>
-		<td align="right"><%=Total_64%></td>
-		<td align="right"><%=Total_65%></td>
-		<td align="right"><%=Total_66%></td>
-		<td align="right"><%=Total_67%></td>
-		<td align="right"><%=Total_68%></td>
-		<td align="right"><%=Total_69%></td>
-		<td align="right"><%=Total_70%></td>
-		<td align="right"><%=Total_71%></td>
-		<td align="right"><%=Total_72%></td>
-		<td align="right"><%=Total_73%></td>
-		<td align="right"><%=Total_74%></td>
-		<td align="right"><%=Total_75%></td>
-		<td align="right"><%=Total_76%></td>
-		<td align="right"><%=Total_77%></td>
-		<td align="right"><%=Total_78%></td>
-		<td align="right"><%=Total_79%></td>
-		<td align="right"><%=Total_80%></td>
-		<td align="right"><%=Total_81%></td>
-		<td align="right"><%=Total_82%></td>
-		<td align="right"><%=Total_83%></td>
-		<td align="right"><%=Total_84%></td>
-		<td align="right"><%=Total_85%></td>
-		<td align="right"><%=Total_86%></td>
-		<td align="right"><%=Total_87%></td>
-		<td align="right"><%=Total_88%></td>
-		<td align="right"><%=Total_89%></td>
-		<td align="right"><%=Total_90%></td>
-		<td align="right"><%=Total_91%></td>
-		<td align="right"><%=Total_92%></td>
-		<td align="right"><%=Total_93%></td>
-		<td align="right"><%=Total_94%></td>
-		<td align="right"><%=Total_95%></td>
-		<td align="right"><%=Total_96%></td>
-		<td align="right"><%=Total_97%></td>
-		<td align="right"><%=Total_98%></td>
-		<td align="right"><%=Total_99%></td>
-		<td align="right"><%=Total_100%></td>
-		<td align="right"><%=Total_101%></td>
-		<td align="right"><%=Total_102%></td>
-		<td align="right"><%=Total_103%></td>
-		<td align="right"><%=Total_104%></td>
-		<td align="right"><%=Total_105%></td>
-		<td align="right"><%=Total_106%></td>
-		<td align="right"><%=Total_107%></td>
-		<td align="right"><%=Total_108%></td>
-		<td align="right"><%=Total_109%></td>
-		<td align="right"><%=Total_110%></td>
-		<td align="right"><%=Total_111%></td>
-		<td align="right"><%=Total_112%></td>
-		<td align="right"><%=Total_113%></td>
-		<td align="right"><%=Total_114%></td>
-		<td align="right"><%=Total_115%></td>
-		<td align="right"><%=Total_116%></td>
-		<td align="right"><%=Total_117%></td>
-		<td align="right"><%=Total_118%></td>
-		<td align="right"><%=Total_119%></td>
-		<td align="right"><%=Total_120%></td>
-		<td align="right"><%=Total_121%></td>
-		<td align="right"><%=Total_122%></td>
-		<td align="right"><%=Total_123%></td>
-		<td align="right"><%=Total_124%></td>	
+		<td align="right"><%=FbpNum2(Total_1)%></td>
+		<td align="right"><%=FbpNum2(Total_2)%></td>
+		<td align="right"><%=FbpNum2(Total_3)%></td>
+		<td align="right"><%=FbpNum2(Total_4)%></td>
+		<td align="right"><%=FbpNum2(Total_5)%></td>
+		<td align="right"><%=FbpNum2(Total_6)%></td>
+		<td align="right"><%=FbpNum2(Total_7)%></td>
+		<td align="right"><%=FbpNum2(Total_8)%></td>
+		<td align="right"><%=FbpNum2(Total_9)%></td>
+		<td align="right"><%=FbpNum2(Total_10)%></td>
+		<td align="right"><%=FbpNum2(Total_11)%></td>
+		<td align="right"><%=FbpNum2(Total_12)%></td>
+		<td align="right"><%=FbpNum2(Total_13)%></td>
+		<td align="right"><%=FbpNum2(Total_14)%></td>
+		<td align="right"><%=FbpNum2(Total_15)%></td>
+		<td align="right"><%=FbpNum2(Total_16)%></td>
+		<td align="right"><%=FbpNum2(Total_17)%></td>
+		<td align="right"><%=FbpNum2(Total_18)%></td>
+		<td align="right"><%=FbpNum2(Total_19)%></td>
+		<td align="right"><%=FbpNum2(Total_20)%></td>
+		<td align="right"><%=FbpNum2(Total_21)%></td>
+		<td align="right"><%=FbpNum2(Total_22)%></td>
+		<td align="right"><%=FbpNum2(Total_23)%></td>
+		<td align="right"><%=FbpNum2(Total_24)%></td>
+		<td align="right"><%=FbpNum2(Total_25)%></td>
+		<td align="right"><%=FbpNum2(Total_26)%></td>
+		<td align="right"><%=FbpNum2(Total_27)%></td>
+		<td align="right"><%=FbpNum2(Total_28)%></td>
+		<td align="right"><%=FbpNum2(Total_29)%></td>
+		<td align="right"><%=FbpNum2(Total_30)%></td>
+		<td align="right"><%=FbpNum2(Total_31)%></td>
+		<td align="right"><%=FbpNum2(Total_32)%></td>
+		<td align="right"><%=FbpNum2(Total_33)%></td>
+		<td align="right"><%=FbpNum2(Total_34)%></td>
+		<td align="right"><%=FbpNum2(Total_35)%></td>
+		<td align="right"><%=FbpNum2(Total_36)%></td>
+		<td align="right"><%=FbpNum2(Total_37)%></td>
+		<td align="right"><%=FbpNum2(Total_38)%></td>
+		<td align="right"><%=FbpNum2(Total_39)%></td>
+		<td align="right"><%=FbpNum2(Total_40)%></td>
+		<td align="right"><%=FbpNum2(Total_41)%></td>
+		<td align="right"><%=FbpNum2(Total_42)%></td>
+		<td align="right"><%=FbpNum2(Total_43)%></td>
+		<td align="right"><%=FbpNum2(Total_44)%></td>
+		<td align="right"><%=FbpNum2(Total_45)%></td>
+		<td align="right"><%=FbpNum2(Total_46)%></td>
+		<td align="right"><%=FbpNum2(Total_47)%></td>
+		<td align="right"><%=FbpNum2(Total_48)%></td>
+		<td align="right"><%=FbpNum2(Total_49)%></td>
+		<td align="right"><%=FbpNum2(Total_50)%></td>
+		<td align="right"><%=FbpNum2(Total_51)%></td>
+		<td align="right"><%=FbpNum2(Total_52)%></td>
+		<td align="right"><%=FbpNum2(Total_53)%></td>
+		<td align="right"><%=FbpNum2(Total_54)%></td>
+		<td align="right"><%=FbpNum2(Total_55)%></td>
+		<td align="right"><%=FbpNum2(Total_56)%></td>
+		<td align="right"><%=FbpNum2(Total_57)%></td>
+		<td align="right"><%=FbpNum2(Total_58)%></td>
+		<td align="right"><%=FbpNum2(Total_59)%></td>
+		<td align="right"><%=FbpNum2(Total_60)%></td>
+		<td align="right"><%=FbpNum2(Total_61)%></td>
+		<td align="right"><%=FbpNum2(Total_62)%></td>
+		<td align="right"><%=FbpNum2(Total_63)%></td>
+		<td align="right"><%=FbpNum2(Total_64)%></td>
+		<td align="right"><%=FbpNum2(Total_65)%></td>
+		<td align="right"><%=FbpNum2(Total_66)%></td>
+		<td align="right"><%=FbpNum2(Total_67)%></td>
+		<td align="right"><%=FbpNum2(Total_68)%></td>
+		<td align="right"><%=FbpNum2(Total_69)%></td>
+		<td align="right"><%=FbpNum2(Total_70)%></td>
+		<td align="right"><%=FbpNum2(Total_71)%></td>
+		<td align="right"><%=FbpNum2(Total_72)%></td>
+		<td align="right"><%=FbpNum2(Total_73)%></td>
+		<td align="right"><%=FbpNum2(Total_74)%></td>
+		<td align="right"><%=FbpNum2(Total_75)%></td>
+		<td align="right"><%=FbpNum2(Total_76)%></td>
+		<td align="right"><%=FbpNum2(Total_77)%></td>
+		<td align="right"><%=FbpNum2(Total_78)%></td>
+		<td align="right"><%=FbpNum2(Total_79)%></td>
+		<td align="right"><%=FbpNum2(Total_80)%></td>
+		<td align="right"><%=FbpNum2(Total_81)%></td>
+		<td align="right"><%=FbpNum2(Total_82)%></td>
+		<td align="right"><%=FbpNum2(Total_83)%></td>
+		<td align="right"><%=FbpNum2(Total_84)%></td>
+		<td align="right"><%=FbpNum2(Total_85)%></td>
+		<td align="right"><%=FbpNum2(Total_86)%></td>
+		<td align="right"><%=FbpNum2(Total_87)%></td>
+		<td align="right"><%=FbpNum2(Total_88)%></td>
+		<td align="right"><%=FbpNum2(Total_89)%></td>
+		<td align="right"><%=FbpNum2(Total_90)%></td>
+		<td align="right"><%=FbpNum2(Total_91)%></td>
+		<td align="right"><%=FbpNum2(Total_92)%></td>
+		<td align="right"><%=FbpNum2(Total_93)%></td>
+		<td align="right"><%=FbpNum2(Total_94)%></td>
+		<td align="right"><%=FbpNum2(Total_95)%></td>
+		<td align="right"><%=FbpNum2(Total_96)%></td>
+		<td align="right"><%=FbpNum2(Total_97)%></td>
+		<td align="right"><%=FbpNum2(Total_98)%></td>
+		<td align="right"><%=FbpNum2(Total_99)%></td>
+		<td align="right"><%=FbpNum2(Total_100)%></td>
+		<td align="right"><%=FbpNum2(Total_101)%></td>
+		<td align="right"><%=FbpNum2(Total_102)%></td>
+		<td align="right"><%=FbpNum2(Total_103)%></td>
+		<td align="right"><%=FbpNum2(Total_104)%></td>
+		<td align="right"><%=FbpNum2(Total_105)%></td>
+		<td align="right"><%=FbpNum2(Total_106)%></td>
+		<td align="right"><%=FbpNum2(Total_107)%></td>
+		<td align="right"><%=FbpNum2(Total_108)%></td>
+		<td align="right"><%=FbpNum2(Total_109)%></td>
+		<td align="right"><%=FbpNum2(Total_110)%></td>
+		<td align="right"><%=FbpNum2(Total_111)%></td>
+		<td align="right"><%=FbpNum2(Total_112)%></td>
+		<td align="right"><%=FbpNum2(Total_113)%></td>
+		<td align="right"><%=FbpNum2(Total_114)%></td>
+		<td align="right"><%=FbpNum2(Total_115)%></td>
+		<td align="right"><%=FbpNum2(Total_116)%></td>
+		<td align="right"><%=FbpNum2(Total_117)%></td>
+		<td align="right"><%=FbpNum2(Total_118)%></td>
+		<td align="right"><%=FbpNum2(Total_119)%></td>
+		<td align="right"><%=FbpNum2(Total_120)%></td>
+		<td align="right"><%=FbpNum2(Total_121)%></td>
+		<td align="right"><%=FbpNum2(Total_122)%></td>
+		<td align="right"><%=FbpNum2(Total_123)%></td>
+		<td align="right"><%=FbpNum2(Total_124)%></td>	
 	</tr>
    </tbody>
 </table>

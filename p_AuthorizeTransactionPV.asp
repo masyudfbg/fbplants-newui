@@ -287,7 +287,7 @@ response.Flush()
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("bankcode")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("bankname")%> </td>
 								<td align="Center" class="apv-date" style="<%=cmdstyle%>"><%=rscat("datecreated")%></td>
-								<td align="Right" class="apv-amount" style="<%=cmdstyle%>"><%=FormatNumber(cdbl(to_nol(rscat("amount"))),0)%></td>
+								<td align="Right" class="apv-amount" style="<%=cmdstyle%>"><%=FormatNumber(cdbl(to_nol(rscat("amount"))),2)%></td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("currentauthorizelevel")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("authorizelevelname")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("lastauthorizer")%> </td>
@@ -312,7 +312,7 @@ response.Flush()
 							<tfoot>
 							<tr>
 								<td colspan="4" style="<%=cmdstyle%>">Total (<span class="fbt-count"><%=NO-1%></span> voucher)</td>
-								<td align="Right" class="apv-amount fbt-sum" style="<%=cmdstyle%>"><%=FormatNumber(v_Amount,0)%></td>
+								<td align="Right" class="apv-amount fbt-sum" style="<%=cmdstyle%>"><%=FormatNumber(v_Amount,2)%></td>
 								<td colspan="6" style="<%=cmdstyle%>"></td>
 							</tr>
 							</tfoot>

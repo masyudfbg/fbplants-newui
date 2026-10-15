@@ -445,9 +445,9 @@ th.rotate-270 > div {
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("month_prod_bi")%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("year_prod_bi")%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("jobcode")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("qty_prod_bi"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("Price_prod_bi"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amount_prod_bi"))),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("qty_prod_bi"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("Price_prod_bi"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amount_prod_bi"))),2)%></td>
 		</tr>
 	<%
 		v_qty_prod_bi = v_qty_prod_bi +  cdbl(to_nol(rscat("qty_prod_bi")))
@@ -462,9 +462,9 @@ th.rotate-270 > div {
 	rsCat=null%>
 		<tr bgcolor="#F4F4A0">
 			<td align="center" colspan="5" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;">TOTAL</font></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_qty_prod_bi)),0)%></font></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_Price_prod_bi)),0)%></font></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_amount_prod_bi)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_qty_prod_bi)),2)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_Price_prod_bi)),2)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_amount_prod_bi)),2)%></font></td>
 		</tr>
 	<input  type="hidden" value="<%=txtTable%>" name="txtTable">
 	<input  type="hidden" value="<%=txtModule%>" name="txtModule">

@@ -477,7 +477,7 @@ sakun       = Request("sakun")
 										<td class="tebal ratatengah"><%=FormatNumber(ttlfisik,2)%></td>
 										<td class="tebal ratatengah"></td>
 										<td class="tebal ratatengah"><%=FormatNumber(ttlha,2)%></td>
-										<td class="tebal ratakanan"><%=FormatNumber(ttlamount,0)%></td>
+										<td class="tebal ratakanan"><%=FormatNumber(ttlamount,2)%></td>
 									
 										
 									</tr>
@@ -610,7 +610,7 @@ sakun       = Request("sakun")
 										<td colspan="3" class="tebal">Total</td>
 										<td class="tebal ratatengah"><%=FormatNumber(ttlhkpemu,2)%></td>
 										<td class="tebal ratatengah"><%=FormatNumber(ttlfisikpu,2)%></td>
-										<td class="tebal ratakanan"><%=FormatNumber(ttlamountpu,0)%></td>
+										<td class="tebal ratakanan"><%=FormatNumber(ttlamountpu,2)%></td>
 									
 										
 									</tr>
@@ -756,11 +756,11 @@ sakun       = Request("sakun")
 
 									<tr class="ratakanan">
 										<td colspan="3" class="tebal">Total</td>
-										<td class="tebal ratatengah"><%=FormatNumber(ttlhkpan,0)%></td>
-										<td class="tebal ratatengah"><%=FormatNumber(ttlfisikha,0)%></td>
-										<td class="tebal ratatengah"><%=FormatNumber(ttlfisikpan,0)%></td>
-										<td class="tebal ratatengah"><%=FormatNumber(ttlfisikkg,0)%></td>
-										<td class="tebal ratakanan"><%=FormatNumber(ttlamountpan,0)%></td>
+										<td class="tebal ratatengah"><%=FormatNumber(ttlhkpan,2)%></td>
+										<td class="tebal ratatengah"><%=FormatNumber(ttlfisikha,2)%></td>
+										<td class="tebal ratatengah"><%=FormatNumber(ttlfisikpan,2)%></td>
+										<td class="tebal ratatengah"><%=FormatNumber(ttlfisikkg,2)%></td>
+										<td class="tebal ratakanan"><%=FormatNumber(ttlamountpan,2)%></td>
 									
 										
 									</tr>

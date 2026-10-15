@@ -378,7 +378,7 @@ body{font-family:'Arial Narrow';font-size:12px;}
    %>
 		          <tr>				
 					<td align="Center" colspan="13">PNL Block <%=lastField %></td>	
-					<td align="Right"><%=formatnumber(SubPNLBlock,0)%></td>
+					<td align="Right"><%=formatnumber(SubPNLBlock,2)%></td>
 				  </tr>
 				  <tr>	
 					<td align="Left" colspan="13"></td>	
@@ -405,8 +405,8 @@ body{font-family:'Arial Narrow';font-size:12px;}
 						
 						<% If lastField <> rsDtl("Field") then %>
 							 <td align="Left" style="border-bottom:0px;"><%=rsDtl("Field") %></td>
-							 <td align="Right" style="border-bottom:0px;"><%=rsDtl("Ha") %></td>
-							 <td align="Right" style="border-bottom:0px;"><%=rsDtl("TT") %></td>
+							 <td align="Right" style="border-bottom:0px;"><%=FbpNum2(rsDtl("Ha"))%></td>
+							 <td align="Right" style="border-bottom:0px;"><%=FbpNum2(rsDtl("TT"))%></td>
 						<% Else %>
 							<td align="Left" style="border-top:0px;border-bottom:0px;"></td>
 							<td align="Left" style="border-top:0px;border-bottom:0px;"></td>
@@ -449,22 +449,22 @@ body{font-family:'Arial Narrow';font-size:12px;}
 %>		
 		<tr>				
 			<td align="Center" colspan="13">PNL Block <%=lastField %></td>	
-			<td align="Right"><%=formatnumber(SubPNLBlock,0)%></td>
+			<td align="Right"><%=formatnumber(SubPNLBlock,2)%></td>
 		</tr>
 		<tr>	
 			<td align="Left" colspan="13"></td>	
 		</tr>
         <tr>
 			<td align="Left" colspan="13">Total Revenue </td>	
-			<td align="Right"><%=formatnumber(TotRevenue,0)%></td>
+			<td align="Right"><%=formatnumber(TotRevenue,2)%></td>
 		</tr>
 		<tr>
 			<td align="Left" colspan="13">Total Cost </td>	
-			<td align="Right"><%=formatnumber(TotCost,0)%></td>
+			<td align="Right"><%=formatnumber(TotCost,2)%></td>
 		</tr>
 		<tr>
 			<td align="Left" colspan="13">Profit and Loss </td>	
-			<td align="Right"><%=formatnumber(cdbl(TotRevenue)+ cdbl(TotCost),0)%></td>
+			<td align="Right"><%=formatnumber(cdbl(TotRevenue)+ cdbl(TotCost),2)%></td>
 		</tr>
 <%		
 	Else	

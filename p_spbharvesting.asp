@@ -224,10 +224,10 @@ end if
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("PRODUCTCODE")%></td>					
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("VEHICLE")%> : <%=rscat("fcname")%></td>
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("OWN")%></td>
-					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("Bunch"))), 0)%></td>
-					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("brondolan"))), 0)%></td>
+					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("Bunch"))), 2)%></td>
+					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("brondolan"))), 2)%></td>
 					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("pressemester_abw"))), 2)%></td>
-					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("bunch_ESTATEWEIGHT"))), 0)%></td>
+					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("bunch_ESTATEWEIGHT"))), 2)%></td>
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("Transporttype")%></td>
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("agreementcode")%></td>
 					
@@ -252,10 +252,10 @@ end if
 				<tr bgcolor="#F4F4A0">
 
 					<td align="Center" colspan="10"> <strong><i><font face="Verdana" size="1">T o t a l</i></strong></td>
-					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_bunch)), 0)%></i></strong></td>
-					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_brondolan)), 0)%></i></strong></td>
+					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_bunch)), 2)%></i></strong></td>
+					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_brondolan)), 2)%></i></strong></td>
 					<td align="Right"> <strong><i> <font face="Verdana" size="1"></i></strong></td>
-					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_bunch_ESTATEWEIGHT)), 0)%></i></strong></td>
+					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_bunch_ESTATEWEIGHT)), 2)%></i></strong></td>
 					<td align="Center" colspan="5"> <strong><i><font face="Verdana" size="1">&nbsp;</i></strong></td>
 				</tr>
                 </tbody>

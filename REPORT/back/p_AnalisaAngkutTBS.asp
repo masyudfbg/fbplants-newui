@@ -617,31 +617,31 @@ Dim TotalTotal : TotalTotal = 0
 				
 				<td align="left"><%=rsAnalisaAngkutTBS("DELIVERY")%></td>
 				
-				<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("DIRECT_WEIGHT_KG"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("DIRECT_WEIGHT_KG"), 2)%></td>
 				<%If Temp_TotalLangsung = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("DIRECT_WEIGHT_KG"))/Temp_TotalLangsung)*100, 0), 0)%></td>
+				<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("DIRECT_WEIGHT_KG"))/Temp_TotalLangsung)*100, 0), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("INDIRECT_WEIGHT_KG"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("INDIRECT_WEIGHT_KG"), 2)%></td>
 				<%If Temp_TotalTidakLangsung = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("INDIRECT_WEIGHT_KG"))/Temp_TotalTidakLangsung)*100, 0), 0)%></td>
+				<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("INDIRECT_WEIGHT_KG"))/Temp_TotalTidakLangsung)*100, 0), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("TOTAL"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsAnalisaAngkutTBS("TOTAL"), 2)%></td>
 				<%If Temp_TotalTotal = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("TOTAL"))/Temp_TotalTotal)*100, 0), 0)%></td>
+				<td align="right"><%=FormatNumber(Round((Cdbl(rsAnalisaAngkutTBS("TOTAL"))/Temp_TotalTotal)*100, 0), 2)%></td>
 				<%End If%>
 				
 				<%If Cdbl(rsAnalisaAngkutTBS("DIRECT_WEIGHT_KG")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Cdbl(rsAnalisaAngkutTBS("INDIRECT_WEIGHT_KG"))/Cdbl(rsAnalisaAngkutTBS("DIRECT_WEIGHT_KG"))*100, 0)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(rsAnalisaAngkutTBS("INDIRECT_WEIGHT_KG"))/Cdbl(rsAnalisaAngkutTBS("DIRECT_WEIGHT_KG"))*100, 2)%></td>
 				<%End If%>
 			</tr>
 <%
@@ -655,28 +655,28 @@ Dim TotalTotal : TotalTotal = 0
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%=1+nSpanTotal%>"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=FormatNumber(TotalLangsung, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(TotalLangsung, 2)%></strong></td>
 				<%If TotalLangsung = 0 Then%>
-				<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%Else%>
-				<td align="right"><strong><%=FormatNumber(TotalLangsung/TotalLangsung*100, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(TotalLangsung/TotalLangsung*100, 2)%></strong></td>
 				<%End if%>
-				<td align="right"><strong><%=FormatNumber(TotalTidakLangsung, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(TotalTidakLangsung, 2)%></strong></td>
 				<%If TotalTidakLangsung = 0 Then%>
-				<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%Else%>
-				<td align="right"><strong><%=FormatNumber(TotalTidakLangsung/TotalTidakLangsung*100, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(TotalTidakLangsung/TotalTidakLangsung*100, 2)%></strong></td>
 				<%End if%>				
-				<td align="right"><strong><%=FormatNumber(TotalTotal, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(TotalTotal, 2)%></strong></td>
 				<%If TotalTotal = 0 Then%>
-				<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%Else%>
-				<td align="right"><strong><%=FormatNumber(TotalTotal/TotalTotal*100, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(TotalTotal/TotalTotal*100, 2)%></strong></td>
 				<%End if%>
 				<%If TotalLangsung = 0 Then%>
-				<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 				<%Else%>
-				<td align="right"><strong><%=FormatNumber(TotalTidakLangsung/TotalLangsung*100, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(TotalTidakLangsung/TotalLangsung*100, 2)%></strong></td>
 				<%End if%>				
 			</tr>
 <%End if%>

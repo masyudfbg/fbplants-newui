@@ -218,8 +218,8 @@ cmdstyleLeft="border-right: 1 solid #000000; border-bottom: 1 solid #000000; bor
 			<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshutang("TGLTEMPO")%></td>		
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshutang("POCODE")%></td>
 			<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshutang("FCNAME")%></td>			
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("TOTALAMOUNT"),0)%></td>					
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("PAYMENT"),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("TOTALAMOUNT"),2)%></td>					
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("PAYMENT"),2)%></td>
 			<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshutang("NO_FAKTUR")%></td>			
 			<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshutang("FCENTRY")%></td>			
 			<td colspan=2 class="ratatengah">
@@ -243,8 +243,8 @@ cmdstyleLeft="border-right: 1 solid #000000; border-bottom: 1 solid #000000; bor
 
 		<tr bgcolor="#F4F4A0">
 			<td align="Center" style="<%=cmdstyle%>" colspan= "9"><font face="Verdana" size="1"><strong>T o t a l</strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv, 0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlbayar, 0)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv, 2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlbayar, 2)%></strong></td>
 		</tr>
 	</tbody>
 </table>

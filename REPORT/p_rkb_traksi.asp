@@ -195,8 +195,8 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 			<td align="left"><%=rsdtl1("ACTCODE")%></td>
 			<td align="left"><%=rsdtl1("FCNAME")%></td>
 			<td align="left"><%=rsdtl1("UOM")%></td>
-			<td align="right"><%=formatnumber(rsdtl1("JARAK"),0)%></td>
-			<td align="right"><%=formatnumber(rsdtl1("QTY"),0)%></td>
+			<td align="right"><%=formatnumber(rsdtl1("JARAK"),2)%></td>
+			<td align="right"><%=formatnumber(rsdtl1("QTY"),2)%></td>
 			<td align="right"><%=formatnumber(rsdtl1("RATE"),2)%></td>
 			<td align="right"><%=formatnumber(rsdtl1("AMOUNT"),2)%></td>
 			
@@ -214,10 +214,10 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 
 		<tr style="background-color:#27AE60;">	 
 			<td align="center" colspan="7" ><strong>Grand Total</strong></td>
-			<td align="right"><strong><%=formatnumber(ttljarak,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(ttlqty,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(ttljarak,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(ttlqty,2)%></strong></td>
 			<td align="right"><strong></strong></td>
-			<td align="right"><strong><%=formatnumber(ttlamount,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(ttlamount,2)%></strong></td>
 			
 			
 		</tr> 

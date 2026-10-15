@@ -245,10 +245,27 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 		hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-right:0px;}
 		hr{ margin-top: 5px;}
 		}
+		/* ---- Perapian tampilan voucher (lembar tidak melebar penuh, label-isi berdekatan) ---- */
+		#note .pv-top { display: flex; justify-content: space-between; gap: 16px; padding: 0 4px 6px; font-size: 11px; }
+		#note .pv-top .pv-bank { font-weight: bold; }
+		#note table.pv-info { table-layout: fixed; margin-top: 10px; font-size: 12px !important; line-height: 1.5 !important; }
+		#note table.pv-info col.lb { width: 130px; } #note table.pv-info col.lb2 { width: 100px; }
+		#note table.pv-info col.cl { width: 14px; } #note table.pv-info col.v2 { width: 190px; }
+		#note table.pv-info td { padding: 3px 4px; vertical-align: top; }
+		#note table.pv-items { margin-top: 8px; font-size: 12px !important; line-height: 1.45 !important; border-collapse: collapse; }
+		#note table.pv-items > thead > tr > th { padding: 6px 5px; border-bottom: 1px solid #000; font-size: 12px !important; }
+		#note table.pv-items td { padding: 5px 5px; vertical-align: top; }
+		#note .title_terbilang, #note .terbilang { font-size: 12px; }
+		#note table.pv-ket { font-size: 12px !important; }
+		#note table.pv-ket td:first-child { width: 130px; white-space: nowrap; }
+		#note table.pv-ket td { padding: 6px 4px; }
+		#product-table.pv-auth { margin-top: 14px; border-collapse: collapse; font-size: 12px; }
+		#product-table.pv-auth th, #product-table.pv-auth td { border: 1px solid #000 !important; padding: 5px 8px !important; }
+		@media screen { #wrapper .letter, #wrapper .navi_to_print { max-width: 1100px; } }
 		</style>
 		
 		<header id="info_note" >
-			<div class="posisibaris ratakiri fontcourir" style="font-size:8px; ">PT   : <%=session("company")%>  -  Unit : <%=session("FCBA")%> - <%=Session("BA")%> <span class="ratakanan" style="padding-left: 650px;"><%=bankperusahaan%></span></div>
+			<div class="pv-top"><span>PT : <%=session("company")%> &nbsp;-&nbsp; Unit : <%=session("FCBA")%> - <%=Session("BA")%></span><span class="pv-bank"><%=bankperusahaan%></span></div>
 				<div class="judul"><strong><%=printheader%></strong></div>
 					<table width="100%">
 					
@@ -321,7 +338,8 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 			
 		</style>
 
-		<table border="0" width="100%" style="font-size:10px; line-height:13px;" class="fontcourir" >
+		<table border="0" width="100%" class="fontcourir pv-info">
+			<colgroup><col class="lb"><col class="cl"><col><col class="lb2"><col class="cl"><col class="v2"></colgroup>
 			
 			<tr>
 				<td>
@@ -356,7 +374,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 						
 		</table>
 				 
-		<table border="0" width="100%" style="border-top:1px #000000 solid; font-size:10px;line-height:14px;">
+		<table border="0" width="100%" class="pv-items" style="border-top:1px #000000 solid; font-size:10px;line-height:14px;">
 			<thead>
 				<tr style="border-bottom:1px #000000 solid;">
 					<th class="jarakjobcode ratakiri">JobCode</th>
@@ -407,7 +425,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					<td class="jarakjobname ratakiri"><%=txtchargename%></td>
 					<td class="jarakremark ratakiri"><%=txtremarks%></td>
 					
-					<td class="ratakanan" class="jarakamountdb ratakanan"><%=formatnumber(cdbl(txtamount),0)%></td>
+					<td class="ratakanan" class="jarakamountdb ratakanan"><%=formatnumber(cdbl(txtamount),2)%></td>
 				</tr>
 				
 				<%End if%>
@@ -420,11 +438,11 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					<td class="jarakjobname ratakiri"><%=txtchargename%></td>
 					<td class="jarakremark ratakiri"><%=txtremarks%></td>
 					<% if cdbl(txtamount) > 0 then %>
-						<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txtamount),0)%></td>
+						<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txtamount),2)%></td>
 						<td class="ratakanan" class="jarakamount ratakanan"></td>
 				    <% else %>
 						<td class="ratakanan" class="jarakamount ratakanan"></td>
-						<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(abs(cdbl(txtamount)),0)%></td>
+						<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(abs(cdbl(txtamount)),2)%></td>
 					<%end if%>
 					
 				</tr>
@@ -451,12 +469,12 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					<td class="jarakjobcode ratakiri"><%=txtcontroljob%></td>
 					<td class="jarakjobname ratakiri" colspan="3" ><%=txtbankcredit%></td>
 					<td class="jarakjobname ratakiri" colspan="2" ><%=txtnoref%></td>
-					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txt_totalamount),0)%></td>
+					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txt_totalamount),2)%></td>
 				</tr>
 				<tr style="border-top:1px #000000 solid;">
 					<td colspan="5" class="ratakanan tebal">Total</td>
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),0)%></td>
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal_cr)+cdbl(txt_totalamount),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),2)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal_cr)+cdbl(txt_totalamount),2)%></td>
 				</tr>
 				<%End If %>
 				
@@ -466,12 +484,12 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					<td class="jarakjobcode ratakiri"><%=txtcontroljob%></td>
 					<td class="jarakjobname ratakiri" colspan="3"><%=txtbankcredit%></td>
 					<td class="jarakjobname ratakiri" colspan="2"><%=txtnoref%></td>
-					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txt_totalamount),0)%></td>
+					<td class="ratakanan" class="jarakamount ratakanan"><%=formatnumber(cdbl(txt_totalamount),2)%></td>
 				</tr>
 				<tr style="border-top:1px #000000 solid;">
 					<td colspan="5" class="ratakanan tebal">Total</td>
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),0)%></td>
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal_cr)+cdbl(txt_totalamount),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),2)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal_cr)+cdbl(txt_totalamount),2)%></td>
 				</tr>
 				<%End If %>
 				
@@ -662,7 +680,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 			</tr>
 		</table>
 		<br>
-		<table border="0" width="100%" style="border-top:1px #000000 solid;border-bottom:1px #000000 solid; font-size:10px;line-height:14px;">
+		<table border="0" width="100%" class="pv-ket" style="border-top:1px #000000 solid;border-bottom:1px #000000 solid; font-size:10px;line-height:14px;">
 			<td>
 			Keterangan:
 			</td>
@@ -715,7 +733,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 		End if
 		rsAutorize.close
 		set rsAutorize = Nothing %>
-		<table border="0" width="40%" id="product-table" style="border-bottom:1px #000000 solid;">
+		<table border="0" width="40%" id="product-table" class="pv-auth" style="border-bottom:1px #000000 solid;">
 				<thead>
 					<tr>
 						<th>Authorizer</th>

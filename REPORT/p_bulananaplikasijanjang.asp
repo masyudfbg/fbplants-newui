@@ -806,21 +806,21 @@ function launchwin(winurl,winname,winfeatures)
 				<% end if %>				
 				
 				<td align="right"><%=FormatNumber(rsEPS("ha"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("rekom"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("jan"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("feb"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("mar"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("apr"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("mei"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("jun"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("jul"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("agu"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("sep"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("okt"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("nov"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("des"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("total"),0)%></td>
-				<td align="right"><%=f_persen(cdbl(to_nol(rsEPS("total"))), 0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("rekom"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("jan"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("feb"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mar"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("apr"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mei"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("jun"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("jul"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("agu"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("sep"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("okt"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("nov"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("des"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("total"),2)%></td>
+				<td align="right"><%=FbpNum2(f_persen(cdbl(to_nol(rsEPS("total"))), 0))%></td>
 			</tr>
 <%
 			NO = NO + 1			

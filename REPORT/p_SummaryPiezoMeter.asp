@@ -368,7 +368,7 @@ NO = 1
 		<td align="center"><%=rsPusingan("AFEDLING")%></td>
 		<td align="center"><%=rsPusingan("FIELDCODE")%></td>
 		<td align="center"><%=rsPusingan("TT")%></td>
-		<td align="right"><%=rsPusingan("HA")%></td>	
+		<td align="right"><%=FbpNum2(rsPusingan("HA"))%></td>	
 		<td bgcolor="<%=rsPusingan("W1102016COLOUR")%>" align="center"><font color="#FFFFFF"><%=rsPusingan("W1102016WATERLEVEL")%></font></td>
 		<td bgcolor="<%=rsPusingan("W2102016COLOUR")%>" align="center"><%=rsPusingan("W2102016WATERLEVEL")%></td>
 		<td bgcolor="<%=rsPusingan("W3102016COLOUR")%>" align="center"><%=rsPusingan("W3102016WATERLEVEL")%></td>

@@ -450,8 +450,8 @@ else
 				<%if rsLHPP("NEXTREGION") = "Grand Total" then%>
 					<tr bgcolor="#ffff01" >
 						<td colspan="2" align="left"><strong><%=rsLHPP("nextregion")%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUD_THISMONTH"), 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUD_THISMONTH"), 2)%></strong></td>
 						<%
 						if cdbl(rsLHPP("FFB_BUD_THISMONTH")) = 0 then
 							if cdbl(rsLHPP("FFB_ACT_THISMONTH")) = 0 then
@@ -464,8 +464,8 @@ else
 						end if
 						%>
 						<td align="right"><strong><%=FormatNumber(Row_percent_thismonth, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUD_TODATE"), 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUD_TODATE"), 2)%></strong></td>
 						<%
 						if cdbl(rsLHPP("FFB_BUD_TODATE")) = 0 then
 							if cdbl(rsLHPP("FFB_ACT_TODATE")) = 0 then
@@ -500,8 +500,8 @@ else
 					<tr>
 						<td align="center" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 						<td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<%=rsLHPP("FCBA")%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_ACT_THISMONTH"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_BUD_THISMONTH"), 0)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_ACT_THISMONTH"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_BUD_THISMONTH"), 2)%></td>
 						<%
 						if cdbl(rsLHPP("FFB_BUD_THISMONTH")) = 0 then
 							if cdbl(rsLHPP("FFB_ACT_THISMONTH")) = 0 then
@@ -514,8 +514,8 @@ else
 						end if
 						%>
 						<td align="right"><%=FormatNumber(Row_percent_thismonth, 2)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_BUD_TODATE"), 0)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_BUD_TODATE"), 2)%></td>
 						<%
 						if cdbl(rsLHPP("FFB_BUD_TODATE")) = 0 then
 							if cdbl(rsLHPP("FFB_ACT_TODATE")) = 0 then
@@ -538,8 +538,8 @@ else
 							<tr bgcolor="#F4F4A0" >
 								<td bgcolor="#ffffff" align="center" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 								<td align="left"><strong><%=rsLHPP("nextregion")%></strong></td>
-								<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 0)%></strong></td>
-								<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUD_THISMONTH"), 0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 2)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUD_THISMONTH"), 2)%></strong></td>
 								<%
 								if cdbl(rsLHPP("FFB_BUD_THISMONTH")) = 0 then
 									if cdbl(rsLHPP("FFB_ACT_THISMONTH")) = 0 then
@@ -552,8 +552,8 @@ else
 								end if
 								%>
 								<td align="right"><strong><%=FormatNumber(Row_percent_thismonth, 2)%></strong></td>
-								<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 0)%></strong></td>
-								<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUD_TODATE"), 0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 2)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUD_TODATE"), 2)%></strong></td>
 								<%
 								if cdbl(rsLHPP("FFB_BUD_TODATE")) = 0 then
 									if cdbl(rsLHPP("FFB_ACT_TODATE")) = 0 then
@@ -575,8 +575,8 @@ else
 							<tr>
 								<td align="center" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 								<td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<%=rsLHPP("FCBA")%></td>
-								<td align="right"><%=FormatNumber(rsLHPP("FFB_ACT_THISMONTH"), 0)%></td>
-								<td align="right"><%=FormatNumber(rsLHPP("FFB_BUD_THISMONTH"), 0)%></td>
+								<td align="right"><%=FormatNumber(rsLHPP("FFB_ACT_THISMONTH"), 2)%></td>
+								<td align="right"><%=FormatNumber(rsLHPP("FFB_BUD_THISMONTH"), 2)%></td>
 								<%
 								if cdbl(rsLHPP("FFB_BUD_THISMONTH")) = 0 then
 									if cdbl(rsLHPP("FFB_ACT_THISMONTH")) = 0 then
@@ -589,8 +589,8 @@ else
 								end if
 								%>
 								<td align="right"><%=FormatNumber(Row_percent_thismonth, 2)%></td>
-								<td align="right"><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 0)%></td>
-								<td align="right"><%=FormatNumber(rsLHPP("FFB_BUD_TODATE"), 0)%></td>
+								<td align="right"><%=FormatNumber(rsLHPP("FFB_ACT_TODATE"), 2)%></td>
+								<td align="right"><%=FormatNumber(rsLHPP("FFB_BUD_TODATE"), 2)%></td>
 								<%
 								if cdbl(rsLHPP("FFB_BUD_TODATE")) = 0 then
 									if cdbl(rsLHPP("FFB_ACT_TODATE")) = 0 then

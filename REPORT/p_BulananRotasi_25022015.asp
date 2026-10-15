@@ -537,110 +537,110 @@ if rsRotasi.eof and rsRotasi.eof then
 				<td align="center"><%=rsRotasi("BLOK")%></td>
 				<td align="center"><%=rsRotasi("HEKTAR")%></td>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_1"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_1"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_1"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_1"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_1"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_2"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_2"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_2"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_2"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_2"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_3"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_3"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_3"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_3"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_3"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_4"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_4"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_4"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_4"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_4"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_5"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_5"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_5"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_5"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_5"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_6"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_6"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_6"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_6"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_6"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_7"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_7"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_7"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_7"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_7"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_8"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_8"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_8"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_8"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_8"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_9"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_9"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_9"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_9"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_9"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_10"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_10"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_10"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_10"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_10"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_11"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_11"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_11"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_11"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_11"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_12"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_12"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_12"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_12"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_12"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsRotasi("ROT_TOTAL"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_TOTAL"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("ROT_TOTAL"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_TOTAL"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_TOTAL"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(Cint("4"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsRotasi("TON_BUDGET"), 0)%></td>
+				<td align="right"><%=FormatNumber(Cint("4"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsRotasi("TON_BUDGET"), 2)%></td>
 				<%If Cdbl(rsRotasi("HEKTAR")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
 					<td align="right"><%=FormatNumber(Cdbl(rsRotasi("TON_BUDGET"))/Cdbl(rsRotasi("HEKTAR")), 2)%></td>
 				<%End If%>
@@ -696,9 +696,9 @@ if rsRotasi.eof and rsRotasi.eof then
 				End If
 				
 				%>
-				<td align="right"><%=FormatNumber(varianceRotasi, 0)%></td>
-				<td align="right"><%=FormatNumber(varianceTonase, 0)%></td>
-				<td align="right"><%=FormatNumber(varianceTonperHa, 0)%></td>
+				<td align="right"><%=FormatNumber(varianceRotasi, 2)%></td>
+				<td align="right"><%=FormatNumber(varianceTonase, 2)%></td>
+				<td align="right"><%=FormatNumber(varianceTonperHa, 2)%></td>
 			</tr>
 <%			
 			rsRotasi.MoveNext

@@ -864,16 +864,16 @@ end if
 			<td align="center"><%=rsPOOut("pocode")%></td>
 			<td align="center"><%=rsPOOut("deliverydestination")%></td>
 			<td align="right"><%=rsPOOut("linenokey")%></td>
-			<td align="right"><%=rsPOOut("podate")%></td>
+			<td align="right"><%=FbpNum2(rsPOOut("podate"))%></td>
 			<td align="left"><%=rsPOOut("itemcode")%></td>
 			<td align="left"><%=rsPOOut("fcname")%></td>
 			<%If Menu = "Y" Then%>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("amount")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("amount")),2)%></td>
 			<% end if %>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("orderedqty")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("receivedqty")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("requestedqty")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("outstandingReceivedQty")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("orderedqty")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("receivedqty")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("requestedqty")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("outstandingReceivedQty")),2)%></td>
 			<td align="left"><%=rsPOOut("otheritemdesc")%></td>
 			<td align="left"><%=rsPOOut("prcode")%></td>
 			<td align="right"><%=rsPOOut("prlineid")%></td>

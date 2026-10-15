@@ -369,14 +369,14 @@ Else
 			<td align="left"><%=rsOutstandingSPK("finishdate")%></td>
 			<td align="left"><%=rsOutstandingSPK("contractorcode")%> : <%=rsOutstandingSPK("contractorname")%></td>
 			<td align="left"><%=rsOutstandingSPK("JOBNAME")%></td>
-			<td align="right"><%=FormatNumber(rsOutstandingSPK("contract_qty"),0)%></td>
-			<td align="right"><%=FormatNumber(rsOutstandingSPK("amount_contract"),0)%></td>
-			<td align="right"><%=FormatNumber(rsOutstandingSPK("qty_final_bi"),0)%></td>
-			<td align="right"><%=FormatNumber(rsOutstandingSPK("amount_final_bi"),0)%></td>
-			<td align="right"><%=FormatNumber(rsOutstandingSPK("qty_final_sbi"),0)%></td>
-			<td align="right"><%=FormatNumber(rsOutstandingSPK("amount_final_sbi"),0)%></td>
-			<td align="right"><%=FormatNumber(rsOutstandingSPK("QTY_SISA"),0)%></td>
-			<td align="right"><%=FormatNumber(rsOutstandingSPK("AMOUNT_SISA"),0)%></td>
+			<td align="right"><%=FormatNumber(rsOutstandingSPK("contract_qty"),2)%></td>
+			<td align="right"><%=FormatNumber(rsOutstandingSPK("amount_contract"),2)%></td>
+			<td align="right"><%=FormatNumber(rsOutstandingSPK("qty_final_bi"),2)%></td>
+			<td align="right"><%=FormatNumber(rsOutstandingSPK("amount_final_bi"),2)%></td>
+			<td align="right"><%=FormatNumber(rsOutstandingSPK("qty_final_sbi"),2)%></td>
+			<td align="right"><%=FormatNumber(rsOutstandingSPK("amount_final_sbi"),2)%></td>
+			<td align="right"><%=FormatNumber(rsOutstandingSPK("QTY_SISA"),2)%></td>
+			<td align="right"><%=FormatNumber(rsOutstandingSPK("AMOUNT_SISA"),2)%></td>
 		</tr>
 <%
 

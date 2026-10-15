@@ -407,10 +407,10 @@ if rsPusingan.bof and rsPusingan.eof then
 				<td align="center"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsPusingan("No_Kendaraan")%></td>
 				<td align="center"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsPusingan("spbno")%></td>
 				<td align="center"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsPusingan("Driver")%></td>
-				<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsPusingan("Bruto"),0)%></td>
-				<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsPusingan("Tarra"),0)%></td>
-				<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsPusingan("netto"),0)%></td>
-				<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsPusingan("total_tarif"),0)%></td>
+				<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsPusingan("Bruto"),2)%></td>
+				<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsPusingan("Tarra"),2)%></td>
+				<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsPusingan("netto"),2)%></td>
+				<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsPusingan("total_tarif"),2)%></td>
 						
 			</tr>
 
@@ -431,10 +431,10 @@ set rsPusingan = Nothing
 
 		<tr bgcolor="#F4F4A0">
 			<td align="Right" colspan="8"> <strong><i><font face="Verdana" size="1">Grand Total</i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Bruto, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tarra, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Netto, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_TotalTariff, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Bruto, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tarra, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Netto, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_TotalTariff, 2)%></i></strong></td>
 		</tr>
 
 </tbody>

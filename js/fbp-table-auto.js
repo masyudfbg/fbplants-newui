@@ -45,8 +45,8 @@
 	}
 	function fmt(n) {
 		if (Math.abs(n) < 0.005) n = 0;   // sisa pembulatan desimal (mis. jurnal seimbang) bukan "-0"
-		var d = Math.abs(n % 1) > 0.0001 ? 2 : 0;
-		return n.toFixed(d).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		var p = n.toFixed(2).split('.');   // selalu ribuan + 2 desimal
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
 	}
 	// Judul kapital -> Title Case; kata pendek (PO, PR, BKM, TBS) tetap kapital
 	function titleCase(s) {

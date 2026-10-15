@@ -182,12 +182,12 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="Left" ><%=rscat("jobgroupname")%></td>	
 			<td align="Left" ><%=rscat("JOB_FORBUDGETCODE")%></td>	
 			<td align="Left" ><%=rscat("JOB_FORBUDGETNAME")%></td>	
-			<td data-t="n" align="Right" ><%=rscat("total_debit")%></td>		
-			<td data-t="n" align="Right" ><%=rscat("total_kredit")%></td>
-			<td data-t="n" align="Right" ><%=rscat("total_hk")%></td>	
-			<td data-t="n" align="Right" ><%=rscat("total_unit")%></td>	
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("total_debit"))%></td>		
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("total_kredit"))%></td>
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("total_hk"))%></td>	
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("total_unit"))%></td>	
 			<td align="Left" ><%=rscat("uom")%></td>				
-			<td data-t="n" align="Right" ><%=rscat("total_output")%></td>
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("total_output"))%></td>
 				
 				
 			

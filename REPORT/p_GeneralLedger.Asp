@@ -484,9 +484,9 @@ whereConsti			=""
 												<td align="left"><%=rsAnalisaBukuBesar("targetcode")%></td>
 												<td align="left"><%=rsAnalisaBukuBesar("referenceno")%></td>
 												<td align="left"><%=rsAnalisaBukuBesar("remarks")%></td>
-												<td align="left"><%=FormatNumber(to_nol(rsAnalisaBukuBesar("nDb_AmtInti")), 0)%></td>
-												<td align="left"><%=FormatNumber(to_nol(rsAnalisaBukuBesar("nCr_AmtInti")), 0)%></td>
-												<td align="left"><%=FormatNumber(to_nol(rsAnalisaBukuBesar("saldo")), 0)%></td>
+												<td align="left"><%=FormatNumber(to_nol(rsAnalisaBukuBesar("nDb_AmtInti")), 2)%></td>
+												<td align="left"><%=FormatNumber(to_nol(rsAnalisaBukuBesar("nCr_AmtInti")), 2)%></td>
+												<td align="left"><%=FormatNumber(to_nol(rsAnalisaBukuBesar("saldo")), 2)%></td>
 												</tr>
 												<%
 										

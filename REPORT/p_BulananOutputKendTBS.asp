@@ -933,121 +933,121 @@ if (rsBOKPT.bof and rsBOKPT.eof) then
 					<% end if %>
 				<% end if %>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_1")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_1"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_1"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_1"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_1"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_1"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_1")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_1"))/Cdbl(rsBOKPT("UNITKERJA_1")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_1"))/Cdbl(rsBOKPT("UNITKERJA_1")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_2")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_2"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_2"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_2"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_2"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_2"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_2")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_2"))/Cdbl(rsBOKPT("UNITKERJA_2")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_2"))/Cdbl(rsBOKPT("UNITKERJA_2")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_3")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_3"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_3"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_3"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_3"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_3"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_3")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_3"))/Cdbl(rsBOKPT("UNITKERJA_3")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_3"))/Cdbl(rsBOKPT("UNITKERJA_3")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_4")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_4"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_4"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_4"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_4"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_4"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_4")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_4"))/Cdbl(rsBOKPT("UNITKERJA_4")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_4"))/Cdbl(rsBOKPT("UNITKERJA_4")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_5")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_5"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_5"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_5"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_5"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_5"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_5")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_5"))/Cdbl(rsBOKPT("UNITKERJA_5")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_5"))/Cdbl(rsBOKPT("UNITKERJA_5")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_6")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_6"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_6"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_6"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_6"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_6"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_6")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_6"))/Cdbl(rsBOKPT("UNITKERJA_6")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_6"))/Cdbl(rsBOKPT("UNITKERJA_6")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_7")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_7"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_7"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_7"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_7"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_7"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_7")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_7"))/Cdbl(rsBOKPT("UNITKERJA_7")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_7"))/Cdbl(rsBOKPT("UNITKERJA_7")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_8")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_8"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_8"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_8"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_8"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_8"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_8")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_8"))/Cdbl(rsBOKPT("UNITKERJA_8")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_8"))/Cdbl(rsBOKPT("UNITKERJA_8")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_9")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_9"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_9"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_9"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_9"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_9"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_9")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_9"))/Cdbl(rsBOKPT("UNITKERJA_9")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_9"))/Cdbl(rsBOKPT("UNITKERJA_9")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_10")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_10"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_10"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_10"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_10"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_10"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_10")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_10"))/Cdbl(rsBOKPT("UNITKERJA_10")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_10"))/Cdbl(rsBOKPT("UNITKERJA_10")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_11")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_11"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_11"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_11"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_11"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_11"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_11")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_11"))/Cdbl(rsBOKPT("UNITKERJA_11")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_11"))/Cdbl(rsBOKPT("UNITKERJA_11")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_12")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_12"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_12"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_12"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_12"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_12"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_12")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_12"))/Cdbl(rsBOKPT("UNITKERJA_12")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_12"))/Cdbl(rsBOKPT("UNITKERJA_12")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=rsBOKPT("JUMLAHUNIT_TOTAL")%></td>				
-				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_TOTAL"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_TOTAL"), 0)%></td>
+				<td align="right"><%=FbpNum2(rsBOKPT("JUMLAHUNIT_TOTAL"))%></td>				
+				<td align="right"><%=FormatNumber(rsBOKPT("KMHM_TOTAL"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsBOKPT("TONASE_TOTAL"), 2)%></td>
 				<%If Cdbl(rsBOKPT("UNITKERJA_TOTAL")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_TOTAL"))/Cdbl(rsBOKPT("UNITKERJA_TOTAL")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsBOKPT("TONASE_TOTAL"))/Cdbl(rsBOKPT("UNITKERJA_TOTAL")), 2), 2)%></td>
 				<%End If%>
 				
 			</tr>

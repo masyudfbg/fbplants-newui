@@ -819,7 +819,7 @@ end if
 				<% end if %>
 			<td align="left"><%=rsPOOut("pocode")%></td>
 			<td align="right"><%=rsPOOut("linenokey")%></td>
-			<td align="right"><%=rsPOOut("podate")%></td>
+			<td align="right"><%=FbpNum2(rsPOOut("podate"))%></td>
 			<td align="left"><%=rsPOOut("itemcode")%></td>
 			<td align="left"><%=rsPOOut("fcname")%></td>
 			<%If Menu = "Y" Then%>

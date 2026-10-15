@@ -435,7 +435,7 @@ set rsLHPP = Nothing
 						<td align="center"><%=array_data(0, xxx)%></td>
 						<td align="center"><%=array_data(1, xxx)%></td>
 						<td align="center"><%=array_data(2, xxx)%></td>
-						<td align="right"><%=FormatNumber(array_data(3, xxx), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(3, xxx), 2)%></td>
 						<td align="center"><%=array_data(4, xxx)%></td>
 						<td align="center"><%=array_data(5, xxx)%></td>
 						<td align="center"><%=array_data(6, xxx)%></td>

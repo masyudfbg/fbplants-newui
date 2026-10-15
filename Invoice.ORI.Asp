@@ -343,8 +343,8 @@ function launchwin(winurl,winname,winfeatures)
 			        <td align="left" title="Supplier" valign="top"><%=rsGRN("SuppDesc")%></td>
 			        <td align="left" title="Item Code" valign="top"><%=rsGRN("ITEMCODE")%></td>
 			        <td align="left" title="Item Name" valign="top"><%=rsGRN("StockDesc")%></td>
-			        <td align="right" title="Quantity" valign="top"><%=FormatNumber(rsGRN("Quantity"),0)%></td>
-                                <td align="right" title="Amount" valign="top"><%=FormatNumber(rsGRN("Amount"),0)%></td>
+			        <td align="right" title="Quantity" valign="top"><%=FormatNumber(rsGRN("Quantity"),2)%></td>
+                                <td align="right" title="Amount" valign="top"><%=FormatNumber(rsGRN("Amount"),2)%></td>
 		                
 			<%End if%>
 
@@ -353,8 +353,8 @@ function launchwin(winurl,winname,winfeatures)
 			        <td align="left" title="" valign="top"><%=rsGRN("RECEIVENOTECODE")%></td>
 			        <td align="left" title="" valign="top"><%=rsGRN("PURCHASEITEMCODE")%></td>
 			        <td align="left" title="" valign="top"><%=rsGRN("fcname")%></td>
-			        <td align="right" title="" valign="top"><%=FormatNumber(rsGRN("Quantity"),0)%></td>
-                                <td align="right" title="" valign="top"><%=FormatNumber(rsGRN("amountreceived"),0)%></td>
+			        <td align="right" title="" valign="top"><%=FormatNumber(rsGRN("Quantity"),2)%></td>
+                                <td align="right" title="" valign="top"><%=FormatNumber(rsGRN("amountreceived"),2)%></td>
 		                <td align="left" width="10"><input type="text" name="AmountInvoice_<%=no%>" width="10" value="<%=request("AmountInvoice_"&TRIM(no))%>"></td>
 				 <input type="hidden" name="Stock_<%=no%>" value="<%=rsGRN("PURCHASEITEMCODE")%>">
 				 <input type="hidden" name="Quantity_<%=no%>" value="<%=rsGRN("Quantity")%>">

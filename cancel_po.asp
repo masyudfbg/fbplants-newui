@@ -626,7 +626,7 @@ var showTransporterLine = function (oXML) {
 <link rel="StyleSheet" href="css/fbp-table.css?v=20261010c" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-approval.css?v=20261007b" type="text/css" />
 <script type="text/javascript" src="js/fbp-table.js?v=20261009c"></script>
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-doc page-approval"<% end if %>>
@@ -963,7 +963,7 @@ Set oRecordSet = Nothing
 			<td align="center" title="<%=rsGRN("suppliercode").Name%>" valign="top"><%=rsGRN("suppliercode")%></td>
 			<td align="left" title="<%=rsGRN("fcname").Name%>" valign="top"><%=rsGRN("fcname")%></td>
 			<td align="center" title="<%=rsGRN("deliverydestination").Name%>" valign="top"><%=rsGRN("deliverydestination")%></td>
-			<td align="right" title="<%=rsGRN("grandtotal").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsGRN("grandtotal"))),0)%></td>
+			<td align="right" title="<%=rsGRN("grandtotal").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsGRN("grandtotal"))),2)%></td>
 			<td valign="middle" align="center">
 				<input type="checkbox" name="cb_<%=NO%>" id="cb_<%=NO%>" class='item' value= "" onclick='handleClick(this);'>
 				<input type="hidden" name="fcba_<%=NO%>" value="<%=rsGRN("fcba")%>">

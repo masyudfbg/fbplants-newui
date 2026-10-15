@@ -627,9 +627,9 @@ Dim nTotal_0, nTotal_1, nTotal_2
 						  <td align="left"><%=rsAttDaily("fcname")%></td>		
 					 <% end if  %>	
 				<% end if  %>	
-				<td align="right"><%=FormatNumber(rsAttDaily("QUANTITY_0"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QUANTITY_1"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QUANTITY_2"),0)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QUANTITY_0"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QUANTITY_1"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QUANTITY_2"),2)%></td>
 			</tr>
 <%
 			NO = NO + 1
@@ -646,9 +646,9 @@ Dim nTotal_0, nTotal_1, nTotal_2
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%= 2 + nSpanTotal %>">TOTAL</td>
-				<td align="right"><%=FormatNumber(nTotal_0,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_1,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_2,0)%></td>				
+				<td align="right"><%=FormatNumber(nTotal_0,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_1,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_2,2)%></td>				
 			</tr>
         </tbody> 
 </table>

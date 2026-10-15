@@ -426,25 +426,25 @@ if rsEmployee.eof and rsEmployee.eof then
 				<td align="center"><%=rsEmployee("EMPLOYEECODE")%></td>
 				<td align="left"><%=rsEmployee("EMPLOYEENAME")%></td>
 				<td align="center"><%=rsEmployee("PRESENTGRADE")%></td>
-				<td align="right"><%=rsEmployee("KJ")%></td>
-				<td align="right"><%=rsEmployee("DL")%></td>
-				<td align="right"><%=rsEmployee("P1")%></td>
-				<td align="right"><%=rsEmployee("P2")%></td>
-				<td align="right"><%=rsEmployee("P3")%></td>
-				<td align="right"><%=rsEmployee("S1")%></td>
-				<td align="right"><%=rsEmployee("S2")%></td>
-				<td align="right"><%=rsEmployee("H1")%></td>
-				<td align="right"><%=rsEmployee("H2")%></td>
-				<td align="right"><%=rsEmployee("CT")%></td>
-				<td align="right"><%=rsEmployee("MK")%></td>
-				<td align="right"><%=rsEmployee("ML")%></td>
-				<td align="right"><%=rsEmployee("WH")%></td>
-				<td align="right"><%=rsEmployee("WS")%></td>
-				<td align="right"><%=rsEmployee("UN")%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("KJ"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("DL"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("P1"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("P2"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("P3"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("S1"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("S2"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("H1"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("H2"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("CT"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("MK"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("ML"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("WH"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("WS"))%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("UN"))%></td>
 				<%if v_txtdetail = "KK" then%>
-					<td align="right"><%=rsEmployee("KK")%></td>
+					<td align="right"><%=FbpNum2(rsEmployee("KK"))%></td>
 				<%end if%>
-				<td align="right"><%=rsEmployee("TOTAL")%></td>
+				<td align="right"><%=FbpNum2(rsEmployee("TOTAL"))%></td>
 <%
 			NO = NO + 1
 			nKJ = nKJ + Cdbl(rsEmployee("KJ"))
@@ -474,25 +474,25 @@ set rsEmployee = Nothing
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="4"><strong>Total</strong></td>
-				<td align="right"><strong><%=nKJ%></strong></td>
-				<td align="right"><strong><%=nDL%></strong></td>
-				<td align="right"><strong><%=nP1%></strong></td>
-				<td align="right"><strong><%=nP2%></strong></td>
-				<td align="right"><strong><%=nP3%></strong></td>
-				<td align="right"><strong><%=nS1%></strong></td>
-				<td align="right"><strong><%=nS2%></strong></td>
-				<td align="right"><strong><%=nH1%></strong></td>
-				<td align="right"><strong><%=nH2%></strong></td>
-				<td align="right"><strong><%=nCT%></strong></td>
-				<td align="right"><strong><%=nMK%></strong></td>
-				<td align="right"><strong><%=nML%></strong></td>
-				<td align="right"><strong><%=nWH%></strong></td>
-				<td align="right"><strong><%=nWS%></strong></td>
-				<td align="right"><strong><%=nUN%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nKJ)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nDL)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nP1)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nP2)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nP3)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nS1)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nS2)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nH1)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nH2)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nCT)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nMK)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nML)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nWH)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nWS)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nUN)%></strong></td>
 				<%if v_txtdetail = "KK" then%>
-					<td align="right"><strong><%=nKK%></strong></td>
+					<td align="right"><strong><%=FbpNum2(nKK)%></strong></td>
 				<%end if%>
-				<td align="right"><strong><%=nTOTAL%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nTOTAL)%></strong></td>
 			</tr>
             </tbody>
 </table>

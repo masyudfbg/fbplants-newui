@@ -440,38 +440,38 @@ If Not oRS.EOF then
 			<table class="slip-tbl">
 				<thead><tr><th>Pendapatan</th><th class="num">Rp</th></tr></thead>
 				<tbody>
-					<tr><td>Gaji Pokok</td><td class="num"><%=FormatNumber(oRS("basicsalary"), 0)%></td></tr>
-					<tr><td>Premi Panen</td><td class="num"><%=FormatNumber(oRS("premipanen"), 0)%></td></tr>
-					<tr><td>Bonus Premi Panen</td><td class="num"><%=FormatNumber(oRS("bonuspremipanen"), 0)%></td></tr>
-					<tr><td>Premi Brondolan</td><td class="num"><%=FormatNumber(oRS("premibrondolan"), 0)%></td></tr>
-					<tr><td>Borongan</td><td class="num"><%=FormatNumber(oRS("rupiahborongan"), 0)%></td></tr>
-					<tr><td>Lembur</td><td class="num"><%=FormatNumber(oRS("rupiahlembur"), 0)%></td></tr>
-					<tr><td>Lain - Lain</td><td class="num"><%=FormatNumber(oRS("allowances"), 0)%></td></tr>
+					<tr><td>Gaji Pokok</td><td class="num"><%=FormatNumber(oRS("basicsalary"), 2)%></td></tr>
+					<tr><td>Premi Panen</td><td class="num"><%=FormatNumber(oRS("premipanen"), 2)%></td></tr>
+					<tr><td>Bonus Premi Panen</td><td class="num"><%=FormatNumber(oRS("bonuspremipanen"), 2)%></td></tr>
+					<tr><td>Premi Brondolan</td><td class="num"><%=FormatNumber(oRS("premibrondolan"), 2)%></td></tr>
+					<tr><td>Borongan</td><td class="num"><%=FormatNumber(oRS("rupiahborongan"), 2)%></td></tr>
+					<tr><td>Lembur</td><td class="num"><%=FormatNumber(oRS("rupiahlembur"), 2)%></td></tr>
+					<tr><td>Lain - Lain</td><td class="num"><%=FormatNumber(oRS("allowances"), 2)%></td></tr>
 					<tr class="fill"><td>&nbsp;</td><td></td></tr>
 					<tr class="fill"><td>&nbsp;</td><td></td></tr>
 					<tr class="fill"><td>&nbsp;</td><td></td></tr>
 					<tr class="fill"><td>&nbsp;</td><td></td></tr>
 				</tbody>
-				<tfoot><tr><td>Gaji Bruto</td><td class="num"><%=FormatNumber(oRS("grosssalary"), 0)%></td></tr></tfoot>
+				<tfoot><tr><td>Gaji Bruto</td><td class="num"><%=FormatNumber(oRS("grosssalary"), 2)%></td></tr></tfoot>
 			</table>
 		</div>
 		<div>
 			<table class="slip-tbl">
 				<thead><tr><th>Potongan</th><th class="num">Rp</th></tr></thead>
 				<tbody>
-					<tr><td>BPJS Ketenagakerjaan</td><td class="num"><%=FormatNumber(oRS("jamsostek"), 0)%></td></tr>
-					<tr><td>BPJS Kesehatan</td><td class="num"><%=FormatNumber(oRS("potonganbpjskes"), 0)%></td></tr>
-					<tr><td>PPh</td><td class="num"><%=FormatNumber(oRS("pph"), 0)%></td></tr>
-					<tr><td>Potongan MK/P1</td><td class="num"><%=FormatNumber(oRS("potonganmkp1"), 0)%></td></tr>
-					<tr><td>Potongan Panen</td><td class="num"><%=FormatNumber(oRS("potonganpanen"), 0)%></td></tr>
-					<tr><td>Potongan Pinjaman Uang</td><td class="num"><%=FormatNumber(oRS("potonganpinjamanuang"), 0)%></td></tr>
-					<tr><td>Potongan Pinjaman Material</td><td class="num"><%=FormatNumber(oRS("potonganpinjamanmaterial"), 0)%></td></tr>
-					<tr><td>Potongan Alat Kerja</td><td class="num"><%=FormatNumber(oRS("potonganalatkerja"), 0)%></td></tr>
-					<tr><td>Potongan Pengobatan DLT</td><td class="num"><%=FormatNumber(oRS("potonganpengobatan"), 0)%></td></tr>
-					<tr><td>Potongan Koperasi</td><td class="num"><%=FormatNumber(oRS("potongankoperasi"), 0)%></td></tr>
-					<tr><td>Potongan Lain - Lain</td><td class="num"><%=FormatNumber(oRS("deductions"), 0)%></td></tr>
+					<tr><td>BPJS Ketenagakerjaan</td><td class="num"><%=FormatNumber(oRS("jamsostek"), 2)%></td></tr>
+					<tr><td>BPJS Kesehatan</td><td class="num"><%=FormatNumber(oRS("potonganbpjskes"), 2)%></td></tr>
+					<tr><td>PPh</td><td class="num"><%=FormatNumber(oRS("pph"), 2)%></td></tr>
+					<tr><td>Potongan MK/P1</td><td class="num"><%=FormatNumber(oRS("potonganmkp1"), 2)%></td></tr>
+					<tr><td>Potongan Panen</td><td class="num"><%=FormatNumber(oRS("potonganpanen"), 2)%></td></tr>
+					<tr><td>Potongan Pinjaman Uang</td><td class="num"><%=FormatNumber(oRS("potonganpinjamanuang"), 2)%></td></tr>
+					<tr><td>Potongan Pinjaman Material</td><td class="num"><%=FormatNumber(oRS("potonganpinjamanmaterial"), 2)%></td></tr>
+					<tr><td>Potongan Alat Kerja</td><td class="num"><%=FormatNumber(oRS("potonganalatkerja"), 2)%></td></tr>
+					<tr><td>Potongan Pengobatan DLT</td><td class="num"><%=FormatNumber(oRS("potonganpengobatan"), 2)%></td></tr>
+					<tr><td>Potongan Koperasi</td><td class="num"><%=FormatNumber(oRS("potongankoperasi"), 2)%></td></tr>
+					<tr><td>Potongan Lain - Lain</td><td class="num"><%=FormatNumber(oRS("deductions"), 2)%></td></tr>
 				</tbody>
-				<tfoot><tr><td>Total Potongan</td><td class="num"><%=FormatNumber(oRS("totaldeductions"), 0)%></td></tr></tfoot>
+				<tfoot><tr><td>Total Potongan</td><td class="num"><%=FormatNumber(oRS("totaldeductions"), 2)%></td></tr></tfoot>
 			</table>
 		</div>
 	</div>

@@ -1356,20 +1356,20 @@ if cmdView = "True" and len(trim(purchasecontractno)) > 0  Then
 			    <td align="center" title="<%=rsVH("startdate").Name%>" valign="top"><%=rsVH("startdate")%></td>
 			    <td align="center" title="<%=rsVH("enddate").Name%>" valign="top"><%=rsVH("enddate")%></td>
 			    <td align="center" title="<%=rsVH("productcode").Name%>" valign="top"><%=rsVH("productcode")%></td>
-			    <td align="right" title="<%=rsVH("quantity").Name%>" valign="top"><%=formatnumber(rsVH("quantity"),0)%></td>
+			    <td align="right" title="<%=rsVH("quantity").Name%>" valign="top"><%=formatnumber(rsVH("quantity"),2)%></td>
 			    <td align="right" title="<%=rsVH("ffa").Name%>" valign="top"><%=formatnumber(rsVH("ffa"),2)%></td>
 			    <td align="right" title="<%=rsVH("moisture").Name%>" valign="top"><%=formatnumber(rsVH("moisture"),2)%></td>
 			    <td align="right" title="<%=rsVH("dirt").Name%>" valign="top"><%=formatnumber(rsVH("dirt"),2)%></td>
 			    <td align="right" title="<%=rsVH("dobi").Name%>" valign="top"><%=formatnumber(rsVH("dobi"),2)%></td>
 				<td align="right" title="<%=rsVH("quantitytolerance").Name%>" valign="top"><%=rsVH("quantitytolerance")%></td>
-				<td align="right" title="<%=rsVH("quantitytolerancetotal").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("quantitytolerancetotal"))),0)%></td>
-				<td align="right" title="<%=rsVH("quantityaftertolerance").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("quantityaftertolerance"))),0)%></td>
+				<td align="right" title="<%=rsVH("quantitytolerancetotal").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("quantitytolerancetotal"))),2)%></td>
+				<td align="right" title="<%=rsVH("quantityaftertolerance").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("quantityaftertolerance"))),2)%></td>
 			    <td align="center" title="<%=rsVH("unitofmeasure").Name%>" valign="top"><%=rsVH("unitofmeasure")%></td>
-			    <td align="right" title="<%=rsVH("prices").Name%>" valign="top"><%=formatnumber(rsVH("prices"),0)%></td>
-			    <td align="right" title="<%=rsVH("amount").Name%>" valign="top"><%=formatnumber(rsVH("amount"),0)%></td>
-			    <td align="right" title="<%=rsVH("ppn").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("ppn"))),0)%></td>
-			    <td align="right" title="<%=rsVH("amountppn").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("amountppn"))),0)%></td>
-			    <td align="right" title="<%=rsVH("totalamountppn").Name%>" valign="top"><%=formatnumber(rsVH("totalamountppn"),0)%></td>
+			    <td align="right" title="<%=rsVH("prices").Name%>" valign="top"><%=formatnumber(rsVH("prices"),2)%></td>
+			    <td align="right" title="<%=rsVH("amount").Name%>" valign="top"><%=formatnumber(rsVH("amount"),2)%></td>
+			    <td align="right" title="<%=rsVH("ppn").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("ppn"))),2)%></td>
+			    <td align="right" title="<%=rsVH("amountppn").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("amountppn"))),2)%></td>
+			    <td align="right" title="<%=rsVH("totalamountppn").Name%>" valign="top"><%=formatnumber(rsVH("totalamountppn"),2)%></td>
 			    <td align="left" title="<%=rsVH("salescontractno").Name%>" valign="top"><%=rsVH("salescontractno")%></td>
 				<td align="left" title="<%=rsVH("remarks").Name%>" valign="top"><%=rsVH("remarks")%></td>
 		  </tr>

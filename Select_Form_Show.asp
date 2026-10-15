@@ -5945,6 +5945,14 @@ $(document).ready(function(){
 		
 	}
 
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
+
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
 		nStr = nStr.replace(/\,/g, "");
@@ -6124,11 +6132,11 @@ $(document).ready(function(){
 		//	totvehicle 	= numformat(totvehicle);
 		//	totwip 		= numformat(totwip);
 		//	tot         = numformat(tot);
-		$('#totalupahview').html(numformat(totupah));
-		$('#totalbahanview').html(numformat(totbahan));
-		$('#totalvehicleview').html(numformat(totvehicle));
-		$('#totalwipview').html(numformat(totwip));
-		$('#totalview').html(numformat(tot));
+		$('#totalupahview').html(numformat2(totupah));
+		$('#totalbahanview').html(numformat2(totbahan));
+		$('#totalvehicleview').html(numformat2(totvehicle));
+		$('#totalwipview').html(numformat2(totwip));
+		$('#totalview').html(numformat2(tot));
 		
 		
 	}
@@ -6972,7 +6980,7 @@ vehicleTotRp = 0 : vehicleNo = 1
 						<td align="right"><%=rsAbs("day_" & d)%></td>
 						<% Next %>
 						<td align="right"><%=rsAbs("TOTAL")%></td>
-						<td align="right"><%=FormatNumber(rsAbs("TOTAL_AMOUNT"),0)%></td>
+						<td align="right"><%=FormatNumber(rsAbs("TOTAL_AMOUNT"),2)%></td>
 					</tr>
 			<%
 					For d = 1 To 31 : absDay(d) = absDay(d) + CDbl(rsAbs("day_" & d)) : Next
@@ -6990,10 +6998,10 @@ vehicleTotRp = 0 : vehicleNo = 1
 					<td></td><td></td><td></td><td></td><td></td>
 					<td align="center"><strong>Total</strong></td>
 					<% For d = 1 To 31 %>
-					<td align="right"><strong><%=FormatNumber(absDay(d),0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(absDay(d),2)%></strong></td>
 					<% Next %>
-					<td align="right"><strong><%=FormatNumber(absTot,0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(ttlAmt,0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(absTot,2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(ttlAmt,2)%></strong></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -7046,12 +7054,12 @@ vehicleTotRp = 0 : vehicleNo = 1
 							If CDbl(rsBahan("day_" & d)) = 0 Then
 								Response.Write "<td align=""right"">0</td>"
 							Else
-								Response.Write "<td align=""right"">" & FormatNumber(rsBahan("day_" & d), 0) & "</td>"
+								Response.Write "<td align=""right"">" & FormatNumber(rsBahan("day_" & d), 2) & "</td>"
 							End If
 						Next
 						%>
 						<td align="right"><%=rsBahan("TOTAL")%></td>
-						<td align="right"><%=FormatNumber(rsBahan("ttlrp"),0)%></td>
+						<td align="right"><%=FormatNumber(rsBahan("ttlrp"),2)%></td>
 					</tr>
 			<%
 					For d = 1 To 31 : bahanDay(d) = bahanDay(d) + CDbl(rsBahan("day_" & d)) : Next
@@ -7069,10 +7077,10 @@ vehicleTotRp = 0 : vehicleNo = 1
 					<td></td><td></td><td></td><td></td>
 					<td align="center"><strong>Total</strong></td>
 					<% For d = 1 To 31 %>
-					<td align="right"><strong><%=FormatNumber(bahanDay(d),0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(bahanDay(d),2)%></strong></td>
 					<% Next %>
-					<td align="right"><strong><%=FormatNumber(bahanTot,0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(bahanTotRp,0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(bahanTot,2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(bahanTotRp,2)%></strong></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -7125,12 +7133,12 @@ vehicleTotRp = 0 : vehicleNo = 1
 							If CDbl(rsBahan1("day_" & d)) = 0 Then
 								Response.Write "<td align=""right"">0</td>"
 							Else
-								Response.Write "<td align=""right"">" & FormatNumber(rsBahan1("day_" & d), 0) & "</td>"
+								Response.Write "<td align=""right"">" & FormatNumber(rsBahan1("day_" & d), 2) & "</td>"
 							End If
 						Next
 						%>
 						<td align="right"><%=rsBahan1("TOTAL")%></td>
-						<td align="right"><%=FormatNumber(rsBahan1("ttlrp"),0)%></td>
+						<td align="right"><%=FormatNumber(rsBahan1("ttlrp"),2)%></td>
 					</tr>
 			<%
 					For d = 1 To 31 : bahanDay1(d) = bahanDay1(d) + CDbl(rsBahan1("day_" & d)) : Next
@@ -7148,10 +7156,10 @@ vehicleTotRp = 0 : vehicleNo = 1
 					<td></td><td></td><td></td><td></td>
 					<td align="center"><strong>Total</strong></td>
 					<% For d = 1 To 31 %>
-					<td align="right"><strong><%=FormatNumber(bahanDay1(d),0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(bahanDay1(d),2)%></strong></td>
 					<% Next %>
-					<td align="right"><strong><%=FormatNumber(bahanTot1,0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(bahanTotRp1,0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(bahanTot1,2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(bahanTotRp1,2)%></strong></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -7204,12 +7212,12 @@ vehicleTotRp = 0 : vehicleNo = 1
 								If CDbl(rsVehicle("day_" & d)) = 0 Then
 									Response.Write "<td align=""right"">0</td>"
 								Else
-									Response.Write "<td align=""right"">" & FormatNumber(rsVehicle("day_" & d), 0) & "</td>"
+									Response.Write "<td align=""right"">" & FormatNumber(rsVehicle("day_" & d), 2) & "</td>"
 								End If
 							Next
 						%>
-						<td align="right"><%=FormatNumber(rsVehicle("total_km"),0)%></td>
-						<td align="right"><%=FormatNumber(rsVehicle("amountrp"),0)%></td>
+						<td align="right"><%=FormatNumber(rsVehicle("total_km"),2)%></td>
+						<td align="right"><%=FormatNumber(rsVehicle("amountrp"),2)%></td>
 					</tr>
 			<%
 					For d = 1 To 31 : vehicleDay(d) = vehicleDay(d) + CDbl(rsVehicle("day_" & d)) : Next
@@ -7227,10 +7235,10 @@ vehicleTotRp = 0 : vehicleNo = 1
 					<td></td><td></td><td></td><td></td>
 					<td align="center"><strong>Total</strong></td>
 					<% For d = 1 To 31 %>
-					<td align="right"><strong><%=FormatNumber(vehicleDay(d),0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(vehicleDay(d),2)%></strong></td>
 					<% Next %>
-					<td align="right"><strong><%=FormatNumber(vehicleTot,0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(vehicleTotRp,0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(vehicleTot,2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(vehicleTotRp,2)%></strong></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -7585,10 +7593,10 @@ vehicleTotRp = 0 : vehicleNo = 1
 					docketlist += '<td align="left">' + json.results[i].locationcode + ' - ' + json.results[i].dateplanted + '</td>';
 					docketlist += '<td align="left">' + json.results[i].locationtype + '</td>';
 					docketlist += '<td align="left">' + json.results[i].fcname + '</td>';
-					docketlist += '<td align="right">' + numformat(json.results[i].tanam_kecambah) + '</td>';
-					docketlist += '<td align="right">' + numformat(json.results[i].main_nursery) + '</td>';
-					docketlist += '<td align="right">' + numformat(json.results[i].transfer) + '</td>';
-					docketlist += '<td align="right">' + numformat(json.results[i].debet + json.results[i].kredit) + '</td>';
+					docketlist += '<td align="right">' + numformat2(json.results[i].tanam_kecambah) + '</td>';
+					docketlist += '<td align="right">' + numformat2(json.results[i].main_nursery) + '</td>';
+					docketlist += '<td align="right">' + numformat2(json.results[i].transfer) + '</td>';
+					docketlist += '<td align="right">' + numformat2(json.results[i].debet + json.results[i].kredit) + '</td>';
 					docketlist += '<td align="center"><a target=_blank href="hpp_data_view.Asp?fcba=' + json.results[i].fcba + '&month=' + pbulan + '&tahun=' + ptahun + '&from=' + ptanggalfrom + '&to=' + ptanggalto + '&batch=' + json.results[i].locationcode + '"><img src="IMAGES/view.png" alt="View Data" border="0"></a></td>';
 					docketlist += '</tr>';
 					$('#bodytablenursery').append(docketlist);
@@ -7604,10 +7612,10 @@ vehicleTotRp = 0 : vehicleNo = 1
 
 			var footer = '<tr style="font-weight:bold;background:#f0f0f0;">'
 				+ '<td colspan="4" align="right">TOTAL</td>'
-				+ '<td align="right">' + numformat(totalTanam)    + '</td>'
-				+ '<td align="right">' + numformat(totalMain)     + '</td>'
-				+ '<td align="right">' + numformat(totalTransfer) + '</td>'
-				+ '<td align="right">' + numformat(totalNet)      + '</td>'
+				+ '<td align="right">' + numformat2(totalTanam)    + '</td>'
+				+ '<td align="right">' + numformat2(totalMain)     + '</td>'
+				+ '<td align="right">' + numformat2(totalTransfer) + '</td>'
+				+ '<td align="right">' + numformat2(totalNet)      + '</td>'
 				+ '<td></td>'
 				+ '</tr>';
 			$('#foottablenursery').html(footer);
@@ -7948,8 +7956,8 @@ vehicleTotRp = 0 : vehicleNo = 1
 
 	function getPuttotal(totupah,totbahan,totvehicle,totwip,tot) {
 	
-		$('#totalupahview').html(numformat(totupah));
-		$('#totalview').html(numformat(tot));
+		$('#totalupahview').html(numformat2(totupah));
+		$('#totalview').html(numformat2(tot));
 		
 		
 	}
@@ -8987,10 +8995,10 @@ function tampilapprovedBKM()
 						docketlist += '<td align="left">' + json.results[i].salescontractno + '</td>';
 						docketlist += '<td align="left">' + json.results[i].productcode + '</td>';
 						docketlist += '<td align="left">' + json.results[i].customername + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].quantity) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].amount_beforevat) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].amountvat) + '</td>';				
-						docketlist += '<td align="right">' + numformat(json.results[i].grandtotal) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].quantity) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].amount_beforevat) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].amountvat) + '</td>';				
+						docketlist += '<td align="right">' + numformat2(json.results[i].grandtotal) + '</td>';
 						docketlist += '<td align="left" class="">' + postingflg + '</td>';
 						docketlist += '<td align="center"><a target=_blank href="salesinv_jurnal_view.Asp?invoicecode=' + json.results[i].invoicecode + '&fcba=' + fcba + '&tglinvoice=' + json.results[i].transdate + '"><img src="IMAGES/view.png" alt="View Data Jurnal="0"></a></td>';
 						docketlist += '</tr>';
@@ -9044,10 +9052,10 @@ function tampilapprovedBKM()
 
 	function getPuttotal(totqty,totambvat,totamountvat,totgrand)
 	{
-		$("#totalqtyview").html(numformat(totqty));
-		$("#totalamountbvatview").html(numformat(totambvat));
-		$("#totalamtvatview").html(numformat(totamountvat));
-		$("#totalgrandview").html(numformat(totgrand));
+		$("#totalqtyview").html(numformat2(totqty));
+		$("#totalamountbvatview").html(numformat2(totambvat));
+		$("#totalamtvatview").html(numformat2(totamountvat));
+		$("#totalgrandview").html(numformat2(totgrand));
 		
 	}
 
@@ -9308,12 +9316,12 @@ function tampilapprovedBKM()
 							docketlist += '<td align="left">' + (json.results[i].status) + '</td>';
 							docketlist += '<td align="right">' + (json.results[i].fisik) + '</td>';
 							docketlist += '<td align="right">' + (json.results[i].unit) + '</td>';
-							docketlist += '<td align="right">' + numformat(json.results[i].hk) + '</td>';
-							docketlist += '<td align="right">' + numformat(json.results[i].hkshi) + '</td>';
-							docketlist += '<td align="right">' + numformat(json.results[i].hksbi) + '</td>';
-							docketlist += '<td align="right">' + numformat(json.results[i].rphkhi) + '</td>';
-							docketlist += '<td align="right">' + numformat(json.results[i].rphkshi) + '</td>';
-							docketlist += '<td align="right">' + numformat(json.results[i].rphksbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(json.results[i].hk) + '</td>';
+							docketlist += '<td align="right">' + numformat2(json.results[i].hkshi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(json.results[i].hksbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(json.results[i].rphkhi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(json.results[i].rphkshi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(json.results[i].rphksbi) + '</td>';
 							
 							docketlist += '</tr>';
 							$('#bodytablelhd').append(docketlist);
@@ -9351,14 +9359,14 @@ function tampilapprovedBKM()
 
 		function getTotal(ttlhk,ttlfisik,ttlunit,ttlhkshi,ttlhksbi,ttlrphkhi,ttlrphkshi,ttlrphksbi)
 		{
-			$("#ttlfisikview").html(numformat(ttlfisik));
-			 $("#ttlqtyview").html(numformat(ttlunit));
-			 $("#ttlhkview").html(numformat(ttlhk));
-			 $("#ttlhkshiview").html(numformat(ttlhkshi));
-			 $("#ttlhksbiview").html(numformat(ttlhksbi));
-			 $("#ttlrphkview").html(numformat(ttlrphkhi));
-			 $("#ttlrphkshiview").html(numformat(ttlrphkshi));
-			 $("#ttlrphksbiview").html(numformat(ttlrphksbi));
+			$("#ttlfisikview").html(numformat2(ttlfisik));
+			 $("#ttlqtyview").html(numformat2(ttlunit));
+			 $("#ttlhkview").html(numformat2(ttlhk));
+			 $("#ttlhkshiview").html(numformat2(ttlhkshi));
+			 $("#ttlhksbiview").html(numformat2(ttlhksbi));
+			 $("#ttlrphkview").html(numformat2(ttlrphkhi));
+			 $("#ttlrphkshiview").html(numformat2(ttlrphkshi));
+			 $("#ttlrphksbiview").html(numformat2(ttlrphksbi));
 		}
 
 		function exportPDF()
@@ -11206,26 +11214,26 @@ function tampilapprovedBKM()
 					docketlist += '<td align="left">' + json.results[i].fccode + '</td>';
 					docketlist += '<td align="left">' + json.results[i].jobname + '</td>';
 					docketlist += '<td align="left">' + json.results[i].fieldstatus + '</td>';
-					docketlist += '<td align="right">' + numformat(fisikblnlalu) + '</td>';
-					docketlist += '<td align="right">' + numformat(amountblnlalu) + '</td>';
-					docketlist += '<td align="right">' + numformat(rphablnlalu) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkb_outputblnlalu) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkb_amountblnlalu) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkbhablnlalu) + '</td>';
+					docketlist += '<td align="right">' + numformat2(fisikblnlalu) + '</td>';
+					docketlist += '<td align="right">' + numformat2(amountblnlalu) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rphablnlalu) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkb_outputblnlalu) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkb_amountblnlalu) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkbhablnlalu) + '</td>';
 					docketlist += '<td align="right">' + (0) + '</td>';
-					docketlist += '<td align="right">' + numformat(fisikblnini) + '</td>';
-					docketlist += '<td align="right">' + numformat(amountblnini) + '</td>';
-					docketlist += '<td align="right">' + numformat(amountblniniview) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkb_outputblnini) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkb_amountblnini) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkbhablnini) + '</td>';
+					docketlist += '<td align="right">' + numformat2(fisikblnini) + '</td>';
+					docketlist += '<td align="right">' + numformat2(amountblnini) + '</td>';
+					docketlist += '<td align="right">' + numformat2(amountblniniview) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkb_outputblnini) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkb_amountblnini) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkbhablnini) + '</td>';
 					docketlist += '<td align="right">' + (0) + '</td>';
-					docketlist += '<td align="right">' + numformat(fisiksbi) + '</td>';
-					docketlist += '<td align="right">' + numformat(amountsbi) + '</td>';
-					docketlist += '<td align="right">' + numformat(rphasbi) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkb_outputsbi) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkb_amountsbi) + '</td>';
-					docketlist += '<td align="right">' + numformat(rkbhasbi) + '</td>';
+					docketlist += '<td align="right">' + numformat2(fisiksbi) + '</td>';
+					docketlist += '<td align="right">' + numformat2(amountsbi) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rphasbi) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkb_outputsbi) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkb_amountsbi) + '</td>';
+					docketlist += '<td align="right">' + numformat2(rkbhasbi) + '</td>';
 					docketlist += '<td align="right">' + (0) + '</td>';
 					docketlist += '</tr>';
 					$('#bodytableactreportrkp').append(docketlist);
@@ -11265,29 +11273,29 @@ function tampilapprovedBKM()
 	//get total rekap
 	function getPuttotalrkp(fisikblnlaluttl,amountblnlaluttl,rphablnlaluttl,rkb_outputblnlaluttl,rkb_amountblnlaluttl,rkbhablnlaluttl,fisikblninittl,amountblninittl,rphablninittl,rkb_outputblninittl,rkb_amountblninittl,rkbhablninittl,fisiksbittl,amountsbittl,rphasbittl,rkb_outputsbittl,rkb_amountsbittl,rkbhasbittl)
 	{
-			$('#ttlrkpfisikblnlalu').html(numformat(fisikblnlaluttl));
-			$('#ttlrkprpblnlalu').html(numformat(amountblnlaluttl));
-			$('#ttlrkprphablnlalu').html(numformat(rphablnlaluttl));
-			$('#ttlrkprkbfisikblnlalu').html(numformat(rkb_outputblnlaluttl));
-			$('#ttlrkprkbrpblnlalu').html(numformat(rkb_amountblnlaluttl));
-			$('#ttlrkprkbrphablnlalu').html(numformat(rkbhablnlaluttl));
-			$('#ttlrkpvarianblnlalu').html(numformat(0));
+			$('#ttlrkpfisikblnlalu').html(numformat2(fisikblnlaluttl));
+			$('#ttlrkprpblnlalu').html(numformat2(amountblnlaluttl));
+			$('#ttlrkprphablnlalu').html(numformat2(rphablnlaluttl));
+			$('#ttlrkprkbfisikblnlalu').html(numformat2(rkb_outputblnlaluttl));
+			$('#ttlrkprkbrpblnlalu').html(numformat2(rkb_amountblnlaluttl));
+			$('#ttlrkprkbrphablnlalu').html(numformat2(rkbhablnlaluttl));
+			$('#ttlrkpvarianblnlalu').html(numformat2(0));
 
-			$('#ttlrkpfisikblnini').html(numformat(fisikblninittl));
-			$('#ttlrkprpblnini').html(numformat(amountblninittl));
-			$('#ttlrkprphablnini').html(numformat(rphablninittl));
-			$('#ttlrkprkbfisikblnini').html(numformat(rkb_outputblninittl));
-			$('#ttlrkprkbrpblnini').html(numformat(rkb_amountblninittl));
-			$('#ttlrkprkbrphablnini').html(numformat(rkbhablninittl));
-			$('#ttlrkpvarianblnini').html(numformat(0));
+			$('#ttlrkpfisikblnini').html(numformat2(fisikblninittl));
+			$('#ttlrkprpblnini').html(numformat2(amountblninittl));
+			$('#ttlrkprphablnini').html(numformat2(rphablninittl));
+			$('#ttlrkprkbfisikblnini').html(numformat2(rkb_outputblninittl));
+			$('#ttlrkprkbrpblnini').html(numformat2(rkb_amountblninittl));
+			$('#ttlrkprkbrphablnini').html(numformat2(rkbhablninittl));
+			$('#ttlrkpvarianblnini').html(numformat2(0));
 
-			$('#ttlrkpfisikblnsbi').html(numformat(fisiksbittl));
-			$('#ttlrkprpblnsbi').html(numformat(amountsbittl));
-			$('#ttlrkprphablnsbi').html(numformat(rphasbittl));
-			$('#ttlrkprkbfisikblnsbi').html(numformat(rkb_outputsbittl));
-			$('#ttlrkprkbrpblnsbi').html(numformat(rkb_amountsbittl));
-			$('#ttlrkprkbrphablnsbi').html(numformat(rkbhasbittl));
-			$('#ttlrkpvarianblnsbi').html(numformat(0));
+			$('#ttlrkpfisikblnsbi').html(numformat2(fisiksbittl));
+			$('#ttlrkprpblnsbi').html(numformat2(amountsbittl));
+			$('#ttlrkprphablnsbi').html(numformat2(rphasbittl));
+			$('#ttlrkprkbfisikblnsbi').html(numformat2(rkb_outputsbittl));
+			$('#ttlrkprkbrpblnsbi').html(numformat2(rkb_amountsbittl));
+			$('#ttlrkprkbrphablnsbi').html(numformat2(rkbhasbittl));
+			$('#ttlrkpvarianblnsbi').html(numformat2(0));
 	}
 
 	//Export excel
@@ -11446,26 +11454,26 @@ function tampilapprovedBKM()
 					viewdtl += '<td align="left">' + json.results1[i].fieldstatus + '</td>';
 					viewdtl += '<td align="left">' + json.results1[i].fieldarea + '</td>';
 					viewdtl += '<td align="left">' + json.results1[i].fieldpokok + '</td>';
-					viewdtl += '<td align="right">' + numformat(fisikblnlalu) + '</td>';
-					viewdtl += '<td align="right">' + numformat(amountblnlalu) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rphablnlalu) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkb_outputblnlalu) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkb_amountblnlalu) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkbhablnlalu) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(fisikblnlalu) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(amountblnlalu) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rphablnlalu) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkb_outputblnlalu) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkb_amountblnlalu) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkbhablnlalu) + '</td>';
 					viewdtl += '<td align="right">' + (0) + '</td>';
-					viewdtl += '<td align="right">' + numformat(fisikblnini) + '</td>';
-					viewdtl += '<td align="right">' + numformat(amountblnini) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rphablnini) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkb_outputblnini) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkb_amountblnini) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkbhablnini) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(fisikblnini) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(amountblnini) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rphablnini) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkb_outputblnini) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkb_amountblnini) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkbhablnini) + '</td>';
 					viewdtl += '<td align="right">' + (0) + '</td>';
-					viewdtl += '<td align="right">' + numformat(fisiksbi) + '</td>';
-					viewdtl += '<td align="right">' + numformat(amountsbi) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rphasbi) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkb_outputsbi) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkb_amountsbi) + '</td>';
-					viewdtl += '<td align="right">' + numformat(rkbhasbi) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(fisiksbi) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(amountsbi) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rphasbi) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkb_outputsbi) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkb_amountsbi) + '</td>';
+					viewdtl += '<td align="right">' + numformat2(rkbhasbi) + '</td>';
 					viewdtl += '<td align="right">' + (0) + '</td>';
 					viewdtl += '</tr>';
 					$('#bodytableactreportdtl').append(viewdtl);
@@ -11505,29 +11513,29 @@ function tampilapprovedBKM()
 	//get total detail
 	function getPuttotaldtl(fisikblnlaluttl,amountblnlaluttl,rphablnlaluttl,rkb_outputblnlaluttl,rkb_amountblnlaluttl,rkbhablnlaluttl,fisikblninittl,amountblninittl,rphablninittl,rkb_outputblninittl,rkb_amountblninittl,rkbhablninittl,fisiksbittl,amountsbittl,rphasbittl,rkb_outputsbittl,rkb_amountsbittl,rkbhasbittl)
 	{
-			$('#ttlrkpfisikblnlalu').html(numformat(fisikblnlaluttl));
-			$('#ttlrkprpblnlalu').html(numformat(amountblnlaluttl));
-			$('#ttlrkprphablnlalu').html(numformat(rphablnlaluttl));
-			$('#ttlrkprkbfisikblnlalu').html(numformat(rkb_outputblnlaluttl));
-			$('#ttlrkprkbrpblnlalu').html(numformat(rkb_amountblnlaluttl));
-			$('#ttlrkprkbrphablnlalu').html(numformat(rkbhablnlaluttl));
-			$('#ttlrkpvarianblnlalu').html(numformat(0));
+			$('#ttlrkpfisikblnlalu').html(numformat2(fisikblnlaluttl));
+			$('#ttlrkprpblnlalu').html(numformat2(amountblnlaluttl));
+			$('#ttlrkprphablnlalu').html(numformat2(rphablnlaluttl));
+			$('#ttlrkprkbfisikblnlalu').html(numformat2(rkb_outputblnlaluttl));
+			$('#ttlrkprkbrpblnlalu').html(numformat2(rkb_amountblnlaluttl));
+			$('#ttlrkprkbrphablnlalu').html(numformat2(rkbhablnlaluttl));
+			$('#ttlrkpvarianblnlalu').html(numformat2(0));
 
-			$('#ttlrkpfisikblnini').html(numformat(fisikblninittl));
-			$('#ttlrkprpblnini').html(numformat(amountblninittl));
-			$('#ttlrkprphablnini').html(numformat(rphablninittl));
-			$('#ttlrkprkbfisikblnini').html(numformat(rkb_outputblninittl));
-			$('#ttlrkprkbrpblnini').html(numformat(rkb_amountblninittl));
-			$('#ttlrkprkbrphablnini').html(numformat(rkbhablninittl));
-			$('#ttlrkpvarianblnini').html(numformat(0));
+			$('#ttlrkpfisikblnini').html(numformat2(fisikblninittl));
+			$('#ttlrkprpblnini').html(numformat2(amountblninittl));
+			$('#ttlrkprphablnini').html(numformat2(rphablninittl));
+			$('#ttlrkprkbfisikblnini').html(numformat2(rkb_outputblninittl));
+			$('#ttlrkprkbrpblnini').html(numformat2(rkb_amountblninittl));
+			$('#ttlrkprkbrphablnini').html(numformat2(rkbhablninittl));
+			$('#ttlrkpvarianblnini').html(numformat2(0));
 
-			$('#ttlrkpfisikblnsbi').html(numformat(fisiksbittl));
-			$('#ttlrkprpblnsbi').html(numformat(amountsbittl));
-			$('#ttlrkprphablnsbi').html(numformat(rphasbittl));
-			$('#ttlrkprkbfisikblnsbi').html(numformat(rkb_outputsbittl));
-			$('#ttlrkprkbrpblnsbi').html(numformat(rkb_amountsbittl));
-			$('#ttlrkprkbrphablnsbi').html(numformat(rkbhasbittl));
-			$('#ttlrkpvarianblnsbi').html(numformat(0));
+			$('#ttlrkpfisikblnsbi').html(numformat2(fisiksbittl));
+			$('#ttlrkprpblnsbi').html(numformat2(amountsbittl));
+			$('#ttlrkprphablnsbi').html(numformat2(rphasbittl));
+			$('#ttlrkprkbfisikblnsbi').html(numformat2(rkb_outputsbittl));
+			$('#ttlrkprkbrpblnsbi').html(numformat2(rkb_amountsbittl));
+			$('#ttlrkprkbrphablnsbi').html(numformat2(rkbhasbittl));
+			$('#ttlrkpvarianblnsbi').html(numformat2(0));
 	}
 
 	//get export xls detail
@@ -12033,13 +12041,13 @@ function tampilapprovedBKM()
 						var docketlist = '';
 							docketlist += '<tr id="tru'+i+'" class="font24">';
 							docketlist += '<td align="left">' + json.results[i].proddate + '</td>';
-							docketlist += '<td align="right">' + numformat(kapasitasjamhi) + '</td>';
-							docketlist += '<td align="right">' + numformat(kapasitasjamsbi) + '</td>';
-							docketlist += '<td align="right">' + numformat(oerhi) + '</td>';	
-							docketlist += '<td align="right">' + numformat(oersbi) + '</td>';				
+							docketlist += '<td align="right">' + numformat2(kapasitasjamhi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(kapasitasjamsbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(oerhi) + '</td>';	
+							docketlist += '<td align="right">' + numformat2(oersbi) + '</td>';				
 							docketlist += '<td align="right">' + (cpoffa) + '</td>';
-							docketlist += '<td align="right">' + numformat(prod_olah_amnt) + '</td>';
-							docketlist += '<td align="right">' + numformat(prod_olah_amntsbi) + '</td>';
+							docketlist += '<td align="right">' + numformat2(prod_olah_amnt) + '</td>';
+							docketlist += '<td align="right">' + numformat2(prod_olah_amntsbi) + '</td>';
 						
 							//docketlist += '<td align="center"><a target=_blank href="bkm_jurnal_input.Asp?tglbkm='+ json.results[i].lhpno + '"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
 							docketlist += '</tr>';
@@ -12070,13 +12078,13 @@ function tampilapprovedBKM()
 
 	function getPuttotallappabrik(ttltroughtputhi,ttltroughtputsbi,ttloerhi,ttloersbi,ttlffahi,ttlbiayahi,ttlbiayasbi)
 	{
-		$('#ttltroughhputhi').html(numformat(ttltroughtputhi));
-		$('#ttltroughhputsbi').html(numformat(ttltroughtputsbi));
-		$('#ttloerhi').html(numformat(ttloerhi));
-		$('#ttloersbi').html(numformat(ttloersbi));
-		$('#ttlffahi').html(numformat(ttlffahi));
-		$('#ttlbiayahi').html(numformat(ttlbiayahi));
-		$('#ttlbiayasbi').html(numformat(ttlbiayasbi));
+		$('#ttltroughhputhi').html(numformat2(ttltroughtputhi));
+		$('#ttltroughhputsbi').html(numformat2(ttltroughtputsbi));
+		$('#ttloerhi').html(numformat2(ttloerhi));
+		$('#ttloersbi').html(numformat2(ttloersbi));
+		$('#ttlffahi').html(numformat2(ttlffahi));
+		$('#ttlbiayahi').html(numformat2(ttlbiayahi));
+		$('#ttlbiayasbi').html(numformat2(ttlbiayasbi));
 	}
 	</script>
 
@@ -12281,14 +12289,14 @@ function tampilapprovedBKM()
 							docketlist += '<td align="left">' + json.results[i].proddate + '</td>';
 							docketlist += '<td align="right">' + numformat(json.results[i].tbsterima) + '<input type="hidden" name="tbsterimatext'+i+'" id="tbsterimatext'+i+'" value='+json.results[i].tbsterima+' /></td>';
 							docketlist += '<td align="right">' + numformat(tbsolah) + '<input type="hidden" name="tbsolahtext'+i+'" id="tbsolahtext'+i+'" value='+ tbsolah +' /></td>';
-							docketlist += '<td align="right">' + numformat(json.results[i].tbssisa) + '</td>';				
+							docketlist += '<td align="right">' + numformat2(json.results[i].tbssisa) + '</td>';				
 							docketlist += '<td align="right">' + numformat(cpohi) + '<input type="hidden" name="cpoproduksitext'+i+'" id="cpoproduksitext'+i+'" value='+ cpohi +' /></td>';
 							docketlist += '<td align="right">' + numformat(cpokirim) + '<input type="hidden" name="cpokirimtext'+i+'" id="cpokirimtext'+i+'" value='+ cpokirim +' /></td>';
 							docketlist += '<td align="right">' + numformat(adjcpo) + '<input type="hidden" name="cpoadjtext'+i+'" id="cpoadjtext'+i+'" value='+ adjcpo +' /></td>';
-							docketlist += '<td align="right">' + numformat(cposisa) + '</td>';
+							docketlist += '<td align="right">' + numformat2(cposisa) + '</td>';
 							docketlist += '<td align="right">' + numformat(produksipkhi) + '<input type="hidden" name="pkproduksitext'+i+'" id="pkproduksitext'+i+'" value='+ produksipkhi +' /></td>';
 							docketlist += '<td align="right">' + numformat(kernelkirimhi) + '<input type="hidden" name="pkkirimtext'+i+'" id="pkkirimtext'+i+'" value='+ kernelkirimhi +' /></td>';
-							docketlist += '<td align="right">' + numformat(pksisa) + '</td>';
+							docketlist += '<td align="right">' + numformat2(pksisa) + '</td>';
 							docketlist += '<td align="center"><a target=_blank href="lhp_detail_edit.Asp?lhpno='+ json.results[i].lhpno + '"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
 							//docketlist += '<td align="center"><a target=_blank href="bkm_jurnal_input.Asp?tglbkm='+ json.results[i].lhpno + '"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
 							docketlist += '</tr>';
@@ -15419,7 +15427,7 @@ function tampilapprovedBKM()
 						docketlist += '<td align="left">' + json.results[i].pocode + '</td>';
 						docketlist += '<td align="left">' + json.results[i].podate + '</td>';
 						docketlist += '<td align="left">' + json.results[i].quantity + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].unitprice) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].unitprice) + '</td>';
 						docketlist += '</tr>';
 						$('#bodytable').append(docketlist);
 						
@@ -16645,9 +16653,9 @@ function tampilapprovedBKM()
 		//totkredit    = numformat(totkredit);
 		//totssaldo    = numformat(totssaldo);
 		
-		$('#totaldebetview').html(numformat(totdebet));
-		$('#totalcreditview').html(numformat(totkredit));
-		$('#totalsaldoview').html(numformat(totssaldo));
+		$('#totaldebetview').html(numformat2(totdebet));
+		$('#totalcreditview').html(numformat2(totkredit));
+		$('#totalsaldoview').html(numformat2(totssaldo));
 	}
 
 	function cetakPDF()
@@ -17178,9 +17186,9 @@ function tampilapprovedBKM()
 		//totkredit    = numformat(totkredit);
 		//totssaldo    = numformat(totssaldo);
 		
-		$('#totaldebetview').html(numformat(totdebet));
-		$('#totalcreditview').html(numformat(totkredit));
-		$('#totalsaldoview').html(numformat(totssaldo));
+		$('#totaldebetview').html(numformat2(totdebet));
+		$('#totalcreditview').html(numformat2(totkredit));
+		$('#totalsaldoview').html(numformat2(totssaldo));
 	}
 
 	
@@ -18585,17 +18593,17 @@ function tampilapprovedBKM()
 				docketlist += '<td align="left">' + json.results[i].fccompanycode + '</td>';
 				docketlist += '<td align="left">' + json.results[i].fcba + '</td>';
 				docketlist += '<td align="left">' + json.results[i].tglkirim + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].quantitysite) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].quantitypks) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].varian) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].perawatantm) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].pemupukantm) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].panendantransport) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].sarpastm) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].umum) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].total) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(rpjtkebun) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(rpjtpks) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].quantitysite) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].quantitypks) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].varian) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].perawatantm) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].pemupukantm) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].panendantransport) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].sarpastm) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].umum) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].total) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(rpjtkebun) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(rpjtpks) + '</td>';
 				docketlist += '<td style="display:none;" data-t="n">' + json.results[i].quantitysite + '</td>';
 				docketlist += '<td style="display:none;" data-t="n">' + json.results[i].quantitypks + '</td>';						
 				docketlist += '<td style="display:none;" data-t="n">' + json.results[i].varian + '</td>';
@@ -18675,18 +18683,18 @@ function tampilapprovedBKM()
                 tbody += '<td class="bl">' + (row.company||'')  + '</td>';
                 tbody += '<td class="bl">' + (row.fcba||'')     + '</td>';
                 tbody += '<td class="bl">' + (row.docdate||'')  + '</td>';
-                tbody += '<td class="br">' + numformat(kec)     + '</td>';
-                tbody += '<td class="br">' + numformat(tanam)   + '</td>';
-                tbody += '<td class="br">' + numformat(pn1)     + '</td>';
-                tbody += '<td class="br">' + numformat(mn1)     + '</td>';
-                tbody += '<td class="br">' + numformat(tr)      + '</td>';
-                tbody += '<td class="br">' + numformat(prp)     + '</td>';
-                tbody += '<td class="br">' + numformat(pn2)     + '</td>';
-                tbody += '<td class="br">' + numformat(mn2)     + '</td>';
-                tbody += '<td class="br">' + numformat(alo)     + '</td>';
-                tbody += '<td class="br">' + numformat(tot)     + '</td>';
-                tbody += '<td class="br" style="display: none;">' + (pn1 > 0 ? numformat(hpn) : '0') + '</td>';
-                tbody += '<td class="br">' + (mn1 > 0 ? numformat(hmn) : '0') + '</td>';
+                tbody += '<td class="br">' + numformat2(kec)     + '</td>';
+                tbody += '<td class="br">' + numformat2(tanam)   + '</td>';
+                tbody += '<td class="br">' + numformat2(pn1)     + '</td>';
+                tbody += '<td class="br">' + numformat2(mn1)     + '</td>';
+                tbody += '<td class="br">' + numformat2(tr)      + '</td>';
+                tbody += '<td class="br">' + numformat2(prp)     + '</td>';
+                tbody += '<td class="br">' + numformat2(pn2)     + '</td>';
+                tbody += '<td class="br">' + numformat2(mn2)     + '</td>';
+                tbody += '<td class="br">' + numformat2(alo)     + '</td>';
+                tbody += '<td class="br">' + numformat2(tot)     + '</td>';
+                tbody += '<td class="br" style="display: none;">' + (pn1 > 0 ? numformat2(hpn) : '0') + '</td>';
+                tbody += '<td class="br">' + (mn1 > 0 ? numformat2(hmn) : '0') + '</td>';
                 tbody += '</tr>';
 
                 s.kec   += kec;
@@ -18709,18 +18717,18 @@ function tampilapprovedBKM()
 
             $('#bodytablehppbibit_dly').html(tbody);
 
-            $('#ttl_kecambah').text(numformat(s.kec));
-            $('#ttl_tanam_kecambah').text(numformat(s.tanam));
-            $('#ttl_prenursery1').text(numformat(s.pn1));
-            $('#ttl_mainnursery1').text(numformat(s.mn1));
-            $('#ttl_transfer').text(numformat(s.tr));
-            $('#ttl_persiapan').text(numformat(s.prp));
-            $('#ttl_prenursery2').text(numformat(s.pn2));
-            $('#ttl_mainnursery2').text(numformat(s.mn2));
-            $('#ttl_alokasi').text(numformat(s.alo));
-            $('#ttl_total').text(numformat(s.tot));
-            $('#ttl_hpp_pn').text(s.pn1 > 0 ? numformat(s.hpp1) : '0');
-            $('#ttl_hpp_mn').text(numformat(s.hpp2));
+            $('#ttl_kecambah').text(numformat2(s.kec));
+            $('#ttl_tanam_kecambah').text(numformat2(s.tanam));
+            $('#ttl_prenursery1').text(numformat2(s.pn1));
+            $('#ttl_mainnursery1').text(numformat2(s.mn1));
+            $('#ttl_transfer').text(numformat2(s.tr));
+            $('#ttl_persiapan').text(numformat2(s.prp));
+            $('#ttl_prenursery2').text(numformat2(s.pn2));
+            $('#ttl_mainnursery2').text(numformat2(s.mn2));
+            $('#ttl_alokasi').text(numformat2(s.alo));
+            $('#ttl_total').text(numformat2(s.tot));
+            $('#ttl_hpp_pn').text(s.pn1 > 0 ? numformat2(s.hpp1) : '0');
+            $('#ttl_hpp_mn').text(numformat2(s.hpp2));
 
             $("#jmlhpp_dly").val(results.length);
             $('#loadingjudul').hide();
@@ -18729,17 +18737,17 @@ function tampilapprovedBKM()
     }
 
 	function getPuttotalsite(ttlquantitysite,ttlquantitypks,ttlvarian,ttlperawatantm,ttlpemupukantm,ttlpanendantransport,ttlsarpastm,ttlumum,grandtotal,ttlrpjtkebun,ttlrpjtpks) {
-		$('#ttljtkebun').html(numformat(ttlquantitysite));
-		$('#ttljtpks').html(numformat(ttlquantitypks));
-		$('#ttlvarian').html(numformat(ttlvarian));
-		$('#ttlperawatantm').html(numformat(ttlperawatantm));
-		$('#ttlpemupukantm').html(numformat(ttlpemupukantm));
-		$('#ttlpanentransporttm').html(numformat(ttlpanendantransport));
-		$('#ttlsarpastm').html(numformat(ttlsarpastm));
-		$('#ttlumum').html(numformat(ttlumum));
-		$('#grandtotal').html(numformat(grandtotal));
-		$('#ttlhppkg_kebun').html(numformat(ttlrpjtkebun));
-		$('#ttlhppkg_pks').html(numformat(ttlrpjtpks));
+		$('#ttljtkebun').html(numformat2(ttlquantitysite));
+		$('#ttljtpks').html(numformat2(ttlquantitypks));
+		$('#ttlvarian').html(numformat2(ttlvarian));
+		$('#ttlperawatantm').html(numformat2(ttlperawatantm));
+		$('#ttlpemupukantm').html(numformat2(ttlpemupukantm));
+		$('#ttlpanentransporttm').html(numformat2(ttlpanendantransport));
+		$('#ttlsarpastm').html(numformat2(ttlsarpastm));
+		$('#ttlumum').html(numformat2(ttlumum));
+		$('#grandtotal').html(numformat2(grandtotal));
+		$('#ttlhppkg_kebun').html(numformat2(ttlrpjtkebun));
+		$('#ttlhppkg_pks').html(numformat2(ttlrpjtpks));
 	}
 
 	function viewDataMill()
@@ -18794,25 +18802,25 @@ function tampilapprovedBKM()
 				var docketlist = '';
 				docketlist += '<tr id="trhpp_dly'+i+'">';
 				docketlist += '<td align="left">' + json.results[i].proddate + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].tbsterima_int) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].tbsterima_ext) + '</td>';						
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].tbsolah) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].tbssisa) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].cpo_prod_hi) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].cpo_kirim_hi) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].cpo_sisa_hi) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].pk_prod_hi) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].pk_kirim_hi) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].pk_sisa_hi) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].tbsterima_int_amnt) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].tbsterima_ext_amnt) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].prod_olah_amnt) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].prod_total_amnt) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].prod_avr_amnt) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].hpp_cpo_amnt) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].hpp_cpo_rpkg) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].hpp_pk_amnt) + '</td>';
-				docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].hpp_pk_rpkg) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].tbsterima_int) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].tbsterima_ext) + '</td>';						
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].tbsolah) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].tbssisa) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].cpo_prod_hi) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].cpo_kirim_hi) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].cpo_sisa_hi) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].pk_prod_hi) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].pk_kirim_hi) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].pk_sisa_hi) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].tbsterima_int_amnt) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].tbsterima_ext_amnt) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].prod_olah_amnt) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].prod_total_amnt) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].prod_avr_amnt) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].hpp_cpo_amnt) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].hpp_cpo_rpkg) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].hpp_pk_amnt) + '</td>';
+				docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].hpp_pk_rpkg) + '</td>';
 				docketlist += '<td style="display:none;" data-t="n">' + json.results[i].tbsterima_int + '</td>';
 				docketlist += '<td style="display:none;" data-t="n">' + json.results[i].tbsterima_ext + '</td>';						
 				docketlist += '<td style="display:none;" data-t="n">' + json.results[i].tbsolah + '</td>';
@@ -18882,25 +18890,25 @@ function tampilapprovedBKM()
 		hpp_cpo_rpkg   = Math.round(hpp_cpo_amnt/hpp_cpo_qty);
 		hpp_pk_rpkg    = Math.round(hpp_pk_amnt/hpp_pk_qty);
 
-		$('#tbsterima_int').html(numformat(tbsterima_int));
-		$('#tbsterima_ext').html(numformat(tbsterima_ext));
-		$('#tbsolah').html(numformat(tbsolah));
-		$('#tbssisa').html(numformat(tbssisa));
-		$('#cpo_prod_hi').html(numformat(cpo_prod_hi));
-		$('#cpo_kirim_hi').html(numformat(cpo_kirim_hi));
-		$('#cpo_sisa_hi').html(numformat(cpo_sisa_hi));
-		$('#pk_prod_hi').html(numformat(pk_prod_hi));
-		$('#pk_kirim_hi').html(numformat(pk_kirim_hi));
-		$('#pk_sisa_hi').html(numformat(pk_sisa_hi));
-		$('#tbsterima_int_amnt').html(numformat(tbsterima_int_amnt));
-		$('#tbsterima_ext_amnt').html(numformat(tbsterima_ext_amnt));
-		$('#prod_olah_amnt').html(numformat(prod_olah_amnt));
-		$('#prod_total_amnt').html(numformat(prod_total_amnt));
-		$('#prod_avr_amnt').html(numformat(prod_avr_amnt));
-		$('#hpp_cpo_amnt').html(numformat(hpp_cpo_amnt));
-		$('#hpp_cpo_rpkg').html(numformat(hpp_cpo_rpkg));
-		$('#hpp_pk_amnt').html(numformat(hpp_pk_amnt));
-		$('#hpp_pk_rpkg').html(numformat(hpp_pk_rpkg));
+		$('#tbsterima_int').html(numformat2(tbsterima_int));
+		$('#tbsterima_ext').html(numformat2(tbsterima_ext));
+		$('#tbsolah').html(numformat2(tbsolah));
+		$('#tbssisa').html(numformat2(tbssisa));
+		$('#cpo_prod_hi').html(numformat2(cpo_prod_hi));
+		$('#cpo_kirim_hi').html(numformat2(cpo_kirim_hi));
+		$('#cpo_sisa_hi').html(numformat2(cpo_sisa_hi));
+		$('#pk_prod_hi').html(numformat2(pk_prod_hi));
+		$('#pk_kirim_hi').html(numformat2(pk_kirim_hi));
+		$('#pk_sisa_hi').html(numformat2(pk_sisa_hi));
+		$('#tbsterima_int_amnt').html(numformat2(tbsterima_int_amnt));
+		$('#tbsterima_ext_amnt').html(numformat2(tbsterima_ext_amnt));
+		$('#prod_olah_amnt').html(numformat2(prod_olah_amnt));
+		$('#prod_total_amnt').html(numformat2(prod_total_amnt));
+		$('#prod_avr_amnt').html(numformat2(prod_avr_amnt));
+		$('#hpp_cpo_amnt').html(numformat2(hpp_cpo_amnt));
+		$('#hpp_cpo_rpkg').html(numformat2(hpp_cpo_rpkg));
+		$('#hpp_pk_amnt').html(numformat2(hpp_pk_amnt));
+		$('#hpp_pk_rpkg').html(numformat2(hpp_pk_rpkg));
 	}
 	
 	function cetakPDF()
@@ -19227,24 +19235,24 @@ function tampilapprovedBKM()
 					var docketlist = '';
 						docketlist += '<tr id="trhppext_dly'+i+'">';
 						docketlist += '<td align="left">' + json.results[i].proddate + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_tbs_terima_ext) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_cpobeli) + '</td>';						
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_cpoolah) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_cpotot) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_pkbeli) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_pkolah) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_pktot) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_tbs_terima_ext) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_cpobeli) + '</td>';						
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_cpoolah) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_cpotot) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_pkbeli) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_pkolah) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_pktot) + '</td>';
 						
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_tbs_amnt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_trans_tbs_amnt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_trans_prod_amnt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_tbs_amnt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_trans_tbs_amnt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_trans_prod_amnt) + '</td>';
 						
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_totbeli_amnt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_totolah_amnt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_total_amnt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_totbeli_amnt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_totolah_amnt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_total_amnt) + '</td>';
 						
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_hpp_cpo_rpkg) + '</td>';
-						//docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ext_hpp_pk_rpkg) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_hpp_cpo_rpkg) + '</td>';
+						//docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ext_hpp_pk_rpkg) + '</td>';
 						
 						
 						docketlist += '<td style="display:none;" data-t="n">' + json.results[i].ext_tbs_terima_ext + '</td>';
@@ -19300,23 +19308,23 @@ function tampilapprovedBKM()
 		hpp_cpo_rpkg   = Math.round(ext_total_amnt/ext_cpotot);
 		hpp_pk_rpkg    = Math.round(ext_total_amnt/ext_pktot);
 
-		$('#ext_tbs_terima_ext').html(numformat(ext_tbs_terima_ext));
-		$('#ext_cpobeli').html(numformat(ext_cpobeli));
-		$('#ext_cpoolah').html(numformat(ext_cpoolah));
-		$('#ext_cpotot').html(numformat(ext_cpotot));
+		$('#ext_tbs_terima_ext').html(numformat2(ext_tbs_terima_ext));
+		$('#ext_cpobeli').html(numformat2(ext_cpobeli));
+		$('#ext_cpoolah').html(numformat2(ext_cpoolah));
+		$('#ext_cpotot').html(numformat2(ext_cpotot));
 					
-		$('#ext_pkbeli').html(numformat(ext_pkbeli));
-		$('#ext_pkolah').html(numformat(ext_pkolah));
-		$('#ext_pktot').html(numformat(ext_pktot));
+		$('#ext_pkbeli').html(numformat2(ext_pkbeli));
+		$('#ext_pkolah').html(numformat2(ext_pkolah));
+		$('#ext_pktot').html(numformat2(ext_pktot));
 					
-		$('#ext_tbs_amnt').html(numformat(ext_tbs_amnt));
-		$('#ext_tottrans_tbs_amnt').html(numformat(ext_tottrans_tbs_amnt));
-		$('#ext_tottrans_prod_amnt').html(numformat(ext_tottrans_prod_amnt));
+		$('#ext_tbs_amnt').html(numformat2(ext_tbs_amnt));
+		$('#ext_tottrans_tbs_amnt').html(numformat2(ext_tottrans_tbs_amnt));
+		$('#ext_tottrans_prod_amnt').html(numformat2(ext_tottrans_prod_amnt));
 					
-		$('#ext_totbeli_amnt').html(numformat(ext_totbeli_amnt));
-		$('#ext_totolah_amnt').html(numformat(ext_totolah_amnt));
-		$('#ext_total_amnt').html(numformat(ext_total_amnt));
-		$('#hpp_cpo_rpkg').html(numformat(hpp_cpo_rpkg));
+		$('#ext_totbeli_amnt').html(numformat2(ext_totbeli_amnt));
+		$('#ext_totolah_amnt').html(numformat2(ext_totolah_amnt));
+		$('#ext_total_amnt').html(numformat2(ext_total_amnt));
+		$('#hpp_cpo_rpkg').html(numformat2(hpp_cpo_rpkg));
 		
 		
 	}
@@ -19655,51 +19663,51 @@ function tampilapprovedBKM()
 						docketlist += '<tr id="trhpp_bln'+i+'">';
 						docketlist += '<td align="left">' + json.results[i].period + '</td>';
 						//docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].opening_balance + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].tbs_terima_qty) + '</td>';
-					    docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].tbs_olah_qty) + '</td>';						
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].tbs_terima_qty) + '</td>';
+					    docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].tbs_olah_qty) + '</td>';						
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_awal_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_jalan_awl_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_awal_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_jalan_awl_qty) + '</td>';
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_beli_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_proses_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_kirim_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_jual_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_akhir_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_jalan_ahr_qty) + '</td>';
-						
-						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_awal_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_jalan_awl_qty) + '</td>';
-						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_beli_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_proses_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_kirim_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_jual_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_akhir_qty) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_jalan_ahr_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_beli_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_proses_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_kirim_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_jual_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_akhir_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_jalan_ahr_qty) + '</td>';
 						
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_awal_amt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_jalan_awl_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_awal_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_jalan_awl_qty) + '</td>';
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_awal_amt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_jalan_awl_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_beli_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_proses_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_kirim_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_jual_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_akhir_qty) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_jalan_ahr_qty) + '</td>';
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cost_tot_amt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cost_asset_amt) + '</td>';	
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_akhir_amt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_jalan_ahr_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_awal_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_jalan_awl_amt) + '</td>';
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_akhir_amt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_jalan_ahr_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_awal_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_jalan_awl_amt) + '</td>';
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_hpp_amt) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_hpp_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cost_tot_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cost_asset_amt) + '</td>';	
 						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].cpo_hpp_rpkg) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].pk_hpp_rpkg) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_akhir_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_jalan_ahr_amt) + '</td>';
+						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_akhir_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_jalan_ahr_amt) + '</td>';
+						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_hpp_amt) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_hpp_amt) + '</td>';
+						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].cpo_hpp_rpkg) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].pk_hpp_rpkg) + '</td>';
 						
 						docketlist += '<td data-exclude="true" align="center"><a target=_blank href="hpp_bulanan_calculate.Asp?period_month='+ json.results[i].accountingperiod + '&period_year='+json.results[i].accountingyear+'&fcba='+json.results[i].fcba+'"><img src="IMAGES/process.png" alt="Generate"></a></td>';
 						docketlist += '<td data-exclude="true" align="center"><a target=_blank href="bkm_jurnal_view.Asp?bkmno='+ json.results[i].docno + '&fcba='+json.results[i].fcba+'&tglbkm='+json.results[i].docdate + '&tipetran=FAC-HPP"><img src="IMAGES/view.png" alt="Posting"></a></td>';
@@ -19787,28 +19795,28 @@ function tampilapprovedBKM()
 		hpp_cpo_rpkg   = Math.round(hpp_cpo_amnt/hpp_cpo_qty);
 		hpp_pk_rpkg    = Math.round(hpp_pk_amnt/hpp_pk_qty);
 
-		$('#tbsterima_int').html(numformat(tbsterima_int));
-		$('#tbsterima_ext').html(numformat(tbsterima_ext));
-		$('#tbsolah').html(numformat(tbsolah));
-		$('#tbssisa').html(numformat(tbssisa));
+		$('#tbsterima_int').html(numformat2(tbsterima_int));
+		$('#tbsterima_ext').html(numformat2(tbsterima_ext));
+		$('#tbsolah').html(numformat2(tbsolah));
+		$('#tbssisa').html(numformat2(tbssisa));
 					
-		$('#cpo_prod_hi').html(numformat(cpo_prod_hi));
-		$('#cpo_kirim_hi').html(numformat(cpo_kirim_hi));
-		$('#cpo_sisa_hi').html(numformat(cpo_sisa_hi));
+		$('#cpo_prod_hi').html(numformat2(cpo_prod_hi));
+		$('#cpo_kirim_hi').html(numformat2(cpo_kirim_hi));
+		$('#cpo_sisa_hi').html(numformat2(cpo_sisa_hi));
 					
-		$('#pk_prod_hi').html(numformat(pk_prod_hi));
-		$('#pk_kirim_hi').html(numformat(pk_kirim_hi));
-		$('#pk_sisa_hi').html(numformat(pk_sisa_hi));
+		$('#pk_prod_hi').html(numformat2(pk_prod_hi));
+		$('#pk_kirim_hi').html(numformat2(pk_kirim_hi));
+		$('#pk_sisa_hi').html(numformat2(pk_sisa_hi));
 					
-		$('#tbsterima_int_amnt').html(numformat(prod_tbs_amnt));
-		$('#prod_olah_amnt').html(numformat(prod_olah_amnt));
-		$('#prod_total_amnt').html(numformat(prod_total_amnt));
-		$('#prod_avr_amnt').html(numformat(prod_avr_amnt));
+		$('#tbsterima_int_amnt').html(numformat2(prod_tbs_amnt));
+		$('#prod_olah_amnt').html(numformat2(prod_olah_amnt));
+		$('#prod_total_amnt').html(numformat2(prod_total_amnt));
+		$('#prod_avr_amnt').html(numformat2(prod_avr_amnt));
 					
-		$('#hpp_cpo_amnt').html(numformat(hpp_cpo_amnt));
-		$('#hpp_cpo_rpkg').html(numformat(hpp_cpo_rpkg));
-		$('#hpp_pk_amnt').html(numformat(hpp_pk_amnt));
-		$('#hpp_pk_rpkg').html(numformat(hpp_pk_rpkg));
+		$('#hpp_cpo_amnt').html(numformat2(hpp_cpo_amnt));
+		$('#hpp_cpo_rpkg').html(numformat2(hpp_cpo_rpkg));
+		$('#hpp_pk_amnt').html(numformat2(hpp_pk_amnt));
+		$('#hpp_pk_rpkg').html(numformat2(hpp_pk_rpkg));
 		
 		
 	}
@@ -21320,22 +21328,22 @@ function tampilapprovedBKM()
          				docketlist += '<td align="left" ><strong>' + json.results[i].acccode + '</strong></td>';
 						docketlist += '<td align="left" >' + json.results[i].description + '</td>';
 						
-					//	docketlist += '<td data-exclude="true" align="right">'  + numformat(json.results[i].total_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b1_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b2_) + '</td>'						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b3_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b4_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b5_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b6_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b7_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b8_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b9_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b10_) + '</td>';						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b11_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b12_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b13_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b14_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b15_) + '</td>';
+					//	docketlist += '<td data-exclude="true" align="right">'  + numformat2(json.results[i].total_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b1_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b2_) + '</td>'						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b3_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b4_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b5_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b6_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b7_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b8_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b9_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b10_) + '</td>';						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b11_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b12_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b13_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b14_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b15_) + '</td>';
 						
 						
 					//	docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].total_ + '</td>';
@@ -21442,37 +21450,37 @@ function tampilapprovedBKM()
          				docketlist += '<td align="left" ><strong>' + json.results[i].acccode + '</strong></td>';
 						docketlist += '<td align="left" >' + json.results[i].description + '</td>';
 						
-					//	docketlist += '<td data-exclude="true" align="right">'  + numformat(json.results[i].total_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b1qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b1_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b2qty_) + '</td>'						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b2_) + '</td>'						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b3qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b3_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b4qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b4_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b5qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b5_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b6qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b6_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b7qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b7_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b8qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b8_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b9qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b9_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b10qty_) + '</td>';						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b10_) + '</td>';						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b11qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b11_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b12qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b12_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b13qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b13_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b14qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b14_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b15qty_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b15_) + '</td>';
+					//	docketlist += '<td data-exclude="true" align="right">'  + numformat2(json.results[i].total_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b1qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b1_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b2qty_) + '</td>'						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b2_) + '</td>'						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b3qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b3_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b4qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b4_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b5qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b5_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b6qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b6_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b7qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b7_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b8qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b8_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b9qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b9_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b10qty_) + '</td>';						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b10_) + '</td>';						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b11qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b11_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b12qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b12_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b13qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b13_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b14qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b14_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b15qty_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b15_) + '</td>';
 						
 						
 					//	docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].total_ + '</td>';
@@ -21555,56 +21563,56 @@ function tampilapprovedBKM()
 
 	function getPuttotal(b1_,b2_,b3_,b4_,b5_,b6_,b7_,b8_,b9_,b10_,b11_,b12_,b13_,b14_,b15_) {
 		
-		$('#b1').html(numformat(b1_));
-		$('#b2').html(numformat(b2_));
-		$('#b3').html(numformat(b3_));
-		$('#b4').html(numformat(b4_));
-		$('#b5').html(numformat(b5_));
-		$('#b6').html(numformat(b6_));
-		$('#b7').html(numformat(b7_));
-		$('#b8').html(numformat(b8_));
-		$('#b9').html(numformat(b9_));
-		$('#b10').html(numformat(b10_));
-		$('#b11').html(numformat(b11_));
-		$('#b12').html(numformat(b12_));
-		$('#b13').html(numformat(b13_));
-		$('#b14').html(numformat(b14_));
-		$('#b15').html(numformat(b15_));
+		$('#b1').html(numformat2(b1_));
+		$('#b2').html(numformat2(b2_));
+		$('#b3').html(numformat2(b3_));
+		$('#b4').html(numformat2(b4_));
+		$('#b5').html(numformat2(b5_));
+		$('#b6').html(numformat2(b6_));
+		$('#b7').html(numformat2(b7_));
+		$('#b8').html(numformat2(b8_));
+		$('#b9').html(numformat2(b9_));
+		$('#b10').html(numformat2(b10_));
+		$('#b11').html(numformat2(b11_));
+		$('#b12').html(numformat2(b12_));
+		$('#b13').html(numformat2(b13_));
+		$('#b14').html(numformat2(b14_));
+		$('#b15').html(numformat2(b15_));
 		
 	}
 
 	function getPuttotal2(b1qty_,b2qty_,b3qty_,b4qty_,b5qty_,b6qty_,b7qty_,b8qty_,b9qty_,b10qty_,b11qty_,b12qty_,b13qty_,b14qty_,b15qty_,b1_,b2_,b3_,b4_,b5_,b6_,b7_,b8_,b9_,b10_,b11_,b12_,b13_,b14_,b15_) {
-		//$('#total').html(numformat(total_));
-		$('#b1qty').html(numformat(b1qty_));
-		$('#b1rp').html(numformat(b1_));
-		$('#b2qty').html(numformat(b2qty_));
-		$('#b2rp').html(numformat(b2_));
-		$('#b3qty').html(numformat(b3qty_));
-		$('#b3rp').html(numformat(b3_));
-		$('#b4qty').html(numformat(b4qty_));
-		$('#b4rp').html(numformat(b4_));
-		$('#b5qty').html(numformat(b5qty_));
-		$('#b5rp').html(numformat(b5_));
-		$('#b6qty').html(numformat(b6qty_));
-		$('#b6rp').html(numformat(b6_));
-		$('#b7qty').html(numformat(b7qty_));
-		$('#b7rp').html(numformat(b7_));
-		$('#b8qty').html(numformat(b8qty_));
-		$('#b8rp').html(numformat(b8_));
-		$('#b9qty').html(numformat(b9qty_));
-		$('#b9rp').html(numformat(b9_));
-		$('#b10qty').html(numformat(b10qty_));
-		$('#b10rp').html(numformat(b10_));
-		$('#b11qty').html(numformat(b11qty_));
-		$('#b11rp').html(numformat(b11_));
-		$('#b12qty').html(numformat(b12qty_));
-		$('#b12rp').html(numformat(b12_));
-		$('#b13qty').html(numformat(b13qty_));
-		$('#b13rp').html(numformat(b13_));
-		$('#b14qty').html(numformat(b14qty_));
-		$('#b14rp').html(numformat(b14_));
-		$('#b15qty').html(numformat(b15qty_));
-		$('#b15rp').html(numformat(b15_));
+		//$('#total').html(numformat2(total_));
+		$('#b1qty').html(numformat2(b1qty_));
+		$('#b1rp').html(numformat2(b1_));
+		$('#b2qty').html(numformat2(b2qty_));
+		$('#b2rp').html(numformat2(b2_));
+		$('#b3qty').html(numformat2(b3qty_));
+		$('#b3rp').html(numformat2(b3_));
+		$('#b4qty').html(numformat2(b4qty_));
+		$('#b4rp').html(numformat2(b4_));
+		$('#b5qty').html(numformat2(b5qty_));
+		$('#b5rp').html(numformat2(b5_));
+		$('#b6qty').html(numformat2(b6qty_));
+		$('#b6rp').html(numformat2(b6_));
+		$('#b7qty').html(numformat2(b7qty_));
+		$('#b7rp').html(numformat2(b7_));
+		$('#b8qty').html(numformat2(b8qty_));
+		$('#b8rp').html(numformat2(b8_));
+		$('#b9qty').html(numformat2(b9qty_));
+		$('#b9rp').html(numformat2(b9_));
+		$('#b10qty').html(numformat2(b10qty_));
+		$('#b10rp').html(numformat2(b10_));
+		$('#b11qty').html(numformat2(b11qty_));
+		$('#b11rp').html(numformat2(b11_));
+		$('#b12qty').html(numformat2(b12qty_));
+		$('#b12rp').html(numformat2(b12_));
+		$('#b13qty').html(numformat2(b13qty_));
+		$('#b13rp').html(numformat2(b13_));
+		$('#b14qty').html(numformat2(b14qty_));
+		$('#b14rp').html(numformat2(b14_));
+		$('#b15qty').html(numformat2(b15qty_));
+		$('#b15rp').html(numformat2(b15_));
 		
 	}
 
@@ -21895,19 +21903,19 @@ function tampilapprovedBKM()
 						docketlist += '<td align="left"  >' + json.results[i].description + '</td>';
 						}
 						
-						docketlist += '<td data-exclude="true" align="right">'  + numformat(json.results[i].total_) + '</td>';
-					 	docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b1_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b2_) + '</td>'						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b3_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b4_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b5_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b6_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b7_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b8_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b9_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b10_) + '</td>';						
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b11_) + '</td>';
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b12_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">'  + numformat2(json.results[i].total_) + '</td>';
+					 	docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b1_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b2_) + '</td>'						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b3_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b4_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b5_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b6_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b7_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b8_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b9_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b10_) + '</td>';						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b11_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b12_) + '</td>';
 						
 						docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].total_ + '</td>';
 					    docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].b1_ + '</td>';	
@@ -22247,83 +22255,83 @@ function tampilapprovedBKM()
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right">'  + numformat(json.results[i].total_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">'  + numformat2(json.results[i].total_) + '</td>';
 						}
 						
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b1_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b1_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b2_) + '</td>'						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b2_) + '</td>'						
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b3_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b3_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b4_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b4_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b5_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b5_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b6_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b6_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b7_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b7_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b8_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b8_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b9_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b9_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b10_) + '</td>';						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b10_) + '</td>';						
 						}					
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b11_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b11_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b12_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b12_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b13_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b13_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b14_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b14_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b15_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b15_) + '</td>';
 						}
 						
 						
@@ -22972,83 +22980,83 @@ function tampilapprovedBKM()
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right">'  + numformat(json.results[i].total_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right">'  + numformat2(json.results[i].total_) + '</td>';
 						}
 						
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b1_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b1_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b2_) + '</td>'						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b2_) + '</td>'						
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b3_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b3_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b4_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b4_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b5_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b5_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b6_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b6_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b7_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b7_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b8_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b8_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b9_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b9_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b10_) + '</td>';						
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b10_) + '</td>';						
 						}					
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b11_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b11_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b12_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b12_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b13_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b13_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b14_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b14_) + '</td>';
 						}
 						if (json.results[i].rowtype  == 2) {
 						docketlist += '<td data-exclude="true" align="right"></td>';
 					 	}else{
-						docketlist += '<td data-exclude="true" align="right" >' + numformat(json.results[i].b15_) + '</td>';
+						docketlist += '<td data-exclude="true" align="right" >' + numformat2(json.results[i].b15_) + '</td>';
 						}
 						
 						
@@ -23767,10 +23775,10 @@ function tampilapprovedBKM()
 						docketlist += '<td align="left">' + json.results[i].fccode + '</td>';
 						docketlist += '<td align="left">' + json.results[i].fcname + '</td>';
 						docketlist += '<td align="left">' + json.results[i].accountcode + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].nopening) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].ndebet) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].ncredit) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].nending) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].nopening) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].ndebet) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].ncredit) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].nending) + '</td>';
 						docketlist += '<td align="center"><a target=_blank href="bnk_data_view.Asp?bankcode='+json.results[i].fccode+ '&fcba='+json.results[i].fcba+'&jobcode='+json.results[i].accountcode+'&month='+pbulan+'&tahun='+ptahun+'"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
 						docketlist += '</tr>';
 						$('#bodytablebnk').append(docketlist);
@@ -24548,10 +24556,10 @@ function tampilapprovedBKM()
 						docketlist += '<td align="left">' + json.results[i].transdate + '</td>';
 						docketlist += '<td align="left">' + json.results[i].assetgroupname + '</td>';
 						
-						docketlist += '<td align="right">' + numformat(json.results[i].total) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].amountdepreciation) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totaldepreciation) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].bookvalue) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].total) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].amountdepreciation) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totaldepreciation) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].bookvalue) + '</td>';
 						docketlist += '<td align="right">' + json.results[i].posting + '</td>';
 						
 						docketlist += '<td align="center"><a target=_blank href="fixedasset_journal.Asp?fcba='+json.results[i].fcba+'&month='+pbulan+'&tahun='+ptahun+'"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
@@ -24576,10 +24584,10 @@ function tampilapprovedBKM()
 	} 
 
      function getPuttotal(totperolehan,amtdepresiasi,totdepresiasi,amtbook) {
-	    $('#totperolehan').html(numformat(totperolehan));
-		$('#amtdepresiasi').html(numformat(amtdepresiasi));
-		$('#totdepresiasi').html(numformat(totdepresiasi));
-		$('#amtbook').html(numformat(amtbook));
+	    $('#totperolehan').html(numformat2(totperolehan));
+		$('#amtdepresiasi').html(numformat2(amtdepresiasi));
+		$('#totdepresiasi').html(numformat2(totdepresiasi));
+		$('#amtbook').html(numformat2(amtbook));
 		
 	}
 	
@@ -25186,10 +25194,10 @@ function tampilapprovedBKM()
 					docketlist += '<td align="left">' + json.results[i].fctype + '</td>';
 					docketlist += '<td align="left">' + json.results[i].fccode + '</td>';
 					docketlist += '<td align="left">' + json.results[i].fcname + '</td>';
-					docketlist += '<td align="right">' + numformat(json.results[i].opening) + '</td>';
-					docketlist += '<td align="right">' + numformat(json.results[i].debet) + '</td>';
-					docketlist += '<td align="right">' + numformat(json.results[i].credit) + '</td>';
-					docketlist += '<td align="right">' + numformat(json.results[i].ending) + '</td>';
+					docketlist += '<td align="right">' + numformat2(json.results[i].opening) + '</td>';
+					docketlist += '<td align="right">' + numformat2(json.results[i].debet) + '</td>';
+					docketlist += '<td align="right">' + numformat2(json.results[i].credit) + '</td>';
+					docketlist += '<td align="right">' + numformat2(json.results[i].ending) + '</td>';
 					//docketlist += '<td align="center"><a target=_blank href="ap_ipd_view.Asp?fccode='+json.results[i].fccode+ '&fcba='+json.results[i].fcba+'&month='+pbulan+'&tahun='+ptahun+'"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
 
 					if(json.results[i].fctype=="IPO" && fcoa_ap == "0"){
@@ -25742,10 +25750,10 @@ function tampilapprovedBKM()
 						docketlist += '<td align="left">' + json.results[i].fccode + '</td>';
 						docketlist += '<td align="left">' + json.results[i].fcname + '</td>';
 						docketlist += '<td align="left">' + json.results[i].fctype + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].opening) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].debet) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].credit) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].ending) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].opening) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].debet) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].credit) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].ending) + '</td>';
 						if(fctype=="SLS"){
 							docketlist += '<td align="center"><a target=_blank href="ar_data_view.Asp?fccode='+json.results[i].fccode+ '&fcba='+json.results[i].fcba+'&month='+pbulan+'&tahun='+ptahun+'"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
 						}
@@ -26537,17 +26545,17 @@ End If
 						docketlist += '<td align="left">' + json.results[i].status + '</td>';
 						docketlist += '<td align="left">' + json.results[i].ownership + '</td>';
 						
-						docketlist += '<td align="right">' + numformat(json.results[i].luas_gross) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totalstand) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].productivestand) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].luas_gross) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totalstand) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].productivestand) + '</td>';
 						docketlist += '<td align="right">' + json.results[i].areal_lc + '</td>';
 						docketlist += '<td align="right">' + json.results[i].hectarageplanted + '</td>';
 						docketlist += '<td align="right">' + json.results[i].hectarageharvested + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].perawatan) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].pemupukan) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].panenha) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].panenjjg) + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].panenkg) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].perawatan) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].pemupukan) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].panenha) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].panenjjg) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].panenkg) + '</td>';
 						if (pakses == "TRUE" && pfcba==pfcba_ses) {
 						docketlist += '<td align="center"><a target=_blank href="TableMaster.Asp?fcba='+json.results[i].fcba+ '&txtTable=Field&fccode='+json.results[i].fccode+'&txtModule=Data Master'+'&TXT_YEAR='+ptahun+'&TXT_MONTH='+pbulan+'&txtJenis=Edit"><img src="IMAGES/add2.gif" alt="View Field" border="0"></a></td>';
 						}

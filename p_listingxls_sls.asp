@@ -99,11 +99,11 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="Left" ><%=rscat("transdate")%></td>			
 			<td align="Left" ><%=rscat("salescontractno")%></td>				
 			<td align="Left" ><%=rscat("productcode")%></td>				
-			<td align="Right" ><%=rscat("customername")%></td>		
-			<td data-t="n" align="Right" ><%=rscat("quantity")%></td>		
+			<td align="Right" ><%=FbpNum2(rscat("customername"))%></td>		
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("quantity"))%></td>		
 			<td data-t="n" align="Right" ><%=rscat("amount_beforevat")%></td>
 			<td data-t="n" align="Right" ><%=rscat("amountvat")%></td>				
-			<td data-t="n" align="Right" ><%=rscat("grandtotal")%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("grandtotal"))%></td>				
 			<td align="Right" ><%=postingflg%></td>				
 			
 		</tr>

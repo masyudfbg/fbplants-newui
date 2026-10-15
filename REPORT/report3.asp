@@ -204,7 +204,7 @@ else
 %>
 	<tr class="<%=cClass%>">
 		<td align="center"><%=rsErptoSap("general_upload_type")%></td>
-		<td align="right"><%=rsErptoSap("wbnumber")%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("wbnumber"))%></td>
 		<td align="center"></td>
 		<td align="center"><%=rsErptoSap("line")%></td>
 		<td align="center"><%=rsErptoSap("material_code")%></td>
@@ -220,8 +220,8 @@ else
 		<td align="center"><%=rsErptoSap("gi_wb_code")%></td>
 		<td align="center"><%=rsErptoSap("gi_time_in")%></td>
 		<td align="center"><%=rsErptoSap("gi_time_out")%></td>		
-		<td align="right"><%=rsErptoSap("mill_gross_qty")%></td>
-		<td align="right"><%=rsErptoSap("mill_tare_qty")%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("mill_gross_qty"))%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("mill_tare_qty"))%></td>
         <td align="right"></td>
 		<td align="center"></td>
 		<td align="center"></td>
@@ -229,7 +229,7 @@ else
 		<td align="center"><%=rsErptoSap("vehicle_no")%></td>
 		<td align="center"><%=rsErptoSap("gr_plant")%></td>
 		<td align="center"><%=rsErptoSap("gr_store")%></td>
-		<td align="right"><%=rsErptoSap("mill_net_qty")%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("mill_net_qty"))%></td>
 		<td align="right"></td>
 		<td align="center"></td>
 		<td align="center"></td>

@@ -590,22 +590,22 @@ else
 %>
 						<tr style="background-color:#F4F4A0;">
 							<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Sub Total <%=PCase(PrevRegion)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalbase_salary, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalrapelgaji, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalovertime, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalpremi, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotaltunjangan, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalborongan, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalp_jamsostek, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalp_bpjs, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalp_mk_p1, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalp_panen, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalp_pph21, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalp_koperasi, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalp_lain, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotaltotal, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotaltransfer, 0)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalnontransfer, 0)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalbase_salary, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalrapelgaji, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalovertime, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalpremi, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotaltunjangan, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalborongan, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalp_jamsostek, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalp_bpjs, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalp_mk_p1, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalp_panen, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalp_pph21, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalp_koperasi, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalp_lain, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotaltotal, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotaltransfer, 2)%></strong></td>
+							<td align="Right"><strong><%=FormatNumber(subtotalnontransfer, 2)%></strong></td>
 						</tr>
 <%
 						subtotalbase_salary = 0
@@ -832,20 +832,20 @@ else
 							<%If var_colspan = 1 Then%>
 								<td align="right"></td>
 							<%End If%>
-								<td align="right"><%=FormatNumber(rsgaji("base_salary"), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("rapelgaji")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("overtime")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("premi")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("tunjangan")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("borongan")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("p_jamsostek")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("P_BPJSKES")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("p_mk_p1")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("p_panen")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("p_pph21")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("P_KOPERASI")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("p_lain")), 0)%></td>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("total")), 0)%></td>
+								<td align="right"><%=FormatNumber(rsgaji("base_salary"), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("rapelgaji")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("overtime")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("premi")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("tunjangan")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("borongan")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("p_jamsostek")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("P_BPJSKES")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("p_mk_p1")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("p_panen")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("p_pph21")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("P_KOPERASI")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("p_lain")), 2)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("total")), 2)%></td>
 								<% if v_txtFcba <>  "--SUMMARY--" and v_txtFcba <>  "" then %>
 									<% currfcba = rsgaji("fcba") %>
 									<% if currfcba <> prevfcba then %>
@@ -857,9 +857,9 @@ else
 										<% prevfcba = currfcba %>
 									<% end if %>
 								<%else%>
-									<td align="right"><%=formatnumber( cdbl(rsgaji("transfer")), 0)%></td>
+									<td align="right"><%=formatnumber( cdbl(rsgaji("transfer")), 2)%></td>
 								<% end if %>
-								<td align="right"><%=formatnumber( cdbl(rsgaji("nontransfer")), 0)%></td>
+								<td align="right"><%=formatnumber( cdbl(rsgaji("nontransfer")), 2)%></td>
 					</tr>
 				<%Else%>
 					<tr>
@@ -1068,20 +1068,20 @@ else
 					<%If var_colspan = 1 Then%>
 						<td align="right"></td>
 					<%End If%>
-						<td align="right"><%=FormatNumber(rsgaji("base_salary"), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("rapelgaji")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("overtime")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("premi")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("tunjangan")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("borongan")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("p_jamsostek")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("P_BPJSKES")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("p_mk_p1")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("p_panen")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("p_pph21")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("P_KOPERASI")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("p_lain")), 0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("total")), 0)%></td>
+						<td align="right"><%=FormatNumber(rsgaji("base_salary"), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("rapelgaji")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("overtime")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("premi")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("tunjangan")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("borongan")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("p_jamsostek")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("P_BPJSKES")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("p_mk_p1")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("p_panen")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("p_pph21")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("P_KOPERASI")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("p_lain")), 2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("total")), 2)%></td>
 					<% if v_txtFcba <>  "--SUMMARY--" and v_txtFcba <>  "" then %>
 						<% currfcba = rsgaji("fcba") %>
 						<% if currfcba <> prevfcba then %>
@@ -1093,9 +1093,9 @@ else
 							<% prevfcba = currfcba %>
 						<% end if %>
 					<%else%>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("transfer")), 0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("transfer")), 2)%></td>
 					<% end if %>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("nontransfer")), 0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("nontransfer")), 2)%></td>
 					</tr>
 				<%End If%>
 <%
@@ -1323,20 +1323,20 @@ else
 				<%If var_colspan = 1 Then%>
 					<td align="right"></td>
 				<%End If%>
-					<td align="right"><%=FormatNumber(rsgaji("base_salary"), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("rapelgaji")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("overtime")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("premi")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("tunjangan")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("borongan")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("p_jamsostek")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("P_BPJSKES")), 0)%></td>				
-					<td align="right"><%=formatnumber( cdbl(rsgaji("p_mk_p1")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("p_panen")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("p_pph21")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("P_KOPERASI")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("p_lain")), 0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsgaji("total")), 0)%></td>
+					<td align="right"><%=FormatNumber(rsgaji("base_salary"), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("rapelgaji")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("overtime")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("premi")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("tunjangan")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("borongan")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("p_jamsostek")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("P_BPJSKES")), 2)%></td>				
+					<td align="right"><%=formatnumber( cdbl(rsgaji("p_mk_p1")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("p_panen")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("p_pph21")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("P_KOPERASI")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("p_lain")), 2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("total")), 2)%></td>
 					<% if v_txtFcba <>  "--SUMMARY--" and v_txtFcba <>  "" then %>
 						<% currfcba = rsgaji("fcba") %>
 						<% if currfcba <> prevfcba then %>
@@ -1348,10 +1348,10 @@ else
 							<% prevfcba = currfcba %>
 						<% end if %>
 					<%else%>
-						<td align="right"><%=formatnumber( cdbl(rsgaji("transfer")), 0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsgaji("transfer")), 2)%></td>
 					<% end if %>
 						
-					<td align="right"><%=formatnumber( cdbl(rsgaji("nontransfer")), 0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsgaji("nontransfer")), 2)%></td>
 				</tr>
 			<%End If%>
 <%
@@ -1382,42 +1382,42 @@ else
 			<%if v_txtRegion <>  "--SUMMARY--" and v_txtRegion <>  "" then%>
 				<tr style="background-color:#F4F4A0;">
 					<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Sub Total <%=PCase(PrevRegion)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalbase_salary, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalrapelgaji, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalovertime, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalpremi, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotaltunjangan, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalborongan, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalp_jamsostek, 0)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalbase_salary, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalrapelgaji, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalovertime, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalpremi, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotaltunjangan, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalborongan, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalp_jamsostek, 2)%></strong></td>
 					
-					<td align="Right"><strong><%=FormatNumber(subtotalp_mk_p1, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalp_panen, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalp_pph21, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalp_koperasi, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalp_lain, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotaltotal, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotaltransfer, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(subtotalnontransfer, 0)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalp_mk_p1, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalp_panen, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalp_pph21, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalp_koperasi, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalp_lain, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotaltotal, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotaltransfer, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(subtotalnontransfer, 2)%></strong></td>
 				</tr>
 			<%End If%>
 				<tr style="background-color:#F4F4A0;">
 					<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Grand Total</strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalbase_salary, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalrapelgaji, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalovertime, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalpremi, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotaltunjangan, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalborongan, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalp_jamsostek, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalp_bpjs, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalp_mk_p1, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalp_panen, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalp_pph21, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalp_koperasi, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalp_lain, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotaltotal, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotaltransfer, 0)%></strong></td>
-					<td align="Right"><strong><%=FormatNumber(grandtotalnontransfer, 0)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalbase_salary, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalrapelgaji, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalovertime, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalpremi, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotaltunjangan, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalborongan, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalp_jamsostek, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalp_bpjs, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalp_mk_p1, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalp_panen, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalp_pph21, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalp_koperasi, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalp_lain, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotaltotal, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotaltransfer, 2)%></strong></td>
+					<td align="Right"><strong><%=FormatNumber(grandtotalnontransfer, 2)%></strong></td>
 				</tr>
 <%End if%>
      </tbody>

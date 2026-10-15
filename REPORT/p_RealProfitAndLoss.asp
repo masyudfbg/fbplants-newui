@@ -354,7 +354,7 @@ body{font-family:'Arial Narrow';font-size:12px;}
 <tr>
 						<tr class="<%=cClass%>">	
 							    <td align="center"><%=rsreal("FIELDCODE")%></td>
-								<td align="Right"><%=rsreal("Ha")%></td>
+								<td align="Right"><%=FbpNum2(rsreal("Ha"))%></td>
 								<td align="center"><%=rsreal("tt")%></td>
 							<%	Costsbi_ = 0
 								Revsbi_ =0
@@ -362,9 +362,9 @@ body{font-family:'Arial Narrow';font-size:12px;}
 								
 
 							    for xi = 1 to Cint(v_txtmonth)   %>
-									<td align="Right"><%=FormatNumber(rsreal("COST_" & Lpad (xi,"0",2) & ""), 0)	%></td>	
-									<td align="Right"><%=FormatNumber(rsreal("REVENUE_" & Lpad (xi,"0",2)  & ""), 0)	%></td>	
-									<td align="Right"><%=FormatNumber(rsreal("PNL_" & Lpad (xi,"0",2)  & ""), 0)	%></td>	
+									<td align="Right"><%=FormatNumber(rsreal("COST_" & Lpad (xi,"0",2) & ""), 2)	%></td>	
+									<td align="Right"><%=FormatNumber(rsreal("REVENUE_" & Lpad (xi,"0",2)  & ""), 2)	%></td>	
+									<td align="Right"><%=FormatNumber(rsreal("PNL_" & Lpad (xi,"0",2)  & ""), 2)	%></td>	
 									<%
 									  
 									  GrandRev(xi) = cdbl(GrandRev(xi)) + cdbl(rsreal("COST_" & Lpad (xi,"0",2) & ""))
@@ -381,9 +381,9 @@ body{font-family:'Arial Narrow';font-size:12px;}
 							  GrandSbiPNL  = cdbl(GrandSbiPNL) + cdbl(Pnlsbi_)
 							  
 							  %>	
-								<td align="Right"><%=FormatNumber(Costsbi_, 0)	%></td>	
-								<td align="Right"><%=FormatNumber(Revsbi_, 0)	%></td>	
-								<td align="Right"><%=FormatNumber(Pnlsbi_, 0)	%></td>																																																																												
+								<td align="Right"><%=FormatNumber(Costsbi_, 2)	%></td>	
+								<td align="Right"><%=FormatNumber(Revsbi_, 2)	%></td>	
+								<td align="Right"><%=FormatNumber(Pnlsbi_, 2)	%></td>																																																																												
 						</tr>
 		<% 
 					rsreal.MoveNext
@@ -395,13 +395,13 @@ body{font-family:'Arial Narrow';font-size:12px;}
 		<tr bgcolor="#F4F4A0">
 			<td colspan="3" align="center"><strong>GRAND TOTAL</strong></td>	
 			<% for xi = 1 to Cint(v_txtmonth) %>	
-					 <td align="right"><strong><%=FormatNumber(GrandRev(xi), 0)	%></strong></td> 
-					 <td align="right"><strong><%=FormatNumber(GrandCost(xi), 0)%></strong></td> 
-					 <td align="right"><strong><%=FormatNumber(Grandpnl(xi), 0)	%></strong></td> 
+					 <td align="right"><strong><%=FormatNumber(GrandRev(xi), 2)	%></strong></td> 
+					 <td align="right"><strong><%=FormatNumber(GrandCost(xi), 2)%></strong></td> 
+					 <td align="right"><strong><%=FormatNumber(Grandpnl(xi), 2)	%></strong></td> 
 			<%  next%>
-			<td align="right"><strong><%=FormatNumber(GrandSbiCost, 0)%></strong></td>  
-			<td align="right"><strong><%=FormatNumber(GrandSbiRev, 0)%></strong></td>  
-			<td align="right"><strong><%=FormatNumber(GrandSbiPNL, 0)%></strong></td>  
+			<td align="right"><strong><%=FormatNumber(GrandSbiCost, 2)%></strong></td>  
+			<td align="right"><strong><%=FormatNumber(GrandSbiRev, 2)%></strong></td>  
+			<td align="right"><strong><%=FormatNumber(GrandSbiPNL, 2)%></strong></td>  
 		</tr>
 		
 		<%End if%>

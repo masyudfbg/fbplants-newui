@@ -670,7 +670,7 @@ set rsLHPP = Nothing
 					
 					
 						<td align="right"><%=FormatNumber(array_data(3, array_i), 1)%></td>
-						<td align="right"><%=FormatNumber(array_data(4, array_i), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(4, array_i), 2)%></td>
 						<td align="right" bgcolor="grey">&nbsp;</td>
 						<td align="right" bgcolor="grey">&nbsp;</td>
 						<td align="right" bgcolor="grey">&nbsp;</td>
@@ -682,16 +682,16 @@ set rsLHPP = Nothing
 						<td align="right" bgcolor="grey">&nbsp;</td>
 						
 						
-						<td align="right"><%=FormatNumber(row_total_bi, 0)%></td>
+						<td align="right"><%=FormatNumber(row_total_bi, 2)%></td>
 						
 						<%if Cdbl(array_data(3, array_i)) = 0 then%>
-								<td align="right"><%=0%></td>
+								<td align="right"><%=FbpNum2(0)%></td>
 						<%else%>
-								<td align="right"><%=FormatNumber( Round( row_total_bi/Cdbl(array_data(3, array_i)), 0), 0)%></td>
+								<td align="right"><%=FormatNumber( Round( row_total_bi/Cdbl(array_data(3, array_i)), 0), 2)%></td>
 						<%end if%>
 						
 						<td align="right"><%=FormatNumber(array_data(14, array_i), 1)%></td>
-						<td align="right"><%=FormatNumber(array_data(15, array_i), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(15, array_i), 2)%></td>
 						<td align="right" bgcolor="grey">&nbsp;</td>
 						<td align="right" bgcolor="grey">&nbsp;</td>
 						<td align="right" bgcolor="grey">&nbsp;</td>
@@ -702,12 +702,12 @@ set rsLHPP = Nothing
 						<td align="right" bgcolor="grey">&nbsp;</td>
 						<td align="right" bgcolor="grey">&nbsp;</td>
 						
-						<td align="right"><%=FormatNumber(row_total_sbi, 0)%></td>
+						<td align="right"><%=FormatNumber(row_total_sbi, 2)%></td>
 						
 						<%if Cdbl(array_data(14, array_i)) = 0 then%>
-								<td align="right"><%=0%></td>
+								<td align="right"><%=FbpNum2(0)%></td>
 						<%else%>
-								<td align="right"><%=FormatNumber( Round( row_total_sbi/Cdbl(array_data(14, array_i)), 0), 0)%></td>
+								<td align="right"><%=FormatNumber( Round( row_total_sbi/Cdbl(array_data(14, array_i)), 0), 2)%></td>
 						<%end if%>
 					
 						
@@ -745,43 +745,43 @@ set rsLHPP = Nothing
 						%>
 					
 						<td align="right"><%=FormatNumber(array_data(3, array_i), 1)%></td>
-						<td align="right"><%=FormatNumber(array_data(4, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(5, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(6, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(7, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(8, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(9, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(10, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(11, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(12, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(13, array_i), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(4, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(5, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(6, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(7, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(8, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(9, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(10, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(11, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(12, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(13, array_i), 2)%></td>
 						
-						<td align="right"><%=FormatNumber(row_total_bi, 0)%></td>
+						<td align="right"><%=FormatNumber(row_total_bi, 2)%></td>
 						
 						<%if Cdbl(array_data(3, array_i)) = 0 then%>
-								<td align="right"><%=0%></td>
+								<td align="right"><%=FbpNum2(0)%></td>
 						<%else%>
-								<td align="right"><%=FormatNumber( Round( row_total_bi/Cdbl(array_data(3, array_i)), 0), 0)%></td>
+								<td align="right"><%=FormatNumber( Round( row_total_bi/Cdbl(array_data(3, array_i)), 0), 2)%></td>
 						<%end if%>
 						
 						<td align="right"><%=FormatNumber(array_data(14, array_i), 1)%></td>
-						<td align="right"><%=FormatNumber(array_data(15, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(16, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(17, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(18, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(19, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(20, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(21, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(22, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(23, array_i), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(24, array_i), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(15, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(16, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(17, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(18, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(19, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(20, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(21, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(22, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(23, array_i), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(24, array_i), 2)%></td>
 						
-						<td align="right"><%=FormatNumber(row_total_sbi, 0)%></td>
+						<td align="right"><%=FormatNumber(row_total_sbi, 2)%></td>
 						
 						<%if Cdbl(array_data(14, array_i)) = 0 then%>
-								<td align="right"><%=0%></td>
+								<td align="right"><%=FbpNum2(0)%></td>
 						<%else%>
-								<td align="right"><%=FormatNumber( Round( row_total_sbi/Cdbl(array_data(14, array_i)), 0), 0)%></td>
+								<td align="right"><%=FormatNumber( Round( row_total_sbi/Cdbl(array_data(14, array_i)), 0), 2)%></td>
 						<%end if%>
 						
 					<%end if%>
@@ -827,18 +827,18 @@ set rsLHPP = Nothing
 				<td align="left"><%=arrayST(1, iii)%></td>
 				
 				<td align="right"><%=FormatNumber(arrayST(2, iii), 1)%></td>
-				<td align="right"><%=FormatNumber(arrayST(3, iii), 0)%></td>
+				<td align="right"><%=FormatNumber(arrayST(3, iii), 2)%></td>
 				
 				<%if IsNull(arrayST(24, iii)) then%>
-					<td align="right"><%=FormatNumber(arrayST(4, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(5, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(6, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(7, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(8, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(9, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(10, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(11, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(12, iii), 0)%></td>
+					<td align="right"><%=FormatNumber(arrayST(4, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(5, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(6, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(7, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(8, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(9, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(10, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(11, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(12, iii), 2)%></td>
 				<%else%>
 					<td align="right" bgcolor="grey">&nbsp;</td>
 					<td align="right" bgcolor="grey">&nbsp;</td>
@@ -851,26 +851,26 @@ set rsLHPP = Nothing
 					<td align="right" bgcolor="grey">&nbsp;</td>
 				<%end if%>
 				
-				<td align="right"><%=FormatNumber(row_st_total_bi, 0)%></td>
+				<td align="right"><%=FormatNumber(row_st_total_bi, 2)%></td>
 				
 				<%if Cdbl(arrayST(2, iii)) = 0 then%>
-						<td align="right"><%=0%></td>
+						<td align="right"><%=FbpNum2(0)%></td>
 				<%else%>
-						<td align="right"><%=FormatNumber( Round(row_st_total_bi/Cdbl(arrayST(2, iii)), 0), 0)%></td>
+						<td align="right"><%=FormatNumber( Round(row_st_total_bi/Cdbl(arrayST(2, iii)), 0), 2)%></td>
 				<%end if%>
 				
 				<td align="right"><%=FormatNumber(arrayST(13, iii), 1)%></td>
-				<td align="right"><%=FormatNumber(arrayST(14, iii), 0)%></td>
+				<td align="right"><%=FormatNumber(arrayST(14, iii), 2)%></td>
 				<%if IsNull(arrayST(24, iii)) then%>
-					<td align="right"><%=FormatNumber(arrayST(15, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(16, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(17, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(18, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(19, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(20, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(21, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(22, iii), 0)%></td>
-					<td align="right"><%=FormatNumber(arrayST(23, iii), 0)%></td>
+					<td align="right"><%=FormatNumber(arrayST(15, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(16, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(17, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(18, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(19, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(20, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(21, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(22, iii), 2)%></td>
+					<td align="right"><%=FormatNumber(arrayST(23, iii), 2)%></td>
 				<%else%>
 					<td align="right" bgcolor="grey">&nbsp;</td>
 					<td align="right" bgcolor="grey">&nbsp;</td>
@@ -884,12 +884,12 @@ set rsLHPP = Nothing
 					
 				<%end if%>
 				
-				<td align="right"><%=FormatNumber(row_st_total_sbi, 0)%></td>
+				<td align="right"><%=FormatNumber(row_st_total_sbi, 2)%></td>
 				
 				<%if Cdbl(arrayST(13, iii)) = 0 then%>
-						<td align="right"><%=0%></td>
+						<td align="right"><%=FbpNum2(0)%></td>
 				<%else%>
-						<td align="right"><%=FormatNumber( Round(row_st_total_sbi/Cdbl(arrayST(13, iii)), 0), 0)%></td>
+						<td align="right"><%=FormatNumber( Round(row_st_total_sbi/Cdbl(arrayST(13, iii)), 0), 2)%></td>
 				<%end if%>
 				
 			</tr>
@@ -901,48 +901,48 @@ set rsLHPP = Nothing
 					<tr bgcolor="#f4f4a0">
 						<td align="center" colspan="2"><strong>Grand Total</strong></td>
 						<td align="right"><strong><%=FormatNumber(gt_hk_bi, 1)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_gaji_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_premilembur_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_beras_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_thr_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_bonus_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_bpjs_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_pengobatan_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_perumahan_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_seragam_bi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_extrafooding_bi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_gaji_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_premilembur_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_beras_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_thr_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_bonus_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_bpjs_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_pengobatan_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_perumahan_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_seragam_bi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_extrafooding_bi, 2)%></strong></td>
 						
 						<%
 						gt_total_bi = gt_total_bi + gt_gaji_bi +  gt_premilembur_bi +  gt_beras_bi +  gt_thr_bi +  gt_bonus_bi +  gt_bpjs_bi +  gt_pengobatan_bi +  gt_perumahan_bi +  gt_seragam_bi +  gt_extrafooding_bi
 						gt_total_sbi = gt_total_sbi + gt_gaji_sbi +  gt_premilembur_sbi +  gt_beras_sbi +  gt_thr_sbi +  gt_bonus_sbi +  gt_bpjs_sbi +  gt_pengobatan_sbi +  gt_perumahan_sbi +  gt_seragam_sbi +  gt_extrafooding_sbi
 						%>
 						
-						<td align="right"><strong><%=FormatNumber(gt_total_bi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_total_bi, 2)%></strong></td>
 						
 						<%if gt_hk_bi = 0 then%>
-								<td align="right"><strong><%=0%></strong></td>
+								<td align="right"><strong><%=FbpNum2(0)%></strong></td>
 						<%else%>
-								<td align="right"><strong><%=FormatNumber( Round(gt_total_bi/gt_hk_bi, 0), 0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber( Round(gt_total_bi/gt_hk_bi, 0), 2)%></strong></td>
 						<%end if%>
 						
 						<td align="right"><strong><%=FormatNumber(gt_hk_sbi, 1)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_gaji_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_premilembur_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_beras_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_thr_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_bonus_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_bpjs_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_pengobatan_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_perumahan_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_seragam_sbi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_extrafooding_sbi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_gaji_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_premilembur_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_beras_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_thr_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_bonus_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_bpjs_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_pengobatan_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_perumahan_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_seragam_sbi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_extrafooding_sbi, 2)%></strong></td>
 						
-						<td align="right"><strong><%=FormatNumber(gt_total_sbi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_total_sbi, 2)%></strong></td>
 						
 						<%if gt_hk_sbi = 0 then%>
-								<td align="right"><strong><%=0%></strong></td>
+								<td align="right"><strong><%=FbpNum2(0)%></strong></td>
 						<%else%>
-								<td align="right"><strong><%=FormatNumber( Round(gt_total_sbi/gt_hk_sbi, 0), 0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber( Round(gt_total_sbi/gt_hk_sbi, 0), 2)%></strong></td>
 						<%end if%>
 					</tr>
 				</tbody>

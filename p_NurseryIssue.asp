@@ -175,8 +175,8 @@ response.Flush()
 					<td align="Left"><font face="Verdana" size="1"><%=rscat("reference")%></td>
 					<td align="Left"><font face="Verdana" size="1"><%=rscat("remarks")%></td>
 					<td align="Right"><font face="Verdana" size="1"><%=rscat("linenohist")%></td>
-					<td align="Right"><font face="Verdana" size="1"><%=formatnumber(rscat("quantity"), 0)%></td>
-					<td align="Right"><font face="Verdana" size="1"><%=formatnumber(rscat("amount"), 0)%></td>					
+					<td align="Right"><font face="Verdana" size="1"><%=formatnumber(rscat("quantity"), 2)%></td>
+					<td align="Right"><font face="Verdana" size="1"><%=formatnumber(rscat("amount"), 2)%></td>					
 				</tr>
 	<%
 			nQty=nQty+trim(cdbl(rsCat("QUANTITY")))
@@ -188,8 +188,8 @@ response.Flush()
 	%>
 				<tr bgcolor="#F4F4A0">
 					<td align="Center"colspan="11"> <font face="Verdana" size="1"><strong>T o t a l</strong></td>
-					<td align="Right"> <font face="Verdana" size="1"><strong><%=FormatNumber(nQty, 0)%></strong></td>
-					<td align="Right"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalamount, 0)%></strong></td>
+					<td align="Right"> <font face="Verdana" size="1"><strong><%=FormatNumber(nQty, 2)%></strong></td>
+					<td align="Right"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalamount, 2)%></strong></td>
 				</tr>	  
 	  
 	<%

@@ -140,8 +140,8 @@ rshdr.close
 	<tr>
 		
 		<th style="color:#FFFFFF" colspan="2">JAM KERJA BENGKEL (JAM)</th>
-		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jamBI),0)%></th>
-		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jambudBI),0)%></th>
+		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jamBI),2)%></th>
+		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jambudBI),2)%></th>
 		<% IF cdbl(jamBI) = 0 THEN %>
 		    <th style="color:#FFFFFF" >100</th>
 		<% ELSEIF cdbl(jambudBI) = 0 THEN %>
@@ -149,10 +149,10 @@ rshdr.close
 		<% ELSEIF cdbl(jambudBI) = 0 and cdbl(jamBI) = 0 THEN %>
 		    <th style="color:#FFFFFF" >0</th>
         <% ELSEIF cdbl(jambudBI) > 0 and cdbl(jamBI) > 0 THEN %>
-		    <th style="color:#FFFFFF" ><%=formatnumber((cdbl(jamBI) - cdbl(jambudBI))/cdbl(jambudBI)*100,0)%></th>
+		    <th style="color:#FFFFFF" ><%=formatnumber((cdbl(jamBI) - cdbl(jambudBI))/cdbl(jambudBI)*100,2)%></th>
         <% END IF %>			
-		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jamSBI),0)%></th>
-		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jambudSBI),0)%></th>
+		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jamSBI),2)%></th>
+		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jambudSBI),2)%></th>
 		<% IF cdbl(jamSBI) = 0 THEN %>
 		    <th style="color:#FFFFFF" >100</th>
 		<% ELSEIF cdbl(jambudSBI) = 0 THEN %>
@@ -160,10 +160,10 @@ rshdr.close
 		<% ELSEIF cdbl(jambudSBI) = 0 and cdbl(jamSBI) = 0 THEN %>
 		    <th style="color:#FFFFFF" >0</th>
         <% ELSEIF cdbl(jambudSBI) > 0 and cdbl(jamSBI) > 0 THEN %>
-		    <th style="color:#FFFFFF" ><%=formatnumber((cdbl(jamSBI) - cdbl(jambudSBI))/cdbl(jambudSBI)*100,0)%></th>
+		    <th style="color:#FFFFFF" ><%=formatnumber((cdbl(jamSBI) - cdbl(jambudSBI))/cdbl(jambudSBI)*100,2)%></th>
         <% END IF %>
 		
-		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jambudthn),0)%></th>
+		<th style="color:#FFFFFF" colspan="2"><%=formatnumber(cdbl(jambudthn),2)%></th>
 	</tr>
 	<tr>
 		
@@ -226,22 +226,22 @@ rshdr.close
 				<tr>  
 					<td align="CENTER"><%=rsha("jobcode")%></td>
 					<td align="LEFT"><%=rsha("JobName")%></td>
-					<td align="right"><%=formatnumber(cdbl(rsha("totBI")),0)%></td>
+					<td align="right"><%=formatnumber(cdbl(rsha("totBI")),2)%></td>
 					<% if cdbl(jamBI) > 0 then
 					      rpperjamBI = cdbl(rsha("totBI"))/ cdbl(jamBI)
 					   else 
 						  rpperjamBI = "0" 
 					   end if %>
-					<td align="right"><%=formatnumber(cdbl(rpperjamBI),0)%></td>
+					<td align="right"><%=formatnumber(cdbl(rpperjamBI),2)%></td>
 					   
-					<td align="right"><%=formatnumber(cdbl(rsha("totbudBI")),0)%></td>
+					<td align="right"><%=formatnumber(cdbl(rsha("totbudBI")),2)%></td>
 					
 					<% if cdbl(jambudBI) > 0 then
 					      rpperjambudBI = cdbl(rsha("totbudBI"))/ cdbl(jambudBI)
 					  else 
 						  rpperjambudBI = "0" 
 					  end if %>
-					<td align="right"><%=formatnumber(cdbl(rpperjambudBI),0)%></td>
+					<td align="right"><%=formatnumber(cdbl(rpperjambudBI),2)%></td>
 					
 					<% 'persen BI %>
 					<% IF cdbl(rpperjamBI) = 0 and cdbl(rpperjambudBI) > 0 THEN %>
@@ -254,20 +254,20 @@ rshdr.close
 					  <td align="right"><%=formatnumber((cdbl(rpperjambudBI) - cdbl(rpperjamBI)) / cdbl(rpperjambudBI)*100,2)%></td>
                     <% END IF %> 	
 					
-					<td align="right"><%=formatnumber(cdbl(rsha("totSBI")),0)%></td>
+					<td align="right"><%=formatnumber(cdbl(rsha("totSBI")),2)%></td>
 					<% if cdbl(jamSBI) > 0 then
 					      rpperjamSBI = cdbl(rsha("totSBI"))/ cdbl(jamSBI)
 					   else 
 						  rpperjamBI = "0" 
 					end if %>
-					<td align="right"><%=formatnumber(cdbl(rpperjamSBI),0)%></td>
-					<td align="right"><%=formatnumber(cdbl(rsha("totbudSBI")),0)%></td>
+					<td align="right"><%=formatnumber(cdbl(rpperjamSBI),2)%></td>
+					<td align="right"><%=formatnumber(cdbl(rsha("totbudSBI")),2)%></td>
 					<% if cdbl(jambudSBI) > 0 then
 					      rpperjambudSBI = cdbl(rsha("totbudSBI"))/ cdbl(jambudSBI)
 					  else 
 						  rpperjambudSBI = "0" 
 					  end if %>
-					<td align="right"><%=formatnumber(cdbl(rpperjambudSBI),0)%></td>
+					<td align="right"><%=formatnumber(cdbl(rpperjambudSBI),2)%></td>
 					
 					<% 'persen SBI %>
 					<% IF cdbl(rpperjamSBI) = 0 and cdbl(rpperjambudSBI) > 0 THEN %>
@@ -280,13 +280,13 @@ rshdr.close
 					  <td align="right"><%=formatnumber((cdbl(rpperjambudSBI) - cdbl(rpperjamSBI)) / cdbl(rpperjambudSBI) *100,2)%></td>
                     <% END IF %> 
 					
-					<td align="right"><%=formatnumber(cdbl(rsha("totbudTHN")),0)%> </td>
+					<td align="right"><%=formatnumber(cdbl(rsha("totbudTHN")),2)%> </td>
 					<% if cdbl(jambudTHN) > 0 then
 					      rpperjambudTHN = cdbl(rsha("totbudTHN"))/ cdbl(jambudTHN)
 					  else 
 						  rpperjambudTHN = "0" 
 					  end if %>
-					<td align="right"><%=formatnumber(cdbl(rpperjambudTHN),0)%></td>
+					<td align="right"><%=formatnumber(cdbl(rpperjambudTHN),2)%></td>
 				<tr>	
           <%
 		     subtotBI = cdbl(subtotBI) + cdbl(rsha("totBI"))
@@ -305,10 +305,10 @@ rshdr.close
 	%>	
    <tr>
        <td style="background-color:#F4F4A0" align="center" colspan="2"><b>TOTAL</td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjamBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotbudBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjambudBI),0)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjamBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotbudBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjambudBI),2)%></td>
 	   
 	    <% 'persen BI %>
 	   <% IF cdbl(subrpperjamBI) = 0 and cdbl(subrpperjambudBI) > 0 THEN %>
@@ -321,10 +321,10 @@ rshdr.close
 		 <td style="background-color:#F4F4A0" align="right"><b><%=formatnumber((cdbl(subrpperjambudBI) - cdbl(subrpperjamBI)) / cdbl(subrpperjambudBI) *100,2)%></td>
         <% END IF %>
 	   
-       <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjamSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotbudSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjambudSBI),0)%></td>
+       <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjamSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotbudSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjambudSBI),2)%></td>
 	   
 	   <% 'persen SBI %>
 	   <% IF cdbl(subrpperjamSBI) = 0 and cdbl(subrpperjambudSBI) > 0 THEN %>
@@ -337,11 +337,11 @@ rshdr.close
 		 <td style="background-color:#F4F4A0" align="right"><b><%=formatnumber((cdbl(subrpperjambudSBI) - cdbl(subrpperjamSBI)) / cdbl(subrpperjambudSBI) *100,2)%></td>
         <% END IF %> 
 					
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotbudTHN),0)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotbudTHN),2)%></td>
 	   <% IF subrpperjambudTHN = 0 THEN %>
 	      <td style="background-color:#F4F4A0"  align="right"><b>0</td>
 	   <% ELSE %>
-	      <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjambudTHN),0)%></td>
+	      <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrpperjambudTHN),2)%></td>
 	   <% END IF %> 	  
    </tr>    
 </table>

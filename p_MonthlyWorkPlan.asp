@@ -142,13 +142,13 @@ Set rsCat = connStr.Execute(txtSQL)
 		<%
 		else
 		%>
-			<td align="right"><font face="Verdana" size="1"><%=rscat("mandays")%></td>		
-			<td align="right"><font face="Verdana" size="1"><%=rscat("rate")%></td>		
-			<td align="right"><font face="Verdana" size="1"><%=rscat("totalamounthead")%></td>			
-			<td align="right"><font face="Verdana" size="1"><%=rscat("volume")%></td>
-			<td align="right"><font face="Verdana" size="1"><%=rscat("boronganpremi")%></td>
+			<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("mandays"))%></td>		
+			<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("rate"))%></td>		
+			<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("totalamounthead"))%></td>			
+			<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("volume"))%></td>
+			<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("boronganpremi"))%></td>
 		<% end if %>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("division")%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("division"))%></td>
 		<td align="right"><font face="Verdana" size="1"><%=rscat("fieldcode")%></td>
 		<%
 		if txtDivision = rscat("division") AND txtFieldcode = rscat("fieldcode") AND txtTempJobcode = Cdbl(rscat("activitycode")) then
@@ -157,16 +157,16 @@ Set rsCat = connStr.Execute(txtSQL)
 		<%
 		else
 		%>
-			<td align="right"><font face="Verdana" size="1"><%=rscat("haplan")%></td>
+			<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("haplan"))%></td>
 		<% end if %>
 		<td align="Left"><font face="Verdana" size="1"><%=rscat("material")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("qty")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("ratestock")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("totalamount")%></td>		
-		<td align="right"><font face="Verdana" size="1"><%=rscat("kg")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("jjg")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("rotasi")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("remarks")%></td>		
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("qty"))%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("ratestock"))%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("totalamount"))%></td>		
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("kg"))%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("jjg"))%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("rotasi"))%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("remarks"))%></td>		
 		</tr>
 	  <%
 	  

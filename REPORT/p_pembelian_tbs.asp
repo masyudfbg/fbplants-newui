@@ -195,13 +195,13 @@ if "" & v_txtDateTo = "" then v_txtDateTo = textDate(date)
 		<tr>
 			<td align="left"><%=rsBeliTBSall("description")%></td>
 			<td align="left"><%=rsBeliTBSall("transdate")%></td>
-			<td align="right"><%=FormatNumber(netto1,0)%></td>
-			<td align="right"><%=FormatNumber(gradingqty,0)%></td>
-			<td align="right"><%=FormatNumber(netto2,0)%></td>
-			<td align="right"><%=FormatNumber(pricetbs,0)%></td>
-			<td align="right"><%=FormatNumber(granttl,0)%></td>
-			<td align="right"><%=FormatNumber(pphrp,0)%></td>
-			<td align="right"><%=FormatNumber(amountdanpph,0)%></td>
+			<td align="right"><%=FormatNumber(netto1,2)%></td>
+			<td align="right"><%=FormatNumber(gradingqty,2)%></td>
+			<td align="right"><%=FormatNumber(netto2,2)%></td>
+			<td align="right"><%=FormatNumber(pricetbs,2)%></td>
+			<td align="right"><%=FormatNumber(granttl,2)%></td>
+			<td align="right"><%=FormatNumber(pphrp,2)%></td>
+			<td align="right"><%=FormatNumber(amountdanpph,2)%></td>
 			
 		  </tr>	
 		      
@@ -219,13 +219,13 @@ if "" & v_txtDateTo = "" then v_txtDateTo = textDate(date)
 		%>
 		  <tr bgcolor="#F4F4A0">
 			<td align="center" colspan="<%=add_newspan+2%>"><strong>TOTAL</td>
-			<td align="right"><strong><%=FormatNumber(ttlkg1,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlgrading,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlkg,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlharga,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlgrand,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(totalpph,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(totalamountpph,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlkg1,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlgrading,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlkg,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlharga,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlgrand,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(totalpph,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(totalamountpph,2)%></strong></td>
 		  </tr>	
 		<%
 	end if
@@ -311,13 +311,13 @@ if "" & v_txtDateTo = "" then v_txtDateTo = textDate(date)
 		<tr>
 			<td align="left"><%=rsBeliTBSall("description")%></td>
 			<td align="left"><%=rsBeliTBSall("transdate")%></td>
-			<td align="right"><%=FormatNumber(netto1,0)%></td>
-			<td align="right"><%=FormatNumber(gradingqty,0)%></td>
-			<td align="right"><%=FormatNumber(netto2,0)%></td>
-			<td align="right"><%=FormatNumber(pricetbs,0)%></td>
-			<td align="right"><%=FormatNumber(granttl,0)%></td>
-			<td align="right"><%=FormatNumber(pphrp,0)%></td>
-			<td align="right"><%=FormatNumber(amountdanpph,0)%></td>
+			<td align="right"><%=FormatNumber(netto1,2)%></td>
+			<td align="right"><%=FormatNumber(gradingqty,2)%></td>
+			<td align="right"><%=FormatNumber(netto2,2)%></td>
+			<td align="right"><%=FormatNumber(pricetbs,2)%></td>
+			<td align="right"><%=FormatNumber(granttl,2)%></td>
+			<td align="right"><%=FormatNumber(pphrp,2)%></td>
+			<td align="right"><%=FormatNumber(amountdanpph,2)%></td>
 		  </tr>	
 		      
 		<%
@@ -335,13 +335,13 @@ if "" & v_txtDateTo = "" then v_txtDateTo = textDate(date)
 		%>
 		<tr bgcolor="#F4F4A0">
 			<td align="center" colspan="<%=add_newspan+2%>"><strong>TOTAL</td>
-			<td align="right"><strong><%=FormatNumber(ttlkg1,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlgrading,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlkg,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlharga,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlgrand,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(totalpph,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(totalamountpph,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlkg1,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlgrading,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlkg,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlharga,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlgrand,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(totalpph,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(totalamountpph,2)%></strong></td>
 		  </tr>	
 		<%
 	end if

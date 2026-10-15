@@ -414,7 +414,7 @@ else
 %>
 						<tr style="background-color:#F4F4A0;">
 							<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Sub Total <%=PCase(PrevRegion)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotalbonus, 0)%></strong></td>			
+							<td align="Right"><strong><%=FormatNumber(subtotalbonus, 2)%></strong></td>			
 						</tr>
 <%
 						subtotalbonus = 0
@@ -626,7 +626,7 @@ else
 							<%If var_colspan = 1 Then%>
 								<td align="right"></td>
 							<%End If%>
-								<td align="right"><%=FormatNumber(rsrekap_bpjskes("bonus"), 0)%></td>
+								<td align="right"><%=FormatNumber(rsrekap_bpjskes("bonus"), 2)%></td>
 					</tr>
 				<%Else%>
 					<tr>
@@ -835,7 +835,7 @@ else
 					<%If var_colspan = 1 Then%>
 						<td align="right"></td>
 					<%End If%>
-						<td align="right"><%=FormatNumber(rsrekap_bpjskes("bonus"), 0)%></td>
+						<td align="right"><%=FormatNumber(rsrekap_bpjskes("bonus"), 2)%></td>
 					</tr>
 				<%End If%>
 <%
@@ -1048,7 +1048,7 @@ else
 				<%If var_colspan = 1 Then%>
 					<td align="right"></td>
 				<%End If%>
-					<td align="right"><%=FormatNumber(rsrekap_bpjskes("bonus"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsrekap_bpjskes("bonus"), 2)%></td>
 				</tr>
 			<%End If%>
 <%
@@ -1063,12 +1063,12 @@ else
 			<%if v_txtRegion <>  "--SUMMARY--" and v_txtRegion <>  "" then%>
 				<tr style="background-color:#F4F4A0;">
 					<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Sub Total <%=PCase(PrevRegion)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(subtotalbonus, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(subtotalbonus, 2)%></strong></td>
 				</tr>
 			<%End If%>
 				<tr style="background-color:#F4F4A0;">
 					<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Grand Total</strong></td>
-					<td align="right"><strong><%=FormatNumber(grandtotalbonus, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(grandtotalbonus, 2)%></strong></td>
 				</tr>
 <%End if%>
      </tbody>

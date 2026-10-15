@@ -1111,14 +1111,14 @@ if (rsDKWH.bof and rsDKWH.eof) then
 			End If
 %>
 				
-				<td align="right"><%=FormatNumber(rsDKWH("HI"), 0)%></td>
-				<td align="right"><%=FormatNumber(Total_Persen_HI, 0)%></td>
+				<td align="right"><%=FormatNumber(rsDKWH("HI"), 2)%></td>
+				<td align="right"><%=FormatNumber(Total_Persen_HI, 2)%></td>
 
-				<td align="right"><%=FormatNumber(rsDKWH("SHI"), 0)%></td>
-				<td align="right"><%=FormatNumber(Total_Persen_SHI, 0)%></td>
+				<td align="right"><%=FormatNumber(rsDKWH("SHI"), 2)%></td>
+				<td align="right"><%=FormatNumber(Total_Persen_SHI, 2)%></td>
 
-				<td align="right"><%=FormatNumber(rsDKWH("SBI"), 0)%></td>
-				<td align="right"><%=FormatNumber(Total_Persen_SBI, 0)%></td>
+				<td align="right"><%=FormatNumber(rsDKWH("SBI"), 2)%></td>
+				<td align="right"><%=FormatNumber(Total_Persen_SBI, 2)%></td>
 			</tr>
 <%
 			GrandTotal_HI	=	GrandTotal_HI + Cdbl(rsDKWH("HI"))
@@ -1131,12 +1131,12 @@ if (rsDKWH.bof and rsDKWH.eof) then
 %>
 	<tr bgcolor="#F4F4A0">
 		<td align="center" colspan="<%=1+var_ColSpan%>"><strong>TOTAL</strong></td>
-		<td align="right"><strong><%=FormatNumber(Temp_Total_HI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_HI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(Temp_Total_SHI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_SHI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(Temp_Total_SBI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_SBI, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Temp_Total_HI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_HI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Temp_Total_SHI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_SHI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Temp_Total_SBI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_SBI, 2)%></strong></td>
 	</tr>
 <%End if%>
 </tbody>

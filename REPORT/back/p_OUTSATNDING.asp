@@ -123,7 +123,7 @@ if rsTerimaTBS.bof and rsTerimaTBS.eof then
 		<td align="center"><%=rsTerimaTBS("qty_contract")%></td>
 		<td align="left"><%=rsTerimaTBS("NO_KENDARAAN")%></td>
 		<td align="right"><%=rsTerimaTBS("DELIVERYNOTECODE")%></td>
-		<td align="right"><%=rsTerimaTBS("quantity")%></td>
+		<td align="right"><%=FbpNum2(rsTerimaTBS("quantity"))%></td>
 		<% if contrak <>  rsTerimaTBS("no_kontrak")  then
 		      qtycontract = cdbl(rsTerimaTBS("qty_contract"))
 			  sisa = 0
@@ -133,7 +133,7 @@ if rsTerimaTBS.bof and rsTerimaTBS.eof then
 		      
 			  sisa = sisa - cdbl(rsTerimaTBS("quantity"))
 		   end if  %>
-		<td align="right"><%=sisa%></td>
+		<td align="right"><%=FbpNum2(sisa)%></td>
 	</tr>
 <%
 			NO = NO + 1

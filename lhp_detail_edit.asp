@@ -258,10 +258,10 @@ end if
 								%>
 									<tr class="">
 										<td colspan="4" class="tebal ratakanan">Total</td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlbruto,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttltara,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlsortasi,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlnetto,0)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlbruto,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttltara,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlsortasi,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlnetto,2)%></span></td>
 									</tr>
 							</table>
 						</div>
@@ -356,10 +356,10 @@ end if
 								%>
 									<tr class="">
 										<td colspan="4" class="tebal ratakanan">Total</td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlbruto,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttltara,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlsortasi,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlnetto,0)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlbruto,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttltara,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlsortasi,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlnetto,2)%></span></td>
 									</tr>
 							</table>
 						</div>
@@ -450,9 +450,9 @@ end if
 								%>
 									<tr class="">
 										<td colspan="6" class="tebal ratakanan">Total</td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlbrutocpo,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttltaracpo,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlnettocpo,0)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlbrutocpo,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttltaracpo,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlnettocpo,2)%></span></td>
 										
 									</tr>
 									
@@ -545,9 +545,9 @@ end if
 								%>
 									<tr class="">
 										<td colspan="6" class="tebal ratakanan">Total</td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlbrutopk,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttltarapk,0)%></span></td>
-										<td class="tebal ratatengah"><span><%=FormatNumber(ttlnettopk,0)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlbrutopk,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttltarapk,2)%></span></td>
+										<td class="tebal ratatengah"><span><%=FormatNumber(ttlnettopk,2)%></span></td>
 										
 									</tr>
 

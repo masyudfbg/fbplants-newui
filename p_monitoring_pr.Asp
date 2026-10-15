@@ -415,7 +415,7 @@ response.Flush()
 							</td>
                             <td align="Right"  style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("quantity")%></td>
 							<%if menu_po="TRUE" then%>
-                            <td align="Right"  style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rsview("unitprice"),0)%></td>
+                            <td align="Right"  style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rsview("unitprice"),2)%></td>
 							<%end if%>
                             <td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("receivenotecode")%></td>
                             <td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsview("rndate")%> </td>

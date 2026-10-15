@@ -449,17 +449,17 @@ sqlview1 = "SELECT t.fcba,t.fccode,t.fcname,t.sectioncode,t.fieldcode,t.fieldare
 			<td align="Right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("unitshi"),2)%></td>	
 			
 			<td align="Right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("hkshi"),2)%></td>	
-			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("rphkshi"),0)%></td>
+			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("rphkshi"),2)%></td>
 				
 
-			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("fisikbrshi"),0)%></td>	
+			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("fisikbrshi"),2)%></td>	
 			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("unitbrshi"),2)%></td>	
 			
-			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("rpbrshi"),0)%></td>		
+			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("rpbrshi"),2)%></td>		
 	
 			<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=(rscat("itembahan"))%></td>	
 			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("qtybahanshi"),2)%></td>	
-			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("biayabahanshi"),0)%></td>		
+			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("biayabahanshi"),2)%></td>		
 	
 			<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=(rscat("itemkendaraan"))%></td>	
 			<td align="right" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("qtyvrashi"),2)%></td>	
@@ -524,20 +524,20 @@ sqlview1 = "SELECT t.fcba,t.fccode,t.fcname,t.sectioncode,t.fieldcode,t.fieldare
 
 		<tr bgcolor="#F4F4A0">
 			<td align="Center" style="<%=cmdstyle%>" colspan= "4"><font face="Verdana" size="1"><strong>T o t a l</strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlfisikshi, 0)%></strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlunitshi, 0)%></strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlhkshi, 0)%></strong></td> 
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlrphkshi, 0)%></strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlfisikbrshi, 0)%></strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlunitbrshi, 0)%></strong></td>
-			<td align="Right" colspan="2"style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlrpbrshi, 0)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlfisikshi, 2)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlunitshi, 2)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlhkshi, 2)%></strong></td> 
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlrphkshi, 2)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlfisikbrshi, 2)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlunitbrshi, 2)%></strong></td>
+			<td align="Right" colspan="2"style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlrpbrshi, 2)%></strong></td>
 			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlqtybahanshi, 0)%></strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlbiayabahanshi, 0)%></strong></td>			
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlqtybahanshi, 2)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlbiayabahanshi, 2)%></strong></td>			
 			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong></strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlqtyvrashi, 0)%></strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlbiayavrashi, 0)%></strong></td>
-			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlgrndrupiahshi, 0)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlqtyvrashi, 2)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlbiayavrashi, 2)%></strong></td>
+			<td align="Right" colspan="2" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlgrndrupiahshi, 2)%></strong></td>
 		</tr>
 	</tbody>
 </table>

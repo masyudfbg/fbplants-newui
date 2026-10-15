@@ -241,7 +241,7 @@ padding-top:30px;
 				<td><%=qty%></td>
 				<td>Rate</td>
 				<td>:</td>
-				<td><%=FormatNumber(rate,0)%></td>
+				<td><%=FormatNumber(rate,2)%></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -250,7 +250,7 @@ padding-top:30px;
 				
 				<td>Amount</td>
 				<td>:</td>
-				<td><%=FormatNumber(amount,0)%></td>
+				<td><%=FormatNumber(amount,2)%></td>
 				
 			</tr>
 			<tr>
@@ -260,7 +260,7 @@ padding-top:30px;
 				
 				<td>DP</td>
 				<td>:</td>
-				<td><%=FormatNumber(dp,0)%></td>
+				<td><%=FormatNumber(dp,2)%></td>
 				
 			</tr>
 			<tr>
@@ -270,7 +270,7 @@ padding-top:30px;
 				
 				<td>Remain</td>
 				<td>:</td>
-				<td><%=FormatNumber(remain,0)%></td>
+				<td><%=FormatNumber(remain,2)%></td>
 				
 			</tr>
 

@@ -600,13 +600,13 @@ body{font-family:'Arial Narrow';font-size:10px;}
 			<td><%=rsdata("source")%></td>
 			<td><%=rsdata("sectioncode")%></td>
 			<td><%=rsdata("fieldcode")%></td>
-			<td  align="right"><%=rsdata("fieldarea")%></td>
-			<td align="right"><%=rsdata("fieldpokok")%></td>
+			<td  align="right"><%=FbpNum2(rsdata("fieldarea"))%></td>
+			<td align="right"><%=FbpNum2(rsdata("fieldpokok"))%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("hkblnlalu"))%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("unitblnlalu"))%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("fisikblnlalu"))%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("amountblnlalu"))%></td>
-			<td class="ratakanan"><%=FormatNumber(rsdata("rphablnlalu"),0)%></td>
+			<td class="ratakanan"><%=FormatNumber(rsdata("rphablnlalu"),2)%></td>
 			
 			<td class="ratakanan"><%=FormatNumber(rsdata("rkb_hkblnlalu"))%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("rkb_outputblnlalu"))%></td>

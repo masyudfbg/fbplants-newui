@@ -110,7 +110,7 @@ end if
 		<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("WIDATE")%></td>
 		<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("WIDIVISION")%></td>
 		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("TOTRNINCHES"),2)%></td>		
-		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("TOTRNDAYS"), 0)%></td>		
+		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("TOTRNDAYS"), 2)%></td>		
 		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("AVGTEMP"),2)%></td>		
 		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("AVGWIND"),2)%></td>		
 		</tr>
@@ -134,7 +134,7 @@ end if
 	<tr bgcolor="#F4F4A0">
 	<td align="Center" colspan="2"> <strong><i> <font face="Verdana" size="1">T o t a l</i></strong></td>
 	<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(v_TOTRNINCHES,2)%></i></strong></td>
-	<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(v_TOTRNDAYS, 0)%></i></strong></td>
+	<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(v_TOTRNDAYS, 2)%></i></strong></td>
 	<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(v_AVGTEMP,2)%></i></strong></td>
 	<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(v_AVGWIND,2)%></i></strong></td>
 	</tr>

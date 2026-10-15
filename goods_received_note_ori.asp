@@ -323,10 +323,10 @@ oRS.Open oSQL, connstr, adLockOptimistic, adOpenStatic
 			<td align="Right"><%=FormatNumber(oRS("QTY"), 2)%></td>
 			<td align="Left"><%=oRS("UOM")%></td>
 			<%If Menu = "Y" Then%>
-			<td align="Right"><%=FormatNumber(oRS("UNITCOST"), 0)%></td>
+			<td align="Right"><%=FormatNumber(oRS("UNITCOST"), 2)%></td>
 			<td></td>
 			<td></td>
-			<td align="Right"><%=FormatNumber(oRS("TOTALVALUE"), 0)%></td>
+			<td align="Right"><%=FormatNumber(oRS("TOTALVALUE"), 2)%></td>
 			<%End If%>
 			<td></td>
 			<td></td>
@@ -340,7 +340,7 @@ oRS.Open oSQL, connstr, adLockOptimistic, adOpenStatic
         <td colspan="7" class="none"></td>
         <td></td>
         <td> Total</td>
-        <td align="Right"><%=FormatNumber(nTotalValue, 0)%></td>
+        <td align="Right"><%=FormatNumber(nTotalValue, 2)%></td>
         <td colspan="4" class="none"></td>
         
     </tr>
@@ -348,7 +348,7 @@ oRS.Open oSQL, connstr, adLockOptimistic, adOpenStatic
         <td colspan="7" class="none"></td>
         <td class="total">Total IDR</td>
         <td class="total"> </td>
-        <td class="total" align="Right"><%=FormatNumber(nTotalValue, 0)%></td>
+        <td class="total" align="Right"><%=FormatNumber(nTotalValue, 2)%></td>
         <td colspan="4" class="none"></td>
     </tr>
     <%End If%>

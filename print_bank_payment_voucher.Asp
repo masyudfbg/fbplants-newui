@@ -380,10 +380,10 @@ if not arr_rdata_eof then
 		response.write "			<td align='center' class='sideonly' style='font-size:8pt;'>"&formatnumber(cdbl(to_nol(arr_rdata(4,yy))),2)&"</td>"
 		response.write "			<td align='center' class='sideonly' style='font-size:8pt;'>"&arr_rdata(5,yy)&"</td>"
 		' response.write "			<td align='center' class='sideonly'>"&arr_rdata(16,yy)&"</td>"
-		response.write "			<td align='center' class='sideonly' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(arr_rdata(16,yy))),0)&"</td>"
+		response.write "			<td align='center' class='sideonly' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(arr_rdata(16,yy))),2)&"</td>"
 		' response.write "			<td align='center' class='sideonly' style='font-size:8pt;'>"&arr_rdata(13,yy)&"</td>"
-		' response.write "			<td align='right' class='sideonly'>"&FormatNumber(cdbl(arr_rdata(7,yy))/cdbl(arr_rdata(4,yy)),0)&"</td>"
-		response.write "			<td align='right' class='sideonly' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(arr_rdata(7,yy))), 0)&"</td>"
+		' response.write "			<td align='right' class='sideonly'>"&FormatNumber(cdbl(arr_rdata(7,yy))/cdbl(arr_rdata(4,yy)),2)&"</td>"
+		response.write "			<td align='right' class='sideonly' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(arr_rdata(7,yy))), 2)&"</td>"
 		response.write "		</tr>"
 	next
 	response.write "		<tr>"
@@ -398,28 +398,28 @@ if not arr_rdata_eof then
 	' response.write "			<td class='sideonly'>&nbsp;</td>"
 	' response.write "			<td class='sideonly'>&nbsp;</td>"
 	response.write "		</tr>"
-	response.write "		<tr><td colspan='5' align='right'  style='font-size:8pt;'>Sub Total</td><td align='right' style='font-size:8pt;' >"&FormatNumber(cdbl(to_nol(totalamount)),0)&"</td></tr>"
+	response.write "		<tr><td colspan='5' align='right'  style='font-size:8pt;'>Sub Total</td><td align='right' style='font-size:8pt;' >"&FormatNumber(cdbl(to_nol(totalamount)),2)&"</td></tr>"
 	' if cstr(""&use_ppn) = "Y" then
 	' 	nppn = ntotal * 0.1
 	' else
 	' 	nppn = 0
 	' end if
 	' gntotal = ntotal + nppn
-	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>Ppn (10%)</td><td align='right'style='font-size:8pt;' >"&FormatNumber(cdbl(to_nol(totalppn)),0)&"</td></tr>"
-	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>Total Amount + PPn (10%)</td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(totalamountppn)),0)&"</td></tr>"
+	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>Ppn (10%)</td><td align='right'style='font-size:8pt;' >"&FormatNumber(cdbl(to_nol(totalppn)),2)&"</td></tr>"
+	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>Total Amount + PPn (10%)</td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(totalamountppn)),2)&"</td></tr>"
 	
 	
 	 if cdbl(to_nol(arr_rdata(18,0))) > 0 then 
-	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>PBBKP (7.5%)</td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(arr_rdata(18,0))),0)&"</td></tr>"
+	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>PBBKP (7.5%)</td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(arr_rdata(18,0))),2)&"</td></tr>"
 	 end if 
 	 if cdbl(to_nol(arr_rdata(19,0))) > 0 then 
-	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>OAT </td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(arr_rdata(19,0))),0)&"</td></tr>"
+	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>OAT </td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(arr_rdata(19,0))),2)&"</td></tr>"
 	 end if 
 	
-	'response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>Total Charge</td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(totalcharge)),0)&"</td></tr>"
+	'response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>Total Charge</td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(totalcharge)),2)&"</td></tr>"
 	
 	
-	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>Grand Total</td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(grandtotal)),0)&"</td></tr>"
+	response.write "		<tr><td colspan='5' align='right' class='noborder' style='font-size:8pt;' colspan='2'>Grand Total</td><td align='right' style='font-size:8pt;'>"&FormatNumber(cdbl(to_nol(grandtotal)),2)&"</td></tr>"
 	response.write "	</tbody>"
 	response.write "</table>"
 end if

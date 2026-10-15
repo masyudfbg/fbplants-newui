@@ -782,30 +782,30 @@ if (rsOKPT.bof and rsOKPT.eof) then
 					<% end if %>
 				<% end if %>
 				
-				<td align="right"><%=rsOKPT("TOTALVEHICLE")%></td>
+				<td align="right"><%=FbpNum2(rsOKPT("TOTALVEHICLE"))%></td>
 				
-				<td align="right"><%=FormatNumber(rsOKPT("KMHM_HI"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsOKPT("TONASE_HI"), 0)%></td>
+				<td align="right"><%=FormatNumber(rsOKPT("KMHM_HI"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsOKPT("TONASE_HI"), 2)%></td>
 				<%If Cdbl(rsOKPT("TOTALVEHICLE")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsOKPT("TONASE_HI"))/Cdbl(rsOKPT("TOTALVEHICLE")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsOKPT("TONASE_HI"))/Cdbl(rsOKPT("TOTALVEHICLE")), 2), 2)%></td>
 				<%End If%>
 				
-				<td align="right"><%=FormatNumber(rsOKPT("KMHM_SHI"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsOKPT("TONASE_SHI"), 0)%></td>	
+				<td align="right"><%=FormatNumber(rsOKPT("KMHM_SHI"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsOKPT("TONASE_SHI"), 2)%></td>	
 				<%If Cdbl(rsOKPT("TOTALVEHICLE")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsOKPT("TONASE_SHI"))/Cdbl(rsOKPT("TOTALVEHICLE")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsOKPT("TONASE_SHI"))/Cdbl(rsOKPT("TOTALVEHICLE")), 2), 2)%></td>
 				<%End If%>
 
-				<td align="right"><%=FormatNumber(rsOKPT("KMHM_SBI"), 0)%></td>
-				<td align="right"><%=FormatNumber(rsOKPT("TONASE_SBI"), 0)%></td>	
+				<td align="right"><%=FormatNumber(rsOKPT("KMHM_SBI"), 2)%></td>
+				<td align="right"><%=FormatNumber(rsOKPT("TONASE_SBI"), 2)%></td>	
 				<%If Cdbl(rsOKPT("TOTALVEHICLE")) = 0 Then%>
-				<td align="right"><%=FormatNumber(0, 0)%></td>
+				<td align="right"><%=FormatNumber(0, 2)%></td>
 				<%Else%>
-				<td align="right"><%=FormatNumber(Round(Cdbl(rsOKPT("TONASE_SBI"))/Cdbl(rsOKPT("TOTALVEHICLE")), 2), 0)%></td>
+				<td align="right"><%=FormatNumber(Round(Cdbl(rsOKPT("TONASE_SBI"))/Cdbl(rsOKPT("TOTALVEHICLE")), 2), 2)%></td>
 				<%End If%>
 			</tr>
 <%

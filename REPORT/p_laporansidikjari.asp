@@ -356,8 +356,8 @@ rsfp.Open strfp, connstr, adOpenStatic
 			<td align="center"><%=rsfp("normaname")%></td>
 			<td align="center"><%=rsfp("jammulai")%></td>
 			<td align="center"><%=rsfp("jamselesai")%></td>
-			<td align="right"><%=cdbl(rsfp("terlambat"))%></td>
-			<td align="right"><%=cdbl(rsfp("pulangcepat"))%></td>
+			<td align="right"><%=FbpNum2(cdbl(rsfp("terlambat")))%></td>
+			<td align="right"><%=FbpNum2(cdbl(rsfp("pulangcepat")))%></td>
 			<td align="left"><%=rsfp("datatype")%></td>
 			<td align="left"><%=rsfp("no_ba")%></td>
 			<td align="left"><%=rsfp("Alasan")%></td>

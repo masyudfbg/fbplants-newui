@@ -364,18 +364,18 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td class="ci-wrap ci-strong"><%=H(rsCat("contractorname"))%></td>
 			<td class="ci-wrap"><%=H(controljob)%></td>
 			<td><%if len(retFlag) > 0 then%><span class="ci-badge<%=retClass%>"><%=H(retFlag)%></span><%end if%></td>
-			<td class="ci-num"><%=H(rsCat("retention"))%></td>
-			<td class="ci-num"><%=H(rsCat("ppn"))%></td>
-			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("amountppn"))),0)%></td>
-			<td class="ci-num"><%=H(rsCat("pph"))%></td>
-			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("amountpph"))),0)%></td>
+			<td class="ci-num"><%=FbpNum2(H(rsCat("retention")))%></td>
+			<td class="ci-num"><%=FbpNum2(H(rsCat("ppn")))%></td>
+			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("amountppn"))),2)%></td>
+			<td class="ci-num"><%=FbpNum2(H(rsCat("pph")))%></td>
+			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("amountpph"))),2)%></td>
 			<td><%if len(rsCat("rowstate") & "") > 0 then%><span class="ci-badge <%=StateClass(rsCat("rowstate"))%>"><%=H(rsCat("rowstate"))%></span><%end if%></td>
 			<td><%=H(rsCat("jobcode"))%></td>
-			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("totalfinal"))),0)%></td>
-			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("rate"))),0)%></td>
-			<td class="ci-num ci-strong"><%=formatnumber(cdbl(to_nol(rsCat("amount"))),0)%></td>
-			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("amountretention"))),0)%></td>
-			<td class="ci-num ci-strong"><%=formatnumber(cdbl(to_nol(rsCat("amountafter_retention"))),0)%></td>
+			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("totalfinal"))),2)%></td>
+			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("rate"))),2)%></td>
+			<td class="ci-num ci-strong"><%=formatnumber(cdbl(to_nol(rsCat("amount"))),2)%></td>
+			<td class="ci-num"><%=formatnumber(cdbl(to_nol(rsCat("amountretention"))),2)%></td>
+			<td class="ci-num ci-strong"><%=formatnumber(cdbl(to_nol(rsCat("amountafter_retention"))),2)%></td>
 			<td class="ci-wrap ci-remarks"><%=H(rsCat("remarks"))%></td>
 			<td><%if postingflg = "YA" then%><span class="ci-badge ok">YA</span><%else%><span class="ci-badge">TIDAK</span><%end if%></td>
 		</tr>
@@ -404,16 +404,16 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 	<tfoot>
 	<tr bgcolor="#F4F4A0">
 		<td colspan="10">Total (<span class="fbt-count"><%=v_rows%></span> baris)</td>
-		<td class="ci-num" data-sum="10"><%=FormatNumber(v_amountppn,0)%></td>
+		<td class="ci-num" data-sum="10"><%=FormatNumber(v_amountppn,2)%></td>
 		<td></td>
-		<td class="ci-num" data-sum="12"><%=FormatNumber(v_amountpph,0)%></td>
+		<td class="ci-num" data-sum="12"><%=FormatNumber(v_amountpph,2)%></td>
 		<td></td>
 		<td></td>
-		<td class="ci-num" data-sum="15"><%=FormatNumber(v_totalfinal,0)%></td>
+		<td class="ci-num" data-sum="15"><%=FormatNumber(v_totalfinal,2)%></td>
 		<td></td>
-		<td class="ci-num" data-sum="17"><%=FormatNumber(v_amount,0)%></td>
-		<td class="ci-num" data-sum="18"><%=FormatNumber(v_amountretention,0)%></td>
-		<td class="ci-num" data-sum="19"><%=FormatNumber(v_amountafter_retention,0)%></td>
+		<td class="ci-num" data-sum="17"><%=FormatNumber(v_amount,2)%></td>
+		<td class="ci-num" data-sum="18"><%=FormatNumber(v_amountretention,2)%></td>
+		<td class="ci-num" data-sum="19"><%=FormatNumber(v_amountafter_retention,2)%></td>
 		<td></td>
 		<td></td>
 	</tr>

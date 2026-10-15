@@ -175,7 +175,7 @@ if Not rsAnalisaBukuBesar.eof then
 		<td align="left"><%=rsAnalisaBukuBesar("SOURCECODE")%></td>
 		<td align="center"><%=rsAnalisaBukuBesar("TARGETTYPE")%></td>
 		<td align="left"><%=rsAnalisaBukuBesar("TARGETCODE")%></td>
-		<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("AMOUNT"),0)%></td>
+		<td align="right"><%=FormatNumber(rsAnalisaBukuBesar("AMOUNT"),2)%></td>
 		<td align="left"><%=rsAnalisaBukuBesar("REMARKS")%></td>
 	</tr>
 <%

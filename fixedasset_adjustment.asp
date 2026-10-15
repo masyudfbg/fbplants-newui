@@ -632,7 +632,7 @@ if cmdView = "True" Then
 				<td align="center" title="<%=rsGAD("jobcode").Name%>"><%=rsGAD("jobcode")%></td>
 				<td align="center" title="<%=rsGAD("targettype").Name%>"><%=rsGAD("targettype")%></td>
 				<td align="center" title="<%=rsGAD("targetcode").Name%>"><%=rsGAD("targetcode")%></td>
-				<td align="right" title="<%=rsGAD("adjustment_amount").Name%>"><%=FormatNumber(cdbl(to_nol(rsGAD("adjustment_amount"))),0)%></td>>
+				<td align="right" title="<%=rsGAD("adjustment_amount").Name%>"><%=FormatNumber(cdbl(to_nol(rsGAD("adjustment_amount"))),2)%></td>>
 				<td align="center" title="<%=rsGAD("adjustment_monthdepreciation").Name%>"><%=rsGAD("adjustment_monthdepreciation")%></td>
 				<td align="left" title="<%=rsGAD("remarks").Name%>"><%=rsGAD("remarks")%></td>
 

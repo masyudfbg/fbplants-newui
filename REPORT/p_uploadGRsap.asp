@@ -393,12 +393,12 @@ if rsuploadgisap.bof and rsuploadgisap.eof then
 			<tr class="<%=cClass%>">
 				<td align="left"><%=rsuploadgisap("documentdate")%></td>
 				<td align="left"><%=rsuploadgisap("postingdate")%></td>
-				<td align="right"><%=rsuploadgisap("movementtype")%></td>
+				<td align="right"><%=FbpNum2(rsuploadgisap("movementtype"))%></td>
 				<td align="left"><%=rsuploadgisap("xfull")%></td>
 				<td align="left"><%=rsuploadgisap("version1")%></td>
 				<td align="left"><%=rsuploadgisap("materialnumber")%></td>
 				<td align="left"><%=rsuploadgisap("MatrialName")%></td>
-				<td align="right"><%=rsuploadgisap("PurchaseOrder")%></td>
+				<td align="right"><%=FbpNum2(rsuploadgisap("PurchaseOrder"))%></td>
 				<td align="left"></td>
 				<td align="left"><%=rsuploadgisap("plant")%></td>
 				<td align="left"><%=rsuploadgisap("quantityinunit")%></td>

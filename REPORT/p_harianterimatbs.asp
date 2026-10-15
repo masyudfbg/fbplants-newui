@@ -1149,21 +1149,21 @@ else
 				<td align="center"><%=rstbsluar("CUSTFFBTYPE")%></td>
 		
 				<%For nday = 1 to 31%>
-					<td align="right"><a href="../p_WEIGHBRIDGETICKET.asp?CUST_CUSTOMERCODE=<%=tempCustomer%>&Posting_Date=<%=v_txtMonth%>/<%=nday%>/<%=v_txtYear%>&PRODUCT_PRODUCTCODE=TBS" target="_blank"><%=FormatNumber(rstbsluar("KG_" & nday & ""), 0)%></a></td>
-					<td align="right"><%=FormatNumber(rstbsluar("KG_SORTAGE_" & nday & ""), 0)%></td>
+					<td align="right"><a href="../p_WEIGHBRIDGETICKET.asp?CUST_CUSTOMERCODE=<%=tempCustomer%>&Posting_Date=<%=v_txtMonth%>/<%=nday%>/<%=v_txtYear%>&PRODUCT_PRODUCTCODE=TBS" target="_blank"><%=FormatNumber(rstbsluar("KG_" & nday & ""), 2)%></a></td>
+					<td align="right"><%=FormatNumber(rstbsluar("KG_SORTAGE_" & nday & ""), 2)%></td>
 					<% If Cdbl(rstbsluar("KG_" & nday & "")) = 0 Then%>
-						<td align="right"><%=FormatNumber(0, 0)%></td>
+						<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-						<td align="right"><%=FormatNumber(Cdbl(rstbsluar("KG_SORTAGE_" & nday & ""))/Cdbl(rstbsluar("KG_" & nday & ""))*100, 0)%></td>
+						<td align="right"><%=FormatNumber(Cdbl(rstbsluar("KG_SORTAGE_" & nday & ""))/Cdbl(rstbsluar("KG_" & nday & ""))*100, 2)%></td>
 					<%End If%>
 				<%Next%>
 				
-					<td align="right"><%=FormatNumber(rstbsluar("KG_TOTAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(rstbsluar("KG_SORTAGE_TOTAL"), 0)%></td>
+					<td align="right"><%=FormatNumber(rstbsluar("KG_TOTAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(rstbsluar("KG_SORTAGE_TOTAL"), 2)%></td>
 					<% If Cdbl(rstbsluar("KG_TOTAL")) = 0 Then%>
-						<td align="right"><%=FormatNumber(0, 0)%></td>
+						<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-						<td align="right"><%=FormatNumber(Cdbl(rstbsluar("KG_SORTAGE_TOTAL"))/Cdbl(rstbsluar("KG_TOTAL"))*100, 0)%></td>
+						<td align="right"><%=FormatNumber(Cdbl(rstbsluar("KG_SORTAGE_TOTAL"))/Cdbl(rstbsluar("KG_TOTAL"))*100, 2)%></td>
 					<%End If%>
 				</tr>
 <%
@@ -1241,229 +1241,229 @@ set rstbsluar = Nothing
 %>
 	<tr bgcolor="#F4F4A0">
 		<td colspan="<%=var_colspan%>" align="center"><strong>GRAND TOTAL</strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKg_1, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_1, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_1, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_1, 2)%></strong></td>
 		<%If GrandKg_1 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_1/GrandKg_1*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_1/GrandKg_1*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_2, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_2, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_2, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_2, 2)%></strong></td>
 		<%If GrandKg_2 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_2/GrandKg_2*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_2/GrandKg_2*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_3, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_3, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_3, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_3, 2)%></strong></td>
 		<%If GrandKg_3 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_3/GrandKg_3*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_3/GrandKg_3*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_4, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_4, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_4, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_4, 2)%></strong></td>
 		<%If GrandKg_4 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_4/GrandKg_4*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_4/GrandKg_4*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_5, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_5, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_5, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_5, 2)%></strong></td>
 		<%If GrandKg_5 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_5/GrandKg_5*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_5/GrandKg_5*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_6, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_6, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_6, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_6, 2)%></strong></td>
 		<%If GrandKg_6 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_6/GrandKg_6*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_6/GrandKg_6*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_7, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_7, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_7, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_7, 2)%></strong></td>
 		<%If GrandKg_7 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_7/GrandKg_7*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_7/GrandKg_7*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_8, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_8, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_8, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_8, 2)%></strong></td>
 		<%If GrandKg_8 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_8/GrandKg_8*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_8/GrandKg_8*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_9, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_9, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_9, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_9, 2)%></strong></td>
 		<%If GrandKg_9 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_9/GrandKg_9*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_9/GrandKg_9*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_10, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_10, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_10, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_10, 2)%></strong></td>
 		<%If GrandKg_10 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_10/GrandKg_10*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_10/GrandKg_10*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_11, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_11, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_11, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_11, 2)%></strong></td>
 		<%If GrandKg_11 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_11/GrandKg_11*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_11/GrandKg_11*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_12, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_12, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_12, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_12, 2)%></strong></td>
 		<%If GrandKg_12 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_12/GrandKg_12*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_12/GrandKg_12*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_13, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_13, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_13, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_13, 2)%></strong></td>
 		<%If GrandKg_13 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_13/GrandKg_13*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_13/GrandKg_13*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_14, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_14, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_14, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_14, 2)%></strong></td>
 		<%If GrandKg_14 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_14/GrandKg_14*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_14/GrandKg_14*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_15, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_15, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_15, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_15, 2)%></strong></td>
 		<%If GrandKg_15 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_15/GrandKg_15*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_15/GrandKg_15*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_16, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_16, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_16, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_16, 2)%></strong></td>
 		<%If GrandKg_16 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_16/GrandKg_16*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_16/GrandKg_16*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_17, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_17, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_17, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_17, 2)%></strong></td>
 		<%If GrandKg_17 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_17/GrandKg_17*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_17/GrandKg_17*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_18, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_18, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_18, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_18, 2)%></strong></td>
 		<%If GrandKg_18 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_18/GrandKg_18*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_18/GrandKg_18*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_19, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_19, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_19, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_19, 2)%></strong></td>
 		<%If GrandKg_19 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_19/GrandKg_19*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_19/GrandKg_19*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_20, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_20, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_20, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_20, 2)%></strong></td>
 		<%If GrandKg_20 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_20/GrandKg_20*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_20/GrandKg_20*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_21, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_21, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_21, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_21, 2)%></strong></td>
 		<%If GrandKg_21 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_21/GrandKg_21*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_21/GrandKg_21*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_22, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_22, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_22, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_22, 2)%></strong></td>
 		<%If GrandKg_22 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_22/GrandKg_22*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_22/GrandKg_22*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_23, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_23, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_23, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_23, 2)%></strong></td>
 		<%If GrandKg_23 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_23/GrandKg_23*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_23/GrandKg_23*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_24, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_24, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_24, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_24, 2)%></strong></td>
 		<%If GrandKg_24 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_24/GrandKg_24*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_24/GrandKg_24*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_25, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_25, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_25, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_25, 2)%></strong></td>
 		<%If GrandKg_25 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_25/GrandKg_25*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_25/GrandKg_25*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_26, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_26, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_26, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_26, 2)%></strong></td>
 		<%If GrandKg_26 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_26/GrandKg_26*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_26/GrandKg_26*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_27, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_27, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_27, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_27, 2)%></strong></td>
 		<%If GrandKg_27 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_27/GrandKg_27*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_27/GrandKg_27*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_28, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_28, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_28, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_28, 2)%></strong></td>
 		<%If GrandKg_28 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_28/GrandKg_28*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_28/GrandKg_28*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_29, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_29, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_29, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_29, 2)%></strong></td>
 		<%If GrandKg_29 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_29/GrandKg_29*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_29/GrandKg_29*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_30, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_30, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_30, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_30, 2)%></strong></td>
 		<%If GrandKg_30 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_30/GrandKg_30*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_30/GrandKg_30*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_31, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_31, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_31, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_31, 2)%></strong></td>
 		<%If GrandKg_31 = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_31/GrandKg_31*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_31/GrandKg_31*100, 2)%></strong></td>
 		<%End If%>
-		<td align="right"><strong><%=FormatNumber(GrandKg_Total, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_Total, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKg_Total, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandKgSortasi_Total, 2)%></strong></td>
 		<%If GrandKg_Total = 0 Then%>
-			<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_Total/GrandKg_Total*100, 0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(GrandKgSortasi_Total/GrandKg_Total*100, 2)%></strong></td>
 		<%End If%>
 	</tr>
 <%End if%>

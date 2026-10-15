@@ -244,12 +244,12 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("targettype")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("targetcode")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("description")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("kg"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("rate"))),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("kg"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("rate"))),2)%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("ppn")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("amount"),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("othercost"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("grandtotal"))),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("amount"),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("othercost"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("grandtotal"))),2)%></td>
 			<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%if rscat("postingflg")="1" then response.write "Ya" else response.write "Tidak" end if%></td>
 		</tr>
 	  <%

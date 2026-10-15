@@ -1387,26 +1387,26 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center"><%=rsGrnInv("planting_year_final")%></td>
 				<td align="center"><%=rsGrnInv("terraintype_final")%></td>
 				<td align="center"><%=rsGrnInv("presentgrade")%></td> 
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("presentrate"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("unit"))),0)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("presentrate"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("unit"))),2)%></td>
 				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("hk_final"))),2)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("RateHK"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("rate_hk"))),0)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("RateHK"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("rate_hk"))),2)%></td>
 				
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("qtyunit"))),0)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("qtyunit"))),2)%></td>
 				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("qtyha"))),2)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("basis_jjg_max_jjg"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_capai_basis"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("jjg_lebih_basis"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_1"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_2"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_3"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_4"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_lebih_basis"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("bonus_premi"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("kg_brondolan"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_brondolan"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("total_pendapatan_panen"))),0)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("basis_jjg_max_jjg"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_capai_basis"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("jjg_lebih_basis"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_1"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_2"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_3"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_4"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_lebih_basis"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("bonus_premi"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("kg_brondolan"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_brondolan"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("total_pendapatan_panen"))),2)%></td>
 			</tr>
 	<%			v_kgbrondolan = v_kgbrondolan + cdbl(to_nol(rsGrnInv("kg_brondolan")))
 				v_premi_brondolan = v_premi_brondolan + cdbl(to_nol(rsGrnInv("premi_brondolan")))
@@ -1431,24 +1431,24 @@ function launchwin(winurl,winname,winfeatures)
 	%>
 			<tr bgcolor="#F4F4A0"> 
 				<td align="center" colspan="11"><font style="font-weight: bold;">TOTAL</font></td>				
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_janjang)),0)%></font></td>  
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_janjang)),2)%></font></td>  
 				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_mandays)),2)%></font></td> 
 				<td align="right"><font style="font-weight: bold;"></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_presentrate)),0)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_presentrate)),2)%></font></td> 
 				<td align="right"><font style="font-weight: bold;"></font></td> 
 				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_ha)),2)%></font></td> 
 				<td align="right"><font style="font-weight: bold;"></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_capai_basis)),0)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_capai_basis)),2)%></font></td> 
 				<td align="right"><font style="font-weight: bold;"></font></td> 
 				<td align="right"><font style="font-weight: bold;"></font></td> 
 				<td align="right"><font style="font-weight: bold;"></font></td> 
 				<td align="right"><font style="font-weight: bold;"></font></td> 
 				<td align="right"><font style="font-weight: bold;"></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_lebih_basis)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_bonus)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kgbrondolan)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_brondolan)),0)%></font></td>
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_pendapatan_panen)),0)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_lebih_basis)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_bonus)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kgbrondolan)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_brondolan)),2)%></font></td>
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_pendapatan_panen)),2)%></font></td> 
 			</tr>
 		</tbody>
 </table>

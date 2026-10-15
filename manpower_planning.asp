@@ -1021,7 +1021,7 @@ if cmdView = "True" AND LEN(TRIM(fcCode)) > 4 and len(trim(xCode)) > 0 Then
 					<td align="center" title="JobCode" valign="top"><%=rsPurchaseOrder("JobName")%></td>
 					<td align="center" title="LocationType" valign="top"><%=rsPurchaseOrder("LocationType")%></td>
 					<td align="center" title="LocationCode" valign="top"><%=rsPurchaseOrder("LocationCode")%></td>
-					<td align="Right" title="Quantity" valign="top"><%=rsPurchaseOrder("Quantity")%></td>
+					<td align="Right" title="Quantity" valign="top"><%=FbpNum2(rsPurchaseOrder("Quantity"))%></td>
 					<%If Menu = "Y" Then%>
 					<td align="center" title="Price" valign="top"><%=rsPurchaseOrder("Price")%></td>
 					<td align="center" title="Amount" valign="top"><%=rsPurchaseOrder("Amount")%></td>

@@ -235,38 +235,38 @@ businessunit= trim(session("fcba"))
 		<td align="center" Rowspan="" class="lebarket"><%=rsTBS("areaname")%></td> 
 		<td align="center">Kg</td>
 		<td align="center"></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_1"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_2"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_3"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_4"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_5"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_6"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_7"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_8"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_9"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_10"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_11"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_12"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_13"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_14"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_15"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_16"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_17"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_18"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_19"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_20"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_21"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_22"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_23"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_24"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_25"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_26"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_27"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_28"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_29"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_30"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTBS("day_31"),0)%></td>
-		<td align="right"><%=FormatNumber(subtotaltbs,0)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_1"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_2"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_3"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_4"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_5"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_6"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_7"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_8"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_9"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_10"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_11"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_12"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_13"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_14"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_15"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_16"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_17"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_18"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_19"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_20"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_21"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_22"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_23"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_24"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_25"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_26"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_27"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_28"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_29"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_30"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTBS("day_31"),2)%></td>
+		<td align="right"><%=FormatNumber(subtotaltbs,2)%></td>
 	</tr>
 	
 	
@@ -318,38 +318,38 @@ businessunit= trim(session("fcba"))
 
 	<tr class="tebal ratakanan" style="background-color:#F4F4A0;">
 		<td colspan=3 align=right>Total TBS Terima</td>
-		<td align="right"><%=FormatNumber(ttl_day_1,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_2,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_3,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_4,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_5,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_6,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_7,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_8,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_9,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_10,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_11,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_12,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_13,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_14,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_15,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_16,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_17,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_18,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_19,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_20,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_21,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_22,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_23,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_24,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_25,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_26,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_27,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_28,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_29,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_30,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_day_31,0)%></td>
-		<td align="right"><%=FormatNumber(ttl_tbs_all,0)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_1,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_2,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_3,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_4,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_5,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_6,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_7,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_8,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_9,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_10,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_11,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_12,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_13,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_14,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_15,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_16,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_17,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_18,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_19,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_20,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_21,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_22,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_23,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_24,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_25,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_26,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_27,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_28,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_29,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_30,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_day_31,2)%></td>
+		<td align="right"><%=FormatNumber(ttl_tbs_all,2)%></td>
 	</tr>
 
 	<!--------------------------- BATAS LHP TBS  --------------------------------------->
@@ -1233,37 +1233,37 @@ businessunit= trim(session("fcba"))
 		<td colspan= class=ratakanan>Throughput</td>
 		<td colspan= class=ratatengah>TON/JAM</td>
 		<td colspan= class=ratakanan></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day1"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day2"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day3"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day4"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day5"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day6"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day7"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day8"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day9"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day10"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day11"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day12"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day13"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day14"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day15"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day16"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day17"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day18"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day19"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day20"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day21"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day22"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day23"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day24"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day25"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day26"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day27"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day28"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day29"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day30"),0)%></td>
-		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day31"),0)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day1"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day2"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day3"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day4"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day5"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day6"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day7"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day8"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day9"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day10"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day11"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day12"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day13"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day14"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day15"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day16"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day17"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day18"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day19"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day20"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day21"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day22"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day23"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day24"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day25"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day26"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day27"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day28"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day29"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day30"),2)%></td>
+		<td colspan= class="ratakanan"><%=FormatNumber(rsproduction("THROUGPUT_day31"),2)%></td>
 		
 		<td colspan= class="ratakanan">0</td>
 	</tr>
@@ -1272,37 +1272,37 @@ businessunit= trim(session("fcba"))
 		<td colspan= class=ratakanan>Hari Olah</td>
 		<td colspan= class=ratatengah>Hari</td>
 		<td colspan= class=ratakanan></td>
-		<td colspan= class="ratakanan"><%= hari1%></td>
-		<td colspan= class="ratakanan"><%= hari2%></td>
-		<td colspan= class="ratakanan"><%= hari3%></td>
-		<td colspan= class="ratakanan"><%= hari4%></td>
-		<td colspan= class="ratakanan"><%= hari5%></td>
-		<td colspan= class="ratakanan"><%= hari6%></td>
-		<td colspan= class="ratakanan"><%= hari7%></td>
-		<td colspan= class="ratakanan"><%= hari8%></td>
-		<td colspan= class="ratakanan"><%= hari9%></td>
-		<td colspan= class="ratakanan"><%= hari10%></td>
-		<td colspan= class="ratakanan"><%= hari11%></td>
-		<td colspan= class="ratakanan"><%= hari12%></td>
-		<td colspan= class="ratakanan"><%= hari13%></td>
-		<td colspan= class="ratakanan"><%= hari14%></td>
-		<td colspan= class="ratakanan"><%= hari15%></td>
-		<td colspan= class="ratakanan"><%= hari16%></td>
-		<td colspan= class="ratakanan"><%= hari17%></td>
-		<td colspan= class="ratakanan"><%= hari18%></td>
-		<td colspan= class="ratakanan"><%= hari19%></td>
-		<td colspan= class="ratakanan"><%= hari20%></td>
-		<td colspan= class="ratakanan"><%= hari21%></td>
-		<td colspan= class="ratakanan"><%= hari22%></td>
-		<td colspan= class="ratakanan"><%= hari23%></td>
-		<td colspan= class="ratakanan"><%= hari24%></td>
-		<td colspan= class="ratakanan"><%= hari25%></td>
-		<td colspan= class="ratakanan"><%= hari26%></td>
-		<td colspan= class="ratakanan"><%= hari27%></td>
-		<td colspan= class="ratakanan"><%= hari28%></td>
-		<td colspan= class="ratakanan"><%= hari29%></td>
-		<td colspan= class="ratakanan"><%= hari30%></td>
-		<td colspan= class="ratakanan"><%= hari31%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari1)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari2)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari3)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari4)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari5)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari6)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari7)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari8)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari9)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari10)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari11)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari12)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari13)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari14)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari15)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari16)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari17)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari18)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari19)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari20)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari21)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari22)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari23)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari24)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari25)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari26)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari27)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari28)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari29)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari30)%></td>
+		<td colspan= class="ratakanan"><%=FbpNum2(hari31)%></td>
 		
 		<td colspan= class="ratakanan">0</td>
 	</tr>
@@ -2477,37 +2477,37 @@ businessunit= trim(session("fcba"))
 		<td colspan= class=ratakiri>PRODUKSI JJG KOSONG</td>
 		<td colspan= class=ratatengah>KG</td>
 		<td colspan= class=ratakanan></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong1,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong2,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong3,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong4,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong5,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong6,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong7,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong8,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong9,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong10,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong11,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong12,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong13,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong14,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong15,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong16,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong17,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong18,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong19,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong20,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong21,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong22,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong23,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong24,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong25,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong26,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong27,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong28,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong29,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong30,0)%></td>
-		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong31,0)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong1,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong2,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong3,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong4,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong5,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong6,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong7,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong8,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong9,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong10,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong11,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong12,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong13,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong14,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong15,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong16,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong17,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong18,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong19,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong20,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong21,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong22,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong23,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong24,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong25,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong26,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong27,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong28,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong29,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong30,2)%></td>
+		<td colspan= class="ratakanan"><%= FormatNumber(m_jjgkosong31,2)%></td>
 		
 		<td colspan= class="ratakanan">0</td>
 	</tr>

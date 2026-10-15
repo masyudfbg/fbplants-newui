@@ -427,16 +427,16 @@ function launchwin(winurl,winname,winfeatures)
 			<%end if%>
 			<td align="center"><%=rsGrnInv("fddate")%></td>
 			<td align="center"><%=rsGrnInv("division")%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("janjang"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("rate_janjang"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_janjang"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("premi_tbs"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("bucket"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("rate_brondolan"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_brondolan"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("premi_brd"))),0)%></td> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("amount_empallded"))),0)%></td>
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("total_premi_langsir"))),0)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("janjang"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("rate_janjang"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_janjang"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("premi_tbs"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("bucket"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("rate_brondolan"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("kg_brondolan"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("premi_brd"))),2)%></td> 
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("amount_empallded"))),2)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("total_premi_langsir"))),2)%></td>
 		</tr>
 <%	if rows = temprows then
 			njanjang = njanjang + cdbl(to_nol(rsGrnInv("janjang")))
@@ -455,16 +455,16 @@ function launchwin(winurl,winname,winfeatures)
 	%>
 		<tr bgcolor="#F4F4A0"> 
 			<td align="center" colspan="2"><font style="font-weight: bold;">TOTAL</font></td>				
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(njanjang)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nrate_janjang)),0)%></font></td>  
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_janjang)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(npremi_tbs)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nbucket)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nrate_brondolan)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_brondolan)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(npremi_brd)),0)%></font></td>  
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(namount_empallded)),0)%></font></td>  
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(ntotal_premi_langsir)),0)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(njanjang)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nrate_janjang)),2)%></font></td>  
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_janjang)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(npremi_tbs)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nbucket)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nrate_brondolan)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(nkg_brondolan)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(npremi_brd)),2)%></font></td>  
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(namount_empallded)),2)%></font></td>  
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(ntotal_premi_langsir)),2)%></font></td>
 		</tr>
 		<tr>
 			<td align="center" colspan="<%= 14+ nSpanTotal %>" ></td>
@@ -514,16 +514,16 @@ function launchwin(winurl,winname,winfeatures)
 	%>
 		<tr bgcolor="#FFFF00">	 
 			<td align="center" colspan="4"><b>GRAND TOTAL</b></td>
-			<td align="right"><b><%=formatnumber(gt_janjang,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_rate_janjang,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_kg_janjang,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_premi_tbs,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_bucket,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_rate_brondolan,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_kg_brondolan,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_premi_brd,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_amount_empallded,0)%></td>
-			<td align="right"><b><%=formatnumber(gt_total_premi_langsir,0)%></td>
+			<td align="right"><b><%=formatnumber(gt_janjang,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_rate_janjang,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_kg_janjang,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_premi_tbs,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_bucket,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_rate_brondolan,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_kg_brondolan,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_premi_brd,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_amount_empallded,2)%></td>
+			<td align="right"><b><%=formatnumber(gt_total_premi_langsir,2)%></td>
 			<!--<td align="right"></td>-->
 		</tr>
 	</tbody>

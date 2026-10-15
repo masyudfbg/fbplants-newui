@@ -156,7 +156,7 @@ response.Flush()
 	</form>
 	<tr bgcolor="#F4F4A0">
 	<td align="Center" style="<%=cmdstyleLeft%>" colspan="11"> <font face="Verdana" size="1">T o t a l</td>
-	<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_qty,0)%></td>
+	<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_qty,2)%></td>
 
 	</tr>
   </tbody>  

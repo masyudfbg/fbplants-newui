@@ -427,10 +427,10 @@ function launchwin(winurl,winname,winfeatures)
 			<td align="center"><%=rsGrnInv("supervision_3")%> : <%=rsGrnInv("supervision_3_name")%></td>
 			<td align="center"><%=rsGrnInv("supervision_4")%> : <%=rsGrnInv("supervision_4_name")%></td>
 			<td align="center"><%=rsGrnInv("attendance")%></td>
-			<td align="right"><%=rsGrnInv("presentgrade")%></td> 
+			<td align="right"><%=FbpNum2(rsGrnInv("presentgrade"))%></td> 
 			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("unit"))),2)%></td>
 			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("quantity_bydaily"))),2)%></td>
-			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("quantity_bymonthly"))),0)%></td>
+			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("quantity_bymonthly"))),2)%></td>
 			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("basis"))),2)%></td>
 			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("extraquantity_bydaily"))),2)%></td>
 			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("deductionqty_bydaily"))),2)%></td>
@@ -468,7 +468,7 @@ function launchwin(winurl,winname,winfeatures)
 			<td align="center" colspan="12"><font style="font-weight: bold;">TOTAL</font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_unit)),2)%></font></td>
 			<td align="right"><font style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_quantity_bydaily)),2)%></font></td>
-			<td align="right"><font style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_quantity_bymonthly)),0)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_quantity_bymonthly)),2)%></font></td>
 			<td align="right"><font style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_basis)),2)%></font></td>
 			<td align="right"><font style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_extraquantity_bydaily)),2)%></font></td>
 			<td align="right"><font style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_deductionqty_bydaily)),2)%></font></td>

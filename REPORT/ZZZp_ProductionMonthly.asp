@@ -1068,149 +1068,149 @@ Dim nOutput_hi, nOutput_shi, nOutput_bi, nOutput_sbi ,nbudOutput_shi,nbudOutput_
 				<% end if %>				
 				
 				
-				<td align="right"><%=FormatNumber(rsEPS("HA"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("POKOK"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("POKOK_PER_HA"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("HA"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("POKOK"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("POKOK_PER_HA"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_01"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_01"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_01"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_01"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_01"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_01"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_01"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_01"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_01"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_01"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_01"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_01"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_01"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_01"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_01"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_01"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_02"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_02"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_02"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_02"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_02"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_02"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_02"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_02"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_02"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_02"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_02"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_02"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_02"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_02"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_02"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_02"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_03"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_03"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_03"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_03"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_03"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_03"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_03"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_03"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_03"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_03"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_03"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_03"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_03"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_03"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_03"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_03"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_04"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_04"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_04"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_04"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_04"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_04"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_04"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_04"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_04"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_04"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_04"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_04"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_04"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_04"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_04"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_04"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_05"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_05"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_05"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_05"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_05"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_05"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_05"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_05"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_05"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_05"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_05"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_05"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_05"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_05"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_05"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_05"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_06"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_06"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_06"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_06"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_06"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_06"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_06"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_06"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_06"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_06"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_06"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_06"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_06"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_06"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_06"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_06"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_07"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_07"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_07"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_07"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_07"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_07"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_07"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_07"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_07"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_07"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_07"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_07"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_07"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_07"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_07"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_07"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_08"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_08"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_08"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_08"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_08"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_08"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_08"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_08"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_08"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_08"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_08"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_08"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_08"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_08"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_08"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_08"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_09"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_09"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_09"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_09"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_09"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_09"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_09"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_09"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_09"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_09"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_09"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_09"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_09"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_09"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_09"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_09"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_10"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_10"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_10"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_10"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_10"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_10"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_10"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_10"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_10"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_10"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_10"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_10"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_10"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_10"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_10"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_10"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_11"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_11"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_11"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_11"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_11"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_11"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_11"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_11"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_11"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_11"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_11"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_11"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_11"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_11"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_11"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_11"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Prdton_12"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Prdton_12"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("Prdton_HA_12"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_12"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_12"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_12"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_12"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_12"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_12"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_12"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_12"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_12"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_12"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_12"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_12"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_12"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("prod_ton_SBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("prod_ton_SBI"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("prod_ton_HA_SBI"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_SBI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_SBI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("JJG_SBI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BJR_SBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_SBI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Amount_KG_SBI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("JJG_SBI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BJR_SBI"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("JJG_PKK_SBI"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Mandays_SBI"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("KG_HK_SBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Mandays_SBI"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("KG_HK_SBI"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("bud_ton_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("bud_prod_ton_HA_SBI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("bud_Amount_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("bud_Amount_KG_SBI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("bud_jjg_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BUD_BJR_SHI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("BUD_JJG_PKK_SBI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("bud_Mandays_sbi"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("bud_KG_HK_SBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_ton_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_prod_ton_HA_SBI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_Amount_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_Amount_KG_SBI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_jjg_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BUD_BJR_SHI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("BUD_JJG_PKK_SBI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_Mandays_sbi"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("bud_KG_HK_SBI"),2)%></td>
 				
 								
 				
@@ -1314,46 +1314,46 @@ Dim nOutput_hi, nOutput_shi, nOutput_bi, nOutput_sbi ,nbudOutput_shi,nbudOutput_
 			<tr bgcolor="#F4F4A0">
 			   
 				<td align="center" colspan="<%= 1+ nSpanTotal %>">TOTAL</td>				
-				<td align="right"><%=FormatNumber(nsubhi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubshi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubsbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubhi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubshi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubsbi,2)%></td>
 				
 				<td align="right"><%=FormatNumber(nsubtonase_hi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_shi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubpom_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubbudjjg_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbudjjg_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbudjjg_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbudjjg_sbi,2)%></td>
 				
 				<td align="right"><%=FormatNumber(nsubpom_tonase_hi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_shi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubbudqty_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbudqty_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbudqty_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbudqty_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubrestan,0)%></td>
+				<td align="right"><%=FormatNumber(nsubrestan,2)%></td>
 
-				<td align="right"><%=FormatNumber(nsubmandays_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubbudmandays_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbudmandays_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbudmandays_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbudmandays_sbi,2)%></td>
 
-				<td align="right"><%=FormatNumber(nsubOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_sbi,2)%></td>
 				
 				<td align="right"><%=FormatNumber(nsubbudOutput_shi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubbudOutput_sbi,2)%></td>
 
-				<td align="right"><%=FormatNumber(nSubMandays_Amount_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nSubMandays_Amount_shi,0)%></td>
+				<td align="right"><%=FormatNumber(nSubMandays_Amount_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nSubMandays_Amount_shi,2)%></td>
 				
 			</tr>
 </tbody>

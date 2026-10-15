@@ -1436,9 +1436,9 @@ DIM nRotasiMultiHa_(12)
 				<% end if %>				
 				
 			
-				<td align="right"><%=FormatNumber(rsEPS("HA"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("POKOK"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("POKOK_PER_HA"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("HA"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("POKOK"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("POKOK_PER_HA"),2)%></td>
 				
 	
 			<% 
@@ -1446,42 +1446,42 @@ DIM nRotasiMultiHa_(12)
 			   FOR K = 1 TO 12 %>	
 
 				<td class="ROTASI" align="right"><%=FormatNumber(rsEPS("ROTASI_" & lpad(K,"0",2)),1)%></td>
-				<td class="KG" align="right"><%=FormatNumber( cdbl(rsEPS("Prdton_" & lpad(K,"0",2))) * 1000,0)%></td>
+				<td class="KG" align="right"><%=FormatNumber( cdbl(rsEPS("Prdton_" & lpad(K,"0",2))) * 1000,2)%></td>
 				<td class="TON_HA" align="right"><%=FormatNumber(rsEPS("Prdton_HA_" & lpad(K,"0",2)),2)%></td>
-				<td class="RP" align="right"><%=FormatNumber(rsEPS("Amount_" & lpad(K,"0",2)),0)%></td>
-				<td class="RP_KG" align="right"><%=FormatNumber(rsEPS("Amount_KG_" & lpad(K,"0",2)),0)%></td>
-				<td class="JJG" align="right"><%=FormatNumber(rsEPS("JJG_" & lpad(K,"0",2)),0)%></td>
+				<td class="RP" align="right"><%=FormatNumber(rsEPS("Amount_" & lpad(K,"0",2)),2)%></td>
+				<td class="RP_KG" align="right"><%=FormatNumber(rsEPS("Amount_KG_" & lpad(K,"0",2)),2)%></td>
+				<td class="JJG" align="right"><%=FormatNumber(rsEPS("JJG_" & lpad(K,"0",2)),2)%></td>
 				<td class="BJR" align="right"><%=FormatNumber(rsEPS("BJR_" & lpad(K,"0",2)),2)%></td>
 				<td class="JJG_PKK" align="right"><%=FormatNumber(rsEPS("JJG_PKK_" & lpad(K,"0",2)),1)%></td>
 				<td class="HK" align="right"><%=FormatNumber(rsEPS("Mandays_" & lpad(K,"0",2)),1)%></td>
-                <td class="KG_HK" align="right"><%=FormatNumber(rsEPS("KG_HK_" & lpad(K,"0",2)),0)%></td>
+                <td class="KG_HK" align="right"><%=FormatNumber(rsEPS("KG_HK_" & lpad(K,"0",2)),2)%></td>
 			<% 
 			     SBIRotasi = SBIRotasi +   cdbl(rsEPS("ROTASI_" & lpad(K,"0",2) ))
 			   NEXT 
 			   
 			   %>
 			
-				<td class="ROTASI" align="right"><%=FormatNumber(SBIRotasi,0)%></td>
-				<td class="KG" align="right"><%=FormatNumber(cdbl(rsEPS("prod_ton_SBI"))* 1000,0)%></td>
+				<td class="ROTASI" align="right"><%=FormatNumber(SBIRotasi,2)%></td>
+				<td class="KG" align="right"><%=FormatNumber(cdbl(rsEPS("prod_ton_SBI"))* 1000,2)%></td>
 				<td class="TON_HA" align="right"><%=FormatNumber(rsEPS("prod_ton_HA_SBI"),2)%></td>
-				<td class="RP" align="right"><%=FormatNumber(rsEPS("Amount_SBI"),0)%></td>
-				<td class="RP_KG" align="right"><%=FormatNumber(rsEPS("Amount_KG_SBI"),0)%></td>
-				<td class="JJG" align="right"><%=FormatNumber(rsEPS("JJG_SBI"),0)%></td>
+				<td class="RP" align="right"><%=FormatNumber(rsEPS("Amount_SBI"),2)%></td>
+				<td class="RP_KG" align="right"><%=FormatNumber(rsEPS("Amount_KG_SBI"),2)%></td>
+				<td class="JJG" align="right"><%=FormatNumber(rsEPS("JJG_SBI"),2)%></td>
 				<td class="BJR" align="right"><%=FormatNumber(rsEPS("BJR_SBI"),2)%></td>
 				<td class="JJG_PKK" align="right"><%=FormatNumber(rsEPS("JJG_PKK_SBI"),1)%></td>
 				<td class="HK" align="right"><%=FormatNumber(rsEPS("Mandays_SBI"),1)%></td>
-                <td class="KG_HK" align="right"><%=FormatNumber(cdbl(rsEPS("KG_HK_SBI"))/1000,0)%></td>
+                <td class="KG_HK" align="right"><%=FormatNumber(cdbl(rsEPS("KG_HK_SBI"))/1000,2)%></td>
 				
 				
-				<td class="KG" align="right"><%=FormatNumber(cdbl(rsEPS("bud_ton_sbi"))* 1000,0)%></td>
+				<td class="KG" align="right"><%=FormatNumber(cdbl(rsEPS("bud_ton_sbi"))* 1000,2)%></td>
 				<td class="TON_HA" align="right"><%=FormatNumber(rsEPS("bud_prod_ton_HA_SBI"),2)%></td>
-				<td class="RP" align="right"><%=FormatNumber(rsEPS("bud_Amount_sbi"),0)%></td>
-				<td class="RP_KG" align="right"><%=FormatNumber(rsEPS("bud_Amount_KG_SBI"),0)%></td>
-				<td class="JJG" align="right"><%=FormatNumber(rsEPS("bud_jjg_sbi"),0)%></td>
+				<td class="RP" align="right"><%=FormatNumber(rsEPS("bud_Amount_sbi"),2)%></td>
+				<td class="RP_KG" align="right"><%=FormatNumber(rsEPS("bud_Amount_KG_SBI"),2)%></td>
+				<td class="JJG" align="right"><%=FormatNumber(rsEPS("bud_jjg_sbi"),2)%></td>
 				<td class="BJR" align="right"><%=FormatNumber(rsEPS("BUD_BJR_SHI"),2)%></td>
 				<td class="JJG_PKK" align="right"><%=FormatNumber(rsEPS("BUD_JJG_PKK_SBI"),1)%></td>
 				<td class="HK" align="right"><%=FormatNumber(rsEPS("bud_Mandays_sbi"),1)%></td>
-                <td class="KG_HK" align="right"><%=FormatNumber(cdbl(rsEPS("bud_KG_HK_SBI"))/1000,0)%></td>
+                <td class="KG_HK" align="right"><%=FormatNumber(cdbl(rsEPS("bud_KG_HK_SBI"))/1000,2)%></td>
 			
 				
 								
@@ -1608,11 +1608,11 @@ DIM nRotasiMultiHa_(12)
 			<tr bgcolor="#F4F4A0">
 		
 				<td align="center" colspan="<%= 1+ nSpanTotal %>">TOTAL</td>				
-				<td align="right"><%=FormatNumber(nha,0)%></td>
-				<td align="right"><%=FormatNumber(npokok,0)%></td>
+				<td align="right"><%=FormatNumber(nha,2)%></td>
+				<td align="right"><%=FormatNumber(npokok,2)%></td>
 				
 				<% IF cdbl(nha) > 0 then %>
-				  <td align="right"><%=FormatNumber(cdbl(npokok)/cdbl(nha),0)%></td>
+				  <td align="right"><%=FormatNumber(cdbl(npokok)/cdbl(nha),2)%></td>
 				<% ELSE %>
 				   <td align="right">0</td>
 				<% END IF%>
@@ -1630,7 +1630,7 @@ DIM nRotasiMultiHa_(12)
 					  end if
 				  	 %> 
 					<td class="ROTASI" align="right"><%=FormatNumber(nRotasi_(i),1)%></td>
-					<td class="KG" align="right"><%=FormatNumber(nPrdton_(i),0)%></td>
+					<td class="KG" align="right"><%=FormatNumber(nPrdton_(i),2)%></td>
 					
 					<% IF cdbl(nha) > 0 then %>
 					  <td class="TON_HA" align="right"><%=FormatNumber(cdbl(nPrdton_(i))/cdbl(nha)/ 1000,2)%></td>
@@ -1638,15 +1638,15 @@ DIM nRotasiMultiHa_(12)
 					   <td class="TON_HA" align="right">0</td>
 					<% END IF%>
 					
-					<td class="RP" align="right"><%=FormatNumber(nAmount_(i),0)%></td>
+					<td class="RP" align="right"><%=FormatNumber(nAmount_(i),2)%></td>
 					
 					<% IF cdbl(nPrdton_(i)) > 0 then %>
-					  <td class="RP_KG" align="right"><%=FormatNumber(cdbl(nAmount_(i))/(cdbl(nPrdton_(i))),0)%></td>
+					  <td class="RP_KG" align="right"><%=FormatNumber(cdbl(nAmount_(i))/(cdbl(nPrdton_(i))),2)%></td>
 					<% ELSE %>
 					   <td class="RP_KG" align="right">0</td>
 					<% END IF%>		
 					
-					<td class="JJG" align="right"><%=FormatNumber(nJJG_(i),0)%></td>
+					<td class="JJG" align="right"><%=FormatNumber(nJJG_(i),2)%></td>
 					
 					<% IF cdbl(nJJG_(i)) > 0 then %>
 					  <td class="BJR" align="right"><%=FormatNumber( (cdbl(nPrdton_(i)))/cdbl(nJJG_(i)),2)%></td>
@@ -1663,7 +1663,7 @@ DIM nRotasiMultiHa_(12)
 					<td class="HK" align="right"><%=FormatNumber(nMandays_(i),1)%></td>
 					
 					<% IF cdbl(nMandays_(i)) > 0 then %>
-					  <td class="KG_HK" align="right"><%=FormatNumber((cdbl(nPrdton_(i)))/cdbl(nMandays_(i)),0)%></td>
+					  <td class="KG_HK" align="right"><%=FormatNumber((cdbl(nPrdton_(i)))/cdbl(nMandays_(i)),2)%></td>
 					<% ELSE %>
 					   <td class="KG_HK" align="right">0</td>
 					<% END IF%>
@@ -1671,8 +1671,8 @@ DIM nRotasiMultiHa_(12)
 				
 				<% next %>	
 				
-				<td class="ROTASI" align="right"><%=FormatNumber(nRotasi_SBI,0)%></td>
-				<td class="KG" align="right"><%=FormatNumber(nPrdton_SBI,0)%></td>
+				<td class="ROTASI" align="right"><%=FormatNumber(nRotasi_SBI,2)%></td>
+				<td class="KG" align="right"><%=FormatNumber(nPrdton_SBI,2)%></td>
 				
 				<% IF cdbl(nha) > 0 then %>
 				  <td class="TON_HA" align="right"><%=FormatNumber(cdbl(nPrdton_SBI)/cdbl(nha)/1000,2)%></td>
@@ -1680,15 +1680,15 @@ DIM nRotasiMultiHa_(12)
 				   <td class="TON_HA" align="right">0</td>
 				<% END IF%>
 				
-				<td class="RP" align="right"><%=FormatNumber(nAmount_SBI,0)%></td>
+				<td class="RP" align="right"><%=FormatNumber(nAmount_SBI,2)%></td>
 				
 				<% IF cdbl(nPrdton_SBI) > 0 then %>
-				  <td class="RP_KG" align="right"><%=FormatNumber(cdbl(nAmount_SBI)/(cdbl(nPrdton_SBI)),0)%></td>
+				  <td class="RP_KG" align="right"><%=FormatNumber(cdbl(nAmount_SBI)/(cdbl(nPrdton_SBI)),2)%></td>
 				<% ELSE %>
 				   <td class="RP_KG" align="right">0</td>
 				<% END IF%>
 				
-				<td class="JJG" align="right"><%=FormatNumber(nJJG_SBI,0)%></td>
+				<td class="JJG" align="right"><%=FormatNumber(nJJG_SBI,2)%></td>
 				
 				<% IF cdbl(nJJG_SBI) > 0 then %>
 				  <td class="BJR" align="right"><%=FormatNumber((cdbl(nPrdton_SBI))/cdbl(nJJG_SBI),2)%></td>
@@ -1702,32 +1702,32 @@ DIM nRotasiMultiHa_(12)
 				   <td class="JJG_PKK" align="right">0</td>
 				<% END IF%>
 				
-				<td class="HK" align="right"><%=FormatNumber(nMandays_SBI,0)%></td>
+				<td class="HK" align="right"><%=FormatNumber(nMandays_SBI,2)%></td>
 				
 				<% IF cdbl(nMandays_SBI) > 0 then %>
-				  <td class="KG_HK" align="right"><%=FormatNumber((cdbl(nPrdton_SBI)*1000)/cdbl(nMandays_SBI),0)%></td>
+				  <td class="KG_HK" align="right"><%=FormatNumber((cdbl(nPrdton_SBI)*1000)/cdbl(nMandays_SBI),2)%></td>
 				<% ELSE %>
 				   <td class="KG_HK" align="right">0</td>
 				<% END IF%>
 				
      
 				
-				<td class="KG" align="right"><%=FormatNumber(nPrdton_BUD,0)%></td>
+				<td class="KG" align="right"><%=FormatNumber(nPrdton_BUD,2)%></td>
 				<% IF cdbl(nha) > 0 then %>
 				  <td class="TON_HA" align="right"><%=FormatNumber(cdbl(nPrdton_BUD)/cdbl(nha)/1000,2)%></td>
 				<% ELSE %>
 				   <td class="TON_HA" align="right">0</td>
 				<% END IF%>
 				
-				<td class="RP" align="right"><%=FormatNumber(nAmount_BUD,0)%></td>
+				<td class="RP" align="right"><%=FormatNumber(nAmount_BUD,2)%></td>
 				
 				<% IF cdbl(nPrdton_BUD) > 0 then %>
-				  <td class="RP_KG" align="right"><%=FormatNumber(cdbl(nAmount_BUD)/(cdbl(nPrdton_BUD)),0)%></td>
+				  <td class="RP_KG" align="right"><%=FormatNumber(cdbl(nAmount_BUD)/(cdbl(nPrdton_BUD)),2)%></td>
 				<% ELSE %>
 				   <td class="RP_KG" align="right">0</td>
 				<% END IF%>		
 				
-				<td class="JJG" align="right"><%=FormatNumber(nJJG_BUD,0)%></td>
+				<td class="JJG" align="right"><%=FormatNumber(nJJG_BUD,2)%></td>
 				
 				<% IF cdbl(nJJG_BUD) > 0 then %>
 				  <td class="BJR" align="right"><%=FormatNumber((cdbl(nPrdton_BUD))/cdbl(nJJG_BUD),2)%></td>
@@ -1741,10 +1741,10 @@ DIM nRotasiMultiHa_(12)
 				   <td class="JJG_PKK" align="right">0</td>
 				<% END IF%>
 				
-				<td class="HK" align="right"><%=FormatNumber(nMandays_BUD,0)%></td>
+				<td class="HK" align="right"><%=FormatNumber(nMandays_BUD,2)%></td>
 				
 				<% IF cdbl(nMandays_BUD) > 0 then %>
-				  <td class="KG_HK" align="right"><%=FormatNumber((cdbl(nPrdton_BUD)*1000)/cdbl(nMandays_BUD),0)%></td>
+				  <td class="KG_HK" align="right"><%=FormatNumber((cdbl(nPrdton_BUD)*1000)/cdbl(nMandays_BUD),2)%></td>
 				<% ELSE %>
 				   <td class="KG_HK" align="right">0</td>
 				<% END IF%>

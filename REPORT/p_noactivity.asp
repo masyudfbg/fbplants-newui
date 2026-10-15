@@ -523,7 +523,7 @@ function launchwin(winurl,winname,winfeatures)
 					Else
 						ColorID = "&nbsp;"
 					End If%>
-					<td align="right" width="1%"><%=ColorID%></td>
+					<td align="right" width="1%"><%=FbpNum2(ColorID)%></td>
 				<%Next%>
 			</tr>
 		<%Else%>
@@ -538,7 +538,7 @@ function launchwin(winurl,winname,winfeatures)
 					Else
 						ColorID = "&nbsp;"
 					End If%>
-					<td align="right" width="1%"><%=ColorID%></td>
+					<td align="right" width="1%"><%=FbpNum2(ColorID)%></td>
 				<%Next%>
 			</tr>
 		<%End If%>

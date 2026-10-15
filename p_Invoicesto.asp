@@ -298,7 +298,7 @@ response.Flush()
 							<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("no_faktur")%> </td>
 							<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("fakturdate")%> </td>
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("amount"))),2)%></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("pph"))),0)%></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("pph"))),2)%></td>
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("amountpph"))),2)%></td> 
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("Inv_totalamount"))),2)%></td>
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("pvd_payment_amount"))),2)%></td> 
@@ -324,13 +324,13 @@ response.Flush()
 							</form>
 							<tr bgcolor="#F4F4A0">
 								<td align="Center" style="<%=cmdstyleLeft%>" colspan="12"> <font face="Verdana" size="1" style = "font-weight: bold;">T o t a l</td>
-								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_amount)),0)%></td>
+								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_amount)),2)%></td>
 								<td></td>
-								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_amountpph)),0)%></td>
-							 	<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_totalamount)),0)%></td>
-							 	<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_pvd_payment_amount)),0)%></td>
-							 	<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_pvd_adjustment_amount)),0)%></td>
-							 	<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_var_amount)),0)%></td>
+								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_amountpph)),2)%></td>
+							 	<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_totalamount)),2)%></td>
+							 	<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_pvd_payment_amount)),2)%></td>
+							 	<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_pvd_adjustment_amount)),2)%></td>
+							 	<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style = "font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_var_amount)),2)%></td>
 							</tr>
                            </tbody>
 						</table>

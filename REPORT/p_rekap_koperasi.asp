@@ -432,7 +432,7 @@ else
 %>
 						<tr style="background-color:#F4F4A0;">
 							<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Sub Total <%=PCase(PrevRegion)%></strong></td>
-							<td align="Right"><strong><%=FormatNumber(subtotal_iurankoperasi, 0)%></strong></td>			
+							<td align="Right"><strong><%=FormatNumber(subtotal_iurankoperasi, 2)%></strong></td>			
 						</tr>
 <%
 						subtotal_iurankoperasi = 0
@@ -646,9 +646,9 @@ else
 							<%If var_colspan = 1 Then%>
 								<td align="right"></td>
 							<%End If%>
-								<td align="right"><%=FormatNumber(rsrekap_bpjskes("iuran_koperasi"), 0)%></td>
-								<td align="right"><%=FormatNumber(rsrekap_bpjskes("bon_koperasi"), 0)%></td>
-								<td align="right"><%=FormatNumber(rsrekap_bpjskes("total_koperasi"), 0)%></td>
+								<td align="right"><%=FormatNumber(rsrekap_bpjskes("iuran_koperasi"), 2)%></td>
+								<td align="right"><%=FormatNumber(rsrekap_bpjskes("bon_koperasi"), 2)%></td>
+								<td align="right"><%=FormatNumber(rsrekap_bpjskes("total_koperasi"), 2)%></td>
 					</tr>
 				<%Else%>
 					<tr>
@@ -857,9 +857,9 @@ else
 					<%If var_colspan = 1 Then%>
 						<td align="right"></td>
 					<%End If%>
-						<td align="right"><%=FormatNumber(rsrekap_bpjskes("iuran_koperasi"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsrekap_bpjskes("bon_koperasi"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsrekap_bpjskes("total_koperasi"), 0)%></td>
+						<td align="right"><%=FormatNumber(rsrekap_bpjskes("iuran_koperasi"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsrekap_bpjskes("bon_koperasi"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsrekap_bpjskes("total_koperasi"), 2)%></td>
 					</tr>
 				<%End If%>
 <%
@@ -1074,9 +1074,9 @@ else
 				<%If var_colspan = 1 Then%>
 					<td align="right"></td>
 				<%End If%>
-					<td align="right"><%=FormatNumber(rsrekap_bpjskes("iuran_koperasi"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsrekap_bpjskes("bon_koperasi"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsrekap_bpjskes("total_koperasi"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsrekap_bpjskes("iuran_koperasi"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsrekap_bpjskes("bon_koperasi"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsrekap_bpjskes("total_koperasi"), 2)%></td>
 				</tr>
 			<%End If%>
 <%
@@ -1093,16 +1093,16 @@ else
 			<%if v_txtRegion <>  "--SUMMARY--" and v_txtRegion <>  "" then%>
 				<tr style="background-color:#F4F4A0;">
 					<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Sub Total <%=PCase(PrevRegion)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(subtotal_iurankoperasi, 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(subtotal_bonkoperasi, 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(subtotal_totalkoperasi, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(subtotal_iurankoperasi, 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(subtotal_bonkoperasi, 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(subtotal_totalkoperasi, 2)%></strong></td>
 				</tr>
 			<%End If%>
 				<tr style="background-color:#F4F4A0;">
 					<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Grand Total</strong></td>
-					<td align="right"><strong><%=FormatNumber(grandtotal_iurankoperasi, 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(grandtotal_bonkoperasi, 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(grandtotal_totalkoperasi, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(grandtotal_iurankoperasi, 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(grandtotal_bonkoperasi, 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(grandtotal_totalkoperasi, 2)%></strong></td>
 				</tr>
 <%End if%>
      </tbody>

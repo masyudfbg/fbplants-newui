@@ -264,26 +264,26 @@ End if
         <%if instr(v_cField,"FIELDCODE") > 0 then%>
 			<td align="Left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("FIELDCODE")%></td>
 		<%end if%>			
-			<%IF CDBL(rscat("BUAHMENTAH")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHMENTAH"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("BUAHTERLALUMATANG")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHTERLALUMATANG"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("ABNORMAL")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("ABNORMAL"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("TANGKAIPANJANG")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("TANGKAIPANJANG"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("BUAHDIMAKANTIKUS")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHDIMAKANTIKUS"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("BUAHTIDAKDIPANEN")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHTIDAKDIPANEN"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("BRONDOLANDIPIRINGAN")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BRONDOLANDIPIRINGAN"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("BUAHTINGGALDIPIRINGAN")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHTINGGALDIPIRINGAN"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("BUAHTIDAKDISUSUNRAPI")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHTIDAKDISUSUNRAPI"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("PELEPAHSENGKLEH")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("PELEPAHSENGKLEH"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("PELEPAHTIDAKDISUSUNRAPI")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("PELEPAHTIDAKDISUSUNRAPI"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("BUAHMATAHARI")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHMATAHARI"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("BUAHBUSUK")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHBUSUK"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("QE_1")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_1"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("QE_2")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_2"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("QE_3")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_3"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("QE_4")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_4"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("QE_5")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_5"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("QE_6")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_6"), 0)%></td><%END IF%>
-			<%IF CDBL(rscat("QE_7")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_7"), 0)%></td><%END IF%>
+			<%IF CDBL(rscat("BUAHMENTAH")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHMENTAH"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("BUAHTERLALUMATANG")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHTERLALUMATANG"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("ABNORMAL")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("ABNORMAL"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("TANGKAIPANJANG")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("TANGKAIPANJANG"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("BUAHDIMAKANTIKUS")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHDIMAKANTIKUS"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("BUAHTIDAKDIPANEN")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHTIDAKDIPANEN"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("BRONDOLANDIPIRINGAN")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BRONDOLANDIPIRINGAN"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("BUAHTINGGALDIPIRINGAN")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHTINGGALDIPIRINGAN"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("BUAHTIDAKDISUSUNRAPI")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHTIDAKDISUSUNRAPI"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("PELEPAHSENGKLEH")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("PELEPAHSENGKLEH"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("PELEPAHTIDAKDISUSUNRAPI")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("PELEPAHTIDAKDISUSUNRAPI"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("BUAHMATAHARI")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHMATAHARI"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("BUAHBUSUK")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("BUAHBUSUK"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("QE_1")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_1"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("QE_2")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_2"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("QE_3")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_3"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("QE_4")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_4"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("QE_5")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_5"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("QE_6")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_6"), 2)%></td><%END IF%>
+			<%IF CDBL(rscat("QE_7")) = 0 THEN%><td align="Right"></td><%ELSE%> <td align="Right"><%=FormatNumber(rscat("QE_7"), 2)%></td><%END IF%>
 			</tr>
 		  <%
 		no = no + 1
@@ -315,26 +315,26 @@ End if
 
 		<tr style="background-color:#F4F4A0;">
 			<td align="center" colspan="<%=Kolom + 1%>" ><strong>Total</strong></td>
-			<%IF nBUAHMENTAH = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHMENTAH, 0)%></strong></td><%END IF%>
-			<%IF nBUAHTERLALUMATANG = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHTERLALUMATANG, 0)%></strong></td><%END IF%>
-			<%IF nABNORMAL = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nABNORMAL, 0)%></strong></td><%END IF%>
-			<%IF nTANGKAIPANJANG = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nTANGKAIPANJANG, 0)%></strong></td><%END IF%>
-			<%IF nBUAHDIMAKANTIKUS = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHDIMAKANTIKUS, 0)%></strong></td><%END IF%>
-			<%IF nBUAHTIDAKDIPANEN = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHTIDAKDIPANEN, 0)%></strong></td><%END IF%>
-			<%IF nBRONDOLANDIPIRINGAN = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBRONDOLANDIPIRINGAN, 0)%></strong></td><%END IF%>
-			<%IF nBUAHTINGGALDIPIRINGAN = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHTINGGALDIPIRINGAN, 0)%></strong></td><%END IF%>
-			<%IF nBUAHTIDAKDISUSUNRAPI = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHTIDAKDISUSUNRAPI, 0)%></strong></td><%END IF%>
-			<%IF nPELEPAHSENGKLEH = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nPELEPAHSENGKLEH, 0)%></strong></td><%END IF%>
-			<%IF nPELEPAHTIDAKDISUSUNRAPI = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nPELEPAHTIDAKDISUSUNRAPI, 0)%></strong></td><%END IF%>
-			<%IF nBUAHMATAHARI = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHMATAHARI, 0)%></strong></td><%END IF%>
-			<%IF nBUAHBUSUK = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHBUSUK, 0)%></strong></td><%END IF%>
-			<%IF nQE_1 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_1, 0)%></strong></td><%END IF%>
-			<%IF nQE_2 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_2, 0)%></strong></td><%END IF%>
-			<%IF nQE_3 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_3, 0)%></strong></td><%END IF%>
-			<%IF nQE_4 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_4, 0)%></strong></td><%END IF%>
-			<%IF nQE_5 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_5, 0)%></strong></td><%END IF%>
-			<%IF nQE_6 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_6, 0)%></strong></td><%END IF%>
-			<%IF nQE_7 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_7, 0)%></strong></td><%END IF%>
+			<%IF nBUAHMENTAH = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHMENTAH, 2)%></strong></td><%END IF%>
+			<%IF nBUAHTERLALUMATANG = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHTERLALUMATANG, 2)%></strong></td><%END IF%>
+			<%IF nABNORMAL = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nABNORMAL, 2)%></strong></td><%END IF%>
+			<%IF nTANGKAIPANJANG = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nTANGKAIPANJANG, 2)%></strong></td><%END IF%>
+			<%IF nBUAHDIMAKANTIKUS = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHDIMAKANTIKUS, 2)%></strong></td><%END IF%>
+			<%IF nBUAHTIDAKDIPANEN = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHTIDAKDIPANEN, 2)%></strong></td><%END IF%>
+			<%IF nBRONDOLANDIPIRINGAN = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBRONDOLANDIPIRINGAN, 2)%></strong></td><%END IF%>
+			<%IF nBUAHTINGGALDIPIRINGAN = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHTINGGALDIPIRINGAN, 2)%></strong></td><%END IF%>
+			<%IF nBUAHTIDAKDISUSUNRAPI = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHTIDAKDISUSUNRAPI, 2)%></strong></td><%END IF%>
+			<%IF nPELEPAHSENGKLEH = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nPELEPAHSENGKLEH, 2)%></strong></td><%END IF%>
+			<%IF nPELEPAHTIDAKDISUSUNRAPI = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nPELEPAHTIDAKDISUSUNRAPI, 2)%></strong></td><%END IF%>
+			<%IF nBUAHMATAHARI = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHMATAHARI, 2)%></strong></td><%END IF%>
+			<%IF nBUAHBUSUK = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nBUAHBUSUK, 2)%></strong></td><%END IF%>
+			<%IF nQE_1 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_1, 2)%></strong></td><%END IF%>
+			<%IF nQE_2 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_2, 2)%></strong></td><%END IF%>
+			<%IF nQE_3 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_3, 2)%></strong></td><%END IF%>
+			<%IF nQE_4 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_4, 2)%></strong></td><%END IF%>
+			<%IF nQE_5 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_5, 2)%></strong></td><%END IF%>
+			<%IF nQE_6 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_6, 2)%></strong></td><%END IF%>
+			<%IF nQE_7 = 0 THEN%><td align="Right"><strong></strong></td><%ELSE%> <td align="Right"><strong><%=FormatNumber(nQE_7, 2)%></strong></td><%END IF%>
 
 		</tr>
    <%

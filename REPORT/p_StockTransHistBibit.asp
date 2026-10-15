@@ -193,7 +193,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center"><%=rsStockTransHist("BATCHNAME")%></td>
 				<td align="center"><%=rsStockTransHist("TRANSTYPE")%></td>
 				<td align="center"><%=rsStockTransHist("TRANSDATE")%></td>
-				<td align="right"><%=rsStockTransHist("QUANTITY")%></td>
+				<td align="right"><%=FbpNum2(rsStockTransHist("QUANTITY"))%></td>
 				<td align="right"><%=rsStockTransHist("LINENO")%></td>
 			</tr>
 <%
@@ -204,7 +204,7 @@ function launchwin(winurl,winname,winfeatures)
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="5"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=totalqty%></strong></td>
+				<td align="right"><strong><%=FbpNum2(totalqty)%></strong></td>
 				<td align="right">&nbsp;</td>
 			</tr>
 <%

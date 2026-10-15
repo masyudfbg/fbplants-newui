@@ -143,10 +143,10 @@ Palm_SBI = cdbl(ProdKER_SBI) +  cdbl(ProdCPO_SBI)
 	<tr>
 	   
 		<th  style="color:#FFFFFF"  colspan="2" align="right">TBS PROSES (KG)</th>
-		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(TBSprocess_BI,0)%></th>
+		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(TBSprocess_BI,2)%></th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
 		<th style="color:#FFFFFF" align="right" >0</th>
-		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(TBSprocess_SBI,0)%></th>
+		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(TBSprocess_SBI,2)%></th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
 		<th style="color:#FFFFFF" align="right" >0</th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
@@ -156,10 +156,10 @@ Palm_SBI = cdbl(ProdKER_SBI) +  cdbl(ProdCPO_SBI)
 	<tr>
 	    
 		<th  style="color:#FFFFFF" colspan="2" align="right">PRODUKSI CPO (KG)</th>
-		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(ProdCPO_BI,0)%></th>
+		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(ProdCPO_BI,2)%></th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
 		<th style="color:#FFFFFF" align="right" >0</th>
-		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(ProdCPO_SBI,0)%></th>
+		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(ProdCPO_SBI,2)%></th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
 		<th style="color:#FFFFFF" align="right" >0</th>
 		<th style="color:#FFFFFF" align="right" colspan="3">0</th>
@@ -167,10 +167,10 @@ Palm_SBI = cdbl(ProdKER_SBI) +  cdbl(ProdCPO_SBI)
 	<tr>
 	    
 		<th  style="color:#FFFFFF" colspan="2" align="right">PRODUKSI KER (KG)</th>
-		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(ProdKER_BI,0)%></th>
+		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(ProdKER_BI,2)%></th>
 		<th style="color:#FFFFFF" align="right" colspan="3">0</th>
 		<th style="color:#FFFFFF" align="right" >0</th>
-		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(ProdKER_SBI,0)%></th>
+		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(ProdKER_SBI,2)%></th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
 		<th style="color:#FFFFFF" align="right" >0</th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
@@ -178,10 +178,10 @@ Palm_SBI = cdbl(ProdKER_SBI) +  cdbl(ProdCPO_SBI)
 	<tr>
 	    
 		<th  style="color:#FFFFFF" colspan="2" align="right">PRODUK (KG)</th>
-		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(Palm_BI,0)%></th>
+		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(Palm_BI,2)%></th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
 		<th style="color:#FFFFFF" align="right" >0</th>
-		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(Palm_SBI,0)%></th>
+		<th  style="color:#FFFFFF" align="right" colspan="3"><%=formatnumber(Palm_SBI,2)%></th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
 		<th style="color:#FFFFFF" align="right" >0</th>
 		<th  style="color:#FFFFFF" align="right" colspan="3">0</th>
@@ -267,14 +267,14 @@ Palm_SBI = cdbl(ProdKER_SBI) +  cdbl(ProdCPO_SBI)
 				<tr>  
 					<td><%=rsha("JobCode")%></td>
 					<td><%=rsha("DESCRIPTION")%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BI")),2)%></td>
 					<td align="right"><%=formatnumber( (cdbl(rsha("BI"))/cdbl(palm_BI)),2)%></td>
 					<td align="right"><%=formatnumber( (cdbl(rsha("BI"))/cdbl(TBSprocess_BI)),2)%></td>
 					<td align="right">0</td>
 					<td align="right">0</td>
 				    <td align="right">0</td>
 				    <td align="right">0%</td>
-					<td align="right"><%=formatnumber( cdbl(rsha("SBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("SBI")),2)%></td>
 					<td align="right"><%=formatnumber( (cdbl(rsha("SBI"))/cdbl(palm_SBI)),2)%></td>
 					<td align="right"><%=formatnumber( (cdbl(rsha("SBI"))/cdbl(TBSprocess_SBI)),2)%></td>
 					<td align="right">0</td>
@@ -288,14 +288,14 @@ Palm_SBI = cdbl(ProdKER_SBI) +  cdbl(ProdCPO_SBI)
             <% ELSE  %>	
                <tr>  							
 					<td  style="background-color:#F4F4A0"  colspan="2"><b>Total Biaya Tak Langsung</td>
-					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpBI,0)%></td>
+					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpBI,2)%></td>
 					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber((cdbl(GRAmtgrpBI)/cdbl(palm_BI)),2)%></td>
 					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(( cdbl(GRAmtgrpBI)/cdbl(TBSprocess_BI)),2)%></td>	
 					<td  style="background-color:#F4F4A0" align="right">0</td>
 					<td  style="background-color:#F4F4A0" align="right">0</td>
 				    <td  style="background-color:#F4F4A0" align="right">0</td>
 				    <td  style="background-color:#F4F4A0" align="right">0%</td>
-					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpSBI,0)%></td>
+					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpSBI,2)%></td>
 					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber((cdbl(GRAmtgrpSBI)/cdbl(palm_SBI)),2)%></td>
 					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(( cdbl(GRAmtgrpSBI)/cdbl(TBSprocess_SBI)),2)%></td>
 					<td  style="background-color:#F4F4A0" align="right">0</td>
@@ -313,14 +313,14 @@ Palm_SBI = cdbl(ProdKER_SBI) +  cdbl(ProdCPO_SBI)
 				<tr>  
 					<td><%=rsha("JobCode")%></td>
 					<td><%=rsha("DESCRIPTION")%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BI")),2)%></td>
 					<td align="right"><%=formatnumber( (cdbl(rsha("BI"))/cdbl(palm_BI)),2)%></td>
 					<td align="right"><%=formatnumber( (cdbl(rsha("BI"))/cdbl(TBSprocess_BI)),2)%></td>
 					<td align="right">0</td>
 					<td align="right">0</td>
 				    <td align="right">0</td>
 				    <td align="right">0%</td>
-					<td align="right"><%=formatnumber( cdbl(rsha("SBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("SBI")),2)%></td>
 					<td align="right"><%=formatnumber( (cdbl(rsha("SBI"))/cdbl(palm_SBI)),2)%></td>
 					<td align="right"><%=formatnumber( (cdbl(rsha("SBI"))/cdbl(TBSprocess_SBI)),2)%></td>
 					<td align="right">0</td>
@@ -334,14 +334,14 @@ Palm_SBI = cdbl(ProdKER_SBI) +  cdbl(ProdCPO_SBI)
               					
                 <tr>  							
 					<td  style="background-color:#F4F4A0" colspan="2"><b>Total Keseluruhan</td>
-					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpBI,0)%></td>
+					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpBI,2)%></td>
 					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber((cdbl(GRAmtgrpBI)/cdbl(palm_BI)),2)%></td>
 					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(( cdbl(GRAmtgrpBI)/cdbl(TBSprocess_BI)),2)%></td>	
 					<td  style="background-color:#F4F4A0" align="right">0</td>
 					<td  style="background-color:#F4F4A0" align="right">0</td>
 				    <td  style="background-color:#F4F4A0" align="right">0</td>
 				    <td  style="background-color:#F4F4A0" align="right">0%</td>
-					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpSBI,0)%></td>
+					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpSBI,2)%></td>
 					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber((cdbl(GRAmtgrpSBI)/cdbl(palm_SBI)),2)%></td>
 					<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(( cdbl(GRAmtgrpSBI)/cdbl(TBSprocess_SBI)),2)%></td>
 					<td  style="background-color:#F4F4A0" align="right">0</td>

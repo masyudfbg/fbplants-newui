@@ -910,34 +910,34 @@ set rsPusingan = Nothing
 		<!--
 		<tr bgcolor="#F4F4A0">
 			<td align="Right" colspan="5"> <strong><i><font face="Verdana" size="1">Grand Total</i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_netto, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_netto, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_bm_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_bm_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_bm_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_bm_kg, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_blm_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_blm_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_blm_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_blm_kg, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_tk_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_tk_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_tk_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_tk_kg, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_tp_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_tp_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_tp_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_tp_kg, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_dt_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_dt_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_dt_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_dt_kg, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_bron_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_bron_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_bron_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_bron_kg, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_sam_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_sam_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_sam_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_sam_kg, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tot_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tot_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tot_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tot_kg, 2)%></i></strong></td>
 			
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tot_percentPot, 0)%></i></strong></td>
-			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tot_kg, 0)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tot_percentPot, 2)%></i></strong></td>
+			<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(n_Tot_kg, 2)%></i></strong></td>
 		</tr>
 		-->
 		

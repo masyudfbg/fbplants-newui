@@ -190,11 +190,11 @@ response.Flush()
 										</td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("deliveryorderdate")%> </td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("productcode")%> </td>
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("quantity")),0)%></td>
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("quantity")),2)%></td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("unitofmeasure")%></td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("startdate")%> </td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("enddate")%> </td>
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("quantity_do")),0)%></td>
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("quantity_do")),2)%></td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("transportercontractno")%> </td>		
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("transporter")%> - <%=rscat("transportername")%> </td>
 										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("transportationcost")%> </td>

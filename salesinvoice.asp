@@ -1511,7 +1511,7 @@ Set oRecordSet = Nothing
 						<td align="center" title="" valign="top"><%=rsVH("salesshipmentno")%></td>
 						<td align="center" title="" valign="top"><%=rsVH("postingdate")%></td>
 						<td align="center" title="" valign="top"><%=rsVH("productdescription")%></td>
-				        <td align="right" title="" valign="top"><%=rsVH("acceptquantity")%></td>
+				        <td align="right" title="" valign="top"><%=FbpNum2(rsVH("acceptquantity"))%></td>
 				        
 						<td align="center">
 							<input style="text-align:right;background-color:#eee;" type="text" name="salesprices_<%=no%>" class="amount" value = "<%=FormatNumber(salesprices,0)%>" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" >
@@ -1525,7 +1525,7 @@ Set oRecordSet = Nothing
 						<td align="center" title="" valign="top"><%=rsVH("salesshipmentno")%></td>
 						<td align="center" title="" valign="top"><%=rsVH("postingdate")%></td>
 						<td align="center" title="" valign="top"><%=rsVH("productdescription")%></td>
-				        <td align="right" title="" valign="top"><%=rsVH("acceptquantity")%></td>
+				        <td align="right" title="" valign="top"><%=FbpNum2(rsVH("acceptquantity"))%></td>
 				        <td align="center">
 					    <input style="text-align:right;" type="text" name="salesprices_<%=no%>" value = "<%=salesprices%>">
 						</td>
@@ -1562,9 +1562,9 @@ Set oRecordSet = Nothing
 		    <td colspan="6" align="left"></td>
 		  <%End if%>
 		  
-			<td align="right" title="" valign="top"><%=FormatNumber(totqty,0)%></td>
+			<td align="right" title="" valign="top"><%=FormatNumber(totqty,2)%></td>
 			<td align="center" title="" valign="top"></td>
-			<td align="right" title="" valign="top"><%=FormatNumber(totamount,0)%></td>
+			<td align="right" title="" valign="top"><%=FormatNumber(totamount,2)%></td>
 			
 			
 		  </tr>
@@ -1674,7 +1674,7 @@ Set oRecordSet = Nothing
 						<td align="center" title="" valign="top"><%=rsAvailable("salesshipmentno")%></td>
 						<td align="center" title="" valign="top"><%=rsAvailable("postingdate")%></td>
 				        <td align="center" title="" valign="top"><%=rsAvailable("productdescription")%></td>
-				        <td align="right" title="" valign="top"><%=rsAvailable("acceptquantity")%></td>
+				        <td align="right" title="" valign="top"><%=FbpNum2(rsAvailable("acceptquantity"))%></td>
 						
 						<td align="center">
 							<input style="text-align:right;background-color:#eee;" type="text" name="salesprices<%=no%>" class="amount" value = "<%=FormatNumber(salesprices,0)%>" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" >
@@ -1688,7 +1688,7 @@ Set oRecordSet = Nothing
 						<td align="center" title="" valign="top"><%=rsAvailable("salesshipmentno")%></td>
 						<td align="center" title="" valign="top"><%=rsAvailable("postingdate")%></td>
 				        <td align="center" title="" valign="top"><%=rsAvailable("productdescription")%></td>
-				        <td align="right" title="" valign="top"><%=rsAvailable("acceptquantity")%></td>
+				        <td align="right" title="" valign="top"><%=FbpNum2(rsAvailable("acceptquantity"))%></td>
 						<td align="center">
 						    <input style="text-align:right;" type="text" name="salesprices_<%=no%>" value = "<%=salesprices%>">
 						</td>
@@ -1719,9 +1719,9 @@ Set oRecordSet = Nothing
 	   set rsAvailable = Nothing%>
 		  <tr>
 		    <td colspan="6" align="left"></td>
-			<td align="right" title="" valign="top"><%=FormatNumber(totqty,0)%></td>
+			<td align="right" title="" valign="top"><%=FormatNumber(totqty,2)%></td>
 			<td align="center" title="" valign="top"></td>
-			<td align="right" title="" valign="top"><%=FormatNumber(totamount,0)%></td>
+			<td align="right" title="" valign="top"><%=FormatNumber(totamount,2)%></td>
 			
 			
 		  </tr>

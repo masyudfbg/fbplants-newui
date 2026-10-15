@@ -440,29 +440,29 @@ while not rsMandor.eof
 		<td align="left"><%=rsMandor("EMPNAME")%></td>
 		<td align="center"><%=rsMandor("sectionname")%></td>
 		<td align="center"><%=rsMandor("GANGCODE")%></td>
-		<td align="right"><%=FormatNumber(rsMandor("PREMIMANDOR1"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("PREMIMANDORPANEN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("PREMIKERANIPANEN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("PREMIKERANIDIVISI"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("PREMISIAPBORONG"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("PREMILEBIHBORONG"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("PREMITANDANHARILIBUR"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANBUAHMENTAH"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANTANGKAIPANJANG"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANBUAHTIDAKDIPANEN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANPELEPAHTIDAKDIPOTONG"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANPELEPAHTIDAKDISUSUN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANBRONDOLANDIPIRINGAN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANBUAHTINGGALDIPIRINGAN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANBUAHMATAHARI"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("POTONGANTIDAKDAPATBASIS"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("D27"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("D28"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("D29"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("D30"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("D31"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("D32"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsMandor("TOTAL"), 0)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("PREMIMANDOR1"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("PREMIMANDORPANEN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("PREMIKERANIPANEN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("PREMIKERANIDIVISI"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("PREMISIAPBORONG"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("PREMILEBIHBORONG"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("PREMITANDANHARILIBUR"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANBUAHMENTAH"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANTANGKAIPANJANG"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANBUAHTIDAKDIPANEN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANPELEPAHTIDAKDIPOTONG"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANPELEPAHTIDAKDISUSUN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANBRONDOLANDIPIRINGAN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANBUAHTINGGALDIPIRINGAN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANBUAHMATAHARI"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("POTONGANTIDAKDAPATBASIS"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("D27"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("D28"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("D29"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("D30"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("D31"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("D32"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsMandor("TOTAL"), 2)%></td>
 <%
 	NOMOR	=	NOMOR	+	1
 	rsMandor.MoveNext
@@ -521,29 +521,29 @@ while not rsEmployee.eof
 		<td align="left"><%=rsEmployee("EMPNAME")%></td>
 		<td align="center"><%=rsEmployee("sectionname")%></td>
 		<td align="center"><%=rsEmployee("GANGCODE")%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("PREMIMANDOR1"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("PREMIMANDORPANEN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("PREMIKERANIPANEN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("PREMIKERANIDIVISI"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("PREMISIAPBORONG"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("PREMILEBIHBORONG"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("PREMITANDANHARILIBUR"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBUAHMENTAH"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANTANGKAIPANJANG"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBUAHTIDAKDIPANEN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANPELEPAHTIDAKDIPOTONG"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANPELEPAHTIDAKDISUSUN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBRONDOLANDIPIRINGAN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBUAHTINGGALDIPIRINGAN"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBUAHMATAHARI"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("POTONGANTIDAKDAPATBASIS"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("D27"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("D28"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("D29"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("D30"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("D31"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("D32"), 0)%></td>
-		<td align="right"><%=FormatNumber(rsEmployee("TOTAL"), 0)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("PREMIMANDOR1"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("PREMIMANDORPANEN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("PREMIKERANIPANEN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("PREMIKERANIDIVISI"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("PREMISIAPBORONG"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("PREMILEBIHBORONG"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("PREMITANDANHARILIBUR"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBUAHMENTAH"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANTANGKAIPANJANG"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBUAHTIDAKDIPANEN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANPELEPAHTIDAKDIPOTONG"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANPELEPAHTIDAKDISUSUN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBRONDOLANDIPIRINGAN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBUAHTINGGALDIPIRINGAN"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANBUAHMATAHARI"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("POTONGANTIDAKDAPATBASIS"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("D27"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("D28"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("D29"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("D30"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("D31"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("D32"), 2)%></td>
+		<td align="right"><%=FormatNumber(rsEmployee("TOTAL"), 2)%></td>
 <%
 	NO = NO + 1
 
@@ -580,29 +580,29 @@ set rsEmployee = Nothing
 
 	<tr bgcolor="#F4F4A0">
 		<td colspan="4" align="center"><strong>TOTAL</strong></td>
-		<td align="right"><strong><%=FormatNumber(nPREMIMANDOR1, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPREMIMANDORPANEN, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPREMIKERANIPANEN, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPREMIKERANIDIVISI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPREMISIAPBORONG, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPREMILEBIHBORONG, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPREMITANDANHARILIBUR, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANBUAHMENTAH, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANTANGKAIPANJANG, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANBUAHTIDAKDIPANEN, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANPELEPAHTIDAKDIPOTONG, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANPELEPAHTIDAKDISUSUN, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANBRONDOLANDIPIRINGAN, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANBUAHTINGGALDIPIRINGAN, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANBUAHMATAHARI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nPOTONGANTIDAKDAPATBASIS, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(gt_d27, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(gt_d28, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(gt_d29, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(gt_d30, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(gt_d31, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(gt_d32, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nTOTAL, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPREMIMANDOR1, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPREMIMANDORPANEN, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPREMIKERANIPANEN, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPREMIKERANIDIVISI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPREMISIAPBORONG, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPREMILEBIHBORONG, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPREMITANDANHARILIBUR, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANBUAHMENTAH, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANTANGKAIPANJANG, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANBUAHTIDAKDIPANEN, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANPELEPAHTIDAKDIPOTONG, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANPELEPAHTIDAKDISUSUN, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANBRONDOLANDIPIRINGAN, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANBUAHTINGGALDIPIRINGAN, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANBUAHMATAHARI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nPOTONGANTIDAKDAPATBASIS, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(gt_d27, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(gt_d28, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(gt_d29, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(gt_d30, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(gt_d31, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(gt_d32, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nTOTAL, 2)%></strong></td>
 	</tr>
 	</tbody>
 </table>

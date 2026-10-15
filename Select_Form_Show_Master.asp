@@ -4345,7 +4345,7 @@
 						<td align="left"><%=rsdata("fccode")%></td>	
 						<td align="left"><%=rsdata("sectionname")%></td>	
 						<td align="left"><%=rsdata("presentgrade")%></td>	
-						<td align="right"><%=formatnumber(rsdata("presentrate"),0)%></td>	
+						<td align="right"><%=formatnumber(rsdata("presentrate"),2)%></td>	
 					</tr>
 					<%
 						 	rsdata.MoveNext

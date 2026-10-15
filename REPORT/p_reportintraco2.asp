@@ -379,7 +379,7 @@ if rsTBSDK.bof and rsTBSDK.eof then
 			xtotal = 0
 			xy =2
 				For kj = 1 to CInt(kjTot) step 1			%>		
-					<td align="right"><%=FormatNumber(rsTBSDK.fields(xy + kj),0)%></td>
+					<td align="right"><%=FormatNumber(rsTBSDK.fields(xy + kj),2)%></td>
 					<%
               				ntotAFDD(kj)	= Cdbl(ntotAFDD(kj)) + Cdbl(rsTBSDK.fields(xy + kj))
 							xTOTALD = xTOTALD + Cdbl(rsTBSDK.fields(xy + kj))
@@ -387,7 +387,7 @@ if rsTBSDK.bof and rsTBSDK.eof then
 							db(kj) = Cdbl(rsTBSDK.fields(xy + kj))
 							xy = xy +1
 							%>
-					<td align="right"><%=FormatNumber(rsTBSDK.fields(kj + kj),0)%></td>
+					<td align="right"><%=FormatNumber(rsTBSDK.fields(kj + kj),2)%></td>
 					<%
               				ntotAFDK(kj)	= Cdbl(ntotAFDK(kj)) + Cdbl(rsTBSDK.fields(kj + kj))
 							xTOTALK = xTOTALK + Cdbl(rsTBSDK.fields(kj + kj))
@@ -396,7 +396,7 @@ if rsTBSDK.bof and rsTBSDK.eof then
 							
 					%>	
 					
-					<td align="right"><%=FormatNumber(CDbl(db(kj)) + CDbl(cr(kj)),0)%></td>
+					<td align="right"><%=FormatNumber(CDbl(db(kj)) + CDbl(cr(kj)),2)%></td>
 					<%
               				ntotAFD(kj)	= Cdbl(ntotAFD(kj)) + CDbl(db(kj)) + CDbl(cr(kj))
 							xTOTAL = xTOTAL + CDbl(db(kj)) + CDbl(cr(kj))
@@ -417,11 +417,11 @@ set rsTBSDK = Nothing
 			<tr bgcolor="#F4F4A0">
 				     <td align="center" colspan="2"><strong>TOTAL</td>
 				<% For kj = 1 to CInt(kjTot) step 1 %>					
-				<td align="right"><%=FormatNumber(Cdbl(ntotAFDD(kj)),0)%></td>
-				<td align="right"><%=FormatNumber(Cdbl(ntotAFDK(kj)),0)%></td>
-					<td align="right"><%=FormatNumber(Cdbl(ntotAFD(kj)),0)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(ntotAFDD(kj)),2)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(ntotAFDK(kj)),2)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(ntotAFD(kj)),2)%></td>
 				<% Next %>
-					<td align="right"><%=FormatNumber(Cdbl(nTOTAL),0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(nTOTAL),2)%></td>
 			</tr>
 <%
 elseif txtSelect = "Db-Cr" then
@@ -454,7 +454,7 @@ if rsTBSDK.bof and rsTBSDK.eof then
 			xtotal = 0
 			xy = 2
 				For kj = 1 to CInt(kjTot) step 1  %>
-					<td align="right"><%=FormatNumber(rsTBSDK.fields(xy + kj),0)%></td>
+					<td align="right"><%=FormatNumber(rsTBSDK.fields(xy + kj),2)%></td>
 					<%
               				ntotAFDD(kj)	= Cdbl(ntotAFDD(kj)) + Cdbl(rsTBSDK.fields(xy + kj))
 							xTOTALD = xTOTALD + Cdbl(rsTBSDK.fields(xy + kj))
@@ -462,7 +462,7 @@ if rsTBSDK.bof and rsTBSDK.eof then
 							xy = xy +1
 							  %>
 					
-					<td align="right"><%=FormatNumber(rsTBSDK.fields(kj + kj),0)%></td>
+					<td align="right"><%=FormatNumber(rsTBSDK.fields(kj + kj),2)%></td>
 					<%
               				ntotAFDK(kj)	= Cdbl(ntotAFDK(kj)) + Cdbl(rsTBSDK.fields(kj+ kj))
 							xTOTALK = xTOTALK + Cdbl(rsTBSDK.fields(kj + kj))
@@ -492,10 +492,10 @@ set rsTBSDK = Nothing
 				     <td align="center" colspan="2"><strong>TOTAL</td>
 				<% end if %>
 				<% For kj = 1 to CInt(kjTot) step 1 %>					
-				<td align="right"><%=FormatNumber(Cdbl(ntotAFDD(kj)),0)%></td>
-				<td align="right"><%=FormatNumber(Cdbl(ntotAFDK(kj)),0)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(ntotAFDD(kj)),2)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(ntotAFDK(kj)),2)%></td>
 				<% Next %>
-					<td align="right"><%=FormatNumber(Cdbl(nTOTALD)+CDbl(nTOTALK),0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(nTOTALD)+CDbl(nTOTALK),2)%></td>
 			</tr>
 <%
 elseif txtSelect = "Db" then
@@ -529,7 +529,7 @@ if rsTBSD.bof and rsTBSD.eof then
 			xtotalK = 0		
 			xtotal = 0
 				For kj = 1 to CInt(kjTot) step 1 %>
-					<td align="right"><%=FormatNumber(rsTBSD.fields(1 + kj),0)%></td>
+					<td align="right"><%=FormatNumber(rsTBSD.fields(1 + kj),2)%></td>
 					<%
               				ntotAFDD(kj)	= Cdbl(ntotAFDD(kj)) + Cdbl(rsTBSD.fields(1 + kj))
 							xTOTALD = xTOTALD + Cdbl(rsTBSD.fields(1 + kj))
@@ -556,9 +556,9 @@ set rsTBSD = Nothing
 				     <td align="center" colspan="2"><strong>TOTAL</td>
 				<% end if %>
 				<% For kj = 1 to CInt(kjTot) step 1 %>					
-				<td align="right"><%=FormatNumber(Cdbl(ntotAFDD(kj)),0)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(ntotAFDD(kj)),2)%></td>
 				<% Next %>
-					<td align="right"><%=FormatNumber(Cdbl(nTOTALD),0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(nTOTALD),2)%></td>
 			</tr>
 <%
 elseif txtSelect = "Cr" then
@@ -589,7 +589,7 @@ if rsTBSK.bof and rsTBSK.eof then
 			xtotalK = 0		
 			xtotal = 0
 				For kj = 1 to CInt(kjTot) step 1  %>
-					<td align="right"><%=FormatNumber(rsTBSK.fields(1 + kj),0)%></td>
+					<td align="right"><%=FormatNumber(rsTBSK.fields(1 + kj),2)%></td>
 					<%
               				ntotAFDK(kj)	= Cdbl(ntotAFDK (kj)) + Cdbl(rsTBSK.fields(1 + kj))
 							xTOTALK = xTOTALK + Cdbl(rsTBSK.fields(1 + kj))
@@ -616,9 +616,9 @@ set rsTBSK = Nothing
 				     <td align="center" colspan="2"><strong>TOTAL</td>
 				<% end if %>
 				<% For kj = 1 to CInt(kjTot) step 1 %>					
-				<td align="right"><%=FormatNumber(Cdbl(ntotAFDK(kj)),0)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(ntotAFDK(kj)),2)%></td>
 				<% Next %>
-					<td align="right"><%=FormatNumber(Cdbl(nTOTALK),0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(nTOTALK),2)%></td>
 			</tr>			
 <%
 else
@@ -652,7 +652,7 @@ if rsTBS.bof and rsTBS.eof then
 			xtotalK = 0		
 			xtotal = 0
 				For kj = 1 to CInt(kjTot) step 1  %>
-					<td align="right"><%=FormatNumber(rsTBS.fields(1 + kj),0)%></td>
+					<td align="right"><%=FormatNumber(rsTBS.fields(1 + kj),2)%></td>
 					<%
               				ntotAFD(kj)	= Cdbl(ntotAFD (kj)) + Cdbl(rsTBS.fields(1 + kj))
 							xTOTAL = xTOTAL + Cdbl(rsTBS.fields(1 + kj))
@@ -681,9 +681,9 @@ set rsTBS = Nothing
 				
 				    
 				<% For kj = 1 to CInt(kjTot) step 1 %>					
-				<td align="right"><%=FormatNumber(Cdbl(ntotAFD(kj)),0)%></td>
+				<td align="right"><%=FormatNumber(Cdbl(ntotAFD(kj)),2)%></td>
 				<% Next %>
-					<td align="right"><%=FormatNumber(Cdbl(nTOTAL),0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(nTOTAL),2)%></td>
 			</tr>	
 <%
 END IF

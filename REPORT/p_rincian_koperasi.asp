@@ -327,9 +327,9 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center" width="4%"><%=rsrincian_koperasi("EMPLOYEECODE")%></td>
 				<td align="left"><%=rsrincian_koperasi("EMPLOYEENAME")%></td>
 				<td align="center"><%=rsrincian_koperasi("PRESENTGRADE")%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsrincian_koperasi("iuran_koperasi"), 0)%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsrincian_koperasi("bon_koperasi"), 0)%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsrincian_koperasi("total_koperasi"), 0)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsrincian_koperasi("iuran_koperasi"), 2)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsrincian_koperasi("bon_koperasi"), 2)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsrincian_koperasi("total_koperasi"), 2)%></td>
 			</tr>
 <%
 			NO = NO + 1
@@ -345,9 +345,9 @@ function launchwin(winurl,winname,winfeatures)
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="4"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotal_iurankoperasi, 0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotal_bonkoperasi, 0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotal_totalkoperasi, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotal_iurankoperasi, 2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotal_bonkoperasi, 2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotal_totalkoperasi, 2)%></strong></td>
 			</tr>
             </tbody>
 </table>

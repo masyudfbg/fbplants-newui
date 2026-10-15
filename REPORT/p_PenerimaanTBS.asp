@@ -234,15 +234,15 @@ if rsTerimaTBS.bof and rsTerimaTBS.eof then
 %>
 	<tr class="<%=cClass%>">
 		<td align="center"><%=NO%></td>
-		<td align="right"><%=rsTerimaTBS("TANGGAL")%></td>
+		<td align="right"><%=FbpNum2(rsTerimaTBS("TANGGAL"))%></td>
 		<td align="left"><%=rsTerimaTBS("KODESUPPLIER")%></td>
 		<td align="left"><%=rsTerimaTBS("NAMASUPPLIER")%></td>
 		<td align="left"><%=rsTerimaTBS("NOKENDARAAN")%></td>
-		<td align="right"><%=FormatNumber(rsTerimaTBS("JJG"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTerimaTBS("BRUTO"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTerimaTBS("TARRA"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTerimaTBS("SORTASI"),0)%></td>
-		<td align="right"><%=FormatNumber(rsTerimaTBS("NETTO"),0)%></td>
+		<td align="right"><%=FormatNumber(rsTerimaTBS("JJG"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTerimaTBS("BRUTO"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTerimaTBS("TARRA"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTerimaTBS("SORTASI"),2)%></td>
+		<td align="right"><%=FormatNumber(rsTerimaTBS("NETTO"),2)%></td>
 	</tr>
 <%
 			NO = NO + 1
@@ -261,11 +261,11 @@ set rsTerimaTBS = Nothing
 
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="5"><strong>TOTAL</td>
-				<td align="right"><strong><%=FormatNumber(nJJG,0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(nBRUTO,0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(nTARRA,0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(nSORTASI,0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(nNETTO,0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nJJG,2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nBRUTO,2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nTARRA,2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nSORTASI,2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nNETTO,2)%></strong></td>
 			</tr>
        </tbody>
 </table>

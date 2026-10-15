@@ -158,9 +158,9 @@ xAddEventListener(window, 'load',
 
 		<tr bgcolor="#9CB770">
 			<td align="left" colspan="5" style="padding-left:10px;"><strong>Saldo Awal</strong></td>
-			<td align="Right"><strong><%=FormatNumber(0, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(0, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(n_Opening, 0)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(0, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(0, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(n_Opening, 2)%></strong></td>
 		</tr>
 		
 		
@@ -232,9 +232,9 @@ xAddEventListener(window, 'load',
 
 	<tr bgcolor="#9CB770">
 			<td align="left" colspan="5" style="padding-left:10px;"><strong>Saldo Akhir</strong></td>
-			<td align="Right"><strong><%=FormatNumber(subtotaldebet, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(subtotalkredit, 0)%></strong></td>
-			<td align="Right"><strong><%=FormatNumber(saldosubtotal, 0)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(subtotaldebet, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(subtotalkredit, 2)%></strong></td>
+			<td align="Right"><strong><%=FormatNumber(saldosubtotal, 2)%></strong></td>
 			
 	</tr>
 	

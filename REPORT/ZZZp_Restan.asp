@@ -980,37 +980,37 @@ else
 					<% end if %>							 
 				<% end if %>
 				
-					<td align="right"><%=FormatNumber(rsRestan("DAY_1"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_2"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_3"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_4"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_5"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_6"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_7"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_8"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_9"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_10"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_11"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_12"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_13"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_14"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_15"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_16"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_17"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_18"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_19"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_20"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_21"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_22"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_23"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_24"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_25"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_26"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_27"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_28"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_29"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_30"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsRestan("DAY_31"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_1"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_2"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_3"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_4"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_5"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_6"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_7"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_8"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_9"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_10"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_11"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_12"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_13"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_14"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_15"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_16"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_17"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_18"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_19"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_20"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_21"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_22"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_23"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_24"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_25"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_26"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_27"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_28"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_29"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_30"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsRestan("DAY_31"), 2)%></td>
 				</tr>
 <%
 			Grandnday_1 =  Grandnday_1 + Cdbl(rsRestan("DAY_1"))
@@ -1053,37 +1053,37 @@ set rsRestan = Nothing
 %>
 	<tr bgcolor="#F4F4A0">
 		<td colspan="<%=var_colspan%>" align="center"><strong>GRAND TOTAL</strong></td>
-		<td align="right"><strong><%=Grandnday_1%></strong></td>
-		<td align="right"><strong><%=Grandnday_2%></strong></td>
-		<td align="right"><strong><%=Grandnday_3%></strong></td>
-		<td align="right"><strong><%=Grandnday_4%></strong></td>
-		<td align="right"><strong><%=Grandnday_5%></strong></td>
-		<td align="right"><strong><%=Grandnday_6%></strong></td>
-		<td align="right"><strong><%=Grandnday_7%></strong></td>
-		<td align="right"><strong><%=Grandnday_8%></strong></td>
-		<td align="right"><strong><%=Grandnday_9%></strong></td>
-		<td align="right"><strong><%=Grandnday_10%></strong></td>
-		<td align="right"><strong><%=Grandnday_11%></strong></td>
-		<td align="right"><strong><%=Grandnday_12%></strong></td>
-		<td align="right"><strong><%=Grandnday_13%></strong></td>
-		<td align="right"><strong><%=Grandnday_14%></strong></td>
-		<td align="right"><strong><%=Grandnday_15%></strong></td>
-		<td align="right"><strong><%=Grandnday_16%></strong></td>
-		<td align="right"><strong><%=Grandnday_17%></strong></td>
-		<td align="right"><strong><%=Grandnday_18%></strong></td>
-		<td align="right"><strong><%=Grandnday_19%></strong></td>
-		<td align="right"><strong><%=Grandnday_20%></strong></td>
-		<td align="right"><strong><%=Grandnday_21%></strong></td>
-		<td align="right"><strong><%=Grandnday_22%></strong></td>
-		<td align="right"><strong><%=Grandnday_23%></strong></td>
-		<td align="right"><strong><%=Grandnday_24%></strong></td>
-		<td align="right"><strong><%=Grandnday_25%></strong></td>
-		<td align="right"><strong><%=Grandnday_26%></strong></td>
-		<td align="right"><strong><%=Grandnday_27%></strong></td>
-		<td align="right"><strong><%=Grandnday_28%></strong></td>
-		<td align="right"><strong><%=Grandnday_29%></strong></td>
-		<td align="right"><strong><%=Grandnday_30%></strong></td>
-		<td align="right"><strong><%=Grandnday_31%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_1)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_2)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_3)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_4)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_5)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_6)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_7)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_8)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_9)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_10)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_11)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_12)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_13)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_14)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_15)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_16)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_17)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_18)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_19)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_20)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_21)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_22)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_23)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_24)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_25)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_26)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_27)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_28)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_29)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_30)%></strong></td>
+		<td align="right"><strong><%=FbpNum2(Grandnday_31)%></strong></td>
 	</tr>
 <%End if%>
 	</tbody>

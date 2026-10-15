@@ -306,26 +306,26 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="Left" ><%=rscat("fccode")%></td>				
 			<td align="left" ><%=rscat("jobname")%></td>					
 			<td align="Left" ><%=rscat("fieldstatus")%></td>				
-			<td data-t="n" align="Right" ><%=(fisikblnlalu)%></td>		
-			<td data-t="n" align="Right" ><%=(amountblnlalu)%></td>
-			<td data-t="n" align="Right" ><%=(rphablnlalu)%></td>				
-			<td data-t="n" align="Right" ><%=(rkb_outputblnlalu)%></td>				
-			<td data-t="n" align="Right" ><%=(rkb_amountblnlalu)%></td>				
-			<td data-t="n" align="Right" ><%=(rkbhablnlalu)%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2((fisikblnlalu))%></td>		
+			<td data-t="n" align="Right" ><%=FbpNum2((amountblnlalu))%></td>
+			<td data-t="n" align="Right" ><%=FbpNum2((rphablnlalu))%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2((rkb_outputblnlalu))%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2((rkb_amountblnlalu))%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2((rkbhablnlalu))%></td>				
 			<td data-t="n" align="Right" >0</td>				
-			<td data-t="n" align="Right" ><%=(fisikblnini)%></td>		
-			<td data-t="n" align="Right" ><%=(amountblnini)%></td>
+			<td data-t="n" align="Right" ><%=FbpNum2((fisikblnini))%></td>		
+			<td data-t="n" align="Right" ><%=FbpNum2((amountblnini))%></td>
 			<td data-t="n" align="Right" ><%=(rpbulanini)%></td>
-			<td data-t="n" align="Right" ><%=(rkb_outputblnini)%></td>				
-			<td data-t="n" align="Right" ><%=(rkb_amountblnini)%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2((rkb_outputblnini))%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2((rkb_amountblnini))%></td>				
 			<td data-t="n" align="Right" ><%=(rkbhabulanini)%></td>
 			<td data-t="n" align="Right" >0</td>
-			<td data-t="n" align="Right" ><%=(fisiksbi)%></td>		
-			<td data-t="n" align="Right" ><%=(amountsbi)%></td>
-			<td data-t="n" align="Right" ><%=(rphasbi)%></td>
-			<td data-t="n" align="Right" ><%=(rkb_outputsbi)%></td>				
-			<td data-t="n" align="Right" ><%=(rkb_amountsbi)%></td>				
-			<td data-t="n" align="Right" ><%=(rkbhasbi)%></td>
+			<td data-t="n" align="Right" ><%=FbpNum2((fisiksbi))%></td>		
+			<td data-t="n" align="Right" ><%=FbpNum2((amountsbi))%></td>
+			<td data-t="n" align="Right" ><%=FbpNum2((rphasbi))%></td>
+			<td data-t="n" align="Right" ><%=FbpNum2((rkb_outputsbi))%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2((rkb_amountsbi))%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2((rkbhasbi))%></td>
 		</tr>
 	  <%
 	  rsCat.MoveNext

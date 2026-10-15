@@ -279,9 +279,9 @@ padding-top:30px;
 					<td class="ratatengah fontcourir"><%=no%></td>
 					<td class="fontcourir ratakiri"><%=txtitemcode%></td>
 					<td class="fontcourir"><%=txtitemname%></td>
-					<td class="ratakanan fontcourir ratatengah"><%=formatnumber(cdbl(txtquantity),0)%></td>
-					<td class="ratakanan fontcourir"><%=formatnumber(cdbl(txtprice),0)%></td>
-					<td class="ratakanan fontcourir"><%=formatnumber(cdbl(to_nol(txtamountdtl)),0)%></td>
+					<td class="ratakanan fontcourir ratatengah"><%=formatnumber(cdbl(txtquantity),2)%></td>
+					<td class="ratakanan fontcourir"><%=formatnumber(cdbl(txtprice),2)%></td>
+					<td class="ratakanan fontcourir"><%=formatnumber(cdbl(to_nol(txtamountdtl)),2)%></td>
 				</tr>
 				<%
 						no=no+1
@@ -302,33 +302,33 @@ padding-top:30px;
 				<tr class="fontcourir" style="border-top:1px #000000 solid;">
 					<td colspan="5" class="ratakanan tebal">Subtotal</td>
 					
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotalall),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotalall),2)%></td>
 				</tr>
 				<tr class="fontcourir" style="">
 					<td colspan="5" class="ratakanan tebal">OtherCharge Stock</td>
 				
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(otherchargestock),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(otherchargestock),2)%></td>
 				</tr>
 				<tr class="fontcourir" style="">
 					<td colspan="5" class="ratakanan tebal">Diskon</td>
 				
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(diskon),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(diskon),2)%></td>
 				</tr>
 				
 				<tr class="fontcourir" style="">
 					<td colspan="5" class="ratakanan tebal">PPN</td>
 				
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(ppnrp),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(ppnrp),2)%></td>
 				</tr>
 				<tr class="fontcourir" style="">
 					<td colspan="5" class="ratakanan tebal">OtherCharge Non Stock</td>
 				
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txtothercharge),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txtothercharge),2)%></td>
 				</tr>	
 							
 				<tr class="fontcourir" style="">
 					<td colspan="5" class="ratakanan tebal">Grand Total</td>
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txtgrand),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txtgrand),2)%></td>
 				</tr>
 			<tr>
 				<td colspan="3" class="ratakiri" style="padding:0px;">

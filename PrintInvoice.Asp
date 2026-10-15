@@ -469,7 +469,7 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 	 <thead>
 	  <tr>
 	  <td colspan="5"  align="right"><font face="Verdana">SUB Total</td>
-	  <td style="width:110px" align="right"><font face="Verdana"><%=CheckValue(nAmount)%>&nbsp;</td>
+	  <td style="width:110px" align="right"><font face="Verdana"><%=FbpNum2(CheckValue(nAmount))%>&nbsp;</td>
 	  </tr>	
 	  <tr>
 	  <td colspan="5"  align="right"><font face="Verdana">DownPayment</td>

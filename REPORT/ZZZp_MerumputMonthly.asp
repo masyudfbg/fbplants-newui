@@ -1324,8 +1324,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%= 1+ nSpanTotal %>">TOTAL</td>
-				<td align="right"><%=FormatNumber(ntotal_01,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_01,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_01,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_01,2)%></td>
 				<% if cdbl(ntotal_bo_01) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_01/ntotal_bo_01,2)%></td>
@@ -1335,7 +1335,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_01,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_01,2)%></td>
 				<% if cdbl(ntotal_bo_01) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_01/ntotal_bo_01,2)%></td>
@@ -1346,8 +1346,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_02,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_02,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_02,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_02,2)%></td>
 				<% if cdbl(ntotal_bo_02) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_02/ntotal_bo_02,2)%></td>
@@ -1357,7 +1357,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_02,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_02,2)%></td>
 				<% if cdbl(ntotal_bo_02) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_02/ntotal_bo_02,2)%></td>
@@ -1368,8 +1368,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_03,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_03,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_03,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_03,2)%></td>
 				<% if cdbl(ntotal_bo_03) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_03/ntotal_bo_03,2)%></td>
@@ -1379,7 +1379,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_03,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_03,2)%></td>
 				<% if cdbl(ntotal_bo_03) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_03/ntotal_bo_03,2)%></td>
@@ -1390,8 +1390,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_04,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_04,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_04,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_04,2)%></td>
 				<% if cdbl(ntotal_bo_04) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_04/ntotal_bo_04,2)%></td>
@@ -1401,7 +1401,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_04,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_04,2)%></td>
 				<% if cdbl(ntotal_bo_04) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_04/ntotal_bo_04,2)%></td>
@@ -1412,8 +1412,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_05,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_05,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_05,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_05,2)%></td>
 				<% if cdbl(ntotal_bo_05) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_05/ntotal_bo_05,2)%></td>
@@ -1423,7 +1423,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_05,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_05,2)%></td>
 				<% if cdbl(ntotal_bo_05) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_05/ntotal_bo_05,2)%></td>
@@ -1434,8 +1434,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_06,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_06,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_06,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_06,2)%></td>
 				<% if cdbl(ntotal_bo_06) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_06/ntotal_bo_06,2)%></td>
@@ -1445,7 +1445,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_06,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_06,2)%></td>
 				<% if cdbl(ntotal_bo_06) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_06/ntotal_bo_06,2)%></td>
@@ -1456,8 +1456,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_07,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_07,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_07,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_07,2)%></td>
 				<% if cdbl(ntotal_bo_07) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_07/ntotal_bo_07,2)%></td>
@@ -1467,7 +1467,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_07,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_07,2)%></td>
 				<% if cdbl(ntotal_bo_07) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_07/ntotal_bo_07,2)%></td>
@@ -1478,8 +1478,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_08,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_08,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_08,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_08,2)%></td>
 				<% if cdbl(ntotal_bo_08) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_08/ntotal_bo_08,2)%></td>
@@ -1489,7 +1489,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_08,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_08,2)%></td>
 				<% if cdbl(ntotal_bo_08) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_08/ntotal_bo_08,2)%></td>
@@ -1500,8 +1500,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_09,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_09,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_09,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_09,2)%></td>
 				<% if cdbl(ntotal_bo_09) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_09/ntotal_bo_09,2)%></td>
@@ -1511,7 +1511,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_09,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_09,2)%></td>
 				<% if cdbl(ntotal_bo_09) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_09/ntotal_bo_09,2)%></td>
@@ -1522,8 +1522,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_10,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_10,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_10,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_10,2)%></td>
 				<% if cdbl(ntotal_bo_10) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_10/ntotal_bo_10,2)%></td>
@@ -1533,7 +1533,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_10,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_10,2)%></td>
 				<% if cdbl(ntotal_bo_10) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_10/ntotal_bo_10,2)%></td>
@@ -1544,8 +1544,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_11,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_11,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_11,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_11,2)%></td>
 				<% if cdbl(ntotal_bo_11) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_11/ntotal_bo_11,2)%></td>
@@ -1555,7 +1555,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_11,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_11,2)%></td>
 				<% if cdbl(ntotal_bo_11) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_11/ntotal_bo_11,2)%></td>
@@ -1566,8 +1566,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_12,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_12,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_12,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_12,2)%></td>
 				<% if cdbl(ntotal_bo_12) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_12/ntotal_bo_12,2)%></td>
@@ -1577,7 +1577,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_12,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_12,2)%></td>
 				<% if cdbl(ntotal_bo_12) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_12/ntotal_bo_12,2)%></td>
@@ -1588,8 +1588,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				
-				<td align="right"><%=FormatNumber(ntotal_sbi,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_sbi,2)%></td>
 				<% if cdbl(ntotal_bo_sbi) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_sbi/ntotal_bo_sbi,2)%></td>
@@ -1599,7 +1599,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_sbi,2)%></td>
 				<% if cdbl(ntotal_bo_sbi) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_sbi/ntotal_bo_sbi,2)%></td>
@@ -1612,8 +1612,8 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				
 				
 				
-				<td align="right"><%=FormatNumber(ntotal_bud,0)%></td>
-				<td align="right"><%=FormatNumber(ntotal_bo_bud,0)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bud,2)%></td>
+				<td align="right"><%=FormatNumber(ntotal_bo_bud,2)%></td>
 				<% if cdbl(ntotal_bo_bud) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(ntotal_bud/ntotal_bo_bud,2)%></td>
@@ -1623,7 +1623,7 @@ Dim	ntotal_sbi,ntotal_bo_sbi,nhk_ha_sbi,nAmount_sbi,nAmount_ha_sbi,ntotal_bud,nt
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
-				<td align="right"><%=FormatNumber(nAmount_bud ,0)%></td>
+				<td align="right"><%=FormatNumber(nAmount_bud ,2)%></td>
 				<% if cdbl(ntotal_bo_bud) > 0 then %>
 				    <% if Request("txtGroup") <> ""  then %>
 				          <td align="right"><%=FormatNumber(nAmount_bud /ntotal_bo_bud,2)%></td>

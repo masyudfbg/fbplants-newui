@@ -203,9 +203,9 @@ end if
 			<td align="left"><%=rsHutangTBS("transdate")%></td>
 			<td align="left"><%=rsHutangTBS("invoiceno")%></td>
 			<td align="left"><%=rsHutangTBS("periode")%></td>
-			<td align="right"><%=FormatNumber(rsHutangTBS("grandtotal"),0)%></td>
-			<td align="right"><%=FormatNumber(rsHutangTBS("payment"),0)%></td>
-			<td align="right"><%=FormatNumber(sisa,0)%></td>
+			<td align="right"><%=FormatNumber(rsHutangTBS("grandtotal"),2)%></td>
+			<td align="right"><%=FormatNumber(rsHutangTBS("payment"),2)%></td>
+			<td align="right"><%=FormatNumber(sisa,2)%></td>
 		  </tr>	
 		      
 <%
@@ -218,9 +218,9 @@ end if
 %>
 		  <tr bgcolor="#F4F4A0">
 			<td align="center" colspan="<%=add_newspan+3%>"><strong>TOTAL</td>
-			<td align="right"><strong><%=FormatNumber(ttlinv,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlbyr,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlsisa,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlinv,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlbyr,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlsisa,2)%></strong></td>
 		  </tr>	
 <%
 	end if

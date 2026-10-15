@@ -208,7 +208,7 @@ var reloadSivCode = function () {
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-docdetail.css?v=20261009b" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-doc"<% end if %>>
@@ -1199,7 +1199,7 @@ if cmdView = "True" AND LEN(TRIM(fcCode)) > 4 and len(trim(xCode)) > 0 Then
 					<td align="center" title="JobCode" valign="top"><%=rsPurchaseOrder("JobName")%></td>
 					<td align="center" title="LocationType" valign="top"><%=rsPurchaseOrder("LocationType")%></td>
 					<td align="center" title="LocationCode" valign="top"><%=rsPurchaseOrder("LocationCode")%></td>
-					<td align="Right" title="Quantity" valign="top"><%=rsPurchaseOrder("Quantity")%></td>
+					<td align="Right" title="Quantity" valign="top"><%=FbpNum2(rsPurchaseOrder("Quantity"))%></td>
 					<%If Menu = "Y" Then%>
 					<td align="center" title="Price" valign="top"><%=rsPurchaseOrder("Price")%></td>
 					<td align="center" title="Amount" valign="top"><%=rsPurchaseOrder("Amount")%></td>

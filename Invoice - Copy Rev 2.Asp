@@ -940,8 +940,8 @@ if cdbl(to_nol(totalppn)) <=  cdbl(to_nol(v_totalppn)) then
 					<td align="left" title="Supplier" valign="top"><%=rsGRN("receivenotecode")%></td>
 					<td align="left" title="Item Code" valign="top"><%=rsGRN("ITEMCODE")%></td>
 					<td align="left" title="Item Name" valign="top"><%=rsGRN("StockDesc")%></td>
-					<td align="right" title="Quantity" valign="top"><%=rsGRN("Quantity")%></td>
-					<td align="right" title="Amount" valign="top"><%=rsGRN("amount")%></td>
+					<td align="right" title="Quantity" valign="top"><%=FbpNum2(rsGRN("Quantity"))%></td>
+					<td align="right" title="Amount" valign="top"><%=FbpNum2(rsGRN("amount"))%></td>
 			<%End if%>
 
 			<%if SudahClose<>"Y" Then%>
@@ -949,8 +949,8 @@ if cdbl(to_nol(totalppn)) <=  cdbl(to_nol(v_totalppn)) then
 			        <td align="left" title="" valign="top"><%=rsGRN("RECEIVENOTECODE")%></td>
 			        <td align="left" title="" valign="top"><%=rsGRN("PURCHASEITEMCODE")%></td>
 			        <td align="left" title="" valign="top"><%=rsGRN("fcname")%></td>
-			        <td align="right" title="" valign="top"><%=rsGRN("Quantity")%></td>
-                    <td align="right" title="" valign="top"><%=rsGRN("amountreceived")%></td>
+			        <td align="right" title="" valign="top"><%=FbpNum2(rsGRN("Quantity"))%></td>
+                    <td align="right" title="" valign="top"><%=FbpNum2(rsGRN("amountreceived"))%></td>
 		            <td align="center">
 						<input type="checkbox" id="cb_<%=no%>" name="cb_<%=no%>" class="item" value = "" onclick="handleClick(this);" onchange="CheckCheckboxes1(this)">
 					</td>

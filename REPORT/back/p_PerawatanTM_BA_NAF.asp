@@ -1274,23 +1274,23 @@ Dim nsubpar_ltr_ha, nsubmet_kg, nsubmet_kg_ha, nsubflo_kg, nsubflo_kg_ha, nsubam
 
 				
 				
-				<td align="right"><%=FormatNumber(rsPerawatanTM("sku"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("khl"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("total"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("ha_harian"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("bo_harian"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("total_bo_harian"),0)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("sku"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("khl"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("total"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("ha_harian"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("bo_harian"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("total_bo_harian"),2)%></td>
 				<td align="right"><%=FormatNumber(rsPerawatanTM("ha_per_hk"),2)%></td>
 				<td align="right">0</td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("gli_ltr"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("gli_ltr_ha"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("par_ltr"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("par_ltr_ha"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("met_kg"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("met_kg_ha"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("flo_kg"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("flo_kg_ha"),0)%></td>
-				<td align="right"><%=FormatNumber(rsPerawatanTM("amount_hi_per_ha"),0)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("gli_ltr"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("gli_ltr_ha"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("par_ltr"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("par_ltr_ha"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("met_kg"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("met_kg_ha"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("flo_kg"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("flo_kg_ha"),2)%></td>
+				<td align="right"><%=FormatNumber(rsPerawatanTM("amount_hi_per_ha"),2)%></td>
 			</tr>
 <%
 			NO = NO + 1			
@@ -1320,27 +1320,27 @@ Dim nsubpar_ltr_ha, nsubmet_kg, nsubmet_kg_ha, nsubflo_kg, nsubflo_kg_ha, nsubam
 %>
 			<tr bgcolor="#9CB770">
 				<td align="center" colspan="<%= 1 + nSpanTotal %>">TOTAL</td>
-				<td align="right"><%=FormatNumber(nsubsku,0)%></td>
-				<td align="right"><%=FormatNumber(nsubkhl,0)%></td>
-				<td align="right"><%=FormatNumber(nsubtotal,0)%></td>
-				<td align="right"><%=FormatNumber(nsubha_harian,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbo_harian,0)%></td>
-				<td align="right"><%=FormatNumber(nsubtotal_bo_harian,0)%></td>
+				<td align="right"><%=FormatNumber(nsubsku,2)%></td>
+				<td align="right"><%=FormatNumber(nsubkhl,2)%></td>
+				<td align="right"><%=FormatNumber(nsubtotal,2)%></td>
+				<td align="right"><%=FormatNumber(nsubha_harian,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbo_harian,2)%></td>
+				<td align="right"><%=FormatNumber(nsubtotal_bo_harian,2)%></td>
 				<% if cdbl(nsubha_harian) > 0 then %>
 				   <td align="right"><%=FormatNumber(nsubtotal/nsubha_harian,2)%></td>
 				<% else %>
 				   <td align="right"><%=FormatNumber(0,2)%></td>
 				<% End if %>
 				<td align="right">0</td>
-				<td align="right"><%=FormatNumber(nsubgli_ltr,0)%></td>
-				<td align="right"><%=FormatNumber(nsubgli_ltr_ha,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpar_ltr,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpar_ltr_ha,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmet_kg,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmet_kg_ha,0)%></td>
-				<td align="right"><%=FormatNumber(nsubflo_kg,0)%></td>
-				<td align="right"><%=FormatNumber(nsubflo_kg_ha,0)%></td>
-				<td align="right"><%=FormatNumber(nsubamount_hi_per_ha,0)%></td>
+				<td align="right"><%=FormatNumber(nsubgli_ltr,2)%></td>
+				<td align="right"><%=FormatNumber(nsubgli_ltr_ha,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpar_ltr,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpar_ltr_ha,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmet_kg,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmet_kg_ha,2)%></td>
+				<td align="right"><%=FormatNumber(nsubflo_kg,2)%></td>
+				<td align="right"><%=FormatNumber(nsubflo_kg_ha,2)%></td>
+				<td align="right"><%=FormatNumber(nsubamount_hi_per_ha,2)%></td>
 			</tr>
 </table>
 

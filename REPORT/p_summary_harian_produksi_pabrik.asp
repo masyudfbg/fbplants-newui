@@ -632,71 +632,71 @@ else
 							<td align="center" colspan="2" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 						<%End If%>
 										
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_HI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_SHI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUDGET_SHI"), 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_HI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_SHI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFB_BUDGET_SHI"), 2)%></strong></td>
 						<% IF cdbl(rsLHPP("FFB_BUDGET_SHI")) > 0 then %>
-						<td align="right"><strong><%=FormatNumber((cdbl(rsLHPP("FFB_SHI")) - cdbl(rsLHPP("FFB_BUDGET_SHI")) )/cdbl(rsLHPP("FFB_BUDGET_SHI"))*100, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber((cdbl(rsLHPP("FFB_SHI")) - cdbl(rsLHPP("FFB_BUDGET_SHI")) )/cdbl(rsLHPP("FFB_BUDGET_SHI"))*100, 2)%></strong></td>
 						<% else %>
 						<td align="right"><strong>0</strong></td>
 						<% end if %>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("THROUGHPUT_HI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("THROUGHPUT_SHI"), 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("THROUGHPUT_HI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("THROUGHPUT_SHI"), 2)%></strong></td>
 						<% IF cdbl(rsLHPP("ffb_process_HI")) > 0 then %>
-						<td align="right"><strong><%=FormatNumber(cdbl(rsLHPP("CPO_ACT_HI"))/cdbl(rsLHPP("ffb_process_HI"))*100, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(cdbl(rsLHPP("CPO_ACT_HI"))/cdbl(rsLHPP("ffb_process_HI"))*100, 2)%></strong></td>
 						<% else %>
 						<td align="right"><strong>0</strong></td>
 						<% end if %>
 						<% IF cdbl(rsLHPP("ffb_process_SHI")) > 0 then %>
-						<td align="right"><%=FormatNumber(cdbl(rsLHPP("CPO_ACT_SHI"))/cdbl(rsLHPP("ffb_process_SHI"))*100, 0)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rsLHPP("CPO_ACT_SHI"))/cdbl(rsLHPP("ffb_process_SHI"))*100, 2)%></td>
 						<% else %>
 						<td align="right">0</strong></td>
 						<% end if %>	
-						<td align="right"><strong><%=FormatNumber(rsLHPP("OER_BUD_SHI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_ACT_HI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_ACT_SHI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_BUD_SHI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_ACT_HI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_ACT_SHI"), 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_BUD_SHI"), 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("OER_BUD_SHI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_ACT_HI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_ACT_SHI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("KER_BUD_SHI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_ACT_HI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_ACT_SHI"), 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(rsLHPP("FFA_BUD_SHI"), 2)%></strong></td>
 					</tr>
 					<%Else%>
 					<tr>
 					    <%If currfcba <> prevfcba then%>
 							<td align="Center" style=" border-bottom:none;"><%=rsLHPP("FCBA")%></td>
 							<%prevfcba = currfcba%>
-							<td align="Center" style=" border-bottom:none;"><%=FormatNumber(rsLHPP("MILL_CAP"), 0)%></td>
+							<td align="Center" style=" border-bottom:none;"><%=FormatNumber(rsLHPP("MILL_CAP"), 2)%></td>
 						<%Else%>
 							<td align="center" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 							<td align="center" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 						<%End If%>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_HI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_SHI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFB_BUDGET_SHI"), 0)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_HI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_SHI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFB_BUDGET_SHI"), 2)%></td>
 						<% IF cdbl(rsLHPP("FFB_BUDGET_SHI")) > 0 then %>
-						<td align="right"><strong><%=FormatNumber((cdbl(rsLHPP("FFB_SHI")) - cdbl(rsLHPP("FFB_BUDGET_SHI")) )/cdbl(rsLHPP("FFB_BUDGET_SHI"))*100, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber((cdbl(rsLHPP("FFB_SHI")) - cdbl(rsLHPP("FFB_BUDGET_SHI")) )/cdbl(rsLHPP("FFB_BUDGET_SHI"))*100, 2)%></strong></td>
 						<% else %>
 						<td align="right"><strong>0</strong></td>
 						<% end if %>
-						<td align="right"><%=FormatNumber(rsLHPP("THROUGHPUT_HI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("THROUGHPUT_SHI"), 0)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("THROUGHPUT_HI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("THROUGHPUT_SHI"), 2)%></td>
 						<% IF cdbl(rsLHPP("ffb_process_HI")) > 0 then %>
-						<td align="right"><%=FormatNumber(cdbl(rsLHPP("CPO_ACT_HI"))/cdbl(rsLHPP("ffb_process_HI"))*100, 0)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rsLHPP("CPO_ACT_HI"))/cdbl(rsLHPP("ffb_process_HI"))*100, 2)%></td>
 						<% else %>
 						<td align="right">0</strong></td>
 						<% end if %>
 						<% IF cdbl(rsLHPP("ffb_process_SHI")) > 0 then %>
-						<td align="right"><%=FormatNumber(cdbl(rsLHPP("CPO_ACT_SHI"))/cdbl(rsLHPP("ffb_process_SHI"))*100, 0)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rsLHPP("CPO_ACT_SHI"))/cdbl(rsLHPP("ffb_process_SHI"))*100, 2)%></td>
 						<% else %>
 						<td align="right">0</strong></td>
 						<% end if %>					
-						<td align="right"><%=FormatNumber(rsLHPP("OER_BUD_SHI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KER_ACT_HI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KER_ACT_SHI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("KER_BUD_SHI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFA_ACT_HI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFA_ACT_SHI"), 0)%></td>
-						<td align="right"><%=FormatNumber(rsLHPP("FFA_BUD_SHI"), 0)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("OER_BUD_SHI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KER_ACT_HI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KER_ACT_SHI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("KER_BUD_SHI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFA_ACT_HI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFA_ACT_SHI"), 2)%></td>
+						<td align="right"><%=FormatNumber(rsLHPP("FFA_BUD_SHI"), 2)%></td>
 					</tr>
 					<%End If%>
 

@@ -407,7 +407,7 @@ end if
 					  <td align="center" style="<%=cmdstyleLeft%>"><%=no%>&nbsp;</td>
 					  <td align="left"  style="width:200px;<%=cmdstyle%>" title="" valign="middle"><font face="Verdana"><%=rsa("DESCRIPTION")%></td>
 					  <td align="center"  style="width:50px;<%=cmdstyle%> " title="" valign="middle">1 &nbsp;</td>
-					  <td align="Right"  style="width:50px;<%=cmdstyle%> " title="" valign="middle"><%=FormatNumber(rsa("Amount"),0)%>&nbsp;</td>					  
+					  <td align="Right"  style="width:50px;<%=cmdstyle%> " title="" valign="middle"><%=FormatNumber(rsa("Amount"),2)%>&nbsp;</td>					  
 		  </tr>
 		  <%
 		  nAmount = cdbl(nAmount) + cdbl(rsa("Amount"))
@@ -433,7 +433,7 @@ end if
 
 	  <tr>
 	  <td colspan="2"  align="right"><font face="Verdana">TOTAL</td>
-	  <td style="width:140px;<%=cmdstyle%>" align="right"><font face="Verdana"><%=FormatNumber(nAmount,0)%>&nbsp;</td>
+	  <td style="width:140px;<%=cmdstyle%>" align="right"><font face="Verdana"><%=FormatNumber(nAmount,2)%>&nbsp;</td>
 	  </tr>				    
    	</tbody>
 	</table>

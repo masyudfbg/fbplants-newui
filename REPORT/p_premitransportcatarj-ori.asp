@@ -620,8 +620,8 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center"><%=rsGrnInv("vehiclecode")%></td>
 				<td align="left"><%=rsGrnInv("categoryname")%></td>
 				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("hasilkerja"))),2)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("basis"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("lebihbasis"))),0)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("basis"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("lebihbasis"))),2)%></td>
 				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("rate"))),2)%></td>
 				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_operator"))),2)%></td>
 			</tr>
@@ -638,7 +638,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center" colspan="5"><font style="font-weight: bold;">TOTAL</font></td>				
 				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_hasilkerja)),2)%></font></td> 
 				<td align="right"></td>
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_lebih_basis)),0)%></font></td>  
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_lebih_basis)),2)%></font></td>  
 				<td align="right"></td>
 				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_operator)),2)%></font></td>  
 			</tr>

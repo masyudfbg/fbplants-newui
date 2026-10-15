@@ -2613,12 +2613,12 @@ function launchwin(winurl,winname,winfeatures)
 		<td align="center" ><%=FormatNumber(tempSBI,1)%></td>	
 		
 		
-		<td align="center" ><%=FormatNumber(0,0)%></td>
-		<td align="center" ><%=FormatNumber(0,0)%></td>	
+		<td align="center" ><%=FormatNumber(0,2)%></td>
+		<td align="center" ><%=FormatNumber(0,2)%></td>	
 		
 		
-		<td align="center" ><%=FormatNumber(0,0)%></td>
-		<td align="center" ><%=FormatNumber(0,0)%></td>		
+		<td align="center" ><%=FormatNumber(0,2)%></td>
+		<td align="center" ><%=FormatNumber(0,2)%></td>		
 	</tr>
 	
 	<%
@@ -2655,12 +2655,12 @@ function launchwin(winurl,winname,winfeatures)
 		<td align="center" ><%=FormatNumber(tempSBI,1)%></td>	
 		
 		
-		<td align="center" ><%=FormatNumber(0,0)%></td>
-		<td align="center" ><%=FormatNumber(0,0)%></td>	
+		<td align="center" ><%=FormatNumber(0,2)%></td>
+		<td align="center" ><%=FormatNumber(0,2)%></td>	
 		
 		
-		<td align="center" ><%=FormatNumber(0,0)%></td>
-		<td align="center" ><%=FormatNumber(0,0)%></td>			
+		<td align="center" ><%=FormatNumber(0,2)%></td>
+		<td align="center" ><%=FormatNumber(0,2)%></td>			
 	</tr>
 	
 	

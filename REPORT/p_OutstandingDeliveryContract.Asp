@@ -216,13 +216,13 @@ if Not rsOutstandingDeliveryContract.eof then
 		<td align="left"><%=rsOutstandingDeliveryContract("contractcode")%></td>
 		<td align="center"><%=rsOutstandingDeliveryContract("cust_customercode")%></td>
 		<td align="left"><%=rsOutstandingDeliveryContract("customername")%></td>
-		<td align="right"><%=rsOutstandingDeliveryContract("STARTDATE")%></td>
-		<td align="right"><%=rsOutstandingDeliveryContract("ENDDATE")%></td>
+		<td align="right"><%=FbpNum2(rsOutstandingDeliveryContract("STARTDATE"))%></td>
+		<td align="right"><%=FbpNum2(rsOutstandingDeliveryContract("ENDDATE"))%></td>
 		<td align="left"><%=rsOutstandingDeliveryContract("Product_ProductCode")%></td>
-		<td align="right"><%=FormatNumber(rsOutstandingDeliveryContract("contract_qty"),0)%></td>
-		<td align="right"><%=FormatNumber(rsOutstandingDeliveryContract("bi_qty"),0)%></td>
-		<td align="right"><%=FormatNumber(rsOutstandingDeliveryContract("sbi_qty"),0)%></td>
-		<td align="right"><%=FormatNumber(rsOutstandingDeliveryContract("remain_qty"),0)%></td>
+		<td align="right"><%=FormatNumber(rsOutstandingDeliveryContract("contract_qty"),2)%></td>
+		<td align="right"><%=FormatNumber(rsOutstandingDeliveryContract("bi_qty"),2)%></td>
+		<td align="right"><%=FormatNumber(rsOutstandingDeliveryContract("sbi_qty"),2)%></td>
+		<td align="right"><%=FormatNumber(rsOutstandingDeliveryContract("remain_qty"),2)%></td>
 	</tr>
 <%
 

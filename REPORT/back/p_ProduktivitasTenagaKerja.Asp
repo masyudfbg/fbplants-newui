@@ -650,26 +650,26 @@ if Not rsProduktivitas.eof then
 	<tr>
 		<td align="center"><%=rsProduktivitas("JOBCODE")%></td>
 		<td align="left"><%=rsProduktivitas("JOBNAME")%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("SKU"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("KHL"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("TOTAL"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_DAILY"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_CONTRACT"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("TOTALHA"),0)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("SKU"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("KHL"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("TOTAL"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_DAILY"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_CONTRACT"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("TOTALHA"),2)%></td>
 		<td align="right"><%=FormatNumber(rsProduktivitas("OUTPUT_DAILY"),2)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("SKU_1"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("KHL_1"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("TOTAL_1"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_DAILY_1"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_CONTRACT_1"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("TOTALHA_1"),0)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("SKU_1"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("KHL_1"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("TOTAL_1"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_DAILY_1"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_CONTRACT_1"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("TOTALHA_1"),2)%></td>
 		<td align="right"><%=FormatNumber(rsProduktivitas("OUTPUT_DAILY_1"),2)%></td>		
-		<td align="right"><%=FormatNumber(rsProduktivitas("SKU_2"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("KHL_2"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("TOTAL_2"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_DAILY_2"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_CONTRACT_2"),0)%></td>
-		<td align="right"><%=FormatNumber(rsProduktivitas("TOTALHA_2"),0)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("SKU_2"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("KHL_2"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("TOTAL_2"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_DAILY_2"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("UNIT_CONTRACT_2"),2)%></td>
+		<td align="right"><%=FormatNumber(rsProduktivitas("TOTALHA_2"),2)%></td>
 		<td align="right"><%=FormatNumber(rsProduktivitas("OUTPUT_DAILY_2"),2)%></td>
 		<td align="right"><%=FormatNumber(rsProduktivitas("OUTPUT_BUDGET"),2)%></td>
 	</tr>
@@ -705,26 +705,26 @@ end if
 
 	<tr bgcolor="#F4F4A0">
 		<td align="center" colspan="2"><strong>TOTAL</strong></td>
-		<td align="right"><strong><%=FormatNumber(nSKU,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nKHL,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nTOTAL,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nUNIT_DAILY,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nUNIT_CONTRACT,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nTOTALHA,0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nSKU,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nKHL,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nTOTAL,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nUNIT_DAILY,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nUNIT_CONTRACT,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nTOTALHA,2)%></strong></td>
 		<td align="right"><strong><%=FormatNumber(nOUTPUT_DAILY,2)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nSKU_1,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nKHL_1,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nTOTAL_1,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nUNIT_DAILY_1,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nUNIT_CONTRACT_1,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nTOTALHA_1,0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nSKU_1,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nKHL_1,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nTOTAL_1,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nUNIT_DAILY_1,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nUNIT_CONTRACT_1,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nTOTALHA_1,2)%></strong></td>
 		<td align="right"><strong><%=FormatNumber(nOUTPUT_DAILY_1,2)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nSKU_2,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nKHL_2,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nTOTAL_2,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nUNIT_DAILY_2,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nUNIT_CONTRACT_2,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(nTOTALHA_2,0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nSKU_2,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nKHL_2,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nTOTAL_2,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nUNIT_DAILY_2,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nUNIT_CONTRACT_2,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(nTOTALHA_2,2)%></strong></td>
 		<td align="right"><strong><%=FormatNumber(nOUTPUT_DAILY_2,2)%></strong></td>
 		<td align="right"><strong><%=FormatNumber(nOUTPUT_BUDGET,2)%></strong></td>
 	</tr>

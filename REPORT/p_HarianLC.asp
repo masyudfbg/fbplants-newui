@@ -1150,37 +1150,37 @@ else
 					    <td align="center"></td>					
 					<% end if %>							 
 				<% end if %>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_1"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_2"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_3"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_4"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_5"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_6"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_7"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_8"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_9"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_10"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_11"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_12"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_13"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_14"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_15"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_16"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_17"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_18"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_19"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_20"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_21"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_22"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_23"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_24"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_25"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_26"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_27"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_28"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_29"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_30"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianLC("DAY_31"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_1"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_2"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_3"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_4"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_5"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_6"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_7"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_8"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_9"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_10"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_11"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_12"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_13"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_14"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_15"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_16"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_17"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_18"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_19"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_20"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_21"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_22"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_23"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_24"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_25"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_26"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_27"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_28"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_29"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_30"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianLC("DAY_31"), 2)%></td>
 <%
 			RowReal	=	RowReal + Cdbl(rsHarianLC("REAL"))
 			RowBudget	=	RowBudget + Cdbl(rsHarianLC("BUDGET"))
@@ -1190,9 +1190,9 @@ else
 				RowPercentage = RowReal/RowBudget*100
 			End If
 %>
-					<td align="right"><%=FormatNumber(RowReal, 0)%></td>
-					<td align="right"><%=FormatNumber(RowBudget, 0)%></td>
-					<td align="right"><%=FormatNumber(RowPercentage, 0)%></td>
+					<td align="right"><%=FormatNumber(RowReal, 2)%></td>
+					<td align="right"><%=FormatNumber(RowBudget, 2)%></td>
+					<td align="right"><%=FormatNumber(RowPercentage, 2)%></td>
 				</tr>
 <%
 			rsHarianLC.MoveNext

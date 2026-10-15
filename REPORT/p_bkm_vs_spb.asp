@@ -368,12 +368,12 @@ function launchwin(winurl,winname,winfeatures)
 %>
 		<tr bgcolor="#F4F4A0"> 
 			<td align="center" colspan="3"><font style="font-weight: bold;">TOTAL</font></td>				
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bunch_spb)),0)%></font></td>
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bunch_bkm)),0)%></font></td>
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_var_bunch)),0)%></font></td>
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bucket_spb)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bucket_bkm)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_var_bucket)),0)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bunch_spb)),2)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bunch_bkm)),2)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_var_bunch)),2)%></font></td>
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bucket_spb)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bucket_bkm)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_var_bucket)),2)%></font></td> 
 		</tr>
 	</tbody>
 </table>

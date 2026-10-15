@@ -466,10 +466,10 @@ function launchwin(winurl,winname,winfeatures)
 			<td align="center"><%=rsGrnInv("drivername")%></td>
 			<td align="center"><%=rsGrnInv("vehiclecode")%></td>
 			<td align="center"><%=rsGrnInv("vehicleno")%></td>
-			<td align="right"><%=rsGrnInv("datein")%></td>
-			<td align="right"><%=rsGrnInv("timein")%></td>
-			<td align="right"><%=rsGrnInv("timeout")%></td>
-			<td align="right"><%=rsGrnInv("tbstype")%></td>
+			<td align="right"><%=FbpNum2(rsGrnInv("datein"))%></td>
+			<td align="right"><%=FbpNum2(rsGrnInv("timein"))%></td>
+			<td align="right"><%=FbpNum2(rsGrnInv("timeout"))%></td>
+			<td align="right"><%=FbpNum2(rsGrnInv("tbstype"))%></td>
 			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("estate_bunches"))),2)%></td>
 			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("mill_bunches"))),2)%></td>
 			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("bunch_mill_weight_bruto"))),2)%></td>

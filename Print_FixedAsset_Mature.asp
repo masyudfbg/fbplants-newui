@@ -153,7 +153,7 @@ set rsview = connStr.Execute(sqlview)
 						%>
 						<tr >
 							<td colspan=6><strong>Total</strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamnt)),0)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamnt)),2)%></strong></td>
 						</tr>
 						</table>
 						

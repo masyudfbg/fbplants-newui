@@ -701,7 +701,7 @@
 %>
 			<tr style="background-color:#F4F4A0;">
 				<td align="center" colspan="<%=5 + var_colspan%>"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=nTotal%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nTotal)%></strong></td>
 			</tr>
  </tbody>
 </table>

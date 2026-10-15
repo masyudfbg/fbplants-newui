@@ -196,11 +196,11 @@ if "" & v_txtDateTo = "" then v_txtDateTo = textDate(date)
 		<tr>
 			<td align="left"><%=rsBeliTBSall("description")%></td>
 			<td align="left"><%=rsBeliTBSall("docketdate")%></td>
-			<td align="right"><%=FormatNumber(netto1,0)%></td>
-			<td align="right"><%=FormatNumber(grading,0)%></td>
-			<td align="right"><%=FormatNumber(netto2,0)%></td>
-			<td align="right"><%=FormatNumber(harga,0)%></td>
-			<td align="right"><%=FormatNumber(totalrp,0)%></td>
+			<td align="right"><%=FormatNumber(netto1,2)%></td>
+			<td align="right"><%=FormatNumber(grading,2)%></td>
+			<td align="right"><%=FormatNumber(netto2,2)%></td>
+			<td align="right"><%=FormatNumber(harga,2)%></td>
+			<td align="right"><%=FormatNumber(totalrp,2)%></td>
 			
 		  </tr>	
 		      
@@ -216,11 +216,11 @@ if "" & v_txtDateTo = "" then v_txtDateTo = textDate(date)
 		%>
 		  <tr bgcolor="#F4F4A0">
 			<td align="center" colspan="<%=add_newspan+2%>"><strong>TOTAL</td>
-			<td align="right"><strong><%=FormatNumber(ttlnetto1,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlgrading,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlnetto2,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlharga,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(ttlgrand,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlnetto1,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlgrading,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlnetto2,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlharga,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(ttlgrand,2)%></strong></td>
 		  </tr>	
 		<%
 	end if
@@ -308,11 +308,11 @@ if "" & v_txtDateTo = "" then v_txtDateTo = textDate(date)
 		%>
 		<tr>
 			<td align="left"><%=bydocketdate%></td>
-			<td align="right"><%=FormatNumber(bynetto1,0)%></td>
-			<td align="right"><%=FormatNumber(bygrading,0)%></td>
-			<td align="right"><%=FormatNumber(bynetto2,0)%></td>
-			<td align="right"><%=FormatNumber(byharga,0)%></td>
-			<td align="right"><%=FormatNumber(bytotalrp,0)%></td>
+			<td align="right"><%=FormatNumber(bynetto1,2)%></td>
+			<td align="right"><%=FormatNumber(bygrading,2)%></td>
+			<td align="right"><%=FormatNumber(bynetto2,2)%></td>
+			<td align="right"><%=FormatNumber(byharga,2)%></td>
+			<td align="right"><%=FormatNumber(bytotalrp,2)%></td>
 			
 		  </tr>	
 		      
@@ -329,11 +329,11 @@ if "" & v_txtDateTo = "" then v_txtDateTo = textDate(date)
 		%>
 		  <tr bgcolor="#F4F4A0">
 			<td align="center" colspan="<%=add_newspan+1%>"><strong>TOTAL</td>
-			<td align="right"><strong><%=FormatNumber(byttlnetto1,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(byttlgrading,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(byttlnetto2,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(byttlharga,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(byttlgrand,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(byttlnetto1,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(byttlgrading,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(byttlnetto2,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(byttlharga,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(byttlgrand,2)%></strong></td>
 		  </tr>	
 		<%
 	end if

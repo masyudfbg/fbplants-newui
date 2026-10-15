@@ -292,10 +292,10 @@ end if
 										<td class="ratakiri"><%=rsdtlupah("CREATIONDATE")%></td>
 										<td class="ratakiri"><%=rsdtlupah("transportercontractno")%></td>
 										<td class="ratakiri"><%=rsdtlupah("transportername")%></td>
-										<td class="ratakanan"><%=formatnumber(AMOUNT,0)%></td>
+										<td class="ratakanan"><%=formatnumber(AMOUNT,2)%></td>
 										<td class="ratakanan"><%=VAT%></td>
-										<td class="ratakanan"><%=formatnumber(PPH,0)%></td>
-										<td class="ratakanan"><%=formatnumber(GRANDTOTAL,0)%></td>
+										<td class="ratakanan"><%=formatnumber(PPH,2)%></td>
+										<td class="ratakanan"><%=formatnumber(GRANDTOTAL,2)%></td>
 										<td class="ratakanan">
 											<% If Not dictShown.Exists(invcode) Then %>
 												<%=FormatNumber(dictPay(invcode),0)%>

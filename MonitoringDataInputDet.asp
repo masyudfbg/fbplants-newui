@@ -162,28 +162,28 @@ company    = Request("company")
 							
 							
 							if (day_4 == 0)  {
-							docketlist += '<td bgcolor= "Red" align="right">' + numformat(day_4) + '%</td>';
+							docketlist += '<td bgcolor= "Red" align="right">' + numformat2(day_4) + '%</td>';
 							}
 							else {
-							docketlist += '<td bgcolor= "Green"  align="right">' + numformat(day_4) + '%</td>';}
+							docketlist += '<td bgcolor= "Green"  align="right">' + numformat2(day_4) + '%</td>';}
 							
 							if (day_3 == 0)  {
-							docketlist += '<td bgcolor= "Red" align="right">' + numformat(day_3) + '%</td>';
+							docketlist += '<td bgcolor= "Red" align="right">' + numformat2(day_3) + '%</td>';
 							}
 							else {
-							docketlist += '<td bgcolor= "Green"  align="right">' + numformat(day_3) + '%</td>';}
+							docketlist += '<td bgcolor= "Green"  align="right">' + numformat2(day_3) + '%</td>';}
 							
 							if (day_2 == 0)  {
-							docketlist += '<td bgcolor= "Red" align="right">' + numformat(day_2) + '%</td>';
+							docketlist += '<td bgcolor= "Red" align="right">' + numformat2(day_2) + '%</td>';
 							}
 							else {
-							docketlist += '<td bgcolor= "Green"  align="right">' + numformat(day_2) + '%</td>';}
+							docketlist += '<td bgcolor= "Green"  align="right">' + numformat2(day_2) + '%</td>';}
 							
 							if (day_1 == 0)  {
-							docketlist += '<td bgcolor= "Red" align="right">' + numformat(day_1) + '%</td>';
+							docketlist += '<td bgcolor= "Red" align="right">' + numformat2(day_1) + '%</td>';
 							}
 							else {
-							docketlist += '<td bgcolor= "Green"  align="right">' + numformat(day_1) + '%</td>';}
+							docketlist += '<td bgcolor= "Green"  align="right">' + numformat2(day_1) + '%</td>';}
 							
 							docketlist += '</tr>';
 							$('#bodytable').append(docketlist);
@@ -195,6 +195,14 @@ company    = Request("company")
 	}
 
 	
+
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
 
 	function numformat(val) {
 		var nStr = val.toString();

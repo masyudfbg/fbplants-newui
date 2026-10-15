@@ -204,8 +204,8 @@ response.Flush()
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("procdeid")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("itemcode")%> </td>
 								<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("itemname")%> </td>
-								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("poquantity"))),0)%> </td>
-								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("poamount"))),0)%> </td>
+								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("poquantity"))),2)%> </td>
+								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("poamount"))),2)%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("authorizelevelcode")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("authorizelevelname")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("lastauthorizer")%> </td>

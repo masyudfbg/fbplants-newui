@@ -497,7 +497,7 @@ body{font-family:'Arial Narrow';font-size:12px;}
 						 %>
 									<tr class="<%=cClass%>">   
 									   <td colspan="11" align="center">Total Biaya Block <%=Sprevblock%></td>
-									   <td align="Right"><%=FormatNumber(subtotal,0)%></td>
+									   <td align="Right"><%=FormatNumber(subtotal,2)%></td>
 									</tr>   
 							 <% 
 							    end if    
@@ -519,8 +519,8 @@ body{font-family:'Arial Narrow';font-size:12px;}
 							    <td align="center"><%=rsreal("org_block")%></td>
 							    <td align="center"><%=rsreal("plantingyear")%></td>
 							    <td align="center"><%=rsreal("status")%></td>
-						        <td align="Right"><%=FormatNumber(rsreal("haplanted"),0)%></td>
-							    <td align="Right"><%=FormatNumber(rsreal("amount"),0)%></td>	
+						        <td align="Right"><%=FormatNumber(rsreal("haplanted"),2)%></td>
+							    <td align="Right"><%=FormatNumber(rsreal("amount"),2)%></td>	
 						</tr>
 		<%             Sprevblock= rsreal("block")
 					rsreal.MoveNext
@@ -530,7 +530,7 @@ body{font-family:'Arial Narrow';font-size:12px;}
 		%>
 		                        <tr class="<%=cClass%>">   
 								   <td colspan="11" align="center">Total Biaya Block <%=Sprevblock%></td>
-								   <td align="Right"><%=FormatNumber(subtotal,0)%></td>
+								   <td align="Right"><%=FormatNumber(subtotal,2)%></td>
 								</tr>   
 		<%End if%>
 	</tbody>	

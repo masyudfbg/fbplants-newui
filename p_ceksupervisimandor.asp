@@ -295,12 +295,12 @@ else
 		while not rsSupervisiMandor.eof
 %>
 				<tr>
-					<td align="Right"><%=rsSupervisiMandor("TANGGAL")%></td>
+					<td align="Right"><%=FbpNum2(rsSupervisiMandor("TANGGAL"))%></td>
 					<td align="Center"><%=rsSupervisiMandor("GANGCODE")%></td>
 					<td align="Left"><%=rsSupervisiMandor("EMPLOYEECODE")%></td>
 					<td align="Left"><%=rsSupervisiMandor("EMPLOYEENAME")%></td>
-					<td align="Center"><%=FormatNumber(rsSupervisiMandor("GAD_MANDOR"), 0)%></td>
-					<td align="Center"><%=FormatNumber(rsSupervisiMandor("SUPERVISI"), 0)%></td>
+					<td align="Center"><%=FormatNumber(rsSupervisiMandor("GAD_MANDOR"), 2)%></td>
+					<td align="Center"><%=FormatNumber(rsSupervisiMandor("SUPERVISI"), 2)%></td>
 					<td align="Center"><%=rsSupervisiMandor("STATUS")%></td>
 				</tr>
 <%

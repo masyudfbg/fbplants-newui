@@ -97,7 +97,7 @@
 		var cls = 'pill-full';
 		if (val == 0) cls = 'pill-none';
 		else if (val > 0 && val < 100) cls = 'pill-part';
-		return '<td><span class="pill ' + cls + '">' + numformat(val) + '%</span></td>';
+		return '<td><span class="pill ' + cls + '">' + numformat2(val) + '%</span></td>';
 	}
 
 	function getMonitoring()
@@ -133,6 +133,14 @@
 	}
 
 
+
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
 
 	function numformat(val) {
 		var nStr = val.toString();

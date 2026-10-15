@@ -168,16 +168,16 @@ Set rsCat = Nothing
 					<tr>			
 						<td align="Left" ><%=lhpno%></td>			
 						<td align="Left" ><%=tgl%></td>	
-						<td align="right" data-t="n"><%=tbsterima%></td>	
-						<td align="right" data-t="n"><%=tbsolah%></td>	
-						<td align="right" data-t="n"><%=tbssisahi%></td>	
-						<td align="right" data-t="n"><%=cpohi%></td>	
-						<td align="right" data-t="n"><%=cpokirim%></td>	
-						<td align="right" data-t="n"><%=adjcpo%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(tbsterima)%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(tbsolah)%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(tbssisahi)%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(cpohi)%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(cpokirim)%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(adjcpo)%></td>	
 						<td align="right" data-t="n"><%=cposisa%></td>	
-						<td align="right" data-t="n"><%=produksipkhi%></td>	
-						<td align="right" data-t="n"><%=kernelkirimhi%></td>	
-						<td align="right" data-t="n"><%=pksisa%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(produksipkhi)%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(kernelkirimhi)%></td>	
+						<td align="right" data-t="n"><%=FbpNum2(pksisa)%></td>	
 					</tr>
 				
 				

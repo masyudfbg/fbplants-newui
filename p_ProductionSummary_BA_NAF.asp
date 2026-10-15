@@ -659,18 +659,18 @@ Dim sprevFcba, sprevDivision, sprevPlantingYear, sprevFieldCode
 				<% end if %>				
 				
 				
-				<td align="right"><%=FormatNumber(rsEPS("hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("bi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("sbi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("tonase_hi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("tonase_shi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("tonase_bi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("tonase_sbi"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_bi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_bi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_hi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_shi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_bi"),2)%></td>
@@ -705,18 +705,18 @@ Dim sprevFcba, sprevDivision, sprevPlantingYear, sprevFieldCode
 %>
 			<tr bgcolor="#9CB770">
 				<td align="center" colspan="<%= 2 + nSpanTotal %>">TOTAL</td>				
-				<td align="right"><%=FormatNumber(nsubhi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubshi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubsbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubhi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubshi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubsbi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_hi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_shi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_bi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_sbi,2)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_bi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_bi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_sbi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_hi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_shi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_bi,2)%></td>

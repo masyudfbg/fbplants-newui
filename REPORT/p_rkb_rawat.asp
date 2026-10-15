@@ -880,23 +880,23 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 			<td align="center"><%=rsPayroll("activitycode")%></td>
 			<td align="left"><%=rsPayroll("activityname")%></td> 
 			<td align="center"><%=rsPayroll("fieldcode")%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("luas")), 0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("pokok")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("volume")),0)%></td> 
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("luas")), 2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("pokok")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("volume")),2)%></td> 
 			<td align="center"><%=rsPayroll("uom_job")%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("norma_hk")),2)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("mandays")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("totalamount")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("normapremi")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("boronganpremi")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("mandays")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("totalamount")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("normapremi")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("boronganpremi")),2)%></td>
 			<td align="left"><%=rsPayroll("stockname")%></td>
 			<td align="center"><%=rsPayroll("uom_stock")%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("normabahan")),2)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("qty")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("ratestock")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("totalamountstock")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(totalbiaya),0)%></td> 
-			<td align="right"><%=formatnumber( cdbl(costsatuan),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("qty")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("ratestock")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("totalamountstock")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(totalbiaya),2)%></td> 
+			<td align="right"><%=formatnumber( cdbl(costsatuan),2)%></td>
 			<td align="right"></td> 
 		</tr>
 <%	if rows = temprows then
@@ -914,18 +914,18 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 	%>
 		<tr style="background-color:#F4F4A0;">	 
 			<td align="center" colspan="<%= 10+ nSpanTotal %>" ><strong>Sub Total</strong></td> 
-			<td align="right"><strong><%=formatnumber(nLuasDikerjakan,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nLuasDikerjakan,2)%></strong></td>
 			<td align="right"></td>
-			<td align="right"><strong><%=formatnumber(nMandays,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(nTotalamount,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nMandays,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nTotalamount,2)%></strong></td>
 			<td align="right"></td>
-			<td align="right"><strong><%=formatnumber(nBoronganpremi,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nBoronganpremi,2)%></strong></td>
 			<td align="right" colspan="3"></td>
-			<td align="right"><strong><%=formatnumber(nQty,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nQty,2)%></strong></td>
 			<td align="right"></td>
-			<td align="right"><strong><%=formatnumber(nTotalamountstock,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nTotalbiaya,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nCostsatuan,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nTotalamountstock,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nTotalbiaya,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nCostsatuan,2)%></strong></td>
 			<td align="right"><strong></td>
 		</tr>
 		<tr>
@@ -973,18 +973,18 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 	%> 
 		<tr style="background-color:#27AE60;">	 
 			<td align="center" colspan="<%= 10+ nSpanTotal %>" ><strong>Grand Total</strong></td>
-			<td align="right"><strong><%=formatnumber(gt_LuasDikerjakan,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gt_LuasDikerjakan,2)%></strong></td>
 			<td align="right"></td>
-			<td align="right"><strong><%=formatnumber(gt_Mandays,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(gt_Totalamount,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gt_Mandays,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(gt_Totalamount,2)%></strong></td>
 			<td align="right"></td>
-			<td align="right"><strong><%=formatnumber(gt_Boronganpremi,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gt_Boronganpremi,2)%></strong></td>
 			<td align="right" colspan="3"></td>
-			<td align="right"><strong><%=formatnumber(gt_Qty,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gt_Qty,2)%></strong></td>
 			<td align="right"></td>
-			<td align="right"><strong><%=formatnumber(gt_Totalamountstock,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(gt_Totalbiaya,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(gt_Costsatuan,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gt_Totalamountstock,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gt_Totalbiaya,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gt_Costsatuan,2)%></strong></td>
 			<td align="right"><strong></td>
 		</tr> 
 	</tbody>

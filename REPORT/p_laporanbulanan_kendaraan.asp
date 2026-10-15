@@ -663,21 +663,21 @@ function launchwin(winurl,winname,winfeatures)
 			<td align="center"><%=rsGrnInv("vehiclecode")%></td>
 			<td align="center"><%=rsGrnInv("registrationno")%></td> 
 
-			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("km_bi"))),0)%></td>
-			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("liter_bi"))),0)%></td>
+			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("km_bi"))),2)%></td>
+			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("liter_bi"))),2)%></td>
 			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("ratio_bi"))),2)%></td>
-			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("trip_bi"))),0)%></td>
-			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("hke_bi"))),0)%></td>
-			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("he_bi"))),0)%></td>
-			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("downtime_bi"))),0)%></td>
+			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("trip_bi"))),2)%></td>
+			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("hke_bi"))),2)%></td>
+			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("he_bi"))),2)%></td>
+			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("downtime_bi"))),2)%></td>
 
-			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("km_sbi"))),0)%></td>
-			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("liter_sbi"))),0)%></td>
+			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("km_sbi"))),2)%></td>
+			<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("liter_sbi"))),2)%></td>
 			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("ratio_sbi"))),2)%></td>
-			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("trip_sbi"))),0)%></td>
-			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("hke_sbi"))),0)%></td>
-			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("he_sbi"))),0)%></td>
-			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("downtime_sbi"))),0)%></td>
+			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("trip_sbi"))),2)%></td>
+			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("hke_sbi"))),2)%></td>
+			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("he_sbi"))),2)%></td>
+			<td align="center"><%=formatnumber(cdbl(to_nol(rsGrnInv("downtime_sbi"))),2)%></td>
 		</tr>
 <%			
 			' v_premi = v_premi + cdbl(to_nol(rsGrnInv("premi"))) 

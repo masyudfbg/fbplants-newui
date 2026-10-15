@@ -590,11 +590,11 @@ if rsPusingan.bof and rsPusingan.eof then
 					nOutput(xNum) =   cdbl(nOutput(xNum))  + cdbl(rsPusingan("output_"&xNum&""))				
 				Next
 				%>
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=B_%></strong></td>
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=SB_%></strong></td>
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=R_%></strong></td>
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=Cint(B_)+Cint(SB_)+Cint(R_)%></strong></td>
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=round(Cint(R_)/(Cint(B_)+Cint(SB_)+Cint(R_))*100,1)%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(B_)%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(SB_)%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(R_)%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(Cint(B_)+Cint(SB_)+Cint(R_))%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(round(Cint(R_)/(Cint(B_)+Cint(SB_)+Cint(R_))*100,1))%></strong></td>
 				
 			</tr>
 			
@@ -616,24 +616,24 @@ rsPusingan.Close
 				<td align="Center"  colspan=6 Rowspan=2 ">Total</td>	
 				<td align="Right"  >H. Rusak</td>	
                 <% For xNum = 1 to selec_day  %> 
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=cdbl(Rnday(xNum))%></strong></td>
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=cdbl(nHours(xNum))%></strong></td>
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=cdbl(nUnit(xNum))%></strong></td>
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=cdbl(nOutput(xNum))%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(cdbl(Rnday(xNum)))%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(cdbl(nHours(xNum)))%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(cdbl(nUnit(xNum)))%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(cdbl(nOutput(xNum)))%></strong></td>
                 <% Next %>
 				
-				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=TotB_%></strong></td>
-				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=TotSB_%></strong></td>
-				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=TotR_%></strong></td>
-				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=Cint(TotB_)+Cint(TotSB_)+Cint(TotR_)%></strong></td>
-				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=round(Cint(TotR_)/(Cint(TotB_)+Cint(TotSB_)+Cint(TotR_))*100,1)%></strong></td>
+				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(TotB_)%></strong></td>
+				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(TotSB_)%></strong></td>
+				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(TotR_)%></strong></td>
+				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(Cint(TotB_)+Cint(TotSB_)+Cint(TotR_))%></strong></td>
+				<td align="Right" Rowspan=2  bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(round(Cint(TotR_)/(Cint(TotB_)+Cint(TotSB_)+Cint(TotR_))*100,1))%></strong></td>
 				
 			</tr>
 			<tr class="<%=cClass%>">
 		
 				<td align="Right"  >% D.Time</td>
                 <% For xNum = 1 to selec_day  %> 
-				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=round(cdbl(Rnday(xNum))/cdbl(CountData) *100,1)%></strong></td>
+				<td align="Right" bgcolor="EDF4EB" style="color:"#ffffff";><strong><%=FbpNum2(round(cdbl(Rnday(xNum))/cdbl(CountData) *100,1))%></strong></td>
 				<td align="Right" colspan=3 bgcolor="EDF4EB" style="color:"#ffffff";><strong></strong></td>
                 <% Next %>
 				

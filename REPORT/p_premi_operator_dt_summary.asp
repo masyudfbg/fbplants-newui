@@ -325,12 +325,12 @@ function launchwin(winurl,winname,winfeatures)
 					<td align="center"><%=rsGrnInv("operatorname")%></td>
 					<td align="center"><%=rsGrnInv("PERIOD_YEAR")%></td>
 					<td align="center"><%=rsGrnInv("PERIOD_MONTH")%></td>
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("TOTAL_PREMI_TONASE_MIN_BASIS"))),0)%></td>
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("HK_EFEKTIF_BRUTO_MIN_BASIS"))),0)%></td>
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("POTONGAN_HKE"))),0)%></td> 
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("HK_EFEKTIF_NETTO_MIN_BASIS"))),0)%></td>
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("PREMI_INSENTIF_MIN_BASIS"))),0)%></td> 
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("TOTAL_PREMI_OPERATOR_MIN_BASIS"))),0)%></td>  
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("TOTAL_PREMI_TONASE_MIN_BASIS"))),2)%></td>
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("HK_EFEKTIF_BRUTO_MIN_BASIS"))),2)%></td>
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("POTONGAN_HKE"))),2)%></td> 
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("HK_EFEKTIF_NETTO_MIN_BASIS"))),2)%></td>
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("PREMI_INSENTIF_MIN_BASIS"))),2)%></td> 
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("TOTAL_PREMI_OPERATOR_MIN_BASIS"))),2)%></td>  
 				</tr>
 			<%	
 				nTOTAL_PREMI_TONASE_MIN_BASIS = nTOTAL_PREMI_TONASE_MIN_BASIS + cdbl(to_nol(rsGrnInv("TOTAL_PREMI_TONASE_MIN_BASIS")))
@@ -346,12 +346,12 @@ function launchwin(winurl,winname,winfeatures)
 			%> 
 				<tr bgcolor="#F4F4A0">	 
 					<td align="center" colspan="4"><b> TOTAL</b></td>
-					<td align="right"><b><%=formatnumber(nTOTAL_PREMI_TONASE_MIN_BASIS,0)%></td>
-					<td align="right"><b><%=formatnumber(nHK_EFEKTIF_BRUTO_MIN_BASIS,0)%></td>
-					<td align="right"><b><%=formatnumber(nPOTONGAN_HKE,0)%></td>
-					<td align="right"><b><%=formatnumber(nHK_EFEKTIF_NETTO_MIN_BASIS,0)%></td>
-					<td align="right"><b><%=formatnumber(nPREMI_INSENTIF_MIN_BASIS,0)%></td>
-					<td align="right"><b><%=formatnumber(nTOTAL_PREMI_OPERATOR_MIN_BASIS,0)%></td> 
+					<td align="right"><b><%=formatnumber(nTOTAL_PREMI_TONASE_MIN_BASIS,2)%></td>
+					<td align="right"><b><%=formatnumber(nHK_EFEKTIF_BRUTO_MIN_BASIS,2)%></td>
+					<td align="right"><b><%=formatnumber(nPOTONGAN_HKE,2)%></td>
+					<td align="right"><b><%=formatnumber(nHK_EFEKTIF_NETTO_MIN_BASIS,2)%></td>
+					<td align="right"><b><%=formatnumber(nPREMI_INSENTIF_MIN_BASIS,2)%></td>
+					<td align="right"><b><%=formatnumber(nTOTAL_PREMI_OPERATOR_MIN_BASIS,2)%></td> 
 					<!--<td align="right"></td>-->
 				</tr> 
 	<%Else%>
@@ -375,12 +375,12 @@ function launchwin(winurl,winname,winfeatures)
 					<td align="center"><%=rsGrnInv("operatorname")%></td>
 					<td align="center"><%=rsGrnInv("PERIOD_YEAR")%></td>
 					<td align="center"><%=rsGrnInv("PERIOD_MONTH")%></td>
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("TOTAL_PREMI_TONASE_AVG_BASIS"))),0)%></td>
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("HK_EFEKTIF_BRUTO_AVG_BASIS"))),0)%></td>
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("POTONGAN_HKE"))),0)%></td> 
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("HK_EFEKTIF_NETTO_AVG_BASIS"))),0)%></td>
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("PREMI_INSENTIF_AVG_BASIS"))),0)%></td> 
-					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("TOTAL_PREMI_OPERATOR_AVG_BASIS"))),0)%></td>  
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("TOTAL_PREMI_TONASE_AVG_BASIS"))),2)%></td>
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("HK_EFEKTIF_BRUTO_AVG_BASIS"))),2)%></td>
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("POTONGAN_HKE"))),2)%></td> 
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("HK_EFEKTIF_NETTO_AVG_BASIS"))),2)%></td>
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("PREMI_INSENTIF_AVG_BASIS"))),2)%></td> 
+					<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("TOTAL_PREMI_OPERATOR_AVG_BASIS"))),2)%></td>  
 				</tr>
 			<%	
 				nTOTAL_PREMI_TONASE_AVG_BASIS = nTOTAL_PREMI_TONASE_AVG_BASIS + cdbl(to_nol(rsGrnInv("TOTAL_PREMI_TONASE_AVG_BASIS")))
@@ -396,12 +396,12 @@ function launchwin(winurl,winname,winfeatures)
 			%> 
 				<tr bgcolor="#F4F4A0">	 
 					<td align="center" colspan="4"><b> TOTAL</b></td>
-					<td align="right"><b><%=formatnumber(nTOTAL_PREMI_TONASE_AVG_BASIS,0)%></td>
-					<td align="right"><b><%=formatnumber(nHK_EFEKTIF_BRUTO_AVG_BASIS,0)%></td>
-					<td align="right"><b><%=formatnumber(nPOTONGAN_HKE,0)%></td>
-					<td align="right"><b><%=formatnumber(nHK_EFEKTIF_NETTO_AVG_BASIS,0)%></td>
-					<td align="right"><b><%=formatnumber(nPREMI_INSENTIF_AVG_BASIS,0)%></td>
-					<td align="right"><b><%=formatnumber(nTOTAL_PREMI_OPERATOR_AVG_BASIS,0)%></td> 
+					<td align="right"><b><%=formatnumber(nTOTAL_PREMI_TONASE_AVG_BASIS,2)%></td>
+					<td align="right"><b><%=formatnumber(nHK_EFEKTIF_BRUTO_AVG_BASIS,2)%></td>
+					<td align="right"><b><%=formatnumber(nPOTONGAN_HKE,2)%></td>
+					<td align="right"><b><%=formatnumber(nHK_EFEKTIF_NETTO_AVG_BASIS,2)%></td>
+					<td align="right"><b><%=formatnumber(nPREMI_INSENTIF_AVG_BASIS,2)%></td>
+					<td align="right"><b><%=formatnumber(nTOTAL_PREMI_OPERATOR_AVG_BASIS,2)%></td> 
 					<!--<td align="right"></td>-->
 				</tr> 
 	<%End If%>

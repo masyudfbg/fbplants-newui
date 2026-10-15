@@ -1046,28 +1046,28 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 			<td align="left"><%=rsPayroll("activityname")%></td> 
 			<td align="center"><%=rsPayroll("fieldcode")%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("luas_ha")), 2)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("totalstand")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("totalstand")),2)%></td>
 			<td align="center"><%=rsPayroll("satuan")%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("harvestingbased_abw_budget")),2)%></td> 
 			<td align="center"><%=rsPayroll("rotasi")%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("kg_budget")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("bunch")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("bunch_actual")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("kg_budget")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("bunch")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("bunch_actual")),2)%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("bjr_actual")),2)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPayroll("kg_actual")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPayroll("kg_actual")),2)%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("produksi_percent")),2)%></td>
 			<td align="right"><%=formatnumber( cdbl(rsPayroll("norma_hk")),2)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("totalhk"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("rp_hk"))),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("totalhk"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("rp_hk"))),2)%></td>
 			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("hk_actual"))),2)%></td>
 			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("mandays_percent"))),2)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("basis_jjg"))),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("basis_jjg"))),2)%></td>
 			<td align="left"><%=rsPayroll("percent_sb")%></td>
 			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("premi_basis"))),2)%></td>
 			<td align="center"><%=rsPayroll("percent_lb")%></td>
 			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("premi_lebih_basis"))),2)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("total_premi"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("total"))),0)%></td> 
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("total_premi"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("total"))),2)%></td> 
 			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("total_rp_kg"))),2)%></td> 
 		</tr>
 <%	if rows = temprows then
@@ -1093,24 +1093,24 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 	%>
 		<tr style="background-color:#F4F4A0;">	 
 			<td align="center" colspan="<%= 12+ nSpanTotal %>" ><strong>Sub Total</strong></td> 
-			<td align="right"><strong><%=formatnumber(nkg_budget,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(nBunch,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nbunch_actual,0)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nkg_budget,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nBunch,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nbunch_actual,2)%></strong></td> 
 			<td align="right"></td>
-			<td align="right"><strong><%=formatnumber(nkg_actual,0)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nkg_actual,2)%></strong></td> 
 			<td align="right"><strong><%=formatnumber(nproduksi_percent,2)%></strong></td> 
 			<td align="right"><strong><%=formatnumber(nnorma_hk,2)%></strong></td>
-			<td align="right"><strong><%=formatnumber(ntotalhk,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nrp_hk,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(ntotalhk,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nrp_hk,2)%></strong></td>
 			<td align="right"><strong><%=formatnumber(nhk_actual,2)%></strong></td>
 			<td align="right"><strong><%=formatnumber(nmandays_percent,2)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nbasis_jjg,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nbasis_jjg,2)%></strong></td>
 			<td align="right"></td>
 			<td align="right"><strong><%=formatnumber(npremi_basis,2)%></strong></td>
 			<td align="right"></td>
 			<td align="right"><strong><%=formatnumber(npremi_lebih_basis,2)%></strong></td>
-			<td align="right"><strong><%=formatnumber(ntotal_premi,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(ntotal,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(ntotal_premi,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(ntotal,2)%></strong></td>
 			<td align="right"><strong><%=formatnumber(ntotal_rp_kg,2)%></strong></td>
 		</tr>
 		<tr>
@@ -1183,24 +1183,24 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 	%> 
 		<tr style="background-color:#27AE60;">	 
 			<td align="center" colspan="<%= 12+ nSpanTotal %>" ><strong>Grand Total</strong></td> 
-			<td align="right"><strong><%=formatnumber(gtkg_budget,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(gtBunch,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(gtbunch_actual,0)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(gtkg_budget,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(gtBunch,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gtbunch_actual,2)%></strong></td> 
 			<td align="right"></td>
-			<td align="right"><strong><%=formatnumber(gtkg_actual,0)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(gtkg_actual,2)%></strong></td> 
 			<td align="right"><strong><%=formatnumber(gtproduksi_percent,2)%></strong></td> 
 			<td align="right"><strong><%=formatnumber(gtnorma_hk,2)%></strong></td>
-			<td align="right"><strong><%=formatnumber(gttotalhk,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(gtrp_hk,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gttotalhk,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gtrp_hk,2)%></strong></td>
 			<td align="right"><strong><%=formatnumber(gthk_actual,2)%></strong></td>
 			<td align="right"><strong><%=formatnumber(gtmandays_percent,2)%></strong></td>
-			<td align="right"><strong><%=formatnumber(gtbasis_jjg,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gtbasis_jjg,2)%></strong></td>
 			<td align="right"></td>
 			<td align="right"><strong><%=formatnumber(gtpremi_basis,2)%></strong></td>
 			<td align="right"></td>
 			<td align="right"><strong><%=formatnumber(gtpremi_lebih_basis,2)%></strong></td>
-			<td align="right"><strong><%=formatnumber(gttotal_premi,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(gttotal,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gttotal_premi,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(gttotal,2)%></strong></td>
 			<td align="right"><strong><%=formatnumber(gttotal_rp_kg,2)%></strong></td>
 		</tr> 
 	</tbody>

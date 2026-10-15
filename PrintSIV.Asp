@@ -190,7 +190,7 @@ v_amount=0
 			<td align="Right"><%=NoUrut%></td>
 			<td align="CENTER" style="width:100px;"><%=rsCat("STOCKCODE")%></td>
 			<td align="LEFT"><%=rsCat("FCNAME")%></td>
-			<td align="Right" style="width:80px;"><%=rsCat("QUANTITY")%></td>
+			<td align="Right" style="width:80px;"><%=FbpNum2(rsCat("QUANTITY"))%></td>
 			<td align="CENTER" style="width:50px;"><%=rsCat("uom")%></td>
 			<td align="LEFT"><%=rsCat("REMARKS")%></td>
 		</tr>

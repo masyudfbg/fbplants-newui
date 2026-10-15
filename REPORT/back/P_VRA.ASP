@@ -485,30 +485,30 @@ function launchwin(winurl,winname,winfeatures)
 				<% end if %>
 				
 				
-					<td align="right"><%=formatnumber( cdbl(rsha("KMHMBI")),0)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("LTRBI")),0)%></td></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("KMHMSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("LTRSBI")),0)%></td></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("KMHMBI")),2)%></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("LTRBI")),2)%></td></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("KMHMSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("LTRSBI")),2)%></td></td>
 					<% if cdbl(rsha("LTRBI")) > 0 and cdbl(rsha("KMHMBI")) > 0 then
 					        rasioBI = cdbl(rsha("LTRBI"))/ cdbl(rsha("KMHMBI")) 
 					   else 
 					        rasioBI ="0"
 				       end if			%>
 					<td align="right"><%=formatnumber( cdbl(rasioBI),2)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("KMHMbudTHN")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("SALBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BBMBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("spartBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("REPBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("KMHMbudTHN")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("SALBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BBMBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("spartBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("REPBI")),2)%></td>
 					<% actualBI = cdbl(rsha("SALBI")) + cdbl(rsha("BBMBI")) + cdbl(rsha("spartBI")) + cdbl(rsha("REPBI"))  %>
-					<td align="right"><%=formatnumber( cdbl(actualBI),0)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("SALSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BBMSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("spartSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("REPSBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(actualBI),2)%></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("SALSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BBMSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("spartSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("REPSBI")),2)%></td>
 					<% actualSBI = cdbl(rsha("SALSBI")) + cdbl(rsha("BBMSBI")) + cdbl(rsha("spartSBI")) + cdbl(rsha("REPSBI"))  %>
-					<td align="right"><%=formatnumber( cdbl(actualSBI),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(actualSBI),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),2)%></td>
 					<% if cdbl(rsha("KMHMBI")) > 0 then
 					        totactualBI = cdbl(actualBI)/ cdbl(rsha("KMHMBI")) 
 					   else 
@@ -520,12 +520,12 @@ function launchwin(winurl,winname,winfeatures)
 					        totactualSBI  ="0"
 				       end if
 					   %>
-					<td align="right"><%=formatnumber( cdbl(totactualBI),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(totactualSBI),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(totactualBI),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(totactualSBI),2)%></td>
 					<% IF cdbl(rsha("KMHMbudTHN")) > 0 THEN %>
-					  <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN"))/cdbl(rsha("KMHMbudTHN")),0)%></td>
+					  <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN"))/cdbl(rsha("KMHMbudTHN")),2)%></td>
 					<% Else %>
-					   <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),0)%></td>
+					   <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),2)%></td>
 					<% End If %>
 				<tr>	
 				  <%
@@ -552,29 +552,29 @@ function launchwin(winurl,winname,winfeatures)
 			        if  cdgrp <> "" then  %>
 					    <tr>
 						   <td style="background-color:#F4F4A0" align="center" colspan="<%= 3 + nSpanTotal %>">SUB TOTAL&nbsp;&nbsp;<%=cdgrpdesc%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subKMHMBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subltrBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subKMHMSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subltrSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subKMHMBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subltrBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subKMHMSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subltrSBI),2)%></td>
 						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subrasioBI),2)%></td>
 						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subKMHMbudTHN),2)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subSALBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subbbmBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subspartBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subrepBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subactualBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subSALSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subbbmSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subspartSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subrepSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subactualSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subSALBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subbbmBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subspartBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subrepBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subactualBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subSALSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subbbmSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subspartSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subrepSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subactualSBI),2)%></td>
 						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subAMTbudTHN),2)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subtotactualBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subtotactualSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subtotactualBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subtotactualSBI),2)%></td>
 						   <% if cdbl(subKMHMbudTHN) > 0 then %>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subAMTbudTHN)/cdbl(subKMHMbudTHN),0)%></td>  
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subAMTbudTHN)/cdbl(subKMHMbudTHN),2)%></td>  
 						   <% Else %>
-						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subAMTbudTHN),0)%></td> 
+						   <td style="background-color:#F4F4A0"  align="right"><%=formatnumber( cdbl(subAMTbudTHN),2)%></td> 
 						   <% End if %> 
 					   </tr> 
 				<%	end if  %>  
@@ -742,10 +742,10 @@ function launchwin(winurl,winname,winfeatures)
 					<% end if %>	
 
 				<% end if %>
-					<td align="right"><%=formatnumber( cdbl(rsha("KMHMBI")),0)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("LTRBI")),0)%></td></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("KMHMSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("LTRSBI")),0)%></td></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("KMHMBI")),2)%></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("LTRBI")),2)%></td></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("KMHMSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("LTRSBI")),2)%></td></td>
 					<% if cdbl(rsha("LTRBI")) > 0 and cdbl(rsha("KMHMBI")) > 0 then
 					        rasioBI = cdbl(rsha("LTRBI"))/ cdbl(rsha("KMHMBI")) 
 					   else 
@@ -753,20 +753,20 @@ function launchwin(winurl,winname,winfeatures)
 				       end if			
 					%>
 					<td align="right"><%=formatnumber( cdbl(rasioBI),2)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("KMHMbudTHN")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("SALBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BBMBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("spartBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("REPBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("KMHMbudTHN")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("SALBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BBMBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("spartBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("REPBI")),2)%></td>
 					<% actualBI = cdbl(rsha("SALBI")) + cdbl(rsha("BBMBI")) + cdbl(rsha("spartBI")) + cdbl(rsha("REPBI"))  %>
-					<td align="right"><%=formatnumber( cdbl(actualBI),0)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("SALSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BBMSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("spartSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("REPSBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(actualBI),2)%></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("SALSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BBMSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("spartSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("REPSBI")),2)%></td>
 					<% actualSBI = cdbl(rsha("SALSBI")) + cdbl(rsha("BBMSBI")) + cdbl(rsha("spartSBI")) + cdbl(rsha("REPSBI"))  %>
-					<td align="right"><%=formatnumber( cdbl(actualSBI),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(actualSBI),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),2)%></td>
 					<% if cdbl(rsha("KMHMBI")) > 0 then
 					        totactualBI = cdbl(actualBI)/ cdbl(rsha("KMHMBI")) 
 					   else 
@@ -778,12 +778,12 @@ function launchwin(winurl,winname,winfeatures)
 					        totactualSBI  ="0"
 				       end if
 					%>
-					<td align="right"><%=formatnumber( cdbl(totactualBI),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(totactualSBI),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(totactualBI),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(totactualSBI),2)%></td>
 					<% IF cdbl(rsha("KMHMbudTHN")) > 0 THEN %>
-					  <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN"))/cdbl(rsha("KMHMbudTHN")),0)%></td>
+					  <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN"))/cdbl(rsha("KMHMbudTHN")),2)%></td>
 					<% Else %>
-					   <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),0)%></td>
+					   <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),2)%></td>
 					<% End If %>
 					
 				<tr>	
@@ -839,29 +839,29 @@ function launchwin(winurl,winname,winfeatures)
 	%>	
 					    <tr>
 						   <td style="background-color:#F4F4A0" align="center" colspan="<%= 3 + nSpanTotal %>">SUB TOTAL&nbsp;&nbsp;<%=cdgrpdesc%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrSBI),2)%></td>
 						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrasioBI),2)%></td>
 						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubKMHMbudTHN),2)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualSBI),2)%></td>
 						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),2)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualSBI),2)%></td>
 						   <% if cdbl(subKMHMbudTHN) > 0 then %>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN)/cdbl(subKMHMbudTHN),0)%></td>  
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN)/cdbl(subKMHMbudTHN),2)%></td>  
 						   <% Else %>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),0)%></td> 
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),2)%></td> 
 						   <% End if %>   
 					   </tr> 
 					   <tr>
@@ -870,29 +870,29 @@ function launchwin(winurl,winname,winfeatures)
 	
    <tr>
        <td style="background-color:#F4F4A0" align="center" colspan="<%= 3 + nSpanTotal %>"><b>GRAND TOTAL</td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubKMHMBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubltrBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubKMHMSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubltrSBI),0)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubKMHMBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubltrBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubKMHMSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubltrSBI),2)%></td>
 	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrasioBI),2)%></td>
 	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubKMHMbudTHN),2)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubSALBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubbbmBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubspartBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrepBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubactualBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubSALSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubbbmSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubspartSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrepSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubactualSBI),0)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubSALBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubbbmBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubspartBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrepBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubactualBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubSALSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubbbmSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubspartSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrepSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubactualSBI),2)%></td>
 	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubAMTbudTHN),2)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubtotactualBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubtotactualSBI),0)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubtotactualBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubtotactualSBI),2)%></td>
 	   <% if cdbl(TotsubKMHMbudTHN) > 0 then %>
-			<td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubAMTbudTHN)/cdbl(TotsubKMHMbudTHN),0)%></td>  
+			<td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubAMTbudTHN)/cdbl(TotsubKMHMbudTHN),2)%></td>  
 	  <% Else %>
-		   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubAMTbudTHN),0)%></td> 
+		   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubAMTbudTHN),2)%></td> 
 	  <% End if %> 
    </tr>    
 </table>

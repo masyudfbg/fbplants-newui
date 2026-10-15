@@ -127,7 +127,7 @@ txtSQL	= 	" SELECT" & _
 					<%	While Not rsCat.EOF %>
 					<tr>
 						<td align="Left"><%=rscat("INVOICECODE")%></td>
-						<td align="Right"><%=rscat("TANGGAL")%></td>
+						<td align="Right"><%=FbpNum2(rscat("TANGGAL"))%></td>
 						<td align="Left"><%=rscat("SUPPLIERCODE")%></td>
 						<td align="Left"><%=rscat("SUPPLIERNAME")%></td>
 						<td align="Right"><%=FormatNumber(rscat("PAID"),2)%></td>

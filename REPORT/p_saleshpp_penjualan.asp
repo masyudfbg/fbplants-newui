@@ -869,26 +869,26 @@ th.rotate-270 > div {
 		<tr>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("fcba")%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("product_code")%></td> 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("saldo_qty_awal"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("Price_saldo_awal"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("saldo_amount_awal"))),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("saldo_qty_awal"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("Price_saldo_awal"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("saldo_amount_awal"))),2)%></td>
 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("qty_prod_sbi"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("Price_prod_sbi"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amount_prod_sbi"))),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("qty_prod_sbi"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("Price_prod_sbi"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amount_prod_sbi"))),2)%></td>
 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("qty_sales_sbi"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("price_sales_sbi"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amount_sales_sbi"))),0)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("qty_sales_sbi"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("price_sales_sbi"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amount_sales_sbi"))),2)%></td> 
 
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"></td> 
 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("saldo_Qty_akhir"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("price_saldo_akhir"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("saldo_amount_akhir"))),0)%></td> 
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("saldo_Qty_akhir"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("price_saldo_akhir"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("saldo_amount_akhir"))),2)%></td> 
 		</tr>
 	<%
 		v_saldo_qty_awal = v_saldo_qty_awal +  cdbl(to_nol(rscat("saldo_qty_awal"))) 
@@ -911,26 +911,26 @@ th.rotate-270 > div {
 	rsCat=null%>
 		<tr bgcolor="#F4F4A0">
 			<td align="center" colspan="2" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;">TOTAL</font></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_saldo_qty_awal)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_saldo_qty_awal)),2)%></font></td>
 			<td align="right" style="<%=cmdstyle%>"></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_saldo_amount_awal)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_saldo_amount_awal)),2)%></font></td>
 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_qty_prod_sbi)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_qty_prod_sbi)),2)%></font></td>
 			<td align="right" style="<%=cmdstyle%>"></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_amount_prod_sbi)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_amount_prod_sbi)),2)%></font></td>
 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_qty_sales_sbi)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_qty_sales_sbi)),2)%></font></td>
 			<td align="right" style="<%=cmdstyle%>"></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_amount_sales_sbi)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_amount_sales_sbi)),2)%></font></td>
 
 			<td align="right" style="<%=cmdstyle%>"></td>
 			<td align="right" style="<%=cmdstyle%>"></td>
 			<td align="right" style="<%=cmdstyle%>"></td>
 			<td align="right" style="<%=cmdstyle%>"></td>
 
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_saldo_Qty_akhir)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_saldo_Qty_akhir)),2)%></font></td>
 			<td align="right" style="<%=cmdstyle%>"></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_saldo_amount_akhir)),0)%></font></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" style="font-weight: bold;"><%=formatnumber(cdbl(to_nol(v_saldo_amount_akhir)),2)%></font></td>
 		</tr>
 	<input  type="hidden" value="<%=txtTable%>" name="txtTable">
 	<input  type="hidden" value="<%=txtModule%>" name="txtModule">

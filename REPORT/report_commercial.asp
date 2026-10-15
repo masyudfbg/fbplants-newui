@@ -898,8 +898,8 @@ input.inp-rp.filled-auto {
           <tr>
             <td class="td-no"><%=vNo%></td>
             <td class="td-kb"><span class="<%=kbClass%>"><%=vFcba%></span></td>
-            <td class="td-r"><%=FormatNumber(vJanjang,0)%></td>
-            <td class="td-r"><%=FormatNumber(vNetto,0)%></td>
+            <td class="td-r"><%=FormatNumber(vJanjang,2)%></td>
+            <td class="td-r"><%=FormatNumber(vNetto,2)%></td>
             <td><%=vPksTujuan%></td>
             <td><%=vTglTimbang%></td>
             <td class="td-l"><%=vSpbNo%></td>
@@ -907,25 +907,25 @@ input.inp-rp.filled-auto {
             <td><%=AmbilJam(vJamKeluar)%></td>
             <td class="td-l"><%=vNopol%></td>
             <td class="td-l"><%=vSupir%></td>
-            <td class="td-r"><%=FormatNumber(vTarra,0)%></td>
-            <td class="td-r"><%=FormatNumber(vBruto,0)%></td>
-            <td class="td-cy"><%=FormatNumber(vNetto,0)%></td>
+            <td class="td-r"><%=FormatNumber(vTarra,2)%></td>
+            <td class="td-r"><%=FormatNumber(vBruto,2)%></td>
+            <td class="td-cy"><%=FormatNumber(vNetto,2)%></td>
             <td class="td-l"><%=vNotiket%></td>
             <td><%=vTglMasukPks%></td>
             <td><%=vTglOutPks%></td>
-            <td class="td-r"><%=FormatNumber(vBeratIn,0)%></td>
-            <td class="td-r"><%=FormatNumber(vBeratOut,0)%></td>
-            <td class="td-cy"><%=FormatNumber(vNettoPks,0)%></td>
+            <td class="td-r"><%=FormatNumber(vBeratIn,2)%></td>
+            <td class="td-r"><%=FormatNumber(vBeratOut,2)%></td>
+            <td class="td-cy"><%=FormatNumber(vNettoPks,2)%></td>
             <td class="td-cy"><%=FormatNumber(dblPotPer, 2)%> %</td>
             <td class="td-r"><%=vPotKg%></td>
-            <td class="td-cy"><%=FormatNumber(dblNettoPks2, 0)%></td>
+            <td class="td-cy"><%=FormatNumber(dblNettoPks2, 2)%></td>
             <td class="td-l"><%=vNopolPks%></td>
             <td class="td-l"><%=vDriverPks%></td>
-            <td class="td-cy"><%=FormatNumber(tbsplng,0)%></td>
-            <td class="td-r"><%=FormatNumber(vNettoTeng,0)%></td>
-            <td class="td-cy"><%=FormatNumber(vNettoTeng-tbsplng,0)%></td>
+            <td class="td-cy"><%=FormatNumber(tbsplng,2)%></td>
+            <td class="td-r"><%=FormatNumber(vNettoTeng,2)%></td>
+            <td class="td-cy"><%=FormatNumber(vNettoTeng-tbsplng,2)%></td>
             <td class="td-cy"><%=FormatNumber(dblAC,2)%>%</td>
-            <td class="td-cy"><%=FormatNumber(susutkg,0)%></td>
+            <td class="td-cy"><%=FormatNumber(susutkg,2)%></td>
             <td class="td-cy"><%=FormatNumber(susutper,2)%>%</td>
             <td><%=vNote%></td>
 
@@ -998,12 +998,12 @@ input.inp-rp.filled-auto {
       <tfoot>
         <tr class="tot">
           <td colspan="2" style="text-align:center;font-weight:bold">TOTAL</td>
-          <td class="td-r"><%=FormatNumber(totJanjang,0)%></td>
-          <td style="text-align: right"><%=FormatNumber(totNetto,0)%></td>
+          <td class="td-r"><%=FormatNumber(totJanjang,2)%></td>
+          <td style="text-align: right"><%=FormatNumber(totNetto,2)%></td>
           <td colspan="7"></td>
-          <td class="td-r"><%=FormatNumber(totTarra,0)%></td>
-          <td class="td-r"><%=FormatNumber(totBruto,0)%></td>
-          <td class="td-r" id="totNetto"><%=FormatNumber(totNetto,0)%></td>
+          <td class="td-r"><%=FormatNumber(totTarra,2)%></td>
+          <td class="td-r"><%=FormatNumber(totBruto,2)%></td>
+          <td class="td-r" id="totNetto"><%=FormatNumber(totNetto,2)%></td>
           <td colspan="3"></td>
           <td style="text-align: right"><%=FmtN(totpksin,0)%></td>
           <td style="text-align: right"><%=FmtN(totpksout,0)%></td>
@@ -1014,7 +1014,7 @@ input.inp-rp.filled-auto {
           <td colspan="2"></td>
           <td style="text-align: right"><%=FmtN(dipulangkan,0)%></td>
           <td style="text-align: right"><%=FmtN(nettoTgk,0)%></td>
-          <td style="text-align: right"><%=FormatNumber(SelisihTgk,0)%></td>
+          <td style="text-align: right"><%=FormatNumber(SelisihTgk,2)%></td>
           <td style="text-align:right"></td>
           <td style="text-align: right"><%=FmtN(TbsSusutKg,0)%></td>
           <td style="text-align:right"><%=FormatNumber(avgSusutPer, 2)%>%</td>

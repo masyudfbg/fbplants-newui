@@ -729,27 +729,27 @@ Dim nOutput_hi, nOutput_shi, nOutput_bi, nOutput_sbi
 				<% end if %>				
 				
 				
-				<td align="right"><%=FormatNumber(rsEPS("hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("bi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("sbi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("tonase_hi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("tonase_shi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("tonase_bi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("tonase_sbi"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_bi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_bi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_hi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_shi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_bi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_sbi"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("restan"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("mandays_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("mandays_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("mandays_bi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("mandays_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("restan"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_bi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_sbi"),2)%></td>
 				
 				<% if cdbl(rsEPS("mandays_hi")) <> 0 then %>
 				    <% nOutput_hi = cdbl(rsEPS("pom_tonase_hi")) * 1000 / cdbl(rsEPS("mandays_hi")) %>
@@ -776,10 +776,10 @@ Dim nOutput_hi, nOutput_shi, nOutput_bi, nOutput_sbi
 				<% end if %>
 
 				
-				<td align="right"><%=FormatNumber(nOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_bi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_bi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_sbi,2)%></td>
 			</tr>
 <%
 			NO = NO + 1
@@ -820,46 +820,46 @@ Dim nOutput_hi, nOutput_shi, nOutput_bi, nOutput_sbi
 %>
 			<tr bgcolor="#9CB770">
 				<td align="center" colspan="<%= 1 + nSpanTotal %>">TOTAL</td>				
-				<td align="right"><%=FormatNumber(nsubhi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubshi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubsbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubhi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubshi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubsbi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_hi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_shi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_bi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubtonase_sbi,2)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_bi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_bi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_sbi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_hi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_shi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_bi,2)%></td>
 				<td align="right"><%=FormatNumber(nsubpom_tonase_sbi,2)%></td>
-				<td align="right"><%=FormatNumber(nsubrestan,0)%></td>
+				<td align="right"><%=FormatNumber(nsubrestan,2)%></td>
 
-				<td align="right"><%=FormatNumber(nsubmandays_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_bi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_bi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_sbi,2)%></td>
 			<%if nsubmandays_hi = 0 then%>
-				<td align="right"><%=FormatNumber((nsubpom_tonase_hi*1000)/1,0)%></td>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_hi*1000)/1,2)%></td>
 			<%else%>
-				<td align="right"><%=FormatNumber((nsubpom_tonase_hi*1000)/nsubmandays_hi,0)%></td>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_hi*1000)/nsubmandays_hi,2)%></td>
 			<%end if%>
 			
 			<%if nsubmandays_shi = 0 then%>
-				<td align="right"><%=FormatNumber((nsubpom_tonase_shi*1000)/1,0)%></td>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_shi*1000)/1,2)%></td>
 			<%else%>
-				<td align="right"><%=FormatNumber((nsubpom_tonase_shi*1000)/nsubmandays_shi,0)%></td>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_shi*1000)/nsubmandays_shi,2)%></td>
 			<%end if%>
 			
-				<td align="right"><%=FormatNumber(nsubOutput_bi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_bi,2)%></td>
 				
 			<%if nsubmandays_sbi = 0 then%>
-				<td align="right"><%=FormatNumber((nsubpom_tonase_sbi*1000)/1,0)%></td>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_sbi*1000)/1,2)%></td>
 			<%else%>
-				<td align="right"><%=FormatNumber((nsubpom_tonase_sbi*1000)/nsubmandays_sbi,0)%></td>
+				<td align="right"><%=FormatNumber((nsubpom_tonase_sbi*1000)/nsubmandays_sbi,2)%></td>
 			<%end if%>
 				
 				

@@ -698,9 +698,9 @@ if cmdView = "True" Then
 				<td align="left" title="<%=rsGAD("assetgroupname").Name%>"><%=rsGAD("assetgroupname")%></td>
 				<td align="left" title="<%=rsGAD("unitofmeasurement").Name%>"><%=rsGAD("unitofmeasurement")%></td>
 				<td align="left" title="<%=rsGAD("depreciationrange").Name%>"><%=rsGAD("depreciationrange")%></td>
-				<td align="left" title="<%=rsGAD("acquisitionvalue").Name%>"><%=FormatNumber(rsGAD("acquisitionvalue"),0)%></td>
-				<td align="left" title="<%=rsGAD("additionalvalue").Name%>"><%=FormatNumber(rsGAD("additionalvalue"),0)%></td>
-				<td align="left" title="Total Value"><%=FormatNumber( cdbl(to_nol(rsGAD("acquisitionvalue")))+cdbl(to_nol(rsGAD("additionalvalue"))), 0)%></td>
+				<td align="left" title="<%=rsGAD("acquisitionvalue").Name%>"><%=FormatNumber(rsGAD("acquisitionvalue"),2)%></td>
+				<td align="left" title="<%=rsGAD("additionalvalue").Name%>"><%=FormatNumber(rsGAD("additionalvalue"),2)%></td>
+				<td align="left" title="Total Value"><%=FormatNumber( cdbl(to_nol(rsGAD("acquisitionvalue")))+cdbl(to_nol(rsGAD("additionalvalue"))), 2)%></td>
 				<td align="left" title="<%=rsGAD("description").Name%>"><%=rsGAD("description")%></td>
 				<td align="left" title="<%=rsGAD("isactivedesc").Name%>"><%=rsGAD("isactivedesc")%></td>
 

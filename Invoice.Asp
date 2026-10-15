@@ -264,7 +264,7 @@ var reloadInvCode = function () {
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-docdetail.css?v=20261009b" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-doc"<% end if %>>
@@ -1324,8 +1324,8 @@ If HeaderClose = "Y" Then
 					<td align="left" title="Supplier" valign="top"><%=rsGRN("receivenotecode")%></td>
 					<td align="left" title="Item Code" valign="top"><%=rsGRN("ITEMCODE")%></td>
 					<td align="left" title="Item Name" valign="top"><%=rsGRN("StockDesc")%></td>
-					<td align="right" title="Quantity" valign="top"><%=rsGRN("Quantity")%></td>
-					<td align="right" title="Amount" valign="top"><%=rsGRN("amount")%></td>
+					<td align="right" title="Quantity" valign="top"><%=FbpNum2(rsGRN("Quantity"))%></td>
+					<td align="right" title="Amount" valign="top"><%=FbpNum2(rsGRN("amount"))%></td>
 			 
 		  </tr>
 		  <% 
@@ -1510,7 +1510,7 @@ if cdbl(to_nol(v_othercharge)) + cdbl(to_nol(othercharge)) <= cdbl(to_nol(v_tota
 					<td align="center" title="Item Code" valign="top"><%=rsGRN("ITEMCODE")%></td>
 					<td align="left" title="Item Name" valign="top"><%=rsGRN("StockDesc")%></td>
 					<td align="center" title="Quantity" valign="top"><%=rsGRN("Quantity")%></td>
-					<td align="right" title="Amount" valign="top"><%=rsGRN("amount")%></td>
+					<td align="right" title="Amount" valign="top"><%=FbpNum2(rsGRN("amount"))%></td>
 			<%End if%>
 
 			<%if SudahClose<>"Y" Then%>
@@ -1521,7 +1521,7 @@ if cdbl(to_nol(v_othercharge)) + cdbl(to_nol(othercharge)) <= cdbl(to_nol(v_tota
 			        <td align="right" title="" valign="top">
 			        	<input style="text-align:right;background-color:#eee;" type="text" name="Quantity_<%=no%>" class="quantity" value = "<%=rsGRN("Quantity")%>" readonly>
 			        </td>
-                    <td align="right" title="" valign="top"><%=rsGRN("amountreceived")%></td>
+                    <td align="right" title="" valign="top"><%=FbpNum2(rsGRN("amountreceived"))%></td>
 		            <td align="center">
 						<input type="checkbox" id="cb_<%=no%>" name="cb_<%=no%>" class="item" value = "" onclick="handleClick(this);" onchange="CheckCheckboxes1(this)">
 					</td>
@@ -1556,7 +1556,7 @@ if cdbl(to_nol(v_othercharge)) + cdbl(to_nol(othercharge)) <= cdbl(to_nol(v_tota
 				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_totalamountaftersubmit),2)%> </font></td>
 			<%Else%>
 				<td align="right" title="" valign="top" colspan="8"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_totalamountbeforesubmit),0)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_totalamountbeforesubmit),2)%> </font></td>
 			<%End if%>
 		</tr>
 	  <tr><td colspan="11" align="left">

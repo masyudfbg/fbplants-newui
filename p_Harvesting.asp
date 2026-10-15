@@ -197,10 +197,10 @@ end if
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("PRODUCTCODE")%></td>					
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("VEHICLE")%></td>
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("OWN")%></td>
-					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("Quantity"), 0)%></td>
-					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("ESTATE_WEIGHT"), 0)%></td>
-					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("MILL_WEIGHT_BRUTO"), 0)%></td>
-					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("MILL_WEIGHT"), 0)%></td>
+					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("Quantity"), 2)%></td>
+					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("ESTATE_WEIGHT"), 2)%></td>
+					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("MILL_WEIGHT_BRUTO"), 2)%></td>
+					<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("MILL_WEIGHT"), 2)%></td>
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("harvestingtranporttypecode")%></td>
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("agreementcode")%></td>
 					<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("contractorcode")%></td>
@@ -226,10 +226,10 @@ end if
 				<tr bgcolor="#F4F4A0">
 
 					<td align="Center" colspan="7"> <strong><i><font face="Verdana" size="1">T o t a l</i></strong></td>
-					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(v_Quantity, 0)%></i></strong></td>
-					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(nEstateWeight, 0)%></i></strong></td>
-					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(nMillweightbruto, 0)%></i></strong></td>
-					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(nMillweight, 0)%></i></strong></td>
+					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(v_Quantity, 2)%></i></strong></td>
+					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(nEstateWeight, 2)%></i></strong></td>
+					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(nMillweightbruto, 2)%></i></strong></td>
+					<td align="Right"> <strong><i> <font face="Verdana" size="1"><%=FormatNumber(nMillweight, 2)%></i></strong></td>
 					<td align="Center" colspan="5"> <strong><i><font face="Verdana" size="1">&nbsp;</i></strong></td>
 				</tr>
                 </tbody>

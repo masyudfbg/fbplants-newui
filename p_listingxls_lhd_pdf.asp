@@ -93,9 +93,9 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="left" ><%=rscat("tahuntanam")%></td>		
 			<td align="left" ><%=rscat("luas_gross")%></td>		
 			<td align="left" ><%=rscat("status")%></td>
-			<td data-t="n" align="Right" ><%=rscat("hk")%></td>				
-			<td data-t="n" align="Right" ><%=rscat("fisik")%></td>				
-			<td data-t="n" align="Right" ><%=rscat("unit")%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("hk"))%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("fisik"))%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("unit"))%></td>				
 			
 		</tr>
 	  <%

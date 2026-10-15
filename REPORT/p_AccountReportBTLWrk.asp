@@ -298,11 +298,11 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 		</tr>
 		<tr>
 			<th style="background-color:#00A300;color:#fff;"  colspan="<%= 2 + nSpanTotal %>" align="right">Luas Ha</th>
-			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(LuasHa,0)%></th>
-			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(budHa,0)%></th>
-			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(LuasHa,0)%></th>
-			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(budHa,0)%></th>
-			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(budHa,0)%></th>
+			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(LuasHa,2)%></th>
+			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(budHa,2)%></th>
+			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(LuasHa,2)%></th>
+			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(budHa,2)%></th>
+			<th style="background-color:#00A300;color:#fff;"  colspan="2" align="right"><%=FormatNumber(budHa,2)%></th>
 		</tr>
 		<tr>
 			<th style="background-color:#00A300;color:#fff;" >CODE</th>
@@ -628,18 +628,18 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 						 
 					
 					%>
-					<td align="right"><%=FormatNumber(rsBTL("BI"),0)%></td>
+					<td align="right"><%=FormatNumber(rsBTL("BI"),2)%></td>
 					<% IF Cdbl(LuasHa) = 0  then  %>
 						<td align="right">0</td>
 					<% ELSE %>		
-					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("BI"))/Cdbl(LuasHa)),0)%></td>
+					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("BI"))/Cdbl(LuasHa)),2)%></td>
 					<% END IF %>
 					
-					<td align="right"><%=FormatNumber(rsBTL("budBI"),0)%></td>
+					<td align="right"><%=FormatNumber(rsBTL("budBI"),2)%></td>
 					<% IF Cdbl(budHa) = 0  then  %>
 						<td align="right">0</td>
 					<% ELSE %>		
-					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budBI"))/Cdbl(budHa)),0)%></td>
+					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budBI"))/Cdbl(budHa)),2)%></td>
 					<% END IF %>
 					
 					
@@ -655,18 +655,18 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 					<% END IF %>
 					
 					<% ' SBI %>
-					<td align="right"><%=FormatNumber(rsBTL("SBI"),0)%></td>
+					<td align="right"><%=FormatNumber(rsBTL("SBI"),2)%></td>
 					<% IF Cdbl(LuasHa) = 0  then  %>
 						<td align="right">0</td>
 					<% ELSE %>		
-					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("SBI"))/Cdbl(LuasHa)),0)%></td>
+					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("SBI"))/Cdbl(LuasHa)),2)%></td>
 					<% END IF %>
 					
-					<td align="right"><%=FormatNumber(rsBTL("budSBI"),0)%></td>
+					<td align="right"><%=FormatNumber(rsBTL("budSBI"),2)%></td>
 					<% IF Cdbl(budHa) = 0  then  %>
 						<td align="right">0</td>
 					<% ELSE %>		
-					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budSBI"))/Cdbl(budHa)),0)%></td>
+					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budSBI"))/Cdbl(budHa)),2)%></td>
 					<% END IF %>
 					
 					<% IF cdbl(BudSBI_BudHa) = 0 and Cdbl(AmtSBI_LuasHa) > 0 then %>
@@ -679,11 +679,11 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 					   <td align="right"><%=FormatNumber(((cdbl(BudSBI_BudHa) - Cdbl(AmtSBI_LuasHa))/cdbl(BudSBI_BudHa))*100,2)%></td>
 					<% END IF %>
 					
-					<td align="right"><%=FormatNumber(rsBTL("budthn"),0)%></td>
+					<td align="right"><%=FormatNumber(rsBTL("budthn"),2)%></td>
 					<% IF Cdbl(budHa) = 0  then  %>
 						<td align="right">0</td>
 					<% ELSE %>		
-					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budthn"))/Cdbl(budHa)),0)%></td>
+					   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budthn"))/Cdbl(budHa)),2)%></td>
 					<% END IF %>
 					
 				</tr>
@@ -697,17 +697,17 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 					  if notAlokasi = "T"   then   %>	
 							<tr bgcolor="#F4F4A0">
 								<td colspan="<%= 2 + nSpanTotal %>" align="left"><strong>Total Biaya Tak Langsung</strong></td>
-								<td align="right"><strong><%=FormatNumber(subBI,0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(subBI,2)%></strong></td>
 								<% IF Cdbl(budHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>						
-								   <td align="right"><strong><%=FormatNumber((Cdbl(subBI)/Cdbl(LuasHa)),0)%></strong></td>	
+								   <td align="right"><strong><%=FormatNumber((Cdbl(subBI)/Cdbl(LuasHa)),2)%></strong></td>	
 								<% END IF %>   
-								<td align="right"><strong><%=FormatNumber(budsubBI,0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(budsubBI,2)%></strong></td>
 								<% IF Cdbl(budHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>	
-								   <td align="right"><strong><%=FormatNumber(cdbl(budsubBI)/cdbl(budHa),0)%></strong></td>
+								   <td align="right"><strong><%=FormatNumber(cdbl(budsubBI)/cdbl(budHa),2)%></strong></td>
 								<% END IF %>
 								
 								<% IF cdbl(budsubBI) = 0 and Cdbl(subBI) <> 0 then %>
@@ -719,17 +719,17 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 								<% ELSEIF cdbl(budsubBI) <> 0 and Cdbl(subBI) <> 0 then %>
 									  <td align="right"><strong><%=FormatNumber((cdbl(budsubBI) - Cdbl(subBI)) / cdbl(budsubBI) * 100,2)%></strong></td>
 								<% END IF %>
-								<td align="right"><strong><%=FormatNumber(subSBI,0)%></strong></td>	
+								<td align="right"><strong><%=FormatNumber(subSBI,2)%></strong></td>	
 								<% IF Cdbl(LuasHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>	
-								   <td align="right"><strong><%=FormatNumber((Cdbl(subSBI)/Cdbl(LuasHa)),0)%></strong></td>	
+								   <td align="right"><strong><%=FormatNumber((Cdbl(subSBI)/Cdbl(LuasHa)),2)%></strong></td>	
 								<% END IF %>   
-								<td align="right"><strong><%=FormatNumber(budsubSBI,0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(budsubSBI,2)%></strong></td>
 								<% IF Cdbl(budHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>	
-								   <td align="right"><strong><%=FormatNumber(cdbl(budsubSBI)/cdbl(budHa),0)%></strong></td>
+								   <td align="right"><strong><%=FormatNumber(cdbl(budsubSBI)/cdbl(budHa),2)%></strong></td>
 								<% END IF %>
 								<% IF cdbl(budsubSBI) = 0 and Cdbl(subSBI) <> 0 then %>
 									  <td align="right"><strong>-100</strong></td>
@@ -740,11 +740,11 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 								<% ELSEIF cdbl(budsubSBI) <> 0 and Cdbl(subSBI) <> 0 then %>
 									  <td align="right"><strong><%=FormatNumber((cdbl(budsubSBI) - Cdbl(subSBI)) / cdbl(budsubSBI) * 100,2)%></strong></td>
 								<% END IF %>
-								<td align="right"><strong><%=FormatNumber(budsubTHN,0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(budsubTHN,2)%></strong></td>
 								<% IF Cdbl(budHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>	
-								   <td align="right"><strong><%=FormatNumber(cdbl(budsubTHN)/cdbl(budHa),0)%></strong></td>
+								   <td align="right"><strong><%=FormatNumber(cdbl(budsubTHN)/cdbl(budHa),2)%></strong></td>
 								<% END IF %>
 							</tr>
 					 <%             notAlokasi = "F"
@@ -969,18 +969,18 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 						
 						
 						<% ' BI %>
-						<td align="right"><%=FormatNumber(rsBTL("BI"),0)%></td>
+						<td align="right"><%=FormatNumber(rsBTL("BI"),2)%></td>
 						<% IF Cdbl(LuasHa) = 0  then  %>
 							<td align="right">0</td>
 						<% ELSE %>		
-						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("BI"))/Cdbl(LuasHa)),0)%></td>
+						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("BI"))/Cdbl(LuasHa)),2)%></td>
 						<% END IF %>
 						
-						<td align="right"><%=FormatNumber(rsBTL("budBI"),0)%></td>
+						<td align="right"><%=FormatNumber(rsBTL("budBI"),2)%></td>
 						<% IF Cdbl(budHa) = 0  then  %>
 							<td align="right">0</td>
 						<% ELSE %>		
-						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budBI"))/Cdbl(budHa)),0)%></td>
+						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budBI"))/Cdbl(budHa)),2)%></td>
 						<% END IF %>
 						
 						<% IF cdbl(BudBI_BudHa) = 0 and Cdbl(AmtBI_LuasHa) > 0 then %>
@@ -994,18 +994,18 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 						<% END IF %>
 						
 						<% ' SBI %>
-						<td align="right"><%=FormatNumber(rsBTL("SBI"),0)%></td>
+						<td align="right"><%=FormatNumber(rsBTL("SBI"),2)%></td>
 						<% IF Cdbl(LuasHa) = 0  then  %>
 							<td align="right">0</td>
 						<% ELSE %>		
-						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("SBI"))/Cdbl(LuasHa)),0)%></td>
+						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("SBI"))/Cdbl(LuasHa)),2)%></td>
 						<% END IF %>
 						
-						<td align="right"><%=FormatNumber(rsBTL("budSBI"),0)%></td>
+						<td align="right"><%=FormatNumber(rsBTL("budSBI"),2)%></td>
 						<% IF Cdbl(budHa) = 0  then  %>
 							<td align="right">0</td>
 						<% ELSE %>		
-						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budSBI"))/Cdbl(budHa)),0)%></td>
+						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budSBI"))/Cdbl(budHa)),2)%></td>
 						<% END IF %>
 						
 						<% IF cdbl(BudSBI_BudHa) = 0 and Cdbl(AmtSBI_LuasHa) > 0 then %>
@@ -1018,11 +1018,11 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 						   <td align="right"><%=FormatNumber(((cdbl(BudSBI_BudHa) - Cdbl(AmtSBI_LuasHa))/cdbl(BudSBI_BudHa))*100,2)%></td>
 						<% END IF %>
 						
-						<td align="right"><%=FormatNumber(rsBTL("budthn"),0)%></td>
+						<td align="right"><%=FormatNumber(rsBTL("budthn"),2)%></td>
 						<% IF Cdbl(budHa) = 0  then  %>
 							<td align="right">0</td>
 						<% ELSE %>		
-						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budthn"))/Cdbl(budHa)),0)%></td>
+						   <td align="right"><%=FormatNumber((Cdbl(rsBTL("budthn"))/Cdbl(budHa)),2)%></td>
 						<% END IF %>
 						
 					</tr>
@@ -1048,17 +1048,17 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 		
 					  <tr bgcolor="#F4F4A0">
 								<td colspan="<%= 2 + nSpanTotal %>" align="left"><strong>Total Alokasi Biaya Tak Langsung</strong></td>
-								<td align="right"><strong><%=FormatNumber(subBI,0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(subBI,2)%></strong></td>
 								<% IF Cdbl(budHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>						
-								   <td align="right"><strong><%=FormatNumber((Cdbl(subBI)/Cdbl(LuasHa)),0)%></strong></td>	
+								   <td align="right"><strong><%=FormatNumber((Cdbl(subBI)/Cdbl(LuasHa)),2)%></strong></td>	
 								<% END IF %>   
-								<td align="right"><strong><%=FormatNumber(budsubBI,0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(budsubBI,2)%></strong></td>
 								<% IF Cdbl(budHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>	
-								   <td align="right"><strong><%=FormatNumber(cdbl(budsubBI)/cdbl(budHa),0)%></strong></td>
+								   <td align="right"><strong><%=FormatNumber(cdbl(budsubBI)/cdbl(budHa),2)%></strong></td>
 								<% END IF %>
 								<% IF cdbl(budsubBI) = 0 and Cdbl(subBI) <> 0 then %>
 									  <td align="right"><strong>-100</strong></td>
@@ -1069,17 +1069,17 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 								<% ELSEIF cdbl(budsubBI) <> 0 and Cdbl(subBI) <> 0 then %>
 									  <td align="right"><strong><%=FormatNumber((cdbl(budsubBI) - Cdbl(subBI)) / cdbl(budsubBI) * 100,2)%></strong></td>
 								<% END IF %>
-								<td align="right"><strong><%=FormatNumber(subSBI,0)%></strong></td>	
+								<td align="right"><strong><%=FormatNumber(subSBI,2)%></strong></td>	
 								<% IF Cdbl(LuasHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>	
-								   <td align="right"><strong><%=FormatNumber((Cdbl(subSBI)/Cdbl(LuasHa)),0)%></strong></td>	
+								   <td align="right"><strong><%=FormatNumber((Cdbl(subSBI)/Cdbl(LuasHa)),2)%></strong></td>	
 								<% END IF %>   
-								<td align="right"><strong><%=FormatNumber(budsubSBI,0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(budsubSBI,2)%></strong></td>
 								<% IF Cdbl(budHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>	
-								   <td align="right"><strong><%=FormatNumber(cdbl(budsubSBI)/cdbl(budHa),0)%></strong></td>
+								   <td align="right"><strong><%=FormatNumber(cdbl(budsubSBI)/cdbl(budHa),2)%></strong></td>
 								<% END IF %>
 								<% IF cdbl(budsubSBI) = 0 and Cdbl(subSBI) <> 0 then %>
 									  <td align="right"><strong>-100</strong></td>
@@ -1090,11 +1090,11 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 								<% ELSEIF cdbl(budsubSBI) <> 0 and Cdbl(subSBI) <> 0 then %>
 									  <td align="right"><strong><%=FormatNumber((cdbl(budsubSBI) - Cdbl(subSBI)) / cdbl(budsubSBI) * 100,2)%></strong></td>
 								<% END IF %>
-								<td align="right"><strong><%=FormatNumber(budsubTHN,0)%></strong></td>
+								<td align="right"><strong><%=FormatNumber(budsubTHN,2)%></strong></td>
 								<% IF Cdbl(budHa) = 0  then  %>
 								   <td align="right">0</td>
 								<% ELSE %>	
-								   <td align="right"><strong><%=FormatNumber(cdbl(budsubTHN)/cdbl(budHa),0)%></strong></td>
+								   <td align="right"><strong><%=FormatNumber(cdbl(budsubTHN)/cdbl(budHa),2)%></strong></td>
 								<% END IF %>
 						   </tr>
 		
@@ -1121,10 +1121,10 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 
 					<tr bgcolor="#F4F4A0">
 						<td colspan="<%= 2 + nSpanTotal %>" align="left"><strong>Total </strong></td>
-						<td align="right"><strong><%=FormatNumber(totsubBI,0)%></strong></td>				
-						<td align="right"><strong><%=FormatNumber(Cdbl(tot_rp_ha_bi),0)%></strong></td>	 
-						<td align="right"><strong><%=FormatNumber(budtotsubBI,0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_ha_budbi),0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(totsubBI,2)%></strong></td>				
+						<td align="right"><strong><%=FormatNumber(Cdbl(tot_rp_ha_bi),2)%></strong></td>	 
+						<td align="right"><strong><%=FormatNumber(budtotsubBI,2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_ha_budbi),2)%></strong></td>
 						<% IF cdbl(tot_rp_ha_budbi) = 0 and cdbl(tot_rp_ha_bi) <> 0 then %>
 							  <td align="right"><strong>-100</strong></td>
 						<% ELSEIF cdbl(tot_rp_ha_budbi) <> 0 and cdbl(tot_rp_ha_bi) = 0 then %>	  
@@ -1134,10 +1134,10 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 						<% ELSEIF cdbl(tot_rp_ha_budbi) <> 0 and cdbl(tot_rp_ha_bi) <> 0 then %>
 							  <td align="right"><strong><%=FormatNumber((cdbl(tot_rp_ha_budbi) - cdbl(tot_rp_ha_bi)) / cdbl(tot_rp_ha_budbi) * 100,2)%></strong></td>
 						<% END IF %>
-						<td align="right"><strong><%=FormatNumber(totsubSBI,0)%></strong></td>	
-						<td align="right"><strong><%=FormatNumber(Cdbl(tot_rp_ha_sbi),0)%></strong></td>		
-						<td align="right"><strong><%=FormatNumber(budtotsubSBI,0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_ha_budsbi),0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(totsubSBI,2)%></strong></td>	
+						<td align="right"><strong><%=FormatNumber(Cdbl(tot_rp_ha_sbi),2)%></strong></td>		
+						<td align="right"><strong><%=FormatNumber(budtotsubSBI,2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_ha_budsbi),2)%></strong></td>
 				
 						<% IF cdbl(tot_rp_ha_budsbi) = 0 and cdbl(tot_rp_ha_sbi) <> 0 then %>
 							  <td align="right"><strong>-100</strong></td>
@@ -1148,8 +1148,8 @@ If v_txtYear <> "" and v_txtMonth <> "" Then
 						<% ELSEIF cdbl(tot_rp_ha_budsbi) <> 0 and cdbl(tot_rp_ha_sbi) <> 0 then %>
 							  <td align="right"><strong><%=FormatNumber((cdbl(tot_rp_ha_budsbi) - cdbl(tot_rp_ha_sbi)) / cdbl(tot_rp_ha_budsbi) * 100,2)%></strong></td>
 						<% END IF %>
-						<td align="right"><strong><%=FormatNumber(budtotsubTHN ,0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_ha_budTHN),0)%></strong></td>	
+						<td align="right"><strong><%=FormatNumber(budtotsubTHN ,2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_ha_budTHN),2)%></strong></td>	
 					</tr>
 		
 	</table>

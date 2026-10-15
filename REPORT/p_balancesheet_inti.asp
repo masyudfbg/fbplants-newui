@@ -694,8 +694,8 @@ Dim sprevFcba : sprevFcba = ""
 		           <td style="width: 250px;border-bottom: double; border-top: double;"></td>
 		        <% end if %>  
 				<td style="width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%=result%></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total1,0) %></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total2,0) %></i></strong></td> 
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total1,2) %></i></strong></td>
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total2,2) %></i></strong></td> 
 			</tr>
 		<%else if  param_1 = "1200000" then%>
 			<tr>
@@ -718,8 +718,8 @@ Dim sprevFcba : sprevFcba = ""
 		           <td style="width: 250px;border-bottom: double; border-top: double;"></td>
 		        <% end if %>  
 				<td style="width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%=result%></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total3,0) %></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total4,0) %></i></strong></td> 
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total3,2) %></i></strong></td>
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total4,2) %></i></strong></td> 
 			</tr> 
 		<%else if  param_1 = "2100000" then%>
 			<tr>
@@ -742,8 +742,8 @@ Dim sprevFcba : sprevFcba = ""
 		           <td style="width: 250px;border-bottom: double; border-top: double;"></td>
 		        <% end if %>  
 				<td style="width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%=result%></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total5,0) %></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total6,0) %></i></strong></td> 
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total5,2) %></i></strong></td>
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total6,2) %></i></strong></td> 
 			</tr> 
 		<%else if  param_1 = "2200000" then%>
 			<tr>
@@ -766,8 +766,8 @@ Dim sprevFcba : sprevFcba = ""
 		           <td style="width: 250px;border-bottom: double; border-top: double;"></td>
 		        <% end if %>  
 				<td style="width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%=result%></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total7,0) %></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total8,0) %></i></strong></td> 
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total7,2) %></i></strong></td>
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(total8,2) %></i></strong></td> 
 			</tr>
 		<%else if  param_1 = "2300000" then%> 
 			<tr>
@@ -790,8 +790,8 @@ Dim sprevFcba : sprevFcba = ""
 		           <td style="width: 250px;border-bottom: double; border-top: double;"></td>
 		        <% end if %>  
 				<td style="width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%=result3%></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(totalresult3,0) %></i></strong></td>
-				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(totalresult4,0) %></i></strong></td> 
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(totalresult3,2) %></i></strong></td>
+				<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(totalresult4,2) %></i></strong></td> 
 			</tr> 
 		<%end if%>
 		<%end if%>
@@ -997,14 +997,14 @@ Dim sprevFcba : sprevFcba = ""
 						<td style="width: 900px; padding-left: 30px; border-bottom: double; border-top: double;" bgcolor="#F4F4A0"><strong><i><%=Replace(rsAktiva("jobbalancesheetcode"),"_","&nbsp;")%></i></strong></td>
 					<% if cdbl(to_nol(AKTIVA)) = 0 AND cdbl(to_nol(AKTIVA2)) = 0 AND cdbl(to_nol(AKTIVA3)) = 0 AND cdbl(to_nol(param_1)) <> rsAktiva("jobbalancesheetcode")  then %>
 						<td align="right" style="double; width: 250px; padding-left: 30px; border-bottom: double; border-top: double;" bgcolor="#F4F4A0">
-							<strong><i><%=formatnumber(cdbl(to_nol(totalresult)),0)%></i></strong>
+							<strong><i><%=formatnumber(cdbl(to_nol(totalresult)),2)%></i></strong>
 						</td>
 						<td align="right" style="width: 250px; padding-left: 30px; border-bottom: double; border-top: double;" bgcolor="#F4F4A0">
-							<strong><i><%=formatnumber(cdbl(to_nol(totalresult2)),0)%></i></strong>
+							<strong><i><%=formatnumber(cdbl(to_nol(totalresult2)),2)%></i></strong>
 						</td>  
 					<%else%>
-						<td align="right" style=" width: 250px"><%=FormatNumber(rsAktiva("AKTIVA"),0)%></td>
-						<td align="right" style=" double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA2"),0)%></td> 
+						<td align="right" style=" width: 250px"><%=FormatNumber(rsAktiva("AKTIVA"),2)%></td>
+						<td align="right" style=" double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA2"),2)%></td> 
 					<%End if%>
 				<%Else%>
 						<td style="width: 900px"><strong><i><%=Replace(rsAktiva("jobbalancesheetcode"),"_","&nbsp;")%></i></strong></td>
@@ -1012,8 +1012,8 @@ Dim sprevFcba : sprevFcba = ""
 						<td align="right" style="double; width: 250px"><strong><i></i></strong></td>
 						<td align="right" style="width: 250px"><strong><i></i></strong></td>  
 					<%else%>
-						<td align="right" style=" width: 250px"><%=FormatNumber(rsAktiva("AKTIVA"),0)%></td>
-						<td align="right" style=" double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA2"),0)%></td> 
+						<td align="right" style=" width: 250px"><%=FormatNumber(rsAktiva("AKTIVA"),2)%></td>
+						<td align="right" style=" double; width: 250px"><%=FormatNumber(rsAktiva("AKTIVA2"),2)%></td> 
 					<%End if%>
 				<%End If%>
 		</tr>
@@ -1060,8 +1060,8 @@ Dim sprevFcba : sprevFcba = ""
            <td style="width: 250px;border-bottom: double; border-top: double;"></td>
         <% end if %>  
 		<td style="width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i>SHAREHOLDER EQUITY TOTAL</i></strong></td>
-		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(tempshareholder,0) %></i></strong></td>
-		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(tempshareholder2,0) %></i></strong></td> 
+		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(tempshareholder,2) %></i></strong></td>
+		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(tempshareholder2,2) %></i></strong></td> 
 	</tr>
 	<tr>
 		<% if v_txtGroupPlantation <> "--SUMMARY--" and v_txtGroupPlantation <> "" then %>
@@ -1083,8 +1083,8 @@ Dim sprevFcba : sprevFcba = ""
            <td style="width: 250px;border-bottom: double; border-top: double;"></td>
         <% end if %>
 		<td style="width: 600px; padding-left: 30px; border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i>TOTAL LIABILITIES AND EQUITY</i></strong></td>
-		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(totalresultlast,0) %></i></strong></td>
-		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(totalresultlast2,0) %></i></strong></td> 
+		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(totalresultlast,2) %></i></strong></td>
+		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"  bgcolor="#F4F4A0"><strong><i><%= FormatNumber(totalresultlast2,2) %></i></strong></td> 
 	</tr> 
 	
 <tbody>
@@ -1092,8 +1092,8 @@ Dim sprevFcba : sprevFcba = ""
 <table width="100%" id="product-table" class="xthf-site" style="border-bottom:1px #3A5F0B solid;">
 	<tr style="font-weight: bold;" bgcolor="#F4F4A0">
 		<td style="width: 850px; padding-left: 30px; border-bottom: double; border-top: double;"><strong><i>Control Check</i></strong></td>
-		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(totalcontrolcheck,0) %></i></strong></td>
-		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(totalcontrolcheck2,0) %></i></strong></td> 
+		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(totalcontrolcheck,2) %></i></strong></td>
+		<td align="right" style="width: 250px;border-bottom: double; border-top: double;"><strong><i><%= FormatNumber(totalcontrolcheck2,2) %></i></strong></td> 
 	</tr>
 </table>
 

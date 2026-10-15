@@ -248,7 +248,7 @@ If rs.EOF Then%>
           <% for i = 1 to howmanyfields%>
             </font>
 			<%if i >=3 then%>
-            <td valign="top" bgcolor="#C0FBBD" align="right"> <font face="Verdana" size="1"><%=FormatNumber(rs(i),0)%></font></td>
+            <td valign="top" bgcolor="#C0FBBD" align="right"> <font face="Verdana" size="1"><%=FormatNumber(rs(i),2)%></font></td>
 			<%else
 				if HeadAfdeling = rs(i) and i = 1 then%>
 				  <td valign="top" bgcolor="#C0FBBD"> <font face="Verdana" size="1">&nbsp;</font></td>

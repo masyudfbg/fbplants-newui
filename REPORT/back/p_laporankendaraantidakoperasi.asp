@@ -724,8 +724,8 @@ else
 					<% end if %>
 				<% end if %>
 				
-					<td align="right"><%=rsKendaraan("TOTALVEHICLE")%></td>
-					<td align="right"><%=rsKendaraan("DOWNTIME")%></td>
+					<td align="right"><%=FbpNum2(rsKendaraan("TOTALVEHICLE"))%></td>
+					<td align="right"><%=FbpNum2(rsKendaraan("DOWNTIME"))%></td>
 					<td align="left"><%=rsKendaraan("DOWNTIME_TYPE")%></td>
 				</tr>
 <%

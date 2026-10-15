@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="css/jquery-ui.css" />
 <link rel="stylesheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="stylesheet" href="/css/fbp-table.css?v=20261010c" type="text/css" />
-<script type="text/javascript" src="/js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="/js/fbp-shell.js?v=20261015a"></script>
 <script type="text/javascript" src="/js/fbp-table.js?v=20261009c"></script>
 </head>
 <style type="text/css">
@@ -325,7 +325,7 @@ if IsPostBack then
 						<input type="hidden" id="StockName<%=no%>" value="<%=H(rsGrnInv("stockname"))%>">
 					</td>
 					<td align="center"><%=H(rsGrnInv("uom"))%></td>
-					<td class="ps-qty<%=qtyCls%>"><%=formatnumber(cdbl(to_nol(qtyonhand)),0)%>
+					<td class="ps-qty<%=qtyCls%>"><%=formatnumber(cdbl(to_nol(qtyonhand)),2)%>
 						<input type="hidden" id="stockitem<%=no%>" value="<%=formatnumber(cdbl(to_nol(qtyonhand)),0)%>">
 						<input type="hidden" id="StokBarang<%=no%>" value="<%=formatnumber(cdbl(to_nol(qtyonhand)),0)%>">
 						<input type="hidden" id="uom<%=no%>" value="<%=H(rsGrnInv("uom"))%>">

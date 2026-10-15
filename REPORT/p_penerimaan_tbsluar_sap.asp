@@ -533,35 +533,35 @@ set rsLHPP = Nothing
 						<td align="left"><%=array_data(3, array_i)%></td>
 						<td align="left"><%=array_data(5, array_i)%></td>
 						<td align="left">TBS</td>
-						<td align="right"><%=array_data(7, array_i)%></td>
-						<td align="right"><%=array_data(8, array_i)%></td>
-						<td align="right"><%=array_data(9, array_i)%></td>
-						<td align="right"><%=array_data(7, array_i)%></td>
-						<td align="right"><%=array_data(10, array_i)%></td>
+						<td align="right"><%=FbpNum2(array_data(7, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(8, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(9, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(7, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(10, array_i))%></td>
 						<td align="left">KG</td>
 						<td align="left"><%=array_data(11, array_i)%></td>
 						<td align="left"><%=array_data(12, array_i)%></td>
 						<td align="left"><%=array_data(13, array_i)%></td>
 						<td align="left">&nbsp;</td>
 						<td align="left">&nbsp;</td>
-						<td align="right"><%=array_data(14, array_i)%></td>
+						<td align="right"><%=FbpNum2(array_data(14, array_i))%></td>
 						<td align="left">&nbsp;</td>
 						<td align="left">&nbsp;</td>
 						<td align="left">&nbsp;</td>
 						<td align="left">&nbsp;</td>
-						<td align="right"><%=array_data(15, array_i)%></td>
-						<td align="right"><%=array_data(16, array_i)%></td>
-						<td align="right"><%=array_data(17, array_i)%></td>
-						<td align="right"><%=array_data(18, array_i)%></td>
-						<td align="right"><%=array_data(19, array_i)%></td>
+						<td align="right"><%=FbpNum2(array_data(15, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(16, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(17, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(18, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(19, array_i))%></td>
 						<td align="left">&nbsp;</td>
 						<td align="left">A01</td>
 						<td align="left">&nbsp;</td>
 						<td align="left">&nbsp;</td>
 						<td align="left">&nbsp;</td>
 					
-						<td align="right"><%=array_data(21, array_i)%></td>
-						<td align="right"><%=array_data(22, array_i)%></td>
+						<td align="right"><%=FbpNum2(array_data(21, array_i))%></td>
+						<td align="right"><%=FbpNum2(array_data(22, array_i))%></td>
 					</tr>
 	<%next%>
 <%end if%>

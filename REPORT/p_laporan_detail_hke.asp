@@ -533,7 +533,7 @@ set rsLHPP = Nothing
 						<td align="left"><%=array_data(10, array_i)%></td>
 						<td align="left"><%=array_data(11, array_i)%></td>
 						<td align="left"><%=array_data(12, array_i)%></td>
-						<td align="right"><%=array_data(13, array_i)%></td>
+						<td align="right"><%=FbpNum2(array_data(13, array_i))%></td>
 					</tr>
 					<%TotalMandays = TotalMandays + cdbl(array_data(13, array_i))%>
 	<%next%>
@@ -541,7 +541,7 @@ set rsLHPP = Nothing
 
 					<tr bgcolor="#f4f4a0">
 						<td align="center" colspan="12"><strong>TOTAL</strong></td>
-						<td align="right"><strong><%=TotalMandays%></strong></td>
+						<td align="right"><strong><%=FbpNum2(TotalMandays)%></strong></td>
 					</tr>
 				</tbody>
 			</table>

@@ -264,8 +264,8 @@ if not arr_rdata_eof then
 	next
 	response.write "<tr>"
 	response.write "	<td colspan='3' align='center'><b>Total</b></td>"
-	response.write "	<td align='center'><b>"&FormatNumber(total_standar,0)&"</b></td>"
-	response.write "	<td align='center'><b>"&FormatNumber(total_tidakstandar,0)&"</b></td>"
+	response.write "	<td align='center'><b>"&FormatNumber(total_standar,2)&"</b></td>"
+	response.write "	<td align='center'><b>"&FormatNumber(total_tidakstandar,2)&"</b></td>"
 	response.write "	<td colspan='2' align='center'></td>"
 	response.write "</tr>"
 end if

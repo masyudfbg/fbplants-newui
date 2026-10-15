@@ -837,40 +837,40 @@ else
 									<td align="center" colspan="2" rowspan="<%=Cdbl(rowspan_gt(arr_unit))%>"><%=post_desc_total%></td>
 									<%end if%>
 									<td align="center"><%=arr_unit(0,xxx)%></td>
-									<td align="right"><%=arr_unit(2,xxx)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gttotal, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtml, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtsh, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtct, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtp23, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtpaid, 0)%></td>
+									<td align="right"><%=FbpNum2(arr_unit(2,xxx))%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gttotal, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtml, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtsh, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtct, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtp23, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtpaid, 2)%></td>
 									<td align="right"><%=FormatNumber(Row_bi_gtpaid_percent, 2)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtmkp1, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtun, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtunpaid, 0)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtmkp1, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtun, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtunpaid, 2)%></td>
 									<td align="right"><%=FormatNumber(Row_bi_gtunpaid_percent, 2)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtkj, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtwhws, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtkk, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gtdl, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_bi_gthke, 0)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtkj, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtwhws, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtkk, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gtdl, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_bi_gthke, 2)%></td>
 									<td align="right"><%=FormatNumber(Row_bi_gthke_percent, 2)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gttotal, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtml, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtsh, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtct, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtp23, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtpaid, 0)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gttotal, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtml, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtsh, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtct, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtp23, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtpaid, 2)%></td>
 									<td align="right"><%=FormatNumber(Row_sbi_gtpaid_percent, 2)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtmkp1, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtun, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtunpaid, 0)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtmkp1, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtun, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtunpaid, 2)%></td>
 									<td align="right"><%=FormatNumber(Row_sbi_gtunpaid_percent, 2)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtkj, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtwhws, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtkk, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gtdl, 0)%></td>
-									<td align="right"><%=FormatNumber(Row_sbi_gthke, 0)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtkj, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtwhws, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtkk, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gtdl, 2)%></td>
+									<td align="right"><%=FormatNumber(Row_sbi_gthke, 2)%></td>
 									<td align="right"><%=FormatNumber(Row_sbi_gthke_percent, 2)%></td>
 								<%								
 								response.write "</tr>"
@@ -883,79 +883,79 @@ else
 					</tr>
 					<tr bgcolor="#ffff01" >
 						<td colspan="3" align="left"><strong><%=rsLHPP("section")%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_cntemp, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_total, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ml, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_sh, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ct, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_p23, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_paid, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_cntemp, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_total, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ml, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_sh, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ct, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_p23, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_paid, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_bi_paid_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_mkp1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_un, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_unpaid, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_mkp1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_un, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_unpaid, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_bi_unpaid_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kj, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_whws, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kk, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_dl, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_hke, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kj, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_whws, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kk, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_dl, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_hke, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_bi_hke_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_total, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_ml, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_sh, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_ct, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_p23, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_paid, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_total, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_ml, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_sh, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_ct, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_p23, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_paid, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_sbi_paid_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_mkp1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_un, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_unpaid, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_mkp1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_un, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_unpaid, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_sbi_unpaid_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_kj, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_whws, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_kk, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_dl, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_hke, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_kj, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_whws, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_kk, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_dl, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_hke, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_sbi_hke_percent, 2)%></strong></td>
 					</tr>
 				<%elseif Left(Cstr(rsLHPP("section")), 8) = "Subtotal" then%>
 					<tr bgcolor="#F4F4A0" >
 						<td colspan="3" align="left"><strong><%=rsLHPP("section")%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_cntemp, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_total, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ml, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_sh, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ct, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_p23, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_paid, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_cntemp, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_total, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ml, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_sh, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ct, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_p23, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_paid, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_bi_paid_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_mkp1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_un, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_unpaid, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_mkp1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_un, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_unpaid, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_bi_unpaid_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kj, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_whws, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kk, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_dl, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_hke, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kj, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_whws, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kk, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_dl, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_hke, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_bi_hke_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_total, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_ml, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_sh, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_ct, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_p23, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_paid, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_total, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_ml, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_sh, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_ct, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_p23, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_paid, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_sbi_paid_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_mkp1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_un, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_unpaid, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_mkp1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_un, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_unpaid, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_sbi_unpaid_percent, 2)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_kj, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_whws, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_kk, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_dl, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_sbi_hke, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_kj, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_whws, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_kk, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_dl, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_sbi_hke, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_sbi_hke_percent, 2)%></strong></td>
 					</tr>
 				<%else%>
@@ -971,40 +971,40 @@ else
 							<td align="center" style="border:none;border-right:1px #3A5F0B solid; border-left:1px #3A5F0B solid;"></td>
 						<%end if%>
 						<td align="center"><%=rsLHPP("grade")%></td>
-						<td align="right"><%=rsLHPP("cntemp")%></td>
-						<td align="right"><%=FormatNumber(Row_bi_total, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_ml, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_sh, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_ct, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_p23, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_paid, 0)%></td>
+						<td align="right"><%=FbpNum2(rsLHPP("cntemp"))%></td>
+						<td align="right"><%=FormatNumber(Row_bi_total, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_ml, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_sh, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_ct, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_p23, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_paid, 2)%></td>
 						<td align="right"><%=FormatNumber(Row_bi_paid_percent, 2)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_mkp1, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_un, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_unpaid, 0)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_mkp1, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_un, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_unpaid, 2)%></td>
 						<td align="right"><%=FormatNumber(Row_bi_unpaid_percent, 2)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_kj, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_whws, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_kk, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_dl, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_hke, 0)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_kj, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_whws, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_kk, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_dl, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_hke, 2)%></td>
 						<td align="right"><%=FormatNumber(Row_bi_hke_percent, 2)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_total, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_ml, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_sh, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_ct, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_p23, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_paid, 0)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_total, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_ml, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_sh, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_ct, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_p23, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_paid, 2)%></td>
 						<td align="right"><%=FormatNumber(Row_sbi_paid_percent, 2)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_mkp1, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_un, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_unpaid, 0)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_mkp1, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_un, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_unpaid, 2)%></td>
 						<td align="right"><%=FormatNumber(Row_sbi_unpaid_percent, 2)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_kj, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_whws, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_kk, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_dl, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_sbi_hke, 0)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_kj, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_whws, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_kk, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_dl, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_sbi_hke, 2)%></td>
 						<td align="right"><%=FormatNumber(Row_sbi_hke_percent, 2)%></td>
 					</tr>
 					<%prevsection = currsection%>

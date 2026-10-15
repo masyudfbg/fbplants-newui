@@ -532,21 +532,21 @@ else
 					<td align="left"><%=rsmonitoringclosing("model")%></td>
 					<td align="left"><%=rsmonitoringclosing("vehiclesubgroupname")%></td>
 					<td align="center"><%=rsmonitoringclosing("yearofmade")%></td>
-					<td align="right"><%=rsmonitoringclosing("totalofunit")%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("baik"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("standby"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("rusak"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("writeoff"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("unit_hi"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("unit_shi"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("fuel_hi"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("fuel_shi"))%></td>
-					<td align="right"><%=f_nool(ratio_hi)%></td>
-					<td align="right"><%=f_nool(ratio_shi)%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("harihujan_hi"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("harihujan_shi"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("curahhujan_hi"))%></td>
-					<td align="right"><%=f_nool(rsmonitoringclosing("curahhujan_shi"))%></td>
+					<td align="right"><%=FbpNum2(rsmonitoringclosing("totalofunit"))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("baik")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("standby")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("rusak")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("writeoff")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("unit_hi")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("unit_shi")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("fuel_hi")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("fuel_shi")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(ratio_hi))%></td>
+					<td align="right"><%=FbpNum2(f_nool(ratio_shi))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("harihujan_hi")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("harihujan_shi")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("curahhujan_hi")))%></td>
+					<td align="right"><%=FbpNum2(f_nool(rsmonitoringclosing("curahhujan_shi")))%></td>
 					<td align="left"><%=rsmonitoringclosing("remarks")%></td>
 				</tr>
 <%

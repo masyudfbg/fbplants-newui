@@ -1163,9 +1163,9 @@ If cmdView = "True" and Len(Trim(v_txtagreementcode)) > 0 Then
 						<td align="left" title="Job Name" valign="top"><%=rswipfinal("jobname")%></td>
 						<td align="left" title="Target Type" valign="top"><%=rswipfinal("targettype")%></td>
 						<td align="left" title="Target Code" valign="top"><%=rswipfinal("targetcode")%></td>
-						<td align="Right" title="Qty Plan" valign="top"><%=rswipfinal("qtyplan")%></td>
-						<td align="Right" title="Unit Plan" valign="top"><%=rswipfinal("unitplan")%></td>
-						<td align="Right" title="Output Plan" valign="top"><%=rswipfinal("outputplan")%></td>
+						<td align="Right" title="Qty Plan" valign="top"><%=FbpNum2(rswipfinal("qtyplan"))%></td>
+						<td align="Right" title="Unit Plan" valign="top"><%=FbpNum2(rswipfinal("unitplan"))%></td>
+						<td align="Right" title="Output Plan" valign="top"><%=FbpNum2(rswipfinal("outputplan"))%></td>
 						<td align="left" width="2">
 							<input type="text" name="qtyfinaledit" width="2" value="<%=rswipfinal("qtyfinal")%>" onkeyup="checkInput(this);">
 						</td>
@@ -1224,9 +1224,9 @@ If cmdView = "True" and Len(Trim(v_txtagreementcode)) > 0 Then
 					<td align="left" title="Job Name" valign="top"><%=rswipfinal("jobname")%></td>
 					<td align="left" title="Target Type" valign="top"><%=rswipfinal("targettype")%></td>
 					<td align="left" title="Target Code" valign="top"><%=rswipfinal("targetcode")%></td>
-					<td align="Right" title="Quantity Plan" valign="top"><%=rswipfinal("qtyplan")%></td>
-					<td align="Right" title="Unit Plan" valign="top"><%=rswipfinal("unitplan")%></td>
-					<td align="Right" title="Output Plan" valign="top"><%=rswipfinal("outputplan")%></td>
+					<td align="Right" title="Quantity Plan" valign="top"><%=FbpNum2(rswipfinal("qtyplan"))%></td>
+					<td align="Right" title="Unit Plan" valign="top"><%=FbpNum2(rswipfinal("unitplan"))%></td>
+					<td align="Right" title="Output Plan" valign="top"><%=FbpNum2(rswipfinal("outputplan"))%></td>
 					<td align="left" width="2">
 						<input type="text" name="qtyfinal_<%=no%>" width="2" value="<%=rswipfinal("qtyplan")%>" onkeyup="checkInput(this);">
 					</td>

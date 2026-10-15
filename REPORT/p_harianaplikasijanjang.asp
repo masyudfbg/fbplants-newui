@@ -713,9 +713,9 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 					<% end if %>							 
 				<% end if %>				
 				
-				<td align="right"><%=FormatNumber(rsEPS("hk"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("hk"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("ha"),2)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("tonase"),0)%></td>				
+				<td align="right"><%=FormatNumber(rsEPS("tonase"),2)%></td>				
 			</tr>
 <%
 			NO = NO + 1
@@ -733,9 +733,9 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 %>
 			<tr bgcolor="#F4F4A0">			   
 				<td align="center" colspan="<%=1 +add_colspan%>"><b>Total</b></td>
-				<td align="right"><b><%=FormatNumber(gt_hk,0)%></b></td>						
+				<td align="right"><b><%=FormatNumber(gt_hk,2)%></b></td>						
 				<td align="right"><b><%=FormatNumber(gt_ha,2)%></b></td>
-				<td align="right"><b><%=FormatNumber(gt_tonase,0)%></b></td>				
+				<td align="right"><b><%=FormatNumber(gt_tonase,2)%></b></td>				
 			</tr>
 </tbody>
 </table>

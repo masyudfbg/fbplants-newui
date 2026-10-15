@@ -559,33 +559,33 @@ th.rotate-270 > div {
 	<input  type="hidden" value="<%=txtModule%>" name="txtModule">
 		<tr bgcolor="#F4F4A0">
 			<td align="center" colspan="2"><strong>AVG</strong></td>
-			<td align="right"><strong><%=FormatNumber(v_JANUARI_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_FEBRUARI_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_MARET_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_APRIL_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_MEI_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_JUNI_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_JULI_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_AGUSTUS_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_SEPTEMBER_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_OKTOBER_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_NOVEMBER_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_DESEMBER_TTL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_TOTALBULANAN,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_JANUARI_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_FEBRUARI_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_MARET_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_APRIL_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_MEI_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_JUNI_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_JULI_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_AGUSTUS_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_SEPTEMBER_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_OKTOBER_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_NOVEMBER_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_DESEMBER_TTL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_TOTALBULANAN,2)%></strong></td>
  
-			<td align="right"><strong><%=FormatNumber(v_JANUARI,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_FEBRUARI,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_MARET,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_APRIL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_MEI,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_JUNI,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_JULI,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_AGUSTUS,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_SEPTEMBER,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_OKTOBER,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_NOVEMBER,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_DESEMBER,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(v_TOTALHARIAN,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_JANUARI,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_FEBRUARI,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_MARET,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_APRIL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_MEI,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_JUNI,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_JULI,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_AGUSTUS,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_SEPTEMBER,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_OKTOBER,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_NOVEMBER,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_DESEMBER,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(v_TOTALHARIAN,2)%></strong></td>
 		</tr>
 	</tbody>
 </table>

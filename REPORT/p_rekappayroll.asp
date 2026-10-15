@@ -554,23 +554,23 @@ if len(trim(v_txttampilkan)) = 0 then%> <!-- JIKA REKAP -->
 					<td align="center" Rowspan="<%=temprows+1 %>"><%=rsha("sectionname")%></td>
 				<%end if%>
 					<td align="center"><%=rsha("presentgrade2")%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("jumlah_orang")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("jumlah_orang")),2)%></td>
 					<td align="right"><%=formatnumber( cdbl(rsha("hk_month")),1)%></td>
 					<td align="right"><%=formatnumber( cdbl(rsha("hk")),1)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("mkp1")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),0)%></td> 
-					<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("Premi")),0)%></td> 
-					<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("totalgaji")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("P_JAMSOSTEK")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("P_BPJSKES")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("PINJAMAN")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("DENDA")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("mkp1")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),2)%></td> 
+					<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("Premi")),2)%></td> 
+					<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("totalgaji")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("P_JAMSOSTEK")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("P_BPJSKES")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("PINJAMAN")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("DENDA")),2)%></td>
 					
-					<td align="right"><%=formatnumber( cdbl(totalpotongan),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(totalsisaupah),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(totalpotongan),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(totalsisaupah),2)%></td>
 				
 				<%if rows = 1 then%>
 					<td align="center" Rowspan="<%=temprows+1 %>"></td>
@@ -622,22 +622,22 @@ if len(trim(v_txttampilkan)) = 0 then%> <!-- JIKA REKAP -->
 %>
 				  <tr bgcolor="#F4F4A0">	 
 					<td align="center" ><b>Total</td>
-					<td align="right"><b><%=formatnumber(n_jumlah_orang,0)%></td>
+					<td align="right"><b><%=formatnumber(n_jumlah_orang,2)%></td>
 					<td align="right"><b><%=formatnumber(nhk_month,1)%></td>
 					<td align="right"><b><%=formatnumber(nhk,1)%></td>
-					<td align="right"><b><%=formatnumber(nmkp1,0)%></td>
-					<td align="right"><b><%=formatnumber(nBase_Salary,0)%></td> 
-					<td align="right"><b><%=formatnumber(nOvertime,0)%></td>
-					<td align="right"><b><%=formatnumber(nPremi,0)%></td>
-					<td align="right"><b><%=formatnumber(nBorongan,0)%></td>
-					<td align="right"><b><%=formatnumber(nTotalgaji,0)%></td>
-					<td align="right"><b><%=formatnumber(nP_Jamsostek,0)%></td>
-					<td align="right"><b><%=formatnumber(nP_bpjskes,0)%></td>
-					<td align="right"><b><%=formatnumber(nP_PPH21,0)%></td>
-					<td align="right"><b><%=formatnumber(nPinjaman,0)%></td>
-					<td align="right"><b><%=formatnumber(nDenda,0)%></td>
-					<td align="right"><b><%=formatnumber(nTotalPotongan,0)%></td>
-					<td align="right"><b><%=formatnumber(ntotalsisaupah,0)%></td> 
+					<td align="right"><b><%=formatnumber(nmkp1,2)%></td>
+					<td align="right"><b><%=formatnumber(nBase_Salary,2)%></td> 
+					<td align="right"><b><%=formatnumber(nOvertime,2)%></td>
+					<td align="right"><b><%=formatnumber(nPremi,2)%></td>
+					<td align="right"><b><%=formatnumber(nBorongan,2)%></td>
+					<td align="right"><b><%=formatnumber(nTotalgaji,2)%></td>
+					<td align="right"><b><%=formatnumber(nP_Jamsostek,2)%></td>
+					<td align="right"><b><%=formatnumber(nP_bpjskes,2)%></td>
+					<td align="right"><b><%=formatnumber(nP_PPH21,2)%></td>
+					<td align="right"><b><%=formatnumber(nPinjaman,2)%></td>
+					<td align="right"><b><%=formatnumber(nDenda,2)%></td>
+					<td align="right"><b><%=formatnumber(nTotalPotongan,2)%></td>
+					<td align="right"><b><%=formatnumber(ntotalsisaupah,2)%></td> 
 				 </tr>	
 				 <tr>
 					<td align="center" colspan="20" ></td>
@@ -784,53 +784,53 @@ if len(trim(v_txttampilkan)) = 0 then%> <!-- JIKA REKAP -->
 					</td>
 					
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totalorang")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totalorang")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totalhkmonth")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totalhkmonth")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("tothk")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("tothk")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totmkp1")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totmkp1")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totbasesalary")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totbasesalary")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totallembur")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totallembur")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totalpremi")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totalpremi")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totborongan")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totborongan")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totalupah")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totalupah")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totaljamsostek")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totaljamsostek")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totalbpjskes")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totalbpjskes")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totalpph21")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totalpph21")),2)%>
 					</td>
 					
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totalpinjaman")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totalpinjaman")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totaldenda")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totaldenda")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("totpotongan")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("totpotongan")),2)%>
 					</td>
 					<td class='ratakanan'>
-						<b><%=formatnumber(CDbl(rstotal("tottotal")),0)%>
+						<b><%=formatnumber(CDbl(rstotal("tottotal")),2)%>
 					</td>
 				</tr>
 		<%	rstotal.MoveNext
@@ -844,22 +844,22 @@ if len(trim(v_txttampilkan)) = 0 then%> <!-- JIKA REKAP -->
 						<b>G.Total</b>
 					</td>
 					
-					<td align="ratakanan"><b><%=formatnumber(gt_jumlah_orang,0)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_jumlah_orang,2)%></td>
 					<td align="ratakanan"><b><%=formatnumber(gt_hk_month,1)%></td>
 					<td align="ratakanan"><b><%=formatnumber(gt_hk,1)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_mkp1,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_BASE_SALARY,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_OVERTIME,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_PREMI,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_BORONGAN,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_TOTALGAJI,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_P_JAMSOSTEK,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_P_BPJSKES,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_P_PPH21,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_PINJAMAN,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_DENDA,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_totalpotongan,0)%></td>
-					<td align="ratakanan"><b><%=formatnumber(gt_totalsisaupah,0)%></td> 
+					<td align="ratakanan"><b><%=formatnumber(gt_mkp1,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_BASE_SALARY,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_OVERTIME,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_PREMI,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_BORONGAN,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_TOTALGAJI,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_P_JAMSOSTEK,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_P_BPJSKES,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_P_PPH21,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_PINJAMAN,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_DENDA,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_totalpotongan,2)%></td>
+					<td align="ratakanan"><b><%=formatnumber(gt_totalsisaupah,2)%></td> 
 				</tr>
 <%else%> <!-- JIKA DETAIL -->
 <%
@@ -1058,23 +1058,23 @@ strdtl=	"   SELECT *"  & _
 					<td align="center" Rowspan="<%=tempRowsGang+1 %>"><%=rsha("gangcode")%></td>
 				<%end if%>
 				<td align="center"><%=rsha("presentgrade2")%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("jumlah_orang")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("jumlah_orang")),2)%></td>
 					<td align="right"><%=formatnumber( cdbl(rsha("hk_month")),1)%></td>
 					<td align="right"><%=formatnumber( cdbl(rsha("hk")),1)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("mkp1")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),0)%></td> 
-					<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("Premi")),0)%></td> 
-					<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("totalgaji")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("P_JAMSOSTEK")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("P_BPJSKES")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("PINJAMAN")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("DENDA")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("mkp1")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),2)%></td> 
+					<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("Premi")),2)%></td> 
+					<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("totalgaji")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("P_JAMSOSTEK")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("P_BPJSKES")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("PINJAMAN")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("DENDA")),2)%></td>
 			
-					<td align="right"><%=formatnumber( cdbl(totalpotongan),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(totalsisaupah),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(totalpotongan),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(totalsisaupah),2)%></td>
 			</tr>
 <%
 			if RowsGang = tempRowsGang then
@@ -1117,22 +1117,22 @@ strdtl=	"   SELECT *"  & _
 %>
 				<tr bgcolor="#F4F4A0">	 
 					<td align="center" ><b>Total</td>
-					<td align="right"><b><%=formatnumber(n_jumlah_orang,0)%></td>
+					<td align="right"><b><%=formatnumber(n_jumlah_orang,2)%></td>
 					<td align="right"><b><%=formatnumber(nhk_month,1)%></td>
 					<td align="right"><b><%=formatnumber(nhk,1)%></td>
-					<td align="right"><b><%=formatnumber(nmkp1,0)%></td>
-					<td align="right"><b><%=formatnumber(nBase_Salary,0)%></td> 
-					<td align="right"><b><%=formatnumber(nOvertime,0)%></td>
-					<td align="right"><b><%=formatnumber(nPremi,0)%></td>
-					<td align="right"><b><%=formatnumber(nBorongan,0)%></td>
-					<td align="right"><b><%=formatnumber(nTotalgaji,0)%></td>
-					<td align="right"><b><%=formatnumber(nP_Jamsostek,0)%></td>
-					<td align="right"><b><%=formatnumber(nP_bpjskes,0)%></td>
-					<td align="right"><b><%=formatnumber(nP_PPH21,0)%></td>
-					<td align="right"><b><%=formatnumber(nPinjaman,0)%></td>
-					<td align="right"><b><%=formatnumber(nDenda,0)%></td>
-					<td align="right"><b><%=formatnumber(nTotalPotongan,0)%></td>
-					<td align="right"><b><%=formatnumber(ntotalsisaupah,0)%></td> 
+					<td align="right"><b><%=formatnumber(nmkp1,2)%></td>
+					<td align="right"><b><%=formatnumber(nBase_Salary,2)%></td> 
+					<td align="right"><b><%=formatnumber(nOvertime,2)%></td>
+					<td align="right"><b><%=formatnumber(nPremi,2)%></td>
+					<td align="right"><b><%=formatnumber(nBorongan,2)%></td>
+					<td align="right"><b><%=formatnumber(nTotalgaji,2)%></td>
+					<td align="right"><b><%=formatnumber(nP_Jamsostek,2)%></td>
+					<td align="right"><b><%=formatnumber(nP_bpjskes,2)%></td>
+					<td align="right"><b><%=formatnumber(nP_PPH21,2)%></td>
+					<td align="right"><b><%=formatnumber(nPinjaman,2)%></td>
+					<td align="right"><b><%=formatnumber(nDenda,2)%></td>
+					<td align="right"><b><%=formatnumber(nTotalPotongan,2)%></td>
+					<td align="right"><b><%=formatnumber(ntotalsisaupah,2)%></td> 
 				 </tr>	
 
 <%
@@ -1254,22 +1254,22 @@ strdtl=	"   SELECT *"  & _
 %>
 				<tr bgcolor="#F4F4A0">	 
 					<td align="center" colspan="2"><b>Total</b></td>
-					<td align="right"><b><%=formatnumber(v_jumlah_orang,0)%></td>
+					<td align="right"><b><%=formatnumber(v_jumlah_orang,2)%></td>
 					<td align="right"><b><%=formatnumber(vhk_month,1)%></td>
 					<td align="right"><b><%=formatnumber(vhk,1)%></td>
-					<td align="right"><b><%=formatnumber(vmkp1,0)%></td>
-					<td align="right"><b><%=formatnumber(vBase_Salary,0)%></td> 
-					<td align="right"><b><%=formatnumber(vOvertime,0)%></td>
-					<td align="right"><b><%=formatnumber(vPremi,0)%></td>
-					<td align="right"><b><%=formatnumber(vBorongan,0)%></td>
-					<td align="right"><b><%=formatnumber(vTotalgaji,0)%></td>
-					<td align="right"><b><%=formatnumber(vP_Jamsostek,0)%></td>
-					<td align="right"><b><%=formatnumber(vP_bpjskes,0)%></td>
-					<td align="right"><b><%=formatnumber(vP_PPH21,0)%></td>
-					<td align="right"><b><%=formatnumber(vPinjaman,0)%></td>
-					<td align="right"><b><%=formatnumber(vDenda,0)%></td>
-					<td align="right"><b><%=formatnumber(vTotalPotongan,0)%></td>
-					<td align="right"><b><%=formatnumber(vtotalsisaupah,0)%></td> 
+					<td align="right"><b><%=formatnumber(vmkp1,2)%></td>
+					<td align="right"><b><%=formatnumber(vBase_Salary,2)%></td> 
+					<td align="right"><b><%=formatnumber(vOvertime,2)%></td>
+					<td align="right"><b><%=formatnumber(vPremi,2)%></td>
+					<td align="right"><b><%=formatnumber(vBorongan,2)%></td>
+					<td align="right"><b><%=formatnumber(vTotalgaji,2)%></td>
+					<td align="right"><b><%=formatnumber(vP_Jamsostek,2)%></td>
+					<td align="right"><b><%=formatnumber(vP_bpjskes,2)%></td>
+					<td align="right"><b><%=formatnumber(vP_PPH21,2)%></td>
+					<td align="right"><b><%=formatnumber(vPinjaman,2)%></td>
+					<td align="right"><b><%=formatnumber(vDenda,2)%></td>
+					<td align="right"><b><%=formatnumber(vTotalPotongan,2)%></td>
+					<td align="right"><b><%=formatnumber(vtotalsisaupah,2)%></td> 
 				 </tr>	
 
 <%
@@ -1394,22 +1394,22 @@ strdtl=	"   SELECT *"  & _
 				</tr>
 				<tr bgcolor="#FFFF00">
 					<td align="center" colspan="3"><b>G.Total</b></td>
-					<td align="right"><b><%=formatnumber(gt_jumlah_orang,0)%></td>
+					<td align="right"><b><%=formatnumber(gt_jumlah_orang,2)%></td>
 					<td align="right"><b><%=formatnumber(gt_hk_month,1)%></td>
 					<td align="right"><b><%=formatnumber(gt_hk,1)%></td>
-					<td align="right"><b><%=formatnumber(gt_mkp1,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_BASE_SALARY,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_OVERTIME,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_PREMI,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_BORONGAN,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_TOTALGAJI,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_P_JAMSOSTEK,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_P_BPJSKES,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_P_PPH21,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_PINJAMAN,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_DENDA,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_totalpotongan,0)%></td>
-					<td align="right"><b><%=formatnumber(gt_totalsisaupah,0)%></td> 
+					<td align="right"><b><%=formatnumber(gt_mkp1,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_BASE_SALARY,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_OVERTIME,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_PREMI,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_BORONGAN,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_TOTALGAJI,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_P_JAMSOSTEK,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_P_BPJSKES,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_P_PPH21,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_PINJAMAN,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_DENDA,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_totalpotongan,2)%></td>
+					<td align="right"><b><%=formatnumber(gt_totalsisaupah,2)%></td> 
 <%
 	end if
 	end if

@@ -23,7 +23,7 @@ If Session("USERNAME") & "" = "" Then Response.Redirect "logout.asp"
 <link rel="StyleSheet" href="css/login/font-awesome.min.css" type="text/css" />
 <script type="text/javascript" src="dtree.js"></script>
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <style>
 /* Khusus dashboard (kerangka halaman ada di css/fbp-shell.css) */
 body.dash .judul_head { display: none; }

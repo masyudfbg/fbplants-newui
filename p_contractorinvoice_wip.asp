@@ -179,16 +179,16 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("isretention_invoice")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("retention")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("ppn")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amountppn"))),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amountppn"))),2)%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("pph")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amountpph"))),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amountpph"))),2)%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("rowstate")%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("jobcode")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("totalfinal"))),2)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("rate"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amount"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amountretention"))),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amountafter_retention"))),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("rate"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amount"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amountretention"))),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rscat("amountafter_retention"))),2)%></td>
 			<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("remarks")%></td>
 		</tr>
 	  <%
@@ -213,16 +213,16 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 	</form>
 	<tr bgcolor="#F4F4A0">
 		<td align="Center" style="<%=cmdstyleLeft%>" colspan="9"> <font face="Verdana" size="1">T o t a l</td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amountppn)),0)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amountppn)),2)%></td>
 		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"></td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amountpph)),0)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amountpph)),2)%></td>
 		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"></td>
 		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"></td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_totalfinal)),0)%></td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_rate)),0)%></td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amount)),0)%></td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amountretention)),0)%></td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amountafter_retention)),0)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_totalfinal)),2)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_rate)),2)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amount)),2)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amountretention)),2)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_amountafter_retention)),2)%></td>
 		<td align="Right" style="<%=cmdstyle%>"></td>
 	</tr>
 	</tbody>

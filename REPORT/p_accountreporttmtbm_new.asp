@@ -534,7 +534,7 @@ tr.subtotal-row td {
 			<td colspan="2">SUBTOTAL</td>
 			<td class="ratakanan"><%=FormatNumber(sub_fisikblnlalu)%></td>
 			<td class="ratakanan"><%=FormatNumber(sub_amountblnlalu)%></td>
-			<td class="ratakanan"><%=FormatNumber(sub_rpha_l,0)%></td>
+			<td class="ratakanan"><%=FormatNumber(sub_rpha_l,2)%></td>
 			<td class="ratakanan"><%=FormatNumber(sub_rkb_outputblnlalu)%></td>
 			<td class="ratakanan"><%=FormatNumber(sub_rkb_amountblnlalu)%></td>
 			<td class="ratakanan"><%=FormatNumber(sub_rkbrpha_l)%></td>
@@ -596,7 +596,7 @@ tr.subtotal-row td {
 			<td><%=rsdata("source")%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("fisikblnlalu"))%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("amountblnlalu"))%></td>
-			<td class="ratakanan"><%=FormatNumber(rsdata("rphablnlalu"),0)%></td>
+			<td class="ratakanan"><%=FormatNumber(rsdata("rphablnlalu"),2)%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("rkb_outputblnlalu"))%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("rkb_amountblnlalu"))%></td>
 			<td class="ratakanan"><%=FormatNumber(rsdata("rkb_rphablnlalu"))%></td>
@@ -748,7 +748,7 @@ tr.subtotal-row td {
 			<td colspan="2">SUBTOTAL</td>
 			<td class="ratakanan"><%=FormatNumber(sub_fisikblnlalu)%></td>
 			<td class="ratakanan"><%=FormatNumber(sub_amountblnlalu)%></td>
-			<td class="ratakanan"><%=FormatNumber(last_rpha_l,0)%></td>
+			<td class="ratakanan"><%=FormatNumber(last_rpha_l,2)%></td>
 			<td class="ratakanan"><%=FormatNumber(sub_rkb_outputblnlalu)%></td>
 			<td class="ratakanan"><%=FormatNumber(sub_rkb_amountblnlalu)%></td>
 			<td class="ratakanan"><%=FormatNumber(last_rkbrpha_l)%></td>

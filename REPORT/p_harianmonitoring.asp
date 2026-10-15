@@ -1066,7 +1066,7 @@ col:nth-child(2n+3) {background: #FAFFDB}
 						Else	
 							ColorID = "&nbsp;"
 						End If%>
-						<td align="right"><%=ColorID%></td>
+						<td align="right"><%=FbpNum2(ColorID)%></td>
 					<%Next%>
 					<%for val_null = 1 to (31 - Day_x) %>
 					<td></td>
@@ -1086,7 +1086,7 @@ col:nth-child(2n+3) {background: #FAFFDB}
 						Else	
 							ColorID = "&nbsp;"
 						End If%>
-						<td align="right"><%=ColorID%></td>
+						<td align="right"><%=FbpNum2(ColorID)%></td>
 					<%Next%>
 					<%for val_null = 1 to (31 - Day_x) %>
 					<td></td>
@@ -1106,7 +1106,7 @@ col:nth-child(2n+3) {background: #FAFFDB}
 						Else	
 							ColorID = "&nbsp;"
 						End If%>
-						<td align="right"><%=ColorID%></td>
+						<td align="right"><%=FbpNum2(ColorID)%></td>
 					<%Next%>
 					<%for val_null = 1 to (31 - Day_x) %>
 					<td></td>
@@ -1123,7 +1123,7 @@ col:nth-child(2n+3) {background: #FAFFDB}
 						Else	
 							ColorID = "&nbsp;"
 						End If%>
-						<td align="right"><%=ColorID%></td>
+						<td align="right"><%=FbpNum2(ColorID)%></td>
 					<%Next%>
 					<%for val_null = 1 to (31 - Day_x) %>
 					<td></td>

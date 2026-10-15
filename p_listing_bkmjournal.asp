@@ -159,12 +159,12 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="Left" ><%=rscat("jobgroupname")%></td>	
 			<td align="Left" ><%=rscat("job_forbudgetcode")%></td>				
 			<td align="Left" ><%=rscat("job_forbudgetname")%></td>	
-			<td data-t="n" align="Right" ><%=rscat("amountdebit")%></td>		
-			<td data-t="n" align="Right" ><%=rscat("amountkredit")%></td>	
-			<td data-t="n" align="Right" ><%=rscat("hk")%></td>	
-			<td data-t="n" align="Right" ><%=rscat("unit")%></td>	
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("amountdebit"))%></td>		
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("amountkredit"))%></td>	
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("hk"))%></td>	
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("unit"))%></td>	
 			<td align="Left" ><%=rscat("uom")%></td>	
-			<td data-t="n" align="Right" ><%=rscat("output")%></td>	
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("output"))%></td>	
 		</tr>
 	  <%
 	  rsCat.MoveNext

@@ -360,6 +360,14 @@ End if
 		tampilTabel();
 	}
 
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
+
 	function numformat(val) {
 		var nStr = val.toString();
 		nStr = nStr.replace(/\,/g, "");
@@ -415,7 +423,7 @@ End if
 						 docketlist += '<td align="right"><input type="text" class="ratatengah lebarqty" onkeyup="getAmount('+i+',this)"  name="priceqty' + i + '" id="priceqty' + i + '" value="' + json.dataview[i].unitprice + '"/><input type="hidden" name="price' + i + '" id="price' + i + '" value="' + json.dataview[i].unitprice + '"/></td>';
 						 docketlist += '<td align="center" class="ratatengah lebarqty"><input type="text" class="ratatengah lebarqty" onkeyup="getPercent('+i+',this)"  name="percent' + i + '" id="percent' + i + '" value="100"/></td>';
 						 docketlist += '<td align="right"><input type="text" class="ratatengah lebarqty" style="width: 100px;" onkeyup="getAmount('+i+',this)"  name="amountrp' + i + '" id="amountrp' + i + '" value="' + numformat(json.dataview[i].qtysisa*json.dataview[i].unitprice) + '"/><input type="hidden" name="amtrp' + i + '" id="amtrp' + i + '" value="' + json.dataview[i].qtysisa*json.dataview[i].unitprice + '"/></td>';
-						 docketlist += '<td align="right" class="lebaramount"><span  class="lebaramount" id="amountview'+i+'">'+numformat(json.dataview[i].qtysisa*json.dataview[i].unitprice)+'</span><input class="lebaramount ratakanan" type="text" name="amountdtl' + i + '" id="amountdtl' + i + '"/></td>';
+						 docketlist += '<td align="right" class="lebaramount"><span  class="lebaramount" id="amountview'+i+'">'+numformat2(json.dataview[i].qtysisa*json.dataview[i].unitprice)+'</span><input class="lebaramount ratakanan" type="text" name="amountdtl' + i + '" id="amountdtl' + i + '"/></td>';
 						 docketlist += '</tr>';
 						 $('#bodytable').append(docketlist);
 						no++;
@@ -466,7 +474,7 @@ End if
 		$('#amountdtl' + i).val(total);
 		$('#amountview' + i).text(total);
 		
-		$('#amountview' + i).text(numformat(total));
+		$('#amountview' + i).text(numformat2(total));
 		$('#amountrp' + i).val(numformat(amountrp));
 		parseFloat($('#percent' + i).val(getPercent));
 		parseFloat($('#qty' + i).val(hasilQty));
@@ -497,12 +505,12 @@ End if
 			$('#qty' + i).val(k);
 			$('#amountdtl' + i).val(harga * k);
 			var total_fmt	= numformat(harga * k);
-			$('#amountview' + i).text(numformat(total_fmt));
+			$('#amountview' + i).text(numformat2(total_fmt));
 			$('#amountrp' + i).val(numformat(total_fmt));
 		}else{
 			$('#amountdtl' + i).val(total);
 			var total_fmt		= numformat(total);
-			$('#amountview' + i).text(numformat(total_fmt));
+			$('#amountview' + i).text(numformat2(total_fmt));
 			$('#amountrp' + i).val(numformat(total_fmt));
 			getPuttotal();
 		}
@@ -535,7 +543,7 @@ End if
 		let hasilQty 	= (persen / 100) * qtypo;
 		
 		$('#amountdtl' + i).val(hasil);
-		$('#amountview' + i).text(numformat(hasil));
+		$('#amountview' + i).text(numformat2(hasil));
 		$('#amountrp' + i).val(numformat(hasil));
 
 		parseFloat($('#qty' + i).val(hasilQty));

@@ -347,13 +347,13 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
 			vOrganization=<%=request.Form("vOrganization")%>" target="_blank"><%=rs("ACCOUNTGROUP")%></A></font></td>
         <%End if%>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("TM_AMT_ACTUAL"),0)%></font></td>
+		<%=FormatNumber(rs("TM_AMT_ACTUAL"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nTM_RP_HA_ACTUAL,0)%></font></td>
+		<%=FormatNumber(nTM_RP_HA_ACTUAL,2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("TM_AMT_BUDGET"),0)%></font></td>
+		<%=FormatNumber(rs("TM_AMT_BUDGET"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nTM_RP_HA_BUDGET,0)%></font></td>
+		<%=FormatNumber(nTM_RP_HA_BUDGET,2)%></font></td>
 		<%if nPersenTM < 0 then%>
 		  <td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" color="#FF0000">
 		  <%=FormatNumber(nPersenTM,2)%></font></td>
@@ -362,13 +362,13 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
 		  <%=FormatNumber(nPersenTM,2)%></font></td>
 		<%end if%>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("TY_AMT_ACTUAL"),0)%></font></td>
+		<%=FormatNumber(rs("TY_AMT_ACTUAL"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nTY_RP_HA_ACTUAL,0)%></font></td>
+		<%=FormatNumber(nTY_RP_HA_ACTUAL,2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("TY_AMT_BUDGET"),0)%></font></td>
+		<%=FormatNumber(rs("TY_AMT_BUDGET"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nTY_RP_HA_BUDGET,0)%></font></td>
+		<%=FormatNumber(nTY_RP_HA_BUDGET,2)%></font></td>
 		<%if nPersenTY < 0 then%>
 		     <td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"  color="#FF0000">
 		     <%=FormatNumber(nPersenTY,2)%></font></td>
@@ -398,13 +398,13 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
 		vDivision=<%=request.Form("vDivision")%>&vPlantingDate=<%=request.Form("vPlantingDate")%>&
 		v_JobGroup=<%=rs(0)%>" target="_blank"><%=rs("DESCRIPTION")%></A></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("TM_AMT_ACTUAL"),0)%></font></td>
+		<%=FormatNumber(rs("TM_AMT_ACTUAL"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nTM_RP_HA_ACTUAL,0)%></font></td>
+		<%=FormatNumber(nTM_RP_HA_ACTUAL,2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("TM_AMT_BUDGET"),0)%></font></td>
+		<%=FormatNumber(rs("TM_AMT_BUDGET"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nTM_RP_HA_BUDGET,0)%></font></td>
+		<%=FormatNumber(nTM_RP_HA_BUDGET,2)%></font></td>
 		<%if nPersenTM < 0 then%>
 			<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" color="#FF0000">
 			<%=FormatNumber(nPersenTM,2)%></font></td>
@@ -413,13 +413,13 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
 		   <%=FormatNumber(nPersenTM,2)%></font></td>
 		<%end if%>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("TY_AMT_ACTUAL"),0)%></font></td>
+		<%=FormatNumber(rs("TY_AMT_ACTUAL"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nTY_RP_HA_ACTUAL,0)%></font></td>
+		<%=FormatNumber(nTY_RP_HA_ACTUAL,2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("TY_AMT_BUDGET"),0)%></font></td>
+		<%=FormatNumber(rs("TY_AMT_BUDGET"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nTY_RP_HA_BUDGET,0)%></font></td>
+		<%=FormatNumber(nTY_RP_HA_BUDGET,2)%></font></td>
 		<%if nPersenTM < 0 then%>
 			<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1" color="#FF0000">
 			<%=FormatNumber(nPersenTY,2)%></font></td>
@@ -428,9 +428,9 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
 			<%=FormatNumber(nPersenTY,2)%></font></td>
        <%End if%>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(rs("AMT_ANNUAL"),0)%></font></td>
+		<%=FormatNumber(rs("AMT_ANNUAL"),2)%></font></td>
 		<td valign="top" bgcolor="#CCCCCC" align="right" style="<%=cmdstyle%>">
-		<%=FormatNumber(nRP_HA_ANNUAL,0)%></font></td></tr>
+		<%=FormatNumber(nRP_HA_ANNUAL,2)%></font></td></tr>
      <%End If%>  
      <%
 	 Headactivity     = rs.fields(1)
@@ -495,15 +495,15 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
           <td style="<%=cmdstyleLeft%>"valign="top" bgcolor="#F7F7F7" align="right" colspan="3">
 		  <span class="style1">Sub-Total<%=HeadActivity%></td>
    <%End if%>
-   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Tm_Amt_Actual,0)%></td>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Tm_Amt_Actual,2)%></td>
    <%if len(trim(sub_Pembagi_Actual_TM)) > 0 then%>
-        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Tm_Amt_Actual/cdbl(sub_Pembagi_Actual_TM)),0)%></td>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Tm_Amt_Actual/cdbl(sub_Pembagi_Actual_TM)),2)%></td>
    <%else%>
         <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
    <%End if%>
-   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Tm_Amt_Budget,0)%></td>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Tm_Amt_Budget,2)%></td>
    <%if len(trim(sub_Pembagi_Budget_TM)) > 0 then%>
-        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM)),0)%></td>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Tm_Amt_Budget/cdbl(sub_Pembagi_Budget_TM)),2)%></td>
    <%else%>
         <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
    <%End if%>
@@ -519,15 +519,15 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
    <%else%>
        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_PersenTM ,2)%></td>
    <%end if%>
-   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Ty_Amt_Actual,0)%></td>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Ty_Amt_Actual,2)%></td>
    <%if len(trim(sub_Pembagi_Actual_Ty)) > 0 then%>
-        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Ty_Amt_Actual/cdbl(sub_Pembagi_Actual_Ty)),0)%></td>
+        <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Ty_Amt_Actual/cdbl(sub_Pembagi_Actual_Ty)),2)%></td>
    <%else%>
         <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
    <%End if%>
-   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Ty_Amt_BUdget,0)%></td>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Ty_Amt_BUdget,2)%></td>
    <%if len(trim(sub_Pembagi_Budget_Ty)) > 0 Then%>
-    <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((cdbl(sub_Ty_Amt_BUdget)/cdbl(sub_Pembagi_Budget_Ty)),0)%></td>
+    <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((cdbl(sub_Ty_Amt_BUdget)/cdbl(sub_Pembagi_Budget_Ty)),2)%></td>
    <%else%>
     <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
    <%End if%>
@@ -544,9 +544,9 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
    <%else%>
       <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_PersenTY,2)%></td>
    <%End if%>
-   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Total_AMT_Annual,0)%></td>
+   <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber(sub_Total_AMT_Annual,2)%></td>
    <%if len(trim(sub_Pembagi_Annual)) > 0 then %>
-     <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Total_AMT_Annual/cdbl(sub_Pembagi_Annual)),0)%></td>
+     <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right"><%=FormatNumber((sub_Total_AMT_Annual/cdbl(sub_Pembagi_Annual)),2)%></td>
    <%else%>
      <td style="<%=cmdstyle%>"valign="top" bgcolor="#F7F7F7" align="right">&nbsp;</td>
    <%End if%>
@@ -642,20 +642,20 @@ If rs.EOF and Len(trim(request("vJenisReport"))) > 0 Then%>
 	<%else%>
 	     <td colspan="3" align="center" style="<%=cmdstyleLeft%>"><b><span class="style1">T O T A L</b></td>
 	<%End if%>
-	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TM_Actual,0)%></b></td>
-	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TM,0)%></b></td>
-	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TM_BUDGET,0)%></b></td>
-	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TM_Budget,0)%></b></td>
+	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TM_Actual,2)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TM,2)%></b></td>
+	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TM_BUDGET,2)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TM_Budget,2)%></b></td>
 	<%if nRpPersen_TM <0 then%>
 	  <td colspan="1" align="Right" style="<%=cmdstyle%>">
 	  <b><font color="#FF0000"><%=FormatNumber(nRpPersen_TM,2)%></font></b></td>
 	<%else%>
 	  <td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPersen_TM,2)%></b></td>
 	<%end if%>
-	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TY_Actual,0)%></b></td>
-	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TY,0)%></b></td>
-	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TY_BUDGET,0)%></b></td>
-	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TY_Budget,0)%></b></td>
+	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TY_Actual,2)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TY,2)%></b></td>
+	<td colspan="1" style="<%=cmdstyle%>"><b><%=FormatNumber(nTotal_TY_BUDGET,2)%></b></td>
+	<td colspan="1" align="Right" style="<%=cmdstyle%>"><b><%=FormatNumber(nRpPerHA_TY_Budget,2)%></b></td>
 	<%if nRpPersen_TY <0 then%>
 	   <td colspan="1" align="Right" style="<%=cmdstyle%>">
 	   <b><font color="#FF0000"><%=FormatNumber(nRpPersen_TY,2)%></font></b></td>

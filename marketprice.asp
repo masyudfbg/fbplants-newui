@@ -665,7 +665,7 @@ end if
 			    <td align="left" title="<%=rsVH("valid_from").Name%>" valign="top"><%=rsVH("valid_from")%></td>
 			    <td align="left" title="<%=rsVH("productcode").Name%>" valign="top"><%=rsVH("productcode")%></td>
 			    <td align="left" title="<%=rsVH("customercode").Name%>" valign="top"><%=rsVH("customercode")%> : <%=rsVH("description")%></td>
-		  		<td align="left" title="<%=rsVH("rate").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("rate"))),0)%></td>
+		  		<td align="left" title="<%=rsVH("rate").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("rate"))),2)%></td>
 		  </tr>
 		  <%
 		  rsVH.MoveNext

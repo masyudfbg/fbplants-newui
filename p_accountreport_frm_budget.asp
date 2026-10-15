@@ -907,34 +907,34 @@ tbody tr{
 														
 													</td>
 													<td class="num ratatengah">
-														<%=rsdtlupah("uom_unit")%>
+														<%=FbpNum2(rsdtlupah("uom_unit"))%>
 													</td>
 
 													<!-- BL -->
 													<td class="num ratakanan"><%=formatnumber(rsdtlupah("output_bl"),2)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),0)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rpqty_bl"),0)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),2)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rpqty_bl"),2)%></td>
 													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_output_bl"),2)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_bl"),0)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_bl"),0)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_bl"),2)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_bl"),2)%></td>
 													<td class="num ratakanan <%=varColorBl%>"><%=formatnumber(rsdtlupah("var_bl"),2)%></td>
 
 													<!-- BI -->
 													<td class="num ratakanan"><%=formatnumber(rsdtlupah("output_bi"),2)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),0)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rpqty_bi"),0)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),2)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rpqty_bi"),2)%></td>
 													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_output_bi"),2)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_bi"),0)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_bi"),0)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_bi"),2)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_bi"),2)%></td>
 													<td class="num ratakanan <%=varColorBi%>"><%=formatnumber(rsdtlupah("var_bi"),2)%></td>
 
 													<!-- SBI -->
 													<td class="num ratakanan"><%=formatnumber(rsdtlupah("output_sbi"),2)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("amount_sbi"),0)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rpqty_sbi"),0)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("amount_sbi"),2)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rpqty_sbi"),2)%></td>
 													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_output_sbi"),2)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_sbi"),0)%></td>
-													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_sbi"),0)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_sbi"),2)%></td>
+													<td class="num ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_sbi"),2)%></td>
 													<td class="num ratakanan <%=varColorSbi%> "><%=formatnumber(rsdtlupah("var_sbi"),2)%></td>
 												</tr>
 											<%

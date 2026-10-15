@@ -132,12 +132,12 @@ end if
 			<td align="left"><%=rsAging("SUPPLIERNAME")%></td>
 			<td align="left"><%=rsAging("INVOICECODE")%></td>
 			<td align="left"><%=rsAging("INVOICEDATE")%></td>
-			<td align="right"><%=formatnumber( cdbl(rsAging("TOTALAMOUNT")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsAging("NETBALANCE")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsAging("POSITION_0")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsAging("POSITION_1")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsAging("POSITION_2")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsAging("POSITION_3")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsAging("TOTALAMOUNT")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsAging("NETBALANCE")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsAging("POSITION_0")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsAging("POSITION_1")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsAging("POSITION_2")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsAging("POSITION_3")),2)%></td>
 		  </tr>	
 		      
 <%
@@ -154,12 +154,12 @@ end if
 %>
 		  <tr style="background-color:#F4F4A0;">
 			<td colspan="4" align="center"><strong>TOTAL</strong></td>
-			<td align="right"><strong><%=formatnumber(nTotalAmt,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nNetbalance,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nPosition_0,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nPosition_1,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nPosition_2,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nPosition_3,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nTotalAmt,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nNetbalance,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nPosition_0,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nPosition_1,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nPosition_2,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nPosition_3,2)%></strong></td>
 		  </tr>	
 </table>
 <!--#include file="bottom.Asp"-->

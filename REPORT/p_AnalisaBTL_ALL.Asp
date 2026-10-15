@@ -359,13 +359,13 @@ TotalTyBTL = 0
 		<td align="center"><%=rowno%></td>
 		<td><%=rsBTL("JOBCODE")%></td>
 		<td><%=rsBTL("JOBNAME")%></td>
-		<td align="right"><%=FormatNumber(rsBTL("AMOUNT"),0)%></td>
-		<td align="right"><%=FormatNumber((Cdbl(rsBTL("AMOUNT"))/Cdbl(LuasHa)),0)%></td>
+		<td align="right"><%=FormatNumber(rsBTL("AMOUNT"),2)%></td>
+		<td align="right"><%=FormatNumber((Cdbl(rsBTL("AMOUNT"))/Cdbl(LuasHa)),2)%></td>
 		<td align="right">0</td>
 		<td align="right">0</td>
 		<td align="right">0</td>
-		<td align="right"><%=FormatNumber(rsBTL("AMOUNTTY"),0)%></td>
-		<td align="right"><%=FormatNumber((Cdbl(rsBTL("AMOUNTTY"))/Cdbl(LuasHa)),0)%></td>
+		<td align="right"><%=FormatNumber(rsBTL("AMOUNTTY"),2)%></td>
+		<td align="right"><%=FormatNumber((Cdbl(rsBTL("AMOUNTTY"))/Cdbl(LuasHa)),2)%></td>
 		<td align="right">0</td>
 		<td align="right">0</td>
 		<td align="right">0</td>
@@ -381,13 +381,13 @@ end if
 %>
 	<tr>
 		<td colspan="3" align="center"><strong>Total Biaya Tak Langsung (A)</strong></td>
-		<td align="right"><strong><%=FormatNumber(TotalBTL,0)%></strong></td>		
-		<td align="right"><strong><%=FormatNumber((Cdbl(TotalBTL)/Cdbl(LuasHa)),0)%></strong></td>	
+		<td align="right"><strong><%=FormatNumber(TotalBTL,2)%></strong></td>		
+		<td align="right"><strong><%=FormatNumber((Cdbl(TotalBTL)/Cdbl(LuasHa)),2)%></strong></td>	
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
-		<td align="right"><strong><%=FormatNumber(TotalTyBTL,0)%></strong></td>		
-		<td align="right"><strong><%=FormatNumber((Cdbl(TotalTyBTL)/Cdbl(LuasHa)),0)%></strong></td>	
+		<td align="right"><strong><%=FormatNumber(TotalTyBTL,2)%></strong></td>		
+		<td align="right"><strong><%=FormatNumber((Cdbl(TotalTyBTL)/Cdbl(LuasHa)),2)%></strong></td>	
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
@@ -408,13 +408,13 @@ TotalTyalokasiBTL = 0
 		<td align="center"><%=rowno%></td>
 		<td><%=rsalokasiBTL("JOBCODE")%></td>
 		<td><%=rsalokasiBTL("JOBNAME")%></td>
-		<td align="right"><%=FormatNumber(rsalokasiBTL("AMOUNT"),0)%></td>
-		<td align="right"><%=FormatNumber((Cdbl(rsalokasiBTL("AMOUNT"))/Cdbl(LuasHa)),0)%></td>
+		<td align="right"><%=FormatNumber(rsalokasiBTL("AMOUNT"),2)%></td>
+		<td align="right"><%=FormatNumber((Cdbl(rsalokasiBTL("AMOUNT"))/Cdbl(LuasHa)),2)%></td>
 		<td align="right">0</td>
 		<td align="right">0</td>
 		<td align="right">0</td>
-		<td align="right"><%=FormatNumber(rsalokasiBTL("AMOUNTTY"),0)%></td>
-		<td align="right"><%=FormatNumber((Cdbl(rsalokasiBTL("AMOUNTTY"))/Cdbl(LuasHa)),0)%></td>
+		<td align="right"><%=FormatNumber(rsalokasiBTL("AMOUNTTY"),2)%></td>
+		<td align="right"><%=FormatNumber((Cdbl(rsalokasiBTL("AMOUNTTY"))/Cdbl(LuasHa)),2)%></td>
 		<td align="right">0</td>
 		<td align="right">0</td>
 		<td align="right">0</td>
@@ -430,13 +430,13 @@ end if
 %>
 	<tr>
 		<td colspan="3" align="center"><strong>Total Alokasi Biaya Tak Langsung (B)</strong></td>
-		<td align="right"><strong><%=FormatNumber(TotalalokasiBTL,0)%></strong></td>		
-		<td align="right"><strong><%=FormatNumber((Cdbl(TotalalokasiBTL)/Cdbl(LuasHa)),0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(TotalalokasiBTL,2)%></strong></td>		
+		<td align="right"><strong><%=FormatNumber((Cdbl(TotalalokasiBTL)/Cdbl(LuasHa)),2)%></strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
-		<td align="right"><strong><%=FormatNumber(TotalTyalokasiBTL,0)%></strong></td>		
-		<td align="right"><strong><%=FormatNumber((Cdbl(TotalTyalokasiBTL)/Cdbl(LuasHa)),0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(TotalTyalokasiBTL,2)%></strong></td>		
+		<td align="right"><strong><%=FormatNumber((Cdbl(TotalTyalokasiBTL)/Cdbl(LuasHa)),2)%></strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
@@ -445,13 +445,13 @@ end if
 	</tr>
 	<tr>
 		<td colspan="3" align="center"><strong>Total Keseluruhan (A) + (B)</td>
-		<td align="right"><strong><%=FormatNumber(Cdbl(TotalBTL)+Cdbl(TotalalokasiBTL),0)%></strong></td>		
-		<td align="right"><strong><%=FormatNumber(((Cdbl(TotalBTL)+Cdbl(TotalalokasiBTL))/Cdbl(LuasHa)),0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Cdbl(TotalBTL)+Cdbl(TotalalokasiBTL),2)%></strong></td>		
+		<td align="right"><strong><%=FormatNumber(((Cdbl(TotalBTL)+Cdbl(TotalalokasiBTL))/Cdbl(LuasHa)),2)%></strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
-		<td align="right"><strong><%=FormatNumber(Cdbl(TotalTyBTL)+Cdbl(TotalTyalokasiBTL),0)%></strong></td>		
-		<td align="right"><strong><%=FormatNumber(((Cdbl(TotalTyBTL)+Cdbl(TotalTyalokasiBTL))/Cdbl(LuasHa)),0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Cdbl(TotalTyBTL)+Cdbl(TotalTyalokasiBTL),2)%></strong></td>		
+		<td align="right"><strong><%=FormatNumber(((Cdbl(TotalTyBTL)+Cdbl(TotalTyalokasiBTL))/Cdbl(LuasHa)),2)%></strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>
 		<td align="right"><strong>0</strong></td>

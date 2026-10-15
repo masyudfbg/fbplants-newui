@@ -709,38 +709,38 @@ Dim ttlbiayamathi,ttlbiayamatshi,ttlhmhi,ttlhmshi
 						<td align="right"><%=FormatNumber(array_data(19, xx), 2)%></td>
 						<td align="right"><%=FormatNumber(array_data(20, xx), 2)%></td>
 						<td align="right"><%=FormatNumber(array_data(21, xx), 2)%></td>
-						<td align="right"><%=FormatNumber(array_data(22, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(23, xx), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(22, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(23, xx), 2)%></td>
 						<!--  Biaya -->
-						<td align="right"><%=FormatNumber(array_data(24, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(25, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(26, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(27, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(28, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(29, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(30, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(31, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(32, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(33, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(34, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(35, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(36, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(37, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(38, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(39, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(40, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(41, xx), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(24, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(25, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(26, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(27, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(28, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(29, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(30, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(31, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(32, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(33, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(34, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(35, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(36, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(37, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(38, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(39, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(40, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(41, xx), 2)%></td>
 						
-						<td align="right"><%=array_data(42, xx)%></td>
-						<td align="right"><%=array_data(43, xx)%></td>
-						<td align="right"><%=FormatNumber(array_data(44, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(45, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(46, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(47, xx), 0)%></td>
+						<td align="right"><%=FbpNum2(array_data(42, xx))%></td>
+						<td align="right"><%=FbpNum2(array_data(43, xx))%></td>
+						<td align="right"><%=FormatNumber(array_data(44, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(45, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(46, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(47, xx), 2)%></td>
 						
-						<td align="right"><%=array_data(48, xx)%></td>
-						<td align="right"><%=FormatNumber(array_data(49, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(50, xx), 0)%></td>
+						<td align="right"><%=FbpNum2(array_data(48, xx))%></td>
+						<td align="right"><%=FormatNumber(array_data(49, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(50, xx), 2)%></td>
 						
 					</tr>
 					
@@ -810,65 +810,65 @@ Dim ttlbiayamathi,ttlbiayamatshi,ttlhmhi,ttlhmshi
 					<tr><td colspan="25"></td></tr>
 					<tr style="background-color:#f4f4a0;">					
 						<td align="center" colspan="5"><b>Total</b></td>
-						<td align="right"><b><%=FormatNumber(gt_sku, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_sku, 2)%></b></td>
 						<td align="right"><b></b></td>
-						<td align="right"><b><%=FormatNumber(gt_khl, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlunitshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlhahi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlhashi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlborhi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_khl, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlunitshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlhahi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlhashi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlborhi, 2)%></b></td>
 
 						
-						<td align="right"><b><%=FormatNumber(ttlborshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlborshi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttllemburhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttllemburshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkbthi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkbtshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhthi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhtshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttllemburhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttllemburshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkbthi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkbtshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhthi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhtshi, 2)%></b></td>
 												
-						<td align="right"><b><%=FormatNumber(ttlkhlhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhlshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhlhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhlshi, 2)%></b></td>
 
-						<td align="right"><b><%=FormatNumber(ttltothi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttltotshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttltothi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttltotshi, 2)%></b></td>
 
-						<td align="right"><b><%=FormatNumber(ttlkbthi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkbtshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkht1hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkht1shi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhl1hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhl1shi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlpremihi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlpremishi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkbthi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkbtshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkht1hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkht1shi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhl1hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhl1shi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlpremihi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlpremishi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttlprepanenhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlprepanenshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlprepanenhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlprepanenshi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttldendahi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttldendashi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttldendahi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttldendashi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttllembur1hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttllembur1shi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbor1hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbor1shi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttllembur1hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttllembur1shi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbor1hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbor1shi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttlbiayahi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbiayashi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbiayahi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbiayashi, 2)%></b></td>
 
 						<td align="right"></td>
 						<td align="right"></td>
 
-						<td align="right"><b><%=FormatNumber(ttlmatjumhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlmatjumshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbiayamathi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbiayamatshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlmatjumhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlmatjumshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbiayamathi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbiayamatshi, 2)%></b></td>
 
 						<td align="right"></td>
 
-						<td align="right"><b><%=FormatNumber(ttlhmhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlhmshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlhmhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlhmshi, 2)%></b></td>
 						
 					
 						
@@ -1087,38 +1087,38 @@ gt_sku = 0
 						<td align="right"><%=FormatNumber(array_data_sum(16, xx_sum), 2)%></td>
 						<td align="right"><%=FormatNumber(array_data_sum(17, xx_sum), 2)%></td>
 						<td align="right"><%=FormatNumber(array_data_sum(18, xx_sum), 2)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(19, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(20, xx_sum), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(19, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(20, xx_sum), 2)%></td>
 						<!--  Biaya -->
-						<td align="right"><%=FormatNumber(array_data_sum(21, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(22, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(23, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(24, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(25, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(26, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(27, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(28, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(29, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(30, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(31, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(32, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(33, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(34, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(35, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(36, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(37, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(38, xx_sum), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(21, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(22, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(23, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(24, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(25, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(26, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(27, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(28, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(29, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(30, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(31, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(32, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(33, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(34, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(35, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(36, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(37, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(38, xx_sum), 2)%></td>
 						
-						<td align="right"><%=array_data_sum(39, xx_sum)%></td>
-						<td align="right"><%=array_data_sum(40, xx_sum)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(41, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(42, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(43, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(44, xx_sum), 0)%></td>
+						<td align="right"><%=FbpNum2(array_data_sum(39, xx_sum))%></td>
+						<td align="right"><%=FbpNum2(array_data_sum(40, xx_sum))%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(41, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(42, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(43, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(44, xx_sum), 2)%></td>
 						
-						<td align="right"><%=array_data_sum(45, xx_sum)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(46, xx_sum), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data_sum(47, xx_sum), 0)%></td>
+						<td align="right"><%=FbpNum2(array_data_sum(45, xx_sum))%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(46, xx_sum), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data_sum(47, xx_sum), 2)%></td>
 						
 					</tr>
 					
@@ -1190,63 +1190,63 @@ gt_sku = 0
 						<td align="center" colspan="2"><b>Total</b></td>
 						<td align="right"><b></b></td>
 						<td align="right"><b></b></td>
-						<td align="right"><b><%=FormatNumber(gt_khl, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlunitshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlhahi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlhashi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlborhi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_khl, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlunitshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlhahi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlhashi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlborhi, 2)%></b></td>
 
 						
-						<td align="right"><b><%=FormatNumber(ttlborshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlborshi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttllemburhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttllemburshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkbthi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkbtshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhthi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhtshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttllemburhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttllemburshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkbthi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkbtshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhthi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhtshi, 2)%></b></td>
 												
-						<td align="right"><b><%=FormatNumber(ttlkhlhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhlshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhlhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhlshi, 2)%></b></td>
 
-						<td align="right"><b><%=FormatNumber(ttltothi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttltotshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttltothi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttltotshi, 2)%></b></td>
 
-						<td align="right"><b><%=FormatNumber(ttlkbthi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkbtshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkht1hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkht1shi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhl1hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlkhl1shi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlpremihi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlpremishi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkbthi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkbtshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkht1hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkht1shi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhl1hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlkhl1shi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlpremihi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlpremishi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttlprepanenhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlprepanenshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlprepanenhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlprepanenshi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttldendahi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttldendashi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttldendahi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttldendashi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttllembur1hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttllembur1shi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbor1hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbor1shi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttllembur1hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttllembur1shi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbor1hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbor1shi, 2)%></b></td>
 						
-						<td align="right"><b><%=FormatNumber(ttlbiayahi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbiayashi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbiayahi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbiayashi, 2)%></b></td>
 
 						<td align="right"></td>
 						<td align="right"></td>
 
-						<td align="right"><b><%=FormatNumber(ttlmatjumhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlmatjumshi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbiayamathi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlbiayamatshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlmatjumhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlmatjumshi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbiayamathi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlbiayamatshi, 2)%></b></td>
 
 						<td align="right"></td>
 
-						<td align="right"><b><%=FormatNumber(ttlhmhi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(ttlhmshi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlhmhi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(ttlhmshi, 2)%></b></td>
 						
 					
 						

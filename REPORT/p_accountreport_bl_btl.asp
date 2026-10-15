@@ -493,24 +493,24 @@ end if
 	<tr>
 	    <% 'TBSbud_BI,TBSbud_SBI,TBSbud_THN,CPObud_BI,CPObud_SBI,CPObud_THN,KERbud_BI,KERbud_SBI,KERbud_THN,PALMbud_BI,PALMbud_SBI,PALMbud_THN %>
 		<th  style="background-color:#00A300;color:#fff;"   colspan="<%= nSpanTotal %>" align="right">TBS PROSES (KG)</th>
-		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSprocess_BI,0)%></th>
+		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSprocess_BI,2)%></th>
 		<% if cdbl(TBSbud_BI) <> 1 then %>
-		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSbud_BI,0)%></th>
+		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSbud_BI,2)%></th>
 			   <th style="background-color:#00A300;color:#fff;"  align="right" ><%=formatnumber((cdbl(TBSprocess_BI)-cdbl(TBSbud_BI))/(cdbl(TBSbud_BI))*100,2)%></th>
 		<% Else %>
 		       <th style="background-color:#00A300;color:#fff;"  align="right" colspan="3" >0</th>
 			   <th style="background-color:#00A300;color:#fff;"  align="right" >0</th>
 		<% End if %>
-		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSprocess_SBI,0)%></th>
+		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSprocess_SBI,2)%></th>
 		<% if cdbl(TBSbud_SBI) <> 1 then %>
-		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSbud_SBI,0)%></th>
+		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSbud_SBI,2)%></th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" ><%=formatnumber((cdbl(TBSprocess_SBI)-cdbl(TBSbud_SBI))/(cdbl(TBSbud_SBI))*100,2)%></th>
 	   <% Else %>
 		       <th style="background-color:#00A300;color:#fff;"  align="right" colspan="3" >0</th>
 			   <th style="background-color:#00A300;color:#fff;"  align="right" >0</th>
 		<% End if %>	
 		<% if cdbl(TBSbud_THN) <> 1 then %>
-		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSbud_THN,0)%></th>
+		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(TBSbud_THN,2)%></th>
 		 <% Else %>
 		       <th style="background-color:#00A300;color:#fff;"  align="right" colspan="3" >0</th>
 		<% End if %>	   
@@ -520,26 +520,26 @@ end if
 	<tr>
 	    
 		<th  style="background-color:#00A300;color:#fff;"  colspan="<%= nSpanTotal  %>" align="right">PRODUKSI CPO (KG)</th>
-		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(ProdCPO_BI,0)%></th>
+		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(ProdCPO_BI,2)%></th>
 		
 		<% if cdbl(CPObud_BI) <> 1 then %>
-		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(CPObud_BI,0)%></th>
+		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(CPObud_BI,2)%></th>
 		       <th style="background-color:#00A300;color:#fff;"  align="right" ><%=formatnumber((cdbl(ProdCPO_BI)-cdbl(CPObud_BI))/(cdbl(CPObud_BI))*100,2)%></th>
 		<% Else %>
 		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		       <th style="background-color:#00A300;color:#fff;"  align="right" >0</th>
 		<% End if %>
-		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(ProdCPO_SBI,0)%></th>
+		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(ProdCPO_SBI,2)%></th>
 		
 		<% if cdbl(CPObud_SBI) <> 1 then %>
-		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(CPObud_SBI,0)%></th>
+		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(CPObud_SBI,2)%></th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" ><%=formatnumber((cdbl(ProdCPO_SBI)-cdbl(CPObud_SBI))/(cdbl(CPObud_SBI))*100,2)%></th>
 		<% Else %>
 		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		       <th style="background-color:#00A300;color:#fff;"  align="right" >0</th>
 		<% End if %>
 		<% if cdbl(CPObud_THN) <> 1 then %>
-		       <th style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(CPObud_THN,0)%></th>
+		       <th style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(CPObud_THN,2)%></th>
 		<% Else %>
 		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		<% End if %>	   
@@ -547,24 +547,24 @@ end if
 	<tr>
 	    
 		<th  style="background-color:#00A300;color:#fff;"  colspan="<%= nSpanTotal %>" align="right">PRODUKSI KER (KG)</th>
-		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(ProdKER_BI,0)%></th>
+		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(ProdKER_BI,2)%></th>
 		<% if cdbl(KERbud_BI) <> 1 then %>
-		      <th style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(KERbud_BI,0)%></th>
+		      <th style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(KERbud_BI,2)%></th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" ><%=formatnumber((cdbl(ProdKER_BI)-cdbl(KERbud_BI))/(cdbl(KERbud_BI))*100,2)%></th>
 		<% Else %>
 		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" >0</th>
 		<% End if %>
-		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(ProdKER_SBI,0)%></th>
+		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(ProdKER_SBI,2)%></th>
 		<% if cdbl(KERbud_SBI) <> 1 then %>
-		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(KERbud_SBI,0)%></th>
+		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(KERbud_SBI,2)%></th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" ><%=formatnumber((cdbl(ProdKER_SBI)-cdbl(KERbud_SBI))/(cdbl(KERbud_SBI))*100,2)%></th>
 		<% Else %>
 		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" >0</th>
 		<% End if %>
 		<% if cdbl(KERbud_SBI) <> 1 then %>
-		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(KERbud_THN,0)%></th>
+		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(KERbud_THN,2)%></th>
 		<% Else %>
 		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		<% End if %>	  
@@ -572,24 +572,24 @@ end if
 	<tr>
 	    
 		<th  style="background-color:#00A300;color:#fff;"  colspan="<%= nSpanTotal %>" align="right">PRODUK (KG)</th>
-		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(Palm_BI,0)%></th>
+		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(Palm_BI,2)%></th>
 		<% if cdbl(Palmbud_BI) <> 1 then %>
-		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(PALMbud_BI,0)%></th>
+		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(PALMbud_BI,2)%></th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" ><%=formatnumber((cdbl(Palm_BI)-cdbl(Palmbud_BI))/(cdbl(Palmbud_BI))*100,2)%></th>
 		<% Else %>
 		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" >0</th>
 		<% End if %>
-		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(Palm_SBI,0)%></th>
+		<th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(Palm_SBI,2)%></th>
 		<% if cdbl(Palmbud_SBI) <> 1 then %>
-		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(PALMbud_SBI,0)%></th>
+		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(PALMbud_SBI,2)%></th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" ><%=formatnumber((cdbl(Palm_SBI)-cdbl(Palmbud_SBI))/(cdbl(Palmbud_SBI))*100,2)%></th>
 		<% Else %>
 		      <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		      <th style="background-color:#00A300;color:#fff;"  align="right" >0</th>
 		<% End if %>
 		<% if cdbl(PALMbud_THN) <> 1 then %>
-		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(PALMbud_THN,0)%></th>
+		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3"><%=formatnumber(PALMbud_THN,2)%></th>
 		<% Else %>
 		       <th  style="background-color:#00A300;color:#fff;"  align="right" colspan="3">0</th>
 		<% End if %>
@@ -1037,10 +1037,10 @@ end if
                                 <%								
 						   end if 									   
 					    END IF %>				     								   
-						<td align="right"><%=formatnumber( cdbl(rsha("BI")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("BI")),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("BI"))/cdbl(palm_BI)),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("BI"))/cdbl(TBSprocess_BI)),2)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("budBI")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("budBI")),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("budBI"))/cdbl(PALMbud_BI)),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("budBI"))/cdbl(TBSbud_BI)),2)%></td>
 						<% if (cdbl(rsha("budBI"))/cdbl(TBSbud_BI)) = 0 then %>
@@ -1049,10 +1049,10 @@ end if
 							<td align="right"><%=formatnumber(((cdbl(rsha("budBI"))/cdbl(TBSbud_BI)) -(cdbl(rsha("BI"))/cdbl(TBSprocess_BI)) )/(cdbl(rsha("budBI"))/cdbl(TBSbud_BI))*100,2)%></td>
 						<% end if %>
 
-						<td align="right"><%=formatnumber( cdbl(rsha("SBI")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("SBI")),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("SBI"))/cdbl(palm_SBI)),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("SBI"))/cdbl(TBSprocess_SBI)),2)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("budSBI")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("budSBI")),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("budSBI"))/cdbl(PALMbud_SBI)),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("budSBI"))/cdbl(TBSbud_SBI)),2)%></td>
 						<% if (cdbl(rsha("budSBI"))/cdbl(TBSbud_SBI)) = 0 then %>
@@ -1060,7 +1060,7 @@ end if
 						<% else %>
 							<td align="right"><%=formatnumber(((cdbl(rsha("budSBI"))/cdbl(TBSbud_SBI)) -(cdbl(rsha("SBI"))/cdbl(TBSprocess_SBI)) )/(cdbl(rsha("budSBI"))/cdbl(TBSbud_SBI))*100,2)%></td>
 						<% end if %>
-						<td align="right"><%=formatnumber( cdbl(rsha("budThn")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("budThn")),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("budThn"))/cdbl(PALMbud_THN)),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("budThn"))/cdbl(TBSbud_THN)),2)%></td>				
 				</tr>	 
@@ -1091,7 +1091,7 @@ end if
 	<tr>  		
 		<!-- Bulan ini  -->
 		<td style="background-color:#F4F4A0;" align="center" colspan="<%= nSpanTotal %>"><b>Sub Total <%=rsHa("biaya")%></td>
-		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpBI,0)%></td>
+		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpBI,2)%></td>
 		<% IF cdbl(palm_BI) > 0 then %>
 		      <td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(cdbl(Prod_BI_R),2)%></td>
 		<% ELSE %>
@@ -1102,7 +1102,7 @@ end if
 		<% ELSE %>
 		      <td  style="background-color:#F4F4A0" align="right"><b>0</td>
 		<% END IF %>
-		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudBI,0)%></td>
+		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudBI,2)%></td>
 		<% IF cdbl(PALMbud_BI) > 0 then %> 
 		      <td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(cdbl(Prod_BI_A),2)%></td>
 	    <% ELSE %>
@@ -1125,7 +1125,7 @@ end if
 		<!-- ENd Bulan Ini -->
 
 		<!-- Sampai Dengan Bulan Ini -->
-		<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpSBI,0)%></td>
+		<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpSBI,2)%></td>
 		<% IF cdbl(palm_SBI) > 0 then %>
 		      <td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(cdbl(Prod_SBI_R),2)%></td>
 	    <% ELSE %>
@@ -1136,7 +1136,7 @@ end if
 		<% ELSE %>
 		      <td  style="background-color:#F4F4A0" align="right"><b>0</td>
 		<% END IF %> 	  
-		<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudSBI,0)%></td>
+		<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudSBI,2)%></td>
 		<% IF cdbl(PALMbud_SBI) > 0 then %>	
 		      <td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(cdbl(Prod_SBI_A),2)%></td>
 	    <% ELSE %>
@@ -1157,7 +1157,7 @@ end if
 		      <td  style="background-color:#F4F4A0" align="right"><b>0</td>
 		<% END IF %> 		
 		<!-- End Sampai Dengan Bulan Ini -->
-		<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudthn,0)%></td>
+		<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudthn,2)%></td>
 		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(( cdbl(GRbudthn)/cdbl(PALMbud_THN)),2)%></td>
 		<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(( cdbl(GRbudthn)/cdbl(TBSbud_THN)),2)%></td>														
 	</tr> 
@@ -1251,7 +1251,7 @@ end if
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_GRAmtgrpBI)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_Prod_BI_R)),2)%></font></td>  
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_TBS_BI_R)),2)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_GRbudBI)),0)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_GRbudBI)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_Prod_BI_A)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_TBS_BI_A)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_Persent)),2)%></font></td>  
@@ -1259,12 +1259,12 @@ end if
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_GRAmtgrpSBI)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_Prod_SBI_R)),2)%></font></td>  
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_TBS_SBI_R)),2)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_GRbudSBI)),0)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_GRbudSBI)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_Prod_SBI_A)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_TBS_SBI_A)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_Persent2)),2)%></font></td>   
 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_GRbudthn)),0)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_GRbudthn)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_AT_Prod)),2)%></font></td> 
 			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(gt_AT_TBS)),2)%></font></td>   
 		</tr>

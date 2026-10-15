@@ -258,9 +258,9 @@ if rsTerimaTBS.bof and rsTerimaTBS.eof then
 			%>
 			    <tr class="<%=cClass%>">
 					<td align="center"  colspan="4"> Sub Total <%=tempfcba %></td>
-					<td align="right"><%=FormatNumber(avgfcba,0)%></td>
+					<td align="right"><%=FormatNumber(avgfcba,2)%></td>
 					<td align="center"  colspan="3">  </td>
-					<td align="right"><%=FormatNumber(tempTotHafcba,0)%></td>
+					<td align="right"><%=FormatNumber(tempTotHafcba,2)%></td>
 				</tr>
          	<%		
 			    
@@ -291,11 +291,11 @@ if rsTerimaTBS.bof and rsTerimaTBS.eof then
 		<td align="center"><%=rsTerimaTBS("REGIONCODE")%></td>
 		<td align="center"><%=rsTerimaTBS("COMPANYCODE")%></td>
 		<td align="center"><%=rsTerimaTBS("FCBA")%></td>
-		<td align="right"><%=FormatNumber(rsTerimaTBS("LONGINTERVAL"),0)%></td>
+		<td align="right"><%=FormatNumber(rsTerimaTBS("LONGINTERVAL"),2)%></td>
 		<td align="center"><%=rsTerimaTBS("FIELDCODE")%></td>
 		<td align="center"><%=rsTerimaTBS("AFDELING")%></td>
 		<td align="center"><%=rsTerimaTBS("HARVESTINGSECTION")%></td>
-		<td align="right"><%=rsTerimaTBS("HECTARAGEPLANTED")%></td>
+		<td align="right"><%=FbpNum2(rsTerimaTBS("HECTARAGEPLANTED"))%></td>
 	</tr>
 <%
             NO = NO + 1
@@ -323,15 +323,15 @@ set rsTerimaTBS = Nothing
 %>
        <tr class="<%=cClass%>">
 		   <td align="center"  colspan="4"> Sub Total <%=tempfcba %></td>
-    	   <td align="right"><%=FormatNumber(avgfcba,0)%></td>
+    	   <td align="right"><%=FormatNumber(avgfcba,2)%></td>
     	   <td align="center"  colspan="3">  </td>
-		   <td align="right"><%=FormatNumber(tempTotHafcba,0)%></td>
+		   <td align="right"><%=FormatNumber(tempTotHafcba,2)%></td>
 		</tr>   
        <tr class="<%=cClass%>">
 			<td align="center"  colspan="4"> Sub Total <%=tempCompany %></td>
-			<td align="right"><%=FormatNumber(avgCompany,0)%></td>
+			<td align="right"><%=FormatNumber(avgCompany,2)%></td>
 			<td align="center"  colspan="3">  </td>
-			<td align="right"><%=FormatNumber(tempTotHaCompany,0)%></td>
+			<td align="right"><%=FormatNumber(tempTotHaCompany,2)%></td>
 		</tr>
 <% End If %>		
        </tbody>

@@ -1049,22 +1049,22 @@ if rsAktiva.bof and rsAktiva.eof then
 						<td colspan="4"><strong><i><%=rsAktiva("PERKIRAAN")%></i></strong></td>
 					<%elseif rsAktiva("PERKIRAAN") = "Subtotal" then%>
 						<td align="left"><strong><i><%=rsAktiva("PERKIRAAN")%></i></strong></td>
-						<td align="right"><strong><i><%=FormatNumber(rsAktiva("SALDODEBET"),0)%></i></strong></td>
+						<td align="right"><strong><i><%=FormatNumber(rsAktiva("SALDODEBET"),2)%></i></strong></td>
 						<td align="right"><strong><i><%=FormatNumber(rsAktiva("PERCENTAGE"),2)%></i></strong></td>
 						<td align="left"><strong><i>%</i></strong></td>
 					<%elseif rsAktiva("PERKIRAAN") = "TOTAL AKTIVA" then%>
 						<th align="left"><strong><%=rsAktiva("PERKIRAAN")%></strong></th>
-						<th align="right"><strong><i><%=FormatNumber(rsAktiva("SALDODEBET"),0)%></i></strong></th>
+						<th align="right"><strong><i><%=FormatNumber(rsAktiva("SALDODEBET"),2)%></i></strong></th>
 						<th align="right"><strong><i><%=FormatNumber(rsAktiva("PERCENTAGE"),2)%></i></strong></th>
 						<th align="left"><strong><i>%</i></strong></th>
 					<%else%>
 						<td align="left"><%=rsAktiva("PERKIRAAN")%></td>
 						<%if Not rsAktiva("SALDODEBET") = "" then%>
-							<td align="right"><%=FormatNumber(rsAktiva("SALDODEBET"),0)%></td>
+							<td align="right"><%=FormatNumber(rsAktiva("SALDODEBET"),2)%></td>
 						<%end if%>
 						
 						<%if Not rsAktiva("SALDODEBET") = "" then%>
-							<td align="right"><%=FormatNumber(rsAktiva("SALDODEBET"),0)%></td>
+							<td align="right"><%=FormatNumber(rsAktiva("SALDODEBET"),2)%></td>
 						<%end if%>
 						
 						<%if Not rsAktiva("PERCENTAGE") = "" then%>
@@ -1087,18 +1087,18 @@ if rsAktiva.bof and rsAktiva.eof then
 						<td colspan="4"><strong><i><%=rsAktiva("PERKIRAAN")%></i></strong></td>
 					<%elseif rsAktiva("PERKIRAAN") = "Subtotal" then%>
 						<td align="left"><strong><i><%=rsAktiva("PERKIRAAN")%></i></strong></td>
-						<td align="right"><strong><i><%=FormatNumber(rsAktiva("SALDODEBET"),0)%></i></strong></td>
+						<td align="right"><strong><i><%=FormatNumber(rsAktiva("SALDODEBET"),2)%></i></strong></td>
 						<td align="right"><strong><i><%=FormatNumber(rsAktiva("PERCENTAGE"),2)%></i></strong></td>
 						<td align="left"><strong><i>%</i></strong></td>
 					<%elseif rsAktiva("PERKIRAAN") = "TOTAL AKTIVA" then%>
 						<th align="left"><strong><%=rsAktiva("PERKIRAAN")%></strong></th>
-						<th align="right"><strong><i><%=FormatNumber(rsAktiva("SALDODEBET"),0)%></i></strong></th>
+						<th align="right"><strong><i><%=FormatNumber(rsAktiva("SALDODEBET"),2)%></i></strong></th>
 						<th align="right"><strong><i><%=FormatNumber(rsAktiva("PERCENTAGE"),2)%></i></strong></th>
 						<th align="left"><strong><i>%</i></strong></th>
 					<%else%>
 						<td align="left"><%=rsAktiva("PERKIRAAN")%></td>
 						<%if Not rsAktiva("SALDODEBET") = "" then%>
-						<td align="right"><%=FormatNumber(rsAktiva("SALDODEBET"),0)%></td>
+						<td align="right"><%=FormatNumber(rsAktiva("SALDODEBET"),2)%></td>
 						<%end if%>
 						<%if Not rsAktiva("PERCENTAGE") = "" then%>
 						<td align="right"><%=FormatNumber(rsAktiva("PERCENTAGE"),2)%></td>
@@ -1148,18 +1148,18 @@ if rsPasiva.bof and rsPasiva.eof then
 						<td colspan="4"><strong><i><%=rsPasiva("PERKIRAAN")%></i></strong></td>
 					<%elseif rsPasiva("PERKIRAAN") = "Subtotal" then%>
 						<td align="left"><strong><i><%=rsPasiva("PERKIRAAN")%></i></strong></td>
-						<td align="right"><strong><i><%=FormatNumber(rsPasiva("SALDODEBET"),0)%></i></strong></td>
+						<td align="right"><strong><i><%=FormatNumber(rsPasiva("SALDODEBET"),2)%></i></strong></td>
 						<td align="right"><strong><i><%=FormatNumber(rsPasiva("PERCENTAGE"),2)%></i></strong></td>
 						<td align="left"><strong><i>%</i></strong></td>
 					<%elseif rsPasiva("PERKIRAAN") = "TOTAL PASIVA" then%>
 						<th align="left"><strong><%=rsPasiva("PERKIRAAN")%></strong></th>
-						<th align="right"><strong><i><%=FormatNumber(rsPasiva("SALDODEBET"),0)%></i></strong></th>
+						<th align="right"><strong><i><%=FormatNumber(rsPasiva("SALDODEBET"),2)%></i></strong></th>
 						<th align="right"><strong><i><%=FormatNumber(rsPasiva("PERCENTAGE"),2)%></i></strong></th>
 						<th align="left"><strong><i>%</i></strong></th>
 					<%else%>
 						<td align="left"><%=rsPasiva("PERKIRAAN")%></td>
 						<%if Not rsPasiva("SALDODEBET") = "" then%>
-						<td align="right"><%=FormatNumber(rsPasiva("SALDODEBET"),0)%></td>
+						<td align="right"><%=FormatNumber(rsPasiva("SALDODEBET"),2)%></td>
 						<%end if%>
 						<%if Not rsPasiva("PERCENTAGE") = "" then%>
 						<td align="right"><%=FormatNumber(rsPasiva("PERCENTAGE"),2)%></td>

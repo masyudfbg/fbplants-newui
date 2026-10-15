@@ -227,12 +227,12 @@ if rsTerimaTBS.bof and rsTerimaTBS.eof then
 		<td align="left"><%=rsTerimaTBS("afdeling")%></td>
 		<td align="left"><%=rsTerimaTBS("fieldcode")%></td>
 		<td align="left"><%=rsTerimaTBS("Plantingyear")%></td>
-		<td align="Right"><%=FormatNumber(rsTerimaTBS("JJG"),0)%></td>
-		<td align="Right"><%=FormatNumber(rsTerimaTBS("weightin"),0)%></td>
-		<td align="Right"><%=FormatNumber(rsTerimaTBS("weightout"),0)%></td>
-		<td align="Right"><%=FormatNumber(rsTerimaTBS("bruto"),0)%></td>
-		<td align="Right"><%=FormatNumber(rsTerimaTBS("Sortase"),0)%></td>
-		<td align="Right"><%= FormatNumber(cdbl(rsTerimaTBS("bruto")) - cdbl (rsTerimaTBS("sortase")),0)%></td>
+		<td align="Right"><%=FormatNumber(rsTerimaTBS("JJG"),2)%></td>
+		<td align="Right"><%=FormatNumber(rsTerimaTBS("weightin"),2)%></td>
+		<td align="Right"><%=FormatNumber(rsTerimaTBS("weightout"),2)%></td>
+		<td align="Right"><%=FormatNumber(rsTerimaTBS("bruto"),2)%></td>
+		<td align="Right"><%=FormatNumber(rsTerimaTBS("Sortase"),2)%></td>
+		<td align="Right"><%= FormatNumber(cdbl(rsTerimaTBS("bruto")) - cdbl (rsTerimaTBS("sortase")),2)%></td>
 	</tr>
 <%
             NO = NO + 1
@@ -252,9 +252,9 @@ set rsTerimaTBS = Nothing
 %>
          <tr bgcolor='#fff600'>
 		              <td align="Right" colspan="18"><strong> Total </strong></td>
-		              <td align="Right"><strong><%=FormatNumber(GrandTOTAL(1),0)%></strong></td>
-                      <td align="Right"><strong><%=FormatNumber(GrandTOTAL(2),0)%></strong></td>
-					  <td align="Right"><strong><%=FormatNumber(GrandTOTAL(3),0)%></strong></td>
+		              <td align="Right"><strong><%=FormatNumber(GrandTOTAL(1),2)%></strong></td>
+                      <td align="Right"><strong><%=FormatNumber(GrandTOTAL(2),2)%></strong></td>
+					  <td align="Right"><strong><%=FormatNumber(GrandTOTAL(3),2)%></strong></td>
 		 </tr>	
        </tbody>
 </table>

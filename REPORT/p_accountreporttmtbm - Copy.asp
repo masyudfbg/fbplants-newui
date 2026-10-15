@@ -687,8 +687,8 @@ End if
 	<tr>
 		<th style="background-color:#00A300;color:#fff;" colspan="<%= 2 + nSpanTotal %>" align="right">PRODUKSI - Ton</th>
 
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="3"><%=f_hidedecimaal(TprodtonBI) %> </th>
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="3"><%=f_hidedecimaal(TbudProdtonBI) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="3"><%=FbpNum2(f_hidedecimaal(TprodtonBI))%> </th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="3"><%=FbpNum2(f_hidedecimaal(TbudProdtonBI))%></th>
 		
 		<% 
 		' Prosentase 
@@ -703,8 +703,8 @@ End if
 		    <th style="background-color:#00A300;color:#fff;" align="right" ><%=formatnumber((cdbl(TprodtonBI) - cdbl(TbudProdtonBI)) / cdbl(TbudProdtonBI)*100,2) %></th>
 		<% End If %>
 		
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="3"><%=f_hidedecimaal(TprodtonSBI)%></th>
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="3"><%=f_hidedecimaal(TbudProdtonSBI) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="3"><%=FbpNum2(f_hidedecimaal(TprodtonSBI))%></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="3"><%=FbpNum2(f_hidedecimaal(TbudProdtonSBI))%></th>
 		
 		
 		<% 

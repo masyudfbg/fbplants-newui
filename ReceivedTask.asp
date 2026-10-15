@@ -1060,7 +1060,7 @@ If cmdView = "True" and LEN(TRIM(TempOrderNo)) > 4 and len(trim(TempOrderNo)) > 
 							</select>
 							<font color="#FF0000"></font>
 					</td>
-					<td align="Right" title="quantityreceived" valign="top"><%=rsMaRcv("quantityreceived")%></td>
+					<td align="Right" title="quantityreceived" valign="top"><%=FbpNum2(rsMaRcv("quantityreceived"))%></td>
 					
 					<input type="hidden" name="LineNoKey_<%=no%>" value="<%=rsMaRcv("Linenosource")%>"></td>
 					<input type="hidden" name="Ordersource_<%=no%>" value="<%=rsMaRcv("Ordersource")%>"></td>

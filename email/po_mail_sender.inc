@@ -52,7 +52,7 @@ End Function
 Function PoMail_Money(v)
 	Dim n : n = 0
 	If IsNumeric(v) Then n = CDbl(v)
-	If n = Int(n) Then PoMail_Money = PoMail_Num(n, 0) Else PoMail_Money = PoMail_Num(n, 2)
+	PoMail_Money = PoMail_Num(n, 2)   ' selalu ribuan + 2 desimal (sama dengan printingpo.asp)
 End Function
 
 Function PoMail_DateId(d)
@@ -187,8 +187,8 @@ Sub PoMail_BuildPdf(hdr, items, path)
 		xx = xx + cols(1)(0)
 		pdf.TextCenter xx + cols(2)(0) / 2, y + 10, 8, False, PoMail_Num(PoMail_D(it, "qty"), 2) : xx = xx + cols(2)(0)
 		pdf.TextCenter xx + cols(3)(0) / 2, y + 10, 8, False, pdf.Fit(PoMail_D(it, "uom"), cols(3)(0) - 4, 8, False) : xx = xx + cols(3)(0)
-		pdf.TextCenter xx + cols(4)(0) / 2, y + 10, 8, False, PoMail_Num(PoMail_D(it, "unitprice"), 0) : xx = xx + cols(4)(0)
-		pdf.TextRight xx + cols(5)(0) - 4, y + 10, 8, False, PoMail_Num(PoMail_D(it, "amount"), 0)
+		pdf.TextCenter xx + cols(4)(0) / 2, y + 10, 8, False, PoMail_Num(PoMail_D(it, "unitprice"), 2) : xx = xx + cols(4)(0)
+		pdf.TextRight xx + cols(5)(0) - 4, y + 10, 8, False, PoMail_Num(PoMail_D(it, "amount"), 2)
 		y = y + rowH
 	Next
 	y = y + 4
@@ -319,7 +319,7 @@ Function PoMail_PdfSumRow(pdf, cols, x, w, y, label, value, fullBorder)
 	lastW = cols(UBound(cols))(0)
 	If fullBorder Then pdf.Rect x, y, w, 14, "S" Else pdf.Rect x + w - lastW, y, lastW, 14, "S"
 	pdf.TextRight x + w - lastW - 4, y + 10, 8, False, label
-	pdf.TextRight x + w - 4, y + 10, 8, False, PoMail_Num(value, 0)
+	pdf.TextRight x + w - 4, y + 10, 8, False, PoMail_Num(value, 2)
 	PoMail_PdfSumRow = y + 14
 End Function
 
@@ -370,7 +370,7 @@ Function PoMail_BuildHtml(hdr, items, isTest, realTo, realCc, linkUrl)
 		Set it = items(i)
 		h = h & "<tr><td style=""" & td & "color:#5d6d69;"">" & (i + 1) & "</td>"
 		h = h & "<td style=""" & td & """>" & PoMail_H(PoMail_D(it, "itemname")) & IIfStr(PoMail_D(it, "desc") <> "", "<br><span style=""color:#5d6d69;font-size:12px;"">" & PoMail_H(PoMail_D(it, "desc")) & "</span>", "") & IIfStr(PoMail_D(it, "itemcode") <> "", "<br><span style=""color:#8a9a96;font-size:11px;"">" & PoMail_H(PoMail_D(it, "itemcode")) & "</span>", "") & "</td>"
-		h = h & "<td style=""" & tdr & """>" & PoMail_Qty(PoMail_D(it, "qty")) & "</td>"
+		h = h & "<td style=""" & tdr & """>" & PoMail_Num(PoMail_D(it, "qty"), 2) & "</td>"
 		h = h & "<td style=""" & td & """>" & PoMail_H(PoMail_D(it, "uom")) & "</td>"
 		h = h & "<td style=""" & tdr & """>" & PoMail_Money(PoMail_D(it, "unitprice")) & "</td>"
 		h = h & "<td style=""" & tdr & "font-weight:bold;"">" & PoMail_Money(PoMail_D(it, "amount")) & "</td></tr>"

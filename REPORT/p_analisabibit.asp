@@ -392,11 +392,11 @@ function launchwin(winurl,winname,winfeatures)
 	</tr>
 	<tr>
 		<th style="background-color:#00A300;color:#fff;" colspan="<%= 2 + nSpanTotal %>" align="right">JUMLAH BIBIT</th>
-		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vActualBibit,0)%></th>
-		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vBudgetBibit,0)%></th>
-		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vActualBibit,0)%></th>
-		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vBudgetBibit,0)%></th>
-		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vBudgetBibit,0)%></th>
+		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vActualBibit,2)%></th>
+		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vBudgetBibit,2)%></th>
+		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vActualBibit,2)%></th>
+		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vBudgetBibit,2)%></th>
+		<th style="background-color:#00A300;color:#fff;" colspan="2" align="right"><%=FormatNumber(vBudgetBibit,2)%></th>
 	</tr>
 	<tr>
 		<th style="background-color:#00A300;color:#fff;">CODE</th>
@@ -709,10 +709,10 @@ if Not rsBibit.eof then
 											   <td align="center"></td>					
 									   <% end if %>									   
 							<% end if %>
-						<td align="right"><%=FormatNumber(rsBibit("BI"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_bi),0)%></td>
-						<td align="right"><%=FormatNumber(rsBibit("budBI"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budbi),0)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("BI"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_bi),2)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("budBI"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budbi),2)%></td>
 						<% IF cdbl(rp_pkk_budbi) <> 0 and cdbl(rp_pkk_bi)=0 then %>
 						  <td align="right">-100</td>
 						<% ELSEIF cdbl(rp_pkk_budbi) = 0 and cdbl(rp_pkk_bi)<> 0 then %>  
@@ -720,12 +720,12 @@ if Not rsBibit.eof then
 						<% ELSEIF cdbl(rp_pkk_budbi) = 0 and cdbl(rp_pkk_bi) = 0 then %>  
 						   <td align="right">0</td>
 						<% ELSEIF cdbl(rp_pkk_budbi) <> 0 and cdbl(rp_pkk_bi) <> 0 then %>  
-						    <td align="right"><%=FormatNumber((cdbl(rp_pkk_budbi)-cdbl(rp_pkk_bi))/cdbl(rp_pkk_budbi)*100,0)%></td>
+						    <td align="right"><%=FormatNumber((cdbl(rp_pkk_budbi)-cdbl(rp_pkk_bi))/cdbl(rp_pkk_budbi)*100,2)%></td>
 						<% END IF %>  
-						<td align="right"><%=FormatNumber(rsBibit("SBI"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_sbi),0)%></td>
-						<td align="right"><%=FormatNumber(rsBibit("budBI"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budsbi),0)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("SBI"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_sbi),2)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("budBI"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budsbi),2)%></td>
 						<% IF cdbl(rp_pkk_budsbi) <> 0 and cdbl(rp_pkk_sbi)=0 then %>
 						  <td align="right">-100</td>
 						<% ELSEIF cdbl(rp_pkk_budsbi) = 0 and cdbl(rp_pkk_sbi)<> 0 then %>  
@@ -733,10 +733,10 @@ if Not rsBibit.eof then
 						<% ELSEIF cdbl(rp_pkk_budsbi) = 0 and cdbl(rp_pkk_sbi) = 0 then %>  
 						   <td align="right">0</td>
 						<% ELSEIF cdbl(rp_pkk_budsbi) <> 0 and cdbl(rp_pkk_sbi) <> 0 then %>  
-						    <td align="right"><%=FormatNumber((cdbl(rp_pkk_budsbi)-cdbl(rp_pkk_sbi))/cdbl(rp_pkk_budsbi)*100,0)%></td>
+						    <td align="right"><%=FormatNumber((cdbl(rp_pkk_budsbi)-cdbl(rp_pkk_sbi))/cdbl(rp_pkk_budsbi)*100,2)%></td>
 						<% END IF %> 
-						<td align="right"><%=FormatNumber(rsBibit("budTHN"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budTHN),0)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("budTHN"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budTHN),2)%></td>
 					 </tr> 
 	<%
 		        subBI     = subBI + Cdbl(rsBibit("BI"))
@@ -766,10 +766,10 @@ if Not rsBibit.eof then
 										%>
 						<tr bgcolor="#F4F4A0">
 							<td colspan="<%= 2 + nSpanTotal %>"  align="left"><strong>Total <%=codegroupName%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(subBI),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_bi),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(budsubBI),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budbi),0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(subBI),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_bi),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(budsubBI),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budbi),2)%></strong></td>
 							<% IF cdbl(sub_rp_pkk_budbi) = 0 and cdbl(sub_rp_pkk_bi) <> 0  then %>
 							      <td align="right"><strong>-100</strong></td>
 							<% ELSEIF cdbl(sub_rp_pkk_budbi) <> 0 and cdbl(sub_rp_pkk_bi) = 0  then %>
@@ -777,12 +777,12 @@ if Not rsBibit.eof then
 							<% ELSEIF cdbl(sub_rp_pkk_budbi) = 0 and cdbl(sub_rp_pkk_bi) = 0  then %>
 							      <td align="right"><strong>0</strong></td>
 							<% ELSEIF cdbl(sub_rp_pkk_budbi) <> 0 and cdbl(sub_rp_pkk_bi) <> 0  then %>
-							      <td align="right"><strong><%=FormatNumber((cdbl(sub_rp_pkk_budbi)-cdbl(sub_rp_pkk_bi))/cdbl(sub_rp_pkk_budbi)*100,0)%></strong></td>
+							      <td align="right"><strong><%=FormatNumber((cdbl(sub_rp_pkk_budbi)-cdbl(sub_rp_pkk_bi))/cdbl(sub_rp_pkk_budbi)*100,2)%></strong></td>
 							<% END IF %>	  
-							<td align="right"><strong><%=FormatNumber(cdbl(subSBI),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_sbi),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(budsubSBI),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budsbi),0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(subSBI),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_sbi),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(budsubSBI),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budsbi),2)%></strong></td>
 							<% IF cdbl(sub_rp_pkk_budsbi) = 0 and cdbl(sub_rp_pkk_sbi) <> 0  then %>
 							      <td align="right"><strong>-100</strong></td>
 							<% ELSEIF cdbl(sub_rp_pkk_budsbi) <> 0 and cdbl(sub_rp_pkk_sbi) = 0  then %>
@@ -790,10 +790,10 @@ if Not rsBibit.eof then
 							<% ELSEIF cdbl(sub_rp_pkk_budsbi) = 0 and cdbl(sub_rp_pkk_sbi) = 0  then %>
 							      <td align="right"><strong>0</strong></td>
 							<% ELSEIF cdbl(sub_rp_pkk_budsbi) <> 0 and cdbl(sub_rp_pkk_sbi) <> 0  then %>
-							      <td align="right"><strong><%=FormatNumber((cdbl(sub_rp_pkk_budsbi)-cdbl(sub_rp_pkk_sbi))/cdbl(sub_rp_pkk_budsbi)*100,0)%></strong></td>
+							      <td align="right"><strong><%=FormatNumber((cdbl(sub_rp_pkk_budsbi)-cdbl(sub_rp_pkk_sbi))/cdbl(sub_rp_pkk_budsbi)*100,2)%></strong></td>
 							<% END IF %>	
-							<td align="right"><strong><%=FormatNumber(cdbl(budSubthn),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budthn),0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(budSubthn),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budthn),2)%></strong></td>
 						</tr>
 					<% END IF %> 
 					   
@@ -994,10 +994,10 @@ if Not rsBibit.eof then
 											   <td align="center"></td>					
 									   <% end if %>									   
 							<% end if %>
-						<td align="right"><%=FormatNumber(rsBibit("BI"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_bi),0)%></td>
-						<td align="right"><%=FormatNumber(rsBibit("budBI"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budbi),0)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("BI"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_bi),2)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("budBI"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budbi),2)%></td>
 						<% IF cdbl(rp_pkk_budbi) <> 0 and cdbl(rp_pkk_bi)=0 then %>
 						  <td align="right">-100</td>
 						<% ELSEIF cdbl(rp_pkk_budbi) = 0 and cdbl(rp_pkk_bi)<> 0 then %>  
@@ -1005,12 +1005,12 @@ if Not rsBibit.eof then
 						<% ELSEIF cdbl(rp_pkk_budbi) = 0 and cdbl(rp_pkk_bi) = 0 then %>  
 						   <td align="right">0</td>
 						<% ELSEIF cdbl(rp_pkk_budbi) <> 0 and cdbl(rp_pkk_bi) <> 0 then %>  
-						    <td align="right"><%=FormatNumber((cdbl(rp_pkk_budbi)-cdbl(rp_pkk_bi))/cdbl(rp_pkk_budbi)*100,0)%></td>
+						    <td align="right"><%=FormatNumber((cdbl(rp_pkk_budbi)-cdbl(rp_pkk_bi))/cdbl(rp_pkk_budbi)*100,2)%></td>
 						<% END IF %>  
-						<td align="right"><%=FormatNumber(rsBibit("SBI"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_sbi),0)%></td>
-						<td align="right"><%=FormatNumber(rsBibit("budBI"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budsbi),0)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("SBI"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_sbi),2)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("budBI"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budsbi),2)%></td>
 						<% IF cdbl(rp_pkk_budsbi) <> 0 and cdbl(rp_pkk_sbi)=0 then %>
 						  <td align="right">-100</td>
 						<% ELSEIF cdbl(rp_pkk_budsbi) = 0 and cdbl(rp_pkk_sbi)<> 0 then %>  
@@ -1018,10 +1018,10 @@ if Not rsBibit.eof then
 						<% ELSEIF cdbl(rp_pkk_budsbi) = 0 and cdbl(rp_pkk_sbi) = 0 then %>  
 						   <td align="right">0</td>
 						<% ELSEIF cdbl(rp_pkk_budsbi) <> 0 and cdbl(rp_pkk_sbi) <> 0 then %>  
-						    <td align="right"><%=FormatNumber((cdbl(rp_pkk_budsbi)-cdbl(rp_pkk_sbi))/cdbl(rp_pkk_budsbi)*100,0)%></td>
+						    <td align="right"><%=FormatNumber((cdbl(rp_pkk_budsbi)-cdbl(rp_pkk_sbi))/cdbl(rp_pkk_budsbi)*100,2)%></td>
 						<% END IF %> 
-						<td align="right"><%=FormatNumber(rsBibit("budTHN"),0)%></td>
-						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budTHN),0)%></td>
+						<td align="right"><%=FormatNumber(rsBibit("budTHN"),2)%></td>
+						<td align="right"><%=FormatNumber(cdbl(rp_pkk_budTHN),2)%></td>
 					 </tr> 
 					  <%
 							    subBI     =  Cdbl(rsBibit("BI"))
@@ -1070,10 +1070,10 @@ end if
 				            <% if  v_txtjob = "--ALL--"  then %>
 								   <td colspan="<%= 2 + nSpanTotal %>" align="left"><strong>Total  <%=codegroupName%></strong></td>
 							
-							<td align="right"><strong><%=FormatNumber(cdbl(subBI),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_bi),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(budsubBI),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budbi),0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(subBI),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_bi),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(budsubBI),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budbi),2)%></strong></td>
 							<% IF cdbl(sub_rp_pkk_budbi) = 0 and cdbl(sub_rp_pkk_bi) <> 0  then %>
 							      <td align="right"><strong>-100</strong></td>
 							<% ELSEIF cdbl(sub_rp_pkk_budbi) <> 0 and cdbl(sub_rp_pkk_bi) = 0  then %>
@@ -1081,12 +1081,12 @@ end if
 							<% ELSEIF cdbl(sub_rp_pkk_budbi) = 0 and cdbl(sub_rp_pkk_bi) = 0  then %>
 							      <td align="right"><strong>0</strong></td>
 							<% ELSEIF cdbl(sub_rp_pkk_budbi) <> 0 and cdbl(sub_rp_pkk_bi) <> 0  then %>
-							      <td align="right"><strong><%=FormatNumber((cdbl(sub_rp_pkk_budbi)-cdbl(sub_rp_pkk_bi))/cdbl(sub_rp_pkk_budbi)*100,0)%></strong></td>
+							      <td align="right"><strong><%=FormatNumber((cdbl(sub_rp_pkk_budbi)-cdbl(sub_rp_pkk_bi))/cdbl(sub_rp_pkk_budbi)*100,2)%></strong></td>
 							<% END IF %>	  
-							<td align="right"><strong><%=FormatNumber(cdbl(subSBI),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_sbi),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(budsubSBI),0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budsbi),0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(subSBI),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_sbi),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(budsubSBI),2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(sub_rp_pkk_budsbi),2)%></strong></td>
 							<% IF cdbl(sub_rp_pkk_budsbi) = 0 and cdbl(sub_rp_pkk_sbi) <> 0  then %>
 							      <td align="right"><strong>-100</strong></td>
 							<% ELSEIF cdbl(sub_rp_pkk_budsbi) <> 0 and cdbl(sub_rp_pkk_sbi) = 0  then %>
@@ -1094,10 +1094,10 @@ end if
 							<% ELSEIF cdbl(sub_rp_pkk_budsbi) = 0 and cdbl(sub_rp_pkk_sbi) = 0  then %>
 							      <td align="right"><strong>0</strong></td>
 							<% ELSEIF cdbl(sub_rp_pkk_budsbi) <> 0 and cdbl(sub_rp_pkk_sbi) <> 0  then %>
-							      <td align="right"><strong><%=FormatNumber((cdbl(sub_rp_pkk_budsbi)-cdbl(sub_rp_pkk_sbi))/cdbl(sub_rp_pkk_budsbi)*100,0)%></strong></td>
+							      <td align="right"><strong><%=FormatNumber((cdbl(sub_rp_pkk_budsbi)-cdbl(sub_rp_pkk_sbi))/cdbl(sub_rp_pkk_budsbi)*100,2)%></strong></td>
 							<% END IF %>	
-							<td align="right"><strong><%=FormatNumber(cdbl(budSubthn),0)%></strong></td>
-							<td align="right"><%=FormatNumber(cdbl(sub_rp_pkk_budthn),0)%></td>
+							<td align="right"><strong><%=FormatNumber(cdbl(budSubthn),2)%></strong></td>
+							<td align="right"><%=FormatNumber(cdbl(sub_rp_pkk_budthn),2)%></td>
 							<% End if %>	
 						</tr>
 						<%
@@ -1125,10 +1125,10 @@ end if
 			<% Else %>
 			       <td colspan="<%= 2 + nSpanTotal %>" align="left"><strong>Total Biaya Pembibitan</strong></td>
 		    <% End if %>		   
-			<td align="right"><strong><%=FormatNumber(cdbl(totsubBI),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_bi),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(budtotsubBI),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_budbi),0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(totsubBI),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_bi),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(budtotsubBI),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_budbi),2)%></strong></td>
 			<% IF cdbl(tot_rp_pkk_budbi) = 0 and cdbl(tot_rp_pkk_bi) <> 0  then %>
 				<td align="right"><strong>-100</strong></td>
 			<% ELSEIF cdbl(tot_rp_pkk_budbi) <> 0 and cdbl(tot_rp_pkk_bi) = 0  then %>
@@ -1136,12 +1136,12 @@ end if
 			<% ELSEIF cdbl(tot_rp_pkk_budbi) = 0 and cdbl(tot_rp_pkk_bi) = 0  then %>
 				<td align="right"><strong>0</strong></td>
 			<% ELSEIF cdbl(tot_rp_pkk_budbi) <> 0 and cdbl(tot_rp_pkk_bi) <> 0  then %>
-				<td align="right"><strong><%=FormatNumber((cdbl(tot_rp_pkk_budbi)-cdbl(tot_rp_pkk_bi))/cdbl(tot_rp_pkk_budbi)*100,0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber((cdbl(tot_rp_pkk_budbi)-cdbl(tot_rp_pkk_bi))/cdbl(tot_rp_pkk_budbi)*100,2)%></strong></td>
 			<% END IF %>
-			<td align="right"><strong><%=FormatNumber(cdbl(totsubSBI),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_sbi),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(budtotsubSBI),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_budsbi),0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(totsubSBI),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_sbi),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(budtotsubSBI),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_budsbi),2)%></strong></td>
 			<% IF cdbl(tot_rp_pkk_budsbi) = 0 and cdbl(tot_rp_pkk_sbi) <> 0  then %>
 				<td align="right"><strong>-100</strong></td>
 			<% ELSEIF cdbl(tot_rp_pkk_budsbi) <> 0 and cdbl(tot_rp_pkk_sbi) = 0  then %>
@@ -1149,10 +1149,10 @@ end if
 			<% ELSEIF cdbl(tot_rp_pkk_budsbi) = 0 and cdbl(tot_rp_pkk_sbi) = 0  then %>
 				<td align="right"><strong>0</strong></td>
 			<% ELSEIF cdbl(tot_rp_pkk_budsbi) <> 0 and cdbl(tot_rp_pkk_sbi) <> 0  then %>
-				<td align="right"><strong><%=FormatNumber((cdbl(tot_rp_pkk_budsbi)-cdbl(tot_rp_pkk_sbi))/cdbl(tot_rp_pkk_budsbi)*100,0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber((cdbl(tot_rp_pkk_budsbi)-cdbl(tot_rp_pkk_sbi))/cdbl(tot_rp_pkk_budsbi)*100,2)%></strong></td>
 			<% END IF %>
-			<td align="right"><strong><%=FormatNumber(cdbl(budtotsubTHN),0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_budTHN),0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(budtotsubTHN),2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(cdbl(tot_rp_pkk_budTHN),2)%></strong></td>
 		</tr>
 	</thead>
 </table>

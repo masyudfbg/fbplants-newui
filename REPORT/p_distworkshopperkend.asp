@@ -962,16 +962,16 @@ if (rsDWPK.bof and rsDWPK.eof) then
 			End If
 %>
 				
-				<td align="right"><%=rsDWPK("TOTALVEHICLE")%></td>
+				<td align="right"><%=FbpNum2(rsDWPK("TOTALVEHICLE"))%></td>
 				
-				<td align="right"><%=FormatNumber(rsDWPK("HI"), 0)%></td>				
-				<td align="right"><%=FormatNumber(Total_Persen_HI, 0)%></td>
+				<td align="right"><%=FormatNumber(rsDWPK("HI"), 2)%></td>				
+				<td align="right"><%=FormatNumber(Total_Persen_HI, 2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsDWPK("SHI"), 0)%></td>
-				<td align="right"><%=FormatNumber(Total_Persen_SHI, 0)%></td>
+				<td align="right"><%=FormatNumber(rsDWPK("SHI"), 2)%></td>
+				<td align="right"><%=FormatNumber(Total_Persen_SHI, 2)%></td>
 
-				<td align="right"><%=FormatNumber(rsDWPK("SBI"), 0)%></td>
-				<td align="right"><%=FormatNumber(Total_Persen_SBI, 0)%></td>
+				<td align="right"><%=FormatNumber(rsDWPK("SBI"), 2)%></td>
+				<td align="right"><%=FormatNumber(Total_Persen_SBI, 2)%></td>
 			</tr>
 <%
 			GrandTotal_HI	=	GrandTotal_HI + Cdbl(rsDWPK("HI"))
@@ -987,13 +987,13 @@ if (rsDWPK.bof and rsDWPK.eof) then
 %>
 	<tr bgcolor="#F4F4A0">
 		<td align="center" colspan="<%=var_ColSpan%>"><strong>TOTAL</strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotal_Kend, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(Temp_Total_HI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_HI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(Temp_Total_SHI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_SHI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(Temp_Total_SBI, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_SBI, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotal_Kend, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Temp_Total_HI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_HI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Temp_Total_SHI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_SHI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Temp_Total_SBI, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotal_Persen_SBI, 2)%></strong></td>
 	</tr>
 <%End if%>
 </tbody>

@@ -349,7 +349,7 @@ else
 							<%If var_colspan = 1 Then%>
 								<td align="right"></td>
 							<%End If%>
-								<td align="right"><%=FormatNumber(rsrekap_bpjskes("bpjskesehatan"), 0)%></td>
+								<td align="right"><%=FormatNumber(rsrekap_bpjskes("bpjskesehatan"), 2)%></td>
 					</tr>
 										
 <%
@@ -367,7 +367,7 @@ else
 %>
 				<tr style="background-color:#F4F4A0;">
 					<td align="left" colspan="<%=var_colspan-1%>" style="padding-left:10px;"><strong>Grand Total</strong></td>
-					<td align="right"><strong><%=FormatNumber(grandtotalbpjskesehatan, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(grandtotalbpjskesehatan, 2)%></strong></td>
 				</tr>
 <%End if%>
      </tbody>

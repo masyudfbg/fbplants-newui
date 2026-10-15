@@ -56,7 +56,7 @@ End Function
 
 '---- Satu baris ringkasan biaya (label rata kanan + nilai berbingkai)
 Sub PpSumRow(label, value, cls)
-	Response.Write "<tr class=""po-sum " & cls & """><td colspan=""5"" class=""po-sum-label"">" & label & "</td><td class=""po-sum-val"">" & FormatNumber(cdbl(to_nol(value)), 0) & "</td></tr>" & vbCrLf
+	Response.Write "<tr class=""po-sum " & cls & """><td colspan=""5"" class=""po-sum-label"">" & label & "</td><td class=""po-sum-val"">" & FormatNumber(cdbl(to_nol(value)), 2) & "</td></tr>" & vbCrLf
 End Sub
 
  fcba = Request("fcba")
@@ -280,13 +280,14 @@ if podate_dd & "" <> "" then tglPO = podate_dd & " " & bulan(podate_mm) & " " & 
 			.po-scroll { margin-top: 8px; }
 			.po-items { width: 100%; border-collapse: collapse; font-size: 8pt; }
 			.po-items th { padding: 3px 4px; font-weight: 700; text-align: center; border: 1px solid #000; }
-			.po-items td { padding: 3px 4px; vertical-align: top; }
+			.po-items td { padding: 1px 6px; line-height: 1.25; vertical-align: top; }   /* baris item rapat */
 			.po-items tbody td { border-left: 1px solid #000; border-right: 1px solid #000; }
-			.po-items tbody tr:last-child td { padding-bottom: 8px; border-bottom: 1px solid #000; }
+			.po-items tbody tr:last-child td { padding-bottom: 4px; border-bottom: 1px solid #000; }
 			.po-items .c-no { width: 5%; text-align: center; }
 			.po-items .c-qty { width: 10%; text-align: center; }
 			.po-items .c-uom { width: 9%; text-align: center; }
 			.po-items .c-price { width: 13%; text-align: center; }
+			.po-items td.c-price { text-align: right; }   /* isi harga rata kanan, judul tetap di tengah */
 			.po-items .c-amt { width: 15%; text-align: right; }
 			.po-items .c-desc span { display: block; }
 			.po-sum td { padding: 2px 4px; }
@@ -305,6 +306,26 @@ if podate_dd & "" <> "" then tglPO = podate_dd & " " & bulan(podate_mm) & " " & 
 			.po-sign .name { margin-top: 62px; font-weight: 700; overflow-wrap: anywhere; padding: 0 4px; }
 			.po-empty { padding: 30px 0; text-align: center; color: #555; }
 
+			/* Cetak 1 halaman tanpa memperkecil font: jarak dirapatkan bertahap (kelas dipasang script saat cetak) */
+			body.A4.po-tight .sheet.po { padding: 6mm 9mm 6mm; }
+			body.po-tight .po { line-height: 1.2; }
+			body.po-tight .po-top { min-height: 0; }
+			body.po-tight .po-logo img { height: 15mm; }
+			body.po-tight .po-qr, body.po-tight .po-qr-svg { width: 17mm; } body.po-tight .po-qr-svg { height: 17mm; }
+			body.po-tight .po-addr { margin-top: 4px; } body.po-tight .po-addr p + p { margin-top: 3px; }
+			body.po-tight .po-info { margin-top: 6px; }
+			body.po-tight .po-kv { row-gap: 0; }
+			body.po-tight .po-scroll { margin-top: 5px; }
+			body.po-tight .po-items th { padding: 2px 4px; }
+			body.po-tight .po-items td { padding: 0 6px; }
+			body.po-tight .po-items tbody tr:last-child td { padding-bottom: 3px; }
+			body.po-tight .po-sum td { padding: 1px 4px; }
+			body.po-tight .po-block { margin-top: 8px; }
+			body.po-tight .po-sign { margin-top: 10px; }
+			body.po-tight .po-sign .name { margin-top: 48px; }
+			body.po-tighter .po { line-height: 1.15; }
+			body.po-tighter .po-block { margin-top: 5px; }
+			body.po-tighter .po-sign .name { margin-top: 40px; }
 			@media screen {
 				body.A4 .sheet.po { margin: 8mm auto; box-shadow: 0 2px 10px rgba(0, 0, 0, .18); }
 			}
@@ -437,8 +458,8 @@ if podate_dd & "" <> "" then tglPO = podate_dd & " " & bulan(podate_mm) & " " & 
 						<td class="c-desc"><span><%=PpH(arr_rdata(3, yy))%></span><%if Trim(arr_rdata(17, yy) & "") <> "" then%><span><%=PpH(arr_rdata(17, yy))%></span><%end if%></td>
 						<td class="c-qty"><%=formatnumber(cdbl(to_nol(arr_rdata(4, yy))), 2)%></td>
 						<td class="c-uom"><%=PpH(arr_rdata(5, yy))%></td>
-						<td class="c-price"><%=FormatNumber(cdbl(to_nol(arr_rdata(16, yy))), 0)%></td>
-						<td class="c-amt"><%=FormatNumber(cdbl(to_nol(arr_rdata(7, yy))), 0)%></td>
+						<td class="c-price"><%=FormatNumber(cdbl(to_nol(arr_rdata(16, yy))), 2)%></td>
+						<td class="c-amt"><%=FormatNumber(cdbl(to_nol(arr_rdata(7, yy))), 2)%></td>
 					</tr>
 <%
 	next
@@ -479,22 +500,28 @@ if podate_dd & "" <> "" then tglPO = podate_dd & " " & bulan(podate_mm) & " " & 
 		</article>
 		</section>
 		<script>
-		// Cetak satu halaman A4: bila isi lebih tinggi dari lembar, isi diperkecil secukupnya
-		// (lebar tetap penuh). Tampilan layar tidak berubah. Batas perkecil 55% agar tetap terbaca;
-		// PO yang sangat panjang tetap lanjut ke halaman berikutnya.
+		// Cetak satu halaman A4 tanpa memperkecil font: bila isi lebih tinggi dari lembar, jarak
+		// dirapatkan bertahap (po-tight, lalu po-tighter + baris kosong ganda di Catatan dipadatkan).
+		// Bila tetap tidak muat, PO lanjut ke halaman berikutnya. Tampilan layar tidak berubah.
 		(function () {
 			var art = document.getElementById('product-table');
 			if (!art) return;
-			var MM = 96 / 25.4, PAGE_H = 297, PAD_V = 19, BODY_W = 190, MIN_Z = 0.55;
-			function reset() { art.style.zoom = ''; art.style.width = ''; document.body.classList.remove('po-fit'); }
+			var MM = 96 / 25.4, PAGE_H = 296, rem = document.querySelector('.po-remarks'), remOrig = rem ? rem.textContent : null;
+			var body = document.body;
+			function padV() { var cs = getComputedStyle(document.querySelector('.sheet.po')); return (parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)) / MM; }
+			function fits() { return art.getBoundingClientRect().height / MM + padV() <= PAGE_H; }
+			function reset() {
+				body.classList.remove('po-fit', 'po-tight', 'po-tighter');
+				if (rem && remOrig !== null) rem.textContent = remOrig;
+			}
 			function fit() {
 				reset();
-				document.body.classList.add('po-fit'); // ukur dengan tata letak A4 walau jendela sempit (tata letak HP dimatikan)
-				var need = art.getBoundingClientRect().height / MM + PAD_V, avail = PAGE_H - PAD_V - 2;
-				if (need - PAD_V <= avail) return;
-				var z = Math.max(MIN_Z, avail / (need - PAD_V));
-				art.style.width = (BODY_W / z) + 'mm';
-				art.style.zoom = z;
+				body.classList.add('po-fit');   // ukur dengan tata letak A4 walau jendela sempit
+				if (fits()) return;
+				body.classList.add('po-tight');
+				if (fits()) return;
+				body.classList.add('po-tighter');
+				if (rem) rem.textContent = remOrig.replace(/\r?\n\s*\n/g, '\n');
 			}
 			window.addEventListener('beforeprint', fit);
 			window.addEventListener('afterprint', reset);

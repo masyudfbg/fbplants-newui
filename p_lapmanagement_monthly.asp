@@ -397,9 +397,9 @@ xAddEventListener(window, 'load',
 								While Not rsdtlupah.EOF %>
 								<tr id="tru<%=no%>" >
 									<td class="ratakiri"><strong><%=rsdtlupah("fchdrname")%>&nbsp;&nbsp;&nbsp;<%=rsdtlupah("fcshdrname")%></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=rsdtlupah("parentdesc")%></td> <!-- head -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),0)%></td>
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),2)%></td>
 									<td class="ratatengah"><%=rsdtlupah("parentcode")%></td>
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),0)%></td>
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),2)%></td>
 									<td class="ratakanan"><%if rsdtlupah("parentcode")=" " then %><strong><%=rsdtlupah("eng")%></strong><%else%><%=rsdtlupah("eng")%><%end if%></td>
 								<%
 									no = no +1
@@ -554,10 +554,10 @@ See the accompanying notes to financial statements which are an integral part of
 								While Not rsdtlupah.EOF %>
 								<tr id="tru<%=no%>" >
 									<td class="ratakiri"><strong><%=rsdtlupah("fchdrname")%>&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=rsdtlupah("parentdesc")%></td> <!-- head -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_blnini"),0)%></td>
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),0)%></td>
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_blnini"),2)%></td>
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),2)%></td>
 									<td class="ratakiri"></td>
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),0)%></td>
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),2)%></td>
 									<td class="ratakanan"><%if rsdtlupah("parentcode")=" " then %><strong><%=rsdtlupah("eng")%></strong><%else%><%=rsdtlupah("eng")%><%end if%></td>
 																<%
 									no = no +1
@@ -574,10 +574,10 @@ See the accompanying notes to financial statements which are an integral part of
 								</tr>
 								<tr id="tru<%=no%>" >
 									<td class="ratakiri"><strong>LABA (RUGI) BERJALAN</strong></td> <!-- head -->
-									<td class="ratakanan"><%=formatnumber(tamountblnini,0)%></td>
-									<td class="ratakanan"><%=formatnumber(tamountbi,0)%></td>
+									<td class="ratakanan"><%=formatnumber(tamountblnini,2)%></td>
+									<td class="ratakanan"><%=formatnumber(tamountbi,2)%></td>
 									<td class="ratakiri"></td>
-									<td class="ratakanan"><%=formatnumber(tamountbl,0)%></td>
+									<td class="ratakanan"><%=formatnumber(tamountbl,2)%></td>
 									<td class="ratakanan"><strong>PROFIT (LOSS) CURRENT YEAR</strong></td>
 								</tr>	
 								
@@ -766,9 +766,9 @@ See the accompanying notes to financial statements which are an integral part of
 								While Not rsdtlupah.EOF %>
 								<tr id="tru<%=no%>" >
 									<td class="ratakiri"><strong><%=rsdtlupah("fchdrname")%>&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=rsdtlupah("parentdesc")%></td> <!-- head -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),0)%></td>
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),2)%></td>
 									<td class="ratakiri"></td>
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),0)%></td>
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),2)%></td>
 									<td class="ratakanan"><%if rsdtlupah("parentcode")=" " then %><strong><%=rsdtlupah("eng")%></strong><%else%><%=rsdtlupah("eng")%><%end if%></td>
 									<%
 									no = no +1
@@ -788,23 +788,23 @@ See the accompanying notes to financial statements which are an integral part of
 								</tr>
 								<tr id="tru<%=no%>" >
 									<td class="ratakiri"><strong>SALDO BERJALAN</strong></td> <!-- head -->
-									<td class="ratakanan"><%=formatnumber(tamountbi,0)%></td>
+									<td class="ratakanan"><%=formatnumber(tamountbi,2)%></td>
 									<td class="ratakiri"></td>
-									<td class="ratakanan"><%=formatnumber(tamountbl,0)%></td>
+									<td class="ratakanan"><%=formatnumber(tamountbl,2)%></td>
 									<td class="ratakanan"><strong>CURRENT BALANCE</strong></td>
 								</tr>	
 								<tr id="tru<%=no+1%>" >
 									<td class="ratakiri"><strong>SALDO AWAL</strong></td> <!-- head -->
-									<td class="ratakanan"><%=formatnumber(tawalkas_bi,0)%></td>
+									<td class="ratakanan"><%=formatnumber(tawalkas_bi,2)%></td>
 									<td class="ratakiri"></td>
-									<td class="ratakanan"><%=formatnumber(tawalkas_bl,0)%></td>
+									<td class="ratakanan"><%=formatnumber(tawalkas_bl,2)%></td>
 									<td class="ratakanan"><strong>BEGINNING BALANCE</strong></td>
 								</tr>
 								<tr id="tru<%=no+2%>" >
 									<td class="ratakiri"><strong>SALDO AKHIR</strong></td> <!-- head -->
-									<td class="ratakanan"><%=formatnumber(takhirkas_bi,0)%></td>
+									<td class="ratakanan"><%=formatnumber(takhirkas_bi,2)%></td>
 									<td class="ratakiri"></td>
-									<td class="ratakanan"><%=formatnumber(takhirkas_bl,0)%></td>
+									<td class="ratakanan"><%=formatnumber(takhirkas_bl,2)%></td>
 									<td class="ratakanan"><strong>ENDING BALANCE</strong></td>
 								</tr>								
 							</table>
@@ -936,8 +936,8 @@ See the accompanying notes to financial statements which are an integral part of
 								<%end if%>
 								
 									<td class="ratakiri"><strong><%=rsdtlupah("parentdesc")%></strong>&nbsp;&nbsp;&nbsp;<%=rsdtlupah("groupname")%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=rsdtlupah("fccode")%>&nbsp;<%=rsdtlupah("fcname")%></td> <!-- head -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("current_amount"),0)%></td> <!-- Current -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("begin_amount"),0)%></td> <!-- begin -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("current_amount"),2)%></td> <!-- Current -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("begin_amount"),2)%></td> <!-- begin -->
 									
 									<%
 									no = no +1
@@ -1022,9 +1022,9 @@ See the accompanying notes to financial statements which are an integral part of
 								 
 									
 									<td class="ratakiri"><%if rsdtlupah("rowtype")="2" then %><strong><%=rsdtlupah("description")%></strong><%else%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=rsdtlupah("acccode")%>&nbsp;&nbsp;&nbsp;<%=rsdtlupah("description")%><%end if%></td>
-									<td class="ratakanan"><%if rsdtlupah("rowtype")="2" then %>&nbsp;<%else%><%=formatnumber(rsdtlupah("begin_amount"),0)%><%end if%></td>
-									<td class="ratakanan"><%if rsdtlupah("rowtype")="2" then %>&nbsp;<%else%><%=formatnumber(rsdtlupah("current_amount"),0)%><%end if%></td>
-									<td class="ratakanan"><%if rsdtlupah("rowtype")="2" then %>&nbsp;<%else%><%=formatnumber(rsdtlupah("until_amount"),0)%><%end if%></td>
+									<td class="ratakanan"><%if rsdtlupah("rowtype")="2" then %>&nbsp;<%else%><%=formatnumber(rsdtlupah("begin_amount"),2)%><%end if%></td>
+									<td class="ratakanan"><%if rsdtlupah("rowtype")="2" then %>&nbsp;<%else%><%=formatnumber(rsdtlupah("current_amount"),2)%><%end if%></td>
+									<td class="ratakanan"><%if rsdtlupah("rowtype")="2" then %>&nbsp;<%else%><%=formatnumber(rsdtlupah("until_amount"),2)%><%end if%></td>
 								
 								<%
 									no = no +1
@@ -1334,35 +1334,35 @@ See the accompanying notes to financial statements which are an integral part of
 									<td class="ratakiri"  style="white-space: nowrap;"><strong><%=rsdtlupah("fchdrname")%><%=rsdtlupah("fcsbhdrname")%><%=rsdtlupah("fcssbhdrname")%><%=rsdtlupah("fcname")%></strong><%=rsdtlupah("jobcode")%>&nbsp;<%=rsdtlupah("jobname")%></td> <!-- head -->
 									<!-- BL -->
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("output_bl"),2)%></td> <!-- Qty.Rel -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),0)%></td> <!-- Rp.Rel -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rpqty_bl"),0)%></td> <!-- Rp/Qty.Rel -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bl"),2)%></td> <!-- Rp.Rel -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rpqty_bl"),2)%></td> <!-- Rp/Qty.Rel -->
 									
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_output_bl"),2)%></td> <!-- Qty.Bud -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_bl"),0)%></td> <!-- Rp.Bud -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_bl"),0)%></td> <!-- Rp/Qty.Bud -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_bl"),2)%></td> <!-- Rp.Bud -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_bl"),2)%></td> <!-- Rp/Qty.Bud -->
 									
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("var_bl"),2)%></td> <!-- BL.Var -->
 									
 									<!-- BI -->
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("output_bi"),2)%></td> <!-- Qty.Rel -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),0)%></td> <!-- Rp.Rel -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rpqty_bi"),0)%></td> <!-- Rp/Qty.Rel -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_bi"),2)%></td> <!-- Rp.Rel -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rpqty_bi"),2)%></td> <!-- Rp/Qty.Rel -->
 									
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_output_bi"),2)%></td> <!-- Qty.Bud -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_bi"),0)%></td> <!-- Rp.Bud -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_bi"),0)%></td> <!-- Rp/Qty.Bud -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_bi"),2)%></td> <!-- Rp.Bud -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_bi"),2)%></td> <!-- Rp/Qty.Bud -->
 									
 									
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("var_bi"),2)%></td> <!-- BI.Var -->
 									
 									<!-- SBI -->
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("output_sbi"),2)%></td> <!-- Qty.Rel -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_sbi"),0)%></td> <!-- Rp.Rel -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rpqty_sbi"),0)%></td> <!-- Rp/Qty.Rel -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("amount_sbi"),2)%></td> <!-- Rp.Rel -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rpqty_sbi"),2)%></td> <!-- Rp/Qty.Rel -->
 									
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_output_sbi"),2)%></td> <!-- Qty.Bud -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_sbi"),0)%></td> <!-- Rp.Bud -->
-									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_sbi"),0)%></td> <!-- Rp/Qty.Bud -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_amount_sbi"),2)%></td> <!-- Rp.Bud -->
+									<td class="ratakanan"><%=formatnumber(rsdtlupah("rkb_rpqty_sbi"),2)%></td> <!-- Rp/Qty.Bud -->
 									
 									
 									<td class="ratakanan"><%=formatnumber(rsdtlupah("var_sbi"),2)%></td> <!-- SBI.Var -->
@@ -1386,7 +1386,7 @@ See the accompanying notes to financial statements which are an integral part of
 									<td class="ratakiri" >BALANCE</td> <!-- head -->
 									<!-- BL -->
 									<td class="ratakanan"></td> <!-- Qty.Rel -->
-									<td class="ratakanan"><%=formatnumber(tamountbl,0)%></td> <!-- Rp.Rel -->
+									<td class="ratakanan"><%=formatnumber(tamountbl,2)%></td> <!-- Rp.Rel -->
 									<td class="ratakanan"></td> <!-- Rp/Qty.Rel -->
 									
 									<td class="ratakanan"></td> <!-- Qty.Bud -->
@@ -1397,7 +1397,7 @@ See the accompanying notes to financial statements which are an integral part of
 									
 									<!-- BI -->
 									<td class="ratakanan"></td> <!-- Qty.Rel -->
-									<td class="ratakanan"><%=formatnumber(tamountbi,0)%></td> <!-- Rp.Rel -->
+									<td class="ratakanan"><%=formatnumber(tamountbi,2)%></td> <!-- Rp.Rel -->
 									<td class="ratakanan"></td> <!-- Rp/Qty.Rel -->
 									
 									<td class="ratakanan"></td> <!-- Qty.Bud -->
@@ -1409,7 +1409,7 @@ See the accompanying notes to financial statements which are an integral part of
 									
 									<!-- SBI -->
 									<td class="ratakanan"></td> <!-- Qty.Rel -->
-									<td class="ratakanan"><%=formatnumber(tamountsbi,0)%></td> <!-- Rp.Rel -->
+									<td class="ratakanan"><%=formatnumber(tamountsbi,2)%></td> <!-- Rp.Rel -->
 									<td class="ratakanan"></td> <!-- Rp/Qty.Rel -->
 									
 									<td class="ratakanan"></td> <!-- Qty.Bud -->

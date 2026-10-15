@@ -287,7 +287,7 @@ var showstoinfo = function (oXML) {
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-docdetail.css?v=20261009b" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-doc"<% end if %>>
@@ -990,8 +990,8 @@ Set oRecordSet = Nothing
 					<td align="left" title="GRN CODE" valign="top"><%=rsGRN("receivenotecode")%></td>
 					<td align="left" title="ITEMCODE" valign="top"><%=rsGRN("ITEMCODE")%></td>
 					<td align="left" title="ITEMNAME" valign="top"><%=rsGRN("stockname")%></td>
-					<td align="right" title="QUANTITY" valign="top"><%=rsGRN("Quantity")%></td>
-					<td align="right" title="AMOUNT" valign="top"><%=FormatNumber(rsGRN("Amount"),0)%></td>
+					<td align="right" title="QUANTITY" valign="top"><%=FbpNum2(rsGRN("Quantity"))%></td>
+					<td align="right" title="AMOUNT" valign="top"><%=FormatNumber(rsGRN("Amount"),2)%></td>
 			<%End if%>
 
 			<%if SudahClose<>"Y" Then%>
@@ -1001,7 +1001,7 @@ Set oRecordSet = Nothing
 			        <td align="left" title="GRN CODE" valign="top"><%=rsGRN("RECEIVENOTECODE")%></td>
 			        <td align="left" title="ITEMCODE" valign="top"><%=rsGRN("ITEMCODE")%></td>
 			        <td align="left" title="ITEMNAME" valign="top"><%=rsGRN("STOCKNAME")%></td>
-			        <td align="right" title="QUANTITY" valign="top"><%=rsGRN("Quantity")%></td>
+			        <td align="right" title="QUANTITY" valign="top"><%=FbpNum2(rsGRN("Quantity"))%></td>
 			        <td align="right" title="UNITPRICE" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("unitprice"))),2)%></td>
                     <td align="center">
 						<input type="checkbox" id="cb_<%=no%>" name="cb_<%=no%>" class="item" value = "" onclick="handleClick(this);" onchange="CheckCheckboxes1(this)">

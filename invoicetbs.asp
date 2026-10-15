@@ -305,7 +305,7 @@ var reloadInvCode = function () {
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-docdetail.css?v=20261009b" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-doc"<% end if %>>
@@ -1344,18 +1344,18 @@ End if
 		<tr>
 			<%IF SudahClose<>"Y" then%>
 				<td align="right" title="" valign="top" colspan="5"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity11),0)%> </font></td>
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity_adjj),0)%> </font></td>
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity),0)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity11),2)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity_adjj),2)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity),2)%> </font></td>
 				<td align="right" title="" valign="top"><font id="ttladj" face="Verdana" size="1" style="font-weight: bold">0</font></td>
 				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"></font></td>
 				<td align="right" title="" valign="top"><font id="ttlamt" face="Verdana" size="1" style="font-weight: bold">0</font></td>
 				<td colspan="4"></td> 
 			<%Else%>
 				<td align="right" title="" valign="top" colspan="7"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity1),0)%> </font></td>
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity_adj),0)%> </font></td>
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity),0)%> </font></td>				
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity1),2)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity_adj),2)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_Quantity),2)%> </font></td>				
 				<td></td>
 				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=formatnumber(cdbl(v_amount),2)%> </font></td>
 			<%End if%>

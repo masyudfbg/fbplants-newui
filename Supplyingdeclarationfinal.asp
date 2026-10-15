@@ -1003,9 +1003,9 @@ If cmdView = "True" and LEN(TRIM(txtDocumentNo)) > 0 and len(trim(transdate)) > 
 				<%End if%>
 				
 				<%if SudahClose<>"Y" Then%>
-					<td align="Right" title="Declaration Type" valign="top"><%=rsGRN("declarationtype")%></td>
+					<td align="Right" title="Declaration Type" valign="top"><%=FbpNum2(rsGRN("declarationtype"))%></td>
 					<td align="left" title="Fieldcode" valign="top"><%=rsGRN("fieldcode")%></td>
-					<td align="Right" title="Remarks" valign="top"><%=rsGRN("remarks")%></td>
+					<td align="Right" title="Remarks" valign="top"><%=FbpNum2(rsGRN("remarks"))%></td>
 					<td align="left" title="Total Stand" valign="top"><%=rsGRN("quantity")%></td>
 					<td align="left" width="2">
 		        		<input type="text" name="quantity_<%=no%>" width="2" value="<%=rsGRN("quantity")%>">

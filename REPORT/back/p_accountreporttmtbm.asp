@@ -465,20 +465,20 @@ end if
 	<tr>
 		<th style="background-color:#00A300;color:#fff;" colspan="<%= 2 + nSpanTotal %>" align="right">LUAS Ha</th>
 
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(luasHA,0) %></th>
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(budHA,0) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(luasHA,2) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(budHA,2) %></th>
 		<th style="background-color:#00A300;color:#fff;" align="right" ></th>
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(luasHA,0)%></th>
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(budHA,0) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(luasHA,2)%></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(budHA,2) %></th>
 		<th style="background-color:#00A300;color:#fff;" align="right" ></th>
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(budHA,0) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(budHA,2) %></th>
 
 	</tr>
 	<tr>
 		<th style="background-color:#00A300;color:#fff;" colspan="<%= 2 + nSpanTotal %>" align="right">PRODUKSI - Ton</th>
 
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TprodtonBI,0) %> </th>
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TbudProdtonBI,0) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TprodtonBI,2) %> </th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TbudProdtonBI,2) %></th>
 		
 		<% ' Prosentase %>
 		<% if cdbl(TbudProdtonBI) = 0 and cdbl(TprodtonBI) > 0 then %>
@@ -491,8 +491,8 @@ end if
 		    <th style="background-color:#00A300;color:#fff;" align="right" ><%=formatnumber((cdbl(TprodtonBI) - cdbl(TbudProdtonBI)) / cdbl(TbudProdtonBI)*100,2) %></th>
 		<% End If %>
 		
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TprodtonSBI,0)%></th>
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TbudProdtonSBI,0) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TprodtonSBI,2)%></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TbudProdtonSBI,2) %></th>
 		
 		
 		<% ' Prosentase SBI %>
@@ -507,7 +507,7 @@ end if
 		<% End If %>
 		
 		
-		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TbudProdtonthn,0) %></th>
+		<th style="background-color:#00A300;color:#fff;" align="right" colspan="2"><%=formatnumber(TbudProdtonthn,2) %></th>
 		
 
 	</tr>
@@ -1054,18 +1054,18 @@ end if
 
 							
 				   
-				   <td align="right"><%=formatnumber(rsha("totalBI"),0)%></td>	
+				   <td align="right"><%=formatnumber(rsha("totalBI"),2)%></td>	
 				 
 				   <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-							<td align="right"><%= formatnumber( cdbl(rp_kg_BI),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rp_kg_BI),2) %></td>
 					<% else  %> 
-							<td align="right"><%= formatnumber( cdbl(rp_ha_BI),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rp_ha_BI),2) %></td>
 					<% end if %>	
-				   <td align="right"><%=formatnumber(rsha("budBI"),0)%></td>
+				   <td align="right"><%=formatnumber(rsha("budBI"),2)%></td>
 				   <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-							<td align="right"><%= formatnumber( cdbl(rp_kg_budBI),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rp_kg_budBI),2) %></td>
 					<% else  %> 
-							<td align="right"><%= formatnumber( cdbl(rp_ha_budBI),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rp_ha_budBI),2) %></td>
 					<% end if %>
 					
 					<% ' prosentase BI %>
@@ -1085,18 +1085,18 @@ end if
 					
 					
 					
-				   <td align="right"><%=formatnumber(rsha("totalSBI"),0)%></td>
+				   <td align="right"><%=formatnumber(rsha("totalSBI"),2)%></td>
                     <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-							<td align="right"><%= formatnumber( cdbl(rp_kg_SBI),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rp_kg_SBI),2) %></td>
 					<% else  %> 
-							<td align="right"><%= formatnumber( cdbl(rp_ha_SBI),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rp_ha_SBI),2) %></td>
 					<% end if %>	
 					
-				   <td align="right"><%=formatnumber(rsha("budSBI"),0)%></td>
+				   <td align="right"><%=formatnumber(rsha("budSBI"),2)%></td>
 				   <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-							<td align="right"><%= formatnumber( cdbl(rp_kg_budSBI),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rp_kg_budSBI),2) %></td>
 					<% else  %> 
-							<td align="right"><%= formatnumber( cdbl(rp_ha_budSBI),0) %></td>
+							<td align="right"><%= formatnumber( cdbl(rp_ha_budSBI),2) %></td>
 					<% end if %>
 					
 					<% ' prosentase SBI %>
@@ -1114,11 +1114,11 @@ end if
 					    <% end if %>
 				    <% End If %>
 					
-					<td align="right"><%=formatnumber(rsha("Budthn"),0)%></td>
+					<td align="right"><%=formatnumber(rsha("Budthn"),2)%></td>
 					<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-						      <td align="right"><%= formatnumber( cdbl(rsha("Budthn")) / cdbl(budProdkgthn),0) %></td>
+						      <td align="right"><%= formatnumber( cdbl(rsha("Budthn")) / cdbl(budProdkgthn),2) %></td>
 					<% else  %> 
-					   		  <td align="right"><%= formatnumber( cdbl(rsha("Budthn")) / cint(budHA),0) %></td>
+					   		  <td align="right"><%= formatnumber( cdbl(rsha("Budthn")) / cint(budHA),2) %></td>
 					<% end if %>
 				<%   
 			   ELSE %>
@@ -1190,18 +1190,18 @@ end if
 								%>
 								
 								<td style="background-color:#F4F4A0" colspan="<%= 2 + nSpanTotal %>"><b> Total&nbsp;<%=grpDesc%> </td>	
-								<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subAmtgrpBI,0)%></td>
+								<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subAmtgrpBI,2)%></td>
 								<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(sub_rp_kg_BI),0) %></td>
+									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(sub_rp_kg_BI),2) %></td>
 								<% else  %> 
-									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(sub_rp_ha_BI),0) %></td>
+									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(sub_rp_ha_BI),2) %></td>
 								<% end if %>
 								
-								<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subbudgrpBI,0)%></td>
+								<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subbudgrpBI,2)%></td>
 								<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(sub_rp_kg_budBI),0) %></td>
+									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(sub_rp_kg_budBI),2) %></td>
 								<% else  %> 
-									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(sub_rp_ha_budBI),0) %></td>
+									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(sub_rp_ha_budBI),2) %></td>
 								<% end if %>
 								
 								<% ' prosentase BI %>
@@ -1213,25 +1213,25 @@ end if
 								   <td align="right">0</td>  
 								<% elseif cdbl(sub_rp_kg_budBI) > 0  and cdbl(sub_rp_kg_BI) > 0 then %>   
 									<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( (cdbl(sub_rp_kg_budBI) - cdbl(sub_rp_kg_BI))/cdbl(sub_rp_kg_budBI)*100,0) %></td>
+									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( (cdbl(sub_rp_kg_budBI) - cdbl(sub_rp_kg_BI))/cdbl(sub_rp_kg_budBI)*100,2) %></td>
 									<% else  %> 
-									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( (cdbl(sub_rp_ha_budBI) - cdbl(sub_rp_ha_BI))/cdbl(sub_rp_ha_budBI)*100,0) %></td>
+									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( (cdbl(sub_rp_ha_budBI) - cdbl(sub_rp_ha_BI))/cdbl(sub_rp_ha_budBI)*100,2) %></td>
 									<% end if %>
 								<% End If %>
 								
 								
-								<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subAmtgrpSBI,0)%></td>
+								<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subAmtgrpSBI,2)%></td>
 								<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(sub_rp_kg_SBI),0) %></td>
+									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(sub_rp_kg_SBI),2) %></td>
 								<% else  %> 
-									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(sub_rp_ha_SBI),0) %></td>
+									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(sub_rp_ha_SBI),2) %></td>
 								<% end if %>
 								
-								<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subbudgrpSBI,0)%></td>
+								<td  style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subbudgrpSBI,2)%></td>
 								<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(sub_rp_kg_budSBI),0) %></td>
+									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(sub_rp_kg_budSBI),2) %></td>
 								<% else  %> 
-									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(sub_rp_ha_budSBI),0) %></td>
+									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(sub_rp_ha_budSBI),2) %></td>
 								<% end if %>
 								
 								<% ' prosentase SBI %>
@@ -1243,16 +1243,16 @@ end if
 								   <td align="right">0</td>  
 								<% elseif cdbl(sub_rp_kg_budSBI) > 0  and cdbl(sub_rp_kg_SBI) > 0 then %>   
 									<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( (cdbl(sub_rp_kg_budSBI) - cdbl(sub_rp_kg_SBI))/cdbl(sub_rp_kg_budSBI)*100,0) %></td>
+									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( (cdbl(sub_rp_kg_budSBI) - cdbl(sub_rp_kg_SBI))/cdbl(sub_rp_kg_budSBI)*100,2) %></td>
 									<% else  %> 
-									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( (cdbl(sub_rp_ha_budSBI) - cdbl(sub_rp_ha_SBI))/cdbl(sub_rp_ha_budSBI)*100,0) %></td>
+									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( (cdbl(sub_rp_ha_budSBI) - cdbl(sub_rp_ha_SBI))/cdbl(sub_rp_ha_budSBI)*100,2) %></td>
 									<% end if %>
 								<% End If %>
-								<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subbudgrpthn,0)%></td>
+								<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(subbudgrpthn,2)%></td>
 								 <%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(subbudgrpthn) / cdbl(budProdkgthn),0) %></td>
+									  <td style="background-color:#F4F4A0"  align="right"><b><%= formatnumber( cdbl(subbudgrpthn) / cdbl(budProdkgthn),2) %></td>
 								<% else  %> 
-									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(subbudgrpthn) / cint(budHA),0) %></td>
+									  <td  style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(subbudgrpthn) / cint(budHA),2) %></td>
 								<% end if %>
 								
 							 </tr>
@@ -1540,18 +1540,18 @@ end if
 
 
 						   
-						   <td align="right"><%=formatnumber(rsha("totalBI"),0)%></td>	
+						   <td align="right"><%=formatnumber(rsha("totalBI"),2)%></td>	
 						   
 						   <%  if  ( cdgrp = "PNN" or cdgrp = "GC" or rsha("jobheading")= "PNN" or rsha("jobheading")= "GC") and v_vStatus = "TM" then  %>
-									<td align="right"><%= formatnumber( cdbl(rp_kg_BI),0) %></td>
+									<td align="right"><%= formatnumber( cdbl(rp_kg_BI),2) %></td>
 							<% else  %> 
-									<td align="right"><%= formatnumber( cdbl(rp_ha_BI),0) %></td>
+									<td align="right"><%= formatnumber( cdbl(rp_ha_BI),2) %></td>
 							<% end if %>	
-						   <td align="right"><%=formatnumber(rsha("budBI"),0)%></td>
+						   <td align="right"><%=formatnumber(rsha("budBI"),2)%></td>
 						   <%  if  ( cdgrp = "PNN" or cdgrp = "GC" or rsha("jobheading")= "PNN" or rsha("jobheading")= "GC") and v_vStatus = "TM" then  %>
-									<td align="right"><%= formatnumber( cdbl(rp_kg_budBI),0) %></td>
+									<td align="right"><%= formatnumber( cdbl(rp_kg_budBI),2) %></td>
 							<% else  %> 
-									<td align="right"><%= formatnumber( cdbl(rp_ha_budBI),0) %></td>
+									<td align="right"><%= formatnumber( cdbl(rp_ha_budBI),2) %></td>
 							<% end if %>
 							
 							<% ' prosentase BI %>
@@ -1571,18 +1571,18 @@ end if
 							
 							
 							
-						   <td align="right"><%=formatnumber(rsha("totalSBI"),0)%></td>
+						   <td align="right"><%=formatnumber(rsha("totalSBI"),2)%></td>
 							<%  if  ( cdgrp = "PNN" or cdgrp = "GC" or rsha("jobheading")= "PNN" or rsha("jobheading")= "GC") and v_vStatus = "TM" then  %>
-									<td align="right"><%= formatnumber( cdbl(rp_kg_SBI),0) %></td>
+									<td align="right"><%= formatnumber( cdbl(rp_kg_SBI),2) %></td>
 							<% else  %> 
-									<td align="right"><%= formatnumber( cdbl(rp_ha_SBI),0) %></td>
+									<td align="right"><%= formatnumber( cdbl(rp_ha_SBI),2) %></td>
 							<% end if %>	
 							
-						   <td align="right"><%=formatnumber(rsha("budSBI"),0)%></td>
+						   <td align="right"><%=formatnumber(rsha("budSBI"),2)%></td>
 						   <%  if  ( cdgrp = "PNN" or cdgrp = "GC" or rsha("jobheading")= "PNN" or rsha("jobheading")= "GC") and v_vStatus = "TM" then  %>
-									<td align="right"><%= formatnumber( cdbl(rp_kg_budSBI),0) %></td>
+									<td align="right"><%= formatnumber( cdbl(rp_kg_budSBI),2) %></td>
 							<% else  %> 
-									<td align="right"><%= formatnumber( cdbl(rp_ha_budSBI),0) %></td>
+									<td align="right"><%= formatnumber( cdbl(rp_ha_budSBI),2) %></td>
 							<% end if %>
 							
 							<% ' prosentase SBI %>
@@ -1600,11 +1600,11 @@ end if
 								<% end if %>
 							<% End If %>
 							
-							<td align="right"><%=formatnumber(rsha("Budthn"),0)%></td>
+							<td align="right"><%=formatnumber(rsha("Budthn"),2)%></td>
 							<%  if  ( cdgrp = "PNN" or cdgrp = "GC" or rsha("jobheading")= "PNN" or rsha("jobheading")= "GC") and v_vStatus = "TM" then  %>
-									  <td align="right"><%= formatnumber( cdbl(rsha("Budthn")) / cdbl(budProdkgthn),0) %></td>
+									  <td align="right"><%= formatnumber( cdbl(rsha("Budthn")) / cdbl(budProdkgthn),2) %></td>
 							<% else  %> 
-									  <td align="right"><%= formatnumber( cdbl(rsha("Budthn")) / cint(budHA),0) %></td>
+									  <td align="right"><%= formatnumber( cdbl(rsha("Budthn")) / cint(budHA),2) %></td>
 							<% end if %>
 							
 					   </tr>
@@ -1673,17 +1673,17 @@ end if
 								   end if
 		 %>
 		<td style="background-color:#F4F4A0" colspan="<%= 2 + nSpanTotal %>"><b> Grand Total&nbsp;</td>	
-		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpBI,0)%></td>
+		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpBI,2)%></td>
 		<%  if   v_vStatus = "TM" then  %>
-				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_kg_BI),0) %></b></td>
+				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_kg_BI),2) %></b></td>
 		<% else  %> 
-			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_ha_BI),0) %></b></td>
+			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_ha_BI),2) %></b></td>
 		<% end if %>
-		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudgrpBI,0)%></td>
+		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudgrpBI,2)%></td>
 		<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_kg_budBI),0) %></b></td>
+				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_kg_budBI),2) %></b></td>
 		<% else  %> 
-			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_ha_budBI),0) %></b></td>
+			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_ha_budBI),2) %></b></td>
 		<% end if %>
 		
 		
@@ -1698,17 +1698,17 @@ end if
 				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( (cdbl(grandtot_rp_kg_budBI) - cdbl(grandtot_rp_kg_BI) )/cdbl(grandtot_rp_kg_budBI)*100,2) %></td>
 		<% End If %>
 		
-		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpSBI,0)%></td>
+		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRAmtgrpSBI,2)%></td>
 		<%  if   v_vStatus = "TM" then  %>
-				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_kg_SBI),0) %></b></td>
+				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_kg_SBI),2) %></b></td>
 		<% else  %> 
-			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_ha_SBI),0) %></b></td>
+			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_ha_SBI),2) %></b></td>
 		<% end if %>
-		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudgrpSBI,0)%></td>
+		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudgrpSBI,2)%></td>
 		<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_kg_budSBI),0) %></b></td>
+				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_kg_budSBI),2) %></b></td>
 		<% else  %> 
-			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_ha_budSBI),0) %></b></td>
+			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(grandtot_rp_ha_budSBI),2) %></b></td>
 		<% end if %>
 		
 		
@@ -1723,12 +1723,12 @@ end if
 				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( (cdbl(grandtot_rp_kg_budSBI) - cdbl(grandtot_rp_kg_SBI) )/cdbl(grandtot_rp_kg_budSBI)*100,2) %></td>
 		<% End If %>
 		
-		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudgrpthn,0)%></td>
+		<td style="background-color:#F4F4A0" align="right"><b><%=formatnumber(GRbudgrpthn,2)%></td>
 		<%  if  ( cdgrp = "PNN" or cdgrp = "GC" ) and v_vStatus = "TM" then  %>
-				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(GRbudgrpthn) / cdbl(budProdkgthn),0) %></b></td>
+				<td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(GRbudgrpthn) / cdbl(budProdkgthn),2) %></b></td>
 		<% else  %> 
 		       <% IF  cdbl(luasHA) > 0 then %>
-			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(GRbudgrpthn) / cint(luasHA),0) %></b></td>
+			   <td style="background-color:#F4F4A0" align="right"><b><%= formatnumber( cdbl(GRbudgrpthn) / cint(luasHA),2) %></b></td>
 			   <% Else %>
 			   <td style="background-color:#F4F4A0" align="right"><b>0</b></td>
 			   <% End If %>

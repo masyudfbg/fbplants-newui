@@ -1233,16 +1233,16 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Titik tanam -->
 			<td align="center"><%=rsEPS("plantingpoint")%></td>
-			<td align="center"><%=FormatNumber(SPH_TANAM,0)%></td>
+			<td align="center"><%=FormatNumber(SPH_TANAM,2)%></td>
 
 			<!-- Program Sisip -->
-			<td align="center"><%=formatnumber(PKK_SISIP,0)%></td>
-			<td align="center"><%=formatnumber(SPH_SISIP,0)%></td>
+			<td align="center"><%=formatnumber(PKK_SISIP,2)%></td>
+			<td align="center"><%=formatnumber(SPH_SISIP,2)%></td>
 
 			<!-- Awal -->
 			<td align="center"><%=formatnumber(rsEPS("lineha"),2)%></td>
 			<td align="center"><%=rsEPS("linepkk")%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Awal,0)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Awal,2)%></td>
 
 			<!-- HA -->
 			<td align="center"><%=rsEPS("HECTARE_JAN")%></td>
@@ -1259,8 +1259,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Jan,2)%></td>
-			<td align="center"><%=formatnumber(TotalPKK_Akhir_Jan,0)%></td>
-			<td align="center"><%=formatnumber(TotalSPH_Akhir_Jan,0)%></td>
+			<td align="center"><%=formatnumber(TotalPKK_Akhir_Jan,2)%></td>
+			<td align="center"><%=formatnumber(TotalSPH_Akhir_Jan,2)%></td>
 
 			<!-- Februari -->
 			<!-- Mutas HA -->
@@ -1279,8 +1279,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Feb,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Feb,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Feb,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Feb,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Feb,2)%></td>
 
 			<!-- Maret -->
 			<!-- Mutas HA -->
@@ -1299,8 +1299,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Mar,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Mar,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Mar,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Mar,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Mar,2)%></td>
 
 			<!-- April -->
 			<!-- Mutas HA -->
@@ -1319,8 +1319,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Apr,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Apr,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Apr,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Apr,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Apr,2)%></td>
 
 			<!-- Mei -->
 			<!-- Mutas HA -->
@@ -1339,8 +1339,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Mei,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Mei,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Mei,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Mei,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Mei,2)%></td>
 
 			<!-- Juni -->
 			<!-- Mutas HA -->
@@ -1359,8 +1359,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Jun,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Jun,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Jun,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Jun,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Jun,2)%></td>
 
 			<!-- Juli -->
 			<!-- Mutas HA -->
@@ -1379,8 +1379,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Jul,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Jul,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Jul,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Jul,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Jul,2)%></td>
 
 			<!-- Agustus -->
 			<!-- Mutas HA -->
@@ -1399,8 +1399,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Aug,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Aug,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Aug,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Aug,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Aug,2)%></td>
 
 			<!-- September -->
 			<!-- Mutas HA -->
@@ -1419,8 +1419,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Sep,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Sep,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Sep,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Sep,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Sep,2)%></td>
 
 			<!-- Oktober -->
 			<!-- Mutas HA -->
@@ -1439,8 +1439,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Okt,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Okt,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Okt,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Okt,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Okt,2)%></td>
 
 			<!-- November -->
 			<!-- Mutas HA -->
@@ -1459,8 +1459,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Nov,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Nov,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Nov,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Nov,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Nov,2)%></td>
 
 			<!-- Desember -->
 			<!-- Mutas HA -->
@@ -1479,8 +1479,8 @@ if rsEPS.bof and rsEPS.eof then
 
 			<!-- Akhir -->
 			<td align="center"><%=FormatNumber(TotalHA_Akhir_Des,2)%></td>
-			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Des,0)%></td>
-			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Des,0)%></td>
+			<td align="center"><%=FormatNumber(TotalPKK_Akhir_Des,2)%></td>
+			<td align="center"><%=FormatNumber(TotalSPH_Akhir_Des,2)%></td>
 
 			<!-- Final -->
 			<!-- Mutas HA -->
@@ -1489,9 +1489,9 @@ if rsEPS.bof and rsEPS.eof then
 			<td align="center">0</td>
 
 			<!-- Mutasi Pokok -->
-			<td align="center"><%=FormatNumber(FinalSisip,0)%></td>
-			<td align="center"><%=FormatNumber(FinalCompleting,0)%></td>
-			<td align="center"><%=FormatNumber(FinalTB,0)%></td>
+			<td align="center"><%=FormatNumber(FinalSisip,2)%></td>
+			<td align="center"><%=FormatNumber(FinalCompleting,2)%></td>
+			<td align="center"><%=FormatNumber(FinalTB,2)%></td>
 
 
 			<!-- Kurang -->
@@ -1515,141 +1515,141 @@ set rsEPS = Nothing
 	<tr>
 		<td colspan="6" align="center" style="background: #F4F4A0;">TOTAL</td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_TANAM,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_TANAM,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_SISIP,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_SISIP,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_TANAM,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_TANAM,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_SISIP,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_SISIP,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AWAL_JAN,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AWAL_JAN,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AWAL_JAN,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AWAL_JAN,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AWAL_JAN,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_JAN,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_JAN,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_JAN,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_JAN,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_JAN,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_JAN,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_JAN,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_JAN,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_JAN,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_JAN,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_JAN,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_JAN,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_JAN,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_JAN,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_FEB,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_FEB,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_FEB,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_FEB,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_FEB,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_FEB,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_FEB,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_FEB,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_FEB,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_FEB,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_FEB,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_FEB,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_FEB,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_FEB,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_MAR,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_MAR,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_MAR,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_MAR,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_MAR,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_MAR,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_MAR,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_MAR,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_MAR,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_MAR,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_MAR,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_MAR,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_MAR,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_MAR,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_APR,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_APR,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_APR,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_APR,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_APR,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_APR,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_APR,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_APR,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_APR,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_APR,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_APR,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_APR,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_APR,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_APR,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_MEI,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_MEI,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_MEI,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_MEI,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_MEI,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_MEI,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_MEI,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_MEI,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_MEI,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_MEI,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_MEI,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_MEI,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_MEI,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_MEI,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_JUN,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_JUN,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_JUN,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_JUN,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_JUN,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_JUN,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_JUN,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_JUN,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_JUN,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_JUN,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_JUN,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_JUN,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_JUN,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_JUN,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_JUL,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_JUL,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_JUL,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_JUL,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_JUL,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_JUL,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_JUL,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_JUL,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_JUL,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_JUL,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_JUL,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_JUL,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_JUL,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_JUL,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_AUG,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_AUG,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_AUG,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_AUG,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_AUG,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_AUG,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_AUG,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_AUG,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_AUG,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_AUG,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_AUG,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_AUG,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_AUG,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_AUG,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_SEP,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_SEP,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_SEP,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_SEP,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_SEP,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_SEP,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_SEP,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_SEP,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_SEP,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_SEP,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_SEP,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_SEP,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_SEP,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_SEP,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_OKT,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_OKT,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_OKT,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_OKT,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_OKT,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_OKT,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_OKT,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_OKT,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_OKT,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_OKT,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_OKT,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_OKT,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_OKT,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_OKT,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_NOV,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_NOV,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_NOV,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_NOV,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_NOV,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_NOV,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_NOV,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_NOV,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_NOV,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_NOV,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_NOV,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_NOV,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_NOV,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_NOV,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_DES,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_DES,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_DES,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_DES,0)%></td>
-		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_DES,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_DES,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_DES,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_DES,2)%></td>
+		<td colspan="2" align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_DES,2)%></td>
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_AKHIR_DES,2)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_DES,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_DES,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_PKK_AKHIR_DES,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SPH_AKHIR_DES,2)%></td>
 
 		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_HA_TAMBAH_MUTASI,2)%></td>
 		<td align="center" style="background: #F4F4A0;">0.00</td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_MUTASI,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_MUTASI,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_MUTASI,0)%></td>
-		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_MUTASI,0)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_SISIP_POKOK_MUTASI,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_COMP_POKOK_MUTASI,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_TB_POKOK_MUTASI,2)%></td>
+		<td align="center" style="background: #F4F4A0;"><%=FormatNumber(TOTAL_KURANG_POKOK_MUTASI,2)%></td>
 		<td style="background: #F4F4A0;"></td>
 	</tr>
 </tbody>

@@ -83,7 +83,7 @@ function getTotal()
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-docdetail.css?v=20261009b" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <style>
@@ -375,11 +375,11 @@ Dim totalcpo,air,caco3,keterangan,jammulai,jamselesai,sqldelete,pottbskeluar,adj
 	</div>
 
 	<div class="lhp-kpis">
-		<div class="lhp-kpi"><span><i class="fa fa-truck" aria-hidden="true"></i> TBS Diterima</span><b><%=FormatNumber(to_nol(nettotbs), 0)%></b><small>KG</small></div>
-		<div class="lhp-kpi"><span><i class="fa fa-tint" aria-hidden="true"></i> CPO Dikirim</span><b><%=FormatNumber(to_nol(nettocpo), 0)%></b><small>KG</small></div>
-		<div class="lhp-kpi"><span><i class="fa fa-circle" aria-hidden="true"></i> Kernel Dikirim</span><b><%=FormatNumber(to_nol(nettokernel), 0)%></b><small>KG</small></div>
-		<div class="lhp-kpi"><span><i class="fa fa-archive" aria-hidden="true"></i> Cangkang Dikirim</span><b><%=FormatNumber(to_nol(nettockg), 0)%></b><small>KG</small></div>
-		<div class="lhp-kpi"><span><i class="fa fa-users" aria-hidden="true"></i> Hari Kerja</span><b><%=FormatNumber(lhpHk, 0)%></b><small>HK shift 1 + 2</small></div>
+		<div class="lhp-kpi"><span><i class="fa fa-truck" aria-hidden="true"></i> TBS Diterima</span><b><%=FormatNumber(to_nol(nettotbs), 2)%></b><small>KG</small></div>
+		<div class="lhp-kpi"><span><i class="fa fa-tint" aria-hidden="true"></i> CPO Dikirim</span><b><%=FormatNumber(to_nol(nettocpo), 2)%></b><small>KG</small></div>
+		<div class="lhp-kpi"><span><i class="fa fa-circle" aria-hidden="true"></i> Kernel Dikirim</span><b><%=FormatNumber(to_nol(nettokernel), 2)%></b><small>KG</small></div>
+		<div class="lhp-kpi"><span><i class="fa fa-archive" aria-hidden="true"></i> Cangkang Dikirim</span><b><%=FormatNumber(to_nol(nettockg), 2)%></b><small>KG</small></div>
+		<div class="lhp-kpi"><span><i class="fa fa-users" aria-hidden="true"></i> Hari Kerja</span><b><%=FormatNumber(lhpHk, 2)%></b><small>HK shift 1 + 2</small></div>
 	</div>
 
 <form name="frmEntry" method="post" action="lhpinsertproses.asp" class="lhp-form">

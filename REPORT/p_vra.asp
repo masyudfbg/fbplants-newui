@@ -563,8 +563,8 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 				<% end if %>
 				
 				
-					<td align="right"><%=formatnumber( cdbl(rsha("KMHMBI")),0)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("LTRBI")),0)%></td></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("KMHMBI")),2)%></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("LTRBI")),2)%></td></td>
 				    <%
 					If Cstr(rsha("vehiclegrouptype") & "") = Cstr("KR") Then
 						If Cdbl(rsha("LTRBI")) > 0 Then
@@ -581,8 +581,8 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 					End If
 					%>
 				    <td align="right"><%=formatnumber( cdbl(rasioBI),2)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("KMHMSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("LTRSBI")),0)%></td></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("KMHMSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("LTRSBI")),2)%></td></td>
 					<%
 					If Cstr(rsha("vehiclegrouptype") & "") = Cstr("KR") Then
 						If Cdbl(rsha("LTRSBI")) > 0 Then
@@ -599,20 +599,20 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 					End If
 					%>
 					<td align="right"><%=formatnumber( cdbl(rasioSBI),2)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("KMHMbudTHN")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("SALBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BBMBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("spartBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("REPBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("KMHMbudTHN")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("SALBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BBMBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("spartBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("REPBI")),2)%></td>
 					<% actualBI = cdbl(rsha("SALBI")) + cdbl(rsha("BBMBI")) + cdbl(rsha("spartBI")) + cdbl(rsha("REPBI"))  %>
-					<td align="right"><%=formatnumber( cdbl(actualBI),0)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("SALSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BBMSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("spartSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("REPSBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(actualBI),2)%></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("SALSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BBMSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("spartSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("REPSBI")),2)%></td>
 					<% actualSBI = cdbl(rsha("SALSBI")) + cdbl(rsha("BBMSBI")) + cdbl(rsha("spartSBI")) + cdbl(rsha("REPSBI"))  %>
-					<td align="right"><%=formatnumber( cdbl(actualSBI),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(actualSBI),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),2)%></td>
 					<% if cdbl(rsha("KMHMBI")) > 0 then
 					        totactualBI = cdbl(actualBI)/ cdbl(rsha("KMHMBI")) 
 					   else 
@@ -624,12 +624,12 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 					        totactualSBI  ="0"
 				       end if
 					   %>
-					<td align="right"><%=formatnumber( cdbl(totactualBI),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(totactualSBI),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(totactualBI),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(totactualSBI),2)%></td>
 					<% IF cdbl(rsha("KMHMbudTHN")) > 0 THEN %>
-					  <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN"))/cdbl(rsha("KMHMbudTHN")),0)%></td>
+					  <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN"))/cdbl(rsha("KMHMbudTHN")),2)%></td>
 					<% Else %>
-					   <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),0)%></td>
+					   <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),2)%></td>
 					<% End If %>
 				<tr>	
 				  <%
@@ -657,8 +657,8 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 			        if  cdgrp <> "" then  %>
 					    <tr>
 						   <td style="background-color:#F4F4A0" align="center" colspan="<%= 3 + nSpanTotal %>"><b>SUB TOTAL&nbsp;&nbsp;<%=cdgrpdesc%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrBI),2)%></td>
 						   <%If val_vehiclegrouptype = "KR" Then%>
 							   <%If subltrBI > 0 Then%>
 								<td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber(cdbl(subKMHMBI)/cdbl(subltrBI), 2)%></td>
@@ -672,8 +672,8 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 								<td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber(0, 2)%></td>
 							   <%End If%>
 						   <%End if%>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrSBI),0)%></td>						   
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrSBI),2)%></td>						   
 						   <!--<td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrasioSBI),2)%></td>-->
 						   <%If val_vehiclegrouptype = "KR" Then%>
 							   <%If subltrSBI > 0 Then%>
@@ -690,16 +690,16 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 						   <%End if%>
 						   
 						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMbudTHN),2)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualSBI),2)%></td>
 						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),2)%></td>
 						     <% if cdbl(subKMHMBI) > 0 then
 									subtotactualBI = cdbl(subactualBI)/ cdbl(subKMHMBI)
@@ -712,12 +712,12 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 									subtotactualSBI  ="0"
 							   end if
 							%>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualSBI),2)%></td>
 						   <% if cdbl(subKMHMbudTHN) > 0 then %>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN)/cdbl(subKMHMbudTHN),0)%></td>  
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN)/cdbl(subKMHMbudTHN),2)%></td>  
 						   <% Else %>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),0)%></td> 
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),2)%></td> 
 						   <% End if %> 
 					   </tr> 
 				<%	end if  %>  
@@ -885,8 +885,8 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 					<% end if %>	
 
 				<% end if %>
-					<td align="right"><%=formatnumber( cdbl(rsha("KMHMBI")),0)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("LTRBI")),0)%></td></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("KMHMBI")),2)%></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("LTRBI")),2)%></td></td>
 				    <%
 					Dim vgType
 					If IsNull(rsha("vehiclegrouptype")) Then
@@ -910,8 +910,8 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 					End If
 					%>
 				    <td align="right"><%=formatnumber( cdbl(rasioBI),2)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("KMHMSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("LTRSBI")),0)%></td></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("KMHMSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("LTRSBI")),2)%></td></td>
 					<%
 					If rsha("vehiclegrouptype") = "KR" Then
 						If Cdbl(rsha("LTRSBI")) > 0 Then
@@ -928,20 +928,20 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 					End If
 					%>
 					<td align="right"><%=formatnumber( cdbl(rasioSBI),2)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("KMHMbudTHN")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("SALBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BBMBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("spartBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("REPBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("KMHMbudTHN")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("SALBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BBMBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("spartBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("REPBI")),2)%></td>
 					<% actualBI = cdbl(rsha("SALBI")) + cdbl(rsha("BBMBI")) + cdbl(rsha("spartBI")) + cdbl(rsha("REPBI"))  %>
-					<td align="right"><%=formatnumber( cdbl(actualBI),0)%></td>
-				    <td align="right"><%=formatnumber( cdbl(rsha("SALSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("BBMSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("spartSBI")),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("REPSBI")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(actualBI),2)%></td>
+				    <td align="right"><%=formatnumber( cdbl(rsha("SALSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("BBMSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("spartSBI")),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("REPSBI")),2)%></td>
 					<% actualSBI = cdbl(rsha("SALSBI")) + cdbl(rsha("BBMSBI")) + cdbl(rsha("spartSBI")) + cdbl(rsha("REPSBI"))  %>
-					<td align="right"><%=formatnumber( cdbl(actualSBI),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(actualSBI),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),2)%></td>
 					<% if cdbl(rsha("KMHMBI")) > 0 then
 					        totactualBI = cdbl(actualBI)/ cdbl(rsha("KMHMBI")) 
 					   else 
@@ -953,12 +953,12 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 					        totactualSBI  ="0"
 				       end if
 					%>
-					<td align="right"><%=formatnumber( cdbl(totactualBI),0)%></td>
-					<td align="right"><%=formatnumber( cdbl(totactualSBI),0)%></td>
+					<td align="right"><%=formatnumber( cdbl(totactualBI),2)%></td>
+					<td align="right"><%=formatnumber( cdbl(totactualSBI),2)%></td>
 					<% IF cdbl(rsha("KMHMbudTHN")) > 0 THEN %>
-					  <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN"))/cdbl(rsha("KMHMbudTHN")),0)%></td>
+					  <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN"))/cdbl(rsha("KMHMbudTHN")),2)%></td>
 					<% Else %>
-					   <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),0)%></td>
+					   <td align="right"><%=formatnumber( cdbl(rsha("AMTbudTHN")),2)%></td>
 					<% End If %>
 					
 				<tr>	
@@ -1015,8 +1015,8 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 	%>	
 					    <tr>
 						   <td style="background-color:#F4F4A0" align="center" colspan="<%= 3 + nSpanTotal %>"><b>SUB TOTAL&nbsp;&nbsp;<%=cdgrpdesc%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrBI),2)%></td>
 						   <%
 					If val_vehiclegrouptype & "" = "KR" Then%>
 						<%If subltrSBI > 0 Then%>
@@ -1031,8 +1031,8 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 							<td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber(0, 2)%></td>
 						<%End If%>
 					<%End if%>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subKMHMSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subltrSBI),2)%></td>
 						   <!--<td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrasioSBI),2)%></td>-->
 						   <%If val_vehiclegrouptype = "KR" Then%>
 							   <%If subltrSBI > 0 Then%>
@@ -1048,16 +1048,16 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 							   <%End If%>
 						   <%End if%>
 						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubKMHMbudTHN),2)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepSBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subSALSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subbbmSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subspartSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subrepSBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subactualSBI),2)%></td>
 						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),2)%></td>
 						   <% if cdbl(subKMHMBI) > 0 then
 									subtotactualBI = cdbl(subactualBI)/ cdbl(subKMHMBI)
@@ -1070,12 +1070,12 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 									subtotactualSBI  ="0"
 							   end if
 							%>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualBI),0)%></td>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualSBI),0)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualBI),2)%></td>
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subtotactualSBI),2)%></td>
 						   <% if cdbl(subKMHMbudTHN) > 0 then %>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN)/cdbl(subKMHMbudTHN),0)%></td>  
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN)/cdbl(subKMHMbudTHN),2)%></td>  
 						   <% Else %>
-						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),0)%></td> 
+						   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(subAMTbudTHN),2)%></td> 
 						   <% End if %>   
 					   </tr> 
 					   <tr>
@@ -1084,26 +1084,26 @@ DIM q,FcbaName,CompanyName,MgrName,KTUName,CropName,FcbaType,rsJob
 	
    <tr>
        <td style="background-color:#F4F4A0" align="center" colspan="<%= 3 + nSpanTotal %>"><b>GRAND TOTAL</td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubKMHMBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubltrBI),0)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubKMHMBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubltrBI),2)%></td>
 	   <td style="background-color:#F4F4A0" align="right"><b>&nbsp;</td>	
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubKMHMSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubltrSBI),0)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubKMHMSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubltrSBI),2)%></td>
 	   <!--<td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrasioSBI),2)%></td>-->
 
 	   <td style="background-color:#F4F4A0" align="right"><b>&nbsp;</td>
 	   
 	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubKMHMbudTHN),2)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubSALBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubbbmBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubspartBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrepBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubactualBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubSALSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubbbmSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubspartSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrepSBI),0)%></td>
-	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubactualSBI),0)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubSALBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubbbmBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubspartBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrepBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubactualBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubSALSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubbbmSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubspartSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubrepSBI),2)%></td>
+	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotSubactualSBI),2)%></td>
 	   <td style="background-color:#F4F4A0"  align="right"><b><%=formatnumber( cdbl(TotsubAMTbudTHN),2)%></td>
 	   <td style="background-color:#F4F4A0"  align="right"><b>&nbsp;</td>
 	   <td style="background-color:#F4F4A0"  align="right"><b>&nbsp;</td>

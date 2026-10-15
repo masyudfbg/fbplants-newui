@@ -502,9 +502,9 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 				<td align="left"><%=rsCatuBeras("EMPLOYEENAME")%></td>
 				<td align="center"><%=rsCatuBeras("PRESENTGRADE")%></td>
 				<td align="center"><%=rsCatuBeras("MARITALSTATUS")%></td>
-				<td align="right" width="4%"><%=r_hkkj%></td>
-				<td align="right" width="4%"><%=r_mkp1%></td>
-				<td align="right" width="4%"><%=r_hkberas%></td>
+				<td align="right" width="4%"><%=FbpNum2(r_hkkj)%></td>
+				<td align="right" width="4%"><%=FbpNum2(r_mkp1)%></td>
+				<td align="right" width="4%"><%=FbpNum2(r_hkberas)%></td>
 				
 				<td align="right" width="4%"><%=formatnumber(v_pekerja,2)%></td>
 				<td align="right" width="4%"><%=formatnumber(v_pasangan,2)%></td>
@@ -512,10 +512,10 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 				<!--
 				
 				<td align="right" width="4%"><%=formatnumber(V_total,2)%></td>
-				<td align="right" width="4%"><%=rsCatuBeras("PEKERJA")%></td>
-				<td align="right" width="4%"><%=rsCatuBeras("PASANGAN")%></td>
-				<td align="right" width="4%"><%=rsCatuBeras("TANGGUNGAN")%></td>
-				<td align="right" width="4%"><%=rsCatuBeras("TOTAL")%></td>
+				<td align="right" width="4%"><%=FbpNum2(rsCatuBeras("PEKERJA"))%></td>
+				<td align="right" width="4%"><%=FbpNum2(rsCatuBeras("PASANGAN"))%></td>
+				<td align="right" width="4%"><%=FbpNum2(rsCatuBeras("TANGGUNGAN"))%></td>
+				<td align="right" width="4%"><%=FbpNum2(rsCatuBeras("TOTAL"))%></td>
 				<td align="right" width="4%"><%=formatnumber(r_pot_beras_kg,2)%></td>
 				-->
 				<td align="right" width="4%"><%=formatnumber(r_total_kg,2)%></td>
@@ -551,16 +551,16 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="6"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=gt_TotalPekerja%></strong></td>
-				<td align="right"><strong><%=gt_TotalPasangan%></strong></td>
-				<td align="right"><strong><%=gt_TotalTanggungan%></strong></td>
+				<td align="right"><strong><%=FbpNum2(gt_TotalPekerja)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(gt_TotalPasangan)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(gt_TotalTanggungan)%></strong></td>
 				<!--
 				
-				<td align="right"><strong><%=gt_total%></strong></td>
-				<td align="right"><strong><%=gt_mkp1%></strong></td>
-				<td align="right"><strong><%=gt_pot_beras_kg%></strong></td>
+				<td align="right"><strong><%=FbpNum2(gt_total)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(gt_mkp1)%></strong></td>
+				<td align="right"><strong><%=FbpNum2(gt_pot_beras_kg)%></strong></td>
 				-->
-				<td align="right"><strong><%=gt_total_kg%></strong></td>
+				<td align="right"><strong><%=FbpNum2(gt_total_kg)%></strong></td>
 				<td colspan="2">&nbsp;</td>
 			</tr>
             </tbody>

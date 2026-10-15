@@ -158,10 +158,10 @@ end if
 			<td align="left"><%=rsPOOut("SUPPLIERNAME")%></td>
 			<td align="left"><%=rsPOOut("STOCKCODE")%></td>
 			<td align="left"><%=rsPOOut("STOCKNAME")%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("QUANTITYORDER")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("QUANTITYRECEIVE")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("QUANTITYSISA")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsPOOut("LAMA")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("QUANTITYORDER")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("QUANTITYRECEIVE")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("QUANTITYSISA")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsPOOut("LAMA")),2)%></td>
 			<td align="left"><%=rsPOOut("REMARKS")%></td>
 		  </tr>	
 		      

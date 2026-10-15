@@ -532,11 +532,11 @@ For ii = LBound(arr_data, 2) To UBound(arr_data, 2)
 		response.write "<td rowspan='"&RowSpan_B&"'>" & arr_data(2, ii) & "</td>"
 	end if
 %>
-			<td align="right"><%=FormatNumber(arr_data(4, ii),0)%></td>
+			<td align="right"><%=FormatNumber(arr_data(4, ii),2)%></td>
 			<td align="center"><%=arr_data(3, ii)%></td>
 			<td align="center"><%=arr_data(5, ii)%></td>
 			<td align="center"><%=arr_data(6, ii)%></td>
-			<td align="right"><%=arr_data(7, ii)%></td>
+			<td align="right"><%=FbpNum2(arr_data(7, ii))%></td>
 	
 <%
 	if pr_B = RowSpan_B then

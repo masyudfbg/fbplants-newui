@@ -528,7 +528,7 @@ response.Flush()
 										<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("dateterminate")%></td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("presentgrade")%></td>
 										<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("emp_type")%></td>
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("presentrate"),0)%></td>
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("presentrate"),2)%></td>
 										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=hsl_bln1%></td>
 										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=hsl_bln2%></td> 
 										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=hsl_bln3%></td>
@@ -543,7 +543,7 @@ response.Flush()
 										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=hsl_bln12%></td>
 										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=hsl_bln13%></td>
 										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=hsl_totalhk%></td>
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(hsl_ttlamount,0)%></td>
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(hsl_ttlamount,2)%></td>
 							
 									</tr>
 								  <%
@@ -574,21 +574,21 @@ response.Flush()
 								</tbody>
 								<tr bgcolor="#F4F4A0" style="font-weight: bold;">
 									<td colspan="10" align="center">TOTAL</td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln1)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln2)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln3)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln4)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln5)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln6)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln7)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln8)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln9)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln10)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln11)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln12)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln13)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_totalhk)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_ttlamount)),0)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln1)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln2)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln3)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln4)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln5)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln6)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln7)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln8)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln9)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln10)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln11)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln12)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_bln13)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_totalhk)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_ttlamount)),2)%></td>
 							
 								</tr>
 						</table>

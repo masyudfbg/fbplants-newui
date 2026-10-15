@@ -264,7 +264,7 @@ if Not rsPBA.eof then
 		if Not rsBiayaPBA.eof then
 			While Not rsBiayaPBA.eof
 %>
-				<td align="right"><%=FormatNumber(rsBiayaPBA("AMOUNT"),0)%></td>
+				<td align="right"><%=FormatNumber(rsBiayaPBA("AMOUNT"),2)%></td>
 				<td align="right">
 				<%if Cdbl(vActualBibit) <> 0 then%>
 					<%=FormatNumber(Cdbl(rsBiayaPBA("AMOUNT"))/Cdbl(vActualBibit),0)%>
@@ -275,7 +275,7 @@ if Not rsPBA.eof then
 				<td align="right">0</td>
 				<td align="right">0</td>
 				<td align="right">0</td>
-				<td align="right"><%=FormatNumber(rsBiayaPBA("AMOUNTTY"),0)%></td>
+				<td align="right"><%=FormatNumber(rsBiayaPBA("AMOUNTTY"),2)%></td>
 				<td align="right">
 				<%if Cdbl(vActualBibit) <> 0 then%>
 					<%=FormatNumber(Cdbl(rsBiayaPBA("AMOUNTTY"))/Cdbl(vActualBibit),0)%>
@@ -314,18 +314,18 @@ end if
 %>
 		<tr>
 		<td colspan="3" align="center"><strong>Subtotal Persiapan Areal Bibitan</strong></td>
-		<td align="right"><strong><%=FormatNumber(SubPBA,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubRppPBA,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubTyPBA,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubTyRppPBA,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubPBA,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubRppPBA,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubTyPBA,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubTyRppPBA,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
 		</tr>
 <%
 if Not rsPN.eof then
@@ -375,7 +375,7 @@ if Not rsPN.eof then
 		if Not rsBiayaPN.eof then
 			While Not rsBiayaPN.eof
 %>
-				<td align="right"><%=FormatNumber(rsBiayaPN("AMOUNT"),0)%></td>
+				<td align="right"><%=FormatNumber(rsBiayaPN("AMOUNT"),2)%></td>
 				<td align="right">
 				<%if Cdbl(vActualBibit) <> 0 then%>
 					<%=FormatNumber(Cdbl(rsBiayaPN("AMOUNT"))/Cdbl(vActualBibit),0)%>
@@ -386,7 +386,7 @@ if Not rsPN.eof then
 				<td align="right">0</td>
 				<td align="right">0</td>
 				<td align="right">0</td>
-				<td align="right"><%=FormatNumber(rsBiayaPN("AMOUNTTY"),0)%></td>
+				<td align="right"><%=FormatNumber(rsBiayaPN("AMOUNTTY"),2)%></td>
 				<td align="right">
 				<%if Cdbl(vActualBibit) <> 0 then%>
 					<%=FormatNumber(Cdbl(rsBiayaPN("AMOUNTTY"))/Cdbl(vActualBibit),0)%>
@@ -425,18 +425,18 @@ end if
 %>
 		<tr>
 		<td colspan="3" align="center"><strong>Subtotal Pre-Nursery</strong></td>
-		<td align="right"><strong><%=FormatNumber(SubPN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubRppPN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubTyPN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubTyRppPN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubPN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubRppPN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubTyPN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubTyRppPN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
 		</tr>
 
 <%
@@ -487,7 +487,7 @@ if Not rsMN.eof then
 		if Not rsBiayaMN.eof then
 			While Not rsBiayaMN.eof
 %>
-				<td align="right"><%=FormatNumber(rsBiayaMN("AMOUNT"),0)%></td>
+				<td align="right"><%=FormatNumber(rsBiayaMN("AMOUNT"),2)%></td>
 				<td align="right">
 				<%if Cdbl(vActualBibit) <> 0 then%>
 					<%=FormatNumber(Cdbl(rsBiayaMN("AMOUNT"))/Cdbl(vActualBibit),0)%>
@@ -498,7 +498,7 @@ if Not rsMN.eof then
 				<td align="right">0</td>
 				<td align="right">0</td>
 				<td align="right">0</td>
-				<td align="right"><%=FormatNumber(rsBiayaMN("AMOUNTTY"),0)%></td>
+				<td align="right"><%=FormatNumber(rsBiayaMN("AMOUNTTY"),2)%></td>
 				<td align="right">
 				<%if Cdbl(vActualBibit) <> 0 then%>
 					<%=FormatNumber(Cdbl(rsBiayaMN("AMOUNTTY"))/Cdbl(vActualBibit),0)%>
@@ -537,34 +537,34 @@ end if
 %>
 		<tr>
 		<td colspan="3" align="center"><strong>Subtotal Main-Nursery</strong></td>
-		<td align="right"><strong><%=FormatNumber(SubMN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubRppMN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubTyMN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubTyRppMN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubMN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubRppMN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubTyMN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubTyRppMN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
 		</tr>
 
 		<tr>
 		<td colspan="3" align="center"><strong>Total Biaya Pembibitan</strong></td>
-		<td align="right"><strong><%=FormatNumber(SubPBA+SubPN+SubMN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubRppPBA+SubRppPN+SubRppMN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubTyPBA+SubTyPN+SubTyMN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(SubTyRppPBA+SubTyRppPN+SubTyRppMN,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(0,0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubPBA+SubPN+SubMN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubRppPBA+SubRppPN+SubRppMN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubTyPBA+SubTyPN+SubTyMN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(SubTyRppPBA+SubTyRppPN+SubTyRppMN,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0,2)%></strong></td>
 		</tr>
 
 </table>

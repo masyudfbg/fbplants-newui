@@ -173,7 +173,7 @@ rsOpeningBalance.Open strOpeningBalance, connstr, adOpenStatic
 	while not rsOpeningBalance.eof%>
 	<tr bgcolor="#9CB770">
 		<td align="center" colspan="5"><strong><i>Saldo Awal</i></strong></td>
-		<td align="center" colspan="2"><strong><i><%=FormatNumber(rsOpeningBalance("OPENING_BALANCE"),0)%></i></strong></td>
+		<td align="center" colspan="2"><strong><i><%=FormatNumber(rsOpeningBalance("OPENING_BALANCE"),2)%></i></strong></td>
 		<td align="center" colspan="5"></td>
 	</tr>
 <%
@@ -627,7 +627,7 @@ rsCA.Open strCA, connstr, adOpenStatic
 %>
 	<tr bgcolor="#9CB770">
 		<td align="center" colspan="5"><strong><i>Sub Total</i></strong></td>
-		<td align="center" colspan="2"><strong><i><%=FormatNumber(nSubTotal,0)%></i></strong></td>
+		<td align="center" colspan="2"><strong><i><%=FormatNumber(nSubTotal,2)%></i></strong></td>
 		<td align="center" colspan="5"></td>
 	</tr>
 <%
@@ -643,7 +643,7 @@ end if
 %>
 	<tr bgcolor="#9CB770">
 		<td align="center" colspan="5"><strong><i>Grand Total</i></strong></td>
-		<td align="center" colspan="2"><strong><i><%=FormatNumber(nGrandTotal,0)%></i></strong></td>
+		<td align="center" colspan="2"><strong><i><%=FormatNumber(nGrandTotal,2)%></i></strong></td>
 		<td align="center" colspan="5"></td>
 	</tr>
   </tbody>

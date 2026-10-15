@@ -622,19 +622,19 @@ Dim nTotal_1, nTotal_2, nTotal_3,nTotal_4, nTotal_5, nTotal_6,nTotal_7, nTotal_8
 						  <td align="left"><%=rsAttDaily("fcname")%></td>		
 					 <% end if  %>	
 				<% end if  %>	
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_01"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_02"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_03"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_04"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_05"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_06"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_07"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_08"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_09"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_10"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_11"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_12"),0)%></td>
-				<td align="right"><%=FormatNumber(rsAttDaily("QTY_SBI"),0)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_01"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_02"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_03"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_04"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_05"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_06"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_07"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_08"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_09"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_10"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_11"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_12"),2)%></td>
+				<td align="right"><%=FormatNumber(rsAttDaily("QTY_SBI"),2)%></td>
 			</tr>
 <%
 			NO = NO + 1
@@ -659,19 +659,19 @@ Dim nTotal_1, nTotal_2, nTotal_3,nTotal_4, nTotal_5, nTotal_6,nTotal_7, nTotal_8
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%= 2 + nSpanTotal %>">TOTAL</td>
-				<td align="right"><%=FormatNumber(nTotal_1,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_2,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_3,0)%></td>	
-                <td align="right"><%=FormatNumber(nTotal_4,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_5,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_6,0)%></td>
-                <td align="right"><%=FormatNumber(nTotal_7,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_8,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_9,0)%></td>
-                <td align="right"><%=FormatNumber(nTotal_10,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_11,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_12,0)%></td>
-                <td align="right"><%=FormatNumber(nTotal_SBI,0)%></td>				
+				<td align="right"><%=FormatNumber(nTotal_1,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_2,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_3,2)%></td>	
+                <td align="right"><%=FormatNumber(nTotal_4,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_5,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_6,2)%></td>
+                <td align="right"><%=FormatNumber(nTotal_7,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_8,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_9,2)%></td>
+                <td align="right"><%=FormatNumber(nTotal_10,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_11,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_12,2)%></td>
+                <td align="right"><%=FormatNumber(nTotal_SBI,2)%></td>				
 			</tr>
         </tbody> 
 </table>

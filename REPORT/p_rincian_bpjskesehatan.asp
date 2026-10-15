@@ -373,9 +373,9 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="left"><%=rsrincian_bpjskes("EMPLOYEENAME")%></td>
 				<td align="center"><%=rsrincian_bpjskes("PRESENTGRADE")%></td>
 				<td align="left"><%=rsrincian_bpjskes("bpjskes_no")%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsrincian_bpjskes("tunjangan_bpjskesehatan"), 0)%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsrincian_bpjskes("beban_karyawan"), 0)%></td>
-				<td align="right" width="4%"><%=FormatNumber(rsrincian_bpjskes("potongan_bpjskesehatan"), 0)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsrincian_bpjskes("tunjangan_bpjskesehatan"), 2)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsrincian_bpjskes("beban_karyawan"), 2)%></td>
+				<td align="right" width="4%"><%=FormatNumber(rsrincian_bpjskes("potongan_bpjskesehatan"), 2)%></td>
 			</tr>
 <%
 			NO = NO + 1
@@ -391,9 +391,9 @@ function launchwin(winurl,winname,winfeatures)
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="5"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotaltunjangan, 0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotalkaryawan, 0)%></strong></td>
-				<td align="right"><strong><%=FormatNumber(grandtotalpotongan, 0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotaltunjangan, 2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotalkaryawan, 2)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(grandtotalpotongan, 2)%></strong></td>
 			</tr>
             </tbody>
 </table>

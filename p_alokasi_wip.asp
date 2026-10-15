@@ -293,11 +293,11 @@ var tableToExcel = (function () {
                     <td style="text-align:left;"><%=rsdata("COANAME")%></td>
                     <td style="text-align:center;"><%=rsdata("JOBSTATUS")%></td>
                     <td style="text-align:center;"><%=rsdata("LOCATIONCODE")%></td>
-                    <td style="text-align:right;"><%=FormatNumber(rsdata("RATE_FINAL"),0)%></td>
+                    <td style="text-align:right;"><%=FormatNumber(rsdata("RATE_FINAL"),2)%></td>
                   
                     <td class="ratakanan"><%=FormatNumber(outputfinal,2)%></td>
                     <td class="ratakanan"><%=FormatNumber(qtyfinal,2)%></td>
-                    <td class="ratakanan"><%=FormatNumber(rsdata("amount"),0)%></td>
+                    <td class="ratakanan"><%=FormatNumber(rsdata("amount"),2)%></td>
                     <td style="text-align:left;"><%=feecontractorname%></td>
                 </tr>
 				<%
@@ -318,7 +318,7 @@ var tableToExcel = (function () {
                     <td colspan="11" align="right">Total</td>
                     <td><%=FormatNumber(totaloutput,2)%></td>
                     <td><%=FormatNumber(totalunit,2)%></td>
-                    <td><%=FormatNumber(totalamount,0)%></td>
+                    <td><%=FormatNumber(totalamount,2)%></td>
                 </tr>
             </tfoot>
         </table>

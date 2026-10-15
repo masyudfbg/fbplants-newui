@@ -1193,8 +1193,8 @@ If cmdView = "True" and Len(Trim(v_txtagreementcode)) > 0 Then
 						<td align="left" title="Tanggal" valign="top"><%=rswipfinal("wipdate")%></td>
 						<td align="left" title="Chargeunit" valign="top"><%=rswipfinal("chargeunit")%></td>
 						<td align="left" title="ctkjobname" valign="top"><%=rswipfinal("ctkjobname")%></td>
-						<td align="Right" title="ctkqty" valign="top"><%=rswipfinal("ctkqty")%></td>
-						<td align="Right" title="ctkrate" valign="top"><%=rswipfinal("ctkrate")%></td>
+						<td align="Right" title="ctkqty" valign="top"><%=FbpNum2(rswipfinal("ctkqty"))%></td>
+						<td align="Right" title="ctkrate" valign="top"><%=FbpNum2(rswipfinal("ctkrate"))%></td>
 						<td align="left" >
 							<input type="text" name="ratefinaledit"  value="<%=rswipfinal("rate_final")%>" onkeyup="checkInput(this);">
 						</td>
@@ -1202,9 +1202,9 @@ If cmdView = "True" and Len(Trim(v_txtagreementcode)) > 0 Then
 						<td align="left" title="Job Name" valign="top"><%=rswipfinal("jobname")%></td>
 						<td align="left" title="Target Type" valign="top"><%=rswipfinal("LocationType")%></td>
 						<td align="left" title="Target Code" valign="top"><%=rswipfinal("LocationCode")%></td>
-						<td align="Right" title="Qty Plan" valign="top"><%=rswipfinal("qty_plan")%></td>
-						<td align="Right" title="Unit Plan" valign="top"><%=rswipfinal("unit_plan")%></td>
-						<td align="Right" title="Output Plan" valign="top"><%=rswipfinal("output_plan")%></td>
+						<td align="Right" title="Qty Plan" valign="top"><%=FbpNum2(rswipfinal("qty_plan"))%></td>
+						<td align="Right" title="Unit Plan" valign="top"><%=FbpNum2(rswipfinal("unit_plan"))%></td>
+						<td align="Right" title="Output Plan" valign="top"><%=FbpNum2(rswipfinal("output_plan"))%></td>
 						<td align="left" width="2">
 							<input type="text" name="qtyfinaledit" width="2" value="<%=rswipfinal("qty_final")%>" onkeyup="checkInput(this);">
 						</td>
@@ -1247,20 +1247,20 @@ If cmdView = "True" and Len(Trim(v_txtagreementcode)) > 0 Then
 						<td align="left" title="wipdate" valign="top"><%=rswipfinal("wipdate")%></td>
 						<td align="left" title="chargeunit" valign="top"><%=rswipfinal("chargeunit")%></td>
 						<td align="left" title="ctkjobname" valign="top"><%=rswipfinal("ctkjobname")%></td>
-						<td align="Right" title="ctkqty" valign="top"><%=rswipfinal("ctkqty")%></td>
-						<td align="Right" title="rate_basic" valign="top"><%=rswipfinal("ctkrate")%></td>
-						<td align="Right" title="rate_final" valign="top"><%=rswipfinal("ratefinal")%></td>
+						<td align="Right" title="ctkqty" valign="top"><%=FbpNum2(rswipfinal("ctkqty"))%></td>
+						<td align="Right" title="rate_basic" valign="top"><%=FbpNum2(rswipfinal("ctkrate"))%></td>
+						<td align="Right" title="rate_final" valign="top"><%=FbpNum2(rswipfinal("ratefinal"))%></td>
 						<td align="left" title="Job Code" valign="top"><%=rswipfinal("jobcode")%></td>
 						<td align="left" title="Job Name" valign="top"><%=rswipfinal("jobname")%></td>
 						<td align="left" title="Target Type" valign="top"><%=rswipfinal("targettype")%></td>
 						<td align="left" title="Target Code" valign="top"><%=rswipfinal("targetcode")%></td>
-						<td align="Right" title="Quantity Plan" valign="top"><%=rswipfinal("qtyplan")%></td>
-						<td align="Right" title="Unit Plan" valign="top"><%=rswipfinal("unitplan")%></td>
-						<td align="Right" title="Output Plan" valign="top"><%=rswipfinal("outputplan")%></td>
-						<td align="Right" title="Quantity Plan" valign="top"><%=rswipfinal("qtyfinal")%></td>
-						<td align="Right" title="Unit Plan" valign="top"><%=rswipfinal("unitfinal")%></td>
-						<td align="Right" title="Output Plan" valign="top"><%=rswipfinal("outputfinal")%></td>
-						<td align="Right" title="Output Plan" valign="top"><%=rswipfinal("amnt")%></td>
+						<td align="Right" title="Quantity Plan" valign="top"><%=FbpNum2(rswipfinal("qtyplan"))%></td>
+						<td align="Right" title="Unit Plan" valign="top"><%=FbpNum2(rswipfinal("unitplan"))%></td>
+						<td align="Right" title="Output Plan" valign="top"><%=FbpNum2(rswipfinal("outputplan"))%></td>
+						<td align="Right" title="Quantity Plan" valign="top"><%=FbpNum2(rswipfinal("qtyfinal"))%></td>
+						<td align="Right" title="Unit Plan" valign="top"><%=FbpNum2(rswipfinal("unitfinal"))%></td>
+						<td align="Right" title="Output Plan" valign="top"><%=FbpNum2(rswipfinal("outputfinal"))%></td>
+						<td align="Right" title="Output Plan" valign="top"><%=FbpNum2(rswipfinal("amnt"))%></td>
 					
 					<%End If%>
 					
@@ -1273,8 +1273,8 @@ If cmdView = "True" and Len(Trim(v_txtagreementcode)) > 0 Then
 					<td align="left" title="Chargeunit" valign="top"><%=rswipfinal("chargeunit")%></td>
 					
 					<td align="left" title="ctkjobname" valign="top"><%=rswipfinal("ctkjobname")%></td>
-					<td align="Right" title="ctkqty" valign="top"><%=rswipfinal("ctkqty")%></td>
-					<td align="Right" title="ctkrate" valign="top"><%=rswipfinal("ctkrate")%></td>
+					<td align="Right" title="ctkqty" valign="top"><%=FbpNum2(rswipfinal("ctkqty"))%></td>
+					<td align="Right" title="ctkrate" valign="top"><%=FbpNum2(rswipfinal("ctkrate"))%></td>
 					<td align="left" >
 						<input type="text" name="ratefinal_<%=no%>"  value="<%=rswipfinal("ctkrate")%>" onkeyup="checkInput(this);">
 					</td>
@@ -1283,9 +1283,9 @@ If cmdView = "True" and Len(Trim(v_txtagreementcode)) > 0 Then
 					<td align="left" title="Job Name" valign="top"><%=rswipfinal("jobname")%></td>
 					<td align="left" title="Target Type" valign="top"><%=rswipfinal("targettype")%></td>
 					<td align="left" title="Target Code" valign="top"><%=rswipfinal("targetcode")%></td>
-					<td align="Right" title="Quantity Plan" valign="top"><%=rswipfinal("qtyplan")%></td>
-					<td align="Right" title="Unit Plan" valign="top"><%=rswipfinal("unitplan")%></td>
-					<td align="Right" title="Output Plan" valign="top"><%=rswipfinal("outputplan")%></td>
+					<td align="Right" title="Quantity Plan" valign="top"><%=FbpNum2(rswipfinal("qtyplan"))%></td>
+					<td align="Right" title="Unit Plan" valign="top"><%=FbpNum2(rswipfinal("unitplan"))%></td>
+					<td align="Right" title="Output Plan" valign="top"><%=FbpNum2(rswipfinal("outputplan"))%></td>
 					<td align="left" >
 						<input type="text" name="qtyfinal_<%=no%>"  value="<%=rswipfinal("qtyplan")%>" onkeyup="checkInput(this);">
 					</td>

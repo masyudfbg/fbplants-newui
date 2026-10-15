@@ -1268,16 +1268,16 @@ if cmdView = "True" and len(trim(invoicecode)) > 0 and len(trim(transportercontr
 			</td>
 			    <td align="left" title="<%=rsVH("invoicecode").Name%>" valign="top"><%=rsVH("invoicecode")%></td>
 			    <td align="left" title="<%=rsVH("wbt_chitno").Name%>" valign="top"><%=rsVH("wbt_chitno")%></td>
-			    <td align="right" title="<%=rsVH("acceptedqtybruto").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("acceptedqtybruto"))),0)%></td>
-			    <td align="right" title="<%=rsVH("deliveredqty").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("deliveredqty"))),0)%></td>
+			    <td align="right" title="<%=rsVH("acceptedqtybruto").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("acceptedqtybruto"))),2)%></td>
+			    <td align="right" title="<%=rsVH("deliveredqty").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("deliveredqty"))),2)%></td>
 			    <td align="right" title="<%=rsVH("varianceqty").Name%>" valign="top"><%=rsVH("varianceqty")%></td>
 			    <td align="right" title="<%=rsVH("maxtolerance").Name%>" valign="top"><%=rsVH("maxtolerance")%></td>
 			    <td align="right" title="<%=rsVH("losspercentage").Name%>" valign="top"><%=rsVH("losspercentage")%></td>
 			    <td align="right" title="<%=rsVH("penaltyqty").Name%>" valign="top"><%=rsVH("penaltyqty")%></td>
-			    <td align="right" title="<%=rsVH("penaltyamount").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("penaltyamount"))),0)%></td>
-			    <td align="right" title="<%=rsVH("amountbeforeloss").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("amountbeforeloss"))),0)%></td>
-			    <td align="right" title="<%=rsVH("amountafterloss").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("amountafterloss"))),0)%></td>
-			    <td align="right" title="<%=rsVH("adjustmentqty").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("adjustmentqty"))),0)%></td>
+			    <td align="right" title="<%=rsVH("penaltyamount").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("penaltyamount"))),2)%></td>
+			    <td align="right" title="<%=rsVH("amountbeforeloss").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("amountbeforeloss"))),2)%></td>
+			    <td align="right" title="<%=rsVH("amountafterloss").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("amountafterloss"))),2)%></td>
+			    <td align="right" title="<%=rsVH("adjustmentqty").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("adjustmentqty"))),2)%></td>
 			    
 				<td align="left" title="<%=rsVH("remarks").Name%>" valign="top"><%=rsVH("remarks")%></td>
 		  </tr>

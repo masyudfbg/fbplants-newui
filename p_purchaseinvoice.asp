@@ -234,11 +234,11 @@ response.Flush()
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("fakturdate")%></td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("suppliercode")%></td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("customername")%></td>   
-										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("quantity")),0)%></td>   
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("amount_beforevat")),0)%> </td>
-										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("vat"))),0)%> </td>
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("amountvat"))),0)%> </td>
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("grandtotal")),0)%> </td>
+										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("quantity")),2)%></td>   
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("amount_beforevat")),2)%> </td>
+										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("vat"))),2)%> </td>
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("amountvat"))),2)%> </td>
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("grandtotal")),2)%> </td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("remarks")%></td> 
 									</tr>
 								  <%
@@ -260,11 +260,11 @@ response.Flush()
 								</tbody>
 								<tr  style="background-color: #F4F4A0; font-weight: bold;">
 									<td colspan="10" align="center"> TOTAL </td>   
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(v_quantity),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(v_amount_beforevat),0)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(v_quantity),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(v_amount_beforevat),2)%></td>
 									<td></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(v_amountvat),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(v_grandtotal),0)%></td>	
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(v_amountvat),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(v_grandtotal),2)%></td>	
 									<td></td>
 								</tr>
 						</table>

@@ -1486,19 +1486,19 @@ rsGRN.Open q, connstr
 						<td align="center" title="" valign="top"><%=rsGRN("wbt_chitno")%></td>
 						<td align="center" title="" valign="top"><%=rsGRN("postingdate")%></td>
 						<td align="center" title="" valign="top"><%=rsGRN("transportercode")%> : <%=rsGRN("transportername")%></td> 
-						<td align="right" title="" valign="top"><%=FormatNumber(rsGRN("quantity"),0)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(rsGRN("quantity"),2)%></td>
 						<td align="center" title="" valign="top"><%=rsGRN("vehicleno")%></td>
 						<td align="center" title="" valign="top"><%=rsGRN("customer_chitno")%></td>
-						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("acceptquantity"))),0)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("acceptquantity"))),2)%></td>
 						  <%If cstr(""&productcode) = "TBS" Then %> 
-						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("nettotengkulak"))),0)%></td>
-						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("weightin"))),0)%></td>
-						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("weightout"))),0)%></td>
-						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("netto1"))),0)%></td>
-						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("potongan"))),0)%></td>
-						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("netto2"))),0)%></td>
-						<td align="right" title="" valign="top"><%=rsGRN("tglin")%></td>
-						<td align="right" title="" valign="top"><%=rsGRN("tglout")%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("nettotengkulak"))),2)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("weightin"))),2)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("weightout"))),2)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("netto1"))),2)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("potongan"))),2)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("netto2"))),2)%></td>
+						<td align="right" title="" valign="top"><%=FbpNum2(rsGRN("tglin"))%></td>
+						<td align="right" title="" valign="top"><%=FbpNum2(rsGRN("tglout"))%></td>
 						 <%End IF%>
 				<%End if%>
 
@@ -1509,7 +1509,7 @@ rsGRN.Open q, connstr
 						<%If cdbl(to_nol(extracarry)) > 0 Then %>
 							<td align="right" title="" valign="top"></td>
 						<%Else%>
-							<td align="right" title="" valign="top"><%=FormatNumber(dictChitSum(prevChitno_grp),0)%></td>
+							<td align="right" title="" valign="top"><%=FormatNumber(dictChitSum(prevChitno_grp),2)%></td>
 						<%End If%>
 				        <td align="center" title="" valign="top"><%=rsGRN("vehicleno")%></td>
 						<td align="center">
@@ -1622,16 +1622,16 @@ rsGRN.Open q, connstr
 		<%IF SudahClose="Y" then%>
 			<td align="right" title="" valign="top" colspan="3"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
 			<td></td>
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_deliveryqty_prop),0)%> </font></td> 
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_deliveryqty_prop),2)%> </font></td> 
 			<td colspan = "2"></td>  
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),0)%> </font></td>
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),2)%> </font></td>
 			  <%If cstr(""&productcode) = "TBS" Then %> 
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_nettotengkulak),0)%> </font></td>
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_wi),0)%> </font></td>
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_wo),0)%> </font></td>
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_net1),0)%> </font></td>
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_pot),0)%> </font></td>
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_net2),0)%> </font></td>
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_nettotengkulak),2)%> </font></td>
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_wi),2)%> </font></td>
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_wo),2)%> </font></td>
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_net1),2)%> </font></td>
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_pot),2)%> </font></td>
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_net2),2)%> </font></td>
 			
 			<td colspan="2"></td>
 			<%end if%>
@@ -1639,11 +1639,11 @@ rsGRN.Open q, connstr
 			<%IF cdbl(to_nol(extracarry)) > 0 then%>
 				<td align="right" title="" valign="top" colspan="3"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
 				<td colspan = "4"></td>  
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),0)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),2)%> </font></td>
 			<%Else%>
 				<td align="right" title="" valign="top" colspan="3"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
 				<td colspan = "4"></td> 
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),0)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),2)%> </font></td>
 			<%End if%>
 		<%End if%>
 		<tr>

@@ -286,15 +286,15 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 			<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("salesshipmentno")%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("lineno")%></td> 
 			<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("wbt_chitno")%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("deliveredqty"))),0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("acceptedqtybruto"))),0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("varianceqty"))),0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("amountbeforeloss"))),0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("losspercentage"))),0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("maxtolerance"))),0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("penaltyqty"))),0)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("deliveredqty"))),2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("acceptedqtybruto"))),2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("varianceqty"))),2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("amountbeforeloss"))),2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("losspercentage"))),2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("maxtolerance"))),2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("penaltyqty"))),2)%></td>
 			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("penaltyamount"))),2)%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("amountafterloss"))),0)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("amountafterloss"))),2)%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("remarks")%></td>
 		</tr>
 <% 			
@@ -313,15 +313,15 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 	set rsGrnInv = Nothing
 %>		<tr bgcolor="#F4F4A0" style="font-weight: bold;">
 			<td align="Center" style="<%=cmdstyleLeft%>" colspan="4"> <font face="Verdana" size="1">T o t a l</td> 
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_deliveredqty,0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_acceptedqtybruto,0)%></td> 
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_varianceqty,0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_amountbeforeloss,0)%></td> 
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_losspercentage,0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_maxtolerance,0)%></td> 
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_penaltyqty,0)%></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_deliveredqty,2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_acceptedqtybruto,2)%></td> 
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_varianceqty,2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_amountbeforeloss,2)%></td> 
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_losspercentage,2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_maxtolerance,2)%></td> 
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_penaltyqty,2)%></td>
 			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_penaltyamount,2)%></td> 
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_amountafterloss,0)%></td> 
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_amountafterloss,2)%></td> 
 			<td align="Right" style="<%=cmdstyleLeft%>"  > </td>
 		</tr>
 	</tbody>  

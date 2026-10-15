@@ -161,7 +161,7 @@ else
 					<td align="left"> <%=rsmonitoringex("region")%> </td>
 					<td align="center"> <%=rsmonitoringex("fcba")%> </td>
 					<td align="left"> <%=rsmonitoringex("cases")%> </td>
-					<td align="right"> <%=rsmonitoringex("totalrecord")%> </td>
+					<td align="right"> <%=FbpNum2(rsmonitoringex("totalrecord"))%> </td>
 				</tr>
 <%
 			rsmonitoringex.MoveNext

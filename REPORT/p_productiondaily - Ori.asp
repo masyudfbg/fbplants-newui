@@ -897,44 +897,44 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 				<% end if %>				
 				
 				
-				<td align="right"><%=FormatNumber(rsEPS("hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("sbi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("tonase_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("tonase_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("tonase_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("tonase_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("tonase_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("tonase_sbi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("bud_jjg_shi"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("bud_jjg_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_jjg_shi"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("bud_jjg_sbi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_tonase_sbi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("bud_qty_shi"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("bud_qty_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_qty_shi"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("bud_qty_sbi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("wo_plus_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("wo_plus_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("wo_plus_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("wo_min_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("wo_min_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("wo_min_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("wo_plus_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("wo_plus_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("wo_plus_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("wo_min_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("wo_min_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("wo_min_sbi"),2)%></td>
 				
 				
-				<td align="right"><%=FormatNumber(rsEPS("restan"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("restan"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("mandays_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("mandays_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("mandays_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("mandays_sbi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("bud_mandays_shi"),0)%></td>
-                <td align="right"><%=FormatNumber(rsEPS("bud_mandays_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("bud_mandays_shi"),2)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("bud_mandays_sbi"),2)%></td>
 				
 				<% if cdbl(rsEPS("mandays_hi")) <> 0 then %>
 				    <!-- Remarked by NAF, to remove tonage of QTY -->
@@ -960,9 +960,9 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 				<% end if %>
 		
 				
-				<td align="right"><%=FormatNumber(nOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_sbi,2)%></td>
 				
 				<% if cdbl(rsEPS("bud_mandays_shi")) <> 0 then %>
 					<!--% nbudOutput_shi = (cdbl(rsEPS("bud_qty_shi")) * 1000 ) /  cdbl(rsEPS("bud_mandays_shi")) %-->
@@ -978,8 +978,8 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 				    <% nbudOutput_sbi = 0 %>
 				<% end if %>
 				
-				<td align="right"><%=FormatNumber(nbudOutput_shi,0)%></td>
-                <td align="right"><%=FormatNumber(nbudOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nbudOutput_shi,2)%></td>
+                <td align="right"><%=FormatNumber(nbudOutput_sbi,2)%></td>
 				
 				<% if cdbl(rsEPS("pom_tonase_hi")) <> 0 then %>
 					<!--% nOutput_Mandays_Amount_hi = cdbl(rsEPS("mandays_amount_hi")) / (cdbl(rsEPS("pom_tonase_hi")) * 1000)  %-->
@@ -997,8 +997,8 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 				
 				
 				
-				<td align="right"><%=FormatNumber(nOutput_Mandays_Amount_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_Mandays_Amount_shi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_Mandays_Amount_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_Mandays_Amount_shi,2)%></td>
 				
 				
 				
@@ -1117,53 +1117,53 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 			<tr bgcolor="#F4F4A0">
 			   
 				<td align="center" colspan="<%= 1+ nSpanTotal %>">TOTAL</td>				
-				<td align="right"><%=FormatNumber(nsubhi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubshi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubsbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubhi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubshi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubsbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubtonase_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubtonase_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubtonase_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubtonase_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubtonase_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubtonase_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubpom_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubbudjjg_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbudjjg_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbudjjg_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbudjjg_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubpom_tonase_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_tonase_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_tonase_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubbudqty_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbudqty_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbudqty_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbudqty_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubwo_plus_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubwo_plus_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubwo_plus_sbi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubwo_min_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubwo_min_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubwo_min_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubwo_plus_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubwo_plus_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubwo_plus_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubwo_min_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubwo_min_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubwo_min_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubrestan,0)%></td>
+				<td align="right"><%=FormatNumber(nsubrestan,2)%></td>
 
-				<td align="right"><%=FormatNumber(nsubmandays_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubbudmandays_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbudmandays_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbudmandays_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbudmandays_sbi,2)%></td>
 
-				<td align="right"><%=FormatNumber(nsubOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_sbi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nsubbudOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbudOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbudOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbudOutput_sbi,2)%></td>
 
-				<td align="right"><%=FormatNumber(nSubMandays_Amount_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nSubMandays_Amount_shi,0)%></td>
+				<td align="right"><%=FormatNumber(nSubMandays_Amount_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nSubMandays_Amount_shi,2)%></td>
 				
 			</tr>
 </tbody>

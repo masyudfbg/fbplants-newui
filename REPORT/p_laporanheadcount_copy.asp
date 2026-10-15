@@ -820,35 +820,35 @@ TOTALSECALL = Request("TOTALSECALL")
 					 %>						 
 				<% end if %>
 				
-				<td align="right"><%=rsMerumputTM("KBT_PML")%></td>
-				<td align="right"><%=rsMerumputTM("KHT_PML")%></td>
-				<td align="right"><%=rsMerumputTM("KHL_PML")%></td>
-				<td align="right"><%=TOTALPML%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KBT_PML"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHT_PML"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHL_PML"))%></td>
+				<td align="right"><%=FbpNum2(TOTALPML)%></td>
 
-				<td align="right"><%=rsMerumputTM("KBT_PNN")%></td>
-				<td align="right"><%=rsMerumputTM("KHT_PNN")%></td>
-				<td align="right"><%=rsMerumputTM("KHL_PNN")%></td>
-				<td align="right"><%=TOTALPNN%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KBT_PNN"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHT_PNN"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHL_PNN"))%></td>
+				<td align="right"><%=FbpNum2(TOTALPNN)%></td>
 
-				<td align="right"><%=rsMerumputTM("KBT_MD")%></td>
-				<td align="right"><%=rsMerumputTM("KHT_MD")%></td>
-				<td align="right"><%=rsMerumputTM("KHL_MD")%></td>
-				<td align="right"><%=TOTALMD%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KBT_MD"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHT_MD"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHL_MD"))%></td>
+				<td align="right"><%=FbpNum2(TOTALMD)%></td>
 
-				<td align="right"><%=rsMerumputTM("KBT_TR")%></td>
-				<td align="right"><%=rsMerumputTM("KHT_TR")%></td>
-				<td align="right"><%=rsMerumputTM("KHL_TR")%></td>
-				<td align="right"><%=TOTALTR%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KBT_TR"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHT_TR"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHL_TR"))%></td>
+				<td align="right"><%=FbpNum2(TOTALTR)%></td>
 
-				<td align="right"><%=rsMerumputTM("KBT_KU")%></td>
-				<td align="right"><%=rsMerumputTM("KHT_KU")%></td>
-				<td align="right"><%=rsMerumputTM("KHL_KU")%></td>
-				<td align="right"><%=TOTALKU%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KBT_KU"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHT_KU"))%></td>
+				<td align="right"><%=FbpNum2(rsMerumputTM("KHL_KU"))%></td>
+				<td align="right"><%=FbpNum2(TOTALKU)%></td>
 
-				<td align="right"><%=TOTALALLKBT%></td>
-				<td align="right"><%=TOTALALLKHT%></td>
-				<td align="right"><%=TOTALALLKHL%></td>
-				<td align="right"><%=TOTALALL%></td>
+				<td align="right"><%=FbpNum2(TOTALALLKBT)%></td>
+				<td align="right"><%=FbpNum2(TOTALALLKHT)%></td>
+				<td align="right"><%=FbpNum2(TOTALALLKHL)%></td>
+				<td align="right"><%=FbpNum2(TOTALALL)%></td>
 			</tr>
 <%
 			NO = NO + 1			

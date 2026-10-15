@@ -381,10 +381,10 @@ function launchwin(winurl,winname,winfeatures)
 				BUD_PROD_SBI = rsEPS("BUD_PROD_SBI") / 1000
 		%>
 			<td align="center"><%=rsEPS("FCBA")%></td>
-			<td align="right"><%=FormatNumber(PROD_BI,0)%></td>
-			<td align="right"><%=FormatNumber(PROD_SBI,0)%></td>
-			<td align="right"><%=FormatNumber(BUD_PROD_BI,0)%></td>
-			<td align="right"><%=FormatNumber(BUD_PROD_SBI,0)%></td>
+			<td align="right"><%=FormatNumber(PROD_BI,2)%></td>
+			<td align="right"><%=FormatNumber(PROD_SBI,2)%></td>
+			<td align="right"><%=FormatNumber(BUD_PROD_BI,2)%></td>
+			<td align="right"><%=FormatNumber(BUD_PROD_SBI,2)%></td>
 			<%
 			if rsEPS("ACH_PROD_BI") < 85 then
 				ColorAch = "#FF0000"
@@ -394,7 +394,7 @@ function launchwin(winurl,winname,winfeatures)
 				ColorAch = "#00FF00"
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>;"><%=FormatNumber(rsEPS("ACH_PROD_BI"),0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>;"><%=FormatNumber(rsEPS("ACH_PROD_BI"),2)%></td>
 			<%
 			if rsEPS("ACH_PROD_SBI") < 85 then
 				ColorAch = "#FF0000"
@@ -404,12 +404,12 @@ function launchwin(winurl,winname,winfeatures)
 				ColorAch = "#00FF00"
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(rsEPS("ACH_PROD_SBI"),0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(rsEPS("ACH_PROD_SBI"),2)%></td>
 
-			<td align="right"><%=FormatNumber(rsEPS("NP_BI"),0)%></td>
-			<td align="right"><%=FormatNumber(rsEPS("NP_SBI"),0)%></td>
-			<td align="right"><%=FormatNumber(rsEPS("BUD_NP_BI"),0)%></td>
-			<td align="right"><%=FormatNumber(rsEPS("BUD_NP_SBI"),0)%></td>
+			<td align="right"><%=FormatNumber(rsEPS("NP_BI"),2)%></td>
+			<td align="right"><%=FormatNumber(rsEPS("NP_SBI"),2)%></td>
+			<td align="right"><%=FormatNumber(rsEPS("BUD_NP_BI"),2)%></td>
+			<td align="right"><%=FormatNumber(rsEPS("BUD_NP_SBI"),2)%></td>
 			<%
 			if rsEPS("ACH_NP_BI") < 85 then
 				ColorAch = "#FF0000"
@@ -419,7 +419,7 @@ function launchwin(winurl,winname,winfeatures)
 				ColorAch = "#00FF00"
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(rsEPS("ACH_NP_BI"),0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(rsEPS("ACH_NP_BI"),2)%></td>
 			<%
 			if rsEPS("ACH_NP_SBI") < 85 then
 				ColorAch = "#FF0000"
@@ -429,7 +429,7 @@ function launchwin(winurl,winname,winfeatures)
 				ColorAch = "#00FF00"
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(rsEPS("ACH_NP_SBI"),0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(rsEPS("ACH_NP_SBI"),2)%></td>
 			
 			<%
 				Dim TM_PNN_BI,TM_PNN_SBI,BUD_TM_PNN_BI,BUD_TM_PNN_SBI
@@ -457,10 +457,10 @@ function launchwin(winurl,winname,winfeatures)
 					BUD_TM_PNN_SBI	= 0
 				end if
 			%>
-			<td align="right"><%=FormatNumber(TM_PNN_BI,0)%></td>
-			<td align="right"><%=FormatNumber(TM_PNN_SBI,0)%></td>
-			<td align="right"><%=FormatNumber(BUD_TM_PNN_BI,0)%></td>
-			<td align="right"><%=FormatNumber(BUD_TM_PNN_SBI,0)%></td>
+			<td align="right"><%=FormatNumber(TM_PNN_BI,2)%></td>
+			<td align="right"><%=FormatNumber(TM_PNN_SBI,2)%></td>
+			<td align="right"><%=FormatNumber(BUD_TM_PNN_BI,2)%></td>
+			<td align="right"><%=FormatNumber(BUD_TM_PNN_SBI,2)%></td>
 			<%
 				Dim VAR_TM_PNN_BI
 				IF BUD_TM_PNN_BI = 0 then
@@ -469,7 +469,7 @@ function launchwin(winurl,winname,winfeatures)
 					VAR_TM_PNN_BI = TM_PNN_BI / (BUD_TM_PNN_BI/ 100)
 				end if
 			%>
-			<td align="right"><%=FormatNumber(VAR_TM_PNN_BI,0)%></td>
+			<td align="right"><%=FormatNumber(VAR_TM_PNN_BI,2)%></td>
 			<%
 				Dim VAR_TM_PNN_SBI
 				IF BUD_TM_PNN_SBI = 0 then
@@ -478,7 +478,7 @@ function launchwin(winurl,winname,winfeatures)
 					VAR_TM_PNN_SBI = TM_PNN_SBI / (BUD_TM_PNN_SBI/ 100)
 				end if
 			%>
-			<td align="right"><%=FormatNumber(VAR_TM_PNN_SBI,0)%></td>
+			<td align="right"><%=FormatNumber(VAR_TM_PNN_SBI,2)%></td>
 			<%
 			Dim ACH_TM_PNN_BI
 			if VAR_TM_PNN_BI < 90 OR VAR_TM_PNN_BI > 110 then
@@ -492,7 +492,7 @@ function launchwin(winurl,winname,winfeatures)
 				ACH_TM_PNN_BI = 100
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TM_PNN_BI,0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TM_PNN_BI,2)%></td>
 			<%
 			Dim ACH_TM_PNN_SBI
 			if VAR_TM_PNN_SBI < 90 OR VAR_TM_PNN_SBI > 110 then
@@ -506,7 +506,7 @@ function launchwin(winurl,winname,winfeatures)
 				ACH_TM_PNN_SBI = 100
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TM_PNN_SBI,0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TM_PNN_SBI,2)%></td>
 			<%
 				Dim TM_PML_BI,TM_PML_SBI,BUD_TM_PML_BI,BUD_TM_PML_SBI
 				IF PROD_BI <> 0 then
@@ -533,10 +533,10 @@ function launchwin(winurl,winname,winfeatures)
 					BUD_TM_PML_SBI	= 0
 				end if 
 			%>
-			<td align="right"><%=FormatNumber(TM_PML_BI,0)%></td>
-			<td align="right"><%=FormatNumber(TM_PML_SBI,0)%></td>
-			<td align="right"><%=FormatNumber(BUD_TM_PML_BI,0)%></td>
-			<td align="right"><%=FormatNumber(BUD_TM_PML_SBI,0)%></td>
+			<td align="right"><%=FormatNumber(TM_PML_BI,2)%></td>
+			<td align="right"><%=FormatNumber(TM_PML_SBI,2)%></td>
+			<td align="right"><%=FormatNumber(BUD_TM_PML_BI,2)%></td>
+			<td align="right"><%=FormatNumber(BUD_TM_PML_SBI,2)%></td>
 			<%
 				Dim VAR_TM_PML_BI
 				IF BUD_TM_PML_BI = 0 then
@@ -545,7 +545,7 @@ function launchwin(winurl,winname,winfeatures)
 					VAR_TM_PML_BI = TM_PML_BI / (BUD_TM_PML_BI/ 100)
 				end if
 			%>
-			<td align="right"><%=FormatNumber(VAR_TM_PML_BI,0)%></td>
+			<td align="right"><%=FormatNumber(VAR_TM_PML_BI,2)%></td>
 			<%
 				Dim VAR_TM_PML_SBI
 				IF BUD_TM_PML_SBI = 0 then
@@ -554,7 +554,7 @@ function launchwin(winurl,winname,winfeatures)
 					VAR_TM_PML_SBI = TM_PML_SBI / (BUD_TM_PML_SBI/ 100)
 				end if
 			%>
-			<td align="right"><%=FormatNumber(VAR_TM_PML_SBI,0)%></td>
+			<td align="right"><%=FormatNumber(VAR_TM_PML_SBI,2)%></td>
 			<%
 			Dim ACH_TM_PML_BI
 			if VAR_TM_PML_BI < 90 OR VAR_TM_PML_BI > 110 then
@@ -568,7 +568,7 @@ function launchwin(winurl,winname,winfeatures)
 				ACH_TM_PML_BI = 100
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TM_PML_BI,0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TM_PML_BI,2)%></td>
 			<%
 			Dim ACH_TM_PML_SBI
 			if VAR_TM_PML_SBI < 90 OR VAR_TM_PML_SBI > 110 then
@@ -582,7 +582,7 @@ function launchwin(winurl,winname,winfeatures)
 				ACH_TM_PML_SBI = 100
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TM_PML_SBI,2)%></td>
 			
 			<%
 				Dim TBM_PML_BI, TBM_PML_SBI, BUD_TBM_PML_BI,BUD_TBM_PML_SBI
@@ -598,10 +598,10 @@ function launchwin(winurl,winname,winfeatures)
 					BUD_TBM_PML_SBI	= 0
 				end if
 			%>
-			<td align="right"><%=FormatNumber(TBM_PML_BI,0)%></td>
-			<td align="right"><%=FormatNumber(TBM_PML_SBI,0)%></td>
-			<td align="right"><%=FormatNumber(BUD_TBM_PML_BI,0)%></td>
-			<td align="right"><%=FormatNumber(BUD_TBM_PML_SBI,0)%></td>
+			<td align="right"><%=FormatNumber(TBM_PML_BI,2)%></td>
+			<td align="right"><%=FormatNumber(TBM_PML_SBI,2)%></td>
+			<td align="right"><%=FormatNumber(BUD_TBM_PML_BI,2)%></td>
+			<td align="right"><%=FormatNumber(BUD_TBM_PML_SBI,2)%></td>
 			<%
 				Dim VAR_TBM_PML_BI
 				IF BUD_TBM_PML_BI = 0 then
@@ -610,7 +610,7 @@ function launchwin(winurl,winname,winfeatures)
 					VAR_TBM_PML_BI = TBM_PML_BI / (BUD_TBM_PML_BI/ 100)
 				end if
 			%>
-			<td align="right"><%=FormatNumber(VAR_TBM_PML_BI,0)%></td>
+			<td align="right"><%=FormatNumber(VAR_TBM_PML_BI,2)%></td>
 			<%
 				Dim VAR_TBM_PML_SBI
 				IF BUD_TBM_PML_SBI = 0 then
@@ -619,7 +619,7 @@ function launchwin(winurl,winname,winfeatures)
 					VAR_TBM_PML_SBI = TBM_PML_SBI / (BUD_TBM_PML_SBI/ 100)
 				end if
 			%>
-			<td align="right"><%=FormatNumber(VAR_TBM_PML_SBI,0)%></td>
+			<td align="right"><%=FormatNumber(VAR_TBM_PML_SBI,2)%></td>
 			<%
 			Dim ACH_TBM_PML_BI
 			if VAR_TBM_PML_BI < 90 OR VAR_TBM_PML_BI> 110 then
@@ -633,7 +633,7 @@ function launchwin(winurl,winname,winfeatures)
 				ACH_TBM_PML_BI = 100
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TBM_PML_BI,0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TBM_PML_BI,2)%></td>
 			<%
 			Dim ACH_TBM_PML_SBI
 			if VAR_TBM_PML_SBI < 90 OR VAR_TBM_PML_SBI > 110 then
@@ -647,7 +647,7 @@ function launchwin(winurl,winname,winfeatures)
 				ACH_TBM_PML_SBI = 100
 			end if
 			%>
-			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TBM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:<%=ColorAch%>"><%=FormatNumber(ACH_TBM_PML_SBI,2)%></td>
 		</tr>
 		<%
 			Dim Ttl_All_TM_PNN_BI, Ttl_All_TM_PNN_SBI, Ttl_All_BUD_TM_PNN_BI,Ttl_All_BUD_TM_PNN_SBI
@@ -688,10 +688,10 @@ function launchwin(winurl,winname,winfeatures)
 		%>
 		<tr>
 			<td align="right" style="background-color:#FFA500;"><b>Total</b></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_PROD_BI / 1000,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_PROD_SBI / 1000,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_PROD_BI / 1000,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_PROD_SBI / 1000,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_PROD_BI / 1000,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_PROD_SBI / 1000,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_PROD_BI / 1000,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_PROD_SBI / 1000,2)%></td>
 			<%
 				if Ttl_PROD_BI  = 0 OR  Ttl_BUD_PROD_BI = 0 then 
 					Ttl_ACH_PROD_BI = 0
@@ -705,13 +705,13 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_ACH_PROD_SBI = Ttl_PROD_SBI / Ttl_BUD_PROD_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_PROD_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_PROD_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_PROD_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_PROD_SBI,2)%></td>
 			
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_NP_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_NP_SBI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_NP_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_NP_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_NP_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_NP_SBI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_NP_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_NP_SBI,2)%></td>
 			<%
 				if Ttl_NP_BI = 0 OR  Ttl_BUD_NP_BI = 0 then 
 					Ttl_ACH_NP_BI = 0
@@ -725,8 +725,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_ACH_NP_SBI = Ttl_NP_SBI / Ttl_BUD_NP_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_NP_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_NP_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_NP_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_NP_SBI,2)%></td>
 			<%
 				if Ttl_PROD_BI <> 0 then
 					Ttl_TM_PNN_BI 		= Ttl_All_TM_PNN_BI / Ttl_PROD_BI
@@ -752,10 +752,10 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_BUD_TM_PNN_SBI	= 0
 				end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TM_PNN_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TM_PNN_SBI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TM_PNN_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TM_PNN_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TM_PNN_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TM_PNN_SBI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TM_PNN_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TM_PNN_SBI,2)%></td>
 			<%
 				if Ttl_TM_PNN_BI = 0 OR  Ttl_BUD_TM_PNN_BI = 0 then 
 					Ttl_VAR_TM_PNN_BI = 0
@@ -769,8 +769,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_VAR_TM_PNN_SBI = Ttl_TM_PNN_SBI / Ttl_BUD_TM_PNN_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TM_PNN_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TM_PNN_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TM_PNN_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TM_PNN_SBI,2)%></td>
 			<%
 				if Ttl_VAR_TM_PNN_BI < 90 OR Ttl_VAR_TM_PNN_BI> 110 then
 					Ttl_ACH_TM_PNN_BI = 85
@@ -788,8 +788,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_ACH_TM_PNN_SBI = 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TM_PNN_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TM_PNN_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TM_PNN_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TM_PNN_SBI,2)%></td>
 			<%
 				if Ttl_PROD_BI <> 0 then
 					Ttl_TM_PML_BI		= Ttl_All_TM_PML_BI / Ttl_PROD_BI
@@ -816,10 +816,10 @@ function launchwin(winurl,winname,winfeatures)
 				end if
 				
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TM_PML_SBI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TM_PML_SBI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TM_PML_SBI,2)%></td>
 			<%
 				if Ttl_TM_PML_BI = 0 OR  Ttl_BUD_TM_PML_BI = 0 then 
 					Ttl_VAR_TM_PML_BI = 0
@@ -833,8 +833,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_VAR_TM_PML_SBI = Ttl_TM_PML_SBI / Ttl_BUD_TM_PML_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TM_PML_SBI,2)%></td>
 			<%
 			if Ttl_VAR_TM_PML_BI < 90 OR Ttl_VAR_TM_PML_BI> 110 then
 				Ttl_ACH_TM_PML_BI = 85
@@ -852,8 +852,8 @@ function launchwin(winurl,winname,winfeatures)
 				Ttl_ACH_TM_PML_SBI = 100
 			end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TM_PML_SBI,2)%></td>
 			<%
 				if Ttl_All_HA_TBM <> 0 then
 					Ttl_TBM_PML_BI 		= Ttl_All_TBM_PML_BI / Ttl_All_HA_TBM
@@ -867,10 +867,10 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_BUD_TBM_PML_SBI	= 0
 				end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TBM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TBM_PML_SBI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TBM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TBM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TBM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_TBM_PML_SBI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TBM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_BUD_TBM_PML_SBI,2)%></td>
 			<%
 				if Ttl_TBM_PML_BI = 0 OR  Ttl_BUD_TBM_PML_BI = 0 then 
 					Ttl_VAR_TBM_PML_BI = 0
@@ -884,8 +884,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_VAR_TBM_PML_SBI = Ttl_TBM_PML_SBI / Ttl_BUD_TBM_PML_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TBM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TBM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TBM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_VAR_TBM_PML_SBI,2)%></td>
 			<%
 			if Ttl_VAR_TBM_PML_BI < 90 OR Ttl_VAR_TBM_PML_BI> 110 then
 				Ttl_ACH_TBM_PML_BI = 85
@@ -903,8 +903,8 @@ function launchwin(winurl,winname,winfeatures)
 				Ttl_ACH_TBM_PML_SBI = 100
 			end if
 			%>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TBM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TBM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TBM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFA500;"><%=FormatNumber(Ttl_ACH_TBM_PML_SBI,2)%></td>
 		</tr>
 		<%
 			Dim Ttl_All_PT_TM_PNN_BI, Ttl_All_PT_TM_PNN_SBI, Ttl_All_PT_BUD_TM_PNN_BI, Ttl_All_PT_BUD_TM_PNN_SBI
@@ -945,10 +945,10 @@ function launchwin(winurl,winname,winfeatures)
 		%>
 			<tr>
 			<td align="right" Colspan="2" style="background-color:#FFFF00;"><b>Total <%=rsEPS("WILAYAH")%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_PROD_BI / 1000,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_PROD_SBI / 1000,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_PROD_BI / 1000,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_PROD_SBI / 1000,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_PROD_BI / 1000,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_PROD_SBI / 1000,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_PROD_BI / 1000,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_PROD_SBI / 1000,2)%></td>
 			<%
 				if Ttl_PT_PROD_BI = 0 OR  Ttl_PT_BUD_PROD_BI = 0 then 
 					Ttl_PT_ACH_PROD_BI = 0
@@ -962,13 +962,13 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_ACH_PROD_SBI = Ttl_PT_PROD_SBI / Ttl_PT_BUD_PROD_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_PROD_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_PROD_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_PROD_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_PROD_SBI,2)%></td>
 			
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_NP_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_NP_SBI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_NP_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_NP_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_NP_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_NP_SBI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_NP_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_NP_SBI,2)%></td>
 			<%
 				if Ttl_PT_NP_BI = 0 OR  Ttl_PT_BUD_NP_BI = 0 then 
 					Ttl_PT_ACH_NP_BI = 0
@@ -982,8 +982,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_ACH_NP_SBI = Ttl_PT_NP_SBI / Ttl_PT_BUD_NP_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_NP_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_NP_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_NP_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_NP_SBI,2)%></td>
 			<%
 				if Ttl_PT_PROD_BI <> 0 then
 					Ttl_PT_TM_PNN_BI 		= Ttl_All_PT_TM_PNN_BI / Ttl_PT_PROD_BI
@@ -1009,10 +1009,10 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_BUD_TM_PNN_SBI	= 0
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TM_PNN_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TM_PNN_SBI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TM_PNN_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TM_PNN_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TM_PNN_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TM_PNN_SBI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TM_PNN_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TM_PNN_SBI,2)%></td>
 			<%
 				if Ttl_PT_TM_PNN_BI = 0 OR  Ttl_PT_BUD_TM_PNN_BI = 0 then 
 					Ttl_PT_VAR_TM_PNN_BI = 0
@@ -1026,8 +1026,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_VAR_TM_PNN_SBI = Ttl_PT_TM_PNN_SBI / Ttl_PT_BUD_TM_PNN_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TM_PNN_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TM_PNN_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TM_PNN_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TM_PNN_SBI,2)%></td>
 			<%
 				if Ttl_PT_VAR_TM_PNN_BI < 90 OR Ttl_PT_VAR_TM_PNN_BI> 110 then
 					Ttl_PT_ACH_TM_PNN_BI = 85
@@ -1045,8 +1045,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_ACH_TM_PNN_SBI = 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TM_PNN_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TM_PNN_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TM_PNN_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TM_PNN_SBI,2)%></td>
 			<%
 				if Ttl_PT_PROD_BI <> 0 then
 					Ttl_PT_TM_PML_BI		= Ttl_All_PT_TM_PML_BI / Ttl_PT_PROD_BI
@@ -1073,10 +1073,10 @@ function launchwin(winurl,winname,winfeatures)
 				end if
 				
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TM_PML_SBI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TM_PML_SBI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TM_PML_SBI,2)%></td>
 			<%
 				if Ttl_PT_TM_PML_BI = 0 OR  Ttl_PT_BUD_TM_PML_BI = 0 then 
 					Ttl_PT_VAR_TM_PML_BI = 0
@@ -1090,8 +1090,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_VAR_TM_PML_SBI = Ttl_PT_TM_PML_SBI / Ttl_PT_BUD_TM_PML_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TM_PML_SBI,2)%></td>
 			<%
 				if Ttl_PT_VAR_TM_PML_BI < 90 OR Ttl_PT_VAR_TM_PML_BI> 110 then
 					Ttl_PT_ACH_TM_PML_BI = 85
@@ -1109,8 +1109,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_ACH_TM_PML_SBI = 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TM_PML_SBI,2)%></td>
 			<%
 			if Ttl_All_PT_HA_TBM <> 0 then
 					Ttl_PT_TBM_PML_BI 		= Ttl_All_PT_TBM_PML_BI / Ttl_All_PT_HA_TBM
@@ -1124,10 +1124,10 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_BUD_TBM_PML_SBI	= 0
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TBM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TBM_PML_SBI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TBM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TBM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TBM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_TBM_PML_SBI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TBM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_BUD_TBM_PML_SBI,2)%></td>
 			<%
 				if Ttl_PT_TBM_PML_BI = 0 OR  Ttl_PT_BUD_TBM_PML_BI = 0 then 
 					Ttl_PT_VAR_TBM_PML_BI = 0
@@ -1141,8 +1141,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_VAR_TBM_PML_SBI = Ttl_PT_TBM_PML_SBI / Ttl_PT_BUD_TBM_PML_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TBM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TBM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TBM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_VAR_TBM_PML_SBI,2)%></td>
 			<%
 				if Ttl_PT_VAR_TBM_PML_BI < 90 OR Ttl_PT_VAR_TBM_PML_BI> 110 then
 					Ttl_PT_ACH_TBM_PML_BI = 85
@@ -1160,8 +1160,8 @@ function launchwin(winurl,winname,winfeatures)
 					Ttl_PT_ACH_TBM_PML_SBI = 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TBM_PML_BI,0)%></td>
-			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TBM_PML_SBI,0)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TBM_PML_BI,2)%></td>
+			<td align="right" style="background-color:#FFFF00;"><%=FormatNumber(Ttl_PT_ACH_TBM_PML_SBI,2)%></td>
 		</tr>
 		<%
 			NOWil = 1
@@ -1323,10 +1323,10 @@ function launchwin(winurl,winname,winfeatures)
 		%>
 		<tr>
 			<td align="right" colspan="2" style="background-color:#FFFF00;"><b>Grand Total</b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_PROD_BI / 1000, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_PROD_SBI / 1000, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_PROD_BI / 1000, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_PROD_SBI / 1000, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_PROD_BI / 1000, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_PROD_SBI / 1000, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_PROD_BI / 1000, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_PROD_SBI / 1000, 2)%></b></td>
 			<%
 				if Grnd_Ttl_PROD_BI = 0 OR  Grnd_Ttl_BUD_PROD_BI = 0 then 
 					Grnd_Ttl_ACH_PROD_BI = 0
@@ -1340,13 +1340,13 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_ACH_PROD_SBI = Grnd_Ttl_PROD_SBI / Grnd_Ttl_BUD_PROD_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_PROD_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_PROD_SBI, 0)%></b></td>		
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_PROD_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_PROD_SBI, 2)%></b></td>		
 			
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_NP_BI, 0)%></b></td>	
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_NP_SBI, 0)%></b></td>	
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_NP_BI, 0)%></b></td>	
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_NP_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_NP_BI, 2)%></b></td>	
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_NP_SBI, 2)%></b></td>	
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_NP_BI, 2)%></b></td>	
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_NP_SBI, 2)%></b></td>
 			<%
 				if Grnd_Ttl_NP_BI = 0 OR  Grnd_Ttl_BUD_NP_BI = 0 then 
 					Grnd_Ttl_ACH_NP_BI = 0
@@ -1360,8 +1360,8 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_ACH_NP_SBI = Grnd_Ttl_NP_SBI / Grnd_Ttl_BUD_NP_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_NP_BI, 0)%></b></td>	
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_NP_SBI, 0)%></b></td>	
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_NP_BI, 2)%></b></td>	
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_NP_SBI, 2)%></b></td>	
 			<%
 				if Grnd_Ttl_PROD_BI <> 0 then
 					Grnd_Ttl_TM_PNN_BI 			= Grnd_All_Ttl_TM_PNN_BI / Grnd_Ttl_PROD_BI
@@ -1387,10 +1387,10 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_BUD_TM_PNN_SBI		= 0
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TM_PNN_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TM_PNN_SBI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TM_PNN_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TM_PNN_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TM_PNN_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TM_PNN_SBI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TM_PNN_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TM_PNN_SBI, 2)%></b></td>
 			<%
 				if Grnd_Ttl_TM_PNN_BI = 0 OR  Grnd_Ttl_BUD_TM_PNN_BI = 0 then 
 					Grnd_Ttl_VAR_TM_PNN_BI = 0
@@ -1404,8 +1404,8 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_VAR_TM_PNN_SBI = Grnd_Ttl_TM_PNN_SBI / Grnd_Ttl_BUD_TM_PNN_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TM_PNN_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TM_PNN_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TM_PNN_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TM_PNN_SBI, 2)%></b></td>
 			<%
 				if Grnd_Ttl_VAR_TM_PNN_BI < 90 OR Grnd_Ttl_VAR_TM_PNN_BI> 110 then
 					Grnd_Ttl_ACH_TM_PNN_BI = 85
@@ -1423,8 +1423,8 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_ACH_TM_PNN_SBI = 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TM_PNN_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TM_PNN_SBI, 0)%></b></td>			
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TM_PNN_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TM_PNN_SBI, 2)%></b></td>			
 			<%
 				if Grnd_Ttl_PROD_BI <> 0 then
 					Grnd_Ttl_TM_PML_BI 			= Grnd_All_Ttl_TM_PML_BI / Grnd_Ttl_PROD_BI
@@ -1450,10 +1450,10 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_BUD_TM_PML_SBI		= 0
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TM_PML_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TM_PML_SBI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TM_PML_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TM_PML_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TM_PML_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TM_PML_SBI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TM_PML_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TM_PML_SBI, 2)%></b></td>
 			<%
 				if Grnd_Ttl_TM_PML_BI = 0 OR  Grnd_Ttl_BUD_TM_PML_BI = 0 then 
 					Grnd_Ttl_VAR_TM_PML_BI = 0
@@ -1467,8 +1467,8 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_VAR_TM_PML_SBI = Grnd_Ttl_TM_PML_SBI / Grnd_Ttl_BUD_TM_PML_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TM_PML_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TM_PML_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TM_PML_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TM_PML_SBI, 2)%></b></td>
 			<%
 				if Grnd_Ttl_VAR_TM_PML_BI < 90 OR Grnd_Ttl_VAR_TM_PML_BI> 110 then
 					Grnd_Ttl_ACH_TM_PML_BI = 85
@@ -1486,8 +1486,8 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_ACH_TM_PML_SBI = 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TM_PML_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TM_PML_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TM_PML_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TM_PML_SBI, 2)%></b></td>
 			<%
 			if Grand_Ttl_HA_TBM <> 0 then
 					Grnd_Ttl_TBM_PML_BI 		= Grnd_All_Ttl_TBM_PML_BI / Grand_Ttl_HA_TBM
@@ -1501,10 +1501,10 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_BUD_TBM_PML_SBI	= 0
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TBM_PML_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TBM_PML_SBI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TBM_PML_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TBM_PML_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TBM_PML_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_TBM_PML_SBI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TBM_PML_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_BUD_TBM_PML_SBI, 2)%></b></td>
 			<%
 				if Grnd_Ttl_TBM_PML_BI = 0 OR  Grnd_Ttl_BUD_TBM_PML_BI = 0 then 
 					Grnd_Ttl_VAR_TBM_PML_BI = 0
@@ -1518,8 +1518,8 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_VAR_TBM_PML_SBI = Grnd_Ttl_TBM_PML_SBI / Grnd_Ttl_BUD_TBM_PML_SBI * 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TBM_PML_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TBM_PML_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TBM_PML_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_VAR_TBM_PML_SBI, 2)%></b></td>
 			<%
 				if Grnd_Ttl_VAR_TBM_PML_BI < 90 OR Grnd_Ttl_VAR_TBM_PML_BI> 110 then
 					Grnd_Ttl_ACH_TBM_PML_BI = 85
@@ -1537,8 +1537,8 @@ function launchwin(winurl,winname,winfeatures)
 					Grnd_Ttl_ACH_TBM_PML_SBI = 100
 				end if
 			%>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TBM_PML_BI, 0)%></b></td>
-			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TBM_PML_SBI, 0)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TBM_PML_BI, 2)%></b></td>
+			<td align="right" style="background-color:#FFFF00;"><b><%=FormatNumber(Grnd_Ttl_ACH_TBM_PML_SBI, 2)%></b></td>
 		</tr>
 		<%
 		end if

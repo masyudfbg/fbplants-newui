@@ -272,8 +272,8 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 			<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("receivenotecode")%></td>
 			<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("itemcode")%></td>
 			<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsGrnInv("itemname")%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("unitprice"))),0)%></td>
-			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("quantity"))),0)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("unitprice"))),2)%></td>
+			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("quantity"))),2)%></td>
 			<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(rsGrnInv("amount"))),2)%></td>  
 		</tr>
 <% 			
@@ -285,7 +285,7 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 	set rsGrnInv = Nothing
 %>		<tr bgcolor="#F4F4A0" style="font-weight: bold;">
 			<td align="Center" style="<%=cmdstyleLeft%>" colspan="7"> <font face="Verdana" size="1">T o t a l</td> 
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_quantity,0)%></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_quantity,2)%></td>
 			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_amount,2)%></td>  
 		</tr>
 	</tbody>  

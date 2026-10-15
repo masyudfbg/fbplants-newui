@@ -173,7 +173,7 @@ end if
 		<td align="CENTER" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("AN")%>&nbsp;</td>
 		<td align="CENTER" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("TKOSONG")%>&nbsp;</td>
 		<td align="CENTER" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("TPANJANG")%>&nbsp;</td>
-		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("BUNCHES"),0)%></td>
+		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("BUNCHES"),2)%></td>
 		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("WEIGHT"),2)%></td>
 		<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("REMARKS")%>&nbsp;</td>
 		</tr>

@@ -979,11 +979,11 @@ set rsLHPP = Nothing
 						<%end if%>
 						<td align="center"><%=array_data(3, xx)%></td>
 						<td align="right"><%=FormatNumber(array_data(4, xx),,,-1)%></td>
-						<td align="right"><%=FormatNumber(array_data(5, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(r_hk_hi, 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(6, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(7, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(r_ha_hi, 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(5, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(r_hk_hi, 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(6, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(7, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(r_ha_hi, 2)%></td>
 						
 						<%if r_ha_hi = 0 then%>
 							<td align="right"><%=FormatNumber(0, 2)%></td>
@@ -991,12 +991,12 @@ set rsLHPP = Nothing
 							<td align="right"><%=FormatNumber(r_hk_hi/r_ha_hi, 2)%></td>
 						<%end if%>
 						
-						<td align="right"><%=FormatNumber(array_data(8, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(9, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(r_hk_shi, 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(10, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(11, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(r_ha_shi, 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(8, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(9, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(r_hk_shi, 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(10, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(11, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(r_ha_shi, 2)%></td>
 						
 						<%if r_ha_shi = 0 then%>
 							<td align="right"><%=FormatNumber(0, 2)%></td>
@@ -1004,12 +1004,12 @@ set rsLHPP = Nothing
 							<td align="right"><%=FormatNumber(r_hk_shi/r_ha_shi, 2)%></td>
 						<%end if%>
 						
-						<td align="right"><%=FormatNumber(array_data(12, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(13, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(r_hk_sbi, 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(14, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(15, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(r_ha_sbi, 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(12, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(13, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(r_hk_sbi, 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(14, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(15, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(r_ha_sbi, 2)%></td>
 						
 						<%if r_ha_sbi = 0 then%>
 							<td align="right"><%=FormatNumber(0, 2)%></td>
@@ -1064,12 +1064,12 @@ set rsLHPP = Nothing
 					<tr><td colspan="25"></td></tr>
 					<tr style="background-color:#f4f4a0;">					
 						<td align="center" colspan="3"><b>Total</b></td>
-						<td align="right"><b><%=FormatNumber(gt_sku, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_khl, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_hk_hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_daily, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_contract, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_ha_hi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_sku, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_khl, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_hk_hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_daily, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_contract, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_ha_hi, 2)%></b></td>
 
 						<%if gt_ha_hi = 0 then%>
 							<td align="right"><b><%=FormatNumber(0, 2)%></b></td>
@@ -1077,12 +1077,12 @@ set rsLHPP = Nothing
 							<td align="right"><b><%=FormatNumber(gt_hk_hi/gt_ha_hi, 2)%></b></td>
 						<%end if%>
 						
-						<td align="right"><b><%=FormatNumber(gt_sku_1, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_khl_1, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_hk_shi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_daily_1, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_contract_1, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_ha_shi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_sku_1, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_khl_1, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_hk_shi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_daily_1, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_contract_1, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_ha_shi, 2)%></b></td>
 						
 						<%if gt_ha_shi = 0 then%>
 							<td align="right"><b><%=FormatNumber(0, 2)%></b></td>
@@ -1090,12 +1090,12 @@ set rsLHPP = Nothing
 							<td align="right"><b><%=FormatNumber(gt_hk_shi/gt_ha_shi, 2)%></b></td>
 						<%end if%>
 						
-						<td align="right"><b><%=FormatNumber(gt_sku_2, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_khl_2, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_hk_sbi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_daily_2, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_contract_2, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_ha_sbi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_sku_2, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_khl_2, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_hk_sbi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_daily_2, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_contract_2, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_ha_sbi, 2)%></b></td>
 						
 						<%if gt_ha_sbi = 0 then%>
 							<td align="right"><b><%=FormatNumber(0, 2)%></b></td>

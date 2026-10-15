@@ -148,7 +148,7 @@
 				<td align="left"><%=rsStockOnHand("STOCKCODE")%></td>
 				<td align="left"><%=rsStockOnHand("STOCKNAME")%></td>
 				<td align="left"><%=rsStockOnHand("UOM")%></td>
-				<td align="right"><%=rsStockOnHand("QUANTITY")%></td>				
+				<td align="right"><%=FbpNum2(rsStockOnHand("QUANTITY"))%></td>				
 			</tr>
 <%
 			NO = NO + 1
@@ -160,7 +160,7 @@
 %>
 			<tr style="background-color:#F4F4A0;">
 				<td align="center" colspan="5"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=nTotal%></strong></td>
+				<td align="right"><strong><%=FbpNum2(nTotal)%></strong></td>
 			</tr>
  </tbody>
 </table>

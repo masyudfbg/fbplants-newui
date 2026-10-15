@@ -706,60 +706,60 @@ else
 					<tr bgcolor="#ffff01" >
 						<td colspan="4" align="left"><strong><%=rsLHPP("fcba")%></strong></td>
 						 
-						<td align="right"><strong><%=FormatNumber(Row_cntemp, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kj, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_dl, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_wh, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ws, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kk, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kl, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kh, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_cntemp, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kj, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_dl, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_wh, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ws, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kk, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kl, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kh, 2)%></strong></td>
 						
-						<td align="right"><strong><%=FormatNumber(Row_bi_p2, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_p3, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_s1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_s2, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_h1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_h2, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ct, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_p2, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_p3, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_s1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_s2, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_h1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_h2, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ct, 2)%></strong></td>
 						
-						<td align="right"><strong><%=FormatNumber(Row_bi_mk, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ml, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_p1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_un, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_mk, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ml, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_p1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_un, 2)%></strong></td>
 						
-						<td align="right"><strong><%=FormatNumber(Row_bi_total, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_hke, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_total, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_hke, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_bi_hke_percent, 2)%></strong></td>
 						
 					</tr>
 				<%elseif Left(Cstr(rsLHPP("fcba")), 8) = "Subtotal" then%>
 					<tr bgcolor="#F4F4A0" >
 						<td colspan="4" align="left"><strong><%=rsLHPP("fcba")%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_cntemp, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kj, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_dl, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_wh, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ws, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kk, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kl, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_kh, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_cntemp, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kj, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_dl, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_wh, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ws, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kk, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kl, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_kh, 2)%></strong></td>
 						
-						<td align="right"><strong><%=FormatNumber(Row_bi_p2, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_p3, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_s1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_s2, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_h1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_h2, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ct, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_p2, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_p3, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_s1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_s2, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_h1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_h2, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ct, 2)%></strong></td>
 						
-						<td align="right"><strong><%=FormatNumber(Row_bi_mk, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_ml, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_p1, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_un, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_mk, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_ml, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_p1, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_un, 2)%></strong></td>
 						
-						<td align="right"><strong><%=FormatNumber(Row_bi_total, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(Row_bi_hke, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_total, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(Row_bi_hke, 2)%></strong></td>
 						<td align="right"><strong><%=FormatNumber(Row_bi_hke_percent, 2)%></strong></td>
 						
 					</tr>
@@ -777,30 +777,30 @@ else
 						<%end if%>
 						<td align="center"><%=rsLHPP("grade")%></td>
 						<td align="center"><%=rsLHPP("position_name")%></td>
-						<td align="right"><%=rsLHPP("cntemp")%></td>
-						<td align="right"><%=FormatNumber(Row_bi_kj, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_dl, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_wh, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_ws, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_kk, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_kl, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_kh, 0)%></td>
+						<td align="right"><%=FbpNum2(rsLHPP("cntemp"))%></td>
+						<td align="right"><%=FormatNumber(Row_bi_kj, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_dl, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_wh, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_ws, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_kk, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_kl, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_kh, 2)%></td>
 						
-						<td align="right"><%=FormatNumber(Row_bi_p2, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_p3, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_s1, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_s2, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_h1, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_h2, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_ct, 0)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_p2, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_p3, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_s1, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_s2, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_h1, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_h2, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_ct, 2)%></td>
 						
-						<td align="right"><%=FormatNumber(Row_bi_mk, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_ml, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_p1, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_un, 0)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_mk, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_ml, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_p1, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_un, 2)%></td>
 						
-						<td align="right"><%=FormatNumber(Row_bi_total, 0)%></td>
-						<td align="right"><%=FormatNumber(Row_bi_hke, 0)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_total, 2)%></td>
+						<td align="right"><%=FormatNumber(Row_bi_hke, 2)%></td>
 						<td align="right"><%=FormatNumber(Row_bi_hke_percent, 2)%></td>
 					</tr>
 					<%prevsection = currsection%>

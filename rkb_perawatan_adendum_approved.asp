@@ -536,7 +536,7 @@
 										<tr style="font-size: 15px;">
 											<td align="left"><%=rssum("JOBNAME")%></td>
 											<td align="center" width="60px"><%=rssum("LOCATIONCODE")%></td>
-											<td align="right" width="90px"><%=formatnumber(rssum("VOLUME"),0)%></td>
+											<td align="right" width="90px"><%=formatnumber(rssum("VOLUME"),2)%></td>
 									
 										</tr>
 									<%
@@ -546,7 +546,7 @@
 									%>
 									<tr>
 										<td colspan="2" class="tebal" style="font-size: 15px;">Total</td>
-										<td class="tebal" style="font-size: 15px;"><%=formatnumber(ttlluassummary,0)%></td>
+										<td class="tebal" style="font-size: 15px;"><%=formatnumber(ttlluassummary,2)%></td>
 									</tr>
 							</table>
 

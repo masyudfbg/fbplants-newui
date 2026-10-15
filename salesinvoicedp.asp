@@ -881,14 +881,14 @@ if cmdView = "True" and len(trim(invoicedpno)) > 0  Then
 			</td>
 			    <td align="center" title="<%=rsVH("invoicedpno").Name%>" valign="top"><%=rsVH("invoicedpno")%></td>
 			    <td align="center" title="<%=rsVH("salescontractno").Name%>" valign="top"><%=rsVH("salescontractno")%></td>
-				<td align="right" title="<%=rsVH("totalamount").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("totalamount"))),0)%></td>
-				<td align="right" title="<%=rsVH("dp_beforevat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("dp_beforevat"))),0)%></td>
-				<td align="right" title="<%=rsVH("dp_vat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("dp_vat"))),0)%></td>
-			    <td align="right" title="<%=rsVH("amount_dpvat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("amount_dpvat"))),0)%></td>
-			    <td align="right" title="<%=rsVH("dp_aftervat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("dp_aftervat"))),0)%></td>
-			    <td align="right" title="<%=rsVH("todate_dp_aftervat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("todate_dp_aftervat"))),0)%></td>
-			    <td align="right" title="<%=rsVH("percentage_dp").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("percentage_dp"))),0)%></td>
-			    <td align="right" title="<%=rsVH("todate_percentage_dp").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("todate_percentage_dp"))),0)%></td>
+				<td align="right" title="<%=rsVH("totalamount").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("totalamount"))),2)%></td>
+				<td align="right" title="<%=rsVH("dp_beforevat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("dp_beforevat"))),2)%></td>
+				<td align="right" title="<%=rsVH("dp_vat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("dp_vat"))),2)%></td>
+			    <td align="right" title="<%=rsVH("amount_dpvat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("amount_dpvat"))),2)%></td>
+			    <td align="right" title="<%=rsVH("dp_aftervat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("dp_aftervat"))),2)%></td>
+			    <td align="right" title="<%=rsVH("todate_dp_aftervat").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("todate_dp_aftervat"))),2)%></td>
+			    <td align="right" title="<%=rsVH("percentage_dp").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("percentage_dp"))),2)%></td>
+			    <td align="right" title="<%=rsVH("todate_percentage_dp").Name%>" valign="top"><%=formatnumber(cdbl(to_nol(rsVH("todate_percentage_dp"))),2)%></td>
 			    <td align="right" title="<%=rsVH("valid_until").Name%>" valign="top"><%=rsVH("valid_until")%></td>
 		</tr>
 		  <%

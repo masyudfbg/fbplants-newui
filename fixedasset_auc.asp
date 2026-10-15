@@ -625,14 +625,14 @@ If cmdView = "True" and ""&documentno <> "" and ""&creationdate <> "" and ""&fcc
 					<td align="right" title="Accounting Period" valign="top"><%=rswipfinal("accountingperiod")%></td>
 					<td align="center" title="Sourcetype" valign="top"><%=rswipfinal("sourcetype")%></td>
 					<td align="left" title="Jobcode" valign="top"><%=rswipfinal("jobcode")%></td>
-					<td align="right" title="Amount" valign="top"><%=FormatNumber(rswipfinal("amount"),0)%></td>
+					<td align="right" title="Amount" valign="top"><%=FormatNumber(rswipfinal("amount"),2)%></td>
 					
 				<%else%>
 					<td align="center" title="Accounting Year" valign="top"><%=rswipfinal("accountingyear")%></td>
 					<td align="right" title="Accounting Period" valign="top"><%=rswipfinal("accountingperiod")%></td>
 					<td align="center" title="Sourcetype" valign="top"><%=rswipfinal("sourcetype")%></td>
 					<td align="left" title="Jobcode" valign="top"><%=rswipfinal("jobcode")%></td>
-					<td align="right" title="Amount" valign="top"><%=FormatNumber(rswipfinal("amount"),0)%></td>
+					<td align="right" title="Amount" valign="top"><%=FormatNumber(rswipfinal("amount"),2)%></td>
 					
 					<input type="hidden" name="accountingyear_<%=no%>" value="<%=rswipfinal("accountingyear")%>">
 					<input type="hidden" name="accountingperiod_<%=no%>" value="<%=rswipfinal("accountingperiod")%>">
@@ -647,7 +647,7 @@ If cmdView = "True" and ""&documentno <> "" and ""&creationdate <> "" and ""&fcc
 	  Wend
 			response.write "<tr style='background-color:#F4F4A0;'>"
 			response.write "	<td align='right' colspan='4'><b>Total</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(gt_amount,0)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(gt_amount,2)&"</b></td>"
 			response.write "</tr>"
    else
       response.Write("Data is empty")	  

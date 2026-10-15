@@ -159,7 +159,7 @@ response.Flush()
 						Set rsPayslip = connStr.Execute(txtPayslip)
 						response.Write allded_group
 						if Not rsPayslip.eof then%>
-						   <td style="<%=cmdstyle%>" align="right"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rsPayslip("Amount")),0)%>&nbsp;</td>
+						   <td style="<%=cmdstyle%>" align="right"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rsPayslip("Amount")),2)%>&nbsp;</td>
 						   <%
 						Else
 						   nPayslip=0
@@ -174,7 +174,7 @@ response.Flush()
 	            SET rsGroup = Nothing
 			    nGrantTotal = nGrantTotal+cdbl(ntotal)
 				%>		
-			   <td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(nTotal,0)%></td>
+			   <td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(nTotal,2)%></td>
 			   <%if no  mod 2 = 1 then%>
 				   <td align="left" style="<%=cmdstyle%>" width="50" bgcolor="#CCCCCC"><font face="Verdana" size="1">&nbsp;</td>			
 				   <td align="left" style="<%=cmdstyle%>" width="50"><font face="Verdana" size="1">&nbsp;</td>			
@@ -195,7 +195,7 @@ response.Flush()
 	</form>
 	<tr>
 	<td align="Center" style="<%=cmdstyleLeft%>" colspan="10" height="30"> <font face="Verdana" size="1">T O T A L</td>
-	<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(nGrantTotal,0)%>&nbsp;</td>
+	<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(nGrantTotal,2)%>&nbsp;</td>
 	<td align="left" style="<%=cmdstyle%>" width="50" bgcolor="#CCCCCC"><font face="Verdana" size="1">&nbsp;</td>
 	<td align="left" style="<%=cmdstyle%>" width="50" bgcolor="#CCCCCC"><font face="Verdana" size="1">&nbsp;</td>
 	</tr>

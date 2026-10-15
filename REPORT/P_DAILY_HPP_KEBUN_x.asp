@@ -622,38 +622,38 @@ set rsLHPP = Nothing
 						<td align="right"><%=FormatNumber(array_data(19, xx), 2)%></td>
 						<td align="right"><%=FormatNumber(array_data(20, xx), 2)%></td>
 						<td align="right"><%=FormatNumber(array_data(21, xx), 2)%></td>
-						<td align="right"><%=FormatNumber(array_data(22, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(23, xx), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(22, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(23, xx), 2)%></td>
 						<!--  Biaya -->
-						<td align="right"><%=FormatNumber(array_data(24, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(25, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(26, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(27, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(28, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(29, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(30, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(31, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(32, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(33, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(34, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(35, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(36, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(37, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(38, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(39, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(40, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(41, xx), 0)%></td>
+						<td align="right"><%=FormatNumber(array_data(24, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(25, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(26, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(27, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(28, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(29, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(30, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(31, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(32, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(33, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(34, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(35, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(36, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(37, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(38, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(39, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(40, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(41, xx), 2)%></td>
 						
-						<td align="right"><%=array_data(42, xx)%></td>
-						<td align="right"><%=array_data(43, xx)%></td>
-						<td align="right"><%=FormatNumber(array_data(44, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(45, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(46, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(47, xx), 0)%></td>
+						<td align="right"><%=FbpNum2(array_data(42, xx))%></td>
+						<td align="right"><%=FbpNum2(array_data(43, xx))%></td>
+						<td align="right"><%=FormatNumber(array_data(44, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(45, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(46, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(47, xx), 2)%></td>
 						
-						<td align="right"><%=array_data(48, xx)%></td>
-						<td align="right"><%=FormatNumber(array_data(49, xx), 0)%></td>
-						<td align="right"><%=FormatNumber(array_data(50, xx), 0)%></td>
+						<td align="right"><%=FbpNum2(array_data(48, xx))%></td>
+						<td align="right"><%=FormatNumber(array_data(49, xx), 2)%></td>
+						<td align="right"><%=FormatNumber(array_data(50, xx), 2)%></td>
 						
 					</tr>
 					
@@ -696,12 +696,12 @@ set rsLHPP = Nothing
 					<tr><td colspan="25"></td></tr>
 					<tr style="background-color:#f4f4a0;">					
 						<td align="center" colspan="5"><b>Total</b></td>
-						<td align="right"><b><%=FormatNumber(gt_sku, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_khl, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_hk_hi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_daily, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_contract, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_ha_hi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_sku, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_khl, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_hk_hi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_daily, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_contract, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_ha_hi, 2)%></b></td>
 
 						<%if gt_ha_hi = 0 then%>
 							<td align="right"><b><%=FormatNumber(0, 2)%></b></td>
@@ -709,12 +709,12 @@ set rsLHPP = Nothing
 							<td align="right"><b><%=FormatNumber(gt_hk_hi/gt_ha_hi, 2)%></b></td>
 						<%end if%>
 						
-						<td align="right"><b><%=FormatNumber(gt_sku_1, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_khl_1, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_hk_shi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_daily_1, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_contract_1, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_ha_shi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_sku_1, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_khl_1, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_hk_shi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_daily_1, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_contract_1, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_ha_shi, 2)%></b></td>
 						
 						<%if gt_ha_shi = 0 then%>
 							<td align="right"><b><%=FormatNumber(0, 2)%></b></td>
@@ -722,12 +722,12 @@ set rsLHPP = Nothing
 							<td align="right"><b><%=FormatNumber(gt_hk_shi/gt_ha_shi, 2)%></b></td>
 						<%end if%>
 						
-						<td align="right"><b><%=FormatNumber(gt_sku_2, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_khl_2, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_hk_sbi, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_daily_2, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_unit_contract_2, 0)%></b></td>
-						<td align="right"><b><%=FormatNumber(gt_ha_sbi, 0)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_sku_2, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_khl_2, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_hk_sbi, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_daily_2, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_unit_contract_2, 2)%></b></td>
+						<td align="right"><b><%=FormatNumber(gt_ha_sbi, 2)%></b></td>
 						
 						<%if gt_ha_sbi = 0 then%>
 							<td align="right"><b><%=FormatNumber(0, 2)%></b></td>

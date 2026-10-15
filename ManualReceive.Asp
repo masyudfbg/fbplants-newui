@@ -805,15 +805,15 @@ If cmdView = "True" and LEN(TRIM(TempOrderNo)) > 4 and len(trim(TempOrderNo)) > 
 					<td align="Right" title="Price" valign="top"><%=FormatNumber(rsMaRcv("Price"),2)%></td>
 					<td align="Right" title="Amount" valign="top"><%=FormatNumber(rsMaRcv("Amount"),2)%></td>
                     <td align="Right" title="Jobcode" valign="top"><%=rsMaRcv("Jobcode")%></td> 
-					<td align="Right" title="Jobname" valign="top"><%=rsMaRcv("Jobname")%></td>
-					<td align="Right" title="locationtype" valign="top"><%=rsMaRcv("locationtype")%></td>
+					<td align="Right" title="Jobname" valign="top"><%=FbpNum2(rsMaRcv("Jobname"))%></td>
+					<td align="Right" title="locationtype" valign="top"><%=FbpNum2(rsMaRcv("locationtype"))%></td>
                     <td align="left">        
 							<select name="xstoreCode_<%=no%>" value="<%=request("xstoreCode_"&TRIM(no))%>"> 
 								<%cmdCallCombo "Store",xstoreCode_&TRIM(no),"ACTIVATION", "Y"%>
 							</select>
 							<font color="#FF0000"></font>
 					</td>
-					<td align="Right" title="quantityreceived" valign="top"><%=rsMaRcv("quantityreceived")%></td>
+					<td align="Right" title="quantityreceived" valign="top"><%=FbpNum2(rsMaRcv("quantityreceived"))%></td>
 					
 					<input type="hidden" name="LineNoKey_<%=no%>" value="<%=rsMaRcv("Linenosource")%>"></td>
 					<input type="hidden" name="Ordersource_<%=no%>" value="<%=rsMaRcv("Ordersource")%>"></td>

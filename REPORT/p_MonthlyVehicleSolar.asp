@@ -689,8 +689,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				
 				
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_01"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_01"),0)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_01"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_01"),2)%></td>
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_01 = cdbl(rsDailyVehicleSolar("RASIO_SU_01"))
 				   else 
@@ -699,8 +699,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_01,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_02"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_02"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_02"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_02"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_02 = cdbl(rsDailyVehicleSolar("RASIO_SU_02"))
 				   else 
@@ -709,8 +709,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_02,2)%></%></td>
 			    
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_03"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_03"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_03"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_03"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_03 = cdbl(rsDailyVehicleSolar("RASIO_SU_03"))
 				   else 
@@ -719,8 +719,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_03,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_04"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_04"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_04"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_04"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_04 = cdbl(rsDailyVehicleSolar("RASIO_SU_04"))
 				   else 
@@ -729,8 +729,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_04,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_05"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_05"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_05"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_05"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_05 = cdbl(rsDailyVehicleSolar("RASIO_SU_05"))
 				   else 
@@ -739,8 +739,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_05,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_06"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_06"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_06"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_06"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_06 = cdbl(rsDailyVehicleSolar("RASIO_SU_06"))
 				   else 
@@ -749,8 +749,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_06,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_07"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_07"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_07"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_07"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_07 = cdbl(rsDailyVehicleSolar("RASIO_SU_07"))
 				   else 
@@ -759,8 +759,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_07,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_08"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_08"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_08"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_08"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_08 = cdbl(rsDailyVehicleSolar("RASIO_SU_08"))
 				   else 
@@ -769,8 +769,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_08,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_09"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_09"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_09"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_09"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_09 = cdbl(rsDailyVehicleSolar("RASIO_SU_09"))
 				   else 
@@ -779,8 +779,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_09,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_10"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_10"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_10"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_10"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_10 = cdbl(rsDailyVehicleSolar("RASIO_SU_10"))
 				   else 
@@ -789,8 +789,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_10,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_11"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_11"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_11"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_11"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_11 = cdbl(rsDailyVehicleSolar("RASIO_SU_11"))
 				   else 
@@ -799,8 +799,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_12,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_12"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_12"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_12"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_12"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_12 = cdbl(rsDailyVehicleSolar("RASIO_SU_12"))
 				   else 
@@ -809,8 +809,8 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
 				 %>
 				<td align="right"><%=FormatNumber(tempRasio_12,2)%></%></td>
 				
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_SBI"),0)%></td>
-				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_SBI"),0)%></td>	
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("UNIT_SBI"),2)%></td>
+				<td align="right"><%=FormatNumber(rsDailyVehicleSolar("SOLAR_SBI"),2)%></td>	
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempRasio_SBI = cdbl(rsDailyVehicleSolar("RASIO_SU_SBI"))
 				   else 
@@ -845,43 +845,43 @@ Dim nTotal_1,nTotal_2,nTotal_3,nTotal_4,nTotal_5,nTotal_6,nTotal_7,nTotal_8,nTot
            <tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%= nSpanTotal %>">TOTAL</td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_1,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_1,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_2,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_2,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_3,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_3,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_4,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_4,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_5,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_5,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_6,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_6,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_7,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_7,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_8,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_8,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_9,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_9,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_10,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_10,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_11,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_11,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_12,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_12,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_sbi,2)%></td>
 				<td align="right"></td>
 			</tr>
 		</tbody> 	

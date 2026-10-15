@@ -994,7 +994,7 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>1. TBS sisa kemarin</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(sisatbskemarin)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(sisatbskemarin)),2)%></td>
                         <td class="ratakanan">0</td>
                         <td class="ratakanan">0</td>
                         <td class="ratakanan">0</td>
@@ -1023,10 +1023,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 %>
                                 <tr >
                                     <td class=""><%=rscpodo("DOOrderID")%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpodoparty)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpodohi)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpodoshi)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpodosisa)),0)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpodoparty)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpodohi)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpodoshi)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpodosisa)),2)%></td>
                 
                                 </tr>
                                 <%
@@ -1044,10 +1044,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 %>
                                 <tr>
                                     <td class="tebal">Jumlah</td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totcpodoparty)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totcpodohi)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totcpodoshi)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totcpodosisa)),0)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totcpodoparty)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totcpodohi)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totcpodoshi)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totcpodosisa)),2)%></td>
                                 </tr>
                                 <%	rscpodo.close() 
                                     set rscpodo = nothing
@@ -1059,16 +1059,16 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>2. TBS masuk hari ini</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsnow)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsdhariini)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbssdblnini)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbssdthnini)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsnow)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsdhariini)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbssdblnini)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbssdthnini)),2)%></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>3. Jumlah TBS tersedia</td>
                         <td>Kg</td>
-                         <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbstersedia)),0)%></td>
+                         <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbstersedia)),2)%></td>
                         <td class="ratakanan">0</td>
                         <td class="ratakanan">0</td>
                         <td class="ratakanan">0</td>
@@ -1077,25 +1077,25 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>4. TBS Keluar</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pottbshi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pottbsshi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pottbssbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pottbssti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pottbshi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pottbsshi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pottbssbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pottbssti)),2)%></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>5. TBS diolah hari ini</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsolah)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsterimashi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsolahsbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsolahsti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsolah)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsterimashi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsolahsbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbsolahsti)),2)%></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>6. Sisa TBS hari ini</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbssisanow)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(tbssisanow)),2)%></td>
                         <td class="ratakanan">0</td>
                         <td class="ratakanan">0</td>
                         <td class="ratakanan">0</td>
@@ -1104,19 +1104,19 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>7. Jumlah jam olah</td>
                         <td>Jam</td>
-                        <td class="ratakanan"><%=jamkerja%></td>
-                        <td class="ratakanan"><%=jamolahshi%></td>
-                        <td class="ratakanan"><%=jamolahsbi%></td>
-                        <td class="ratakanan"><%=jamolahsti%></td>
+                        <td class="ratakanan"><%=FbpNum2(jamkerja)%></td>
+                        <td class="ratakanan"><%=FbpNum2(jamolahshi)%></td>
+                        <td class="ratakanan"><%=FbpNum2(jamolahsbi)%></td>
+                        <td class="ratakanan"><%=FbpNum2(jamolahsti)%></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>8. Kapasitas per - jam</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(kapasitasjam)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(kapasitasshi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(kapasitassbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(kapasitassti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(kapasitasjam)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(kapasitasshi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(kapasitassbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(kapasitassti)),2)%></td>
                     </tr>
                     <tr>
                         <td align="center">II</td>
@@ -1127,10 +1127,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>1. Hasil CPO hari ini</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpohriini)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtystockcposhi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtystockcposbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtystockcposti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpohriini)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtystockcposhi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtystockcposbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtystockcposti)),2)%></td>
                         <td colspan="5" rowspan="6">
                             <table class="tabeltengah" width="600" border="0">
                                 <tr>
@@ -1156,10 +1156,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 %>
                                 <tr >
                                     <td class=""><%=rskerneldo("DOOrderID")%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkdoparty)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkdohi)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkdoshi)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkdosisa)),0)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkdoparty)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkdohi)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkdoshi)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkdosisa)),2)%></td>
                 
                                 </tr>
                                 <%
@@ -1177,10 +1177,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 %>
                                 <tr>
                                     <td class="tebal">Jumlah</td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totpkdoparty)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totpkdohi)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totpkdoshi)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totpkdosisa)),0)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totpkdoparty)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totpkdohi)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totpkdoshi)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totpkdosisa)),2)%></td>
                                 </tr>
                                 <%	rskerneldo.close() 
                                     set rskerneldo = nothing
@@ -1253,10 +1253,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>1. Hasil PK hari ini</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkhi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtypkshi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtypksbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtypksti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkhi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtypkshi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtypksbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtypksti)),2)%></td>
                         <td colspan="5" rowspan="5" >
                             <table class="tabeltengah" width="600" border="0">
                                 <tr>
@@ -1281,10 +1281,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 %>
                                 <tr >
                                     <td class=""><%=rsckgdo("DOOrderID")%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgdoparty)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgdohi)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgdoshi)),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgdosisa)),0)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgdoparty)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgdohi)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgdoshi)),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgdosisa)),2)%></td>
                 
                                 </tr>
                                 <%
@@ -1302,10 +1302,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 %>
                                 <tr>
                                     <td class="tebal">Jumlah</td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totckgdoparty)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totckgdohi)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totckgdoshi)),0)%></td>
-                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totckgdosisa)),0)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totckgdoparty)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totckgdohi)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totckgdoshi)),2)%></td>
+                                    <td class="ratakanan tebal"><%=formatnumber(cdbl(to_nol(totckgdosisa)),2)%></td>
                                 </tr>
                                 <%	rsckgdo.close() 
                                     set rsckgdo = nothing
@@ -1328,7 +1328,7 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>3. FFA</td>
                         <td>%</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkffahi)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkffahi)),2)%></td>
                         <!-- <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkffashi)),2)%></td> -->
                         <td class="ratakanan"></td>
                         <td class="ratakanan"></td>
@@ -1339,7 +1339,7 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>4. Kadar Air</td>
                         <td>%</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkairhi)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkairhi)),2)%></td>
                         <!-- <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkairshi)),2)%></td> -->
                         <td class="ratakanan"></td>
                         <td class="ratakanan"></td>
@@ -1350,7 +1350,7 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>5. Kadar Kotoran</td>
                         <td>%</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkkotoranhi)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkkotoranhi)),2)%></td>
                         <!-- <td class="ratakanan"><%=formatnumber(cdbl(to_nol(pkkotoranshi)),2)%></td> -->
                         <td class="ratakanan"></td>
                         <td class="ratakanan"></td>
@@ -1368,10 +1368,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                          <td></td>
                         <td>1. Hasil Cangkang hari ini</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgviewhi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtyckgshi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtyckgsbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtyckgsti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(ckgviewhi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtyckgshi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtyckgsbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(qtyckgsti)),2)%></td>
                         <td rowspan="1" colspan=6>
                             <table class="tabeltengah" width="600" border="0">
                                 <tr>
@@ -1382,13 +1382,13 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 </tr>
                                 <tr>
                                     <td colspan="2">Hari Ini (M3)</td>
-                                    <td colspan="2" class="ratakanan"><%=airtxt%></td>
-                                    <td colspan="2" class="ratakanan"><%=ttlairtxt%></td>
+                                    <td colspan="2" class="ratakanan"><%=FbpNum2(airtxt)%></td>
+                                    <td colspan="2" class="ratakanan"><%=FbpNum2(ttlairtxt)%></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Ratio (M3/Kg TBS)</td>
                                     <td colspan="2" class="ratakanan">0</td>
-                                    <td colspan="2" class="ratakanan"><%=formatnumber(cdbl(to_nol(ratioairshi)),0)%></td>
+                                    <td colspan="2" class="ratakanan"><%=formatnumber(cdbl(to_nol(ratioairshi)),2)%></td>
                                 </tr>
                                 <tr>
                                     <th rowspan="" colspan="2" class="">Pemakaian CaCo3</th>
@@ -1398,13 +1398,13 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 </tr>
                                 <tr>
                                     <td colspan="2">Hari Ini (M3)</td>
-                                    <td colspan="2" class="ratakanan"><%=caco3txt%></td>
-                                    <td colspan="2" class="ratakanan"><%=ttlcaco3txt%></td>
+                                    <td colspan="2" class="ratakanan"><%=FbpNum2(caco3txt)%></td>
+                                    <td colspan="2" class="ratakanan"><%=FbpNum2(ttlcaco3txt)%></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Ratio (Kg/Kg TBS)</td>
-                                    <td colspan="2" class="ratakanan"><%=formatnumber(cdbl(to_nol(ratiocaco3hi)),0)%></td>
-                                    <td colspan="2" class="ratakanan"><%=formatnumber(cdbl(to_nol(ratiocaco3shi)),0)%></td>
+                                    <td colspan="2" class="ratakanan"><%=formatnumber(cdbl(to_nol(ratiocaco3hi)),2)%></td>
+                                    <td colspan="2" class="ratakanan"><%=formatnumber(cdbl(to_nol(ratiocaco3shi)),2)%></td>
                                 </tr>
                                                               
                             </table>
@@ -1420,10 +1420,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>1. Pengiriman CPO</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpokirimhi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getcpokirimshi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getcpokirimsbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getcpokirimsti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpokirimhi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getcpokirimshi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getcpokirimsbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getcpokirimsti)),2)%></td>
                         
                         <td colspan="5" rowspan="5" >
 
@@ -1541,20 +1541,20 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>2. Pengiriman PK</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(totpkdohi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getpkkirimshi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getpkkirimsbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getpkkirimsti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(totpkdohi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getpkkirimshi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getpkkirimsbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(getpkkirimsti)),2)%></td>
                        
                     </tr>
                     <tr>
                         <td></td>
                         <td>3. Pengiriman CKG</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(totckgdohi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(0)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(0)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(0)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(totckgdohi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(0)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(0)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(0)),2)%></td>
             
                         
                     </tr>
@@ -1572,10 +1572,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>5. Adjusment CPO</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpoadjhi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpoadjshi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpoadjsbi)),0)%></td>
-                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpoadjsti)),0)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpoadjhi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpoadjshi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpoadjsbi)),2)%></td>
+                        <td class="ratakanan"><%=formatnumber(cdbl(to_nol(cpoadjsti)),2)%></td>
                         
                     </tr>
 
@@ -1629,10 +1629,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                             <tr>
                                 <td><%=st1%></td>
                                 <td>Kg</td>
-                                <td class="ratakanan"><%=formatnumber(rscpotankhi("cpoisitank"),0)%></td>
-                                <td class="ratakanan"><%=rscpotankhi("ffatankcpo")%></td>
-                                <td class="ratakanan"><%=rscpotankhi("airtankcpo")%></td>
-                                <td class="ratakanan"><%=rscpotankhi("kotorantankcpo")%></td>
+                                <td class="ratakanan"><%=formatnumber(rscpotankhi("cpoisitank"),2)%></td>
+                                <td class="ratakanan"><%=FbpNum2(rscpotankhi("ffatankcpo"))%></td>
+                                <td class="ratakanan"><%=FbpNum2(rscpotankhi("airtankcpo"))%></td>
+                                <td class="ratakanan"><%=FbpNum2(rscpotankhi("kotorantankcpo"))%></td>
                             </tr>
                             <%
                                 rscpotankhi.MoveNext
@@ -1648,7 +1648,7 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                             <tr>
                                 <td>4. Stock Klari (CST+OT)</td>
                                 <td>Kg</td>
-                                <td class="ratakanan"><%=formatnumber(cst_ot,0)%></td>
+                                <td class="ratakanan"><%=formatnumber(cst_ot,2)%></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -1656,7 +1656,7 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                             <tr>
                                 <td class="tebal">Total Stock CPO</td>
                                 <td>Kg</td>
-                                <td class="ratakanan tebal"><%=formatnumber(totalotcpo,0)%></td>
+                                <td class="ratakanan tebal"><%=formatnumber(totalotcpo,2)%></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -1784,8 +1784,8 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 <tr>
                                     <td class="ratakiri">Cangkang</td>
                                     <td>Kg</td>
-                                    <td><%=formatnumber(ckgviewhi,0)%></td>
-                                    <td><%=formatnumber(qtyckgshi,0)%></td>
+                                    <td><%=formatnumber(ckgviewhi,2)%></td>
+                                    <td><%=formatnumber(qtyckgshi,2)%></td>
                                 </tr>
                                 <tr>
                                     <td class="ratakiri">Fibre</td>
@@ -1802,7 +1802,7 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>2. Kernel Silo</td>
                         <td>Kg</td>
-                        <td class="ratakanan"><%=formatnumber(kernelsilohi,0)%></td>
+                        <td class="ratakanan"><%=formatnumber(kernelsilohi,2)%></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -1829,7 +1829,7 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td class="tebal">Total Stock PK</td>
                         <td>Kg</td>
-                        <td class="ratakanan tebal"><%=formatnumber(totalstockpk,0)%></td>
+                        <td class="ratakanan tebal"><%=formatnumber(totalstockpk,2)%></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -1899,12 +1899,12 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                     <tr>
                                         <td><%=notbsmasuk%></td>
                                         <td class="ratakiri"><%=rstbsmasuk("AreaName")%></td>
-                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("TonaseHariIni"),0)%></td>
-                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("TonaseSDHariIni"),0)%></td>
-                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("TonaseBlnIni"),0)%></td>
-                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("SortasiHariIni"),0)%></td>
-                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("SortasiSDHariIni"),0)%></td>
-                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("SortasiBulanIni"),0)%></td>
+                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("TonaseHariIni"),2)%></td>
+                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("TonaseSDHariIni"),2)%></td>
+                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("TonaseBlnIni"),2)%></td>
+                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("SortasiHariIni"),2)%></td>
+                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("SortasiSDHariIni"),2)%></td>
+                                        <td class="ratakanan"><%=formatnumber(rstbsmasuk("SortasiBulanIni"),2)%></td>
                                     </tr>
                                 <% 
                                     TonaseHariIni=TonaseHariIni+cdbl(rstbsmasuk("TonaseHariIni"))
@@ -1920,12 +1920,12 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
 								   <tr>
                                         <td></td>
                                         <td class="tebal">TOTAL</td>
-                                        <td class="ratakanan tebal" ><%=formatnumber(TonaseHariIni,0)%></td>
-                                        <td class="ratakanan tebal" ><%=formatnumber(TonaseSDHariIni,0)%></td>
-                                        <td class="ratakanan tebal" ><%=formatnumber(TonaseBlnIni,0)%></td>
-                                        <td class="ratakanan tebal" ><%=formatnumber(SortasiHariIni,0)%></td>
-                                        <td class="ratakanan tebal" ><%=formatnumber(SortasiSDHariIni,0)%></td>
-                                        <td class="ratakanan tebal" ><%=formatnumber(SortasiBulanIni,0)%></td>
+                                        <td class="ratakanan tebal" ><%=formatnumber(TonaseHariIni,2)%></td>
+                                        <td class="ratakanan tebal" ><%=formatnumber(TonaseSDHariIni,2)%></td>
+                                        <td class="ratakanan tebal" ><%=formatnumber(TonaseBlnIni,2)%></td>
+                                        <td class="ratakanan tebal" ><%=formatnumber(SortasiHariIni,2)%></td>
+                                        <td class="ratakanan tebal" ><%=formatnumber(SortasiSDHariIni,2)%></td>
+                                        <td class="ratakanan tebal" ><%=formatnumber(SortasiBulanIni,2)%></td>
                                     </tr>
                             </table>
                         </td>
@@ -1984,9 +1984,9 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 <tr>
                                     <td><%=notbstotal%></td>
                                     <td class="ratakiri"><%=rstbsmasukttl("unit")%></td>
-                                    <td class="ratakanan"><%=formatnumber(rstbsmasukttl("TonaseHariInittl"),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(rstbsmasukttl("TonaseSDHariIni"),0)%></td>
-                                    <td class="ratakanan"><%=formatnumber(rstbsmasukttl("TonaseBlnInittl"),0)%></td>
+                                    <td class="ratakanan"><%=formatnumber(rstbsmasukttl("TonaseHariInittl"),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(rstbsmasukttl("TonaseSDHariIni"),2)%></td>
+                                    <td class="ratakanan"><%=formatnumber(rstbsmasukttl("TonaseBlnInittl"),2)%></td>
                                   
                                 </tr>
                                <% rstbsmasukttl.MoveNext

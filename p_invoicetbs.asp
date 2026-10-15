@@ -169,9 +169,9 @@ response.Flush()
 							<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("suppliername")%></td>
 							<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("valid_from")%></td>
 							<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("valid_until")%></td>  
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("ppn"))),0)%></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("ppn"))),2)%></td>
 							<td align="Right" style="<%=cmdstyle%>">
-								<font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("totalppn"))),0)%>
+								<font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("totalppn"))),2)%>
 							</td>
 							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1">
 								<%=FormatNumber(cdbl(to_nol(rscat("total"))),0)%>
@@ -181,7 +181,7 @@ response.Flush()
 								<%=FormatNumber(cdbl(to_nol(rscat("totalpph"))),0)%>
 							</td>
 							<td align="Right" style="<%=cmdstyle%>">
-								<font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("grandtotal"))),0)%>
+								<font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("grandtotal"))),2)%>
 							</td> 
 						</tr>
 						  <%
@@ -202,10 +202,10 @@ response.Flush()
 							</form>
 							<tr bgcolor="#F4F4A0" style="font-weight: bold;">
 								<td align="Center" style="<%=cmdstyleLeft%>" colspan="8"> <font face="Verdana" size="1">T o t a l</td> 
-								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_totalppn)),0)%></td>
-								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_totalharga)),0)%></td>
+								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_totalppn)),2)%></td>
+								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(v_totalharga)),2)%></td>
 								<td></td>
-								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl((v_totalpph)),0)%></td>
+								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(cdbl((v_totalpph)),2)%></td>
 								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1">
 									<%=FormatNumber(cdbl(to_nol(v_grandtotal)),0)%>
 								</td>

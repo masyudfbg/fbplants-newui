@@ -183,7 +183,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center"><%=rsStockTransHist("sourcecode")%></td>
 				<td align="center"><%=rsStockTransHist("targettype")%></td>
 				<td align="center"><%=rsStockTransHist("targetcode")%></td>
-				<td align="right"><%=rsStockTransHist("QUANTITY")%></td>
+				<td align="right"><%=FbpNum2(rsStockTransHist("QUANTITY"))%></td>
 				<td align="center"><%=rsStockTransHist("LINENO")%></td>
 			</tr>
 <%
@@ -195,7 +195,7 @@ function launchwin(winurl,winname,winfeatures)
 	<%if len(trim(v_txtStockCode)) <> 0 then%>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="11"><strong>TOTAL</strong></td>
-				<td align="right"><strong><%=totalqty%></strong></td>
+				<td align="right"><strong><%=FbpNum2(totalqty)%></strong></td>
 				<td align="right">&nbsp;</td>
 			</tr>
 	<%end if%>

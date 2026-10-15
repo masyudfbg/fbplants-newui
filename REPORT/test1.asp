@@ -264,69 +264,69 @@ Align="Center"><%=Rsemployee("sectionname")%></Td>
                                                              <Td
 Align="Center"><%=Rsemployee("Gangcode")%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_1")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_1"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_2")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_2"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_3")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_3"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_4")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_4"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_5")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_5"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_6")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_6"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_7")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_7"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_8")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_8"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_9")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_9"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_10")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_10"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_11")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_11"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_12")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_12"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_13")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_13"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_14")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_14"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_15")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_15"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_16")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_16"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_17")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_17"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_18")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_18"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_19")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_19"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_20")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_20"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_21")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_21"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_22")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_22"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_23")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_23"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_24")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_24"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_25")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_25"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_26")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_26"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_27")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_27"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_28")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_28"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_29")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_29"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_30")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_30"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Day_31")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Day_31"))%></Td>
                                                              <Td
-Align="Right"><%=Rsemployee("Total")%></Td>
+Align="Right"><%=FbpNum2(Rsemployee("Total"))%></Td>
  <%
                                               No = No + 1
                                               
@@ -372,38 +372,38 @@ Align="Right"><%=Rsemployee("Total")%></Td>
                 <Tr>
                                <Td Colspan="5"
 Align="Center"><Strong>Total</Strong></Td>
-                               <Td Align="Right"><%=Nday_1%></Td>
-                               <Td Align="Right"><%=Nday_2%></Td>
-                               <Td Align="Right"><%=Nday_3%></Td>
-                               <Td Align="Right"><%=Nday_4%></Td>
-                               <Td Align="Right"><%=Nday_5%></Td>
-                               <Td Align="Right"><%=Nday_6%></Td>
-                               <Td Align="Right"><%=Nday_7%></Td>
-                               <Td Align="Right"><%=Nday_8%></Td>
-                               <Td Align="Right"><%=Nday_9%></Td>
-                               <Td Align="Right"><%=Nday_10%></Td>
-                               <Td Align="Right"><%=Nday_11%></Td>
-                               <Td Align="Right"><%=Nday_12%></Td>
-                               <Td Align="Right"><%=Nday_13%></Td>
-                               <Td Align="Right"><%=Nday_14%></Td>
-                               <Td Align="Right"><%=Nday_15%></Td>
-                               <Td Align="Right"><%=Nday_16%></Td>
-                               <Td Align="Right"><%=Nday_17%></Td>
-                               <Td Align="Right"><%=Nday_18%></Td>
-                               <Td Align="Right"><%=Nday_19%></Td>
-                               <Td Align="Right"><%=Nday_20%></Td>
-                               <Td Align="Right"><%=Nday_21%></Td>
-                               <Td Align="Right"><%=Nday_22%></Td>
-                               <Td Align="Right"><%=Nday_23%></Td>
-                               <Td Align="Right"><%=Nday_24%></Td>
-                               <Td Align="Right"><%=Nday_25%></Td>
-                               <Td Align="Right"><%=Nday_26%></Td>
-                               <Td Align="Right"><%=Nday_27%></Td>
-                               <Td Align="Right"><%=Nday_28%></Td>
-                               <Td Align="Right"><%=Nday_29%></Td>
-                               <Td Align="Right"><%=Nday_30%></Td>
-                               <Td Align="Right"><%=Nday_31%></Td>
-                               <Td Align="Right"><%=Ntotal%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_1)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_2)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_3)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_4)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_5)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_6)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_7)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_8)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_9)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_10)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_11)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_12)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_13)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_14)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_15)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_16)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_17)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_18)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_19)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_20)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_21)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_22)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_23)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_24)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_25)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_26)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_27)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_28)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_29)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_30)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Nday_31)%></Td>
+                               <Td Align="Right"><%=FbpNum2(Ntotal)%></Td>
                 </Tr>
  </Table>
   

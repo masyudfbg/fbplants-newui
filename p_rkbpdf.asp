@@ -165,8 +165,8 @@ set rsview = connStr.Execute(sqlview)
 						%>
 						<tr >
 							<td colspan=5><strong>Total</strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlupah)),0)%></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlmaterial)),0)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlupah)),2)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlmaterial)),2)%></strong></td>
 							
 						</tr>
 						</table>

@@ -978,7 +978,7 @@ IF cmdView = "True" AND "" & documentno <> "" THEN
 		<td align="left" title="<%=rsrecurringdtl("jobname").Name%>" valign="top"><%=rsrecurringdtl("jobname")%></td>
 		<td align="left" title="<%=rsrecurringdtl("targettype").Name%>" valign="top"><%=rsrecurringdtl("targettype")%></td>
 		<td align="left" title="<%=rsrecurringdtl("debetcredit").Name%>" valign="top"><%=rsrecurringdtl("debetcredit")%></td>
-		<td align="right" title="<%=rsrecurringdtl("amount").Name%>" valign="top"><%=FormatNumber(rsrecurringdtl("amount"), 0)%></td>
+		<td align="right" title="<%=rsrecurringdtl("amount").Name%>" valign="top"><%=FormatNumber(rsrecurringdtl("amount"), 2)%></td>
 	</tr>
 <%
 			rsrecurringdtl.MoveNext

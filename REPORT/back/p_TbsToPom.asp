@@ -358,13 +358,13 @@ if rsTBS.bof and rsTBS.eof then
 					End If %>
 				
 				<% For kj = 0 to UBound(nAFD) %>					
-					<td align="right"><%=FormatNumber(rsTBS.fields(cint(nselect) + kj),0)%></td>
+					<td align="right"><%=FormatNumber(rsTBS.fields(cint(nselect) + kj),2)%></td>
 					<%
               				ntotAFD(kj)	= Cdbl(ntotAFD(kj)) + Cdbl(rsTBS.fields(cint(nselect)  + kj))
 					%>
 				<% Next %>
 				
-				<td align="right"><%=FormatNumber(rsTBS("TOTAL"),0)%></td>
+				<td align="right"><%=FormatNumber(rsTBS("TOTAL"),2)%></td>
 <%
 			NO = NO + 1
 			
@@ -387,12 +387,12 @@ set rsTBS = Nothing
 				     <td align="center" colspan="3"><strong>TOTAL</td>
 				<%end if %>
 				<% For kj = 0 to UBound(nAFD) %>					
-					<td align="right"><%=FormatNumber(Cdbl(ntotAFD(kj)),0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(ntotAFD(kj)),2)%></td>
 				<% Next %>
 				<% if len(sqlAFD) = 0 then %>
-				<td align="right"><strong><%=FormatNumber(nTOTAL,0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nTOTAL,2)%></strong></td>
 				<% end if %>
-				<td align="right"><strong><%=FormatNumber(nTOTAL,0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nTOTAL,2)%></strong></td>
 			</tr>
 			<tr>
 			  <td align="center" colspan="12">  </td>
@@ -428,9 +428,9 @@ set rsTBS = Nothing
 							 <td align="center" colspan="3"><strong><%=rsSummTBS.fields(1)%></td>
 						<%end if %>
 						<% For kj = 0 to UBound(nAFD) %>					
-							<td align="right"><%=FormatNumber(rsSummTBS.fields(cint(nselect) - 1 + kj),0)%></td>
+							<td align="right"><%=FormatNumber(rsSummTBS.fields(cint(nselect) - 1 + kj),2)%></td>
 						<% Next %>
-						<td align="right"><%=FormatNumber(rsSummTBS.fields(cint(UBound(nAFD)) + cint(nselect)),0)%></td>
+						<td align="right"><%=FormatNumber(rsSummTBS.fields(cint(UBound(nAFD)) + cint(nselect)),2)%></td>
 					</tr>
 			<%
 					NO = NO + 1
@@ -448,12 +448,12 @@ set rsTBS = Nothing
 							 <td align="center" colspan="3"><strong>TOTAL</td>
 						<%end if %>
 						<% For kj = 0 to UBound(nAFD) %>					
-							<td align="right"><%=FormatNumber(Cdbl(ntotAFD(kj)),0)%></td>
+							<td align="right"><%=FormatNumber(Cdbl(ntotAFD(kj)),2)%></td>
 						<% Next %>
 						<% if len(sqlAFD) = 0 then %>
-						<td align="right"><strong><%=FormatNumber(nTOTAL,0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(nTOTAL,2)%></strong></td>
 						<% end if %>
-						<td align="right"><strong><%=FormatNumber(nTOTAL,0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(nTOTAL,2)%></strong></td>
 					</tr>
 </table>
 </div>

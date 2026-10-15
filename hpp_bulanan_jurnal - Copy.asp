@@ -331,6 +331,14 @@ $(function() {
 });
 
 
+// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+function numformat2(val) {
+	var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+	if (isNaN(n)) return val == null ? '' : val;
+	var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+	return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+}
+
 function numformat(val) {
 	var nStr = val.toString();
 	nStr = nStr.replace(/\,/g, "");
@@ -366,7 +374,7 @@ function actionBtn()
 						docketlist += '<tr id="tru'+i+'">';
 						docketlist += '<td align="left">' + json.results[i].bkmno + '</td>';
 						docketlist += '<td align="left">' + json.results[i].createdate + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totalbkmupah) + '</td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totalbkmupah) + '</td>';
 						docketlist += '<td align="right">' + json.results[i].totalbkmmaterial + '</td>';				
 						docketlist += '<td align="right">' + json.results[i].totalbkmvehicle + '</td>';
 						docketlist += '<td align="right">' + json.results[i].totalbkmwip + '</td>';

@@ -3820,7 +3820,7 @@ function launchwin(winurl,winname,winfeatures)
 					    tempData = 0
 					end if
 				%>
-				<td align="center" ><%=FormatNumber(tempData,0)%></td>
+				<td align="center" ><%=FormatNumber(tempData,2)%></td>
 				<%  if rsEndingBalance("shi") <>  "" then 
 						tempData = cdbl(rsEndingBalance("shi"))
 				    else

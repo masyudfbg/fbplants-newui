@@ -936,17 +936,17 @@ Dim nsubhahi,nsubhashi,nsubhasbi
 				<td align="right"><%=FormatNumber(rsEPS("mandays_shi"),2)%></td>
 				<td align="right"><%=FormatNumber(rsEPS("mandays_sbi"),2)%></td>
 				<!-- JJG -->
-				<td align="right"><%=FormatNumber(rsEPS("hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("sbi"),2)%></td>
 				<!-- JJG Afkir -->
 				<!--<td align="right">0</td>-->
 				<!--<td align="right">0</td>-->
 				<!--<td align="right">0</td>-->				
 				<!-- JJG PKS -->
-				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("pom_sbi"),2)%></td>
 				<!-- Ton PKS -->
 				<td align="right"><%=FormatNumber(cdbl(rsEPS("pom_tonase_hi"))/1000,2)%></td>
 				<td align="right"><%=FormatNumber(cdbl(rsEPS("pom_tonase_shi"))/1000,2)%></td>
@@ -1019,9 +1019,9 @@ Dim nsubhahi,nsubhashi,nsubhasbi
 				<% end if %>
 		
 				
-				<td align="right"><%=FormatNumber(nOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_sbi,2)%></td>
 				
 				
 				<!-- TON/HK -->
@@ -1104,9 +1104,9 @@ Dim nsubhahi,nsubhashi,nsubhasbi
 				<% end if %>
 		
 				
-				<td align="right"><%=FormatNumber(nOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_sbi,2)%></td>
 				
 				<!-- JJG/HK -->
 				<% if cdbl(rsEPS("mandays_hi")) <> 0 then %>
@@ -1129,9 +1129,9 @@ Dim nsubhahi,nsubhashi,nsubhasbi
 				<% end if %>
 		
 				
-				<td align="right"><%=FormatNumber(nOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_sbi,2)%></td>
 				
 				<!-- AKP -->
 				<% if (cdbl(rsEPS("fieldha"))*133) <> 0 then %>
@@ -1154,9 +1154,9 @@ Dim nsubhahi,nsubhashi,nsubhasbi
 				<% end if %>
 		
 				
-				<td align="right"><%=FormatNumber(nOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_sbi,2)%></td>
 				
 				<!-- % -->
 				<% if cdbl(rsEPS("bud_qty_shi")) <> 0 then %>
@@ -1179,9 +1179,9 @@ Dim nsubhahi,nsubhashi,nsubhasbi
 				<% end if %>
 		
 				
-				<td align="right"><%=FormatNumber(nOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nOutput_sbi,2)%></td>
 				
 				
 				
@@ -1249,33 +1249,33 @@ Dim nsubhahi,nsubhashi,nsubhasbi
 			   
 				<td align="center" colspan="<%= 1+ nSpanTotal %>">TOTAL</td>
 				<!-- Produksi -->
-				<td align="right"><%=FormatNumber(nfieldha,0)%></td>
-				<td align="right"><%=FormatNumber(nfieldpokok,0)%></td>
+				<td align="right"><%=FormatNumber(nfieldha,2)%></td>
+				<td align="right"><%=FormatNumber(nfieldpokok,2)%></td>
 				<!-- Budget -->
-				<td align="right"><%=FormatNumber(nsubbudqty_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubbudqty_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubbudqty_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubbudqty_sbi,2)%></td>
 				<td align="right">0</td>
 				<!-- HA -->
-				<td align="right"><%=FormatNumber(nsubOutput_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubOutput_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubOutput_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubOutput_sbi,2)%></td>
 				<!-- HK -->
-				<td align="right"><%=FormatNumber(nsubmandays_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubmandays_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubmandays_sbi,2)%></td>
 				
 				<!-- JJG -->
-				<td align="right"><%=FormatNumber(nsubhi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubshi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubsbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubhi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubshi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubsbi,2)%></td>
 				<!-- JJG PKS -->
-				<td align="right"><%=FormatNumber(nsubpom_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_sbi,2)%></td>
 				<!-- TON PKS -->
-				<td align="right"><%=FormatNumber(nsubpom_tonase_hi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_tonase_shi,0)%></td>
-				<td align="right"><%=FormatNumber(nsubpom_tonase_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_hi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_shi,2)%></td>
+				<td align="right"><%=FormatNumber(nsubpom_tonase_sbi,2)%></td>
 				
 				
 				

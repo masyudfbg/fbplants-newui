@@ -786,16 +786,16 @@ else
 					<% end if %>
 				<% end if %>
 				
-					<td align="right"><%=rsKendaraan("TOTALVEHICLE")%></td>
-					<td align="right"><%=rsKendaraan("DOWNTIME")%></td>
+					<td align="right"><%=FbpNum2(rsKendaraan("TOTALVEHICLE"))%></td>
+					<td align="right"><%=FbpNum2(rsKendaraan("DOWNTIME"))%></td>
 					<%
 					varTotalVehicle = varTotalVehicle + Cdbl(rsKendaraan("TOTALVEHICLE"))
 					varDowntime = varDowntime + Cdbl(rsKendaraan("DOWNTIME"))
 					%>
 					<%If varTotalVehicle = 0 Then%>
-					<td align="right"><%=Round(0, 0)%></td>
+					<td align="right"><%=FbpNum2(Round(0, 0))%></td>
 					<%Else%>
-					<td align="right"><%=Round(varDowntime/varTotalVehicle, 0)%></td>
+					<td align="right"><%=FbpNum2(Round(varDowntime/varTotalVehicle, 0))%></td>
 					<%End If%>
 					<td align="left"><%=rsKendaraan("DOWNTIME_TYPE")%></td>
 					<%

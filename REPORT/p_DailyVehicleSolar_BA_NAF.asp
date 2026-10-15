@@ -764,7 +764,7 @@ Dim nTotal_2, nTotal_3,nTotal_6,nTotal_10
 					   tempData_0 = 0 
 				   end if
 				 %>
-				<td align="right"><%=FormatNumber(tempData_0,0)%></%></td>
+				<td align="right"><%=FormatNumber(tempData_0,2)%></%></td>
 
 				
 				
@@ -774,7 +774,7 @@ Dim nTotal_2, nTotal_3,nTotal_6,nTotal_10
 				       tempData_2 = 0 
 				   end if
 				 %>
-				<td align="right"><%=FormatNumber(tempData_2,0)%></%></td>
+				<td align="right"><%=FormatNumber(tempData_2,2)%></%></td>
 				
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempData_3 = cdbl(rsDailyVehicleSolar("RASIO_HI"))
@@ -797,7 +797,7 @@ Dim nTotal_2, nTotal_3,nTotal_6,nTotal_10
 					   tempData_4 = 0 
 				   end if
 				 %>
-				<td align="right"><%=FormatNumber(tempData_4,0)%></%></td>
+				<td align="right"><%=FormatNumber(tempData_4,2)%></%></td>
 
 				
 				
@@ -807,7 +807,7 @@ Dim nTotal_2, nTotal_3,nTotal_6,nTotal_10
 				       tempData_6 = 0 
 				   end if
 				 %>
-				<td align="right"><%=FormatNumber(tempData_6,0)%></%></td>
+				<td align="right"><%=FormatNumber(tempData_6,2)%></%></td>
 				
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempData_7 = cdbl(rsDailyVehicleSolar("RASIO_SHI"))
@@ -829,7 +829,7 @@ Dim nTotal_2, nTotal_3,nTotal_6,nTotal_10
 					   tempData_8 = 0 
 				   end if
 				 %>
-				<td align="right"><%=FormatNumber(tempData_8,0)%></%></td>
+				<td align="right"><%=FormatNumber(tempData_8,2)%></%></td>
 
 				
 				
@@ -839,7 +839,7 @@ Dim nTotal_2, nTotal_3,nTotal_6,nTotal_10
 				       tempData_10 = 0 
 				   end if
 				 %>
-				<td align="right"><%=FormatNumber(tempData_10,0)%></%></td>
+				<td align="right"><%=FormatNumber(tempData_10,2)%></%></td>
 				
 				<% if tempVehicleGroup <> "MB" AND  tempVehicleGroup <> "AB" AND  tempVehicleGroup <> "BS" AND  tempVehicleGroup <> "DT"  AND  tempVehicleGroup <> "TK" then 
 				       tempData_11 = cdbl(rsDailyVehicleSolar("RASIO_SBI"))
@@ -872,13 +872,13 @@ Dim nTotal_2, nTotal_3,nTotal_6,nTotal_10
            <tr bgcolor="#9CB770">
 				<td align="center" colspan="<%= nSpanTotal %>">TOTAL</td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_2,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_2,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_6,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_6,2)%></td>
 				<td align="right"></td>
 				<td align="right"></td>
-				<td align="right"><%=FormatNumber(nTotal_10,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_10,2)%></td>
 				<td align="right"></td>
 			</tr>
 			

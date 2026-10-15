@@ -465,18 +465,18 @@ if not arr_data_eof then
 			<td align="left" valign="top" rowspan="<%=sp_vh +1%>"><%=arr_data(3,yy)%></td>
 			<%end if%>
 			<td align="left"><%=arr_data(4,yy)%></td>
-			<td align="right"><%=FormatNumber(arr_data(5,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(6,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(7,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(8,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(9,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(10,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(11,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(12,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(13,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(14,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(15,yy),0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(16,yy),0)%></td>
+			<td align="right"><%=FormatNumber(arr_data(5,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(6,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(7,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(8,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(9,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(10,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(11,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(12,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(13,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(14,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(15,yy),2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(16,yy),2)%></td>
 		
 <%
 		t_unit_hi = t_unit_hi + cdbl(to_nol(arr_data(5,yy)))
@@ -495,29 +495,29 @@ if not arr_data_eof then
 			response.write "</tr>"
 			response.write "<tr style='background-color:#F4F4A0;'>"
 			response.write "	<td><b>Total</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(t_unit_hi,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(t_trip_hi,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(t_output_hi,0)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_unit_hi,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_trip_hi,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_output_hi,2)&"</b></td>"
 			if t_trip_hi = 0 then
 				response.write "	<td align='right'><b>0</b></td>"
 			else
-				response.write "	<td align='right'><b>"&FormatNumber(cdbl(t_output_hi)/cdbl(t_trip_hi),0)&"</b></td>"
+				response.write "	<td align='right'><b>"&FormatNumber(cdbl(t_output_hi)/cdbl(t_trip_hi),2)&"</b></td>"
 			end if
-			response.write "	<td align='right'><b>"&FormatNumber(t_unit_shi,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(t_trip_shi,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(t_output_shi,0)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_unit_shi,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_trip_shi,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_output_shi,2)&"</b></td>"
 			if t_trip_shi = 0 then
 				response.write "	<td align='right'><b>0</b></td>"
 			else
-				response.write "	<td align='right'><b>"&FormatNumber(cdbl(t_output_shi)/cdbl(t_trip_shi),0)&"</b></td>"
+				response.write "	<td align='right'><b>"&FormatNumber(cdbl(t_output_shi)/cdbl(t_trip_shi),2)&"</b></td>"
 			end if
-			response.write "	<td align='right'><b>"&FormatNumber(t_unit_sbi,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(t_trip_sbi,0)&"</b></td>"
-			response.write "	<td align='right'><b>"&FormatNumber(t_output_sbi,0)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_unit_sbi,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_trip_sbi,2)&"</b></td>"
+			response.write "	<td align='right'><b>"&FormatNumber(t_output_sbi,2)&"</b></td>"
 			if t_trip_sbi = 0 then
 				response.write "	<td align='right'><b>0</b></td>"
 			else
-				response.write "	<td align='right'><b>"&FormatNumber(cdbl(t_output_sbi)/cdbl(t_trip_sbi),0)&"</b></td>"
+				response.write "	<td align='right'><b>"&FormatNumber(cdbl(t_output_sbi)/cdbl(t_trip_sbi),2)&"</b></td>"
 			end if
 			response.write "</tr>"
 			p_sp_vh = 0

@@ -129,7 +129,7 @@ response.Flush()
 								<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("FieldCode")%></td>
 								<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("Reference")%> </td>
 								<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("Remarks")%> </td>
-								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("Quantity")),0)%> </td>
+								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("Quantity")),2)%> </td>
 							</tr>
 							<%
 									v_Quantity = v_Quantity + Cdbl(rscat("Quantity"))
@@ -146,7 +146,7 @@ response.Flush()
 								</form>
 							<tr bgcolor="#F4F4A0">
 								<td align="Center" style="<%=cmdstyleLeft%>" colspan="5"> <font face="Verdana" size="1"><strong>T o t a l</strong></td>
-								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(v_Quantity,0)%></strong></td>
+								<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(v_Quantity,2)%></strong></td>
 							</tr>
 							</tbody>
 						</table>

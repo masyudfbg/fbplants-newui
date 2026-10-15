@@ -191,8 +191,8 @@ response.Flush()
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("prdate")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("itemcode")%> </td>
 								<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("itemname")%> </td>
-								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("requestedqty"))),0)%> </td>
-								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("approvedqty"))),0)%> </td>
+								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("requestedqty"))),2)%> </td>
+								<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(to_nol(rscat("approvedqty"))),2)%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("LASTAUTHORIZERLEVELCODE")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("authorizelevelname")%> </td>
 								<td align="Center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("lastauthorizer")%> </td>

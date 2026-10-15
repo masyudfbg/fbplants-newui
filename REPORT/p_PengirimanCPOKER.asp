@@ -256,15 +256,15 @@ if rsPengirimanCPOKER.bof and rsPengirimanCPOKER.eof then
 %>
 	<tr class="<%=cClass%>">
 		<td align="center"><%=NO%></td>
-		<td align="right"><%=rsPengirimanCPOKER("TANGGAL")%></td>
-		<td align="right"><%=rsPengirimanCPOKER("NOKONTRAK")%></td>
+		<td align="right"><%=FbpNum2(rsPengirimanCPOKER("TANGGAL"))%></td>
+		<td align="right"><%=FbpNum2(rsPengirimanCPOKER("NOKONTRAK"))%></td>
 		<td align="left"><%=rsPengirimanCPOKER("KODESUPPLIER")%></td>
 		<td align="left"><%=rsPengirimanCPOKER("NAMASUPPLIER")%></td>
 		<td align="left"><%=rsPengirimanCPOKER("TRANSPORTCO")%></td>
 		<td align="left"><%=rsPengirimanCPOKER("NODELIVERYNOTE")%></td>
 		<td align="left"><%=rsPengirimanCPOKER("NOKENDARAAN")%></td>
 		<td align="left"><%=rsPengirimanCPOKER("SUPIR")%></td>
-		<td align="right"><%=FormatNumber(rsPengirimanCPOKER("QTYDELIVERY"),0)%></td>
+		<td align="right"><%=FormatNumber(rsPengirimanCPOKER("QTYDELIVERY"),2)%></td>
 		<td align="right"><%=FormatNumber(rsPengirimanCPOKER("FFA"),2)%></td>
 		<td align="right"><%=FormatNumber(rsPengirimanCPOKER("DIRT"),2)%></td>
 		<td align="right"><%=FormatNumber(rsPengirimanCPOKER("MOISTURE"),2)%></td>
@@ -281,7 +281,7 @@ set rsPengirimanCPOKER = Nothing
 
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="9"><strong>TOTAL</td>
-				<td align="right"><strong><%=FormatNumber(nQTYDELIVERY,0)%></strong></td>
+				<td align="right"><strong><%=FormatNumber(nQTYDELIVERY,2)%></strong></td>
 				<td align="right" colspan="3"><strong>&nbsp;</strong></td>
 			</tr>
             </tbody>

@@ -251,17 +251,17 @@ cmdstyleLeft="border-right: 1 solid #000000; border-bottom: 1 solid #000000; bor
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshpp("fccompanycode")%></td>			
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshpp("fcba")%></td>				
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshpp("tglkirim")%></td>				
-			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("quantitysite"),0)%></td>				
-			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("quantitypks"),0)%></td>	
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("varian"),0)%></td>		
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("perawatantm"),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("pemupukantm"),0)%></td>			
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("panendantransport"),0)%></td>					
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("sarpastm"),0)%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("umum"),0)%></td>			
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("total"),0)%></td>			
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rpjtkebun,0)%></td>			
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rpjtpks,0)%></td>			
+			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("quantitysite"),2)%></td>				
+			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("quantitypks"),2)%></td>	
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("varian"),2)%></td>		
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("perawatantm"),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("pemupukantm"),2)%></td>			
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("panendantransport"),2)%></td>					
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("sarpastm"),2)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("umum"),2)%></td>			
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshpp("total"),2)%></td>			
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rpjtkebun,2)%></td>			
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rpjtpks,2)%></td>			
 			
 	</tr>
 
@@ -304,17 +304,17 @@ cmdstyleLeft="border-right: 1 solid #000000; border-bottom: 1 solid #000000; bor
 
 		<tr bgcolor="#F4F4A0">
 			<td align="Center" style="<%=cmdstyle%>" colspan= "4"><font face="Verdana" size="1"><strong>T o t a l</strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totaljtkebun,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totaljtpks,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalvarian,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalperawatantm,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalpemupukantm,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalpanentransporttm,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalsarpastm,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalumum,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalsemua,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalrpjtkebun,0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalrpjtpks,0)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totaljtkebun,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totaljtpks,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalvarian,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalperawatantm,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalpemupukantm,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalpanentransporttm,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalsarpastm,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalumum,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalsemua,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalrpjtkebun,2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(totalrpjtpks,2)%></strong></td>
 		</tr>
 	</tbody>
 </table>

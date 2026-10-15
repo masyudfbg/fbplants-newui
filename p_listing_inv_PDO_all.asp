@@ -224,9 +224,9 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("fcba")%></td>			
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("INVOICEBY")%></td>				
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("noinvoice")%></td>	
-						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("amt"),0)%></td>			
-						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("TTLRKB"),0)%></td>
-						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("amt"))-cdbl(rscat("TTLRKB")), 0)%></td>	
+						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("amt"),2)%></td>			
+						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rscat("TTLRKB"),2)%></td>
+						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("amt"))-cdbl(rscat("TTLRKB")), 2)%></td>	
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("description")%></td>
 					</tr>
 					<%
@@ -243,9 +243,9 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 					%>
 					<tr bgcolor="#F4F4A0">
 						<td align="Center" style="<%=cmdstyle%>" colspan= "4"><font face="Verdana" size="1"><strong>T o t a l</strong></td>
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlamountshi, 0)%></strong></td>		
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlpaymentshi, 0)%></strong></td>
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlRkb, 0)%></strong></td>
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlamountshi, 2)%></strong></td>		
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlpaymentshi, 2)%></strong></td>
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlRkb, 2)%></strong></td>
 						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong></strong></td>
 					</tr>
 				</tbody>
@@ -291,8 +291,8 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsCat2("fcba")%></td>			
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsCat2("invoiceby")%></td>				
 						<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsCat2("noinvoice")%></td>	
-						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat2("amt"),0)%></td>			
-						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat2("TTLRKB"),0)%></td>
+						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat2("amt"),2)%></td>			
+						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat2("TTLRKB"),2)%></td>
 						<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1">
 							<%=hasilRkb%>
 						</td>	
@@ -312,16 +312,16 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 					%>
 					<tr bgcolor="#F4F4A0">
 						<td align="Center" style="<%=cmdstyle%>" colspan= "4"><font face="Verdana" size="1"><strong>T o t a l</strong></td>
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlamountshi2, 0)%></strong></td>		
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlpaymentshi2, 0)%></strong></td>
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlRkb2, 0)%></strong></td>
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlamountshi2, 2)%></strong></td>		
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlpaymentshi2, 2)%></strong></td>
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlRkb2, 2)%></strong></td>
 						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong></strong></td>
 					</tr>
 					<tr bgcolor="#CCCCCC">
 						<td align="Center" style="border-right: 1 solid #000000; border-bottom: 1 solid #000000" colspan= "4"><font face="Verdana" size="1"><strong>GRAND TOTAL</strong></td>						
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(ttlamountshi)+cdbl(ttlamountshi2), 0)%></strong></td>		
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(ttlpaymentshi)+cdbl(ttlpaymentshi2), 0)%></strong></td>
-						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(ttlRkb)+cdbl(ttlRkb2), 0)%></strong></td>
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(ttlamountshi)+cdbl(ttlamountshi2), 2)%></strong></td>		
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(ttlpaymentshi)+cdbl(ttlpaymentshi2), 2)%></strong></td>
+						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(ttlRkb)+cdbl(ttlRkb2), 2)%></strong></td>
 						<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong></strong></td>
 					</tr>
 				</tbody>

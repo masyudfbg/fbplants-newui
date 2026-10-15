@@ -340,71 +340,71 @@ Dim sprevjob_forfieldstatus, tempjob_forfieldstatus
 			<tr class="<%=cClass%>">
 				<td align="left"><%=rsAttDaily("division")%></td>
 				<td align="left"><%=rsAttDaily("groupname")%></td>
-				<td align="right"><%=rsAttDaily("jan_kbt")%></td>
-				<td align="right"><%=rsAttDaily("jan_kht")%></td>
-				<td align="right"><%=rsAttDaily("jan_khl")%></td>
-				<td align="right"><%=rsAttDaily("jan_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jan_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jan_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jan_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jan_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("feb_kbt")%></td>
-				<td align="right"><%=rsAttDaily("feb_kht")%></td>
-				<td align="right"><%=rsAttDaily("feb_khl")%></td>
-				<td align="right"><%=rsAttDaily("feb_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("feb_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("feb_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("feb_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("feb_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("mar_kbt")%></td>
-				<td align="right"><%=rsAttDaily("mar_kht")%></td>
-				<td align="right"><%=rsAttDaily("mar_khl")%></td>
-				<td align="right"><%=rsAttDaily("mar_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("mar_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("mar_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("mar_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("mar_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("apr_kbt")%></td>
-				<td align="right"><%=rsAttDaily("apr_kht")%></td>
-				<td align="right"><%=rsAttDaily("apr_khl")%></td>
-				<td align="right"><%=rsAttDaily("apr_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("apr_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("apr_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("apr_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("apr_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("may_kbt")%></td>
-				<td align="right"><%=rsAttDaily("may_kht")%></td>
-				<td align="right"><%=rsAttDaily("may_khl")%></td>
-				<td align="right"><%=rsAttDaily("may_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("may_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("may_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("may_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("may_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("jun_kbt")%></td>
-				<td align="right"><%=rsAttDaily("jun_kht")%></td>
-				<td align="right"><%=rsAttDaily("jun_khl")%></td>
-				<td align="right"><%=rsAttDaily("jun_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jun_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jun_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jun_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jun_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("jul_kbt")%></td>
-				<td align="right"><%=rsAttDaily("jul_kht")%></td>
-				<td align="right"><%=rsAttDaily("jul_khl")%></td>
-				<td align="right"><%=rsAttDaily("jul_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jul_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jul_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jul_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("jul_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("aug_kbt")%></td>
-				<td align="right"><%=rsAttDaily("aug_kht")%></td>
-				<td align="right"><%=rsAttDaily("aug_khl")%></td>
-				<td align="right"><%=rsAttDaily("aug_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("aug_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("aug_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("aug_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("aug_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("sep_kbt")%></td>
-				<td align="right"><%=rsAttDaily("sep_kht")%></td>
-				<td align="right"><%=rsAttDaily("sep_khl")%></td>
-				<td align="right"><%=rsAttDaily("sep_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("sep_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("sep_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("sep_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("sep_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("oct_kbt")%></td>
-				<td align="right"><%=rsAttDaily("oct_kht")%></td>
-				<td align="right"><%=rsAttDaily("oct_khl")%></td>
-				<td align="right"><%=rsAttDaily("oct_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("oct_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("oct_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("oct_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("oct_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("nov_kbt")%></td>
-				<td align="right"><%=rsAttDaily("nov_kht")%></td>
-				<td align="right"><%=rsAttDaily("nov_khl")%></td>
-				<td align="right"><%=rsAttDaily("nov_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("nov_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("nov_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("nov_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("nov_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("des_kbt")%></td>
-				<td align="right"><%=rsAttDaily("des_kht")%></td>
-				<td align="right"><%=rsAttDaily("des_khl")%></td>
-				<td align="right"><%=rsAttDaily("des_total")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("des_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("des_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("des_khl"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("des_total"))%></td>
 				
-				<td align="right"><%=rsAttDaily("sbi_kbt")%></td>
-				<td align="right"><%=rsAttDaily("sbi_kht")%></td>
-				<td align="right"><%=rsAttDaily("sbi_khl")%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("sbi_kbt"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("sbi_kht"))%></td>
+				<td align="right"><%=FbpNum2(rsAttDaily("sbi_khl"))%></td>
 				<% total_SBI = cdbl(rsAttDaily("sbi_kbt")) + cdbl(rsAttDaily("sbi_kht")) + cdbl(rsAttDaily("sbi_khl")) %>
-				<td align="right"><%=total_SBI%></td>
+				<td align="right"><%=FbpNum2(total_SBI)%></td>
 				
 			</tr>
 <%
@@ -482,72 +482,72 @@ Dim sprevjob_forfieldstatus, tempjob_forfieldstatus
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%= 2%>">TOTAL</td>
-				<td align="right"><%=FormatNumber(nkbt_01,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_01,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_01,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_01,0)%></td>	
+				<td align="right"><%=FormatNumber(nkbt_01,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_01,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_01,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_01,2)%></td>	
 				
-				<td align="right"><%=FormatNumber(nkbt_02,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_02,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_02,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_02,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_02,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_02,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_02,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_02,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_03,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_03,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_03,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_03,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_03,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_03,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_03,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_03,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_04,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_04,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_04,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_04,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_04,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_04,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_04,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_04,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_05,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_05,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_05,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_05,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_05,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_05,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_05,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_05,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_06,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_06,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_06,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_06,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_06,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_06,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_06,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_06,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_07,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_07,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_07,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_07,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_07,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_07,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_07,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_07,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_08,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_08,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_08,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_08,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_08,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_08,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_08,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_08,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_09,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_09,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_09,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_09,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_09,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_09,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_09,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_09,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_10,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_10,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_10,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_10,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_10,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_10,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_10,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_10,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_11,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_11,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_11,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_11,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_11,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_11,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_11,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_11,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_12,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_12,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_12,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_12,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_12,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_12,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_12,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_12,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nkbt_SBI,0)%></td>
-				<td align="right"><%=FormatNumber(nkht_SBI,0)%></td>
-				<td align="right"><%=FormatNumber(nkhl_SBI,0)%></td>
-				<td align="right"><%=FormatNumber(nTotal_SBI,0)%></td>
+				<td align="right"><%=FormatNumber(nkbt_SBI,2)%></td>
+				<td align="right"><%=FormatNumber(nkht_SBI,2)%></td>
+				<td align="right"><%=FormatNumber(nkhl_SBI,2)%></td>
+				<td align="right"><%=FormatNumber(nTotal_SBI,2)%></td>
 				
-				<td align="right"><%=FormatNumber(nTotal_BUD,0)%></td>
+				<td align="right"><%=FormatNumber(nTotal_BUD,2)%></td>
 				
 			</tr>
 <tbody>

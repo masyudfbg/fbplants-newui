@@ -243,7 +243,7 @@ padding-top:30px;
 		<table border="0" width="100%" style="font-size:12px; line-height:18px;" class="fontcourir">
 			
 			<tr>
-				<td colspan="6" align="right"><%=txtreference%></td>
+				<td colspan="6" align="right"><%=FbpNum2(txtreference)%></td>
 			</tr>
 			<tr>
 				<td>Dibayarkan Kepada</td>
@@ -330,7 +330,7 @@ padding-top:30px;
 					<td class="ratatengah fontcourir"><%=girono%></td>
 					<td class="ratatengah fontcourir"><%=girodate%></td>
 					<%end if%>
-					<td class="ratakanan fontcourir"><%=formatnumber(cdbl(txtamount),0)%></td>
+					<td class="ratakanan fontcourir"><%=formatnumber(cdbl(txtamount),2)%></td>
 				</tr>
 				<%
 						no=no+1
@@ -349,7 +349,7 @@ padding-top:30px;
 					colspanttl = 2
 				end if%>
 					<td colspan="<%=colspanttl%>" class="ratakanan tebal">Total</td>
-					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),0)%></td>
+					<td class="ratakanan tebal"><%=formatnumber(cdbl(txttotal),2)%></td>
 			
 				</tr>
 			<tr>

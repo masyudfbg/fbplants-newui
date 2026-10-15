@@ -1281,10 +1281,10 @@ oRecordSet.Close : Set oRecordSet = Nothing
 						<td align="center" title="" valign="top"><%=rsGRN("wbt_chitno")%></td>
 						<td align="center" title="" valign="top"><%=rsGRN("postingdate")%></td>
 						<td align="center" title="" valign="top"><%=rsGRN("transporter")%> : <%=rsGRN("transportername")%></td> 
-						<td align="right" title="" valign="top"><%=FormatNumber(rsGRN("quantity"),0)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(rsGRN("quantity"),2)%></td>
 						<td align="center" title="" valign="top"><%=rsGRN("vehicleno")%></td>
 						<td align="center" title="" valign="top"><%=rsGRN("customer_chitno")%></td>
-						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("acceptquantity"))),0)%></td>
+						<td align="right" title="" valign="top"><%=FormatNumber(cdbl(to_nol(rsGRN("acceptquantity"))),2)%></td>
 				<%End if%>
 
 				<%if SudahClose<>"Y" Then%>
@@ -1294,7 +1294,7 @@ oRecordSet.Close : Set oRecordSet = Nothing
 						<%If cdbl(to_nol(extracarry)) > 0 Then %>
 							<td align="right" title="" valign="top"></td>
 						<%Else%>
-							<td align="right" title="" valign="top"><%=FormatNumber(rsGRN("deliveredqty"),0)%></td>
+							<td align="right" title="" valign="top"><%=FormatNumber(rsGRN("deliveredqty"),2)%></td>
 						<%End If%>
 				        <td align="center" title="" valign="top"><%=rsGRN("vehicleno")%></td>
 						<td align="center">
@@ -1359,18 +1359,18 @@ oRecordSet.Close : Set oRecordSet = Nothing
 		<%IF SudahClose="Y" then%>
 			<td align="right" title="" valign="top" colspan="3"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
 			<td></td>
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_deliveryqty_prop),0)%> </font></td> 
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_deliveryqty_prop),2)%> </font></td> 
 			<td colspan = "2"></td>  
-			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),0)%> </font></td>
+			<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),2)%> </font></td>
 		<%Else%>
 			<%IF cdbl(to_nol(extracarry)) > 0 then%>
 				<td align="right" title="" valign="top" colspan="3"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
 				<td colspan = "4"></td>  
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),0)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),2)%> </font></td>
 			<%Else%>
 				<td align="right" title="" valign="top" colspan="3"><font face="Verdana" size="1" style="font-weight: bold">TOTAL</font></td>
 				<td colspan = "4"></td> 
-				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),0)%> </font></td>
+				<td align="right" title="" valign="top"><font face="Verdana" size="1" style="font-weight: bold"><%=FormatNumber(cdbl(v_acceptqty_prop),2)%> </font></td>
 			<%End if%>
 		<%End if%>
 		<tr>

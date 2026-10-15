@@ -255,13 +255,13 @@ cmdstyleLeft="border-right: 1 solid #000000; border-bottom: 1 solid #000000; bor
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshutang("INVOICEDATE")%></td>		
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshutang("TGLTEMPO")%></td>				
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rshutang("POCODE")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("TOTALAMOUNT"),0)%></td>	
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("PAYMENT"),0)%></td>					
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("HUTANG_30_HARI"),0)%></td>							
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("HUTANG_60_HARI"),0)%></td>							
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("HUTANG_90_HARI"),0)%></td>							
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("HUTANG_LEBIH_90_HARI"),0)%></td>							
-			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("STATUS_JATUH_TEMPO"),0) & " Hari "%></td>	
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("TOTALAMOUNT"),2)%></td>	
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("PAYMENT"),2)%></td>					
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("HUTANG_30_HARI"),2)%></td>							
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("HUTANG_60_HARI"),2)%></td>							
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("HUTANG_90_HARI"),2)%></td>							
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("HUTANG_LEBIH_90_HARI"),2)%></td>							
+			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rshutang("STATUS_JATUH_TEMPO"),2) & " Hari "%></td>	
 			
 			
 		</tr>
@@ -284,12 +284,12 @@ cmdstyleLeft="border-right: 1 solid #000000; border-bottom: 1 solid #000000; bor
 
 		<tr bgcolor="#F4F4A0">
 			<td align="Center" style="<%=cmdstyle%>" colspan= "8"><font face="Verdana" size="1"><strong>T o t a l</strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv, 0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlbayar, 0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv30, 0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv60, 0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv90, 0)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinvleih90, 0)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv, 2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlbayar, 2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv30, 2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv60, 2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinv90, 2)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(ttlinvleih90, 2)%></strong></td>
 		</tr>
 	</tbody>
 </table>

@@ -196,18 +196,18 @@ else
 		<td align="center"></td>
 		<td align="center"><%=rsErptoSap("location")%></td>
 		<td align="center"><%=rsErptoSap("batch")%></td>
-		<td align="right"><%=rsErptoSap("weight_delivery")%></td>
-		<td align="right"><%=rsErptoSap("first_weight")%></td>
-		<td align="right"><%=rsErptoSap("second_weight")%></td>
-		<td align="right"><%=rsErptoSap("first_minus_second")%></td>
-		<td align="right"><%=rsErptoSap("after_grading")%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("weight_delivery"))%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("first_weight"))%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("second_weight"))%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("first_minus_second"))%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("after_grading"))%></td>
 		<td align="center"><%=rsErptoSap("uom")%></td>
 		<td align="center"><%=rsErptoSap("vehicleno")%></td>
 		<td align="center"><%=rsErptoSap("drivername")%></td>
 		<td align="right"></td>
 		<td align="center"></td>
 		<td align="center"></td>
-		<td align="right"><%=rsErptoSap("total_tandan")%></td>
+		<td align="right"><%=FbpNum2(rsErptoSap("total_tandan"))%></td>
 		<td align="center"></td>
 		<td align="right"></td>
 		<td align="center"></td>

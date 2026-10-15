@@ -208,7 +208,7 @@ end if
 <link rel="StyleSheet" href="/css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="/js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="/js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 
@@ -470,18 +470,18 @@ end if
 										<%=rsdtlupah("LOCATIONCODE")%>
 									</td>
 									<td class="ratakanan">
-										<%=rsdtlupah("MANDAYS")%>
+										<%=FbpNum2(rsdtlupah("MANDAYS"))%>
 									</td>
 									
 									<td class="ratakanan">
-										<%=rsdtlupah("UNIT")%>
+										<%=FbpNum2(rsdtlupah("UNIT"))%>
 									</td>
 									<td class="ratakanan">
-										<%=rsdtlupah("OUTPUT")%>
+										<%=FbpNum2(rsdtlupah("OUTPUT"))%>
 									</td>
 									
 									<td class="ratakanan">
-										<%=rsdtlupah("rate")%>
+										<%=FbpNum2(rsdtlupah("rate"))%>
 									</td>
 									<td class="ratakiri">
 										<%=rsdtlupah("ALLOWDEDNAME")%>
@@ -492,7 +492,7 @@ end if
 										<%=FormatNumber(rsdtlupah("ALLOWANCE_AMT"),0)%>
 									</td>
 									<td class="ratakanan">
-										<%=rsdtlupah("OVERTIME_HOURS")%>
+										<%=FbpNum2(rsdtlupah("OVERTIME_HOURS"))%>
 									</td>
 									<td class="ratakiri">
 										<%=rsdtlupah("type_ovname")%>									
@@ -605,20 +605,20 @@ end if
 											</td>
 
 											<td class="ratakanan">
-												<%=rsvehicle("trip")%>
+												<%=FbpNum2(rsvehicle("trip"))%>
 											</td>
 
 											<td class="ratakanan">
-												<%=rsvehicle("HOURS")%>
+												<%=FbpNum2(rsvehicle("HOURS"))%>
 											</td>
 
 
 											<td class="ratakanan">
-												<%=rsvehicle("UNIT")%>
+												<%=FbpNum2(rsvehicle("UNIT"))%>
 											</td>
 
 											<td class="ratakanan">
-												<%=rsvehicle("OUTPUT")%>
+												<%=FbpNum2(rsvehicle("OUTPUT"))%>
 											</td>
 
 											<td class="ratakiri">
@@ -719,15 +719,15 @@ end if
 			<td class="ratatengah"><%=rsupah("ATTENDANCE")%></td>
 			<td class="ratakiri"><%=rsupah("activityname")%></td>
 			<td class="ratatengah"><%=rsupah("LOCATIONCODE")%></td>
-			<td class="ratakanan"><%=hkview%></td>
-			<td class="ratakanan"><%=rsupah("UNIT")%></td>
-			<td class="ratakanan"><%=rsupah("OUTPUT")%></td>
-			<td class="ratakanan"><%=rsupah("RATE")%></td>
+			<td class="ratakanan"><%=FbpNum2(hkview)%></td>
+			<td class="ratakanan"><%=FbpNum2(rsupah("UNIT"))%></td>
+			<td class="ratakanan"><%=FbpNum2(rsupah("OUTPUT"))%></td>
+			<td class="ratakanan"><%=FbpNum2(rsupah("RATE"))%></td>
 			<td class="ratakiri"><%=rsupah("ALLOWDEDNAME")%></td>
-			<td class="ratakanan"><%=formatnumber(rateallow,0)%></td>
-			<td class="ratakanan"><%=rsupah("OVERTIME_HOURS")%></td>
+			<td class="ratakanan"><%=formatnumber(rateallow,2)%></td>
+			<td class="ratakanan"><%=FbpNum2(rsupah("OVERTIME_HOURS"))%></td>
 			<td class="ratakiri"><%=rsupah("remarks")%></td>
-			<td class="ratakanan"><%=formatnumber(rsupah("AMOUNT"),0)%></td>
+			<td class="ratakanan"><%=formatnumber(rsupah("AMOUNT"),2)%></td>
 		</tr>
 		<%
 			totalamount = cdbl(totalamount) + cdbl(rsupah("AMOUNT"))
@@ -736,7 +736,7 @@ end if
 		%>
 		<tr>
 			<td colspan="13" class="ratakanan tebal">Total</td>
-			<td class="ratakanan tebal"><%=formatnumber(totalamount,0)%></td>
+			<td class="ratakanan tebal"><%=formatnumber(totalamount,2)%></td>
 		</tr>
 	</table>
 

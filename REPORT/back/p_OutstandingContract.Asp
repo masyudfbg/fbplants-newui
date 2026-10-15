@@ -223,15 +223,15 @@ if Not rsOutstandingSPK.eof then
 %>
 	<tr>
 		<td align="left"><%=rsOutstandingSPK("agreementcode")%></td>
-		<td align="right"><%=rsOutstandingSPK("duedate")%></td>
+		<td align="right"><%=FbpNum2(rsOutstandingSPK("duedate"))%></td>
 		<td align="center"><%=rsOutstandingSPK("contractorcode")%></td>
 		<td align="left"><%=rsOutstandingSPK("contractorname")%></td>
 		<td align="center"><%=rsOutstandingSPK("job")%></td>
 		<td align="left"><%=rsOutstandingSPK("jobname")%></td>
-		<td align="right"><%=FormatNumber(rsOutstandingSPK("contract_qty"),0)%></td>
-		<td align="right"><%=FormatNumber(rsOutstandingSPK("bi_qty"),0)%></td>
-		<td align="right"><%=FormatNumber(rsOutstandingSPK("sbi_qty"),0)%></td>
-		<td align="right"><%=FormatNumber(rsOutstandingSPK("remain_qty"),0)%></td>
+		<td align="right"><%=FormatNumber(rsOutstandingSPK("contract_qty"),2)%></td>
+		<td align="right"><%=FormatNumber(rsOutstandingSPK("bi_qty"),2)%></td>
+		<td align="right"><%=FormatNumber(rsOutstandingSPK("sbi_qty"),2)%></td>
+		<td align="right"><%=FormatNumber(rsOutstandingSPK("remain_qty"),2)%></td>
 		<td align="left"><%=rsOutstandingSPK("REMARKS")%></td>
 	</tr>
 <%

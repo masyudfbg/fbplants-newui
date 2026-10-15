@@ -446,8 +446,8 @@ cmdstyleLeft="font-size:10px; border-right: 1 solid #0000FF; border-bottom: 1 so
 					  <td align="left"  style="<%=cmdstyle%>" title="stockname" valign="middle"><%=rsPurchaseOrder("stockname")%>&nbsp;</td>
 					  <td align="center"  style="width:50px;<%=cmdstyle%>" title="unitofmeasurement" valign="middle"><%=rsPurchaseOrder("unitofmeasurement")%>&nbsp;</td>
 					  <td align="CENTER"  style="width:50px;<%=cmdstyle%>" title="Budget setahun" valign="middle"><font face="Verdana"><%=stock%></td>
-					  <td align="CENTER"  style="width:50px;<%=cmdstyle%> " title="requestedqty" valign="middle"><%=FormatNumber(cdbl(to_nol(rsPurchaseOrder("requestedqty"))),0)%>&nbsp;</td>
-					  <td align="CENTER"  style="width:50px;<%=cmdstyle%> " title="approvedqty" valign="middle"><%=FormatNumber(cdbl(to_nol(rsPurchaseOrder("approvedqty"))),0)%>&nbsp;</td>
+					  <td align="CENTER"  style="width:50px;<%=cmdstyle%> " title="requestedqty" valign="middle"><%=FormatNumber(cdbl(to_nol(rsPurchaseOrder("requestedqty"))),2)%>&nbsp;</td>
+					  <td align="CENTER"  style="width:50px;<%=cmdstyle%> " title="approvedqty" valign="middle"><%=FormatNumber(cdbl(to_nol(rsPurchaseOrder("approvedqty"))),2)%>&nbsp;</td>
 					  <td align="left"  style="<%=cmdstyle%>" title="description" valign="middle"><%=rsPurchaseOrder("description")%>&nbsp;</td>
 				 </tr>
 				

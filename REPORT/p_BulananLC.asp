@@ -1181,100 +1181,100 @@ else
 					    <td align="center"></td>					
 					<% end if %>							 
 				<% end if %>
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_1"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_1"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_1"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_1"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_1")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_1"))/Cdbl(rsBulananLC("HA_MONTH_1")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_1"))/Cdbl(rsBulananLC("HA_MONTH_1")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_2"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_2"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_2"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_2"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_2")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_2"))/Cdbl(rsBulananLC("HA_MONTH_2")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_2"))/Cdbl(rsBulananLC("HA_MONTH_2")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_3"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_3"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_3"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_3"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_3")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_3"))/Cdbl(rsBulananLC("HA_MONTH_3")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_3"))/Cdbl(rsBulananLC("HA_MONTH_3")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_4"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_4"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_4"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_4"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_4")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_4"))/Cdbl(rsBulananLC("HA_MONTH_4")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_4"))/Cdbl(rsBulananLC("HA_MONTH_4")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_5"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_5"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_5"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_5"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_5")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_5"))/Cdbl(rsBulananLC("HA_MONTH_5")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_5"))/Cdbl(rsBulananLC("HA_MONTH_5")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_6"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_6"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_6"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_6"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_6")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_6"))/Cdbl(rsBulananLC("HA_MONTH_6")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_6"))/Cdbl(rsBulananLC("HA_MONTH_6")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_7"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_7"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_7"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_7"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_7")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_7"))/Cdbl(rsBulananLC("HA_MONTH_7")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_7"))/Cdbl(rsBulananLC("HA_MONTH_7")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_8"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_8"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_8"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_8"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_8")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_8"))/Cdbl(rsBulananLC("HA_MONTH_8")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_8"))/Cdbl(rsBulananLC("HA_MONTH_8")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_9"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_9"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_9"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_9"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_9")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_9"))/Cdbl(rsBulananLC("HA_MONTH_9")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_9"))/Cdbl(rsBulananLC("HA_MONTH_9")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_10"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_10"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_10"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_10"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_10")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_10"))/Cdbl(rsBulananLC("HA_MONTH_10")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_10"))/Cdbl(rsBulananLC("HA_MONTH_10")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_11"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_11"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_11"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_11"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_11")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_11"))/Cdbl(rsBulananLC("HA_MONTH_11")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_11"))/Cdbl(rsBulananLC("HA_MONTH_11")), 2)%></td>
 					<%End If%>
 					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_12"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_12"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_MONTH_12"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_MONTH_12"), 2)%></td>
 					<%If Cdbl(rsBulananLC("HA_MONTH_12")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_12"))/Cdbl(rsBulananLC("HA_MONTH_12")), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsBulananLC("RP_MONTH_12"))/Cdbl(rsBulananLC("HA_MONTH_12")), 2)%></td>
 					<%End If%>
 
 					<%
@@ -1284,9 +1284,9 @@ else
 						Rp_Per_Ha_RowReal = (Cdbl(rsBulananLC("RP_REAL"))/Cdbl(rsBulananLC("HA_REAL")))
 					End If
 					%>
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_REAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_REAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(Rp_Per_Ha_RowReal, 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_REAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_REAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(Rp_Per_Ha_RowReal, 2)%></td>
 
 					<%
 					If Cdbl(rsBulananLC("HA_BUDGET")) = 0 Then
@@ -1295,24 +1295,24 @@ else
 						Rp_Per_Ha_RowBudget = (Cdbl(rsBulananLC("RP_BUDGET"))/Cdbl(rsBulananLC("HA_BUDGET")))
 					End If
 					%>					
-					<td align="right"><%=FormatNumber(rsBulananLC("HA_BUDGET"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsBulananLC("RP_BUDGET"), 0)%></td>
-					<td align="right"><%=FormatNumber(Rp_Per_Ha_RowBudget, 0)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("HA_BUDGET"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsBulananLC("RP_BUDGET"), 2)%></td>
+					<td align="right"><%=FormatNumber(Rp_Per_Ha_RowBudget, 2)%></td>
 					
 					<%If Cdbl(rsBulananLC("HA_BUDGET")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber((Cdbl(rsBulananLC("HA_BUDGET")) - Cdbl(rsBulananLC("HA_REAL")))/Cdbl(rsBulananLC("HA_BUDGET"))*100, 0)%></td>
+					<td align="right"><%=FormatNumber((Cdbl(rsBulananLC("HA_BUDGET")) - Cdbl(rsBulananLC("HA_REAL")))/Cdbl(rsBulananLC("HA_BUDGET"))*100, 2)%></td>
 					<%End If%>
 					<%If Cdbl(rsBulananLC("RP_BUDGET")) = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber((Cdbl(rsBulananLC("RP_BUDGET")) - Cdbl(rsBulananLC("RP_REAL")))/Cdbl(rsBulananLC("RP_BUDGET"))*100, 0)%></td>
+					<td align="right"><%=FormatNumber((Cdbl(rsBulananLC("RP_BUDGET")) - Cdbl(rsBulananLC("RP_REAL")))/Cdbl(rsBulananLC("RP_BUDGET"))*100, 2)%></td>
 					<%End If%>
 					<%If Rp_Per_Ha_RowBudget = 0 Then%>
-					<td align="right"><%=FormatNumber(0, 0)%></td>
+					<td align="right"><%=FormatNumber(0, 2)%></td>
 					<%Else%>
-					<td align="right"><%=FormatNumber((Rp_Per_Ha_RowBudget - Rp_Per_Ha_RowReal)/Rp_Per_Ha_RowBudget*100, 0)%></td>
+					<td align="right"><%=FormatNumber((Rp_Per_Ha_RowBudget - Rp_Per_Ha_RowReal)/Rp_Per_Ha_RowBudget*100, 2)%></td>
 					<%End If%>
 				</tr>
 <%

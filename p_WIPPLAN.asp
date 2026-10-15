@@ -192,7 +192,7 @@ txtsql = txtsql &	"	ORDER BY wip.agreementcode," & _
 				<td align="Right" valign="top"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat("QTY"), 2)%></td>
 				<td align="Right" valign="top"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat("UNIT"), 2)%></td>
 				<td align="Right" valign="top"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat("OUTPUT"), 2)%></td>
-				<td align="Right" valign="top"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat("TOTAL"), 0)%></td>
+				<td align="Right" valign="top"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(rsCat("TOTAL"), 2)%></td>
 				<td align="left" valign="top"style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rsCat("REMARKS")%></td>
 			</tr>
 <%
@@ -216,7 +216,7 @@ txtsql = txtsql &	"	ORDER BY wip.agreementcode," & _
 			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(v_Quantity, 2)%></strong></td>
 			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(v_Unit, 2)%></strong></td>
 			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(v_Output, 2)%></strong></td>
-			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(v_Total, 0)%></strong></td>
+			<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><strong><%=FormatNumber(v_Total, 2)%></strong></td>
 			<td></td>
 		</tr>
     </tbody>

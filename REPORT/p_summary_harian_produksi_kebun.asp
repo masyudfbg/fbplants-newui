@@ -602,20 +602,20 @@ else
 					    <td align="Center" colspan="2">
 						<font face="Verdana" size="1"><strong><%=rsLHPK("GroupRegion")%></strong></font>
 					    </td>
-					    <td align="right"><strong><%=FormatNumber(rsLHPK("HA_TM"), 0)%></strong></td>
+					    <td align="right"><strong><%=FormatNumber(rsLHPK("HA_TM"), 2)%></strong></td>
 					<% Else %>
                         <td align="Center" colspan="1">
 						<font face="Verdana" size="1"><strong><%=rsLHPK("GroupRegion")%></strong></font>
 					    </td>					
 					<% End If %>
 					
-					<td align="right"><strong><%=FormatNumber(rsLHPK("PROD_EST_HI"), 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(rsLHPK("PROD_EST_SHI"), 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("PROD_EST_HI"), 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("PROD_EST_SHI"), 2)%></strong></td>
 					
-					<td align="right"><strong><%=FormatNumber(rsLHPK("BUD_PROD_HI"), 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(rsLHPK("BUD_PROD_SHI"), 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("BUD_PROD_HI"), 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("BUD_PROD_SHI"), 2)%></strong></td>
 					<%Row_var_shi_kg = (Cdbl(rsLHPK("PROD_EST_SHI")) - Cdbl(rsLHPK("BUD_PROD_SHI"))) %>
-					<td align="right"><strong><%=FormatNumber(Row_var_shi_kg, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(Row_var_shi_kg, 2)%></strong></td>
 					<%
 					If Row_var_shi_kg = 0 then
 						Row_var_shi_percent = 0
@@ -627,23 +627,23 @@ else
 						End If
 					End If
 					%>
-					<td align="right"><strong><%=FormatNumber(Row_var_shi_percent, 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(rsLHPK("RESTAN_HI"), 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(Row_var_shi_percent, 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("RESTAN_HI"), 2)%></strong></td>
 					<% IF st_ha_tm > 0 then %>
-					<td align="right"><strong><%=FormatNumber(st_pusingan_avg/st_ha_tm, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(st_pusingan_avg/st_ha_tm, 2)%></strong></td>
 					<% else %>
 					<td align="right"><strong>0</strong></td>
 					<% end if %>
 					<% IF st_ha_tm > 0 then %>
-					<td align="right"><strong><%=FormatNumber(st_pusingan_uptoten/st_ha_tm, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(st_pusingan_uptoten/st_ha_tm, 2)%></strong></td>
 					<% else %>
 					<td align="right"><strong>0</strong></td>
 					<% end if %>
 					
-					<td align="right"><strong><%=FormatNumber(rsLHPK("MANDAYS_HI"), 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(rsLHPK("MANDAYS_SHI"), 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(rsLHPK("MANDAYS_SB_HI"), 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(rsLHPK("MANDAYS_SB_SHI"), 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("MANDAYS_HI"), 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("MANDAYS_SHI"), 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("MANDAYS_SB_HI"), 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(rsLHPK("MANDAYS_SB_SHI"), 2)%></strong></td>
 					<%
 					'HI
 					If Cdbl(rsLHPK("MANDAYS_SB_HI")) = 0 Then
@@ -666,8 +666,8 @@ else
 						End If
 					End If
 					%>
-					<td align="right"><strong><%=FormatNumber(Row_percent_sb_hi, 0)%></strong></td>
-					<td align="right"><strong><%=FormatNumber(Row_percent_sb_shi, 0)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(Row_percent_sb_hi, 2)%></strong></td>
+					<td align="right"><strong><%=FormatNumber(Row_percent_sb_shi, 2)%></strong></td>
 					<td align="right" class="grey" colspan="5"><strong>&nbsp;</strong></td>
 				</tr>
 				<tr>
@@ -703,7 +703,7 @@ else
 					      <%=rsLHPK("fcba")%>
 						  </a>
 					   </td>
-					   <td align="right"><%=FormatNumber(rsLHPK("HA_TM"), 0)%></td>
+					   <td align="right"><%=FormatNumber(rsLHPK("HA_TM"), 2)%></td>
 					<% Else %>
                         <td align="center">
 						    <a href="p_summary_harian_produksi_kebun.asp?txtregion=<%=rsLHPK("Region")%>&txtfcba=--ALL--&txtdatefrom=<%=v_txtdatefrom%>">
@@ -712,12 +712,12 @@ else
 						</td>					
 					<% End If %>
 					
-					<td align="right"><%=FormatNumber(rsLHPK("PROD_EST_HI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("PROD_EST_SHI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("BUD_PROD_HI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("BUD_PROD_SHI"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("PROD_EST_HI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("PROD_EST_SHI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("BUD_PROD_HI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("BUD_PROD_SHI"), 2)%></td>
 					<%Row_var_shi_kg = Cdbl(rsLHPK("PROD_EST_SHI")) - Cdbl(rsLHPK("BUD_PROD_SHI"))%>
-					<td align="right"><%=FormatNumber(Row_var_shi_kg, 0)%></td>
+					<td align="right"><%=FormatNumber(Row_var_shi_kg, 2)%></td>
 					<%
 					If Row_var_shi_kg = 0 then
 						Row_var_shi_percent = 0
@@ -729,15 +729,15 @@ else
 						End If
 					End If
 					%>
-					<td align="right"><%=FormatNumber(Row_var_shi_percent, 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("RESTAN_HI"), 0)%></td>
+					<td align="right"><%=FormatNumber(Row_var_shi_percent, 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("RESTAN_HI"), 2)%></td>
 					
-					<td align="right"><%=FormatNumber(Cdbl(rsLHPK("PUSINGAN_AVG")), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("PUSINGAN_UPTOTEN"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("MANDAYS_HI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("MANDAYS_SHI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("MANDAYS_SB_HI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("MANDAYS_SB_SHI"), 0)%></td>
+					<td align="right"><%=FormatNumber(Cdbl(rsLHPK("PUSINGAN_AVG")), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("PUSINGAN_UPTOTEN"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("MANDAYS_HI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("MANDAYS_SHI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("MANDAYS_SB_HI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("MANDAYS_SB_SHI"), 2)%></td>
 					<%
 					'HI
 					If Cdbl(rsLHPK("MANDAYS_SB_HI")) = 0 Then
@@ -760,13 +760,13 @@ else
 						End If
 					End If
 					%>
-					<td align="right"><%=FormatNumber(Row_percent_sb_hi, 0)%></td>
-					<td align="right"><%=FormatNumber(Row_percent_sb_shi, 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("WI_VOL_HI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("WI_VOL_SHI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("WI_HH_SHI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("WI_VOL_SBI"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsLHPK("WI_HH_SBI"), 0)%></td>
+					<td align="right"><%=FormatNumber(Row_percent_sb_hi, 2)%></td>
+					<td align="right"><%=FormatNumber(Row_percent_sb_shi, 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("WI_VOL_HI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("WI_VOL_SHI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("WI_HH_SHI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("WI_VOL_SBI"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsLHPK("WI_HH_SBI"), 2)%></td>
 				</tr>
 				<%
 				st_ha_tm = st_ha_tm + Cdbl(rsLHPK("HA_TM"))
@@ -805,11 +805,11 @@ else
 							<td align="Left" style="padding-left:10px;">
 								<font face="Verdana" size="1"><strong>Sub Total</strong></font>
 							</td>
-							<td align="right"><strong><%=FormatNumber(st_ha_tm, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_prod_est_hi, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_prod_est_shi, 0)%></strong></td>					
-							<td align="right"><strong><%=FormatNumber(st_bud_prod_hi, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_bud_prod_shi, 0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_ha_tm, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_prod_est_hi, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_prod_est_shi, 2)%></strong></td>					
+							<td align="right"><strong><%=FormatNumber(st_bud_prod_hi, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_bud_prod_shi, 2)%></strong></td>
 							<%' Var SHI Kg
 							st_var_shi_kg = st_prod_mill_shi - st_bud_prod_shi
 							  ' Var SHI %
@@ -823,9 +823,9 @@ else
 								End If
 							End If
 							%>
-							<td align="right"><strong><%=FormatNumber(st_var_shi_kg, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_var_shi_percent, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_restan_hi, 0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_var_shi_kg, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_var_shi_percent, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_restan_hi, 2)%></strong></td>
 						
 							<%' Var SBI Kg
 							st_var_sbi_kg = st_prod_mill_sbi - st_bud_prod_sbi
@@ -841,12 +841,12 @@ else
 							End If
 							%>
 							
-							<td align="right"><strong><%=FormatNumber(st_pusingan_avg, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_pusingan_uptoten, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_mandays_hi, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_mandays_shi, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_mandays_sb_hi, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_mandays_sb_shi, 0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_pusingan_avg, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_pusingan_uptoten, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_mandays_hi, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_mandays_shi, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_mandays_sb_hi, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_mandays_sb_shi, 2)%></strong></td>
 							<%
 							'HI
 							If st_mandays_sb_hi = 0 Then
@@ -869,8 +869,8 @@ else
 								End If
 							End If
 							%>
-							<td align="right"><strong><%=FormatNumber(st_percent_sb_hi, 0)%></strong></td>
-							<td align="right"><strong><%=FormatNumber(st_percent_sb_shi, 0)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_percent_sb_hi, 2)%></strong></td>
+							<td align="right"><strong><%=FormatNumber(st_percent_sb_shi, 2)%></strong></td>
 							<td align="right" class="grey" colspan="5"><strong>&nbsp;</strong></td>
 						</tr>
 					<% End If %>
@@ -954,17 +954,17 @@ set rsLHPK = Nothing
 						<td align="Center" colspan="2">
 							<font face="Verdana" size="1"><strong>Grand Total</strong></font>
 						</td>
-						<td align="right"><strong><%=FormatNumber(gt_ha_tm, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_ha_tm, 2)%></strong></td>
 						<% ELSE %>
 						<td align="Center" colspan="1">
 							<font face="Verdana" size="1"><strong>Grand Total</strong></font>
 						</td>
 						<% END IF  %>
-						<td align="right"><strong><%=FormatNumber(gt_prod_est_hi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_prod_est_shi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_prod_est_hi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_prod_est_shi, 2)%></strong></td>
 						
-						<td align="right"><strong><%=FormatNumber(gt_bud_prod_hi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_bud_prod_shi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_bud_prod_hi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_bud_prod_shi, 2)%></strong></td>
 						<%' Var SHI Kg
 						gt_var_shi_kg = gt_prod_est_shi - gt_bud_prod_shi
 						  ' Var SHI %
@@ -978,9 +978,9 @@ set rsLHPK = Nothing
 							End If
 						End If
 						%>
-						<td align="right"><strong><%=FormatNumber(gt_var_shi_kg, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_var_shi_percent, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_restan_hi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_var_shi_kg, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_var_shi_percent, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_restan_hi, 2)%></strong></td>
 						
 						<%' Var SBI Kg
 						gt_var_sbi_kg = gt_prod_mill_sbi - gt_bud_prod_sbi
@@ -996,12 +996,12 @@ set rsLHPK = Nothing
 						End If
 						%>
 						
-						<td align="right"><strong><%=FormatNumber(gt_pusingan_avg/gt_ha_tm , 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_pusingan_uptoten/gt_ha_tm, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_mandays_hi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_mandays_shi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_mandays_sb_hi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_mandays_sb_shi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_pusingan_avg/gt_ha_tm , 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_pusingan_uptoten/gt_ha_tm, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_mandays_hi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_mandays_shi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_mandays_sb_hi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_mandays_sb_shi, 2)%></strong></td>
 						<%
 						'HI
 						If gt_mandays_sb_hi = 0 Then
@@ -1024,8 +1024,8 @@ set rsLHPK = Nothing
 							End If
 						End If
 						%>
-						<td align="right"><strong><%=FormatNumber(gt_percent_sb_hi, 0)%></strong></td>
-						<td align="right"><strong><%=FormatNumber(gt_percent_sb_shi, 0)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_percent_sb_hi, 2)%></strong></td>
+						<td align="right"><strong><%=FormatNumber(gt_percent_sb_shi, 2)%></strong></td>
 						<td align="right" class="grey" colspan="5"><strong>&nbsp;</strong></td>
 					</tr>
 <%End if%>

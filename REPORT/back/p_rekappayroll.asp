@@ -160,17 +160,17 @@ function launchwin(winurl,winname,winfeatures)
 			<td align="center"><%=rsha("Afdeling")%></td>
 			
 			<td align="center"><%=rsha("presentgrade")%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("Premi")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("Tunjangan")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("P_Jamsostek")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("P_MK_P1")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("P_Panen")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("P_Lain")),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(rsha("total")),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("Premi")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("Tunjangan")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("P_Jamsostek")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("P_MK_P1")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("P_Panen")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("P_Lain")),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(rsha("total")),2)%></td>
 			<% if cdgrp1 = ""  then 
 			 
 						  Dim rs1 , sql1, r1
@@ -230,17 +230,17 @@ function launchwin(winurl,winname,winfeatures)
 		%> 
 		 <tr>	 
 			<td align="center" colspan="2" ><b>Sub Total</td>
-			<td align="right"><b><%=formatnumber(subAmtbsal,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtOT,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtpremi,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtTunj,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtBorong,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtJamsos,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtMKP1,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtPanen,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtPPH21,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtPlain,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtgrp,0)%></td>
+			<td align="right"><b><%=formatnumber(subAmtbsal,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtOT,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtpremi,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtTunj,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtBorong,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtJamsos,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtMKP1,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtPanen,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtPPH21,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtPlain,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtgrp,2)%></td>
 		 </tr>	
 		 <tr>	 
 			<td align="center" colspan="14" ></td>
@@ -285,17 +285,17 @@ function launchwin(winurl,winname,winfeatures)
 					  <tr>	 
 						
 						<td align="center"><%=rsha("presentgrade")%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Premi")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Tunjangan")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_Jamsostek")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_MK_P1")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_Panen")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_Lain")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("total")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Premi")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Tunjangan")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_Jamsostek")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_MK_P1")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_Panen")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_Lain")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("total")),2)%></td>
 						
 					  </tr>	
 					  <%
@@ -332,17 +332,17 @@ function launchwin(winurl,winname,winfeatures)
     			 if cdgrp <> "" then %>	  
 					  <tr>	 
 						<td align="center" colspan="2" ><b>Sub Total <%=cdgrp%></td>
-						<td align="right"><b><%=formatnumber(subAmtbsal,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtOT,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtpremi,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtTunj,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtBorong,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtJamsos,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtMKP1,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtPanen,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtPPH21,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtPlain,0)%></td>
-						<td align="right"><b><%=formatnumber(subAmtgrp,0)%></td>
+						<td align="right"><b><%=formatnumber(subAmtbsal,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtOT,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtpremi,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtTunj,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtBorong,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtJamsos,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtMKP1,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtPanen,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtPPH21,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtPlain,2)%></td>
+						<td align="right"><b><%=formatnumber(subAmtgrp,2)%></td>
 					 </tr>	
 					 <tr>	 
 						<td align="center" colspan="14" ></td>
@@ -382,17 +382,17 @@ function launchwin(winurl,winname,winfeatures)
                      <tr>	 
 						<td align="center" rowspan="<%=cdbl(rows)%>" ><%=rsha("Afdeling")%></td>
 						<td align="center"><%=rsha("presentgrade")%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Premi")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Tunjangan")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_Jamsostek")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_MK_P1")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_Panen")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("P_Lain")),0)%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("total")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("base_salary")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Overtime")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Premi")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Tunjangan")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Borongan")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_Jamsostek")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_MK_P1")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_Panen")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_PPH21")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("P_Lain")),2)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("total")),2)%></td>
 						<td align="center" rowspan="<%=cdbl(rows)+1%>" ></td>
 					  </tr>	
 					  <%
@@ -431,34 +431,34 @@ function launchwin(winurl,winname,winfeatures)
 	%>	
 	    <tr>	 
 			<td align="center" colspan="2" ><b>Sub Total <%=cdgrp%></td>
-			<td align="right"><b><%=formatnumber(subAmtbsal,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtOT,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtpremi,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtTunj,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtBorong,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtJamsos,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtMKP1,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtPanen,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtPPH21,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtPlain,0)%></td>
-			<td align="right"><b><%=formatnumber(subAmtgrp,0)%></td>
+			<td align="right"><b><%=formatnumber(subAmtbsal,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtOT,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtpremi,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtTunj,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtBorong,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtJamsos,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtMKP1,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtPanen,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtPPH21,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtPlain,2)%></td>
+			<td align="right"><b><%=formatnumber(subAmtgrp,2)%></td>
 		 </tr>	
 		 <tr>	 
 			<td align="center" colspan="14" ></td>
 		 </tr>
         <tr>	 
 			<td align="center" colspan="2" ><b>Grand Total</td>
-			<td align="right"><b><%=formatnumber(grnAmtbsal,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtOT,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtpremi,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtTunj,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtBorong,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtJamsos,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtMKP1,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtPanen,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtPPH21,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtPlain,0)%></td>
-			<td align="right"><b><%=formatnumber(grnAmtgrp,0)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtbsal,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtOT,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtpremi,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtTunj,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtBorong,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtJamsos,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtMKP1,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtPanen,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtPPH21,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtPlain,2)%></td>
+			<td align="right"><b><%=formatnumber(grnAmtgrp,2)%></td>
 			<td align="right"></td>
 		</tr>				  
 </table>

@@ -1128,45 +1128,45 @@ else
 					<% end if %>							 
 				<% end if %>
 				
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_1"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_2"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_3"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_4"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_5"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_6"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_7"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_8"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_9"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_10"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_11"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_12"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_13"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_14"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_15"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_16"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_17"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_18"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_19"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_20"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_21"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_22"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_23"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_24"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_25"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_26"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_27"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_28"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_29"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_30"), 0)%></td>
-					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_31"), 0)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_1"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_2"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_3"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_4"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_5"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_6"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_7"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_8"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_9"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_10"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_11"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_12"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_13"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_14"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_15"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_16"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_17"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_18"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_19"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_20"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_21"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_22"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_23"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_24"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_25"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_26"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_27"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_28"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_29"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_30"), 2)%></td>
+					<td align="right"><%=FormatNumber(rsHarianPupuk("DAY_31"), 2)%></td>
 <%
 			RowRealTotal	=	RowRealTotal + Cdbl(rsHarianPupuk("TOTAL"))
 			RowRekomTotal	=	RowRekomTotal + 0
 			RowVarTotal		=	RowRealTotal - RowRekomTotal
 %>
-					<td align="right"><%=FormatNumber(RowRealTotal, 0)%></td>
-					<td align="right"><%=FormatNumber(RowRekomTotal, 0)%></td>
-					<td align="right"><%=FormatNumber(RowVarTotal, 0)%></td>
+					<td align="right"><%=FormatNumber(RowRealTotal, 2)%></td>
+					<td align="right"><%=FormatNumber(RowRekomTotal, 2)%></td>
+					<td align="right"><%=FormatNumber(RowVarTotal, 2)%></td>
 				</tr>
 <%
 
@@ -1217,40 +1217,40 @@ set rsHarianPupuk = Nothing
 %>
 	<tr bgcolor="#F4F4A0">
 		<td colspan="<%=1+nSpanTotal%>" align="center"><strong>TOTAL</strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_1, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_2, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_3, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_4, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_5, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_6, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_7, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_8, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_9, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_10, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_11, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_12, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_13, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_14, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_15, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_16, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_17, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_18, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_19, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_20, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_21, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_22, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_23, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_24, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_25, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_26, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_27, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_28, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_29, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_30, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandTotalday_31, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandRowRealTotal, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandRowRekomTotal, 0 )%></strong></td>
-		<td align="right"><strong><%=FormatNumber(GrandRowVarTotal, 0 )%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_1, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_2, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_3, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_4, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_5, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_6, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_7, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_8, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_9, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_10, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_11, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_12, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_13, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_14, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_15, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_16, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_17, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_18, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_19, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_20, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_21, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_22, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_23, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_24, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_25, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_26, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_27, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_28, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_29, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_30, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandTotalday_31, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandRowRealTotal, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandRowRekomTotal, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(GrandRowVarTotal, 2)%></strong></td>
 	</tr>
 <%End if%>
 </table>

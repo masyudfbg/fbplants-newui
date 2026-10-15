@@ -586,14 +586,14 @@ Set rssql2 = Server.CreateObject("ADODB.Recordset")
 							
 							
 						%>
-						<td colspan="1" align="right"><%=persentase1%></td>
-						<td colspan="1" align="right"><%=persentase2%></td>
-						<td colspan="1" align="right"><%=persentase%></td>
+						<td colspan="1" align="right"><%=FbpNum2(persentase1)%></td>
+						<td colspan="1" align="right"><%=FbpNum2(persentase2)%></td>
+						<td colspan="1" align="right"><%=FbpNum2(persentase)%></td>
 						
-						<td colspan="1" align="right"><%=persentased1%></td>
-						<td colspan="1" align="right"><%=persentased2%></td>
-						<td colspan="1" align="right"><%=persentased%></td>
-						<td colspan="1" align="right"><%=persentasea%></td>
+						<td colspan="1" align="right"><%=FbpNum2(persentased1)%></td>
+						<td colspan="1" align="right"><%=FbpNum2(persentased2)%></td>
+						<td colspan="1" align="right"><%=FbpNum2(persentased)%></td>
+						<td colspan="1" align="right"><%=FbpNum2(persentasea)%></td>
 						<%
 						if isNull(rssql3("actM")) then 
 							actMTot = actMTot + 0

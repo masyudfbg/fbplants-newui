@@ -410,19 +410,19 @@ if rsuploadgisap.bof and rsuploadgisap.eof then
 				<td align="left"><%=rsuploadgisap("postingdate")%></td>
 				<td align="left"><%=rsuploadgisap("materialslip")%></td>
 				<td align="left"><%=rsuploadgisap("headertext")%></td>
-				<td align="right"><%=rsuploadgisap("movementtype")%></td>
+				<td align="right"><%=FbpNum2(rsuploadgisap("movementtype"))%></td>
 				<td align="left"><%=rsuploadgisap("pla")%></td>
 				<td align="left"><%=rsuploadgisap("storloc")%></td>
 				<td align="left"><%=rsuploadgisap("xfull")%></td>
 				<td align="left"><%=rsuploadgisap("version1")%></td>
 				<td align="left"><%=rsuploadgisap("materialnumber")%></td>
 				<td align="left"><%=rsuploadgisap("MatrialName")%></td>
-				<td align="right"><%=rsuploadgisap("quantityinunit")%></td>
+				<td align="right"><%=FbpNum2(rsuploadgisap("quantityinunit"))%></td>
 				<td align="left"><%=rsuploadgisap("uom")%></td>
 				<td align="left"><%=rsuploadgisap("plant")%></td>
 				<td align="left"><%=rsuploadgisap("storagelocation")%></td>
 				<td align="left"><%=rsuploadgisap("batchnumber")%></td>
-				<td align="right"><%=rsuploadgisap("glacc")%></td>
+				<td align="right"><%=FbpNum2(rsuploadgisap("glacc"))%></td>
 				<td align="left"><%=rsuploadgisap("fcba")%></td>
 				<td align="left"><%=rsuploadgisap("description")%></td>
 				<td align="left"><%=rsuploadgisap("version2")%></td>

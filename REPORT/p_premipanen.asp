@@ -896,16 +896,16 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center"><%=rsGrnInv("planting_year_final")%></td>
 				<td align="center"><%=rsGrnInv("terraintype_final")%></td>
 				<td align="center"><%=rsGrnInv("presentgrade")%></td> 
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("presentrate_fix"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("potongan_tidak_dapat_basis"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("total_janjang"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("total_ha"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("jjg_lebih_basis"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_1"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_2"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_3"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_4"))),0)%></td>
-				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("total_premi_panen"))),0)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("presentrate_fix"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("potongan_tidak_dapat_basis"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("total_janjang"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("total_ha"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("jjg_lebih_basis"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_1"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_2"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_3"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("premi_level_4"))),2)%></td>
+				<td align="right"><%=formatnumber(cdbl(to_nol(rsGrnInv("total_premi_panen"))),2)%></td>
 			</tr>
 	<%			
 				v_estate_bunches = v_estate_bunches + cdbl(to_nol(rsGrnInv("potongan_tidak_dapat_basis")))
@@ -925,15 +925,15 @@ function launchwin(winurl,winname,winfeatures)
 	%>
 			<tr bgcolor="#F4F4A0"> 
 				<td align="center" colspan="9"><font style="font-weight: bold;">TOTAL</font></td>				
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_estate_bunches)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_mill_bunches)),0)%></font></td>  
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bunch_mill_weight_bruto)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_potongan)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bunch_mill_weight_netto)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bjr_per_chitno)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_bucket)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_brondolan)),0)%></font></td> 
-				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_per_bucket)),0)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_estate_bunches)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_mill_bunches)),2)%></font></td>  
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bunch_mill_weight_bruto)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_potongan)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bunch_mill_weight_netto)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_bjr_per_chitno)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_bucket)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_brondolan)),2)%></font></td> 
+				<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_per_bucket)),2)%></font></td> 
 			</tr>
 		</tbody>
 </table>

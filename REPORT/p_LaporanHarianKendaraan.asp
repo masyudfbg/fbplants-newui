@@ -985,13 +985,13 @@ else
 				
 				%>
 
-					<td align="right"><%=TotalVehicle%></td>
-					<td align="right"><%=TotalOperation%></td>
-					<td align="right"><%=PersenOperation%></td>
-					<td align="right"><%=TotalNotOperation%></td>
-					<td align="right"><%=PersenNotOperation%></td>
-					<td align="right"><%=TotalActivityUnit%></td>
-					<td align="right"><%=EfisiensiUnit%></td>
+					<td align="right"><%=FbpNum2(TotalVehicle)%></td>
+					<td align="right"><%=FbpNum2(TotalOperation)%></td>
+					<td align="right"><%=FbpNum2(PersenOperation)%></td>
+					<td align="right"><%=FbpNum2(TotalNotOperation)%></td>
+					<td align="right"><%=FbpNum2(PersenNotOperation)%></td>
+					<td align="right"><%=FbpNum2(TotalActivityUnit)%></td>
+					<td align="right"><%=FbpNum2(EfisiensiUnit)%></td>
 					
 				</tr>
 <%

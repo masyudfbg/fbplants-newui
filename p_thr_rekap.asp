@@ -518,9 +518,9 @@ response.Flush()
 										<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("dateterminate")%></td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("presentgrade")%></td>
 										<td align="left" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("emp_type")%></td>
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("presentrate"),0)%></td>
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("presentrate"),2)%></td>
 										<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=hslmasakerja%></td>
-										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(hsl_ttlamount,0)%></td>
+										<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(hsl_ttlamount,2)%></td>
 							
 									</tr>
 								  <%
@@ -539,8 +539,8 @@ response.Flush()
 								</tbody>
 								<tr bgcolor="#F4F4A0" style="font-weight: bold;">
 									<td colspan="9" align="center">TOTAL</td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_totalhk)),0)%></td>
-									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_ttlamount)),0)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_totalhk)),2)%></td>
+									<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(cdbl(to_nol(v_ttlamount)),2)%></td>
 							
 								</tr>
 						</table>

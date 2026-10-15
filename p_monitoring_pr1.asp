@@ -282,7 +282,7 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
             <td align="center"><font face="Verdana" size="1"><%=rsview("uom")%></td>
             <td align="center"><font face="Verdana" size="1"><%=rsview("description")%></td>
             <td align="center"><font face="Verdana" size="1"><%=rsview("requestedqty")%></td>
-            <td align="right"><font face="Verdana" size="1"><%=rsview("approvedqty")%></td>
+            <td align="right"><font face="Verdana" size="1"><%=FbpNum2(rsview("approvedqty"))%></td>
             <td align="center"><font face="Verdana" size="1"><%=rsview("fcname")%></td>
             <td align="center"><font face="Verdana" size="1"><%=statusauto%></td>
             <td align="center"><font face="Verdana" size="1"><%=userapproved1 & " - " & tglapp1%></td>
@@ -327,9 +327,9 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
                     -
                 <% end if%>
             </td>
-            <td align="right"><font face="Verdana" size="1"><%=rsview("quantity")%></td>
+            <td align="right"><font face="Verdana" size="1"><%=FbpNum2(rsview("quantity"))%></td>
             <%if menu_po="TRUE" then%>
-            <td align="Right"  style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rsview("unitprice"),0)%></td>
+            <td align="Right"  style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rsview("unitprice"),2)%></td>
             <%end if%>
             <td align="center"><font face="Verdana" size="1"><%=rsview("receivenotecode")%></td>
             <td align="center"><font face="Verdana" size="1"><%=rsview("rndate")%></td>

@@ -172,13 +172,13 @@ response.Flush()
 					</td>
 					<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("transdate")%> </td>
 					<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("purchasecontractno")%> </td>
-					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("totalamount")),0)%></td>
-					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("dp_beforevat")),0)%></td>
-					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("dp_vat")),0)%></td>
-					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("amount_dpvat")),0)%></td>
-					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("todate_dp_aftervat")),0)%></td>
-					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("percentage_dp")),0)%></td>
-					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("todate_percentage_dp")),0)%></td>
+					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("totalamount")),2)%></td>
+					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("dp_beforevat")),2)%></td>
+					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("dp_vat")),2)%></td>
+					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("amount_dpvat")),2)%></td>
+					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("todate_dp_aftervat")),2)%></td>
+					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("percentage_dp")),2)%></td>
+					<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=FormatNumber(cdbl(rscat("todate_percentage_dp")),2)%></td>
 					<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("valid_until")%> </td>
 				</tr>
 				<%

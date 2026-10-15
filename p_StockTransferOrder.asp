@@ -208,9 +208,9 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("stockname")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("quantityorder")%></td>
 			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=rscat("do_quantity")%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("unitprice"),0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("unitprice"),2)%></td>
 			<td align="center" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(rscat("ppnrp"))%></td>
-			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttl,0)%></td>
+			<td align="right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><%=formatnumber(ttl,2)%></td>
 		</tr>
 	  <%
 	   v_quantityorder =v_quantityorder+trim(cdbl(rsCat("quantityorder")))
@@ -229,8 +229,8 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 	</form>
 	<tr bgcolor="#F4F4A0">
 		<td align="Center" style="<%=cmdstyleLeft%>" colspan="12"> <font face="Verdana" size="1">T o t a l</td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_quantityorder,0)%></td>
-		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_do_quantity,0)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_quantityorder,2)%></td>
+		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_do_quantity,2)%></td>
 		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_unitprice,2)%></td>
 		<td align="Right" style="<%=cmdstyle%>"> <font face="Verdana" size="1"><%=FormatNumber(v_totalamount,2)%></td>
 	</tr>

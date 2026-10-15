@@ -550,7 +550,7 @@ function launchwin(winurl,winname,winfeatures)
 				<td align="center"><%=rsGrnInv("harvestdate")%></td>
 				<td align="center"><%=rsGrnInv("LOCATIONCODE")%></td>
 			<%end if%> 
-			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("bucket"))),0)%></td>
+			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("bucket"))),2)%></td>
 			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("bbr"))),2)%></td>
 			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("totalkg"))),2)%></td>
 			<td align="right"><%=FormatNumber(cdbl(to_nol(rsGrnInv("amount"))),2)%></td>  
@@ -572,7 +572,7 @@ function launchwin(winurl,winname,winfeatures)
 			<%Else%>
 				<td align="center" colspan="4"><b>GRAND TOTAL</b></td>
 			<%End If%>
-			<td align="right"><b><%=formatnumber(nbucket,0)%></td>
+			<td align="right"><b><%=formatnumber(nbucket,2)%></td>
 			<td align="right"><b><%=formatnumber(nbbr,2)%></td>
 			<td align="right"><b><%=formatnumber(ntotalkg,2)%></td>
 			<td align="right"><b><%=formatnumber(namount,2)%></td> 

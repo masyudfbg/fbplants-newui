@@ -140,7 +140,7 @@ txtSQL	=	" SELECT DATA.FCBA," & _
 					<tr>
 						<td align="Left"><%=rscat("AgreementCode")%></td>
 						<td align="Right"><%=rscat("AgreementLineNo")%></td>
-						<td align="Right"><%=rscat("WipDate")%></td>
+						<td align="Right"><%=FbpNum2(rscat("WipDate"))%></td>
 						<td align="Left"><%=rscat("ContractorCode")%></td>
 						<td align="Left"><%=rscat("fcname")%></td>
 						<td align="Right"><%=FormatNumber(rscat("PAID"),2)%></td>

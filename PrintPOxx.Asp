@@ -455,8 +455,8 @@ cmdstyleLeft="border-right: 1 solid #0000FF; border-bottom: 1 solid #0000FF; bor
 					  <td align="CENTER"  style="width:50px;<%=cmdstyle%>" title="Budget setahun" valign="top"><font face="Verdana"><input class="isian" name ="budget_setahun" type="text" style="display:block;font-size:12px;" value=""></td>
 					  <td align="CENTER"  style="width:50px;<%=cmdstyle%>" title="Budget setahun" valign="top"><font face="Verdana"><input class="isian" name ="budget_setahun" type="text" style="display:block;font-size:12px;" value=""></td>
 					  <td align="CENTER"  style="width:50px;<%=cmdstyle%>" title="Budget setahun" valign="middle"><font face="Verdana"><%=stock%></td>
-					  <td align="RIGHT"  style="width:50px;<%=cmdstyle%> " title="requestedqty" valign="middle"><%=FormatNumber(rsPurchaseOrder("requestedqty"),0)%>&nbsp;</td>
-					  <td align="RIGHT"  style="width:50px;<%=cmdstyle%> " title="approvedqty" valign="middle"><%=FormatNumber(rsPurchaseOrder("approvedqty"),0)%>&nbsp;</td>
+					  <td align="RIGHT"  style="width:50px;<%=cmdstyle%> " title="requestedqty" valign="middle"><%=FormatNumber(rsPurchaseOrder("requestedqty"),2)%>&nbsp;</td>
+					  <td align="RIGHT"  style="width:50px;<%=cmdstyle%> " title="approvedqty" valign="middle"><%=FormatNumber(rsPurchaseOrder("approvedqty"),2)%>&nbsp;</td>
 					  <td align="left"  style="<%=cmdstyle%>" title="description" valign="middle"><%=rsPurchaseOrder("description")%>&nbsp;</td>
 				 </tr>
 				

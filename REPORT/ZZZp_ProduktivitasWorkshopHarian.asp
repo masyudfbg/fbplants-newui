@@ -743,17 +743,17 @@ else
 		val_Sbi_Jam_per_HK	=	Round(val_Sbi_Jam/ val_Sbi_HK, 2)
 	End If
 %>
-					<td align="right"><%=FormatNumber(val_Hi_HK, 0)%></td>
-					<td align="right"><%=FormatNumber(val_Hi_Jam, 0)%></td>
-					<td align="right"><%=FormatNumber(val_Hi_Jam_per_HK, 0)%></td>
+					<td align="right"><%=FormatNumber(val_Hi_HK, 2)%></td>
+					<td align="right"><%=FormatNumber(val_Hi_Jam, 2)%></td>
+					<td align="right"><%=FormatNumber(val_Hi_Jam_per_HK, 2)%></td>
 					
-					<td align="right"><%=FormatNumber(val_Shi_HK, 0)%></td>
-					<td align="right"><%=FormatNumber(val_Shi_Jam, 0)%></td>
-					<td align="right"><%=FormatNumber(val_Shi_Jam_per_HK, 0)%></td>
+					<td align="right"><%=FormatNumber(val_Shi_HK, 2)%></td>
+					<td align="right"><%=FormatNumber(val_Shi_Jam, 2)%></td>
+					<td align="right"><%=FormatNumber(val_Shi_Jam_per_HK, 2)%></td>
 					
-					<td align="right"><%=FormatNumber(val_Sbi_HK, 0)%></td>
-					<td align="right"><%=FormatNumber(val_Sbi_Jam, 0)%></td>
-					<td align="right"><%=FormatNumber(val_Sbi_Jam_per_HK, 0)%></td>
+					<td align="right"><%=FormatNumber(val_Sbi_HK, 2)%></td>
+					<td align="right"><%=FormatNumber(val_Sbi_Jam, 2)%></td>
+					<td align="right"><%=FormatNumber(val_Sbi_Jam_per_HK, 2)%></td>
 				</tr>
 <%
 			Grand_Hi_HK =  Grand_Hi_HK + val_Hi_HK
@@ -772,28 +772,28 @@ set rsProdWsHarian = Nothing
 %>
 	<tr bgcolor="#F4F4A0">
 		<td colspan="<%=var_ColSpan%>" align="center"><strong>TOTAL</strong></td>
-		<td align="right"><strong><%=FormatNumber(Grand_Hi_HK, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(Grand_Hi_Jam, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Grand_Hi_HK, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Grand_Hi_Jam, 2)%></strong></td>
 		<%If Grand_Hi_HK = 0 Then%>
-		<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-		<td align="right"><strong><%=FormatNumber(Round(Grand_Hi_Jam/Grand_Hi_HK, 2), 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Round(Grand_Hi_Jam/Grand_Hi_HK, 2), 2)%></strong></td>
 		<%End If%>
 		
-		<td align="right"><strong><%=FormatNumber(Grand_Shi_HK, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(Grand_Shi_Jam, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Grand_Shi_HK, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Grand_Shi_Jam, 2)%></strong></td>
 		<%If Grand_Shi_HK = 0 Then%>
-		<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-		<td align="right"><strong><%=FormatNumber(Round(Grand_Shi_Jam/Grand_Shi_HK, 2), 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Round(Grand_Shi_Jam/Grand_Shi_HK, 2), 2)%></strong></td>
 		<%End If%>
 		
-		<td align="right"><strong><%=FormatNumber(Grand_Sbi_HK, 0)%></strong></td>
-		<td align="right"><strong><%=FormatNumber(Grand_Sbi_Jam, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Grand_Sbi_HK, 2)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Grand_Sbi_Jam, 2)%></strong></td>
 		<%If Grand_Sbi_HK = 0 Then%>
-		<td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		<%Else%>
-		<td align="right"><strong><%=FormatNumber(Round(Grand_Sbi_Jam/Grand_Sbi_HK, 2), 0)%></strong></td>
+		<td align="right"><strong><%=FormatNumber(Round(Grand_Sbi_Jam/Grand_Sbi_HK, 2), 2)%></strong></td>
 		<%End If%>
 	</tr>
 <%End if%>

@@ -290,27 +290,27 @@ body{font-family:'Arial Narrow';font-size:12px;}
 			<tbody>
 			  <tr>
 				<td  style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Cost for Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;" align="right"><%=formatnumber(TotalCost,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;" align="right"><%=formatnumber(TotalCost,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Ha Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalHa,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalHa,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Working Days for Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalWorkDay,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalWorkDay,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Cost per Ha. for Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(CostPerHa,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(CostPerHa,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Cost per Ha. / HK for Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(CostPerHaPerHK,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(CostPerHaPerHK,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Working Days for this Period </td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalWorkDayShi,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalWorkDayShi,2) %></td>
 			  </tr>
 			  </tbody>
 		</table>	  
@@ -405,16 +405,16 @@ body{font-family:'Arial Narrow';font-size:12px;}
 					  <tr>
 					     <% If cdbl(RevenueKe) = 1 then %>
 								<td align="left" ><%=rsDtl("fccode")%></td>
-								<td align="right"><%=formatnumber(rsDtl("Ha"),0) %></td>
+								<td align="right"><%=formatnumber(rsDtl("Ha"),2) %></td>
 								<td align="Center"><%=rsDtl("Plantyear") %></td>
 								<td>Revenue</td>
 						<%  Else   %>
 						        <td colspan="4">&nbsp;</td> 
                         <%  End If %>								
 							<td align="center"><%=fromdate_ %> - <%=todate_ %></td>
-							<td align="right"><%=formatnumber(nMillWeight,0)%></td>
-							<td align="right"><%=formatnumber(arrayPL(2, i),0)%></td>
-						    <td align="right"><%=formatnumber(cdbl(nMillWeight) * cdbl(arrayPL(2, i)),0)%></td>
+							<td align="right"><%=formatnumber(nMillWeight,2)%></td>
+							<td align="right"><%=formatnumber(arrayPL(2, i),2)%></td>
+						    <td align="right"><%=formatnumber(cdbl(nMillWeight) * cdbl(arrayPL(2, i)),2)%></td>
 					  </tr>
 <%              End If   
 	        Next
@@ -424,7 +424,7 @@ body{font-family:'Arial Narrow';font-size:12px;}
 %>
 			<tr>
 				<td align="left" ><%=rsDtl("fccode")%></td>
-				<td align="right"><%=formatnumber(rsDtl("Ha"),0) %></td>
+				<td align="right"><%=formatnumber(rsDtl("Ha"),2) %></td>
 				<td align="Center"><%=rsDtl("Plantyear") %></td>
 				<td>Revenue</td>							
 				<td align="center"><%=formatdatevalue0 %> - <%=formatdatevalue %></td>
@@ -439,7 +439,7 @@ body{font-family:'Arial Narrow';font-size:12px;}
    
               <tr>    
 				<td colspan="7">&nbsp;</td>
-				<td align="right"><%=formatnumber(RevenuePerBlock,0)%></td>
+				<td align="right"><%=formatnumber(RevenuePerBlock,2)%></td>
 			  </tr>
 			  <tr>
 				<td colspan="8">&nbsp;</td>
@@ -450,14 +450,14 @@ body{font-family:'Arial Narrow';font-size:12px;}
 				<td align="center"><%=formatdatevalue0 %> - <%=formatdatevalue %></td>
 				<td colspan="2">&nbsp;</td>
 				<% CostPerBlock = rsDtl("Ha")* cdbl(CostPerHaHkPeriod)   %>
-				<td align="right"><%=formatnumber( CostPerBlock,0) %></td>
+				<td align="right"><%=formatnumber( CostPerBlock,2) %></td>
 			  </tr>
 			  <tr>
 				<td colspan="8">&nbsp;</td>
 			  </tr>
 			  <tr>
 				<td align="center" colspan="7">P/L Block Code ( <%=rsDtl("fccode")%> )</td>
-				<td align="right"><%=formatnumber(cdbl(RevenuePerBlock) - cdbl(CostPerBlock),0)%></td>
+				<td align="right"><%=formatnumber(cdbl(RevenuePerBlock) - cdbl(CostPerBlock),2)%></td>
 			  </tr>
 			 <tr>
 				<td colspan="8">&nbsp;</td>

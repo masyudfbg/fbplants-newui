@@ -477,24 +477,24 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 			<td align="center"><%=rsPayroll("GANGCODE")%></td>
 			<td align="center"><%=rsPayroll("PRESENTGRADE")%></td>
 			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("HK"))), 1)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("GAJI"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("LEMBUR"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("PREMI"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("BORONGAN"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("SubGaji"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("POT_DENDA"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("Sub_Potongan"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("Total"))),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("GAJI"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("LEMBUR"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("PREMI"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("BORONGAN"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("SubGaji"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("POT_DENDA"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("Sub_Potongan"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("Total"))),2)%></td>
 		
 		    <td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("HK_shi"))), 1)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("GAJI_shi"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("LEMBUR_shi"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("PREMI_shi"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("BORONGAN_shi"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("SubGaji_shi"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("POT_DENDA_shi"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("Sub_Potongan_shi"))),0)%></td>
-			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("Total_shi"))),0)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("GAJI_shi"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("LEMBUR_shi"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("PREMI_shi"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("BORONGAN_shi"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("SubGaji_shi"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("POT_DENDA_shi"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("Sub_Potongan_shi"))),2)%></td>
+			<td align="right"><%=formatnumber( cdbl(to_nol(rsPayroll("Total_shi"))),2)%></td>
 		</tr>
 <%	if rows = temprows then
 			noline			= noline		+ 1
@@ -524,24 +524,24 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 		<tr style="background-color:#F4F4A0;">	 
 			<td align="center" colspan="6" ><strong>Sub Total</strong></td>
 			<td align="right"><strong><%=formatnumber(nGet_Hk,1)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nBase_Salary,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nOvertime,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nPremi,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(nBorongan,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(nTotal,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nDenda,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nTotalDenda,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nTotalgaji,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nBase_Salary,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nOvertime,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nPremi,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nBorongan,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nTotal,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nDenda,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nTotalDenda,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nTotalgaji,2)%></strong></td>
 			
 			<td align="right"><strong><%=formatnumber(nGet_Hk_shi,1)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nBase_Salary_shi,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nOvertime_shi,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nPremi_shi,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(nBorongan_shi,0)%></strong></td> 
-			<td align="right"><strong><%=formatnumber(nTotal_shi,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nDenda_shi,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nTotalDenda_shi,0)%></strong></td>
-			<td align="right"><strong><%=formatnumber(nTotalgaji_shi,0)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nBase_Salary_shi,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nOvertime_shi,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nPremi_shi,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nBorongan_shi,2)%></strong></td> 
+			<td align="right"><strong><%=formatnumber(nTotal_shi,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nDenda_shi,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nTotalDenda_shi,2)%></strong></td>
+			<td align="right"><strong><%=formatnumber(nTotalgaji_shi,2)%></strong></td>
 			
 		</tr>
 		<tr>
@@ -625,24 +625,24 @@ hr{border-top:1px #000000 solid; border-bottom:0px; border-left:0px; border-righ
 	<tr style="background-color:#27AE60;">	 
 		<td align="center" colspan="6" ><strong>Grand Total</strong></td>
 		<td align="right"><strong><%=formatnumber(gt_GET_HK,1)%></strong></td>  
-		<td align="right"><strong><%=formatnumber(gt_BASE_SALARY,0)%></strong></td> 
-		<td align="right"><strong><%=formatnumber(gt_OVERTIME,0)%></strong></td> 
-		<td align="right"><strong><%=formatnumber(gt_PREMI,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_BORONGAN,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_TOTAL,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_DENDA,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_TOTALDENDA,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_TOTALGAJI,0)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_BASE_SALARY,2)%></strong></td> 
+		<td align="right"><strong><%=formatnumber(gt_OVERTIME,2)%></strong></td> 
+		<td align="right"><strong><%=formatnumber(gt_PREMI,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_BORONGAN,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_TOTAL,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_DENDA,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_TOTALDENDA,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_TOTALGAJI,2)%></strong></td>
 		
 		<td align="right"><strong><%=formatnumber(gt_GET_HK_shi,1)%></strong></td>  
-		<td align="right"><strong><%=formatnumber(gt_BASE_SALARY_shi,0)%></strong></td> 
-		<td align="right"><strong><%=formatnumber(gt_OVERTIME_shi,0)%></strong></td> 
-		<td align="right"><strong><%=formatnumber(gt_PREMI_shi,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_BORONGAN_shi,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_TOTAL_shi,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_DENDA_shi,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_TOTALDENDA_shi,0)%></strong></td>
-		<td align="right"><strong><%=formatnumber(gt_TOTALGAJI_shi,0)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_BASE_SALARY_shi,2)%></strong></td> 
+		<td align="right"><strong><%=formatnumber(gt_OVERTIME_shi,2)%></strong></td> 
+		<td align="right"><strong><%=formatnumber(gt_PREMI_shi,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_BORONGAN_shi,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_TOTAL_shi,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_DENDA_shi,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_TOTALDENDA_shi,2)%></strong></td>
+		<td align="right"><strong><%=formatnumber(gt_TOTALGAJI_shi,2)%></strong></td>
 	</tr>
 	
 	</tbody>

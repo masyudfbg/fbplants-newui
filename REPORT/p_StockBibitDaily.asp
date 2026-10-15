@@ -562,11 +562,11 @@ Dim sgfcba,sgStockGroup,sgStock,sgstockname,sgUOM
 				<% end if %>
 				
 				
-				<td align="right"><%=FormatNumber(rsStockGudang("opening_balance_day"),0)%></td>
-				<td align="right"><%=FormatNumber(rsStockGudang("received"),0)%></td>
-				<td align="right"><%=FormatNumber(rsStockGudang("issued"),0)%></td>
-				<td align="right"><%=FormatNumber(rsStockGudang("adjustment"),0)%></td>
-				<td align="right"><%=FormatNumber(rsStockGudang("closing_balance_day"),0)%></td>
+				<td align="right"><%=FormatNumber(rsStockGudang("opening_balance_day"),2)%></td>
+				<td align="right"><%=FormatNumber(rsStockGudang("received"),2)%></td>
+				<td align="right"><%=FormatNumber(rsStockGudang("issued"),2)%></td>
+				<td align="right"><%=FormatNumber(rsStockGudang("adjustment"),2)%></td>
+				<td align="right"><%=FormatNumber(rsStockGudang("closing_balance_day"),2)%></td>
 			</tr>
 <%
 		NO = NO + 1
@@ -584,11 +584,11 @@ Dim sgfcba,sgStockGroup,sgStock,sgstockname,sgUOM
 %>
 			<tr bgcolor="#F4F4A0">
 				<td align="center" colspan="<%= 1 + nSpanTotal %>">TOTAL</td>	
-				<td align="right"><%=FormatNumber(nsubOpening,0)%></td>
-				<td align="right"><%=FormatNumber(nsubReceive,0)%></td>
-				<td align="right"><%=FormatNumber(nsubIssue,0)%></td>
-				<td align="right"><%=FormatNumber(nsubAdj,0)%></td>
-				<td align="right"><%=FormatNumber(nsubTotal,0)%></td>
+				<td align="right"><%=FormatNumber(nsubOpening,2)%></td>
+				<td align="right"><%=FormatNumber(nsubReceive,2)%></td>
+				<td align="right"><%=FormatNumber(nsubIssue,2)%></td>
+				<td align="right"><%=FormatNumber(nsubAdj,2)%></td>
+				<td align="right"><%=FormatNumber(nsubTotal,2)%></td>
 			</tr>
     </tbody> 
 </table>

@@ -177,10 +177,10 @@ set rsview = connStr.Execute(sqlview)
 						%>
 						<tr >
 							<td colspan=6><strong>Total</strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlqty)),0)%></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamtbvat)),0)%></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamtvat)),0)%></strong></td>
-							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlgrand)),0)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlqty)),2)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamtbvat)),2)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlamtvat)),2)%></strong></td>
+							<td align="Right" style="<%=cmdstyle%>"><font face="Verdana" size="1"><strong><%=FormatNumber(cdbl(to_nol(ttlgrand)),2)%></strong></td>
 							
 						</tr>
 						</table>

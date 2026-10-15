@@ -116,11 +116,11 @@ set rsview = connStr.Execute(sqlview)
 							<td><%=rsview("coaname")%></td>							
 							<td><%=rsview("unitkerja")%></td>							
 							<td><%=rsview("fieldcode")%></td>							
-							<td style="text-align: right;"><%=FormatNumber(cdbl(to_nol(rsview("mandays"))),0)%></td>							
-							<td style="text-align: right;"><%=FormatNumber(cdbl(rphk),0)%></td>							
+							<td style="text-align: right;"><%=FormatNumber(cdbl(to_nol(rsview("mandays"))),2)%></td>							
+							<td style="text-align: right;"><%=FormatNumber(cdbl(rphk),2)%></td>							
 							<td style="text-align: right;"><%=FormatNumber(boronganpremi)%></td>
-							<td style="text-align: right;"><%=FormatNumber(cdbl(qtymaterial),0)%></td>							
-							<td style="text-align: right;"><%=FormatNumber(cdbl(rpmaterial),0)%></td>							
+							<td style="text-align: right;"><%=FormatNumber(cdbl(qtymaterial),2)%></td>							
+							<td style="text-align: right;"><%=FormatNumber(cdbl(rpmaterial),2)%></td>							
 						</tr>
 						<%
 						
@@ -139,10 +139,10 @@ set rsview = connStr.Execute(sqlview)
 						<tr>
 							<td colspan="3" style="text-align: right;font-weight: bold;">Total</td>
 							<td  style="text-align: right;font-weight: bold;"><%=ttlqtyhk%></td>
-							<td  style="text-align: right;font-weight: bold;"><%=FormatNumber(cdbl(ttlrphk),0)%></td>
-							<td  style="text-align: right;font-weight: bold;"><%=FormatNumber(cdbl(ttlrpborongan),0)%></td>
-							<td  style="text-align: right;font-weight: bold;"><%=FormatNumber(cdbl(ttlqtymaterial),0)%></td>
-							<td  style="text-align: right;font-weight: bold;"><%=FormatNumber(cdbl(ttlrpmaterial),0)%></td>
+							<td  style="text-align: right;font-weight: bold;"><%=FormatNumber(cdbl(ttlrphk),2)%></td>
+							<td  style="text-align: right;font-weight: bold;"><%=FormatNumber(cdbl(ttlrpborongan),2)%></td>
+							<td  style="text-align: right;font-weight: bold;"><%=FormatNumber(cdbl(ttlqtymaterial),2)%></td>
+							<td  style="text-align: right;font-weight: bold;"><%=FormatNumber(cdbl(ttlrpmaterial),2)%></td>
 						</tr>
 						</table>
 						<!--#include file="Bottom_Report.asp"-->

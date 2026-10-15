@@ -292,27 +292,27 @@ body{font-family:'Arial Narrow';font-size:12px;}
 			<tbody>
 			  <tr>
 				<td  style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Cost for Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;" align="right"><%=formatnumber(TotalCost,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;" align="right"><%=formatnumber(TotalCost,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Ha Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalHa,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalHa,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Working Days for Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalWorkDay,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalWorkDay,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Cost per Ha. for Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(CostPerHa,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(CostPerHa,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Cost per Ha. / HK for Prev. Month</td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(CostPerHaPerHK,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(CostPerHaPerHK,2) %></td>
 			  </tr>
 			  <tr>
 				<td style="background-color:#00A300;color:#fff;border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;">Total Working Days for this Period </td>
-				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalWorkDayShi,0) %></td>
+				<td style="border: 1px solid #3A5F0B;padding: 5px; font-size: 12px;"  align="right"><%=formatnumber(TotalWorkDayShi,2) %></td>
 			  </tr>
 			  </tbody>
 		</table>	  
@@ -415,12 +415,12 @@ body{font-family:'Arial Narrow';font-size:12px;}
 %>
 			<tr>
 				<td align="left" ><%=rsDtl("fccode")%></td>
-				<td align="right"><%=formatnumber(rsDtl("Ha"),0) %></td>
+				<td align="right"><%=formatnumber(rsDtl("Ha"),2) %></td>
 				<td align="Center"><%=rsDtl("Plantyear") %></td>
-				<td align="right"><%=formatnumber(MillWeightPerBlock,0)%></td>	
-				<td align="right"><%=formatnumber(RevenuePerBlock,0)%></td>							
-				<td align="right"><%=formatnumber(CostPerBlock,0) %></td>
-				<td align="right"><%=formatnumber(PnLPerBlock,0) %></td>
+				<td align="right"><%=formatnumber(MillWeightPerBlock,2)%></td>	
+				<td align="right"><%=formatnumber(RevenuePerBlock,2)%></td>							
+				<td align="right"><%=formatnumber(CostPerBlock,2) %></td>
+				<td align="right"><%=formatnumber(PnLPerBlock,2) %></td>
 			</tr>     
 	<%
 
@@ -436,10 +436,10 @@ body{font-family:'Arial Narrow';font-size:12px;}
 	
 	        <tr>
 				<th align="center" colspan="3" style="background-color:#00A300;color:#fff;">Total</th>
-				<th align="right" style="background-color:#00A300;color:#fff;"><%=formatnumber(TotMillWeightPerEst,0)%></th>	
-				<th align="right" style="background-color:#00A300;color:#fff;"><%=formatnumber(TotRevenuePerEst,0)%></th>							
-				<th align="right" style="background-color:#00A300;color:#fff;"><%=formatnumber(TotCostPerEst,0) %></th>
-				<th align="right" style="background-color:#00A300;color:#fff;"><%=formatnumber(TotPnLPerEst,0) %></th>
+				<th align="right" style="background-color:#00A300;color:#fff;"><%=formatnumber(TotMillWeightPerEst,2)%></th>	
+				<th align="right" style="background-color:#00A300;color:#fff;"><%=formatnumber(TotRevenuePerEst,2)%></th>							
+				<th align="right" style="background-color:#00A300;color:#fff;"><%=formatnumber(TotCostPerEst,2) %></th>
+				<th align="right" style="background-color:#00A300;color:#fff;"><%=formatnumber(TotPnLPerEst,2) %></th>
 			</tr>    
 
 <%	

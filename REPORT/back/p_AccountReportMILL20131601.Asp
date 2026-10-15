@@ -226,13 +226,13 @@ Palm = cdbl(ProdKER) +  cdbl(ProdCPO)
 	      <tr>  
 				<td><%=rsha("JobCode")%></td>
 				<td><%=rsha("DESCRIPTION")%></td>
-				<td align="right"><%=formatnumber( cdbl(rsha("Total")),0)%></td>
+				<td align="right"><%=formatnumber( cdbl(rsha("Total")),2)%></td>
 				<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(palm)),2)%></td>
 				<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(TBSprocess)),2)%></td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
-				<td align="right"><%=formatnumber( cdbl(rsha("Total")),0)%></td>
+				<td align="right"><%=formatnumber( cdbl(rsha("Total")),2)%></td>
 				<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(palm)),2)%></td>
 				<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(TBSprocess)),2)%></td>
 				<td>&nbsp;</td>
@@ -253,13 +253,13 @@ Palm = cdbl(ProdKER) +  cdbl(ProdCPO)
 						<tr>  
 							<td><%=rsha("JobCode")%></td>
 							<td><%=rsha("DESCRIPTION")%></td>
-							<td align="right"><%=formatnumber( cdbl(rsha("Total")),0)%></td>
+							<td align="right"><%=formatnumber( cdbl(rsha("Total")),2)%></td>
 							<td align="right"><%=formatnumber((cdbl(rsha("Total"))/cdbl(palm)),2)%></td>
 							<td align="right"><%=formatnumber(( cdbl(rsha("Total"))/cdbl(TBSprocess)),2)%></td>		
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
-							<td align="right"><%=formatnumber( cdbl(rsha("Total")),0)%></td>
+							<td align="right"><%=formatnumber( cdbl(rsha("Total")),2)%></td>
 							<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(palm)),2)%></td>
 							<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(TBSprocess)),2)%></td>
 							<td>&nbsp;</td>
@@ -276,13 +276,13 @@ Palm = cdbl(ProdKER) +  cdbl(ProdCPO)
 								<tr>  
 									
 									<td colspan="2"><b>Total &nbsp;<%=cdgrpdesc%></td>
-									<td align="right"><b><%=formatnumber(subAmtgrp,0)%></td>
+									<td align="right"><b><%=formatnumber(subAmtgrp,2)%></td>
 									<td align="right"><b><%=formatnumber((cdbl(subAmtgrp)/cdbl(palm)),2)%></td>
 									<td align="right"><b><%=formatnumber(( cdbl(subAmtgrp)/cdbl(TBSprocess)),2)%></td>	
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
-									<td align="right"><b><%=formatnumber(subAmtgrp,0)%></td>
+									<td align="right"><b><%=formatnumber(subAmtgrp,2)%></td>
 									<td align="right"><b><%=formatnumber((cdbl(subAmtgrp)/cdbl(palm)),2)%></td>
 									<td align="right"><b><%=formatnumber(( cdbl(subAmtgrp)/cdbl(TBSprocess)),2)%></td>	
 									<td>&nbsp;</td>
@@ -315,13 +315,13 @@ Palm = cdbl(ProdKER) +  cdbl(ProdCPO)
 						  <tr>  
 							<td><%=rsha("JobCode")%></td>
 							<td><%=rsha("DESCRIPTION")%></td>
-							<td align="right"><%=formatnumber( cdbl(rsha("Total")),0)%></td>
+							<td align="right"><%=formatnumber( cdbl(rsha("Total")),2)%></td>
 							<td align="right"><%=formatnumber((cdbl(rsha("Total"))/cdbl(palm)),2)%></td>
 							<td align="right"><%=formatnumber(( cdbl(rsha("Total"))/cdbl(TBSprocess)),2)%></td>		
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
-							<td align="right"><%=formatnumber( cdbl(rsha("Total")),0)%></td>
+							<td align="right"><%=formatnumber( cdbl(rsha("Total")),2)%></td>
 							<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(palm)),2)%></td>
 							<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(TBSprocess)),2)%></td>
 							<td>&nbsp;</td>
@@ -347,13 +347,13 @@ Palm = cdbl(ProdKER) +  cdbl(ProdCPO)
 		IF  request.Form("vJenisReport") = "Job" then %>
 			<tr>  							
 				<td colspan="2"><b>Total &nbsp;<%=cdgrpdesc%></td>
-				<td align="right"><b><%=formatnumber(subAmtgrp,0)%></td>
+				<td align="right"><b><%=formatnumber(subAmtgrp,2)%></td>
 				<td align="right"><b><%=formatnumber((cdbl(subAmtgrp)/cdbl(palm)),2)%></td>
 				<td align="right"><b><%=formatnumber(( cdbl(subAmtgrp)/cdbl(TBSprocess)),2)%></td>	
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
-				<td align="right"><b><%=formatnumber(subAmtgrp,0)%></td>
+				<td align="right"><b><%=formatnumber(subAmtgrp,2)%></td>
 				<td align="right"><b><%=formatnumber((cdbl(subAmtgrp)/cdbl(palm)),2)%></td>
 				<td align="right"><b><%=formatnumber(( cdbl(subAmtgrp)/cdbl(TBSprocess)),2)%></td>	
 				<td>&nbsp;</td>
@@ -407,13 +407,13 @@ Palm = cdbl(ProdKER) +  cdbl(ProdCPO)
 					 <tr>  
 						<td><%=rsha("JobCode")%></td>
 						<td><%=rsha("DESCRIPTION")%></td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Total")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Total")),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(palm)),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(TBSprocess)),2)%></td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
-						<td align="right"><%=formatnumber( cdbl(rsha("Total")),0)%></td>
+						<td align="right"><%=formatnumber( cdbl(rsha("Total")),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(palm)),2)%></td>
 						<td align="right"><%=formatnumber( (cdbl(rsha("Total"))/cdbl(TBSprocess)),2)%></td>
 						<td>&nbsp;</td>
@@ -434,13 +434,13 @@ Palm = cdbl(ProdKER) +  cdbl(ProdCPO)
 	
 	<tr>  							
 		<td colspan="2"><b> Grand Total</td>
-		<td align="right"><b><%=formatnumber(GRAmtgrp,0)%></td>
+		<td align="right"><b><%=formatnumber(GRAmtgrp,2)%></td>
 		<td align="right"><b><%=formatnumber((cdbl(GRAmtgrp)/cdbl(palm)),2)%></td>
 		<td align="right"><b><%=formatnumber(( cdbl(GRAmtgrp)/cdbl(TBSprocess)),2)%></td>	
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
-		<td align="right"><b><%=formatnumber(GRAmtgrp,0)%></td>
+		<td align="right"><b><%=formatnumber(GRAmtgrp,2)%></td>
 		<td align="right"><b><%=formatnumber((cdbl(GRAmtgrp)/cdbl(palm)),2)%></td>
 		<td align="right"><b><%=formatnumber(( cdbl(GRAmtgrp)/cdbl(TBSprocess)),2)%></td>
 		<td>&nbsp;</td>

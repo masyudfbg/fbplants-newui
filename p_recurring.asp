@@ -112,7 +112,7 @@ End Function
 							<td align="left" valign="top" rowspan="<%=p_span%>"><%=arr_data(5, xi)%></td>
 							<td align="center" valign="top" rowspan="<%=p_span%>"><%=arr_data(6, xi)%></td>
 							<td align="center" valign="top" rowspan="<%=p_span%>"><%=arr_data(7, xi)%></td>
-							<td align="right" valign="top" rowspan="<%=p_span%>"><%=formatnumber(cdbl(to_nol(arr_data(8, xi))), 0)%></td>
+							<td align="right" valign="top" rowspan="<%=p_span%>"><%=formatnumber(cdbl(to_nol(arr_data(8, xi))), 2)%></td>
 							<td align="center" valign="top" rowspan="<%=p_span%>"><%=arr_data(9, xi)%></td>
 							<td align="left" valign="top" rowspan="<%=p_span%>"><%=arr_data(10, xi)%></td>
 							<td align="left" valign="top" rowspan="<%=p_span%>"><%=arr_data(11, xi)%></td>
@@ -120,7 +120,7 @@ End Function
 							<td align="center"><%=arr_data(12, xi)%></td>
 							<td align="center"><%=arr_data(13, xi)%></td>
 							<td align="center"><%=arr_data(14, xi)%></td>
-							<td align="right"><%=formatnumber(cdbl(to_nol(arr_data(15, xi))), 0)%></td>
+							<td align="right"><%=formatnumber(cdbl(to_nol(arr_data(15, xi))), 2)%></td>
 						</tr>
 <%
 						prevdocno = currdocno

@@ -252,10 +252,10 @@ function launchwin(winurl,winname,winfeatures)
 			<td align="center"><%=NO%></td>
 			<td align="center"><%=rsNeracaTemp("JOBCODE")%></td>
 			<td align="left"><%=rsNeracaTemp("JOBNAME")%></td>
-			<td align="right"><%=FormatNumber(rsNeracaTemp("SALDOAWAL"),0)%></td>
-			<td align="right"><%=FormatNumber(rsNeracaTemp("DEBET"),0)%></td>
-			<td align="right"><%=FormatNumber(rsNeracaTemp("KREDIT"),0)%></td>
-			<td align="right"><%=FormatNumber(rsNeracaTemp("SALDOAKHIR"),0)%></td>
+			<td align="right"><%=FormatNumber(rsNeracaTemp("SALDOAWAL"),2)%></td>
+			<td align="right"><%=FormatNumber(rsNeracaTemp("DEBET"),2)%></td>
+			<td align="right"><%=FormatNumber(rsNeracaTemp("KREDIT"),2)%></td>
+			<td align="right"><%=FormatNumber(rsNeracaTemp("SALDOAKHIR"),2)%></td>
 		</tr>
 	<%
 				NO = NO + 1
@@ -270,10 +270,10 @@ function launchwin(winurl,winname,winfeatures)
 	%>
 		<tr bgcolor="#F4F4A0">
 			<td align="center" colspan="3"><strong>TOTAL</strong></td>
-			<td align="right"><strong><%=FormatNumber(nSALDOAWAL,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(nDEBET,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(nKREDIT,0)%></strong></td>
-			<td align="right"><strong><%=FormatNumber(nSALDOAKHIR,0)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(nSALDOAWAL,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(nDEBET,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(nKREDIT,2)%></strong></td>
+			<td align="right"><strong><%=FormatNumber(nSALDOAKHIR,2)%></strong></td>
 		</tr>
 	</table>
 

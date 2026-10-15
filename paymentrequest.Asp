@@ -114,7 +114,7 @@ $( ".datepicker" ).datepicker();
 <link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
 <link rel="StyleSheet" href="css/fbp-docdetail.css?v=20261009b" type="text/css" />
-<script type="text/javascript" src="js/fbp-shell.js?v=20261014b"></script>
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
 <% end if %>
 </head>
 <body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy page-doc"<% end if %>>
@@ -544,7 +544,7 @@ End if
 			alert("Persentase yang Anda masukan tidak masuk Akal, maks 100%!");
 			$('#percent'+i).val(100);
 			$('#qty'+i).val(quantityPO);
-			$('#amountview'+i).text(numformat(price*quantityPO));
+			$('#amountview'+i).text(numformat2(price*quantityPO));
 			$('#amountdtl'+i).val(price*quantityPO);
 		}else{
 			let hitQty = quantityPO * (prsen/100);
@@ -556,7 +556,7 @@ End if
 				$('#qty'+i).val(quantityPO);
 			}
 
-			$('#amountview'+i).text(numformat(hitAmt));
+			$('#amountview'+i).text(numformat2(hitAmt));
 			$('#amountdtl'+i).val(hitAmt);
 			getPuttotal();
 		}
@@ -664,6 +664,14 @@ amount
 		// $('#totalamount').val(grandtotal_fmt);
 		// $('#totalamounthidden').val(grandtotal);
 	}
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
+
 	function numformat(val) {
 		var nStr = val.toString();
 		nStr = nStr.replace(/\,/g, "");

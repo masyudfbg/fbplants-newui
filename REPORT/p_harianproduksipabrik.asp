@@ -782,18 +782,18 @@ else
 				<% END IF %>
 		
 				<%For nday = 1 to 31%>
-					<td align="right"><%=FormatNumber(rspabrik("KG_" & nday & ""), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("SY_" & nday & ""), 0)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("KG_" & nday & ""), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("SY_" & nday & ""), 2)%></td>
 					<td align="right">
 
 						<a class="td_link" href="../p_DELIVERYNOTE.asp?postingdate=<%=v_txtMonth & "/" & nday & "/" & v_txtYear  %>" target="_blank" >
 							<%=FormatNumber(rspabrik("SLT_" & nday & ""), 0)%>
 						</a>
 					</td>
-					<td align="right"><%=FormatNumber(rspabrik("QTY_" & nday & ""), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("QTYRCV_" & nday & ""), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("QTYUSED_" & nday & ""), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("PR_" & nday & ""), 0)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("QTY_" & nday & ""), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("QTYRCV_" & nday & ""), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("QTYUSED_" & nday & ""), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("PR_" & nday & ""), 2)%></td>
 					<%
                      GrandSLT(nday) =  GrandSLT(nday) + cCur(rspabrik("SLT_" & nday & ""))
 					 GrandQTY(nday) =  GrandQTY(nday) + cCur(rspabrik("QTY_" & nday & ""))
@@ -804,13 +804,13 @@ else
 					%>
 				<%Next%>
 				
-					<td align="right"><%=FormatNumber(rspabrik("KG_TOTAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("SY_TOTAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("SLT_TOTAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("QTY_TOTAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("QTYRCV_TOTAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("QTYUSED_TOTAL"), 0)%></td>
-					<td align="right"><%=FormatNumber(rspabrik("PR_TOTAL"), 0)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("KG_TOTAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("SY_TOTAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("SLT_TOTAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("QTY_TOTAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("QTYRCV_TOTAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("QTYUSED_TOTAL"), 2)%></td>
+					<td align="right"><%=FormatNumber(rspabrik("PR_TOTAL"), 2)%></td>
 				</tr>
 				<%
                      GrandTOTAL(1) =  GrandTOTAL(1) + cCur(rspabrik("KG_TOTAL"))
@@ -832,42 +832,42 @@ set rspabrik = Nothing
 		<% For nday = 1 to 31 %>	
 			      <td colspan="2" align="right"><strong></strong></td>
 		      <% If GrandSLT(nday)= 0 Then%>
-			      <td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		      <%Else%>
-			      <td align="right"><strong><%=FormatNumber(GrandSLT(nday), 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(GrandSLT(nday), 2)%></strong></td>
 		      <%End If%>
 			  
 			  <% If GrandQTY(nday)= 0 Then%>
-			      <td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		      <%Else%>
-			      <td align="right"><strong><%=FormatNumber(GrandQTY(nday), 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(GrandQTY(nday), 2)%></strong></td>
 		      <%End If%>
 			  
 			  <% If GrandQTYRCV(nday)= 0 Then%>
-			      <td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		      <%Else%>
-			      <td align="right"><strong><%=FormatNumber(GrandQTYRCV(nday), 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(GrandQTYRCV(nday), 2)%></strong></td>
 		      <%End If%>
 			  
 			   <% If GrandQTYUSED(nday)= 0 Then%>
-			      <td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		      <%Else%>
-			      <td align="right"><strong><%=FormatNumber(GrandQTYUSED(nday), 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(GrandQTYUSED(nday), 2)%></strong></td>
 		      <%End If%>
 			  
 			   <% If GrandPR(nday)= 0 Then%>
-			      <td align="right"><strong><%=FormatNumber(0, 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(0, 2)%></strong></td>
 		      <%Else%>
-			      <td align="right"><strong><%=FormatNumber(GrandPR(nday), 0)%></strong></td>
+			      <td align="right"><strong><%=FormatNumber(GrandPR(nday), 2)%></strong></td>
 		      <%End If
 		  next%>
-		<td align="right"><strong><%=FormatNumber(GrandTOTAL(1), 0)%></strong></td>  
-		<td align="right"><strong><%=FormatNumber(GrandTOTAL(2), 0)%></strong></td>  
-		<td align="right"><strong><%=FormatNumber(GrandTOTAL(3), 0)%></strong></td>  
-		<td align="right"><strong><%=FormatNumber(GrandTOTAL(4), 0)%></strong></td>  
-		<td align="right"><strong><%=FormatNumber(GrandTOTAL(5), 0)%></strong></td>  
-		<td align="right"><strong><%=FormatNumber(GrandTOTAL(6), 0)%></strong></td>  
-		<td align="right"><strong><%=FormatNumber(GrandTOTAL(7), 0)%></strong></td>  
+		<td align="right"><strong><%=FormatNumber(GrandTOTAL(1), 2)%></strong></td>  
+		<td align="right"><strong><%=FormatNumber(GrandTOTAL(2), 2)%></strong></td>  
+		<td align="right"><strong><%=FormatNumber(GrandTOTAL(3), 2)%></strong></td>  
+		<td align="right"><strong><%=FormatNumber(GrandTOTAL(4), 2)%></strong></td>  
+		<td align="right"><strong><%=FormatNumber(GrandTOTAL(5), 2)%></strong></td>  
+		<td align="right"><strong><%=FormatNumber(GrandTOTAL(6), 2)%></strong></td>  
+		<td align="right"><strong><%=FormatNumber(GrandTOTAL(7), 2)%></strong></td>  
 	</tr>
 <%End if%>
 	</tbody>

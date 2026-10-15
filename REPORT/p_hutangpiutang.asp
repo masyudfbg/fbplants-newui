@@ -431,14 +431,14 @@ if not arr_data_eof then
 			<td align="left"><%=arr_data(2, xi)%></td>
 			<td align="left"><%=arr_data(3, xi)%></td>
 			<td align="left"><%=arr_data(4, xi)%></td>
-			<td align="right"><%=FormatNumber(arr_data(5, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(6, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(7, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(8, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(9, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(10, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(11, xi), 0)%></td>
-			<td align="right"><%=FormatNumber(arr_data(12, xi), 0)%></td>
+			<td align="right"><%=FormatNumber(arr_data(5, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(6, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(7, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(8, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(9, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(10, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(11, xi), 2)%></td>
+			<td align="right"><%=FormatNumber(arr_data(12, xi), 2)%></td>
 			
 		</tr>
 <%

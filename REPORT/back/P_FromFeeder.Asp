@@ -149,7 +149,7 @@ If rs.EOF Then%>
             </font>
 			<%if i = 2 then%>
                  <td valign="top" bgcolor="#C0FBBD" align="right"> <font face="Verdana" size="1">
-				 <%=RubahAngka(rs(i),2)%></font></td>
+				 <%=FbpNum2(RubahAngka(rs(i),2))%></font></td>
 			<%Else%>
                  <%if trim(rs("JOBDESCRIPTION")) = trim(HeadJob) and i = 0 then%>
 				      <td valign="top" bgcolor="#C0FBBD" align="Left"> <font face="Verdana" size="1">&nbsp;

@@ -94,10 +94,10 @@ Set rsCat = Server.CreateObject("ADODB.Recordset")
 			<td align="Left" ><%=rscat("FCCODE")%></td>			
 			<td align="Left" ><%=rscat("FCNAME")%></td>				
 			<td align="Left" ><%=rscat("FCTYPE")%></td>				
-			<td data-t="n" align="Right" ><%=rscat("OPENING")%></td>		
-			<td data-t="n" align="Right" ><%=rscat("DEBET")%></td>		
-			<td data-t="n" align="Right" ><%=rscat("CREDIT")%></td>
-			<td data-t="n" align="Right" ><%=rscat("ENDING")%></td>				
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("OPENING"))%></td>		
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("DEBET"))%></td>		
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("CREDIT"))%></td>
+			<td data-t="n" align="Right" ><%=FbpNum2(rscat("ENDING"))%></td>				
 			
 		</tr>
 	  <%

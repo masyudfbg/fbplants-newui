@@ -351,19 +351,19 @@ strSAPPR = strSAPPR & "             order by prcode" & _
 				<tr>
 					<td align="left"><%=rsSAPPR("prcode")%></td>
 					<td align="left"><%=rsSAPPR("document_type")%></td>
-					<td align="right"><%=rsSAPPR("theNumber")%></td>
+					<td align="right"><%=FbpNum2(rsSAPPR("theNumber"))%></td>
 					<td align="right"><%=rsSAPPR("lineid")%></td>
 					<td align="left"><%=rsSAPPR("itemcode")%></td>
-					<td align="right"><%=rsSAPPR("approvedqty")%></td>
+					<td align="right"><%=FbpNum2(rsSAPPR("approvedqty"))%></td>
 					<td align="left"><%=rsSAPPR("unitofmeasurement")%></td>
 					<td align="left">&nbsp;</td>
 					<td align="left"><%=rsSAPPR("Plant")%></td>
 					<td align="left"><%=rsSAPPR("Storage_Location")%></td>
 					<td align="left"><%=rsSAPPR("Matrial_desc")%></td>
-					<td align="right"><%=rsSAPPR("delivery_date")%></td>
+					<td align="right"><%=FbpNum2(rsSAPPR("delivery_date"))%></td>
 					<td align="left"><%=rsSAPPR("REQUESTORID")%></td>
 					<td align="left"><%=rsSAPPR("PURCHASEGROUPID")%></td>
-					<td align="right"><%=rsSAPPR("prdate")%></td>
+					<td align="right"><%=FbpNum2(rsSAPPR("prdate"))%></td>
 					<td align="left">1</td>
 					<td align="left">IDR</td>
 					<td align="left">1</td>

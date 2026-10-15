@@ -848,9 +848,9 @@ set rsPusingan = Nothing
 			<tr>
 				<td colspan="<%=5+v_txtDay%>" align="left"><strong>Rata-rata Pusingan pada tanggal <%=v_txtDay%>&nbsp;<%=Bulan(v_txtMonth)%>&nbsp;<%=v_txtYear%></strong></td>
 				<%If Total_Ha > 0 Then%>
-				<td align="Right"><strong><%=Round(Total_LastInterval/Total_Ha, 2)%></strong></td>
+				<td align="Right"><strong><%=FbpNum2(Round(Total_LastInterval/Total_Ha, 2))%></strong></td>
 				<%Else%>
-				<td align="Right"><strong><%=Round(0, 2)%></strong></td>
+				<td align="Right"><strong><%=FbpNum2(Round(0, 2))%></strong></td>
 				<%End If%>
 			</tr>
 <%

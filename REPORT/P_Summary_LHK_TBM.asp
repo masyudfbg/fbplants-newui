@@ -510,29 +510,29 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 					%>
 								<tr bgcolor="#F4F4A0">
 									<td align="center" colspan="<%= 1+ nSpanTotal %>">TOTAL&nbsp;&nbsp<%=tempCompany%></td>				
-									<td align="right"><%=FormatNumber(TotCmp_Act_Stack_hi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_Act_Stack_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_hi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvar_stack_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvarper_Stack_shi,0)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_Act_Stack_hi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_Act_Stack_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_hi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvar_stack_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvarper_Stack_shi,2)%></td>
 									
-									<td align="right"><%=FormatNumber(TotCmp_act_Stack_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvar_stack_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvarper_Stack_sbi,0)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_act_Stack_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvar_stack_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvarper_Stack_sbi,2)%></td>
 											
-									<td align="right"><%=FormatNumber(TotCmp_Act_Tnm_hi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_Act_Tnm_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_hi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvar_tnm_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvarper_tnm_shi,0)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_Act_Tnm_hi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_Act_Tnm_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_hi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvar_tnm_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvarper_tnm_shi,2)%></td>
 									
-									<td align="right"><%=FormatNumber(TotCmp_act_Tnm_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvar_Tnm_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvarper_Tnm_sbi,0)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_act_Tnm_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvar_Tnm_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvarper_Tnm_sbi,2)%></td>
 								</tr>
                                 								
 <%						     
@@ -725,29 +725,29 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 				
 
 				
-				<td align="right"><%=FormatNumber(rsEPS("Act_Stack_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Act_Stack_Shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("budget_Stack_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("budget_Stack_Shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("var_stack_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("varPer_stack_shi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Act_Stack_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Act_Stack_Shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("budget_Stack_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("budget_Stack_Shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("var_stack_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("varPer_stack_shi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Act_Stack_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("budget_Stack_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("var_stack_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("varPer_stack_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Act_Stack_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("budget_Stack_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("var_stack_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("varPer_stack_sbi"),2)%></td>
 				
-                <td align="right"><%=FormatNumber(rsEPS("Act_Tnm_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("Act_Tnm_Shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("budget_Tnm_hi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("budget_Tnm_Shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("var_Tnm_shi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("varPer_Tnm_shi"),0)%></td>
+                <td align="right"><%=FormatNumber(rsEPS("Act_Tnm_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Act_Tnm_Shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("budget_Tnm_hi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("budget_Tnm_Shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("var_Tnm_shi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("varPer_Tnm_shi"),2)%></td>
 				
-				<td align="right"><%=FormatNumber(rsEPS("Act_Tnm_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("budget_Tnm_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("var_Tnm_sbi"),0)%></td>
-				<td align="right"><%=FormatNumber(rsEPS("varPer_Tnm_sbi"),0)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("Act_Tnm_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("budget_Tnm_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("var_Tnm_sbi"),2)%></td>
+				<td align="right"><%=FormatNumber(rsEPS("varPer_Tnm_sbi"),2)%></td>
 				
 				
 				<%
@@ -857,57 +857,57 @@ Dim nsubwo_plus_hi, nsubwo_plus_shi, nsubwo_plus_sbi,nsubwo_min_hi, nsubwo_min_s
 					
 								<tr bgcolor="#F4F4A0">
 									<td align="center" colspan="<%= 1+ nSpanTotal %>">TOTAL&nbsp;&nbsp<%=tempCompany%></td>				
-									<td align="right"><%=FormatNumber(TotCmp_Act_Stack_hi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_Act_Stack_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_hi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvar_stack_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvarper_Stack_shi,0)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_Act_Stack_hi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_Act_Stack_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_hi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvar_stack_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvarper_Stack_shi,2)%></td>
 									
-									<td align="right"><%=FormatNumber(TotCmp_act_Stack_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvar_stack_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvarper_Stack_sbi,0)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_act_Stack_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Stack_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvar_stack_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvarper_Stack_sbi,2)%></td>
 											
-									<td align="right"><%=FormatNumber(TotCmp_Act_Tnm_hi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_Act_Tnm_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_hi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvar_tnm_shi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvarper_tnm_shi,0)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_Act_Tnm_hi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_Act_Tnm_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_hi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvar_tnm_shi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvarper_tnm_shi,2)%></td>
 									
-									<td align="right"><%=FormatNumber(TotCmp_act_Tnm_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvar_Tnm_sbi,0)%></td>
-									<td align="right"><%=FormatNumber(TotCmpvarper_Tnm_sbi,0)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_act_Tnm_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmp_budget_Tnm_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvar_Tnm_sbi,2)%></td>
+									<td align="right"><%=FormatNumber(TotCmpvarper_Tnm_sbi,2)%></td>
 								</tr>
 			
 			<tr bgcolor="#F4F6A2">
 			   
 				<td align="center" colspan="<%= 1+ nSpanTotal %>">GRAND TOTAL</td>				
-				<td align="right"><%=FormatNumber(Gtot_Act_Stack_hi,0)%></td>
-				<td align="right"><%=FormatNumber(Gtot_Act_Stack_shi,0)%></td>
-				<td align="right"><%=FormatNumber(Gtot_budget_Stack_hi,0)%></td>
-				<td align="right"><%=FormatNumber(Gtot_budget_Stack_shi,0)%></td>
-				<td align="right"><%=FormatNumber(gtotvar_stack_shi,0)%></td>
-				<td align="right"><%=FormatNumber(gtotvarper_Stack_shi,0)%></td>
+				<td align="right"><%=FormatNumber(Gtot_Act_Stack_hi,2)%></td>
+				<td align="right"><%=FormatNumber(Gtot_Act_Stack_shi,2)%></td>
+				<td align="right"><%=FormatNumber(Gtot_budget_Stack_hi,2)%></td>
+				<td align="right"><%=FormatNumber(Gtot_budget_Stack_shi,2)%></td>
+				<td align="right"><%=FormatNumber(gtotvar_stack_shi,2)%></td>
+				<td align="right"><%=FormatNumber(gtotvarper_Stack_shi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(Gtot_act_Stack_sbi,0)%></td>
-				<td align="right"><%=FormatNumber(Gtot_budget_Stack_sbi,0)%></td>
-				<td align="right"><%=FormatNumber(gtotvar_stack_sbi,0)%></td>
-				<td align="right"><%=FormatNumber(gtotvarper_Stack_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(Gtot_act_Stack_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(Gtot_budget_Stack_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(gtotvar_stack_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(gtotvarper_Stack_sbi,2)%></td>
 						
-				<td align="right"><%=FormatNumber(Gtot_Act_Tnm_hi,0)%></td>
-				<td align="right"><%=FormatNumber(Gtot_Act_Tnm_shi,0)%></td>
-				<td align="right"><%=FormatNumber(Gtot_budget_Tnm_hi,0)%></td>
-				<td align="right"><%=FormatNumber(Gtot_budget_Tnm_shi,0)%></td>
-				<td align="right"><%=FormatNumber(gtotvar_tnm_shi,0)%></td>
-				<td align="right"><%=FormatNumber(gtotvarper_tnm_shi,0)%></td>
+				<td align="right"><%=FormatNumber(Gtot_Act_Tnm_hi,2)%></td>
+				<td align="right"><%=FormatNumber(Gtot_Act_Tnm_shi,2)%></td>
+				<td align="right"><%=FormatNumber(Gtot_budget_Tnm_hi,2)%></td>
+				<td align="right"><%=FormatNumber(Gtot_budget_Tnm_shi,2)%></td>
+				<td align="right"><%=FormatNumber(gtotvar_tnm_shi,2)%></td>
+				<td align="right"><%=FormatNumber(gtotvarper_tnm_shi,2)%></td>
 				
-				<td align="right"><%=FormatNumber(Gtot_act_Tnm_sbi,0)%></td>
-				<td align="right"><%=FormatNumber(Gtot_budget_Tnm_sbi,0)%></td>
-				<td align="right"><%=FormatNumber(gtotvar_Tnm_sbi,0)%></td>
-				<td align="right"><%=FormatNumber(gtotvarper_Tnm_sbi,0)%></td>
+				<td align="right"><%=FormatNumber(Gtot_act_Tnm_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(Gtot_budget_Tnm_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(gtotvar_Tnm_sbi,2)%></td>
+				<td align="right"><%=FormatNumber(gtotvarper_Tnm_sbi,2)%></td>
 			</tr>
 </tbody>
 </table>

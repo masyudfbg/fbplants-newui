@@ -1024,10 +1024,10 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                         <td></td>
                         <td>7. Jumlah jam olah</td>
                         <td>Jam</td>
-                        <td class="ratakanan"><%=jamkerja%></td>
-                        <td class="ratakanan"><%=jamolahshi%></td>
-                        <td class="ratakanan"><%=jamolahsbi%></td>
-                        <td class="ratakanan"><%=jamolahsti%></td>
+                        <td class="ratakanan"><%=FbpNum2(jamkerja)%></td>
+                        <td class="ratakanan"><%=FbpNum2(jamolahshi)%></td>
+                        <td class="ratakanan"><%=FbpNum2(jamolahsbi)%></td>
+                        <td class="ratakanan"><%=FbpNum2(jamolahsti)%></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -1295,8 +1295,8 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 </tr>
                                 <tr>
                                     <td colspan="2">Hari Ini (M3)</td>
-                                    <td colspan="2" class="ratakanan"><%=airtxt%></td>
-                                    <td colspan="2" class="ratakanan"><%=ttlairtxt%></td>
+                                    <td colspan="2" class="ratakanan"><%=FbpNum2(airtxt)%></td>
+                                    <td colspan="2" class="ratakanan"><%=FbpNum2(ttlairtxt)%></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Ratio (M3/Kg TBS)</td>
@@ -1311,8 +1311,8 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 </tr>
                                 <tr>
                                     <td colspan="2">Hari Ini (M3)</td>
-                                    <td colspan="2" class="ratakanan"><%=caco3txt%></td>
-                                    <td colspan="2" class="ratakanan"><%=ttlcaco3txt%></td>
+                                    <td colspan="2" class="ratakanan"><%=FbpNum2(caco3txt)%></td>
+                                    <td colspan="2" class="ratakanan"><%=FbpNum2(ttlcaco3txt)%></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Ratio (Kg/Kg TBS)</td>
@@ -1543,9 +1543,9 @@ Dim pottbshi,pottbsshi,pottbssbi,pottbssti
                                 <td><%=st1%></td>
                                 <td>Kg</td>
                                 <td class="ratakanan"><%=formatnumber(rscpotankhi("cpoisitank"),0)%></td>
-                                <td class="ratakanan"><%=rscpotankhi("ffatankcpo")%></td>
-                                <td class="ratakanan"><%=rscpotankhi("airtankcpo")%></td>
-                                <td class="ratakanan"><%=rscpotankhi("kotorantankcpo")%></td>
+                                <td class="ratakanan"><%=FbpNum2(rscpotankhi("ffatankcpo"))%></td>
+                                <td class="ratakanan"><%=FbpNum2(rscpotankhi("airtankcpo"))%></td>
+                                <td class="ratakanan"><%=FbpNum2(rscpotankhi("kotorantankcpo"))%></td>
                             </tr>
                             <%
                                 rscpotankhi.MoveNext

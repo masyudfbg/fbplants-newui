@@ -88,7 +88,7 @@ Set rsCat = connStr.Execute(txtSQL)
 		<td align="Left"><font face="Verdana" size="1"><%=rscat("jobcode")%></td>
 		<td align="Left"><font face="Verdana" size="1"><%=rscat("jobname")%></td>
 		<td align="Left"><font face="Verdana" size="1"><%=rscat("fieldcode")%></td>
-		<td align="right"><font face="Verdana" size="1"><%=rscat("mandays")%></td>
+		<td align="right"><font face="Verdana" size="1"><%=FbpNum2(rscat("mandays"))%></td>
 		</tr>
 	  <%
 	  rsCat.MoveNext

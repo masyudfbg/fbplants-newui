@@ -526,13 +526,13 @@ function launchwin(winurl,winname,winfeatures)
 %>
 		<tr bgcolor="#F4F4A0"> 
 			<td align="center" colspan="5"><font style="font-weight: bold;">TOTAL</font></td>				
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_tbs)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_tbs_extra_harian)),0)%></font></td>  
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_lebih_borong_tbs_harian)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_bucket)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_brondolan_harian)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_brondolan_harian)),0)%></font></td> 
-			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_premi_kontanan)),0)%></font></td>  
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_tbs)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_tbs_extra_harian)),2)%></font></td>  
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_lebih_borong_tbs_harian)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_bucket)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_kg_brondolan_harian)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_premi_brondolan_harian)),2)%></font></td> 
+			<td align="right"><font style="font-weight: bold;"><%=FormatNumber(cdbl(to_nol(v_total_premi_kontanan)),2)%></font></td>  
 		</tr>
 	</tbody>
 </table>
