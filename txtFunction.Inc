@@ -928,4 +928,18 @@ Function Nz(val, defaultVal)
     End If
 End Function
 
+' Angka di sel tabel: format ribuan + 2 desimal (1,234,567.89). Selain angka (teks, tanggal,
+' kosong/Null) dikembalikan apa adanya, jadi aman dipakai untuk kolom apa pun.
+Function FbpNum2(v)
+	Dim t
+	t = Trim(v & "")
+	FbpNum2 = v
+	If t = "" Or Not IsNumeric(t) Or InStr(t, "/") > 0 Or InStr(t, ":") > 0 Then Exit Function
+	On Error Resume Next
+	FbpNum2 = FormatNumber(CDbl(t), 2)
+	If Err.Number <> 0 Then FbpNum2 = v
+	Err.Clear
+	On Error GoTo 0
+End Function
+
 %>
