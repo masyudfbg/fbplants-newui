@@ -4839,11 +4839,11 @@ $(document).ready(function(){
 						docketlist += '<td align="left">' + json.results[i].sectioncode + '</td>';
 						docketlist += '<td align="left">' + json.results[i].gangcode + '</td>';
 						docketlist += '<td align="center">' + json.results[i].vehiclecode + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totalbkmupah) + '<input type="hidden" name="upahtext'+i+'" id="upahtext'+i+'" value='+json.results[i].totalbkmupah+' /></td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totalbkmmaterial) + '<input type="hidden" name="bahantext'+i+'" id="bahantext'+i+'" value='+json.results[i].totalbkmmaterial+' /></td>';				
-						docketlist += '<td align="right">' + numformat(json.results[i].totalbkmvehicle) + '<input type="hidden" name="vehicletext'+i+'" id="vehicletext'+i+'" value='+json.results[i].totalbkmvehicle+' /></td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totalbkmwip) + '<input type="hidden" name="wiptext'+i+'" id="wiptext'+i+'" value='+json.results[i].totalbkmwip+' /></td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].total) + '<input type="hidden" name="tottext'+i+'" id="tottext'+i+'" value='+json.results[i].total+' /></td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totalbkmupah) + '<input type="hidden" name="upahtext'+i+'" id="upahtext'+i+'" value='+json.results[i].totalbkmupah+' /></td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totalbkmmaterial) + '<input type="hidden" name="bahantext'+i+'" id="bahantext'+i+'" value='+json.results[i].totalbkmmaterial+' /></td>';				
+						docketlist += '<td align="right">' + numformat2(json.results[i].totalbkmvehicle) + '<input type="hidden" name="vehicletext'+i+'" id="vehicletext'+i+'" value='+json.results[i].totalbkmvehicle+' /></td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totalbkmwip) + '<input type="hidden" name="wiptext'+i+'" id="wiptext'+i+'" value='+json.results[i].totalbkmwip+' /></td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].total) + '<input type="hidden" name="tottext'+i+'" id="tottext'+i+'" value='+json.results[i].total+' /></td>';
 						docketlist += '<td align="left" class="">' + json.results[i].postingflg + '</td>';
 						if(json.results[i].postingflg=="TIDAK"){
 
@@ -5473,6 +5473,14 @@ $(document).ready(function(){
 		 $('#loading').hide();
 	});
 
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
+
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
 		nStr = nStr.replace(/\,/g, "");
@@ -5568,14 +5576,14 @@ $(document).ready(function(){
 							docketlist += '<tr id="tru'+i+'">';
 							docketlist += '<td align="left">' + json.results[i].lhpno + '</td>';
 							docketlist += '<td align="left">' + json.results[i].proddate + '</td>';
-							docketlist += '<td align="right">' + numformat(json.results[i].tbsterima) + '<input type="hidden" name="tbsterimatext'+i+'" id="tbsterimatext'+i+'" value='+json.results[i].tbsterima+' /></td>';
-							docketlist += '<td align="right">' + numformat(tbsolah) + '<input type="hidden" name="tbsolahtext'+i+'" id="tbsolahtext'+i+'" value='+ tbsolah +' /></td>';
+							docketlist += '<td align="right">' + numformat2(json.results[i].tbsterima) + '<input type="hidden" name="tbsterimatext'+i+'" id="tbsterimatext'+i+'" value='+json.results[i].tbsterima+' /></td>';
+							docketlist += '<td align="right">' + numformat2(tbsolah) + '<input type="hidden" name="tbsolahtext'+i+'" id="tbsolahtext'+i+'" value='+ tbsolah +' /></td>';
 							docketlist += '<td align="right">' + numformat2(json.results[i].tbssisa) + '</td>';				
-							docketlist += '<td align="right">' + numformat(cpohi) + '<input type="hidden" name="cpoproduksitext'+i+'" id="cpoproduksitext'+i+'" value='+ cpohi +' /></td>';
-							docketlist += '<td align="right">' + numformat(cpokirim) + '<input type="hidden" name="cpokirimtext'+i+'" id="cpokirimtext'+i+'" value='+ cpokirim +' /></td>';
+							docketlist += '<td align="right">' + numformat2(cpohi) + '<input type="hidden" name="cpoproduksitext'+i+'" id="cpoproduksitext'+i+'" value='+ cpohi +' /></td>';
+							docketlist += '<td align="right">' + numformat2(cpokirim) + '<input type="hidden" name="cpokirimtext'+i+'" id="cpokirimtext'+i+'" value='+ cpokirim +' /></td>';
 							docketlist += '<td align="right">' + numformat2(cposisa) + '</td>';
-							docketlist += '<td align="right">' + numformat(produksipkhi) + '<input type="hidden" name="pkproduksitext'+i+'" id="pkproduksitext'+i+'" value='+ produksipkhi +' /></td>';
-							docketlist += '<td align="right">' + numformat(kernelkirimhi) + '<input type="hidden" name="pkkirimtext'+i+'" id="pkkirimtext'+i+'" value='+ kernelkirimhi +' /></td>';
+							docketlist += '<td align="right">' + numformat2(produksipkhi) + '<input type="hidden" name="pkproduksitext'+i+'" id="pkproduksitext'+i+'" value='+ produksipkhi +' /></td>';
+							docketlist += '<td align="right">' + numformat2(kernelkirimhi) + '<input type="hidden" name="pkkirimtext'+i+'" id="pkkirimtext'+i+'" value='+ kernelkirimhi +' /></td>';
 							docketlist += '<td align="right">' + numformat2(pksisa) + '</td>';
 							docketlist += '<td align="center"><a target=_blank href="lhp_detail_edit.Asp?lhpno='+ json.results[i].lhpno + '"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
 							//docketlist += '<td align="center"><a target=_blank href="bkm_jurnal_input.Asp?tglbkm='+ json.results[i].lhpno + '"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
@@ -5618,10 +5626,10 @@ $(document).ready(function(){
 		}
 			var tottbsterimaview 	= numformat(tottbsterima);
 			var tottbsolahview 		= numformat(tottbsolah);
-			totcpoproduksi 		= numformat(totcpoproduksi);
-			totcpokirim 		= numformat(totcpokirim);
-			totpkproduksi 		= numformat(totpkproduksi);
-			totpkkirim 			= numformat(totpkkirim);
+			totcpoproduksi 		= numformat2(totcpoproduksi);
+			totcpokirim 		= numformat2(totcpokirim);
+			totpkproduksi 		= numformat2(totpkproduksi);
+			totpkkirim 			= numformat2(totpkkirim);
 		$('#ttltbsterima').html(tottbsterimaview);
 		$('#ttltbsolah').html(tottbsolahview);
 		$('#ttlcpoproduksi').html(totcpoproduksi);
@@ -6001,6 +6009,14 @@ $(document).ready(function(){
 		 $('#loading').hide();
 	});
 
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
+
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
 		nStr = nStr.replace(/\,/g, "");
@@ -6049,8 +6065,8 @@ $(document).ready(function(){
 						docketlist += '<td align="left">' + json.results[i].rkbno + '</td>';
 						docketlist += '<td align="left">' + json.results[i].period + '</td>';
 						docketlist += '<td align="left">' + json.results[i].sectioncode + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totupah) + '<input type="hidden" name="upahtext'+i+'" id="upahtext'+i+'" value='+json.results[i].totupah+' /></td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totbahan) + '<input type="hidden" name="bahantext'+i+'" id="bahantext'+i+'" value='+json.results[i].totbahan+' /></td>';				
+						docketlist += '<td align="right">' + numformat2(json.results[i].totupah) + '<input type="hidden" name="upahtext'+i+'" id="upahtext'+i+'" value='+json.results[i].totupah+' /></td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totbahan) + '<input type="hidden" name="bahantext'+i+'" id="bahantext'+i+'" value='+json.results[i].totbahan+' /></td>';				
 						docketlist += '<td align="center"><a target=_blank href="rkb_operasional_edit.Asp?rkbno='+json.results[i].rkbno+ '&fcba='+json.results[i].fcba+'"><img src="IMAGES/edit.gif" alt="Edit Data border="0"></a></td>';
 											
 						docketlist += '</tr>';
@@ -6313,6 +6329,14 @@ $(document).ready(function(){
 		 $('#loadingjudul').hide();
 		 $('#loading').hide();
 	});
+
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
 
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
@@ -6713,6 +6737,14 @@ $(document).ready(function(){
 		 $('#loading').hide();
 	});
 
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
+
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
 		nStr = nStr.replace(/\,/g, "");
@@ -6763,7 +6795,7 @@ $(document).ready(function(){
 						docketlist += '<td align="left">' + json.results[i].docno + '</td>';
 						docketlist += '<td align="left">' + json.results[i].remarks + '</td>';
 						docketlist += '<td align="left">' + json.results[i].sourcecode + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].totamount) + '<input class="ratakanan lebarupah" type="hidden" name="totamount' + i + '" id="totamount' + i + '" value="' + json.results[i].totamount + '"/></td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].totamount) + '<input class="ratakanan lebarupah" type="hidden" name="totamount' + i + '" id="totamount' + i + '" value="' + json.results[i].totamount + '"/></td>';
 						docketlist += '<td align="CENTER">' + postingflg + '</td>';
 						docketlist += '<td align="center"><a target=_blank href="bkm_jurnal_view.Asp?bkmno='+json.results[i].docno+'&tglbkm='+ json.results[i].docdate + '"><img src="IMAGES/view.png" alt="View Data border="0"></a></td>';
 						
@@ -6793,7 +6825,7 @@ $(document).ready(function(){
 			totamount	+= parseFloat($('#totamount'+i).val());
 		}	
 		//alert(totdebet);
-		totamount    = numformat(totamount);
+		totamount    = numformat2(totamount);
 		
 		$('#totalamountview').html((totamount));	
 	}
@@ -7130,6 +7162,14 @@ $(document).ready(function(){
 		 $('#loading').hide();
 	});
 
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
+
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
 		nStr = nStr.replace(/\,/g, "");
@@ -7190,8 +7230,8 @@ $(document).ready(function(){
 						docketlist += '<td align="left">' + json.results[i].fcba + '</td>';
 						docketlist += '<td align="left">' + json.results[i].journaldate + '</td>';
 						docketlist += '<td align="left">' + json.results[i].journalno + '</td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].debet) + '<input class="ratakanan lebarupah" type="hidden" name="debet' + i + '" id="debet' + i + '" value="' + json.results[i].debet + '"/></td>';
-						docketlist += '<td align="right">' + numformat(json.results[i].credit) + '<input class="ratakanan lebarupah" type="hidden" name="credit' + i + '" id="credit' + i + '" value="' + json.results[i].credit + '"/></td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].debet) + '<input class="ratakanan lebarupah" type="hidden" name="debet' + i + '" id="debet' + i + '" value="' + json.results[i].debet + '"/></td>';
+						docketlist += '<td align="right">' + numformat2(json.results[i].credit) + '<input class="ratakanan lebarupah" type="hidden" name="credit' + i + '" id="credit' + i + '" value="' + json.results[i].credit + '"/></td>';
 						
 						docketlist += '</tr>';
 						$('#bodytablegl').append(docketlist);
@@ -7230,10 +7270,10 @@ $(document).ready(function(){
 				var credit  = json.results[0].credit;
 				var ending  = json.results[0].ending_balance;
 
-				opening    = numformat(opening);
-				debet    = numformat(debet);
-				credit    = numformat(credit);
-				ending    = numformat(ending);
+				opening    = numformat2(opening);
+				debet    = numformat2(debet);
+				credit    = numformat2(credit);
+				ending    = numformat2(ending);
 				$('#opening').html((opening));
 				$('#debet').html((debet));
 				$('#credit').html((credit));
@@ -7254,8 +7294,8 @@ $(document).ready(function(){
 			
 		}	
 		//alert(totdebet);
-		totdebet    = numformat(totdebet);
-		totkredit    = numformat(totkredit);
+		totdebet    = numformat2(totdebet);
+		totkredit    = numformat2(totkredit);
 		
 		$('#totaldebetview').html((totdebet));
 		$('#totalcreditview').html((totkredit));
@@ -7523,6 +7563,14 @@ $(document).ready(function(){
 		 $('#loadingjudul').hide();
 		 $('#loading').hide();
 	});
+
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
 
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
@@ -7883,6 +7931,14 @@ $(document).ready(function(){
 		 $('#loadingjudul').hide();
 		 $('#loading').hide();
 	});
+
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
 
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
@@ -8268,6 +8324,14 @@ $(document).ready(function(){
 		//$('table').tblToExcel();
 	}
 		
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
+
 	function numformat(val) {
 		var nStr = Math.round(val).toString();
 		nStr = nStr.replace(/\,/g, "");
@@ -8307,16 +8371,16 @@ $(document).ready(function(){
 						docketlist += '<td align="left">' + json.results[i].fccode + '</td>';
 						docketlist += '<td align="left">' + json.results[i].fcname + '</td>';
 						docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].opening_balance + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].opening_balance) + '<input class="ratakanan lebarupah" type="hidden" name="opening_balance' + i + '" id="opening_balance' + i + '" value="' + json.results[i].opening_balance + '"/></td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].opening_balance) + '<input class="ratakanan lebarupah" type="hidden" name="opening_balance' + i + '" id="opening_balance' + i + '" value="' + json.results[i].opening_balance + '"/></td>';
 						
 						docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].debet + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].debet) + '<input class="ratakanan lebarupah" type="hidden" name="debet' + i + '" id="debet' + i + '" value="' + json.results[i].debet + '"/></td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].debet) + '<input class="ratakanan lebarupah" type="hidden" name="debet' + i + '" id="debet' + i + '" value="' + json.results[i].debet + '"/></td>';
 						
 						docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].credit + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].credit) + '<input class="ratakanan lebarupah" type="hidden" name="credit' + i + '" id="credit' + i + '" value="' + json.results[i].credit + '"/></td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].credit) + '<input class="ratakanan lebarupah" type="hidden" name="credit' + i + '" id="credit' + i + '" value="' + json.results[i].credit + '"/></td>';
 						
 						docketlist += '<td style="display:none;" data-t="n" >' + json.results[i].ending_balance + '</td>';
-						docketlist += '<td data-exclude="true" align="right">' + numformat(json.results[i].ending_balance) + '<input class="ratakanan lebarupah" type="hidden" name="ending_balance' + i + '" id="ending_balance' + i + '" value="' + json.results[i].ending_balance + '"/></td>';
+						docketlist += '<td data-exclude="true" align="right">' + numformat2(json.results[i].ending_balance) + '<input class="ratakanan lebarupah" type="hidden" name="ending_balance' + i + '" id="ending_balance' + i + '" value="' + json.results[i].ending_balance + '"/></td>';
 						
 						docketlist += '</tr>';
 						$('#bodytablebs').append(docketlist);
@@ -8351,11 +8415,11 @@ $(document).ready(function(){
 			totdebet	+= parseFloat($('#debet'+i).val());
 			
 		}	
-		totawal     = numformat(totawal);
-		totakhir     = numformat(totakhir);
+		totawal     = numformat2(totawal);
+		totakhir     = numformat2(totakhir);
 		
-		totdebet     = numformat(totdebet);
-		totkredit    = numformat(totkredit);
+		totdebet     = numformat2(totdebet);
+		totkredit    = numformat2(totkredit);
 		
 		$('#totalawalbs').html((totawal));
 		$('#totalcreditbs').html((totkredit));
@@ -8618,6 +8682,14 @@ $(document).ready(function(){
 		 $('#loadingjudul').hide();
 		 $('#loading').hide();
 	});
+
+	// Format tampilan tabel: ribuan koma + 2 desimal (1,234,567.89). numformat() lama tetap dipakai untuk input.
+	function numformat2(val) {
+		var n = parseFloat(String(val == null ? '' : val).replace(/,/g, ''));
+		if (isNaN(n)) return val == null ? '' : val;
+		var p = (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).split('.');
+		return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + p[1];
+	}
 
 	function numformat(val) {
 		var nStr = Math.round(val).toString();

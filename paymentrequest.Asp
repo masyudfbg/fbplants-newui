@@ -497,7 +497,7 @@ End if
 						 docketlist += '<td align="right"><input type="text" class="ratatengah lebarqty" name="priceqty' + i + '" id="priceqty' + i + '" value="' + json.dataview[i].unitprice + '"/><input type="hidden" name="price' + i + '" id="price' + i + '" value="' + json.dataview[i].unitprice + '"/></td>';
 						 
 						
-						 docketlist += '<td align="right" class="lebaramount"><span  class="lebaramount" id="amountview'+i+'">'+numformat(json.dataview[i].unitprice*json.dataview[i].qtysisa)+'</span><input class="lebaramount ratakanan" type="hidden" value="'+json.dataview[i].unitprice*json.dataview[i].qtysisa+'" name="amountdtl' + i + '" id="amountdtl' + i + '"/></td>';
+						 docketlist += '<td align="right" class="lebaramount"><span  class="lebaramount" id="amountview'+i+'">'+numformat2(json.dataview[i].unitprice*json.dataview[i].qtysisa)+'</span><input class="lebaramount ratakanan" type="hidden" value="'+json.dataview[i].unitprice*json.dataview[i].qtysisa+'" name="amountdtl' + i + '" id="amountdtl' + i + '"/></td>';
 						 docketlist += '</tr>';
 						 $('#bodytable').append(docketlist);
 						no++;
