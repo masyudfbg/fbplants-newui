@@ -205,7 +205,7 @@ txtModule = Request("txtModule")
  <div class="judul">
 	   Moduled : <%=request("txtModule")%> / <%=request("txtTable")%>
 	</div>
- <div class="box_both" style="overflow:scroll;"> 
+ <div class="box_both" style="overflow:auto;"> 
 
     <%' -----------------ATAS ISI
 	%> 
