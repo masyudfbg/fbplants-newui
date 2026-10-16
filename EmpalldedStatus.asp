@@ -79,12 +79,92 @@ function launchwin(winurl,winname,winfeatures)
 				}
 			}
 </script>	
+<% if Request("oldui") <> "1" then %>
+<!-- Tampilan baru (css/fbp-shell.css + css/fbp-forms.css). ?oldui=1 = tampilan lama. Hanya tampilan; logika halaman tidak berubah. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="StyleSheet" href="css/login/font-awesome.min.css" type="text/css" />
+<link rel="StyleSheet" href="css/fbp-shell.css?v=20261009d" type="text/css" />
+<link rel="StyleSheet" href="css/fbp-forms.css?v=20261009e" type="text/css" />
+<script type="text/javascript" src="js/fbp-shell.js?v=20261015a"></script>
+<style>
+	.es { --brand: #1B7863; --brand-dark: #12584a; --tint: #eef6f3; --line: #e1e7e5; --muted: #5d6d69; --ink: #17262a; color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif; padding: 16px 20px 22px; }
+	.es-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 16px; margin: 4px 0 14px; }
+	.es-head h2 { margin: 0; font-size: 20px; font-weight: 700; color: var(--ink); }
+	.es-head p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+	.es-legend { display: flex; gap: 8px; align-items: center; font-size: 12px; color: var(--muted); }
+	.es-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+	/* toolbar lama (dulu mengambang position:fixed) jadi baris atas kartu */
+	.es .es-toolbar { position: static !important; top: auto !important; right: auto !important; width: auto !important; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; padding: 12px 14px !important; background: #fff !important; border: 0 !important; border-bottom: 1px solid var(--line) !important; }
+	.es .es-toolbar > form { display: inline-flex !important; flex-wrap: wrap; align-items: center; gap: 8px; }
+	.es .es-toolbar a.add_list { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; font-size: 13px; font-weight: 600; color: var(--brand-dark); background: #fff; border: 1px solid #cfe0da; border-radius: 9px; text-decoration: none; }
+	.es .es-toolbar a.add_list:hover { background: var(--tint); }
+	.es .es-toolbar a.add_list.es-gen { color: #fff; background: var(--brand); border-color: var(--brand); }
+	.es .es-toolbar a.add_list.es-gen:hover { background: var(--brand-dark); }
+	.es .es-toolbar input.search { width: 180px !important; height: 36px !important; padding: 0 12px 0 34px !important; font-size: 13px; border: 1px solid #d5dfdc !important; border-radius: 9px !important; background: #f6f9f8 !important; }
+	.es .es-toolbar .es-search { position: relative; display: inline-flex; align-items: center; }
+	.es .es-toolbar .es-search .icon_search_data { position: absolute; left: 12px; color: #8a9a96; pointer-events: none; }
+	.es .es-toolbar input.button_search { display: none; }
+	.es .es-toolbar .es-pages { margin-left: auto !important; float: none !important; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: 13px; }
+	.es .es-toolbar .es-pages font { font-family: inherit !important; font-size: 12.5px !important; color: var(--muted) !important; }
+	.es .es-toolbar .es-pages a, .es .es-toolbar .es-pages span.button_prev, .es .es-toolbar .es-pages span.button_next { display: inline-grid; place-items: center; min-width: 32px; height: 32px; padding: 0 8px; font-size: 12.5px; font-weight: 600; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; }
+	.es .es-toolbar .es-pages a.button_page_current { color: #fff; background: var(--brand); border-color: var(--brand); }
+	.es .es-toolbar .es-pages span.button_prev, .es .es-toolbar .es-pages span.button_next { opacity: .45; }
+	.es .es-toolbar .es-pages > span[style] { margin: 0 0 0 6px !important; }
+	/* tabel */
+	.es .es-scroll { overflow: auto; max-height: max(380px, calc(100vh - 300px)); }
+	.es table.es-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 0; border: 0; }
+	.es table.es-table > thead > tr > th { position: sticky; top: 0; z-index: 2; padding: 10px 10px !important; font-size: 11px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; text-align: left; white-space: nowrap; color: var(--muted) !important; background: #f6f9f8 !important; border: 0 !important; border-bottom: 1px solid var(--line) !important; width: auto !important; }
+	.es table.es-table > tbody > tr > td { padding: 9px 10px !important; font-size: 13px; white-space: nowrap; vertical-align: middle !important; background: #fff !important; border: 0 !important; border-bottom: 1px solid #edf1f0 !important; }
+	.es table.es-table > tbody > tr.linker:hover > td { background: #f6faf8 !important; }
+	.es table.es-table > tbody > tr.linker > td:first-child { color: var(--muted); }
+	.es .es-pill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; font-size: 11.5px; font-weight: 700; border-radius: 999px; }
+	.es .es-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+	.es .es-pill.t { color: #136a4b; background: #e3f4ec; }
+	.es .es-pill.f { color: #6b7875; background: #eef1f0; }
+	.es a.pencil { display: inline-grid; place-items: center; width: 30px; height: 30px; color: var(--brand-dark); background: var(--tint); border: 1px solid #cfe3dc; border-radius: 8px; cursor: pointer; }
+	.es a.pencil:hover { background: #dff0ea; }
+	/* panel edit per bulan */
+	.es table.es-table > tbody > tr[id^="editing_form_"] > td { white-space: normal; padding: 14px 16px !important; background: #f6faf8 !important; border-bottom: 2px solid #cfe3dc !important; vertical-align: top !important; }
+	.es table.es-table > tbody > tr[id^="editing_form_"] > td.arrow { color: var(--brand); text-align: center; }
+	.es tr[id^="editing_form_"] form { margin: 0 !important; font-size: 13px; }
+	.es tr[id^="editing_form_"] form > div { margin: 3px 0; vertical-align: middle; }
+	.es tr[id^="editing_form_"] form > div[style*="width:120px"] { width: 170px !important; font-weight: 600; color: #3d4d49; }
+	.es tr[id^="editing_form_"] form > div:not([style*="width:120px"]) { display: inline-flex !important; align-items: center; gap: 4px; flex-wrap: wrap; }
+	.es tr[id^="editing_form_"] input[type="radio"] { width: 15px; height: 15px; margin: 0 2px 0 8px; accent-color: var(--brand); }
+	.es tr[id^="editing_form_"] input[type="radio"] + label { padding: 2px 8px; font-weight: 600; border-radius: 6px; color: var(--muted); }
+	.es tr[id^="editing_form_"] input[type="radio"]:checked + label { color: #fff; background: var(--brand); }
+	.es tr[id^="editing_form_"] input[type="radio"]:disabled + label { opacity: .7; }
+	.es tr[id^="editing_form_"] input[type="radio"]:disabled:checked + label { background: #8aa39c; }
+	.es tr[id^="editing_form_"] input[type="text"] { width: 130px !important; height: 34px !important; padding: 0 10px !important; font-size: 13px; border: 1px solid #d5dfdc !important; border-radius: 8px !important; }
+	.es tr[id^="editing_form_"] input[readonly] { background: #eef2f1 !important; color: var(--muted) !important; }
+	.es tr[id^="editing_form_"] input[type="submit"], .es tr[id^="editing_form_"] input[type="button"] { min-width: 44px; height: 36px !important; min-height: 36px !important; padding: 0 14px !important; font-family: FontAwesome !important; font-size: 16px !important; border-radius: 9px !important; cursor: pointer; }
+	.es tr[id^="editing_form_"] input[type="submit"] { color: #fff !important; background: var(--brand) !important; border: 1px solid var(--brand) !important; }
+	.es tr[id^="editing_form_"] input[type="button"] { color: #a1342a !important; background: #fff !important; border: 1px solid #f0c9c4 !important; }
+	.es-spacer { display: none !important; }
+	@media (max-width: 700px) { .es tr[id^="editing_form_"] form > div[style*="width:120px"] { width: 100% !important; margin-top: 8px; } }
+</style>
+<% end if %>
 </head>
-<body>
+<body<% if Request("oldui") <> "1" then %> class="dash page-show page-legacy"<% end if %>>
 <!--#include file="top.jsp"-->
 
 <%
 
+
+' Label status TRUE/FALSE (tampilan baru); ?oldui=1 tetap teks polos
+Function EsPill(v)
+	If Request("oldui") = "1" Then
+		EsPill = v
+	ElseIf UCase(Trim(v & "")) = "TRUE" Then
+		EsPill = "<span class=""es-pill t"">" & v & "</span>"
+	ElseIf UCase(Trim(v & "")) = "FALSE" Then
+		EsPill = "<span class=""es-pill f"">" & v & "</span>"
+	Else
+		EsPill = v
+	End If
+End Function
 
 Dim txtTable,txtModule,txtJenis,Searching,cmdView,crashId,qUpdateString,rsFrez,q,aksesfinal,ScriptName
 ScriptName	=	Request.ServerVariables("SCRIPT_NAME")
@@ -260,10 +340,76 @@ end if
    intRecords = rsGAD.RecordCount   			
     
 	%>
-	<div style="width:200px; height:32px;">
+	<div class="es">
+	<% if Request("oldui") <> "1" then %>
+	<div class="es-head"><div><h2>Status Closing</h2><p>Status kunci payroll, akuntansi dan closing per bulan untuk BA <b><%=Session("fcBA")%></b>. Klik ikon pensil untuk mengubah satu bulan.</p></div>
+	<div class="es-legend"><span class="es-pill t">TRUE</span> sudah dikunci/closing &nbsp; <span class="es-pill f">FALSE</span> belum</div></div>
+	<% end if %>
+	<div class="es-card">
+	<div class="es-toolbar" style="background-color:#f1f1f1; padding:0.3%; border-top:1px #ccc solid; border-bottom:1px #ccc solid; position:fixed; top:114px; right:0.3%; width:76.8%;">
+		<!--<a class="add_list" href="#" onclick="showWindow('yellow');" value="Window - yellow"
+		title="New : <%=txtTable%>"><i class="fa fa-plus-circle"></i><span>ADD LIST</span></a>-->
+		<a href="#" class="add_list" onclick="reloadPage()"><i class="fa fa-refresh"></i><span>Refresh </span></a>&nbsp;
+		<form style="padding:0px; border:none;display:inline;margin:0px;" method="post" action="EmpalldedStatus.asp?txtTable=<%=request("txtTable")%>"> 
+		<span class="es-search"><i class="fa fa-search icon_search_data"></i><input class="search" type="text" name="Searching" value="<%=Searching%>"" placeholder="Cari tahun..."></span>
+		<input class="button_search" type="submit" value=""> 
+		<a href="EmpalldedStatus.asp?txtTable=<%=request("txtTable")%>&txtJenis=generate"" class="add_list es-gen"><i class="fa fa-flask"></i><span>Generate </span></a>&nbsp;
+		</form>
+		
+
+
+<!--
+Format Page ------------------------------------------------------>	
+		<div class="es-pages" style="float:right; margin-left:10px;">
+		
+		<% dim sebelum, lanjut
+		if intNumberOfPages < 2 then 
+		
+		else
+		sebelum = int(Request("iPageNo")) - 1
+		lanjut = int(Request("iPageNo")) + 1
+		response.write "<font size=""2"" face=""Arial Narrow"" color=""#333"">Page :</font> "
+		if int(Request("iPageNo")) = "" or int(Request("iPageNo")) = 1 then
+		%>
+		<span class="button_prev"><i class="fa fa-chevron-left"></i></span>
+		<%else%>
+		<a class="button_prev" href="EmpalldedStatus.asp?txtTable=<%=request("txtTable")%>&iPageNo=<%=sebelum%>"><i class="fa fa-chevron-left"></i></a>
+		<%end if%>
+		<%if Request("iPageNo") = "" then%>
+				<%nPage = 1%>
+		   <%Else%>
+				<%nPage = Request("iPageNo")%>
+		   <%End if
+		  
+		   if intNumberOfPages<>1 then
+		   
+			  For i = 1 to intNumberOfPages
+					 if i = int(Request("iPageNo")) then
+					 Response.Write "<a class=""button_page_current"">" & i & "</a> "  
+					 else
+					 Response.Write "<a class=""button_page"" href=""EmpalldedStatus.asp?txtTable="& request("txtTable")& "&iPageNo=" &  i & _
+					  """>" & i & "</a> "
+					 end if
+			  Next
+		   End if
+		   
+		   if int(Request("iPageNo")) = intNumberOfPages then %>
+			<span class="button_next"><i class="fa fa-chevron-right"></i></span>
+			<%else%>
+			<a class="button_next" href="EmpalldedStatus.asp?txtTable=<%=request("txtTable")%>&iPageNo=<%=lanjut%>"><i class="fa fa-chevron-right"></i></a>
+		<%  end if
+		end if
+		
+			%>
+		   
+			   <span style="margin-top:15px;"><font size="1" color="#000000" face="Arial, Helvetica, sans-serif">Total Records : <%=intRecords%> </font></span>
+		</div>
+<!-- End Format Page ------------------------------------------------------>	  	
+	</div>
+	<div class="es-spacer" style="width:200px; height:32px;">
 	
 	</div>
-		<table class="flexme" style="">
+		<div class="es-scroll"><table class="flexme es-table" style="">
 					<thead>
 					<tr >
 					<th width="10"  align="center" style="width:10px;">No</th>
@@ -315,20 +461,20 @@ if Not rsGAD.eof then
 		  <td align="left" valign="top"><%=NO%></td>
 		  <td align="left" title="YEAR" valign="top"><%=rsGAD("YEAR")%></td>
 		  <td align="left" title="PAYROLL_EXECUTED" valign="top"><%=textMonth(rsGAD("MONTH"))%></td>
-		  <td align="left" title="YEAR" valign="top"><%=rsGAD("PAYROLL_EXECUTED")%></td>
-		  <td align="left" title="CLOSING_EXECUTED" valign="top"><%=rsGAD("CLOSING_EXECUTED")%></td>
-		  <td align="left" title="CLOSING_ACC" valign="top"><%=rsGAD("CLOSING_ACC")%></td>
-		  <td align="left" title="CLOSING_FINAL" valign="top"><%=rsGAD("CLOSING_FINAL")%></td>
+		  <td align="left" title="YEAR" valign="top"><%=EsPill(rsGAD("PAYROLL_EXECUTED"))%></td>
+		  <td align="left" title="CLOSING_EXECUTED" valign="top"><%=EsPill(rsGAD("CLOSING_EXECUTED"))%></td>
+		  <td align="left" title="CLOSING_ACC" valign="top"><%=EsPill(rsGAD("CLOSING_ACC"))%></td>
+		  <td align="left" title="CLOSING_FINAL" valign="top"><%=EsPill(rsGAD("CLOSING_FINAL"))%></td>
 		  
 		  <td align="left" title="Start_date" valign="top"><%=rsGAD("START_DATE")%></td>
 		  <td align="left" title="End_date" valign="top"><%=rsGAD("END_DATE")%></td>
-		  <td align="left" title="ARESTA_CLOSING" valign="top"><%=rsGAD("ARESTA_CLOSING")%></td>
-		  <td align="left" title="KASBANK_CLOSING" valign="top"><%=rsGAD("KASBANK_CLOSING")%></td>
-		  <td align="left" title="STOCK_CLOSING" valign="top"><%=rsGAD("STOCK_CLOSING")%></td>
-		  <td align="left" title="WIP_CLOSING" valign="top"><%=rsGAD("WIP_CLOSING")%></td>
-		  <td align="left" title="WSVRA_CLOSING" valign="top"><%=rsGAD("WSVRA_CLOSING")%></td>
-		  <td align="left" title="PAYROLL_CLOSING" valign="top"><%=rsGAD("PAYROLL_CLOSING")%></td>
-		  <td align="left" title="UNIT_CLOSING" valign="top"><%=rsGAD("UNIT_CLOSING")%></td>
+		  <td align="left" title="ARESTA_CLOSING" valign="top"><%=EsPill(rsGAD("ARESTA_CLOSING"))%></td>
+		  <td align="left" title="KASBANK_CLOSING" valign="top"><%=EsPill(rsGAD("KASBANK_CLOSING"))%></td>
+		  <td align="left" title="STOCK_CLOSING" valign="top"><%=EsPill(rsGAD("STOCK_CLOSING"))%></td>
+		  <td align="left" title="WIP_CLOSING" valign="top"><%=EsPill(rsGAD("WIP_CLOSING"))%></td>
+		  <td align="left" title="WSVRA_CLOSING" valign="top"><%=EsPill(rsGAD("WSVRA_CLOSING"))%></td>
+		  <td align="left" title="PAYROLL_CLOSING" valign="top"><%=EsPill(rsGAD("PAYROLL_CLOSING"))%></td>
+		  <td align="left" title="UNIT_CLOSING" valign="top"><%=EsPill(rsGAD("UNIT_CLOSING"))%></td>
 		  
 		  <td align="center" valign="top">
 		  <a id="edit<%=NO%>" class="pencil" onclick="javascript:toggle('editing_form_<%=NO%>','edit<%=NO%>')">
@@ -643,7 +789,9 @@ if Not rsGAD.eof then
    %>
    
 		</tbody>
-	</table>
+	</table></div>
+	</div>
+	</div>
 	
 	
 
@@ -655,67 +803,7 @@ if Not rsGAD.eof then
 
 <!--</div>-->
 
-	<div style="background-color:#f1f1f1; padding:0.3%; border-top:1px #ccc solid; border-bottom:1px #ccc solid; position:fixed; top:114px; right:0.3%; width:76.8%;">
-		<!--<a class="add_list" href="#" onclick="showWindow('yellow');" value="Window - yellow"
-		title="New : <%=txtTable%>"><i class="fa fa-plus-circle"></i><span>ADD LIST</span></a>-->
-		<a href="#" class="add_list" onclick="reloadPage()"><i class="fa fa-refresh"></i><span>Refresh </span></a>&nbsp;
-		<form style="padding:0px; border:none;display:inline;margin:0px;" method="post" action="EmpalldedStatus.asp?txtTable=<%=request("txtTable")%>"> 
-		<input class="search" type="text" name="Searching" value="<%=Searching%>"">
-		<input class="button_search" type="submit" value=""> 
-		<i class="fa fa-search icon_search_data"></i>
-		<a href="EmpalldedStatus.asp?txtTable=<%=request("txtTable")%>&txtJenis=generate"" class="add_list"><i class="fa fa-flask"></i><span>Generate </span></a>&nbsp;
-		</form>
-		
 
-
-<!--
-Format Page ------------------------------------------------------>	
-		<div style="float:right; margin-left:10px;">
-		
-		<% dim sebelum, lanjut
-		if intNumberOfPages < 2 then 
-		
-		else
-		sebelum = int(Request("iPageNo")) - 1
-		lanjut = int(Request("iPageNo")) + 1
-		response.write "<font size=""2"" face=""Arial Narrow"" color=""#333"">Page :</font> "
-		if int(Request("iPageNo")) = "" or int(Request("iPageNo")) = 1 then
-		%>
-		<span class="button_prev"><i class="fa fa-chevron-left"></i></span>
-		<%else%>
-		<a class="button_prev" href="EmpalldedStatus.asp?txtTable=<%=request("txtTable")%>&iPageNo=<%=sebelum%>"><i class="fa fa-chevron-left"></i></a>
-		<%end if%>
-		<%if Request("iPageNo") = "" then%>
-				<%nPage = 1%>
-		   <%Else%>
-				<%nPage = Request("iPageNo")%>
-		   <%End if
-		  
-		   if intNumberOfPages<>1 then
-		   
-			  For i = 1 to intNumberOfPages
-					 if i = int(Request("iPageNo")) then
-					 Response.Write "<a class=""button_page_current"">" & i & "</a> "  
-					 else
-					 Response.Write "<a class=""button_page"" href=""EmpalldedStatus.asp?txtTable="& request("txtTable")& "&iPageNo=" &  i & _
-					  """>" & i & "</a> "
-					 end if
-			  Next
-		   End if
-		   
-		   if int(Request("iPageNo")) = intNumberOfPages then %>
-			<span class="button_next"><i class="fa fa-chevron-right"></i></span>
-			<%else%>
-			<a class="button_next" href="EmpalldedStatus.asp?txtTable=<%=request("txtTable")%>&iPageNo=<%=lanjut%>"><i class="fa fa-chevron-right"></i></a>
-		<%  end if
-		end if
-		
-			%>
-		   
-			   <span style="margin-top:15px;"><font size="1" color="#000000" face="Arial, Helvetica, sans-serif">Total Records : <%=intRecords%> </font></span>
-		</div>
-<!-- End Format Page ------------------------------------------------------>	  	
-	</div>
 
 
 </div>
@@ -725,6 +813,7 @@ Format Page ------------------------------------------------------>
 
   <!--#include file="bottom.jsp"-->
 <script type="text/javascript">
+<% if Request("oldui") = "1" then %>
 
 			var result = $("#lenght_menu").height();
 			var result = result - 5;
@@ -733,6 +822,7 @@ Format Page ------------------------------------------------------>
 				combo_flag: false
 
 			});
+<% end if %>
         </script>
 </body>
 </html>
