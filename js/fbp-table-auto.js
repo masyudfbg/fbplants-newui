@@ -43,6 +43,8 @@
 		s = String(s).replace(/,/g, '').trim();
 		return /^-?\d+(\.\d+)?$/.test(s) ? parseFloat(s) : NaN;
 	}
+	// hitungan (jumlah baris, jumlah jenis): bilangan bulat dengan pemisah ribuan
+	function fmtInt(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
 	function fmt(n) {
 		if (Math.abs(n) < 0.005) n = 0;   // sisa pembulatan desimal (mis. jurnal seimbang) bukan "-0"
 		var p = n.toFixed(2).split('.');   // selalu ribuan + 2 desimal
@@ -345,10 +347,46 @@
 			sample.forEach(function (r) { if (r.cells[c]) { total += text(r.cells[c]).length; cnt++; } });
 			if (cnt && total / cnt > 28) longCols.push(c + 1);
 		}
-		var css = 'body.rpt-skin #product-table > tbody > tr > td { white-space: nowrap; }';
-		longCols.forEach(function (k) {
-			css += ' body.rpt-skin #product-table > tbody > tr > td:nth-child(' + k + ') { white-space: normal; min-width: 260px; max-width: 420px; }';
-		});
+		var css;
+		if (table.hasAttribute('data-rpt-fit')) {
+			// Mode "fit": semua kolom tampil penuh selebar layar (tanpa scroll horizontal, tanpa kolom
+			// tersembunyi); teks boleh terlipat, huruf & padding dirapatkan.
+			css = 'body.rpt-skin .rpt-scroll { overflow-x: auto; }' +   // pas di layar lebar; layar sangat sempit tetap bisa digeser (data tidak terpotong)
+				' @media (max-width: 1500px) { html body.rpt-skin #product-table[data-rpt-fit] > thead > tr > th { font-size: 10px !important; padding: 6px 3px !important; } html body.rpt-skin #product-table[data-rpt-fit] > tbody > tr > td, html body.rpt-skin #product-table[data-rpt-fit] > tfoot > tr > td { font-size: 10.5px !important; padding: 4px 3px !important; } }' +
+				' body.rpt-skin #product-table[data-rpt-fit] { width: 100% !important; min-width: 0 !important; table-layout: auto; }' +
+				' body.rpt-skin #product-table[data-rpt-fit] > thead > tr > th { white-space: normal !important; padding: 7px 4px !important; font-size: 11px !important; line-height: 1.25; vertical-align: middle; }' +
+				' body.rpt-skin #product-table[data-rpt-fit] > tbody > tr > td, body.rpt-skin #product-table[data-rpt-fit] > tfoot > tr > td { white-space: normal !important; overflow-wrap: normal; word-break: normal; padding: 5px 4px !important; font-size: 11.5px !important; line-height: 1.35; vertical-align: middle; min-width: 0; max-width: none; }';
+			// kolom angka / tanggal tetap utuh; kode & nama user boleh terlipat setelah / _ ( (bukan di sembarang huruf)
+			var NUMDATE = /^[-+(]?[\d.,]+\)?%?$|^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}$/;
+			for (var k = 0; k < n; k++) {
+				var vals = sample.map(function (r) { return r.cells[k] ? text(r.cells[k]) : ''; }).filter(function (x) { return x !== ''; });
+				if (vals.length && vals.every(function (x) { return NUMDATE.test(x); })) {
+					css += ' body.rpt-skin #product-table[data-rpt-fit] > tbody > tr > td:nth-child(' + (k + 1) + ') { white-space: nowrap !important; }';
+				}
+			}
+			// titik lipat memakai elemen <wbr> (bukan karakter), jadi tidak ikut ke Export Excel / salin teks
+			rows.forEach(function (r) {
+				Array.prototype.forEach.call(r.cells, function (td) {
+					if (td.querySelector('input, select, textarea, img, wbr')) return;
+					var t = text(td);
+					if (!t || NUMDATE.test(t) || !/[\/_(]/.test(t)) return;
+					var walker = document.createTreeWalker(td, NodeFilter.SHOW_TEXT, null, false), nodes = [], node;
+					while ((node = walker.nextNode())) nodes.push(node);
+					nodes.forEach(function (nd) {
+						var parts = nd.nodeValue.split(/(?<=[\/_])(?=\S)|(?<=\S)(?=\()/);
+						if (parts.length < 2) return;
+						var frag = document.createDocumentFragment();
+						parts.forEach(function (p, i) { if (i) frag.appendChild(document.createElement('wbr')); frag.appendChild(document.createTextNode(p)); });
+						nd.parentNode.replaceChild(frag, nd);
+					});
+				});
+			});
+		} else {
+			css = 'body.rpt-skin #product-table > tbody > tr > td { white-space: nowrap; }';
+			longCols.forEach(function (k) {
+				css += ' body.rpt-skin #product-table > tbody > tr > td:nth-child(' + k + ') { white-space: normal; min-width: 260px; max-width: 420px; }';
+			});
+		}
 		var st = document.createElement('style');
 		st.appendChild(document.createTextNode(css));
 		document.head.appendChild(st);
@@ -440,7 +478,7 @@
 			return '<div class="fbt-card' + (extra || '') + '"><div class="fbt-card-label">' + esc(label) + '</div>' +
 				'<div class="fbt-card-value">' + value + '</div><div class="fbt-card-note">' + note + '</div></div>';
 		}
-		var html = card('Jumlah data', fmt(rows.length), rows.length ? 'baris sesuai filter &amp; pencarian' : 'tidak ada data');
+		var html = card('Jumlah data', fmtInt(rows.length), rows.length ? 'baris sesuai filter &amp; pencarian' : 'tidak ada data');
 		if (cols.money > -1) {
 			var sum = 0;
 			rows.forEach(function (r) { var v = toNum(text(r.cells[cols.money])); if (!isNaN(v)) sum += v; });
@@ -450,7 +488,7 @@
 			var st = {};
 			rows.forEach(function (r) { var t = text(r.cells[cols.status]) || '-'; st[t] = (st[t] || 0) + 1; });
 			var keys = Object.keys(st).sort(function (a, b) { return st[b] - st[a]; });
-			html += card('Status', keys.length ? fmt(keys.length) + ' jenis' : '-',
+			html += card('Status', keys.length ? fmtInt(keys.length) + ' jenis' : '-',
 				'<div class="rpt-mini">' + keys.slice(0, 4).map(function (k) { return '<span class="rpt-badge ' + stateClass(k) + '">' + esc(k) + ' ' + st[k] + '</span>'; }).join('') + '</div>');
 		}
 		summary.innerHTML = html;
