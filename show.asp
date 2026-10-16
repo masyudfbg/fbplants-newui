@@ -205,6 +205,11 @@ txtModule = Request("txtModule")
  <div class="judul">
 	   Moduled : <%=request("txtModule")%> / <%=request("txtTable")%>
 	</div>
+ <style>
+	/* Saat dropdown Chosen/select2 di dalam kartu sedang terbuka, kartu tidak memotong & tidak memunculkan scroll vertikal */
+	body .box_both:has(.chosen-with-drop, .select2-container--open),
+	body.page-show .lf:has(.chosen-with-drop, .select2-container--open) { overflow: visible !important; }
+ </style>
  <div class="box_both" style="overflow:auto;"> 
 
     <%' -----------------ATAS ISI
