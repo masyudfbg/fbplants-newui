@@ -55,8 +55,23 @@ Function PpQrSvg(text)
 End Function
 
 '---- Satu baris ringkasan biaya (label rata kanan + nilai berbingkai)
+' Nominal di cetak PO: tanpa desimal, dibulatkan ke atas (5,833.33 -> 5,834). Dibulatkan dulu ke 2 desimal
+' agar sisa pembulatan komputer (mis. 600000.0000001) tidak ikut naik.
+Function PpCeil(v)
+	Dim n
+	n = Round(CDbl(to_nol(v)), 2)
+	PpCeil = FormatNumber(-Int(-n), 0)
+End Function
+
+' Qty: tanpa .00 bila bulat; pecahan (mis. 2,5) tetap ditampilkan apa adanya (tidak dibulatkan)
+Function PpQty(v)
+	Dim n
+	n = Round(CDbl(to_nol(v)), 2)
+	If n = Int(n) Then PpQty = FormatNumber(n, 0) Else PpQty = FormatNumber(n, 2)
+End Function
+
 Sub PpSumRow(label, value, cls)
-	Response.Write "<tr class=""po-sum " & cls & """><td colspan=""5"" class=""po-sum-label"">" & label & "</td><td class=""po-sum-val"">" & FormatNumber(cdbl(to_nol(value)), 2) & "</td></tr>" & vbCrLf
+	Response.Write "<tr class=""po-sum " & cls & """><td colspan=""5"" class=""po-sum-label"">" & label & "</td><td class=""po-sum-val"">" & PpCeil(value) & "</td></tr>" & vbCrLf
 End Sub
 
  fcba = Request("fcba")
@@ -456,10 +471,10 @@ if podate_dd & "" <> "" then tglPO = podate_dd & " " & bulan(podate_mm) & " " & 
 					<tr>
 						<td class="c-no"><%=no%></td>
 						<td class="c-desc"><span><%=PpH(arr_rdata(3, yy))%></span><%if Trim(arr_rdata(17, yy) & "") <> "" then%><span><%=PpH(arr_rdata(17, yy))%></span><%end if%></td>
-						<td class="c-qty"><%=formatnumber(cdbl(to_nol(arr_rdata(4, yy))), 2)%></td>
+						<td class="c-qty"><%=PpQty(arr_rdata(4, yy))%></td>
 						<td class="c-uom"><%=PpH(arr_rdata(5, yy))%></td>
-						<td class="c-price"><%=FormatNumber(cdbl(to_nol(arr_rdata(16, yy))), 2)%></td>
-						<td class="c-amt"><%=FormatNumber(cdbl(to_nol(arr_rdata(7, yy))), 2)%></td>
+						<td class="c-price"><%=PpCeil(arr_rdata(16, yy))%></td>
+						<td class="c-amt"><%=PpCeil(arr_rdata(7, yy))%></td>
 					</tr>
 <%
 	next

@@ -181,7 +181,7 @@ response.Flush()
 	<body>
 		<div id="wrapper">
         <!--#include file="print_excel.asp"-->
-         <table border="0" width="100%" id="product-table" class="xthf-site">
+         <table border="0" width="100%" id="product-table" class="xthf-site" data-rpt-fit="1">
          <thead>
          <tr>
          <th colspan="24" style=" background-color:#FFFFFF; color:#000000; border:none">

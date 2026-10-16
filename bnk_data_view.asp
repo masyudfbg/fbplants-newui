@@ -266,10 +266,10 @@ End If
 <link rel="StyleSheet" href="/css/login/font-awesome.min.css" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-shell.css?v=20261009d" type="text/css" />
 <link rel="StyleSheet" href="/css/fbp-forms.css?v=20261009e" type="text/css" />
-<script type="text/javascript" src="/js/fbp-shell.js?v=20261015a"></script>
+<script type="text/javascript" src="/js/fbp-shell.js?v=20261016a"></script>
 <link rel="stylesheet" href="/css/fbp-table.css?v=20261010c" type="text/css" />
 <script type="text/javascript" src="/js/fbp-table.js?v=20261015a"></script>
-<script type="text/javascript" src="/js/fbp-table-auto.js?v=20261015a"></script>
+<script type="text/javascript" src="/js/fbp-table-auto.js?v=20261016a"></script>
 <style>
 	.bv { --brand: #1B7863; --brand-dark: #12584a; --tint: #eef6f3; --line: #e1e7e5; --muted: #5d6d69; --ink: #17262a; padding: 4px 2px 10px; color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
 	.bv-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 14px 20px; margin-bottom: 16px; }
